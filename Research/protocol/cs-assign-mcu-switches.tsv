@@ -1,0 +1,191 @@
+# Derived from Logic Control (MCU) GetSwitchInfo (Logic 12.3.1/6682) via Tools/ghidra/switch_table.py. kind_c/param_10 copied into Assign +0x3a/+0x40 by FillTemplate.
+index	name	w8_hex	b8	b9	kind_c	param_10
+0	Ch. 1 Record/Ready	0x901	1	9	5	260
+1	Ch. 2 Record/Ready	0x901	1	9	5	260
+2	Ch. 3 Record/Ready	0x901	1	9	5	260
+3	Ch. 4 Record/Ready	0x901	1	9	5	260
+4	Ch. 5 Record/Ready	0x901	1	9	5	260
+5	Ch. 6 Record/Ready	0x901	1	9	5	260
+6	Ch. 7 Record/Ready	0x901	1	9	5	260
+7	Ch. 8 Record/Ready	0x901	1	9	5	260
+8	Ch. 1 Solo	0x901	1	9	5	129
+9	Ch. 2 Solo	0x901	1	9	5	129
+10	Ch. 3 Solo	0x901	1	9	5	129
+11	Ch. 4 Solo	0x901	1	9	5	129
+12	Ch. 5 Solo	0x901	1	9	5	129
+13	Ch. 6 Solo	0x901	1	9	5	129
+14	Ch. 7 Solo	0x901	1	9	5	129
+15	Ch. 8 Solo	0x901	1	9	5	129
+16	Ch. 1 Mute	0x901	1	9	5	128
+17	Ch. 2 Mute	0x901	1	9	5	128
+18	Ch. 3 Mute	0x901	1	9	5	128
+19	Ch. 4 Mute	0x901	1	9	5	128
+20	Ch. 5 Mute	0x901	1	9	5	128
+21	Ch. 6 Mute	0x901	1	9	5	128
+22	Ch. 7 Mute	0x901	1	9	5	128
+23	Ch. 8 Mute	0x901	1	9	5	128
+24	Ch. 1 Select	0x801	1	8	5	259
+25	Ch. 2 Select	0x801	1	8	5	259
+26	Ch. 3 Select	0x801	1	8	5	259
+27	Ch. 4 Select	0x801	1	8	5	259
+28	Ch. 5 Select	0x801	1	8	5	259
+29	Ch. 6 Select	0x801	1	8	5	259
+30	Ch. 7 Select	0x801	1	8	5	259
+31	Ch. 8 Select	0x801	1	8	5	259
+32	Ch. 1 V-Select	0x1	1	0	5	0
+33	Ch. 2 V-Select	0x1	1	0	5	0
+34	Ch. 3 V-Select	0x1	1	0	5	0
+35	Ch. 4 V-Select	0x1	1	0	5	0
+36	Ch. 5 V-Select	0x1	1	0	5	0
+37	Ch. 6 V-Select	0x1	1	0	5	0
+38	Ch. 7 V-Select	0x1	1	0	5	0
+39	Ch. 8 V-Select	0x1	1	0	5	0
+40	Track	0x801	1	8	1	0
+41	Send	0x801	1	8	1	0
+42	Pan/Surround	0x801	1	8	1	0
+43	Plug-In	0x801	1	8	1	0
+44	EQ	0x801	1	8	1	0
+45	Instrument	0x801	1	8	1	0
+46	Bank Left	0x300	0	3	10	1
+47	Bank Right	0x300	0	3	10	1
+48	Channel Left	0x300	0	3	10	0
+49	Channel Right	0x300	0	3	10	0
+50	Flip Mode	0x901	1	9	10	0
+51	Global View	0x901	1	9	10	3
+52	Name/Value	0x400	0	4	10	8
+53	SMPTE/Beats	0x400	0	4	10	1
+54	F1	0x0	0	0	9	0
+55	F2	0x0	0	0	9	0
+56	F3	0x0	0	0	9	0
+57	F4	0x0	0	0	9	0
+58	F5	0x0	0	0	9	0
+59	F6	0x0	0	0	9	0
+60	F7	0x0	0	0	9	0
+61	F8	0x0	0	0	9	0
+62	Midi Tracks	0x0	0	0	10	0
+63	Inputs	0x0	0	0	10	0
+64	Audio Tracks	0x0	0	0	10	0
+65	Audio Instr	0x0	0	0	10	0
+66	Aux	0x0	0	0	10	0
+67	Busses	0x0	0	0	10	0
+68	Outputs	0x0	0	0	10	0
+69	User	0x0	0	0	10	0
+70	Shift	0x0	0	0	1	0
+71	Option	0x0	0	0	1	0
+72	Control	0x0	0	0	1	0
+73	Cmd/Alt	0x0	0	0	1	0
+74	Read/Off	0x901	1	9	5	264
+75	Write	0x801	1	8	5	264
+76	Trim	0x801	1	8	5	264
+77	Touch	0x801	1	8	5	264
+78	Latch	0x801	1	8	5	264
+79	Group	0x801	1	8	1	0
+80	Save	0x801	1	8	9	0
+81	Undo	0x801	1	8	9	0
+82	Cancel	0x0	0	0	9	0
+83	Enter	0x0	0	0	9	0
+84	Marker	0x801	1	8	1	0
+85	Nudge	0x801	1	8	1	0
+86	Cycle	0x801	1	8	9	0
+87	Autopunch	0x801	1	8	9	0
+88	Replace	0x801	1	8	9	0
+89	Click	0x801	1	8	9	0
+90	Solo	0x801	1	8	9	0
+91	Rewind	0x801	1	8	9	0
+92	Fast Forward	0x801	1	8	9	0
+93	Stop	0x801	1	8	9	0
+94	Play	0x801	1	8	9	0
+95	Record	0x801	1	8	9	0
+96	Cursor Up	0x300	0	3	8	0
+97	Cursor Down	0x300	0	3	8	0
+98	Cursor Left	0x300	0	3	8	0
+99	Cursor Right	0x300	0	3	8	0
+100	Zoom	0x801	1	8	1	0
+101	Scrub	0x901	1	9	4	0
+102	User Switch A	0x400	0	4	9	0
+103	User Switch B	0x400	0	4	9	0
+104	Ch. 1 Fader Touch	0x0	0	0	5	0
+105	Ch. 2 Fader Touch	0x0	0	0	5	0
+106	Ch. 3 Fader Touch	0x0	0	0	5	0
+107	Ch. 4 Fader Touch	0x0	0	0	5	0
+108	Ch. 5 Fader Touch	0x0	0	0	5	0
+109	Ch. 6 Fader Touch	0x0	0	0	5	0
+110	Ch. 7 Fader Touch	0x0	0	0	5	0
+111	Ch. 8 Fader Touch	0x0	0	0	5	0
+112	Master Fader Touch	0x0	0	0	5	0
+113	Time Code LED	0x801	1	8	10	0
+114	Beats LED	0x801	1	8	10	0
+115	Rude Solo LED	0x801	1	8	4	0
+116	Relais	0x0	0	0	4	0
+117	Ch. 1 Color	0x901	1	9	5	275
+118	Ch. 2 Color	0x901	1	9	5	275
+119	Ch. 3 Color	0x901	1	9	5	275
+120	Ch. 4 Color	0x901	1	9	5	275
+121	Ch. 5 Color	0x901	1	9	5	275
+122	Ch. 6 Color	0x901	1	9	5	275
+123	Ch. 7 Color	0x901	1	9	5	275
+124	Ch. 8 Color	0x901	1	9	5	275
+125	Split Mode	0xc01	1	12	10	0
+126	Split Mode 2/2	0xc01	1	12	10	0
+127	Split Mode 3/1	0xc01	1	12	10	0
+128	Lock	0x901	1	9	10	0
+129	Spot Erase	0x801	1	8	9	0
+130	Marker	0x801	1	8	1	0
+131	Track	0x801	1	8	1	0
+132	Channel Strip	0x801	1	8	1	0
+133	Function	0x801	1	8	1	0
+134	Parameter Bank Left	0x300	0	3	10	0
+135	Parameter Bank Right	0x300	0	3	10	0
+136	Parameter Left	0x300	0	3	10	0
+137	Parameter Right	0x300	0	3	10	0
+138	Shift (C4)	0x0	0	0	1	0
+139	Option (C4)	0x0	0	0	1	0
+140	Control (C4)	0x0	0	0	1	0
+141	Cmd/Alt (C4)	0x0	0	0	1	0
+142	Slot Up	0x300	0	3	10	0
+143	Slot Down	0x300	0	3	10	0
+144	Track Left	0x300	0	3	10	0
+145	Track Right	0x300	0	3	10	0
+146	unused	0x0	0	0	0	0
+147	unused	0x0	0	0	0	0
+148	unused	0x0	0	0	0	0
+149	unused	0x0	0	0	0	0
+150	unused	0x0	0	0	0	0
+151	unused	0x0	0	0	0	0
+152	unused	0x0	0	0	0	0
+153	unused	0x0	0	0	0	0
+154	unused	0x0	0	0	0	0
+155	unused	0x0	0	0	0	0
+156	unused	0x0	0	0	0	0
+157	V-Select 1	0x1	1	0	5	0
+158	V-Select 2	0x1	1	0	5	0
+159	V-Select 3	0x1	1	0	5	0
+160	V-Select 4	0x1	1	0	5	0
+161	V-Select 5	0x1	1	0	5	0
+162	V-Select 6	0x1	1	0	5	0
+163	V-Select 7	0x1	1	0	5	0
+164	V-Select 8	0x1	1	0	5	0
+165	V-Select 9	0x1	1	0	5	0
+166	V-Select 10	0x1	1	0	5	0
+167	V-Select 11	0x1	1	0	5	0
+168	V-Select 12	0x1	1	0	5	0
+169	V-Select 13	0x1	1	0	5	0
+170	V-Select 14	0x1	1	0	5	0
+171	V-Select 15	0x1	1	0	5	0
+172	V-Select 16	0x1	1	0	5	0
+173	V-Select 17	0x1	1	0	5	0
+174	V-Select 18	0x1	1	0	5	0
+175	V-Select 19	0x1	1	0	5	0
+176	V-Select 20	0x1	1	0	5	0
+177	V-Select 21	0x1	1	0	5	0
+178	V-Select 22	0x1	1	0	5	0
+179	V-Select 23	0x1	1	0	5	0
+180	V-Select 24	0x1	1	0	5	0
+181	V-Select 25	0x1	1	0	5	0
+182	V-Select 26	0x1	1	0	5	0
+183	V-Select 27	0x1	1	0	5	0
+184	V-Select 28	0x1	1	0	5	0
+185	V-Select 29	0x1	1	0	5	0
+186	V-Select 30	0x1	1	0	5	0
+187	V-Select 31	0x1	1	0	5	0
+188	V-Select 32	0x1	1	0	5	0
