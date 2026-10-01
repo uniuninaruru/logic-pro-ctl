@@ -1,0 +1,10 @@
+# Imported (undefined) symbols per framework, Logic 12.3.1 (6682). Source: nm -u, filtered to IPC/network/MIDI/AE APIs.
+Jet2P: _OBJC_CLASS_$_NSNetService 
+Logic: _AEInstallEventHandler _MIDIDestinationCreateWithProtocol _MIDIReceived _MIDIReceivedEventList _MIDISend _MIDISendEventList _MIDISourceCreateWithProtocol _OBJC_CLASS_$_NSDistributedNotificationCenter _OBJC_CLASS_$_NSNetService _OBJC_CLASS_$_NSXPCConnection _OBJC_CLASS_$_NSXPCInterface _bind _socket 
+MAContentDownloading: _OBJC_CLASS_$_NSXPCConnection _OBJC_CLASS_$_NSXPCInterface 
+MACore: _OBJC_CLASS_$_MCNearbyServiceAdvertiser _OBJC_CLASS_$_MCNearbyServiceBrowser _OBJC_CLASS_$_MCPeerID _OBJC_CLASS_$_MCSession 
+MADSP: _OBJC_CLASS_$_NSDistributedNotificationCenter 
+MAGenerativeInstruments: _MIDISend 
+MAKeymap: _MIDIDestinationCreate _MIDIReceived _MIDISend _MIDISourceCreate _OBJC_CLASS_$_NSDistributedNotificationCenter 
+MAToolKit: _OBJC_CLASS_$_NSDistributedNotificationCenter 
+MAToolKitHighLevel: _OBJC_CLASS_$_NSDistributedNotificationCenter 

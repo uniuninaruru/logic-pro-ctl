@@ -12,7 +12,8 @@ agent → logicctl → Unix socket → logicd → backend
 ```
 
 ## Status
-Scaffold only. Phase A (external surface discovery) has not been run.
+Scaffold only. Phase A (external surface discovery) is in progress; see
+`Research/architecture.md`.
 
 ## Phase A
 On the Mac, with Logic Pro running:

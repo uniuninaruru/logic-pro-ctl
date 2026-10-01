@@ -48,13 +48,14 @@ for f in "$ROOT"/Research/raw/*/lsof_net.txt; do
 done
 
 # --- 2. Bonjour: which advertised service resolves to one of those ports ----
-# dns-sd never exits on its own; run it under script(1) for unbuffered output.
-# browse OUTFILE SECONDS dns-sd-args...  (strips the CRs script(1) adds)
+# dns-sd never exits on its own: run it in the background and kill it.
+# Redirecting to a file works without a tty; script(1) fails when stdin is
+# not a terminal ("tcgetattr/ioctl: Operation not supported on socket").
+# browse OUTFILE SECONDS dns-sd-args...
 browse() {
   local out="$1" secs="$2"; shift 2
-  script -q "$out.raw" dns-sd "$@" >/dev/null 2>&1 & local bp=$!
+  dns-sd "$@" >"$out" 2>&1 & local bp=$!
   sleep "$secs"; kill "$bp" 2>/dev/null; wait "$bp" 2>/dev/null
-  tr -d '\r' <"$out.raw" >"$out"; rm -f "$out.raw"
 }
 say ""
 say "## 2. Bonjour"
@@ -129,8 +130,9 @@ ls "$HOME/Library/Containers" 2>/dev/null | grep -i -E 'logic' | sed 's/^/  cont
 # --- 7. MIDI endpoints (for the MCU / Scripter paths) ----------------------
 say ""
 say "## 7. MIDI"
-system_profiler SPMIDIDataType >"$OUT/midi.txt" 2>&1
-grep -E '^[[:space:]]+[A-Za-z].*:$' "$OUT/midi.txt" | head -30 | sed 's/^/  /' | tee -a "$SUM"
+# system_profiler SPMIDIDataType prints nothing on macOS 27; ask CoreMIDI directly.
+swift "$ROOT/Tools/research-scripts/midi-endpoints.swift" >"$OUT/midi.txt" 2>&1
+sed 's/^/  /' "$OUT/midi.txt" | tee -a "$SUM"
 
 say ""
 say "done: $OUT"
