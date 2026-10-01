@@ -16,6 +16,8 @@ public enum LogicCommand: Equatable {
     /// `pan` is normalized: -1 (left) … 0 … +1 (right).
     case trackPan(track: Int, pan: Double)
     case daemonStop
+    /// Research aid: send raw MCU messages, return the surface state afterwards.
+    case debugMCU(messages: [[UInt8]])
 
     /// The wire name used in `Request.command`.
     public var name: String {
@@ -32,6 +34,7 @@ public enum LogicCommand: Equatable {
         case .trackVolume: return "track.volume"
         case .trackPan: return "track.pan"
         case .daemonStop: return "daemon.stop"
+        case .debugMCU: return "debug.mcu"
         }
     }
 }
@@ -86,6 +89,13 @@ extension LogicCommand {
             }
             self = .trackPan(track: try track(), pan: v)
         case "daemon.stop": self = .daemonStop
+        case "debug.mcu":
+            // "90 2E 7F; 90 2E 00" — messages separated by ';'
+            let messages = (a["messages"] ?? "").split(separator: ";").map {
+                $0.split(separator: " ").compactMap { UInt8($0, radix: 16) }
+            }.filter { !$0.isEmpty }
+            guard !messages.isEmpty else { throw CommandError("invalid_argument", "messages must be hex bytes, ';'-separated") }
+            self = .debugMCU(messages: messages)
         default: throw CommandError("unknown_command", "unknown command \(request.command)")
         }
     }

@@ -18,6 +18,7 @@ public enum CLIParser {
           track volume <n> <dB|-inf> [--tolerance <dB>]
           track pan <n> <-1…1>
           daemon stop
+          debug mcu <hex bytes>[; <hex bytes>…]   research: raw MCU messages
         Tracks are 1-based. Every write reads the state back; "verified": true
         means the readback matched the request.
         """
@@ -75,6 +76,9 @@ public enum CLIParser {
         case ("track", "pan"):
             try need(4, "track pan <n> <-1…1>")
             return Request(command: "track.pan", args: ["track": words[2], "value": words[3]])
+        case ("debug", "mcu"):
+            guard words.count > 2 else { throw CommandError("usage", "expected: logicctl debug mcu <hex bytes>") }
+            return Request(command: "debug.mcu", args: ["messages": words.dropFirst(2).joined(separator: " ")])
         case ("daemon", "stop"):
             try need(2, "daemon stop")
             return Request(command: "daemon.stop")

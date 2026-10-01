@@ -102,7 +102,9 @@ public final class MCUBackend: LogicBackend {
         }
     }
 
-    private func send(_ messages: [[UInt8]]) {
+    /// `transient: false` for messages that do not make Logic show temporary
+    /// LCD text (bank navigation), so they do not delay LCD reads.
+    private func send(_ messages: [[UInt8]], transient: Bool = true) {
         for m in messages {
             var list = MIDIPacketList()
             let packet = MIDIPacketListInit(&list)
@@ -110,6 +112,7 @@ public final class MCUBackend: LogicBackend {
             MIDIReceived(source, &list)
             if trace { log("mcu TX \(hex(m))") }
         }
+        guard transient else { return }
         cond.lock()
         lastTX = Date()
         cond.unlock()
@@ -156,6 +159,7 @@ public final class MCUBackend: LogicBackend {
         case .trackSolo(let t, let on): return withStrip(t) { self.toggle($0, on: on, kind: .solo) }
         case .trackVolume(let t, let db, let tol): return withStrip(t) { self.volume($0, db: db, tolerance: tol) }
         case .trackPan(let t, let pan): return withStrip(t) { self.pan($0, normalized: pan) }
+        case .debugMCU(let messages): return debugMCU(messages)
         }
     }
 
@@ -179,16 +183,83 @@ public final class MCUBackend: LogicBackend {
                             + "Check Logic Pro > Control Surfaces > Setup… for a Logic Control on that port.")
     }
 
+    // MARK: - Banking
+
+    /// Index (0-based, Logic mixer order) of the channel strip shown on surface
+    /// strip 1, or nil when unknown. Logic moves the bank by itself (e.g. to
+    /// follow the selection), so the value is trusted only while no colour
+    /// sysex arrived that we did not cause.
+    private var bankOffset: Int?
+    private var colorsAtPositioning = -1
+
+    private func trackID(_ strip: Int) -> Int { strip + (bankOffset ?? 0) + 1 }
+
+    /// Waits until Logic stops sending surface updates (≥80 ms of silence).
+    private func settle() {
+        var last = read { ($0.lcdUpdates, $0.colorUpdates) }
+        for _ in 0..<25 {
+            Thread.sleep(forTimeInterval: 0.08)
+            let now = read { ($0.lcdUpdates, $0.colorUpdates) }
+            if now == last { return }
+            last = now
+        }
+    }
+
+    /// Presses a bank/channel button. Returns true if Logic moved the bank:
+    /// a move always brings LCD and colour updates; a no-op press brings
+    /// nothing (EXP-MCU-020).
+    private func navigate(_ note: UInt8) -> Bool {
+        let before = read { ($0.lcdUpdates, $0.colorUpdates) }
+        send(MCU.press(note), transient: false)
+        let moved = wait(0.3) { $0.lcdUpdates > before.0 || $0.colorUpdates > before.1 }
+        if moved { settle() }
+        return moved
+    }
+
+    /// Bank Left until nothing moves: Logic clamps the bank at 0.
+    private func home() -> Bool {
+        waitForSteadyLCD()  // a reverting transient must not look like a move
+        var presses = 0
+        while navigate(MCU.bankLeftNote) {
+            presses += 1
+            if presses > 512 { return false }
+        }
+        bankOffset = 0
+        colorsAtPositioning = read { $0.colorUpdates }
+        return true
+    }
+
+    private var bankIsKnown: Bool { bankOffset != nil && read { $0.colorUpdates } == colorsAtPositioning }
+
+    /// Brings track `track` (1-based, Logic mixer order) onto the surface and
+    /// returns its strip. Channel Right moves by one; Logic clamps the bank at
+    /// (strip count − 8), so the target ends on strip 8 at most (EXP-MCU-020).
+    private enum Positioned { case strip(Int), failed(Outcome) }
+
+    private func position(track: Int) -> Positioned {
+        let index = track - 1
+        if bankIsKnown, let o = bankOffset, (o..<(o + MCU.strips)).contains(index) {
+            return .strip(index - o)
+        }
+        guard home() else {
+            return .failed(.failure("bank_unknown", "could not move the MCU bank to its start"))
+        }
+        var offset = 0
+        while index - offset >= MCU.strips, navigate(MCU.channelRightNote) { offset += 1 }
+        bankOffset = offset
+        colorsAtPositioning = read { $0.colorUpdates }
+        let strip = index - offset
+        guard (0..<MCU.strips).contains(strip), !read({ $0.upperText(strip) }).isEmpty else {
+            return .failed(.failure("no_such_track", "Logic has no channel strip \(track) on the control surface."))
+        }
+        return .strip(strip)
+    }
+
     private func withStrip(_ track: Int, _ body: (Int) -> Outcome) -> Outcome {
-        guard (1...MCU.strips).contains(track) else {
-            return .failure("track_out_of_bank",
-                            "v0.1 controls tracks 1–\(MCU.strips) (first MCU bank). Track \(track) needs bank switching.")
+        switch position(track: track) {
+        case .strip(let strip): return body(strip)
+        case .failed(let outcome): return outcome
         }
-        let strip = track - 1
-        guard !read({ $0.upperText(strip) }).isEmpty else {
-            return .failure("no_such_track", "MCU strip \(track) is empty: the project has fewer channel strips.")
-        }
-        return body(strip)
     }
 
     // MARK: - Reads
@@ -216,26 +287,36 @@ public final class MCUBackend: LogicBackend {
 
     private func state() -> Outcome {
         let tracks = trackList()
-        let selected = read { s in (0..<MCU.strips).first { s.led(MCU.selectNote($0)) } }
+        let selected = tracks.first { $0["selected"] == .bool(true) }?["id"] ?? .null
         return Outcome(ok: true, result: [
             "transport": transportJSON(),
-            "selected_track": .int(selected.map { $0 + 1 }),
+            "selected_track": selected,
             "tracks": .array(tracks),
         ])
     }
 
+    /// Every channel strip in Logic mixer order: home, then step right one
+    /// strip at a time. Volume comes from the fader position through Logic's
+    /// own table (exact to the LCD's 0.1 dB, SA-001) so no fader is touched.
     private func trackList() -> [JSONValue] {
-        waitForSteadyLCD()
-        let strips = read { s in (0..<MCU.strips).filter { !s.upperText($0).isEmpty } }
-        // Read pan (steady LCD) for all strips first; touching faders makes the LCD transient.
-        let infos = strips.map { trackInfo($0, readVolume: false) }
-        return zip(strips, infos).map { strip, info in
-            guard case .object(var o) = info else { return info }
-            let (db, source) = readVolume(strip)
-            o["volume_db"] = .db(db)
-            o["volume_source"] = .string(source)
-            return .object(o)
-        }
+        guard home() else { return [] }
+        var tracks: [JSONValue] = []
+        var seen = Set<Int>()
+        repeat {
+            for strip in 0..<MCU.strips where !seen.contains(trackID(strip)) {
+                guard !read({ $0.upperText(strip) }).isEmpty else { continue }
+                seen.insert(trackID(strip))
+                tracks.append(trackInfo(strip, readVolume: false))
+            }
+        } while navigateRight()
+        colorsAtPositioning = read { $0.colorUpdates }
+        return tracks
+    }
+
+    private func navigateRight() -> Bool {
+        guard navigate(MCU.channelRightNote) else { return false }
+        bankOffset = (bankOffset ?? 0) + 1
+        return true
     }
 
     /// Waits until the strip's lower LCD cell shows a pan value again. After a
@@ -243,9 +324,10 @@ public final class MCUBackend: LogicBackend {
     /// logicctl run 2026-10-01). An empty cell (e.g. Master) has no pan.
     private func waitForPanDisplay(_ strip: Int) {
         waitForSteadyLCD()
-        wait(3) { s in
-            let t = s.lowerText(strip)
-            return t.isEmpty || parseLCDPan(t) != nil
+        if wait(3, until: { parseLCDPan($0.lowerText(strip)) != nil || $0.lowerText(strip).isEmpty }),
+           read({ $0.lowerText(strip).isEmpty }) {
+            // Empty right after a bank move may still be filled in; Master stays empty.
+            wait(0.5) { parseLCDPan($0.lowerText(strip)) != nil }
         }
     }
 
@@ -255,7 +337,8 @@ public final class MCUBackend: LogicBackend {
             let soloActive = s.anySoloActive
             let pan = parseLCDPan(s.lowerText(strip))
             var o: [String: JSONValue] = [
-                "id": .int(strip + 1),
+                "id": .int(trackID(strip)),
+                "mcu_strip": .int(strip + 1),
                 "name": .string(s.upperText(strip)),
                 "solo": .bool(s.led(MCU.soloNote(strip))),
                 "selected": .bool(s.led(MCU.selectNote(strip))),
@@ -268,11 +351,11 @@ public final class MCUBackend: LogicBackend {
             if soloActive { o["mute_note"] = "unknown while a solo is active (Logic blinks implied mutes)" }
             return o
         }
-        if withVolume {
-            let (db, source) = readVolume(strip)
-            o["volume_db"] = .db(db)
-            o["volume_source"] = .string(source)
-        }
+        let (db, source) = withVolume
+            ? readVolume(strip)
+            : (read { $0.faders[strip] }.map(FaderCalibration.db(forValue:)), "fader")
+        o["volume_db"] = .db(db.map { $0.isFinite ? ($0 * 10).rounded() / 10 : $0 })
+        o["volume_source"] = .string(source)
         return .object(o)
     }
 
@@ -285,6 +368,21 @@ public final class MCUBackend: LogicBackend {
         send([[0x90, MCU.touchNote(strip), 0x00]])
         if let db = parseLCDDecibels(text) { return (db, "lcd") }
         return (fader.map { (FaderCalibration.db(forValue: $0) * 10).rounded() / 10 }, "fader_estimate")
+    }
+
+    // MARK: - Debug
+
+    private func debugMCU(_ messages: [[UInt8]]) -> Outcome {
+        let before = read { $0.lcdUpdates }
+        send(messages)
+        wait(0.4) { $0.lcdUpdates > before }
+        Thread.sleep(forTimeInterval: 0.2)
+        return Outcome(ok: true, result: read { s in
+            ["sent": .array(messages.map { .string(hex($0)) }),
+             "lcd": [.string(s.row(0)), .string(s.row(1))],
+             "faders": .array(s.faders.map { .int($0) }),
+             "leds_on": .array((0..<128).filter { s.leds[$0] != 0 }.map { .int($0) })]
+        })
     }
 
     // MARK: - Writes
@@ -303,9 +401,9 @@ public final class MCUBackend: LogicBackend {
     }
 
     private func select(_ strip: Int) -> Outcome {
-        let requested: JSONValue = ["selected_track": .int(strip + 1)]
+        let requested: JSONValue = ["selected_track": .int(trackID(strip))]
         func observed() -> JSONValue {
-            read { s in ["selected_track": .int((0..<MCU.strips).first { s.led(MCU.selectNote($0)) }.map { $0 + 1 })] }
+            read { s in ["selected_track": .int((0..<MCU.strips).first { s.led(MCU.selectNote($0)) }.map(trackID))] }
         }
         if read({ $0.led(MCU.selectNote(strip)) }) {
             return .write(matched: true, requested: requested, observed: observed(),
@@ -332,13 +430,13 @@ public final class MCUBackend: LogicBackend {
     }
 
     private func toggle(_ strip: Int, on: Bool, kind: Toggle) -> Outcome {
-        let requested: JSONValue = ["track": .int(strip + 1), kind.key: .bool(on)]
+        let requested: JSONValue = ["track": .int(trackID(strip)), kind.key: .bool(on)]
         let note = kind.note(strip)
         // While a solo is active the mute LED blinks for implied mutes, so it is not the mute state.
         let ledTrustworthy = { (s: MCUSurface) in kind == .solo || !s.anySoloActive }
         if read({ ledTrustworthy($0) && $0.led(note) == on }) {
             return .write(matched: true, requested: requested,
-                          observed: ["track": .int(strip + 1), kind.key: .bool(on)],
+                          observed: ["track": .int(trackID(strip)), kind.key: .bool(on)],
                           message: "already in the requested state; nothing sent")
         }
         var observedState: Bool?
@@ -360,11 +458,11 @@ public final class MCUBackend: LogicBackend {
             matched = wait(0.5) { $0.led(note) == on }
         }
         return .write(matched: matched, requested: requested,
-                      observed: ["track": .int(strip + 1), kind.key: .bool(observedState)])
+                      observed: ["track": .int(trackID(strip)), kind.key: .bool(observedState)])
     }
 
     private func volume(_ strip: Int, db target: Double, tolerance: Double) -> Outcome {
-        let requested: JSONValue = ["track": .int(strip + 1), "volume_db": .db(target)]
+        let requested: JSONValue = ["track": .int(trackID(strip)), "volume_db": .db(target)]
         func error(_ obs: Double) -> Double {
             if target.isInfinite || obs.isInfinite { return target == obs ? 0 : .infinity }
             return abs(obs - target)
@@ -397,15 +495,15 @@ public final class MCUBackend: LogicBackend {
         let obs = parseLCDDecibels(read { $0.lowerText(strip) }) ?? best?.db
         let fader = read { $0.faders[strip] }
         return .write(matched: obs.map { error($0) <= tolerance + 1e-9 } ?? false, requested: requested,
-                      observed: ["track": .int(strip + 1), "volume_db": .db(obs), "fader_value": .int(fader)],
+                      observed: ["track": .int(trackID(strip)), "volume_db": .db(obs), "fader_value": .int(fader)],
                       message: obs == nil ? "no dB readback on the LCD" : nil)
     }
 
     private func pan(_ strip: Int, normalized: Double) -> Outcome {
         let target = max(-64, min(63, Int((normalized * 64).rounded())))
-        let requested: JSONValue = ["track": .int(strip + 1), "pan": .number(normalized), "pan_raw": .int(target)]
+        let requested: JSONValue = ["track": .int(trackID(strip)), "pan": .number(normalized), "pan_raw": .int(target)]
         func observed(_ raw: Int?) -> JSONValue {
-            ["track": .int(strip + 1), "pan": raw.map { .number(Double($0) / 64) } ?? .null, "pan_raw": .int(raw)]
+            ["track": .int(trackID(strip)), "pan": raw.map { .number(Double($0) / 64) } ?? .null, "pan_raw": .int(raw)]
         }
         /// Turns the V-Pot and returns the pan value Logic prints afterwards.
         func turn(_ ticks: Int) -> Int? {

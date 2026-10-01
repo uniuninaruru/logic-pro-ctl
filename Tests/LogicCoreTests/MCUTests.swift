@@ -56,6 +56,14 @@ func fixture(_ name: String) throws -> [[UInt8]] {
     #expect(events == [.meter(strip: 4, level: 12), .meter(strip: 4, level: 11)])
 }
 
+@Test func colourSysexCountsAsBankMove() {
+    var s = MCUSurface()
+    // Sent by Logic on every bank move, never for a no-op press (EXP-MCU-020).
+    _ = s.feed([0xF0, 0, 0, 0x66, 0x14, 0x72, 4, 2, 2, 4, 4, 4, 4, 4, 0xF7])
+    #expect(s.colorUpdates == 1)
+    #expect(s.lcdUpdates == 0)
+}
+
 @Test func lcdParsers() {
     #expect(parseLCDDecibels("-3.7 dB") == -3.7)
     #expect(parseLCDDecibels("+0.0 dB") == 0)

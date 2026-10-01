@@ -43,6 +43,7 @@ logicctl track solo <n> on|off
 logicctl track volume <n> <dB|-inf> [--tolerance <dB>]   (default tolerance 0.1)
 logicctl track pan <n> <-1…1>         (Logic pan -64…+63 = value × 64)
 logicctl daemon stop
+logicctl debug mcu <hex>[; <hex>…]   research: raw MCU messages, returns the surface state
 ```
 `--json` is accepted and ignored: output is always JSON.
 
@@ -62,13 +63,15 @@ Exit status: 0 ok, 1 command failed (including failed verification),
 - `verified: true` only when the readback matched `requested`.
 - A write that is already satisfied sends nothing and says so in `message`.
 - Errors: `invalid_argument`, `usage`, `logic_not_running`,
-  `surface_not_connected`, `track_out_of_bank`, `no_such_track`,
+  `surface_not_connected`, `bank_unknown`, `no_such_track`,
   `verification_failed`, `readback_unavailable`, `daemon_unavailable`.
 
 ## Limitations (v0.1)
-- Tracks 1–8 only (first MCU bank). Track *n* is MCU strip *n* in Logic's
-  mixer order, which also includes Stereo Out and Master strips; check `name`.
-- Names come from the MCU LCD and are cut to 6 characters.
+- Track *n* is the *n*-th channel strip in Logic's mixer order, which ends
+  with Stereo Out and Master; check `name`. logicd moves the MCU bank to reach
+  any strip and re-homes whenever Logic moves the bank itself (EXP-MCU-020).
+- Names come from the MCU LCD: cut to 6 characters, ASCII only
+  ("オーディオ 2" shows as "2").
 - While any track is soloed, `mute` reads as `null` for tracks whose mute LED
   Logic blinks; mute *writes* are still verified from Logic's LCD message.
 - Selecting a track moves record-arm with it when Logic's auto rec-arm is on.

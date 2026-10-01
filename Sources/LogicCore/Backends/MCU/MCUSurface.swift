@@ -18,6 +18,10 @@ public enum MCU {
     public static let playNote: UInt8 = 0x5E
     public static let recordNote: UInt8 = 0x5F
     public static let rudeSoloNote: UInt8 = 0x73
+    public static let bankLeftNote: UInt8 = 0x2E
+    public static let bankRightNote: UInt8 = 0x2F
+    public static let channelLeftNote: UInt8 = 0x30
+    public static let channelRightNote: UInt8 = 0x31
 
     public static func press(_ note: UInt8) -> [[UInt8]] { [[0x90, note, 0x7F], [0x90, note, 0x00]] }
     public static func fader(_ channel: Int, _ value: Int) -> [UInt8] {
@@ -57,6 +61,9 @@ public struct MCUSurface {
     public private(set) var faderUpdates = [Int](repeating: 0, count: 9)
     public private(set) var ledUpdates = [Int](repeating: 0, count: 128)
     public private(set) var lcdUpdates = 0
+    /// Count of `14 72` sysex (per-strip colours). Logic sends one whenever
+    /// the bank moves and nothing for a no-op bank press (EXP-MCU-020).
+    public private(set) var colorUpdates = 0
 
     private var pending: [UInt8] = []
     private var inSysex = false
@@ -147,6 +154,9 @@ public struct MCUSurface {
         case 0x00: return .deviceQuery(model: model)
         case 0x13: return .versionRequest(model: model)
         case 0x02: return .connectionReply(model: model)
+        case 0x72 where model == MCU.model:
+            colorUpdates += 1
+            return .other(m)
         case 0x12 where model == MCU.model && m.count >= 8:
             let offset = Int(m[6])
             let text = Array(m[7..<(m.count - 1)])
