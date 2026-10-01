@@ -27,6 +27,7 @@ done
 runsh app_candidates 'ls -d /Applications/*[Ll]ogic*.app; mdfind "kMDItemContentType == com.apple.application-bundle && kMDItemDisplayName == *Logic*"'
 if [ -z "$APP" ] || [ ! -d "$APP" ]; then
   echo "Logic Pro.app not found. See $OUT/app_candidates.txt and rerun with LOGIC_APP=/path/to/app" >&2
+  APP=""
 fi
 echo "$APP" >"$OUT/app_path.txt"
 EXE="$(defaults read "$APP/Contents/Info" CFBundleExecutable 2>/dev/null)"
@@ -38,18 +39,23 @@ run uname uname -a
 run arch arch
 run xcode_select xcode-select -p
 run swift_version swift --version
-run app_version defaults read "$APP/Contents/Info" CFBundleShortVersionString
-run app_bundle_id defaults read "$APP/Contents/Info" CFBundleIdentifier
-run app_info_plist plutil -p "$APP/Contents/Info.plist"
-run codesign codesign -dvvv --entitlements :- "$APP"
+if [ -n "$APP" ]; then
+  run app_version defaults read "$APP/Contents/Info" CFBundleShortVersionString
+  run app_bundle_id defaults read "$APP/Contents/Info" CFBundleIdentifier
+  run app_info_plist plutil -p "$APP/Contents/Info.plist"
+  run codesign codesign -dvvv --entitlements :- "$APP"
 
-# 2. Bundle contents
-run frameworks ls -1 "$APP/Contents/Frameworks"
-run plugins ls -1R "$APP/Contents/PlugIns"
-run xpc_services find "$APP" -maxdepth 6 -name "*.xpc"
-run helpers find "$APP/Contents" -maxdepth 3 -type f -perm -111
-run main_binary_libs otool -L "$APP/Contents/MacOS/$EXE"
-run applescript_dict sdef "$APP"
+  # 2. Bundle contents
+  run frameworks ls -1 "$APP/Contents/Frameworks"
+  run plugins ls -1R "$APP/Contents/PlugIns"
+  run xpc_services find "$APP" -maxdepth 6 -name "*.xpc"
+  run helpers find "$APP/Contents" -maxdepth 3 -type f -perm -111
+  run main_binary_libs otool -L "$APP/Contents/MacOS/$EXE"
+  # sdef needs full Xcode; Command Line Tools alone fail here.
+  run applescript_dict sdef "$APP"
+else
+  echo "  skipped app bundle steps (no app path)"
+fi
 
 # 3. Running process surface (Logic Pro must be running)
 PID="$( [ -n "$EXE" ] && pgrep -x "$EXE" | head -1 )"
