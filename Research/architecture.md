@@ -130,3 +130,6 @@ See `Research/notes/prior-art.md`.
   up to ~3 s before returning to the pan value.
 - Logic streams its state dump for a few hundred ms after the handshake; LCD
   reads during that window are overwritten, so logicd waits 1 s after it.
+- Mixer writes (MCU or GUI) add no Undo steps with Logic's default Undo History
+  setting; the panel offers 「パラメータの変更を含める: ミキサー / プラグイン」
+  (EXP-UNDO-001). Undoing a rename did not refresh the MCU LCD name.

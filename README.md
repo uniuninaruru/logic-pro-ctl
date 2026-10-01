@@ -76,7 +76,11 @@ Exit status: 0 ok, 1 command failed (including failed verification),
   verified more precisely than that.
 - Reads that depend on the LCD wait up to ~3 s after a write for Logic to
   restore the display.
-- Whether these writes add Undo steps is not verified yet.
+- With Logic's default Undo History setting, mixer writes (mute, solo, volume,
+  pan) create **no Undo steps**, from logicctl or from the GUI
+  (EXP-UNDO-001). Logic's Undo cannot revert them.
+- Track names on the MCU LCD can be stale: undoing a rename did not update
+  them until logicd reconnected (EXP-UNDO-001).
 
 ## Development
 ```sh
