@@ -21,7 +21,8 @@ APP="${LOGIC_APP:-}"
 if [ -z "$APP" ]; then
   APP="$(mdfind "kMDItemCFBundleIdentifier == 'com.apple.logic10'" 2>/dev/null | head -1)"
 fi
-for p in "/Applications/Logic Pro.app" "/Applications/Logic Pro X.app"; do
+# Bundle names vary by edition (e.g. "Logic Pro Creator Studio.app").
+for p in "/Applications/Logic Pro.app" "/Applications/Logic Pro X.app" /Applications/Logic\ Pro*.app; do
   [ -z "$APP" ] && [ -d "$p" ] && APP="$p"
 done
 runsh app_candidates 'ls -d /Applications/*[Ll]ogic*.app; mdfind "kMDItemContentType == com.apple.application-bundle && kMDItemDisplayName == *Logic*"'
