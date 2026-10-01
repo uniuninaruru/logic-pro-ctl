@@ -1,0 +1,23 @@
+id	priority	stage	workstream	status	depends_on	target	planned_deliverable	acceptance
+PLAN-01	P0	R0	D	planned		version/build/arch/UUID/hash・既存根拠の固定	profile manifest・根拠index	installed/copy/Ghidra programが一致し、静的・実機・未確認を区別
+PLAN-02	P0	R0	C	planned	PLAN-01	既存MCU全命令の観測・取得契約	unknown/partial/session契約・関連失敗test	初期false/古い状態/走査失敗を成功や完全空一覧にしない
+PLAN-03	P0	R1	A	planned	PLAN-01	MACore招待・peer type・接続・version順序	SA-REMOTE-SESSION-001.md	ARM64とselectorを照合し、条件・拒否理由・送受信順序が記録される
+PLAN-04	P0	R1	A	planned	PLAN-01	frame・圧縮・plist/JSON/archive・型	protocol schema・parser・golden fixture	順序・数値key・binary引数・malformed・unknown形式を区別
+PLAN-05	P0	R1	A	planned	PLAN-03,PLAN-04	研究用MultipeerConnectivity peerの受信	EXP-REMOTE-001.md・最小受信prototype	独立3接続でアプリmessageを受信し、切断/再接続を識別。編集commandは送らない
+PLAN-06	P0	R2	A	planned	PLAN-02,PLAN-05	ati/sti/gtFaderData/transport/clock初回と差分	領域snapshot・state schema・受信実験	0/false/欠落・複数track/値・再接続/曲切替・完全性を独立照合
+PLAN-07	P0	R3	B	planned	PLAN-01,PLAN-05	command登録tableとRemote commands/groups query	operation-catalog.tsv・SA-COMMAND-CATALOG-001.md	既知ID照合、name/group/handler/alias/context/状態/根拠を記録。全ID実行なし
+PLAN-08	P0	R4	B	planned	PLAN-06	project/track/instrument/stripの対象・名前・階層	entity参照・ID寿命profile・対応実験	同名/rename/reorder/add/delete/reopenで誤対象なし。寿命未確認ならsession限定
+PLAN-09	P0	R0	C	planned	PLAN-02	書き込み実行queue・事前条件・journal・重複契約	共通executor・precondition・idempotency仕様/test	timeout/応答消失/再送/競合/shutdownで不明を成功にせず、内容違い同keyを拒否
+PLAN-10	P1	R4	B	planned	PLAN-06,PLAN-07,PLAN-09	ID3/7状態評価とnative/Remote transport	bounded state解析・play/stop実験・backend	外部でtrue/false双方とfreshnessを確認。record実行は別実験で検証
+PLAN-11	P1	R4	B	planned	PLAN-08,PLAN-09	native/Remote volume/pan/mute/solo/select	mixer backend・MCU比較・単位profile	複数値/track・ON/OFF・toggle差・副作用・fresh readbackを確認
+PLAN-12	P1	R4	B	planned	PLAN-10,PLAN-09	seek/cycle/locator/tempo/拍子	transport schema・操作別実験	時間単位・丸め・停止/再生中・対象曲・結果不明を確認
+PLAN-13	P1	R4	B	planned	PLAN-11,PLAN-09	send/bypass/pre-post/input-output/bus-aux	routing schema・対象/値実験	接続先ID・単位・bypass・誤対象防止・readbackを確認
+PLAN-14	P1	R5	B	planned	PLAN-08,PLAN-06	generic-plugin一覧・metadata・現在値・購読	plugin/insert/parameter schema・読み取り実験	同種2instance、audio/MIDI insert、scope、値域、GUIなしの読取り、ID寿命を照合
+PLAN-15	P1	R5	B	planned	PLAN-14,PLAN-09	parameter set・bypass・preset・loadを個別追加	plugin write API・操作別fixture/実験	複数値・対象・instance交換後の古い参照拒否・fresh readback・副作用を確認
+PLAN-16	P2	R6	B	planned	PLAN-11,PLAN-15,PLAN-09	automation mode/point/curve・Undo・音声engineへの境界	automation schema・時間軸・専用実験	project enable/track mode/pointを分離。保存再読込、再生とUndo/Redoを別々に確認
+PLAN-17	P2	R6	B	planned	PLAN-07,PLAN-08,PLAN-09	AE file-region helperとregion/event model	region schema・import/spotと編集の別実験	region ID・対象・位置/長さ・timebaseを確認。transferを任意編集と断定しない
+PLAN-18	P2	R6	B	planned	PLAN-17,PLAN-09	MIDI note/CC作成・編集・export	event schema・編集API・生成物検証	pitch/channel/tick/長さ/対応note-offと保存再読込・対象を確認
+PLAN-19	P2	R7	C	planned	PLAN-08,PLAN-09	project open/save/close・import/export/bounce・job	project/job API・artifact・長時間実験	dirty/曲切替・接続断・cancel要求/実停止・完了と出力内容を確認
+PLAN-20	P2	R8	C	planned	PLAN-09,PLAN-11	preview・batch・差分watch・部分成功と補償	domain API拡張・競合/部分失敗test	操作別結果、stop-on-error、revision衝突で復元停止。atomic rollbackを約束しない
+PLAN-21	P2	R8	C	planned	PLAN-07,PLAN-09,PLAN-11	検証済み領域の薄いMCP adapter・schema discovery	MCP tools・日英例・CLI同値test	既存domain結果を保持し、readonly/副作用/available/experimentalを機械判定できる
+PLAN-22	P1	R0-R8	D	planned	PLAN-01,PLAN-02	対応profile・領域別台帳・互換性・公開判定	build/profile matrix・日英文書・release gates	scopeのunknownを未完了として残し、未知build/旧daemonを検証済みや別経路成功にしない

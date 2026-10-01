@@ -114,6 +114,7 @@ AppleEventの再生・停止は、既に要求どおりなら送信を省略し�
 | コマンド・JSON・エラーの仕様 | [やさしい仕様](docs/specification.md) |
 | どの部品が何をする？ | [図で読むアーキテクチャ](docs/architecture.md) |
 | どこまで分かった？ 次に何を調べる？ | [調査ガイド](Research/README.md) |
+| 全体解析からエージェント利用までの計画 | [調査・開発ロードマップ](Research/plans/agent-ready-roadmap.md)・[依存関係付き作業一覧](Research/plans/agent-ready-backlog.tsv) |
 | 接続経路の根拠 | [詳しいアーキテクチャ調査](Research/architecture.md) |
 | AppleEventの実機結果 | [EXP-AE-001](Research/experiments/EXP-AE-001-private-command-dispatch.md)・[EXP-AE-002](Research/experiments/EXP-AE-002-cli-backend.md) |
 | ネイティブ状態取得の候補と制約 | [SA-AE-STATE-002](Research/static-analysis/SA-AE-STATE-002-native-transport-state.md) |

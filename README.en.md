@@ -153,6 +153,11 @@ python3 Tests/integration/test_cli_backend_compat.py .build/release/logicctl
 Research lives in `Research/` (start at `Research/architecture.md`);
 research tools in `Tools/`. See `AGENTS.md` for the rules.
 
+The [research and development roadmap](Research/plans/agent-ready-roadmap.en.md)
+maps the next Ghidra targets, experiments, API contracts, and release gates for
+broad agent control. The [22-task backlog](Research/plans/agent-ready-backlog.tsv)
+records dependencies and acceptance criteria in Japanese with stable task IDs.
+
 ### Private AppleEvent research
 
 The 2026-10-01 investigation identified Logic 12.3.1's explicitly registered
