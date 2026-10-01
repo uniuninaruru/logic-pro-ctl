@@ -50,7 +50,8 @@ Logic Remote    TouchOSC etc.    Lua MIDI Device
 | Confirmed | `MACore` imports `MCSession`, `MCPeerID`, `MCNearbyServiceAdvertiser`, `MCNearbyServiceBrowser` and contains string `apple-lgremote` (static-analysis/ipc-imports.txt). |
 | Confirmed | `Logic.framework` contains classes `LgLogicRemoteController`, `LgLogicRemoteMessageRouter`, and 128 `handleUM_*` selectors (static-analysis/handleUM-selectors.txt). |
 | Confirmed | 169 OSC-style address strings such as `/transport/pauseplay`, `/mixer/plugins/...`, `/keyCommand/commandsQuery`, `/logicClock/currentTempo` (static-analysis/osc-address-strings.tsv). |
-| Unknown | Whether 51463 changes per launch (prior art says yes). Whether `_apple-lgremote._udp` (declared in Info.plist) is ever advertised — not seen in any run. How per-track volume/mute/pan travel: no `/mixer/volume`-like string was found. |
+| Confirmed | Port and instance name change per launch: 51463/`174jnk4ko0l8w` → 52476/`08n2x7g7zvtu4` (EXP-A3-001). UDP 7000 unchanged. |
+| Unknown | Whether `_apple-lgremote._udp` (declared in Info.plist) is ever advertised — not seen in any run. How per-track volume/mute/pan travel: no `/mixer/volume`-like string was found. |
 | Hypothesis | The service is MultipeerConnectivity (MPC): the instance name is a base36 peer ID and `_d` is the display name, which matches the MPC format in the prior art. Logic Remote's application messages are OSC-like addresses carried inside MPC session data. Confidence: medium (static + Bonjour only; no capture yet). |
 
 ### 3.2 UDP 7000 — OSC control surfaces (`_osc._udp`)
@@ -67,7 +68,8 @@ Logic Remote    TouchOSC etc.    Lua MIDI Device
 | Confirmed | Logic publishes one virtual source `Logic Proの仮想出力` and one destination `Logic Proの仮想入力` (Tools/research-scripts/midi-endpoints.swift). No other endpoints present on this Mac. |
 | Confirmed | 16 Control Surface plug-ins in `Contents/PlugIns/MIDI Device Plug-ins/` (Logic Control = MCU, HUI, Logic Remote, TouchOSC, …). `~/Library/Preferences/com.apple.logic.pro.cs` is an IFF-like file (byte-reversed chunk IDs, `MROF`=`FORM`) listing these modules plus `Lua`. |
 | Confirmed | 98 Lua 5.2 MIDI Device Scripts (`MACore.framework/Resources/MIDI Device Scripts/*/*.device/config.lua`) defining `controller_info()` with `items` (name, objectType, midiType, MIDI bytes) and `supports_feedback`. Strings show Logic can "Export Assignments To Lua Script". |
-| Unknown | Whether Logic loads user Lua scripts from a user directory; whether a script can bind items to mixer parameters with feedback; how MCU emulation over a virtual port pairs with the virtual endpoints. |
+| Confirmed | Logic scans every new CoreMIDI port with Mackie device queries. A probe that creates its own virtual source+destination and answers as model 0x14 is installed as a Logic Control surface automatically, with no GUI setup (EXP-MCU). Mute (note 0x10) and fader (pitchbend + touch) writes work and are confirmed by LED/fader echo and LCD text. |
+| Unknown | Whether Logic loads user Lua scripts from a user directory; whether a script can bind items to mixer parameters with feedback. |
 
 ### 3.4 Apple Events / AppleScript
 | | |
@@ -92,13 +94,15 @@ Logic Remote    TouchOSC etc.    Lua MIDI Device
 | Unknown | Peers of the 5 unix sockets. |
 
 ### 3.7 Accessibility / CGEvent
-Not examined yet. `MAAccessibility.framework` (516 KB) exists.
+- Transport is exposed as AX checkboxes 再生/録音 and button 停止; channel strip has AXSlider ボリュームフェーダー / パン and AXSwitch ミュート.
+- AXPress on the inspector strip ミュート AXSwitch toggles mute; AXPress on the track-header ミュート AXCheckBox had no effect (EXP-MCU-003).
+- This shell's process is not AX-trusted (`AXIsProcessTrusted() == false`); an AX backend needs the user to grant Accessibility to the host app.
 
 ## 4. Candidate control paths, ranked by current evidence
 | Rank | Path | Read state? | Write? | Status |
 |---|---|---|---|---|
 | 1 | Logic Remote (MPC on TCP 51463) | likely (Remote shows mixer state) | likely | Prior art exists for MPC transport (2022, protocolVersion unknown then). App layer undocumented. Needs a capture with a real Logic Remote. |
-| 2 | MCU over virtual MIDI (Logic Control plug-in) | yes, MCU sends fader/LED/LCD feedback | yes | Public protocol. Needs a pair of MIDI ports and a Control Surface set up in Logic. Best v0.1 fallback candidate. |
+| 2 | MCU over virtual MIDI (Logic Control plug-in) | **yes, verified**: fader echo, LED, LCD (names, dB) | **yes, verified** for mute and volume on track 1 | Auto-installed via handshake, no GUI setup (EXP-MCU-001…009). Chosen v0.1 backend. |
 | 3 | OSC on UDP 7000 | feedback via assignments only | via assignments | Requires Controller Assignments per parameter. |
 | 4 | Lua MIDI Device Script | unknown | via assignments | Needs user-script location confirmed. |
 | 5 | Accessibility | yes (UI values) | yes | Fragile; last resort for things nothing else exposes. |
@@ -109,8 +113,8 @@ Not examined yet. `MAAccessibility.framework` (516 KB) exists.
 See `Research/notes/prior-art.md`.
 
 ## 6. Open questions / next experiments
-1. **EXP-A3-001**: relaunch Logic (with only the test project) and record whether TCP 51463 changes. Needs user consent: relaunch closes the open project.
+1. ~~EXP-A3-001~~ done: TCP port changes per launch; resolve via Bonjour.
 2. **EXP-A3-002**: capture loopback/Wi-Fi traffic while a real Logic Remote device connects, to confirm the MPC framing and protocolVersion 10. Needs an iPad/iPhone with Logic Remote, and `tcpdump` (requires sudo or BPF access — ask first).
-3. **EXP-A3-003**: set up a Logic Control (MCU) surface on a virtual MIDI port pair and observe feedback when muting track 1 in the GUI. Read-only from the CLI side; changes Logic's control-surface setup (reversible).
+3. ~~EXP-A3-003~~ done as EXP-MCU-001…009. Next: validate on tracks 2–4, solo, pan, banking past 8 tracks, transport.
 4. **EXP-A3-004**: list distributed notifications Logic posts during play/stop (`NSDistributedNotificationCenter` observer, read-only).
 5. Find where Logic reads user Lua MIDI Device Scripts.
