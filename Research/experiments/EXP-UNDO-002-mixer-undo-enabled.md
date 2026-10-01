@@ -1,58 +1,51 @@
-# EXP-UNDO-002: Undo with 「パラメータの変更を含める: ミキサー」 enabled
+[日本語](EXP-UNDO-002-mixer-undo-enabled.md) | [English](EXP-UNDO-002-mixer-undo-enabled.en.md)
 
-| Field | Value |
+# EXP-UNDO-002: 「パラメータの変更を含める: ミキサー」を有効にした場合の取り消し
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 14:12–14:16 JST |
-| Logic version | 12.3.1 (6682) |
-| macOS version | 27.0 (26A5416b) |
-| Test project | ~/Music/Logic/LogicCLI-Test.logicx |
-| Setting | The user enabled 「ミキサー」 in Edit > 取り消し履歴… (panel needs Logic frontmost) |
-| Readback | `logicctl state` (MCU) and Accessibility track-header values; they agreed in every step |
-| Undo/Redo | Edit menu via Accessibility, Logic in background |
+| 日時 | 2026-10-01 14:12–14:16 JST |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | 27.0 (26A5416b) |
+| テストプロジェクト | ~/Music/Logic/LogicCLI-Test.logicx |
+| 設定 | ユーザーが「編集 > 取り消し履歴…」の「ミキサー」を有効にした（パネル操作には Logic を最前面にする必要がある） |
+| 読み戻し | `logicctl state`（MCU）と Accessibility のトラックヘッダー値。全手順で結果が一致 |
+| 取り消し／やり直し | Accessibility 経由で編集メニューを操作。Logic は背面 |
 
-## Steps
-| # | Action | Result (track 2 vol via AX unless noted) |
+## 手順
+
+| # | 操作 | 結果（注記がなければ AX によるトラック2の音量） |
 |---|---|---|
-| 1 | `logicctl track mute 1 on` → Undo | Track 1 **stays muted**. Instead track 3 pan 0 → −16 (reverts `track pan 3 0` from EXP-CLI-001, made before the setting was enabled). |
-| 2 | Redo | Track 3 pan back to 0. |
-| 3 | `logicctl track mute 1 off`; `logicctl track volume 2 -6` → Undo | Track 2 vol → 0.0 **and** track 3 pan → −16. |
-| 4 | Redo | Track 3 pan 0; track 2 vol stays 0.0 (not re-applied). |
-| 5 | GUI rename track 4 "Synth" → "SynthY" (recorded step); `logicctl track volume 2 -6` → Undo | Name stays "SynthY"; track 2 vol → **−11.4 dB** (never requested). |
-| 6 | `track volume 2 0`, 1 s pause, `track volume 2 -6` → Undo | 0.0 dB (correct previous value). |
-| 7 | `track volume 2 -6` → Undo | 0.0 dB (correct). |
-| 8 | `track volume 2 -3`, `track volume 2 -12` back to back → Undo | **0.0 dB** (both writes undone in one step). |
-| 9 | Undo again | **−11.4 dB** again. |
-| cleanup | `track volume 2 0`; GUI rename back to "Synth" | All tracks 0.0 dB / pan 0 / unmuted; LCD name updated to "Synth" (a GUI rename does refresh the LCD, unlike the undone rename in EXP-UNDO-001). |
+| 1 | `logicctl track mute 1 on` → 取り消す | トラック1は**ミュートのまま**。代わりにトラック3のパンが 0 → −16（設定を有効にする前の EXP-CLI-001 の `track pan 3 0` が戻った）。 |
+| 2 | やり直す | トラック3のパンが0に戻った。 |
+| 3 | `logicctl track mute 1 off`、`logicctl track volume 2 -6` → 取り消す | トラック2の音量が 0.0 **かつ**トラック3のパンが −16 になった。 |
+| 4 | やり直す | トラック3のパンは0。トラック2の音量は0.0のままで、再適用されなかった。 |
+| 5 | GUI でトラック4を "Synth" → "SynthY" に変更（履歴に記録）、`logicctl track volume 2 -6` → 取り消す | 名前は "SynthY" のまま。トラック2の音量は**−11.4 dB**（一度も要求していない値）になった。 |
+| 6 | `track volume 2 0`、1秒待機、`track volume 2 -6` → 取り消す | 0.0 dB（正しい変更前の値）。 |
+| 7 | `track volume 2 -6` → 取り消す | 0.0 dB（正しい値）。 |
+| 8 | `track volume 2 -3`、`track volume 2 -12` を続けて実行 → 取り消す | **0.0 dB**（2回の書き込みが1回の取り消しで戻った）。 |
+| 9 | もう一度取り消す | 再び**−11.4 dB**。 |
+| 後片付け | `track volume 2 0`、GUI で名前を "Synth" に戻す | 全トラックが 0.0 dB／パン0／ミュートなし。LCD の名前も "Synth" に更新された（GUI での名前変更は LCD を更新する。EXP-UNDO-001 の取り消し時とは異なる）。 |
 
-Undo History entries glimpsed while Logic was momentarily active (the panel
-hides on deactivate): `Master : ボリューム`, `13 Piano : ボリューム`,
-`14 Bass : Pan`, `15 Bass : Pan`, `16 Piano : ボリューム`, `17 Piano : ボリューム`.
-The newest entries were scrolled out of view; not read.
+Logic が一時的にアクティブになったとき、取り消し履歴の以下の項目を確認しました。パネルは非アクティブになると隠れます。
+`Master : ボリューム`、`13 Piano : ボリューム`、`14 Bass : Pan`、`15 Bass : Pan`、`16 Piano : ボリューム`、`17 Piano : ボリューム`。
+最新の項目はスクロール範囲外で、確認できていません。
 
-## Conclusions
-Hypothesis: Mute changes are never Undo steps, with or without the mixer setting.
-Confidence: high (EXP-UNDO-001 + step 1 here).
+## 結論
 
-Hypothesis: With the mixer setting on, MCU volume and pan writes are recorded
-(pan already recorded before the setting was enabled, step 1), but consecutive
-writes to the same parameter coalesce into one step when they are close in time
-(step 8: <1 s apart merged; step 6: 1 s pause stayed separate).
-Confidence: medium (n=1 for each spacing).
+仮説（Hypothesis）: ミュートの変更は、ミキサー設定のオン／オフにかかわらず取り消し履歴に残りません。
+確信度: 高（EXP-UNDO-001 と今回の手順1）。
 
-Hypothesis: Undo of an MCU volume write can restore a value that was never
-requested (−11.4 dB, steps 5 and 9). Origin unknown — possibly an intermediate
-value Logic recorded at an earlier step boundary.
-Confidence: low on the cause; the observation itself reproduced twice.
+仮説（Hypothesis）: ミキサー設定を有効にすると MCU の音量・パン書き込みが記録されます。ただしパンは設定を有効にする前の変更も記録されていました（手順1）。同じパラメータを短い間隔で続けて変更すると、1つの履歴にまとめられます（手順8では1秒未満の間隔で統合。手順6では1秒待つと分かれた）。
+確信度: 中（各間隔につき n=1）。
 
-Counterexamples: step 3's double revert (volume + pan in one Undo) is not
-explained by any of the above.
+仮説（Hypothesis）: MCU の音量書き込みを取り消すと、一度も要求していない値へ戻る場合があります（手順5・9の −11.4 dB）。由来は不明です。以前の履歴区切りで Logic が記録した途中の値かもしれません。
+確信度: 原因については低。現象自体は2回再現しました。
 
-Next validation experiment: read the full Undo History list (needs Logic
-frontmost) after a single `logicctl track volume` write; vary the pause between
-writes (0, 0.5, 1, 2 s) to find the coalescing window.
+反例: 手順3で音量とパンが1回の取り消しで同時に戻ったことは、上の仮説だけでは説明できません。
 
-## Consequence for logicctl
-Logic's Undo is not a dependable way to revert logicctl writes: mute/solo are
-never recorded, volume writes may coalesce, and Undo may land on unrequested
-values. If logicctl offers "revert", it must replay its own recorded
-before-values and verify them.
+次の検証実験: `logicctl track volume` を1回実行した後、取り消し履歴の全項目を読み取ります（Logic を最前面にする必要あり）。書き込みの間隔を 0、0.5、1、2秒と変え、まとめられる時間範囲を調べます。
+
+## logicctl への影響
+
+Logic の「取り消す」は、logicctl の書き込みを確実に元に戻す手段にはなりません。ミュート／ソロは履歴に残らず、音量の書き込みはまとめられる場合があり、要求していない値へ戻る場合もあります。logicctl が「元に戻す」機能を提供するなら、自分で記録した変更前の値を書き戻し、その結果を検証する必要があります。

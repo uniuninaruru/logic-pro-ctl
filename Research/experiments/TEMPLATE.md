@@ -1,26 +1,30 @@
-# EXP-<area>-<nnn>: <single action>
+[日本語](TEMPLATE.md) | [English](TEMPLATE.en.md)
 
-| Field | Value |
+# EXP-<area>-<nnn>: <1つの操作>
+
+| 項目 | 内容 |
 |---|---|
-| Date | |
-| Logic version | 12.3.1 (6682) |
-| macOS version | |
-| Logic Remote version | n/a |
-| Test project | LogicCLI-Test.logicx |
-| Initial state | |
-| Single action | |
-| Expected change | |
-| Reproduction count | |
+| 日時 | |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | |
+| Logic Remote バージョン | 該当なし |
+| テストプロジェクト | LogicCLI-Test.logicx |
+| 初期状態 | |
+| 1つの操作 | |
+| 期待する変化 | |
+| 再現回数 | |
 
-## Observations
-- Network diff:
-- IPC diff:
-- Observed messages:
-- Raw files: `Research/raw/<run>/`
+## 観察
 
-## Hypothesis
-Hypothesis:
-Confidence:
-Evidence:
-Counterexamples:
-Next validation experiment:
+- ネットワークの差分:
+- IPC の差分:
+- 観測したメッセージ:
+- 生データのファイル: `Research/raw/<run>/`
+
+## 仮説（Hypothesis）
+
+仮説（Hypothesis）:
+確信度:
+根拠:
+反例:
+次の検証実験:

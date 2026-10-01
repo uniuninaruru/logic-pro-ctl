@@ -1,48 +1,45 @@
-# EXP-UNDO-001: do MCU (logicctl) mixer writes create Undo steps?
+[日本語](EXP-UNDO-001-mixer-writes-and-undo.md) | [English](EXP-UNDO-001-mixer-writes-and-undo.en.md)
 
-| Field | Value |
+# EXP-UNDO-001: MCU（logicctl）のミキサー書き込みは取り消し履歴に残るか
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 13:58–14:02 JST |
-| Logic version | 12.3.1 (6682) |
-| macOS version | 27.0 (26A5416b) |
-| Logic Remote version | n/a |
-| Test project | ~/Music/Logic/LogicCLI-Test.logicx (open since relaunch at 13:25, EXP-A3-001) |
-| Readback | `logicctl state` (MCU) + Accessibility scan of track headers (independent) |
-| Initial state | All tracks 0.0 dB, pan 0, unmuted (both channels agree). Since the 13:25 relaunch every mixer change went through MCU (EXP-MCU-*, EXP-CLI-001) except one GUI mute/unmute. |
+| 日時 | 2026-10-01 13:58–14:02 JST |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | 27.0 (26A5416b) |
+| Logic Remote バージョン | 該当なし |
+| テストプロジェクト | ~/Music/Logic/LogicCLI-Test.logicx（13:25 の再起動から開いたまま。EXP-A3-001） |
+| 読み戻し | `logicctl state`（MCU）＋ Accessibility によるトラックヘッダーの走査（独立した確認） |
+| 初期状態 | 全トラック 0.0 dB、パン0、ミュートなし（両経路の結果が一致）。13:25 の再起動後のミキサー変更は、GUI のミュート／解除1回を除きすべて MCU 経由（EXP-MCU-*、EXP-CLI-001） |
 
-## Steps and observations
-| # | Single action | Observation |
+## 手順と観察
+
+| # | 1つの操作 | 観察 |
 |---|---|---|
-| 1 | `logicctl track mute 1 on` (verified) | — |
-| 2 | Edit > 取り消す (menu, Logic in background) | Menu item **disabled**; not pressed. Track 1 still muted (MCU and AX). |
-| 3 | GUI: inspector strip ミュート AXSwitch (unmute track 1) | AX mute=0. |
-| 4 | Edit > 取り消す | Still **disabled**. |
-| 5 | Edit > 取り消し履歴… was opened earlier; the panel only shows while Logic is active (it hides on deactivate). Seen during a raw click: list **empty**; header 「次の位置からパラメータの変更を含める: [ミキサー] [プラグイン]」, both buttons look off. | |
-| 6 | Track > トラック名を変更, track 4 "Synth" → "SynthX" | Undo History shows exactly `1 名称変更 2026/10/01 14:00:26`. |
-| 7 | Edit > 取り消す (Logic in background) | **Enabled and pressed**. GUI name back to "Synth". |
-| 8 | `logicctl status` 2 s and 7 s later | MCU LCD upper row still `… SynthX St Out …` — **stale**. |
-| 9 | `logicctl daemon stop`, wait 3 s, `logicctl status` (re-handshake) | LCD `… Synth  St Out …` — correct again. |
+| 1 | `logicctl track mute 1 on`（検証済み） | — |
+| 2 | 編集 > 取り消す（メニュー。Logic は背面） | メニュー項目は**無効**で、押していない。トラック1はミュートのまま（MCU と AX）。 |
+| 3 | GUI: インスペクタのストリップにある「ミュート」AXSwitch（トラック1のミュート解除） | AX mute=0。 |
+| 4 | 編集 > 取り消す | 引き続き**無効**。 |
+| 5 | 先に「編集 > 取り消し履歴…」を開いていた。パネルは Logic がアクティブな間だけ表示され、非アクティブになると隠れる。座標クリック中に見えた一覧は**空**。見出しは「次の位置からパラメータの変更を含める: [ミキサー] [プラグイン]」で、両ボタンともオフに見えた。 | |
+| 6 | トラック > トラック名を変更。トラック4を "Synth" → "SynthX" | 取り消し履歴に `1 名称変更 2026/10/01 14:00:26` の1件だけが表示された。 |
+| 7 | 編集 > 取り消す（Logic は背面） | **有効だったので実行**。GUI の名前が "Synth" に戻った。 |
+| 8 | 2秒後と7秒後に `logicctl status` | MCU LCD 上段はまだ `… SynthX St Out …` — **古い表示**。 |
+| 9 | `logicctl daemon stop`、3秒待機、`logicctl status`（再ハンドシェイク） | LCD が `… Synth  St Out …` になり、正しい名前に戻った。 |
 
-Side effect: a raw click meant for the hidden panel's ミキサー button landed in the
-arrange area on track 2's lane (no region there; no visible change).
+副作用: 隠れたパネルの「ミキサー」ボタンを狙った座標クリックが、アレンジ領域のトラック2のレーンに当たりました。そこにはリージョンがなく、見える変化はありませんでした。
 
-## Conclusions
-Hypothesis: With Logic's default Undo History setting (mixer parameter changes not
-included), mute/volume/pan changes — from MCU or from the GUI — create no Undo steps.
-Confidence: high for mute (MCU and GUI) and for the MCU volume/pan writes made since
-13:25 (the history was empty after ~40 such writes); the setting state itself is
-read from button appearance only (medium).
-Counterexamples: none.
-Next validation experiment: enable 「ミキサー」 in the Undo History panel (needs Logic
-frontmost, i.e. the user or full-screen control), then repeat steps 1–2.
+## 結論
 
-Hypothesis: Logic does not push an MCU LCD update when a track rename is undone;
-names read from the MCU can be stale until the surface reconnects.
-Confidence: medium (one rename, 7 s window).
-Next validation experiment: rename via GUI without undo — does the LCD update? Redo?
+仮説（Hypothesis）: Logic の取り消し履歴が既定設定（ミキサーパラメータの変更を含めない）の場合、MCU でも GUI でも、ミュート・音量・パンの変更は取り消し履歴に残りません。
+確信度: ミュート（MCU と GUI）および13:25以降の MCU 音量・パン書き込みについては高です。約40回の書き込み後も履歴が空でした。ただし設定自体はボタンの見た目から判断しただけなので中です。
+反例: なし。
+次の検証実験: 取り消し履歴パネルの「ミキサー」を有効にして、手順1–2を繰り返します。パネル操作には Logic を最前面にする必要があるため、ユーザーの操作または全画面の操作が必要です。
 
-## Consequence for logicctl
-- Agents cannot rely on Logic's Undo to revert logicctl mixer writes (default settings).
-  logicctl must keep its own before/after values if it ever offers "revert".
-- Track names from MCU can be stale; cross-check with Accessibility or force a
-  re-handshake before trusting a name for targeting.
+仮説（Hypothesis）: トラック名の変更を取り消しても、Logic は MCU LCD の更新を送りません。サーフェスを再接続するまで MCU の名前が古いままになる可能性があります。
+確信度: 中（名前変更1回、観察時間7秒）。
+次の検証実験: GUI で名前を変更し、取り消さない場合は LCD が更新されるか。やり直した場合はどうか。
+
+## logicctl への影響
+
+- 既定設定では、logicctl のミキサー書き込みを元に戻す手段として Logic の「取り消す」に頼れません。logicctl が「元に戻す」機能を提供するなら、変更前後の値を自分で保持する必要があります。
+- MCU から取得したトラック名は古い可能性があります。名前を操作対象の判断に使う前に、Accessibility と照合するか、再ハンドシェイクを行ってください。

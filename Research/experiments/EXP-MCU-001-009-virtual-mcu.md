@@ -1,135 +1,140 @@
-# EXP-MCU-001…009: Logic Control (MCU) over a virtual MIDI port pair
+[日本語](EXP-MCU-001-009-virtual-mcu.md) | [English](EXP-MCU-001-009-virtual-mcu.en.md)
 
-| Field | Value |
+# EXP-MCU-001…009: 仮想 MIDI ポートのペアで Logic Control（MCU）を接続する
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 13:27–13:33 JST |
-| Logic version | 12.3.1 (6682) |
-| macOS version | 27.0 (26A5416b) |
-| Logic Remote version | n/a |
-| Test project | ~/Music/Logic/LogicCLI-Test.logicx (1 Piano inst, 2 Audio, 3 Bass inst, 4 Synth inst; all 0.0 dB, unmuted) |
-| Tool | `Tools/research-scripts/mcu-probe.swift` (virtual source + destination `logicctl-mcu`), `Tools/packet-analyzer/mcu_log.py` |
-| Raw | `Research/raw/20261001-132705-mcu/` (manual handshake), `Research/raw/20261001-133000-mcu-auto/` (auto handshake, all later steps) |
+| 日時 | 2026-10-01 13:27–13:33 JST |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | 27.0 (26A5416b) |
+| Logic Remote バージョン | 該当なし |
+| テストプロジェクト | ~/Music/Logic/LogicCLI-Test.logicx（1 Piano 音源、2 Audio、3 Bass 音源、4 Synth 音源。すべて 0.0 dB、ミュートなし） |
+| ツール | `Tools/research-scripts/mcu-probe.swift`（仮想送信元＋宛先 `logicctl-mcu`）、`Tools/packet-analyzer/mcu_log.py` |
+| 生データ | `Research/raw/20261001-132705-mcu/`（手動ハンドシェイク）、`Research/raw/20261001-133000-mcu-auto/`（自動ハンドシェイクと、その後の全手順） |
 
-Directions: RX = Logic → probe, TX = probe → Logic.
+通信の方向: RX = Logic → プローブ、TX = プローブ → Logic。
 
-## EXP-MCU-000: probe ports appear (no action in Logic)
-Within 0.3 s of the virtual ports appearing, Logic sent, unprompted, to the
-new destination:
-`F0 00 00 66 <m> 00 F7` for m = 10, 11, 14, 15, 17 and `F0 00 00 66 <m> 13 00 F7`
-for m = 14, 15, 17. Logic scans every new MIDI port for Mackie devices.
-No GUI configuration was done.
+## EXP-MCU-000: プローブのポートを作成（Logic 側では何も操作しない）
 
-## EXP-MCU-001/002: manual replies 18 s later
-TX connection query (`14 01` + serial + 4 challenge bytes) → RX `14 13 00` twice.
-TX version (`14 14 "V1.02"`) → nothing. Control Surface Setup window showed
-「デバイスが見つかりません」. Not installed.
+仮想ポートが現れてから0.3秒以内に、Logic は要求を受けずに新しい宛先へ送信しました。
+`F0 00 00 66 <m> 00 F7`（m = 10、11、14、15、17）と、`F0 00 00 66 <m> 13 00 F7`（m = 14、15、17）です。
+Logic は新しく現れた MIDI ポートをすべて調べ、Mackie デバイスを探します。
+GUI の設定は行っていません。
 
-## Auto handshake (probe restarted with MCU_AUTO=1, replies within 1 ms)
-RX query 00 → TX 01; RX 13 → TX 14. Logic did **not** send cmd 02 (connection
-reply) — the public spec's challenge step was skipped. Within 40 ms Logic
-started sending surface state:
-- LCD (`14 12`, offset 0): `Piano  Audio  Bass   Synth  St Out Master` / `Pan …`
-- Faders: pitchbend ch0–5 = 12443, ch6–7 = 0, ch8 (master) = 12443
-- LEDs on: 0x00 (strip-1 rec arm), 0x18 (strip-1 select), 0x2A, 0x4A, 0x59, 0x5D, 0x72
-- Also cmd 0A, 0B, 0C, 0E, 20, 21, 72 (meaning not checked)
+## EXP-MCU-001/002: 18秒後に手動で応答
 
-Matches the GUI: track 1 R lit and selected, all faders 0.0 dB, 4 tracks + Stereo Out + Master.
-Unknown: whether the earlier manual attempt failed because of timing or because
-Logic had already given up on that port.
+TX 接続問い合わせ（`14 01` ＋シリアル＋チャレンジ4バイト）→ RX `14 13 00` が2回。
+TX バージョン（`14 14 "V1.02"`）→ 応答なし。コントロールサーフェス設定ウィンドウには「デバイスが見つかりません」と表示され、登録されませんでした。
 
-## EXP-MCU-003/004: GUI mute track 1, single action
-| Action | RX |
+## 自動ハンドシェイク（MCU_AUTO=1 でプローブを再起動し、1 ms 以内に応答）
+
+RX 問い合わせ 00 → TX 01、RX 13 → TX 14。Logic はコマンド02（接続応答）を**送信しませんでした**。公開仕様のチャレンジ手順が省略されました。40 ms 以内に Logic はサーフェスの状態を送り始めました。
+
+- LCD（`14 12`、オフセット0）: `Piano  Audio  Bass   Synth  St Out Master` / `Pan …`
+- フェーダー: ピッチベンド ch0–5 = 12443、ch6–7 = 0、ch8（マスター）= 12443
+- 点灯 LED: 0x00（ストリップ1の録音待機）、0x18（ストリップ1の選択）、0x2A、0x4A、0x59、0x5D、0x72
+- ほかにコマンド 0A、0B、0C、0E、20、21、72（意味は未確認）
+
+GUI と一致しました。トラック1の R が点灯して選択中、全フェーダー 0.0 dB、4トラック＋Stereo Out＋Master です。
+先の手動応答が失敗した理由は未確定です。応答のタイミングか、Logic がそのポートへの接続をすでに諦めていたためかは分かりません。
+
+## EXP-MCU-003/004: GUI でトラック1のミュートを変更（1つの操作）
+
+| 操作 | RX |
 |---|---|
-| GUI Mute OFF→ON (mixer strip M, AXPress) | `90 10 7F`, then `90 50 7F` |
-| GUI Mute ON→OFF | `90 10 00` |
+| GUI でミュート OFF→ON（ミキサーストリップの M、AXPress） | `90 10 7F`、続いて `90 50 7F` |
+| GUI でミュート ON→OFF | `90 10 00` |
 
-Note: AXPress on the *track header* M checkbox had no visible effect;
-AXPress on the inspector strip's `ミュート` AXSwitch worked.
-`90 50 7F` stayed on after unmute — meaning unknown.
+注意: *トラックヘッダー*の M チェックボックスに AXPress しても見える変化はありませんでした。インスペクタストリップの「ミュート」AXSwitch への AXPress は動作しました。
+ミュート解除後も `90 50 7F` は点灯したままです。意味は未確定です。
 
-## EXP-MCU-005/006: MCU write mute, single action
+## EXP-MCU-005/006: MCU でミュートを書き込み（1つの操作）
+
 | TX | RX | GUI |
 |---|---|---|
-| `90 10 7F`, `90 10 00` (press, release) | LCD offset 56 "Muted", then `90 10 7F` (+33 ms) | M lit |
-| same again | LCD offset 56 "--", then `90 10 00` | M off |
+| `90 10 7F`、`90 10 00`（押す、離す） | LCD オフセット56に "Muted"、続いて `90 10 7F`（+33 ms） | M 点灯 |
+| 同じ操作をもう一度 | LCD オフセット56に "--"、続いて `90 10 00` | M 消灯 |
 
-The mute button is a toggle; LED feedback confirms the new state.
+ミュートボタンは押すたびに状態を切り替えます。LED の応答で新しい状態を確認できます。
 
-## EXP-MCU-008: MCU write fader, single action
-TX `90 68 7F` (touch strip 1), `E0 78 55` (11000), `90 68 00` (release)
-→ RX LCD offset 56 "-3.7 dB ", RX `E0 59 55` (10969). GUI: -3.7.
-Logic quantizes the value and echoes the quantized one.
+## EXP-MCU-008: MCU でフェーダーを書き込み（1つの操作）
 
-## EXP-MCU-009: fader sweep 0…16383 step 256
-Table: `Research/protocol/mcu-fader-calibration.tsv`. Highlights:
-| sent | echo | LCD |
+TX `90 68 7F`（ストリップ1に触れる）、`E0 78 55`（11000）、`90 68 00`（離す）
+→ RX LCD オフセット56に "-3.7 dB "、RX `E0 59 55`（10969）。GUI は -3.7。
+Logic は値を量子化し、量子化した値を返します。
+
+## EXP-MCU-009: フェーダーを 0…16383、刻み256で走査
+
+表: `Research/protocol/mcu-fader-calibration.tsv`。主な結果:
+
+| 送信値 | 返された値 | LCD |
 |---|---|---|
 | 0 | 0 | -oo dB |
 | 7680 | 7660 | -9.9 dB |
 | 9472 | 9467 | -6.7 dB |
 | 11264 | 11248 | -3.0 dB |
-| 12443 (restore) | 12443 | +0.0 dB |
+| 12443（復元） | 12443 | +0.0 dB |
 | 14848 | 14845 | +6.0 dB |
-| ≥15104 | (none) | (none: clamped at +6.0) |
+| ≥15104 | なし | なし（+6.0 で上限に制限） |
 
-LCD updates are diffs: only changed characters are sent at the offset where
-they start (e.g. offset 58 "4.7" after "-56.9 dB"). The analyzer keeps a
-112-char buffer.
+LCD 更新は差分です。変わった文字だけが、その開始オフセットとともに送られます（例: "-56.9 dB" の後、オフセット58に "4.7"）。解析ツールは112文字のバッファを保持します。
 
-Restored afterwards: 12443 → LCD "+0.0 dB", echo 12443, GUI 0.0.
+その後、元に戻しました。12443 → LCD "+0.0 dB"、応答12443、GUI 0.0。
 
-## Hypotheses
-Hypothesis: Strip-1 Mute is note 0x10 (toggle on press), LED feedback uses the same note.
-Confidence: high for track 1 / strip 1 (2 GUI + 2 MCU observations).
-Counterexamples: none.
-Next validation experiment: mute tracks 2 and 4 (expect 0x11, 0x13); solo (expect 0x08+n).
+## 仮説（Hypothesis）
 
-Hypothesis: Fader value v ↔ dB is a fixed monotonic curve; 12443 = 0.0 dB, 14845 = +6.0 dB max.
-Confidence: medium (one track, one sweep; resolution 256 → ±0.6 dB between points).
-Counterexamples: none.
-Next validation experiment: repeat the sweep on track 3 and on the Audio track; finer sweep around 0, -3, -6, -12 dB; check whether readback is exact when Logic's quantized echo value is sent.
+仮説: ストリップ1のミュートはノート 0x10（押すと切り替え）で、LED の応答も同じノートを使います。
+確信度: トラック1／ストリップ1について高（GUI 2回＋MCU 2回の観察）。
+反例: なし。
+次の検証実験: トラック2・4のミュート（予想 0x11、0x13）、ソロ（予想 0x08+n）を試します。
 
-Hypothesis: The LCD lower row shows the touched parameter in dB during touch and reverts after ~1 s; usable as human-readable readback.
-Confidence: medium.
+仮説: フェーダー値 v ↔ dB は固定の単調な曲線です。12443 = 0.0 dB、14845 = 上限 +6.0 dB。
+確信度: 中（1トラック、走査1回。分解能256なので測定点の間は ±0.6 dB）。
+反例: なし。
+次の検証実験: トラック3と Audio トラックでも走査を繰り返します。0、-3、-6、-12 dB 付近を細かく調べ、Logic が量子化して返した値を送ると正確に読み戻せるか確認します。
 
-Hypothesis: Logic auto-installs any port answering the model-0x14 query, without the challenge/response.
-Confidence: medium (one auto run). Next: restart the probe and check whether a second "Logic Control" device gets added each time (setup pollution).
+仮説: LCD 下段には、触れているパラメータの dB 値が表示され、約1秒後に元の表示へ戻ります。人が読める形式の読み戻しとして使えます。
+確信度: 中。
 
-## Consequence for logicctl
-MCU over virtual MIDI is a viable v0.1 backend with readback:
-volume (fader echo + LCD dB), mute (LED), track names (LCD), 8-strip banks.
-logicd must keep a long-lived CoreMIDI client (virtual ports exist only while
-it runs) and answer the handshake within milliseconds.
+仮説: Logic はモデル 0x14 の問い合わせに応答するポートを、チャレンジ／レスポンスなしで自動登録します。
+確信度: 中（自動実行1回）。次にプローブを再起動し、毎回2台目の "Logic Control" が追加されるか確認します（設定が増え続ける可能性）。
 
-# EXP-MCU-010…016 (same session, 13:38–13:41 JST, raw in 20261001-133000-mcu-auto)
+## logicctl への影響
 
-All writes from the probe; GUI checked by screenshot where noted. State restored after each.
+仮想 MIDI 経由の MCU は、読み戻しを伴う v0.1 バックエンドとして利用できます。音量（フェーダー応答＋LCD の dB）、ミュート（LED）、トラック名（LCD）、8ストリップのバンクが対象です。
+logicd は CoreMIDI クライアントを長時間保持し、数 ms 以内にハンドシェイクへ応答する必要があります。仮想ポートはプロセスの実行中だけ存在するためです。
 
-| ID | TX | RX (readback) | GUI |
+# EXP-MCU-010…016（同じセッション、13:38–13:41 JST。生データは 20261001-133000-mcu-auto）
+
+書き込みはすべてプローブから行いました。表に記載した GUI の確認にはスクリーンショットを使い、各操作後に状態を元に戻しました。
+
+| ID | TX | RX（読み戻し） | GUI |
 |---|---|---|---|
-| 010a–c | Mute press strips 2,3,4 (`90 11/12/13 7F`, release) | LCD "Muted" at offset 63/70/77 (=56+7n); LED `90 11/12/13 7F` | M lit on tracks 2–4 |
-| restore | same presses | LED `90 11/12/13 00` | — |
-| 011a | Solo strip 1 (`90 08 7F`, release) | LCD "Soloed" @56; LED `90 08 7F`; `90 73 01` (rude solo, vel 1); LEDs 0x11–0x13 then **blink** 7F/00 every ~0.75 s | S lit on track 1 |
-| 011b | Solo strip 1 again | LCD "--" @56; `90 73 00`; `90 08 00`; LEDs 0x11–0x13 → 00, blinking stops | — |
-| 012 | Select strip 3 (`90 1A 7F`, release) | LEDs 0x18→00, 0x1A→7F; rec-arm LED 0x00→00, 0x02→7F | inspector "トラック: Bass", R moved to track 3 |
-| 013a | V-Pot strip 1 `B0 10 41` (ccw 1) | LCD lower @56 "-1", upper strip 1 → "Pan"; ring `B0 30 16` | — |
-| 013b | `B0 10 45` (ccw 5) | LCD "-6" | — |
-| 013c | `B0 10 06` (cw 6) | LCD "0"; ring `B0 30 56` | — |
-| 014a | Play `90 5E 7F`, release | LED 0x5E→7F, 0x5D→00; meters `D0 4x` (strip 4 = St Out) | playing |
-| 014b | Stop `90 5D 7F`, release | LED 0x5D→7F, 0x5E→00 | stopped (bar 8 beat 2) |
-| 015 | Touch strip 2 only (`90 69 7F`), no fader move | LCD @63 "+0.0 dB " | unchanged |
-| 016a/b | V-Pot `B0 10 54` (ccw 20), `B0 10 14` (cw 20) | LCD "-20", then "0" | — |
+| 010a–c | ストリップ2・3・4のミュートを押す（`90 11/12/13 7F`、離す） | LCD "Muted"、オフセット63/70/77（=56+7n）。LED `90 11/12/13 7F` | トラック2–4の M 点灯 |
+| 復元 | 同じボタンを押す | LED `90 11/12/13 00` | — |
+| 011a | ストリップ1のソロ（`90 08 7F`、離す） | LCD "Soloed" @56。LED `90 08 7F`。`90 73 01`（rude solo、ベロシティ1）。LED 0x11–0x13 が約0.75秒ごとに 7F/00 で**点滅** | トラック1の S 点灯 |
+| 011b | ストリップ1のソロをもう一度 | LCD "--" @56。`90 73 00`、`90 08 00`。LED 0x11–0x13 → 00、点滅停止 | — |
+| 012 | ストリップ3を選択（`90 1A 7F`、離す） | LED 0x18→00、0x1A→7F。録音待機 LED 0x00→00、0x02→7F | インスペクタ「トラック: Bass」。R がトラック3へ移動 |
+| 013a | ストリップ1の V-Pot `B0 10 41`（反時計回り1刻み） | LCD 下段 @56 "-1"、上段ストリップ1 → "Pan"。リング `B0 30 16` | — |
+| 013b | `B0 10 45`（反時計回り5刻み） | LCD "-6" | — |
+| 013c | `B0 10 06`（時計回り6刻み） | LCD "0"、リング `B0 30 56` | — |
+| 014a | 再生 `90 5E 7F`、離す | LED 0x5E→7F、0x5D→00。メーター `D0 4x`（ストリップ4 = St Out） | 再生中 |
+| 014b | 停止 `90 5D 7F`、離す | LED 0x5D→7F、0x5E→00 | 停止（8小節2拍） |
+| 015 | ストリップ2に触れるだけ（`90 69 7F`）。フェーダーは動かさない | LCD @63 "+0.0 dB " | 変化なし |
+| 016a/b | V-Pot `B0 10 54`（反時計回り20刻み）、`B0 10 14`（時計回り20刻み） | LCD "-20"、続いて "0" | — |
 
-Findings:
-- Strip n (0-based): mute note 0x10+n, solo 0x08+n, select 0x18+n, rec 0x00+n, fader touch 0x68+n, V-Pot CC 0x10+n (bit 6 = ccw, low 6 bits = ticks), ring CC 0x30+n. LCD lower row strip n at offset 56+7n. Verified for n=0..3 (mute), n=0 (solo, pan), n=2 (select), n=0,1 (touch).
-- 1 V-Pot tick = 1 Logic pan unit, linear up to 20 ticks per message (no acceleration observed).
-- **Mute LED is not the explicit mute state while any solo is active**: implicitly muted strips blink. Readback must use the LCD transient ("Muted"/"--", "Soloed"/"--") right after a press, or sample the LED twice >0.8 s apart.
-- **Touch without moving reads the exact dB** on the LCD → exact volume readback without writing.
-- Selecting a track moves record-arm with it (Logic's auto rec-arm), visible as rec LEDs.
+分かったこと:
 
-## Accessibility cross-check (13:42, after the user granted Accessibility)
-`AXIsProcessTrusted() == true` for the shell (responsible app: `~/Library/Application Support/Claude/claude-code/2.1.284/claude.app`, a versioned path).
-Track header: AXSlider "ボリューム" value=173 desc "+0.0 dB"; AXSlider (pan) value=64 desc "0のパン"; AXCheckBox "ミュート" value=0.
-Inspector strip: AXSlider "ボリュームフェーダー" value=173 desc "0.0 dB"; AXButton "ミュート" value "オフ".
-Transport/position: AXSlider "bar"=8, "beat"=2, "テンポ"=120.
-→ Independent second readback channel; not used by v0.1.
+- ストリップ n（0始まり）: ミュートのノート 0x10+n、ソロ 0x08+n、選択 0x18+n、録音待機 0x00+n、フェーダータッチ 0x68+n、V-Pot CC 0x10+n（ビット6 = 反時計回り、下位6ビット = 刻み数）、リング CC 0x30+n。LCD 下段のストリップ n はオフセット 56+7n。n=0..3（ミュート）、n=0（ソロ・パン）、n=2（選択）、n=0,1（タッチ）で検証しました。
+- V-Pot の1刻み = Logic のパン1単位。1メッセージ20刻みまでは線形で、加速は観測されませんでした。
+- **ソロが有効な間、ミュート LED は明示的なミュート状態を表しません**。ソロによって暗黙にミュートされたストリップは点滅します。読み戻しには、押した直後の LCD の一時表示（"Muted"/"--"、"Soloed"/"--"）を使うか、0.8秒より長い間隔で LED を2回確認する必要があります。
+- **動かさずに触れるだけで LCD から正確な dB を読めます**。音量を書き込まずに正確に読み戻せます。
+- トラックを選択すると録音待機も一緒に移動します（Logic の自動録音待機）。録音 LED で確認できます。
+
+## Accessibility との照合（13:42、ユーザーが Accessibility を許可した後）
+
+シェルについて `AXIsProcessTrusted() == true`。責任元のアプリは `~/Library/Application Support/Claude/claude-code/2.1.284/claude.app`（バージョンを含むパス）でした。
+トラックヘッダー: AXSlider「ボリューム」value=173、desc "+0.0 dB"。AXSlider（パン）value=64、desc「0のパン」。AXCheckBox「ミュート」value=0。
+インスペクタストリップ: AXSlider「ボリュームフェーダー」value=173、desc "0.0 dB"。AXButton「ミュート」value「オフ」。
+トランスポート／位置: AXSlider "bar"=8、"beat"=2、「テンポ」=120。
+独立した2つ目の読み戻し経路として使えます。v0.1 では使っていません。

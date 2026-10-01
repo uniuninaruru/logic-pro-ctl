@@ -1,42 +1,52 @@
-# SA-001: Logic Control.bundle (MCU plug-in) — Ghidra first pass
+# SA-001: Logic Control.bundle（MCU プラグイン）の初回 Ghidra 解析
 
-| Field | Value |
+[日本語](SA-001-logic-control-bundle.md) | [English](SA-001-logic-control-bundle.en.md)
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 |
-| Binary | `Logic Pro Creator Studio.app/Contents/PlugIns/MIDI Device Plug-ins/Logic Control.bundle/Contents/MacOS/Logic Control` (universal x86_64+arm64, 765,040 bytes; arm64 slice analyzed) |
-| Logic | 12.3.1 (6682), bundle id `com.apple.music.apps.midi.device.plugin.Logic-Control` |
-| Tool | Ghidra 12.1.4 headless, `Tools/ghidra/analyze.sh` → `Research/raw/ghidra/` (decompiled Apple code is not committed) |
-| Result | 142 functions, all decompiled |
+| 日付 | 2026-10-01 |
+| バイナリ | `Logic Pro Creator Studio.app/Contents/PlugIns/MIDI Device Plug-ins/Logic Control.bundle/Contents/MacOS/Logic Control`（universal x86_64+arm64、765,040 bytes。arm64 スライスを解析） |
+| Logic | 12.3.1（6682）。bundle id は `com.apple.music.apps.midi.device.plugin.Logic-Control` |
+| ツール | Ghidra 12.1.4 headless。`Tools/ghidra/analyze.sh` → `Research/raw/ghidra/`（逆コンパイルした Apple のコードはコミットしない） |
+| 結果 | 142 関数、すべて逆コンパイル済み |
 
-## Plug-in ABI (from exported symbols, `nm -gU -arch arm64`)
-C entry points shared by every Control Surface plug-in (Logic Remote.bundle and
-TouchOSC.bundle export the same core set): `init_dd`, `scan`, `init_dev`,
-`deinit_dev`, `transfer`, `get_midi`, `peri`, `CSDefault`, `CSFeedback`,
-`CSGroupClassForModel`, `CSLabelSize`, `ModID`, `Version`, `MinHostVersion`,
-`NameForModel`, `ManufNameForModel`, `ManufIDForModel`, `FlagsForModel`.
-Logic Control adds `CSTemplate`, `CSLabel`, `CSLongLabel`, `CSFeedbackText`,
-`CSLongFeedbackText`, `CSRefresh`, `CSAlert`, `CSActivating`, `CSEndOffscreen`,
-`CSFaderDBConversionTable`, `ScanAllModels`, `SpecialInfo`, `TimerCallback`.
+## プラグイン ABI（公開シンボル `nm -gU -arch arm64` より）
 
-Unstripped C++ names expose the host data model:
+各コントロールサーフェス・プラグインで共通の C エントリーポイントは、
+`init_dd`、`scan`、`init_dev`、`deinit_dev`、`transfer`、`get_midi`、`peri`、
+`CSDefault`、`CSFeedback`、`CSGroupClassForModel`、`CSLabelSize`、`ModID`、
+`Version`、`MinHostVersion`、`NameForModel`、`ManufNameForModel`、
+`ManufIDForModel`、`FlagsForModel`。Logic Remote.bundle と TouchOSC.bundle も
+同じ主要な関数群を公開している。
+
+Logic Control は、さらに `CSTemplate`、`CSLabel`、`CSLongLabel`、
+`CSFeedbackText`、`CSLongFeedbackText`、`CSRefresh`、`CSAlert`、
+`CSActivating`、`CSEndOffscreen`、`CSFaderDBConversionTable`、
+`ScanAllModels`、`SpecialInfo`、`TimerCallback` を公開する。
+
+削除されていない C++ のシンボル名から、ホスト側のデータモデルが見える。
+
 - `DDESCR_LC::CSFeedback(TControlID, long, long, long, AssignFeedbackType, long, AssignHeader const*)`
 - `DDESCR_LC::FillTemplate(Assign*, TControlID, unsigned char) const`
 - `DDESCR_LC::CSFeedbackText(TControlID, char const*, int, int)`
-- `DDESCR_LC::DoHostConnectionQuery(ScanMode)`, `scan(char, ScanMode, char const*, char const*)`
+- `DDESCR_LC::DoHostConnectionQuery(ScanMode)`、`scan(char, ScanMode, char const*, char const*)`
 
-The plug-ins import nothing from Logic's frameworks (`nm -u`): the host must
-pass callbacks/data structures in at `init_dd`/`scan` time. Not yet traced.
+プラグインは Logic の framework から何もインポートしていない（`nm -u`）。
+このため、ホストが `init_dd` / `scan` 時にコールバックやデータ構造を渡す
+必要がある。受け渡しの詳細はまだ追跡していない。
 
-Hypothesis: `Assign` / `AssignHeader` / `TControlID` are Logic's controller-
-assignment model, shared by all control surfaces (MCU, Logic Remote, TouchOSC,
-Lua scripts, Controller Assignments) — a candidate for the common
-command/state representation (brief §16).
-Confidence: medium (type names only). Next: decompile `FillTemplate` and
-`CSFeedback` to recover the `Assign` layout; compare with Logic Remote.bundle.
+**Hypothesis（仮説）:** `Assign` / `AssignHeader` / `TControlID` は、
+Logic のコントローラ割り当てモデルであり、すべてのコントロールサーフェス
+（MCU、Logic Remote、TouchOSC、Lua スクリプト、Controller Assignments）で
+共通に使われる。共通のコマンド・状態表現の候補になる（brief §16）。
+確信度は中（型名のみが根拠）。次は `FillTemplate` と `CSFeedback` を
+逆コンパイルして `Assign` のレイアウトを復元し、Logic Remote.bundle と比較する。
 
 ## CSFaderDBConversionTable
-Builds (once, `__cxa_guard`) a 35-entry table: 64-bit fader value + 32-bit
-16.16 fixed-point dB, passed to `FUN_00000b5c(&table, 0x23)`.
+
+一度だけ（`__cxa_guard`）35 要素のテーブルを作る。各要素は 64-bit の
+フェーダー値と、32-bit の 16.16 固定小数点 dB 値。テーブルは
+`FUN_00000b5c(&table, 0x23)` に渡される。
 
 | value | dB | | value | dB |
 |---|---|---|---|---|
@@ -62,12 +72,13 @@ Builds (once, `__cxa_guard`) a 35-entry table: 64-bit fader value + 32-bit
 | 6256 | -16 | | | |
 | 6701 | -14 | | | |
 
-Validation against the dynamic measurement (EXP-MCU-009,
-`Research/protocol/mcu-fader-calibration.tsv`): linear interpolation of this
-table, rounded to 0.1 dB, equals Logic's LCD reading for **58/58** points.
-→ Confirmed: MCU fader value → dB is this table with linear interpolation
-(channel strips clamp at +6.0 dB ≈ value 14843).
+動的測定（EXP-MCU-009、`Research/protocol/mcu-fader-calibration.tsv`）との比較では、
+このテーブルを線形補間し、小数第 1 位に丸めた値が、Logic の LCD 表示と
+**58/58 点**で一致した。
 
-Applied: `Sources/LogicCore/Backends/MCU/FaderCalibration.swift` now uses this
-table. Live check after the change: track 1 -6 / -3.7 / -12 / -30 / 0 dB all
-verified (fader values 9874, 10969, 7178, 3990, 12443).
+**確認済み:** MCU フェーダー値から dB への変換は、このテーブルの線形補間。
+チャンネルストリップでは +6.0 dB（値は約 14843）で上限に達する。
+
+反映先: `Sources/LogicCore/Backends/MCU/FaderCalibration.swift` はこのテーブルを
+使用している。変更後の実機確認では、トラック 1 の -6 / -3.7 / -12 / -30 / 0 dB を
+すべて検証できた（フェーダー値は 9874、10969、7178、3990、12443）。

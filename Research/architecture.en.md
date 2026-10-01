@@ -1,0 +1,164 @@
+# Logic Pro external surface — architecture map
+
+[日本語](architecture.md) | [English](architecture.en.md)
+
+Only observed facts go in the "Confirmed" columns. Each fact names its source:
+a raw run under `Research/raw/<run>/` (gitignored), a committed file under
+`Research/static-analysis/`, or the command that produced it.
+
+Runs so far: `20261001-130602` (discover.sh), `20261001-131349-a2`,
+`20261001-131833-a2` (discover2.sh). All against the same Logic process
+(pid 25338, not relaunched between runs).
+
+## 1. Environment
+| Item | Value | Source |
+|---|---|---|
+| macOS | 27.0 (26A5416b), Darwin 27.0.0, arm64 (T8142) | `sw_vers`, `uname -a` |
+| App | /Applications/Logic Pro Creator Studio.app | `ls /Applications` |
+| Executable | `Logic Pro Creator Studio` (73 KB stub, arm64 only) | `file`, `lipo -info` |
+| Version | 12.3.1 (CFBundleVersion 6682), ProjectName `MALogic_App` | version.plist |
+| Bundle ID | `com.apple.mobilelogic` (not `com.apple.logic10`) | Info.plist |
+| Signing | Apple Mac OS Application Signing, Team F3LWYJ7GM7, hardened runtime (flags 0x10000) | `codesign -dvv` |
+| Sandbox | `com.apple.security.app-sandbox = false` | entitlements |
+| Toolchain at initial discovery | Command Line Tools only, Swift 6.4, Python 3.14; no tshark, no Xcode. Full Xcode was selected by the EXP-AE-002 integration build. | initial `xcode-select -p`, `which`; EXP-AE-002 |
+
+The main executable is a stub. Logic's code lives in `Contents/Frameworks/`;
+the largest are `Logic.framework` (40.7 MB), `MAAudioEngine` (18.3 MB),
+`MAPlugInGUI` (10.3 MB), `MAMixer` (5.8 MB), `MACore` (4.6 MB).
+
+## 2. Map
+
+```
+                         Logic Pro Creator Studio (pid 25338, not sandboxed)
+                                         |
+  +---------------+---------------+------+---------+-----------------+-----------------+
+  |               |               |                |                 |                 |
+TCP *:51463     UDP *:7000     CoreMIDI        Apple Events      NSXPCConnection    AX / CGEvent
+_apple-lgremote _osc._udp      virtual src+dst NSAppleScript     "helperTool" via   (not examined)
+._tcp (Bonjour) (Bonjour)      (Logic Proの仮想 Enabled=true,    initWithMachService
+MultipeerConn.  ControlSurface 出力 / 仮想入力)   no .sdef found   Name: → installer
+(MACore)        OSC (Logic.fw) + Control Surface                  helper (hypothesis)
+  |               |              plug-ins (16) +
+Logic Remote    TouchOSC etc.    Lua MIDI Device
+(iPad/iPhone)                    Scripts (98)
+```
+
+## 3. Surfaces
+
+### 3.1 TCP 51463 — Logic Remote (`_apple-lgremote._tcp`)
+| | |
+|---|---|
+| Confirmed | Logic listens on `*:51463` IPv4+IPv6 (all interfaces, not loopback-only). Bonjour instance `174jnk4ko0l8w` resolves to this host:51463. TXT: `/hostType=0 /protocolVersion=10 _d=<computer name>`. Reproduced in 2 runs. |
+| Confirmed | `MACore` imports `MCSession`, `MCPeerID`, `MCNearbyServiceAdvertiser`, `MCNearbyServiceBrowser` and contains string `apple-lgremote` (static-analysis/ipc-imports.txt). |
+| Confirmed | `Logic.framework` contains classes `LgLogicRemoteController`, `LgLogicRemoteMessageRouter`, and 128 `handleUM_*` selectors (static-analysis/handleUM-selectors.txt). |
+| Confirmed | 169 OSC-style address strings such as `/transport/pauseplay`, `/mixer/plugins/...`, `/keyCommand/commandsQuery`, `/logicClock/currentTempo` (static-analysis/osc-address-strings.tsv). |
+| Confirmed | Port and instance name change per launch: 51463/`174jnk4ko0l8w` → 52476/`08n2x7g7zvtu4` (EXP-A3-001). UDP 7000 unchanged. |
+| Unknown | Whether `_apple-lgremote._udp` (declared in Info.plist) is ever advertised — not seen in any run. How per-track volume/mute/pan travel: no `/mixer/volume`-like string was found. |
+| Hypothesis | The service is MultipeerConnectivity (MPC): the instance name is a base36 peer ID and `_d` is the display name, which matches the MPC format in the prior art. Logic Remote's application messages are OSC-like addresses carried inside MPC session data. Confidence: medium (static + Bonjour only; no capture yet). |
+
+### 3.2 UDP 7000 — OSC control surfaces (`_osc._udp`)
+| | |
+|---|---|
+| Confirmed | Logic binds UDP `*:7000` (IPv6 socket). Bonjour `_osc._udp` instance `<computer name>` resolves to host:7000, TXT `AppleLogic=LogicProX mfk=1`. |
+| Confirmed | `Logic.framework` imports `socket`, `bind`, `NSNetService`; contains `ControlSurfaceOSC`, `Starting OSC ports for device %@: In=%d, out=%d`, `Sending OSC Message %@ = %@ to '%@'`. |
+| Unknown | Which OSC addresses Logic accepts on 7000 without a configured device; whether an unknown sender is rejected, ignored, or auto-added as a device. |
+| Hypothesis | 7000 is Logic's documented OSC control-surface input (the TouchOSC flow). Commands would need a Controller Assignment (Learn) in Logic to map to mixer parameters. Confidence: medium (public TouchOSC docs + strings). |
+
+### 3.3 CoreMIDI
+| | |
+|---|---|
+| Confirmed | Logic publishes one virtual source `Logic Proの仮想出力` and one destination `Logic Proの仮想入力` (Tools/research-scripts/midi-endpoints.swift). No other endpoints present on this Mac. |
+| Confirmed | 16 Control Surface plug-ins in `Contents/PlugIns/MIDI Device Plug-ins/` (Logic Control = MCU, HUI, Logic Remote, TouchOSC, …). `~/Library/Preferences/com.apple.logic.pro.cs` is an IFF-like file (byte-reversed chunk IDs, `MROF`=`FORM`) listing these modules plus `Lua`. |
+| Confirmed | 98 Lua 5.2 MIDI Device Scripts (`MACore.framework/Resources/MIDI Device Scripts/*/*.device/config.lua`) defining `controller_info()` with `items` (name, objectType, midiType, MIDI bytes) and `supports_feedback`. Strings show Logic can "Export Assignments To Lua Script". |
+| Confirmed | Logic scans every new CoreMIDI port with Mackie device queries. A probe that creates its own virtual source+destination and answers as model 0x14 is installed as a Logic Control surface automatically, with no GUI setup (EXP-MCU). Mute (note 0x10) and fader (pitchbend + touch) writes work and are confirmed by LED/fader echo and LCD text. |
+| Unknown | Whether Logic loads user Lua scripts from a user directory; whether a script can bind items to mixer parameters with feedback. |
+
+### 3.4 Apple Events / AppleScript
+| | |
+|---|---|
+| Confirmed | `NSAppleScriptEnabled = true`; `sdef` returns Standard Suite, Text Suite, Type Definitions, and Type Names, without the four private FourCCs. No corresponding `.sdef`, `.scriptSuite` or `.appintents` metadata file was found in the earlier bundle inventory. Source: EXP-AE-001 and its raw SDEF. |
+| Confirmed | Logic.framework explicitly registers `aUeV/Spt2` with handler `0x00590e30` at call `0x004f11fc`. Ghidra decompilation and ARM64 disassembly agree. Source: `static-analysis/appleevent-registration.md`. |
+| Confirmed | `sPmo=6` selects command dispatch. Negative `sPkc` values are negated and narrowed to signed 16-bit internal command IDs: `-3` play, `-5` stop; both verified twice by native AESendMessage plus MCU readback. Positive indices `11` / `1` map to play / stop and are also verified. Source: EXP-AE-001, `static-analysis/appleevent-command-dispatch.md`. |
+| Confirmed | Handler returns `-38` before parsing parameters if its active owner or currentSong pointer is null. One open `LogicCLI-Test.logicx` is visible via standard `documents` scripting and the original event now succeeds. Earlier session's exact null state was not captured. Source: EXP-AE-001 and registration analysis. |
+| Confirmed | Reply success does not prove execution: wrong parameter descriptor types can return 0 and do nothing. Raw sender marks writes unverified; experiment wrapper independently checks MCU transport. Source: EXP-AE-001 14-case native matrix. |
+| Confirmed | Product `logicctl transport play\|stop --backend appleevent` routes native writes through logicd; MCU feedback independently verifies them. Two play/stop pairs, two verified no-ops, and the existing MCU path passed on the dedicated test project. Exact supported profile is 12.3.1/6682. Source: EXP-AE-002. |
+| Unknown | Other modes' complete semantics, project-state reads free of side effects, mixer/plugin/automation/track/seek APIs through AppleEvents. Mode 4 has a potential tempo-data side effect and was not tested live. |
+
+### 3.5 XPC / Mach / distributed notifications
+| | |
+|---|---|
+| Confirmed | No `.xpc` service inside the app except `MAContentDownloading.framework/XPCServices/com.apple.musicapps.MAContentInstallation.xpc`. No framework imports `xpc_connection_create*` or Network.framework `nw_*`. |
+| Confirmed | `Logic.framework` uses `NSXPCConnection` with property `_helperToolConnection` and `initWithMachServiceName:options:`; strings include `com.apple.ServiceManagement.blesshelper`; bundle ships `Contents/Library/LaunchServices/com.apple.musicapps.InstallerHelperTool`. |
+| Confirmed | `NSDistributedNotificationCenter` imported by Logic, MADSP, MAKeymap, MAToolKit, MAToolKitHighLevel. |
+| Hypothesis | The only XPC client in Logic.framework talks to the privileged installer helper, not to a control service. Confidence: medium (strings, not disassembly). |
+| Unknown | Names of the distributed notifications posted/observed. |
+| Note | No internal XPC control service has been found. Per project rules we do not design against one. |
+
+### 3.6 Process and local IPC
+| | |
+|---|---|
+| Confirmed | Logic has no child processes. 5 connected unix-domain socket pairs (anonymous, `lsof -U`). Related system processes: `coreaudiod`, `MIDIServer`, `AUHostingServiceXPC_arrow`, 2× `AudioComponentRegistrar`. |
+| Unknown | Peers of the 5 unix sockets. |
+
+### 3.7 Accessibility / CGEvent
+- Transport is exposed as AX checkboxes 再生/録音 and button 停止; channel strip has AXSlider ボリュームフェーダー / パン and AXSwitch ミュート.
+- AXPress on the inspector strip ミュート AXSwitch toggles mute; AXPress on the track-header ミュート AXCheckBox had no effect (EXP-MCU-003).
+- This shell's process is not AX-trusted (`AXIsProcessTrusted() == false`); an AX backend needs the user to grant Accessibility to the host app.
+
+## 4. Candidate control paths, ranked by current evidence
+| Rank | Path | Read state? | Write? | Status |
+|---|---|---|---|---|
+| transport implemented | Private AppleEvent `aUeV/Spt2` | transport readback currently MCU | **yes, verified** play/stop | EXP-AE-001 proves mode6 command dispatch; EXP-AE-002 verifies opt-in product integration with no MCU-write fallback. |
+| 1 | Logic Remote (MPC on TCP 51463) | likely (Remote shows mixer state) | likely | Prior art exists for MPC transport (2022, protocolVersion unknown then). App layer undocumented. Needs a capture with a real Logic Remote. |
+| 2 | MCU over virtual MIDI (Logic Control plug-in) | **yes, verified**: fader echo, LED, LCD (names, dB) | **yes, verified** for mute and volume on track 1 | Auto-installed via handshake, no GUI setup (EXP-MCU-001…009). Chosen v0.1 backend. |
+| 3 | OSC on UDP 7000 | feedback via assignments only | via assignments | Requires Controller Assignments per parameter. |
+| 4 | Lua MIDI Device Script | unknown | via assignments | Needs user-script location confirmed. |
+| 5 | Accessibility | yes (UI values) | yes | Fragile; last resort for things nothing else exposes. |
+| 6 | CGEvent / key commands | no | yes | Write-only; violates verify-after-write alone. |
+| — | Native XPC | — | — | No control service observed. |
+
+## 5. Prior art
+See `Research/notes/prior-art.md`.
+
+## 6. Open questions / next experiments
+1. ~~EXP-A3-001~~ done: TCP port changes per launch; resolve via Bonjour.
+2. **EXP-A3-002**: capture loopback/Wi-Fi traffic while a real Logic Remote device connects, to confirm the MPC framing and protocolVersion 10. Needs an iPad/iPhone with Logic Remote, and `tcpdump` (requires sudo or BPF access — ask first).
+3. ~~EXP-A3-003~~ done as EXP-MCU-001…016; implemented as the v0.1 MCU backend (EXP-CLI-001). Next: banking past 8 tracks, undo behaviour, plugin parameters via MCU plug-in mode.
+4. **EXP-A3-004**: list distributed notifications Logic posts during play/stop (`NSDistributedNotificationCenter` observer, read-only).
+5. Find where Logic reads user Lua MIDI Device Scripts.
+6. Continue anchored Ghidra analysis of native state routes. Distinguish internal
+   document getters from externally callable messages, and check side effects
+   before promoting any candidate to a read-only status API. Private AppleEvent
+   mode 4 remains excluded because its helper can mutate tempo-map data.
+
+## 7. Implementation notes from v0.1 (logicd MCU backend)
+- Restarting logicd within ~0.3 s of the old ports disappearing left Logic silent
+  (no device query) in 3 of 5 restarts; after a pause of a few seconds it always
+  queried. logicd now re-plugs its ports if no query arrives within 2.5 s
+  (5/5 rapid restarts connected, 4 via re-plug).
+- Re-creating the port with the same name reuses the single "Mackie Control"
+  entry in Control Surface Setup (no duplicates after ~10 restarts).
+- After a select, Logic shows the track name in the strip's lower LCD cell for
+  up to ~3 s before returning to the pan value.
+- Logic streams its state dump for a few hundred ms after the handshake; LCD
+  reads during that window are overwritten, so logicd waits 1 s after it.
+- Mixer writes (MCU or GUI) add no Undo steps with Logic's default Undo History
+  setting; the panel offers 「パラメータの変更を含める: ミキサー / プラグイン」
+  (EXP-UNDO-001). Undoing a rename did not refresh the MCU LCD name.
+- With 「ミキサー」 enabled, MCU volume/pan writes become Undo steps but close
+  writes coalesce and Undo once restored an unrequested −11.4 dB; mute is never
+  recorded (EXP-UNDO-002). A GUI rename refreshes the MCU LCD; an undone rename does not.
+
+## 8. Native transport integration (EXP-AE-002)
+- `logicctl` remains a thin client. Its explicit AppleEvent request first probes
+  daemon capabilities to avoid older daemons silently treating it as MCU.
+- `logicd` owns both the native sender and the persistent MCU readback session;
+  command execution is serialized. Product Swift does not invoke research tools.
+- Native sends use exact `'long'` descriptors, a running-process target, and a
+  validated version/build profile. Delivery status and reply error are separate.
+- Readback requires actual play and record LEDs after the current handshake,
+  with fresh feedback for changed fields. A changed PID or handshake generation
+  invalidates verification; decoder defaults cannot become verified no-ops.
+- Handshake baselines preserve feedback later in the same MIDI batch. A fresh
+  LCD baseline rejects cached connection state, and cached bank positioning is
+  tied to the handshake generation.

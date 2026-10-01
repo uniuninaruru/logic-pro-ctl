@@ -1,34 +1,39 @@
-# EXP-A3-001: relaunch Logic → does the Logic Remote TCP port change?
+[日本語](EXP-A3-001-remote-port-per-launch.md) | [English](EXP-A3-001-remote-port-per-launch.en.md)
 
-| Field | Value |
+# EXP-A3-001: Logic を再起動すると Logic Remote の TCP ポートは変わるか
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 13:25 JST |
-| Logic version | 12.3.1 (6682) |
-| macOS version | 27.0 (26A5416b) |
-| Logic Remote version | n/a (no client connected) |
-| Test project | ~/Music/Logic/LogicCLI-Test.logicx |
-| Initial state | Logic pid 25338 (started 12:34:39), TCP *:51463, UDP *:7000, `_apple-lgremote._tcp` instance `174jnk4ko0l8w` |
-| Single action | Quit Logic (Logic Pro > 終了), `open -a … LogicCLI-Test.logicx` |
-| Expected change | Prior art: TCP port randomized per launch |
-| Reproduction count | 1 relaunch |
+| 日時 | 2026-10-01 13:25 JST |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | 27.0 (26A5416b) |
+| Logic Remote バージョン | 該当なし（クライアント未接続） |
+| テストプロジェクト | ~/Music/Logic/LogicCLI-Test.logicx |
+| 初期状態 | Logic PID 25338（12:34:39 起動）、TCP *:51463、UDP *:7000、`_apple-lgremote._tcp` インスタンス `174jnk4ko0l8w` |
+| 1つの操作 | Logic を終了（Logic Pro > 終了）し、`open -a … LogicCLI-Test.logicx` を実行 |
+| 期待する変化 | 先行調査では TCP ポートが起動ごとにランダムになるとされる |
+| 再現回数 | 再起動1回 |
 
-## Observations
-| | Before | After |
+## 観察
+
+| 項目 | 前 | 後 |
 |---|---|---|
-| pid | 25338 | 37546 |
-| TCP listen (IPv4+IPv6) | 51463 | 52476 |
+| PID | 25338 | 37546 |
+| TCP 待ち受け（IPv4+IPv6） | 51463 | 52476 |
 | UDP | 7000 | 7000 |
-| `_apple-lgremote._tcp` instance | 174jnk4ko0l8w | 08n2x7g7zvtu4 |
+| `_apple-lgremote._tcp` インスタンス | 174jnk4ko0l8w | 08n2x7g7zvtu4 |
 
-Listening sockets appeared ≤3 s after launch.
-Raw: `Research/raw/*-exp-a3-001-before/`, `Research/raw/*-exp-a3-001-after/`.
+起動から3秒以内に待ち受けソケットが現れました。
+生データ: `Research/raw/*-exp-a3-001-before/`、`Research/raw/*-exp-a3-001-after/`。
 
-## Hypothesis
-Hypothesis: TCP port and Bonjour instance name (peer ID) are regenerated per launch; UDP 7000 is fixed.
-Confidence: high for "TCP port is not fixed" (direct counterexample); medium for "random each launch" (n=1); medium for "7000 fixed" (n=2 launches, it may be a configurable OSC setting).
-Evidence: table above.
-Counterexamples: none.
-Next validation experiment: relaunch twice more; check whether the OSC port is configurable in Control Surface settings.
+## 仮説（Hypothesis）
 
-## Consequence for logicctl
-The Remote backend must resolve `_apple-lgremote._tcp` via Bonjour at connect time; never cache the port.
+仮説: TCP ポートと Bonjour インスタンス名（ピア ID）は起動ごとに生成し直され、UDP 7000 は固定です。
+確信度: 「TCP ポートは固定ではない」は高（直接の反例を確認）。「毎回ランダム」は中（n=1）。「7000 は固定」は中（起動2回分。設定可能な OSC ポートかもしれません）。
+根拠: 上の表。
+反例: なし。
+次の検証実験: さらに2回再起動し、コントロールサーフェス設定で OSC ポートを変更できるか確認します。
+
+## logicctl への影響
+
+Remote バックエンドは接続時に Bonjour で `_apple-lgremote._tcp` を解決する必要があります。ポートをキャッシュして使い回してはいけません。

@@ -1,55 +1,51 @@
-# EXP-MCU-020: MCU bank/channel navigation and the bank-offset bug
+[日本語](EXP-MCU-020-banking.md) | [English](EXP-MCU-020-banking.en.md)
 
-| Field | Value |
+# EXP-MCU-020: MCU のバンク・チャネル移動とバンク位置の不具合
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 14:44–14:58 JST |
-| Logic version | 12.3.1 (6682) |
-| macOS version | 27.0 (26A5416b) |
-| Test project | LogicCLI-Test.logicx, now 10 tracks: Piano, Audio, Bass, Synth, Trk05…Trk10 (audio) |
-| Tool | `logicctl debug mcu …` (raw MCU messages through logicd), `LOGICD_TRACE=1`, Accessibility track-header names |
+| 日時 | 2026-10-01 14:44–14:58 JST |
+| Logic バージョン | 12.3.1 (6682) |
+| macOS バージョン | 27.0 (26A5416b) |
+| テストプロジェクト | LogicCLI-Test.logicx。10トラックに拡張: Piano、Audio、Bass、Synth、Trk05…Trk10（オーディオ） |
+| ツール | `logicctl debug mcu …`（logicd 経由で MCU メッセージを直接送信）、`LOGICD_TRACE=1`、Accessibility で取得したトラックヘッダー名 |
 
-## Bug found (v0.1)
-After 6 tracks were added and track 10 was selected in the GUI, Logic had moved
-the MCU bank to offset 4 by itself (Control Surface setting 「選択中の表示に追従」 is on).
-`logicctl track select 5` then pressed strip 5 = **track 9** and reported
-`verified: true, selected_track: 5`; a following GUI rename hit track 9.
-v0.1 assumed strip *n* = track *n*. Severity: wrong-target write reported as verified.
+## 見つかった不具合（v0.1）
 
-## Observations (single presses, LCD upper row after each)
-| Start offset | Press | Result offset |
+6トラックを追加し、GUI でトラック10を選択した後、Logic は MCU バンクを自動でオフセット4へ移していました。コントロールサーフェス設定「選択中の表示に追従」がオンだったためです。
+
+この状態で `logicctl track select 5` を実行すると、ストリップ5、つまり**トラック9**を選択したのに、`verified: true, selected_track: 5` と報告しました。その後の GUI での名前変更もトラック9に適用されました。v0.1 は「ストリップ *n* = トラック *n*」と仮定していました。誤った対象への操作を検証済みと報告する重大な不具合です。
+
+## 観察（1回ずつボタンを押し、その都度 LCD 上段を確認）
+
+| 開始オフセット | 押したボタン | 結果のオフセット |
 |---|---|---|
-| 4 | Bank Left (0x2E) | 0 (clamped, not −4) |
-| 0 | Bank Left | 0 — **Logic sends nothing** (trace) |
-| 0 | Channel Right (0x31) | 1 — Logic sends LCD diff, select LED, and `F0 00 00 66 14 72 <8 colour bytes> F7` |
-| 1 | Bank Right (0x2F) | 4 = strips (12) − 8 (clamped, not 9) |
-| 4 | Bank Right / Channel Right | 4 — nothing sent |
-| reconnect logicd | — | offset kept by Logic (4 before and after) |
+| 4 | Bank Left (0x2E) | 0（下限で制限。−4 にはならない） |
+| 0 | Bank Left | 0 — **Logic は何も送信しない**（トレースで確認） |
+| 0 | Channel Right (0x31) | 1 — Logic が LCD 差分、選択 LED、`F0 00 00 66 14 72 <8 colour bytes> F7` を送信 |
+| 1 | Bank Right (0x2F) | 4 = ストリップ数 (12) − 8（上限で制限。9 にはならない） |
+| 4 | Bank Right / Channel Right | 4 — 送信なし |
+| logicd に再接続 | — | Logic が位置を保持（前後とも4） |
 
-Strip order = Logic mixer order in "アレンジ" mode: tracks 1…10, then St Out, Master.
-LCD shows only the ASCII part of names ("オーディオ 2" → "2").
+ストリップの順序は、Logic ミキサーの「アレンジ」モードの順序です。トラック1…10の後に St Out、Master が続きます。
+LCD に表示される名前は ASCII 部分だけです（「オーディオ 2」→「2」）。
 
-## Fix (logicd)
-- A bank move is detected by any LCD or `14 72` colour update within 300 ms of a
-  press; a no-op press produces none.
-- `home()`: Bank Left until nothing moves → offset 0. To reach track *n* (index
-  *n*−1 ≥ 8): Channel Right (*n*−8) times, counting only presses that moved.
-- The offset is cached and invalidated whenever a colour sysex arrives that
-  logicd did not cause (Logic moved the bank itself).
-- `track list` walks all strips by stepping Channel Right; volume comes from the
-  fader position via Logic's own table (SA-001), so no fader is touched.
+## 修正（logicd）
 
-## Verification after the fix
-- `track list`: 12 strips in 1.4 s, names match Accessibility for tracks 1–10.
-- Selected 10, then 5 → GUI inspector shows track 5 (screenshot).
-- For tracks 5–9: `logicctl track select n` then GUI rename — the rename field
-  each time contained track *n*'s old name (オーディオ 2…5, Trk05 for track 9);
-  final AX names Trk05…Trk09 on tracks 5–9.
-- Writes on tracks 9/10 (mute 10, volume 9 −6, pan 10 −0.5, solo 9) all verified;
-  AX: track 9 volume −6.0 dB, track 10 mute 1, track 10 pan 「64中の32、左」. Restored.
-- `track get 13` → `no_such_track`.
+- ボタンを押してから300 ms 以内の LCD 更新または `14 72` 色更新でバンク移動を検出します。移動しない操作では更新がありません。
+- `home()`: 動かなくなるまで Bank Left を押してオフセット0にします。トラック *n*（インデックス *n*−1 ≥ 8）へは、Channel Right を (*n*−8) 回押します。回数には実際に移動した操作だけを数えます。
+- オフセットをキャッシュします。logicd 自身の操作が原因ではない色 sysex が届いた場合は、Logic がバンクを移したと判断してキャッシュを無効にします。
+- `track list` は Channel Right で移動しながら全ストリップを走査します。音量はフェーダー位置から Logic 自身の変換表（SA-001）で求めるため、フェーダーには触れません。
 
-## Open
-Hypothesis: a bank move whose names and colours are identical to the previous
-view would be invisible to the detector. Confidence that this matters: low.
-Next: check whether Logic also resends colours when a track colour changes
-without a move (would only cause an extra re-home).
+## 修正後の検証
+
+- `track list`: 1.4秒で12ストリップを取得。トラック1–10の名前は Accessibility の結果と一致しました。
+- 10を選択してから5を選択すると、GUI インスペクタにトラック5が表示されました（スクリーンショット）。
+- トラック5–9について `logicctl track select n` の後に GUI で名前を変更しました。毎回、名前入力欄にはトラック *n* の変更前の名前が表示されました（トラック5–8はオーディオ 2…5、トラック9は Trk05）。最終的な AX 名は、トラック5–9に対して Trk05…Trk09 でした。
+- トラック9/10への書き込み（mute 10、volume 9 −6、pan 10 −0.5、solo 9）はすべて読み戻しで検証できました。AX でもトラック9の音量 −6.0 dB、トラック10の mute 1、トラック10のパン「64中の32、左」を確認しました。その後、元に戻しました。
+- `track get 13` → `no_such_track`。
+
+## 未解決
+
+仮説（Hypothesis）: 移動前後で名前も色も同じバンク移動は、この検出方法では見えない可能性があります。実際に問題になる確信度は低です。
+次の検証: バンク移動を伴わないトラック色の変更でも、Logic が色を再送するか確認します。その場合の影響は、余分な `home()` の実行だけです。

@@ -1,115 +1,135 @@
-# SA-005: How Logic pushes state to a Logic Remote peer (read direction)
+# SA-005: Logic から Logic Remote へ状態を送る仕組み（読み取り方向）
 
-| Field | Value |
+[日本語](SA-005-logic-remote-state-push.md) | [English](SA-005-logic-remote-state-push.en.md)
+
+| 項目 | 内容 |
 |---|---|
-| Date | 2026-10-01 |
-| Logic | 12.3.1 (6682), arm64 |
-| Binaries | `Logic.framework` (`LgLogicRemoteController`), `MACore.framework` (`MAPeerRouter`, `Bg*` constants), `Logic Remote.bundle` |
-| Method | Static only (Ghidra 12.1.4 decompile of already analysed programs, `Tools/ghidra/query.sh`; constant resolution with `Tools/research-scripts/macore_wire_keys.py`). Nothing was sent to Logic. |
-| Derived table | `Research/protocol/logic-remote-wire-keys.tsv` (83 constants) |
+| 日付 | 2026-10-01 |
+| Logic | 12.3.1（6682）、arm64 |
+| バイナリ | `Logic.framework`（`LgLogicRemoteController`）、`MACore.framework`（`MAPeerRouter`、`Bg*` 定数）、`Logic Remote.bundle` |
+| 方法 | 静的解析のみ。Ghidra 12.1.4 で解析済みプログラムを逆コンパイル（`Tools/ghidra/query.sh`）、`Tools/research-scripts/macore_wire_keys.py` で定数を文字列に解決。Logic へ何も送っていない |
+| 抽出したテーブル | `Research/protocol/logic-remote-wire-keys.tsv`（83 定数） |
 
-Scope: which messages carry **state from Logic to a Remote client**, as a candidate
-read path that does not depend on MCU. No dynamic confirmation yet; everything
-below is "code says", not "wire shows".
+対象は、**Logic から Remote クライアントへ状態を運ぶメッセージ**。
+MCU に依存しない読み取り経路の候補として調べた。
+動的な確認はまだなく、以下はすべて「コード上の処理」であり、
+「実際の通信で観測した動作」ではない。
 
-## 1. Wire constants (MACore exports, resolved to strings)
-Messages are `{address-or-key: argument}` dictionaries (SA-002 §3). The names the
-Logic side uses, resolved from MACore's exported `Bg*` CFString constants:
+## 1. 通信上の定数（MACore の公開シンボルから文字列に解決）
 
-| Constant | Wire value | Role (from use in Logic.framework) |
+メッセージは `{address-or-key: argument}` の辞書（SA-002 §3）。
+Logic 側で使う名前を、MACore が公開する `Bg*` CFString 定数から解決した。
+
+| 定数 | 通信上の値 | 役割（Logic.framework 内の使用箇所より） |
 |---|---|---|
-| `BgGInstAndTrackFaderDataKey` | `/gtFaderData` | batched fader/mute/solo/rec state |
-| `BgGInstFaderDataGInstDataSubKey` / `…TrackDataSubKey` | `g` / `t` | instrument-keyed / track-keyed sub-dictionaries |
-| `BgGInstFaderDataVolumeLevelLongKey` | `vL` | volume level (32-bit, signed byte shifted to the top, see §3) |
-| `BgGInstFaderDataMuteStateKey` / `…SoloStateKey` | `m` / `s` | mute / solo state |
-| `BgTrackFaderDataRecEnableStateKey` | `r` | record-enable state |
-| `BgFaderEventKey` | `/fader` | fader events *from* the Remote (`handleFader:`) |
-| `BgAllTracksInfoKey` / `BgSelectedTrackInfoKey` | `/ati` / `/sti` | track list / selected-track info |
-| `BgTrackInfo…Key` | `n` name, `tn` track number, `t` type, `p` pan type, `ip` independent pan, `c` colours, `nc` channels | members of those dictionaries |
-| `BgTrackSelectionStatePrefix` | `/trackSelectionStates` | selection states |
-| `BgLevelMeters…Key` | `lmL`, `lmR`, `ti`, `iMT`, `mlmv`, `pklv` | meters |
-| `BgProtocolVersionPrefix` | `/protocolVersion` | protocol version message |
-| `BgHostTypeKey`, `BgJSONSupportKey`, `BgHostLocaleIdentifierKey` | `/hostType`, `/jsonSupport`, `/hostLocaleIdentifier` | handshake-time properties |
-| `BgKeyCommand…` | `/keyCommand`, `/commandsQuery`, `/commandsResponse`, `/groupsQuery`, `/groupsResponse`, `/commandSearch`, `/commandResponse`, `/actionNum`, `/localizationRequest|Response`, `/keyCommandDictResponse` | key-command listing and execution (not traced yet) |
+| `BgGInstAndTrackFaderDataKey` | `/gtFaderData` | フェーダー / mute / solo / rec の状態をまとめて送る |
+| `BgGInstFaderDataGInstDataSubKey` / `…TrackDataSubKey` | `g` / `t` | インストゥルメント / トラックをキーにした下位の辞書 |
+| `BgGInstFaderDataVolumeLevelLongKey` | `vL` | 音量（32-bit。符号付き byte を上位へシフト。§3 参照） |
+| `BgGInstFaderDataMuteStateKey` / `…SoloStateKey` | `m` / `s` | mute / solo の状態 |
+| `BgTrackFaderDataRecEnableStateKey` | `r` | 録音待機の状態 |
+| `BgFaderEventKey` | `/fader` | Remote **から来る**フェーダーイベント（`handleFader:`） |
+| `BgAllTracksInfoKey` / `BgSelectedTrackInfoKey` | `/ati` / `/sti` | トラック一覧 / 選択トラックの情報 |
+| `BgTrackInfo…Key` | `n` 名前、`tn` トラック番号、`t` 種類、`p` パンの種類、`ip` 独立したパン、`c` 色、`nc` チャンネル数 | これらの辞書のメンバー |
+| `BgTrackSelectionStatePrefix` | `/trackSelectionStates` | 選択状態 |
+| `BgLevelMeters…Key` | `lmL`、`lmR`、`ti`、`iMT`、`mlmv`、`pklv` | メーター |
+| `BgProtocolVersionPrefix` | `/protocolVersion` | プロトコルバージョンのメッセージ |
+| `BgHostTypeKey`、`BgJSONSupportKey`、`BgHostLocaleIdentifierKey` | `/hostType`、`/jsonSupport`、`/hostLocaleIdentifier` | ハンドシェイク時の属性 |
+| `BgKeyCommand…` | `/keyCommand`、`/commandsQuery`、`/commandsResponse`、`/groupsQuery`、`/groupsResponse`、`/commandSearch`、`/commandResponse`、`/actionNum`、`/localizationRequest|Response`、`/keyCommandDictResponse` | キーコマンドの一覧と実行（まだ追跡していない） |
 
-Already known from `strings` (SA-002/osc-address-strings): `/transport/headerState`,
-`/transport/playButtonFlags`, `/transport/stopButtonState`, `/transport/pauseplay`,
-`/transport/sync`, `/transport/clickWhileRecording`, `/logicClock/currentTempo|locator|songLength`,
-`/mixerLevels`.
+`strings` で既に見つかっているもの（SA-002 / osc-address-strings）は、
+`/transport/headerState`、`/transport/playButtonFlags`、`/transport/stopButtonState`、
+`/transport/pauseplay`、`/transport/sync`、`/transport/clickWhileRecording`、
+`/logicClock/currentTempo|locator|songLength`、`/mixerLevels`。
 
-## 2. Connection sequence (Logic side)
-`LgLogicRemoteController -didConnectToPeerID:` runs, on the main queue, block
-`FUN_01699828`:
-1. tells the router about the peer;
-2. for every registered Remote control-surface object bound to this peer, runs the
-   feedback refresh `FUN_00efe9b4` (a full re-send of surface feedback);
-3. calls a "send everything" routine on the controller with the current song;
-4. if the peer's **protocol version is < 10**, shows "The version of Logic Remote on
-   … needs to be updated …" and calls a disconnect handler.
+## 2. 接続時の処理（Logic 側）
 
-→ A client must report a protocol version ≥ 10. This matches the Bonjour TXT
-`/protocolVersion=10` that Logic itself advertises (architecture.md §3.1). Whether the
-client's version travels as `/protocolVersion` is a hypothesis (medium: the constant
-exists and the check reads a per-peer version).
+`LgLogicRemoteController -didConnectToPeerID:` は、メインキュー上で
+ブロック `FUN_01699828` を実行する。
 
-## 3. The state dictionary and its change mask
-`-_addGInstAndTrackFaderStatesDictForInstWithID:trackID:pSong:changedMask:`:
-- creates/updates a per-instrument dictionary keyed by `NSNumber(instID)` and fills:
-  `vL` if `mask == 0` or bit 0; `s` if `mask == 0` or bit 13; `m` if `mask == 0` or any of
-  bits 12/14; and, into the track dictionary, `r` if `mask == 0` or bit 2.
-- **`changedMask == 0` includes every key.** It is the "full" mode; non-zero masks
-  produce partial updates.
-- `-collectGInstFaderStatesForInstID:changedMask:` with `instID == 0xFFFFFFFF` visits
-  all instruments; `-handleUpdateBits:` consumes `updateBitsArray` change
-  notifications and calls the per-element handler, i.e. incremental updates.
-- `-sendCollectedGInstAndTrackFaderDataIfNeeded` builds `{g: instDict, t: trackDict}`
-  and sends it as `/gtFaderData` **over TCP** (`useTCP: 1`), only if either dictionary
-  is non-empty.
+1. ルーターへ peer を知らせる。
+2. この peer に結び付いた、登録済みの Remote コントロールサーフェス・オブジェクトごとに、
+   フィードバック更新 `FUN_00efe9b4` を実行する（サーフェスのフィードバックをすべて再送）。
+3. 現在の song を使い、コントローラーの「すべて送る」処理を呼ぶ。
+4. peer の**プロトコルバージョンが 10 未満**なら、
+   "The version of Logic Remote on … needs to be updated …" を表示し、切断ハンドラーを呼ぶ。
 
-`vL` encoding seen in code: `(int8 at +0x8b) << 24`, i.e. a signed byte in the high
-8 bits (not yet tied to dB).
+したがって、クライアントはプロトコルバージョン ≥ 10 を報告する必要がある。
+Logic 自身が Bonjour TXT で公開する `/protocolVersion=10` と一致する
+（architecture.md §3.1）。クライアント側のバージョンが `/protocolVersion` で
+届くかは仮説（確信度は中。定数が存在し、検査は peer ごとのバージョンを読むため）。
 
-## 4. Transport
-- `-setHeaderState:` stores a 64-bit value and, **only when it changed**, sends
-  `/transport/headerState` with an integer.
-- Subsequent ARM64/selector-slot analysis in
-  [SA-AE-STATE-002](SA-AE-STATE-002-native-transport-state.md) resolves
-  `FUN_01ba7fa0` as `setTransportStopButtonState:` and `FUN_01ba7f20` as
-  `setTransportClickWhileRecording:`. `-updateTransportButtonStates` sends
-  `/transport/stopButtonState` and `/transport/clickWhileRecording` through
-  those setters. `/transport/playButtonFlags` is constructed separately by
-  `sendTransportPlayButtonFlags` at `0x0168f238`. These are static findings;
-  their runtime values and a complete transport-state schema remain unvalidated.
+## 3. 状態辞書と変更マスク
 
-## 5. Constraint: key-command setup omits initial zero states
-Correction and scope clarification: the reported initial-zero omission was
-**static evidence for `/keyCommandStateUpdate`**, not a captured live session
-or an observation of `/gtFaderData`. SA-AE-STATE-002 records the exact
-`keyCommandStateSetup:` branch (`0x01683c48..0x01683c50`) that skips sending
-an initial command status of zero. Later subscribed updates can send zero.
-No independent Remote client or live capture established that behavior yet.
+`-_addGInstAndTrackFaderStatesDictForInstWithID:trackID:pSong:changedMask:` は、次を行う。
 
-Static side:
-- The `/gtFaderData` function in §3 emits all its field keys when
-  `changedMask == 0`. There is no evidence here that it omits zero-valued
-  members. Whether connection-time collection enumerates every relevant
-  instrument/track and yields a complete received snapshot is still unknown.
-- Consequences for any client or for logicctl: treat an absent key as "not reported"
-  (unknown), never as 0 / off; build state from the initial reply **plus** later
-  incremental updates; never mark a write `verified` from a snapshot in which the
-  field is merely absent. A field never reported by either path remains unknown.
+- `NSNumber(instID)` をキーにするインストゥルメントごとの辞書を作成 / 更新する。
+  `vL` は `mask == 0` または bit 0、`s` は `mask == 0` または bit 13、
+  `m` は `mask == 0` または bits 12/14 のいずれかが立っている場合に入れる。
+  トラックの辞書には、`mask == 0` または bit 2 の場合に `r` を入れる。
+- **`changedMask == 0` は、すべてのキーを含める。**
+  これが全項目を送るモードであり、0 以外のマスクでは一部の項目だけを更新する。
+- `-collectGInstFaderStatesForInstID:changedMask:` は、`instID == 0xFFFFFFFF` の場合、
+  全インストゥルメントをたどる。`-handleUpdateBits:` は `updateBitsArray` の
+  変更通知を受け取り、要素ごとのハンドラーを呼ぶ。こちらは差分更新。
+- `-sendCollectedGInstAndTrackFaderDataIfNeeded` は `{g: instDict, t: trackDict}` を作り、
+  どちらかの辞書が空でない場合に限り、`/gtFaderData` として **TCP 経由**
+  （`useTCP: 1`）で送る。
 
-Next validation experiments (in order):
-1. Static: decompile `FUN_00efe9b4` (feedback refresh) and the per-element handler
-   called from `handleUpdateBits:` (`FUN_01b407c0` is a selector stub — resolve it).
-2. Static: locate where `/ati`, `/sti`, `/trackSelectionStates` dictionaries are built
-   and whether zero-valued members are skipped there.
-3. Dynamic (needs a real Logic Remote or our own MPC peer): capture the first reply and
-   a mute ON/OFF update of one track; compare keys present before/after.
+コード上の `vL` の表現は `(int8 at +0x8b) << 24`。
+符号付き byte を上位 8 bits に置く。dB との対応はまだ確認していない。
 
-## 6. Correction to SA-002
-`Logic Remote.bundle` `_CSFeedback` is **not** the message builder: it returns the
-feedback type of an Assign (`0` if the table entry's pointer at `+0x30` is null, else the
-value at `+0x38`, default 8). The extractor `Tools/ghidra/remote_table.py` prints the
-word at `+0x18` as "flags"; its meaning is unverified. Entries therefore carry at least a
-feedback pointer (`+0x30`) and feedback type (`+0x38`) that SA-002 did not decode.
+## 4. トランスポート
+
+- `-setHeaderState:` は 64-bit 値を保存し、**変化した場合だけ**、
+  整数を引数に `/transport/headerState` を送る。
+- その後の ARM64 とセレクタースロットの解析
+  [SA-AE-STATE-002](SA-AE-STATE-002-native-transport-state.md) で、
+  `FUN_01ba7fa0` が `setTransportStopButtonState:`、
+  `FUN_01ba7f20` が `setTransportClickWhileRecording:` と判明した。
+  `-updateTransportButtonStates` は、これらの setter を通して
+  `/transport/stopButtonState` と `/transport/clickWhileRecording` を送る。
+  `/transport/playButtonFlags` は別の処理、`0x0168f238` の
+  `sendTransportPlayButtonFlags` で構築する。これらは静的な解析結果であり、
+  実行時の値と、完全なトランスポート状態のスキーマは未検証。
+
+## 5. 制約: キーコマンドの初期設定では状態 0 を省略する
+
+訂正と対象範囲の明確化: 以前記載した「初期値 0 を省略する」という結果は、
+**`/keyCommandStateUpdate` の静的な解析結果**である。
+実機セッションの通信記録でも、`/gtFaderData` の観測結果でもない。
+SA-AE-STATE-002 には、初期コマンド状態が 0 の送信を飛ばす
+`keyCommandStateSetup:` の分岐（`0x01683c48..0x01683c50`）を記録している。
+購読開始後の更新では 0 を送ることがある。
+独立した Remote クライアントや実際の通信記録による裏付けはまだない。
+
+静的解析から分かることと、クライアント側で守るべき扱いは次のとおり。
+
+- §3 の `/gtFaderData` の関数は、`changedMask == 0` なら、すべてのフィールドの
+  キーを出力する。値が 0 のメンバーを省略するという根拠はない。
+  接続時の収集が対象となる全インストゥルメント / トラックを列挙し、
+  受信側で完全なスナップショットになるかは、まだ不明。
+- 任意のクライアントや logicctl は、存在しないキーを「未報告」（不明）として扱い、
+  0 / off と解釈しない。初回の応答**と**その後の差分更新から状態を組み立てる。
+  スナップショット内にフィールドがないだけでは、書き込みを `verified` にしない。
+  どちらの経路でも報告されないフィールドは不明のまま。
+
+次の検証実験は、以下の順で行う。
+
+1. 静的解析: `FUN_00efe9b4`（フィードバック更新）と、
+   `handleUpdateBits:` が呼ぶ要素ごとのハンドラーを逆コンパイルする。
+   `FUN_01b407c0` はセレクタースタブなので、実体を解決する。
+2. 静的解析: `/ati`、`/sti`、`/trackSelectionStates` の辞書を構築する場所を探し、
+   値が 0 のメンバーを省略するか調べる。
+3. 動的解析（実際の Logic Remote または自前の MPC peer が必要）:
+   初回応答と、1 トラックの mute ON/OFF 更新を記録し、含まれるキーを前後で比較する。
+
+## 6. SA-002 の訂正
+
+`Logic Remote.bundle` の `_CSFeedback` は**メッセージを作る関数ではない**。
+Assign のフィードバック種別を返す。テーブル要素の `+0x30` のポインターが
+null なら `0`、そうでなければ `+0x38` の値を返す。既定値は 8。
+
+抽出スクリプト `Tools/ghidra/remote_table.py` は `+0x18` の word を
+"flags" として出力するが、その意味は未検証。
+したがって、各要素には少なくともフィードバックのポインター（`+0x30`）と
+種別（`+0x38`）があり、SA-002 ではこれらを解読していなかった。

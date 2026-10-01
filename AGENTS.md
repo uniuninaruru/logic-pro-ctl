@@ -1,21 +1,14 @@
+[日本語](AGENTS.md) | [English](AGENTS.en.md)
+
 # AGENTS.md
 
-Rules for agents working in this repo. The full brief is in the project
-history; these are the ones that bite.
+このリポジトリで作業するエージェント向けのルールです。依頼の全体像はプロジェクトの履歴にあります。ここには、作業時に特に守るべき点をまとめます。
 
-- Research is an experiment log. Record observations with their source file;
-  mark guesses as `Hypothesis` with a confidence. Never promote a guess to fact
-  without a recorded experiment (`Research/experiments/TEMPLATE.md`).
-- One variable per experiment. Validate a field with several values and
-  several tracks before calling it known.
-- Only touch the dedicated test project `LogicCLI-Test.logicx`. Never run
-  experiments on real music projects.
-- Do not modify the Logic binary, disable SIP, break code signatures, or use
-  `sudo` without stating why and asking first.
-- Product code (Swift, `Sources/`) never depends on `Research/` or `Tools/`.
-  Research tooling may be Python.
-- CLI: JSON on stdout, diagnostics on stderr. No write without readback;
-  report `verified: false` when readback is impossible.
-- `Research/raw/` is gitignored; commit curated results only.
-- Logic 12.x bundle ID is `com.apple.mobilelogic` and the app name may carry an
-  edition suffix ("Logic Pro Creator Studio"). Never hardcode either.
+- `Research/` は実験記録です。観察には根拠となるファイルを添え、推測は `Hypothesis`（仮説）と明示して確信度を記録してください。実験記録（`Research/experiments/TEMPLATE.md`）がない推測を事実として扱わないでください。
+- 1回の実験で変える条件は1つだけです。フィールドの意味を確定する前に、複数の値と複数のトラックで検証してください。
+- 操作するのは専用テストプロジェクト `LogicCLI-Test.logicx` だけです。実際の音楽制作プロジェクトで実験しないでください。
+- Logic のバイナリ変更、SIP の無効化、コード署名の破壊、`sudo` の使用は、理由を説明して確認を求めるまでは行わないでください。
+- 製品コード（Swift、`Sources/`）は `Research/` や `Tools/` に依存させないでください。調査ツールには Python を使って構いません。
+- CLI は標準出力に JSON、標準エラーに診断を出します。書き込みには読み戻しによる確認を伴わせ、読み戻せない場合は `verified: false` を報告してください。
+- `Research/raw/` は Git の追跡対象外です。コミットするのは整理した結果だけです。
+- Logic 12.x のバンドル ID は `com.apple.mobilelogic` で、アプリ名にはエディション名（「Logic Pro Creator Studio」など）が付く場合があります。どちらも固定値として埋め込まないでください。

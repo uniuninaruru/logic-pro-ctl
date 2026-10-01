@@ -1,32 +1,27 @@
-# Prior art
+[日本語](prior-art.md) | [English](prior-art.en.md)
 
-Treat every claim here as unverified until reproduced on Logic 12.3.1 /
-macOS 27 and recorded under `Research/experiments/`.
+# 先行調査
 
-## evilsocket — Reverse Engineering the Apple MultiPeer Connectivity Framework (2022-10-20)
+ここにある主張は、Logic 12.3.1 / macOS 27 で再現し、`Research/experiments/` に記録するまでは未検証として扱います。
+
+## evilsocket — Reverse Engineering the Apple MultiPeer Connectivity Framework（2022-10-20）
+
 - URL: https://www.evilsocket.net/2022/10/20/Reverse-Engineering-the-Apple-MultiPeer-Connectivity-Framework
-- PoC: https://github.com/evilsocket/mpcfw (Python; mdns, tcp, stun, "ospf" modules).
-  **No license file** — read for reference only, do not copy code into this repo.
-- Started from Logic Remote traffic. Claims (all unverified here):
-  - TCP server port random per launch, advertised via mDNS; peer ID is a random
-    64-bit integer in base36 (matches our instance name `174jnk4ko0l8w` in shape).
-  - TCP header: 2-byte signature (Hello/Ack/Accept/Invitation/InviteResponse/
-    ClientData), 4-byte sequence+flags, 2-byte payload size, 4-byte CRC32,
-    4-byte constant unknown.
-  - Payloads are binary plists (`bplist00`), nested; keys
-    `MCNearbyServiceInviteIDKey`, `MCNearbyServiceSenderPeerIDKey`,
-    `MCNearbyServiceConnectionDataKey`, etc.
-  - Session data goes over UDP after an Apple-flavoured STUN/ICE exchange; an
-    inner packet format with signature byte 0xC1, channel ID, CRC16/ARC, and
-    sender/receiver peer IDs.
-  - Authorization is based on peer hostname only.
-  - Logic's application message format was **not** documented.
+- PoC: https://github.com/evilsocket/mpcfw（Python。mdns、tcp、stun、"ospf" モジュール）。**ライセンスファイルがありません**。参考として読むだけにし、このリポジトリへコードをコピーしないでください。
+- Logic Remote の通信を起点にした調査です。以下は記事の主張であり、この調査記録ではいずれも未検証です。
+  - TCP サーバーのポートは起動ごとにランダムに決まり、mDNS で告知されます。ピア ID はランダムな64ビット整数の base36 表記です（こちらで観測したインスタンス名 `174jnk4ko0l8w` と形式が一致します）。
+  - TCP ヘッダーは、2バイトのシグネチャ（Hello/Ack/Accept/Invitation/InviteResponse/ClientData）、4バイトのシーケンス番号＋フラグ、2バイトのペイロードサイズ、4バイトの CRC32、意味不明の4バイト定数からなります。
+  - ペイロードは入れ子のバイナリ plist（`bplist00`）です。`MCNearbyServiceInviteIDKey`、`MCNearbyServiceSenderPeerIDKey`、`MCNearbyServiceConnectionDataKey` などのキーを使います。
+  - Apple 独自の STUN/ICE 交換後、セッションデータを UDP で送ります。内部パケットの形式には、シグネチャバイト 0xC1、チャネル ID、CRC16/ARC、送信元・受信先のピア ID が含まれます。
+  - 認可の根拠はピアのホスト名だけです。
+  - Logic のアプリケーションメッセージ形式は**記載されていません**。
 
 ## Alban Diquet — "It Just (Net)Works", HITB KUL 2014
+
 - https://archive.conference.hitb.org/hitbsecconf2014kul/sessions/it-just-networks-the-truth-about-apples-multipeer-connectivity-framework/
-- High-level MPC analysis.
+- MPC の全体像を扱う分析です。
 
 ## Logic OSC / TouchOSC
-- https://hardware.hexler.net/touchosc/manual/setup-logic — TouchOSC as a Logic
-  control surface; Logic receives OSC on port 7000.
+
+- https://hardware.hexler.net/touchosc/manual/setup-logic — TouchOSC を Logic のコントロールサーフェスとして使う設定です。Logic はポート 7000 で OSC を受信します。
 - https://cycling74.com/forums/controlling-logic-pro-x-through-osc
