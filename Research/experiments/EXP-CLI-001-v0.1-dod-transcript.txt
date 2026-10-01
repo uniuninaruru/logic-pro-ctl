@@ -1,0 +1,78 @@
+# EXP-CLI-001: logicctl v0.1 Definition of Done against Logic 12.3.1 (6682), macOS 27.0, LogicCLI-Test.logicx
+# 2026-10-01T04:56:08Z. Each line: command, then stdout JSON, then exit status. logicd auto-started by the first command.
+
+$ logicctl status --json
+{"backend":"mcu","command":"status","id":"9EC494CF-693C-4C3E-B5CC-336206B7BE4A","ok":true,"result":{"daemon":{"pid":45175},"logic":{"build":"6682","bundle_id":"com.apple.mobilelogic","name":"Logic Pro","path":"\/Applications\/Logic Pro Creator Studio.app","pid":37546,"version":"12.3.1"},"mcu":{"connected":false,"handshake_at":null,"port":"logicctl-mcu"}},"verified":false}
+exit=0
+$ logicctl transport play --json
+{"backend":"mcu","command":"transport.play","id":"E279AAFB-2CF6-45BF-B79A-8015A9897855","observed":{"playing":true,"recording":false},"ok":true,"requested":{"playing":true},"verified":true}
+exit=0
+$ logicctl transport stop --json
+{"backend":"mcu","command":"transport.stop","id":"3E287CBA-F431-4C95-A165-738B60035624","observed":{"playing":false,"recording":false},"ok":true,"requested":{"playing":false},"verified":true}
+exit=0
+$ logicctl track list --json
+{"backend":"mcu","command":"track.list","id":"6ACDFEBD-93C3-4815-80E0-7E384BB93E3C","ok":true,"result":[{"id":1,"mute":false,"name":"Piano","pan":0,"pan_raw":0,"rec_armed":true,"selected":true,"solo":false,"volume_db":-6.1,"volume_source":"lcd"},{"id":2,"mute":false,"name":"Audio","pan":0,"pan_raw":0,"rec_armed":false,"selected":false,"solo":false,"volume_db":0,"volume_source":"lcd"},{"id":3,"mute":false,"name":"Bass","pan":0,"pan_raw":0,"rec_armed":false,"selected":false,"solo":false,"volume_db":0,"volume_source":"lcd"},{"id":4,"mute":false,"name":"Synth","pan":0,"pan_raw":0,"rec_armed":false,"selected":false,"solo":false,"volume_db":0,"volume_source":"lcd"},{"id":5,"mute":false,"name":"St Out","pan":0,"pan_raw":0,"rec_armed":false,"selected":false,"solo":false,"volume_db":0,"volume_source":"lcd"},{"id":6,"mute":false,"name":"Master","pan":null,"pan_raw":null,"rec_armed":false,"selected":false,"solo":false,"volume_db":0,"volume_source":"lcd"}],"verified":false}
+exit=0
+$ logicctl track mute 1 on --json
+{"backend":"mcu","command":"track.mute","id":"CC35E36D-AB06-437E-911C-573F17306178","observed":{"mute":true,"track":1},"ok":true,"requested":{"mute":true,"track":1},"verified":true}
+exit=0
+$ logicctl track mute 1 off --json
+{"backend":"mcu","command":"track.mute","id":"9CCE50E0-26E1-4D44-B7DD-35F2D480DCC2","observed":{"mute":false,"track":1},"ok":true,"requested":{"mute":false,"track":1},"verified":true}
+exit=0
+$ logicctl track volume 1 -6 --json
+{"backend":"mcu","command":"track.volume","id":"66B10D2D-9841-4FE2-AA93-0A13B4BE8232","observed":{"fader_value":9874,"track":1,"volume_db":-6},"ok":true,"requested":{"track":1,"volume_db":-6},"verified":true}
+exit=0
+$ logicctl track volume 1 -3 --json
+{"backend":"mcu","command":"track.volume","id":"A85F804C-A50B-4C85-9E6F-6E17BC699FC4","observed":{"fader_value":11248,"track":1,"volume_db":-3},"ok":true,"requested":{"track":1,"volume_db":-3},"verified":true}
+exit=0
+$ logicctl track volume 1 -12 --json
+{"backend":"mcu","command":"track.volume","id":"E488FBB2-98D3-4949-BC00-6FF8BC7BB3CC","observed":{"fader_value":7178,"track":1,"volume_db":-12},"ok":true,"requested":{"track":1,"volume_db":-12},"verified":true}
+exit=0
+$ logicctl track volume 1 -inf --json
+{"backend":"mcu","command":"track.volume","id":"3230BE96-881B-4501-81D0-15D298A562E6","observed":{"fader_value":0,"track":1,"volume_db":"-inf"},"ok":true,"requested":{"track":1,"volume_db":"-inf"},"verified":true}
+exit=0
+$ logicctl track volume 1 0 --json
+{"backend":"mcu","command":"track.volume","id":"7F22D816-1C52-4185-BEA0-92CD0BEC7FA2","observed":{"fader_value":12443,"track":1,"volume_db":0},"ok":true,"requested":{"track":1,"volume_db":0},"verified":true}
+exit=0
+$ logicctl track volume 2 -6 --json
+{"backend":"mcu","command":"track.volume","id":"07A11267-CB2C-4ECF-B6C2-EC4CEE38D38E","observed":{"fader_value":9874,"track":2,"volume_db":-6},"ok":true,"requested":{"track":2,"volume_db":-6},"verified":true}
+exit=0
+$ logicctl track volume 2 0 --json
+{"backend":"mcu","command":"track.volume","id":"88BFBF28-1FF1-4B3C-AE4D-966B939E5883","observed":{"fader_value":12443,"track":2,"volume_db":0},"ok":true,"requested":{"track":2,"volume_db":0},"verified":true}
+exit=0
+$ logicctl track solo 2 on --json
+{"backend":"mcu","command":"track.solo","id":"398B47E9-FCE7-4C70-96E3-A0E8D597F613","observed":{"solo":true,"track":2},"ok":true,"requested":{"solo":true,"track":2},"verified":true}
+exit=0
+$ logicctl track mute 3 on --json
+{"backend":"mcu","command":"track.mute","id":"CD54B9E6-C755-4C56-BC40-D71D2E9ED300","observed":{"mute":true,"track":3},"ok":true,"requested":{"mute":true,"track":3},"verified":true}
+exit=0
+$ logicctl track mute 3 off --json
+{"backend":"mcu","command":"track.mute","id":"4255E86D-C995-4B7E-9EE7-DF31B311AABF","observed":{"mute":false,"track":3},"ok":true,"requested":{"mute":false,"track":3},"verified":true}
+exit=0
+$ logicctl track solo 2 off --json
+{"backend":"mcu","command":"track.solo","id":"5710964E-944A-45A4-8941-6B5A818F490E","observed":{"solo":false,"track":2},"ok":true,"requested":{"solo":false,"track":2},"verified":true}
+exit=0
+$ logicctl track pan 3 -0.25 --json
+{"backend":"mcu","command":"track.pan","id":"4ADEB518-610A-4246-867D-BD82E16BEAF5","observed":{"pan":-0.25,"pan_raw":-16,"track":3},"ok":true,"requested":{"pan":-0.25,"pan_raw":-16,"track":3},"verified":true}
+exit=0
+$ logicctl track pan 3 0 --json
+{"backend":"mcu","command":"track.pan","id":"A0A0AACE-1856-4EB1-8EAA-51876240688C","observed":{"pan":0,"pan_raw":0,"track":3},"ok":true,"requested":{"pan":0,"pan_raw":0,"track":3},"verified":true}
+exit=0
+$ logicctl track select 3 --json
+{"backend":"mcu","command":"track.select","id":"06811159-462E-4657-80DB-C7EED712DF05","message":"Logic moves record-arm with the selection when auto rec-arm is on.","observed":{"selected_track":3},"ok":true,"requested":{"selected_track":3},"verified":true}
+exit=0
+$ logicctl track select 1 --json
+{"backend":"mcu","command":"track.select","id":"61E458D8-CBC6-41E6-903B-6C06669C7E44","message":"Logic moves record-arm with the selection when auto rec-arm is on.","observed":{"selected_track":1},"ok":true,"requested":{"selected_track":1},"verified":true}
+exit=0
+$ logicctl track get 1 --json
+{"backend":"mcu","command":"track.get","id":"2F84174D-69BF-4142-9850-BCFF1F2316EA","ok":true,"result":{"id":1,"mute":false,"name":"Piano","pan":0,"pan_raw":0,"rec_armed":true,"selected":true,"solo":false,"volume_db":0,"volume_source":"lcd"},"verified":false}
+exit=0
+$ logicctl track volume 1 -6.05 --tolerance 0 --json
+{"backend":"mcu","command":"track.volume","error":"verification_failed","id":"CACE0C05-DBD3-4B15-B135-B45F780BE9F6","observed":{"fader_value":9815,"track":1,"volume_db":-6.1},"ok":false,"requested":{"track":1,"volume_db":-6.05},"verified":false}
+exit=1
+$ logicctl track volume 1 0 --json
+{"backend":"mcu","command":"track.volume","id":"9188D809-6665-4AFD-9897-2CF89F11C63C","observed":{"fader_value":12443,"track":1,"volume_db":0},"ok":true,"requested":{"track":1,"volume_db":0},"verified":true}
+exit=0
+$ logicctl track volume 9 -6 --json
+{"backend":"mcu","command":"track.volume","error":"track_out_of_bank","id":"7FB03BD4-740F-40C7-8EC4-D7573996D7D4","message":"v0.1 controls tracks 1–8 (first MCU bank). Track 9 needs bank switching.","ok":false,"verified":false}
+exit=1

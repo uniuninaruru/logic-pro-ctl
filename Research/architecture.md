@@ -115,6 +115,18 @@ See `Research/notes/prior-art.md`.
 ## 6. Open questions / next experiments
 1. ~~EXP-A3-001~~ done: TCP port changes per launch; resolve via Bonjour.
 2. **EXP-A3-002**: capture loopback/Wi-Fi traffic while a real Logic Remote device connects, to confirm the MPC framing and protocolVersion 10. Needs an iPad/iPhone with Logic Remote, and `tcpdump` (requires sudo or BPF access — ask first).
-3. ~~EXP-A3-003~~ done as EXP-MCU-001…009. Next: validate on tracks 2–4, solo, pan, banking past 8 tracks, transport.
+3. ~~EXP-A3-003~~ done as EXP-MCU-001…016; implemented as the v0.1 MCU backend (EXP-CLI-001). Next: banking past 8 tracks, undo behaviour, plugin parameters via MCU plug-in mode.
 4. **EXP-A3-004**: list distributed notifications Logic posts during play/stop (`NSDistributedNotificationCenter` observer, read-only).
 5. Find where Logic reads user Lua MIDI Device Scripts.
+
+## 7. Implementation notes from v0.1 (logicd MCU backend)
+- Restarting logicd within ~0.3 s of the old ports disappearing left Logic silent
+  (no device query) in 3 of 5 restarts; after a pause of a few seconds it always
+  queried. logicd now re-plugs its ports if no query arrives within 2.5 s
+  (5/5 rapid restarts connected, 4 via re-plug).
+- Re-creating the port with the same name reuses the single "Mackie Control"
+  entry in Control Surface Setup (no duplicates after ~10 restarts).
+- After a select, Logic shows the track name in the strip's lower LCD cell for
+  up to ~3 s before returning to the pan value.
+- Logic streams its state dump for a few hundred ms after the handshake; LCD
+  reads during that window are overwritten, so logicd waits 1 s after it.
