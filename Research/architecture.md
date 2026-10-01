@@ -133,3 +133,6 @@ See `Research/notes/prior-art.md`.
 - Mixer writes (MCU or GUI) add no Undo steps with Logic's default Undo History
   setting; the panel offers 「パラメータの変更を含める: ミキサー / プラグイン」
   (EXP-UNDO-001). Undoing a rename did not refresh the MCU LCD name.
+- With 「ミキサー」 enabled, MCU volume/pan writes become Undo steps but close
+  writes coalesce and Undo once restored an unrequested −11.4 dB; mute is never
+  recorded (EXP-UNDO-002). A GUI rename refreshes the MCU LCD; an undone rename does not.
