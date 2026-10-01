@@ -77,11 +77,12 @@ func fixture(_ name: String) throws -> [[UInt8]] {
 }
 
 @Test func faderCalibration() {
-    #expect(FaderCalibration.value(forDB: 0) == 12443)
-    #expect(FaderCalibration.value(forDB: 6) == 14845)
+    #expect(FaderCalibration.value(forDB: 0) == 12441)
+    #expect(FaderCalibration.value(forDB: 6) == 14843)
     #expect(FaderCalibration.value(forDB: -.infinity) == 0)
     #expect(FaderCalibration.db(forValue: 0) == -.infinity)
-    #expect(abs(FaderCalibration.db(forValue: 10969) - -3.7) < 0.15)  // EXP-MCU-008 observed -3.7
+    #expect((FaderCalibration.db(forValue: 10969) * 10).rounded() / 10 == -3.7)  // EXP-MCU-008 LCD
+    #expect((FaderCalibration.db(forValue: 7154) * 10).rounded() / 10 == -12.1)  // EXP-MCU-009 LCD
     let values = stride(from: -60.0, through: 6.0, by: 0.5).map(FaderCalibration.value(forDB:))
     #expect(values == values.sorted())
 }
