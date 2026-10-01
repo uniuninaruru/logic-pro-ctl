@@ -23,16 +23,18 @@ while let arg = argv.first {
     case "--socket" where !argv.isEmpty: socketPath = argv.removeFirst()
     case "--trace": trace = true
     default:
-        log("usage: logicd [--socket PATH] [--trace]")
+        log("使い方: logicd [--socket PATH] [--trace]")
         exit(64)
     }
 }
 
 let backend = MCUBackend(trace: trace, log: log)
+let appleEventBackend = AppleEventTransportBackend(readback: backend)
+let router = CommandRouter(mcu: backend, appleEvent: appleEventBackend)
 do {
     try backend.start()
 } catch {
-    log("error: \(error)")
+    log("エラー: \(error)")
     exit(1)
 }
 
@@ -40,17 +42,17 @@ let listener: SocketListener
 do {
     listener = try SocketListener(path: socketPath)
 } catch {
-    log("error: \(error)")
+    log("エラー: \(error)")
     exit(1)
 }
-log("pid=\(getpid()) listening on \(socketPath)")
+log("PID=\(getpid())、接続を待っています: \(socketPath)")
 
 var signalSources: [DispatchSourceSignal] = []
 for sig in [SIGINT, SIGTERM] {
     signal(sig, SIG_IGN)
     let src = DispatchSource.makeSignalSource(signal: sig, queue: .main)
     src.setEventHandler {
-        log("signal \(sig), exiting")
+        log("シグナル \(sig) を受け取り、終了します")
         unlink(socketPath)
         exit(0)
     }
@@ -62,7 +64,7 @@ let commandLock = NSLock()
 
 func handle(_ line: String) -> (response: Response, stop: Bool) {
     guard let request = try? JSONDecoder().decode(Request.self, from: Data(line.utf8)) else {
-        return (Response(id: "", ok: false, command: "", error: "bad_request", message: "not a Request JSON object"), false)
+        return (Response(id: "", ok: false, command: "", error: "bad_request", message: "リクエストのJSON形式が正しくありません"), false)
     }
     let command: LogicCommand
     do {
@@ -73,15 +75,25 @@ func handle(_ line: String) -> (response: Response, stop: Bool) {
         return (Response(id: request.id, ok: false, command: request.command, error: "internal", message: "\(error)"), false)
     }
     if command == .daemonStop {
-        return (Response(id: request.id, ok: true, command: request.command, message: "logicd stopping"), true)
+        do { _ = try CommandBackendSelection.resolve(request.backend, for: command) }
+        catch let e as CommandError {
+            return (Response(id: request.id, ok: false, command: request.command, backend: request.backend,
+                             error: e.code, message: e.message), false)
+        } catch {
+            return (Response(id: request.id, ok: false, command: request.command, error: "internal"), false)
+        }
+        return (Response(id: request.id, ok: true, command: request.command, message: "logicd を停止します"), true)
     }
     commandLock.lock()
     let started = Date()
-    let o = backend.execute(command)
+    let routed = router.execute(command, backend: request.backend)
+    let o = routed.outcome
     commandLock.unlock()
-    log("cmd=\(request.command) args=\(request.args) ok=\(o.ok) verified=\(o.verified) "
+    log("id=\(request.id) cmd=\(request.command) backend=\(routed.backend) readback=\(routed.readbackBackend ?? "-") "
+        + "args=\(request.args) ok=\(o.ok) verified=\(o.verified) "
         + "error=\(o.error ?? "-") ms=\(Int(Date().timeIntervalSince(started) * 1000))")
-    return (Response(id: request.id, ok: o.ok, command: request.command, backend: backend.kind.rawValue,
+    return (Response(id: request.id, ok: o.ok, command: request.command, backend: routed.backend,
+                     readbackBackend: routed.readbackBackend,
                      verified: o.verified, requested: o.requested, observed: o.observed, result: o.result,
                      error: o.error, message: o.message), false)
 }
@@ -95,7 +107,7 @@ Thread.detachNewThread {
                 let data = (try? JSONEncoder.logicctl.encode(response)) ?? Data("{\"ok\":false}".utf8)
                 try? conn.writeLine(String(decoding: data, as: UTF8.self))
                 if stop {
-                    log("stopping on request")
+                    log("停止リクエストにより終了します")
                     unlink(socketPath)
                     exit(0)
                 }

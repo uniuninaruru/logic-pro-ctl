@@ -122,4 +122,55 @@ func fixture(_ name: String) throws -> [[UInt8]] {
     let values = stride(from: -60.0, through: 6.0, by: 0.5).map(FaderCalibration.value(forDB:))
     #expect(values == values.sorted())
 }
+
+@Test func transportDefaultsAreUnknownUntilBothLEDsArrive() {
+    var surface = MCUSurface()
+    #expect(surface.transportSnapshot() == nil)
+    _ = surface.feed([0x90, MCU.playNote, 0])
+    #expect(surface.transportSnapshot() == nil)
+    _ = surface.feed([0x90, MCU.recordNote, 0])
+    #expect(surface.transportSnapshot() == TransportSnapshot(playing: false, recording: false))
+    // A new session cannot reuse those off LEDs as evidence.
+    #expect(surface.transportSnapshot(sincePlayUpdate: 1, sinceRecordUpdate: 1) == nil)
+    _ = surface.feed([0x90, MCU.playNote, 0x7f, 0x90, MCU.recordNote, 0])
+    #expect(surface.transportSnapshot(sincePlayUpdate: 1, sinceRecordUpdate: 1) == TransportSnapshot(playing: true, recording: false))
+    surface.reset()
+    #expect(surface.transportSnapshot() == nil)
+}
+
+@Test func handshakeKeepsLaterFeedbackInTheSameBatch() {
+    var surface = MCUSurface()
+    let query = MCU.sysexHeader + [0x00, 0xf7]
+    let lcd = MCU.sysexHeader + [0x12, 0] + Array("Piano".utf8) + [0xf7]
+    let off = [UInt8(0x90), MCU.playNote, 0, 0x90, MCU.recordNote, 0]
+    _ = surface.feed(lcd + off) // A previous session's cache.
+    let events = surface.feed(query + lcd + off)
+    let baseline = surface.feedbackCounters(atEvent: 0, in: events)
+    #expect(baseline.lcd == 1)
+    #expect(baseline.play == 1 && baseline.record == 1)
+    #expect(surface.lcdUpdates > baseline.lcd)
+    #expect(surface.transportSnapshot(sincePlayUpdate: baseline.play, sinceRecordUpdate: baseline.record)
+            == TransportSnapshot(playing: false, recording: false))
+
+    // If the last handshake has no following feedback, earlier updates do
+    // not qualify, including those earlier in the same packet batch.
+    let next = surface.feed(lcd + off + query)
+    let latest = surface.feedbackCounters(atEvent: next.count - 1, in: next)
+    #expect(surface.lcdUpdates == latest.lcd)
+    #expect(surface.transportSnapshot(sincePlayUpdate: latest.play, sinceRecordUpdate: latest.record) == nil)
+}
+
+@Test func transportSnapshotRejectsPreviousSessionLEDsAfterAQuery() {
+    var surface = MCUSurface()
+    _ = surface.feed([0x90, MCU.playNote, 0x7f, 0x90, MCU.recordNote, 0])
+    #expect(surface.transportSnapshot() == TransportSnapshot(playing: true, recording: false))
+    _ = surface.feed([0xf0, 0, 0, 0x66, 0x15, 0, 0xf7]) // Another model.
+    #expect(surface.transportSnapshot() == TransportSnapshot(playing: true, recording: false))
+    _ = surface.feed(MCU.sysexHeader + [0, 0xf7])
+    #expect(surface.transportSnapshot() == nil) // Old counters do not validate cleared off LEDs.
+    _ = surface.feed([0x90, MCU.playNote, 0])
+    #expect(surface.transportSnapshot() == nil)
+    _ = surface.feed([0x90, MCU.recordNote, 0])
+    #expect(surface.transportSnapshot() == TransportSnapshot(playing: false, recording: false))
+}
 #endif

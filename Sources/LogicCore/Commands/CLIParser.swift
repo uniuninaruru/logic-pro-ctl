@@ -6,21 +6,22 @@ import Foundation
 /// Negative numbers ("-6", "-0.25") are positional values, not flags.
 public enum CLIParser {
     public static let usage = """
-        usage: logicctl <command> [--json]
-          status                         daemon, Logic and control-surface status
-          state                          transport + all tracks
-          transport play|stop
-          track list
-          track get <n>
-          track select <n>
-          track mute <n> on|off
-          track solo <n> on|off
-          track volume <n> <dB|-inf> [--tolerance <dB>]
-          track pan <n> <-1…1>
-          daemon stop
-          debug mcu <hex bytes>[; <hex bytes>…]   research: raw MCU messages
-        Tracks are 1-based. Every write reads the state back; "verified": true
-        means the readback matched the request.
+        使い方: logicctl <command> [--json] [--backend mcu|appleevent]
+          status                         daemon・Logic・コントロールサーフェスの接続状態
+          state                          再生状態と全トラック
+          transport play|stop            再生・停止
+          track list                     チャンネルストリップの一覧
+          track get <n>                  指定したストリップの状態
+          track select <n>               選択
+          track mute <n> on|off           ミュート
+          track solo <n> on|off           ソロ
+          track volume <n> <dB|-inf> [--tolerance <dB>]  音量（既定の許容差: 0.1 dB）
+          track pan <n> <-1…1>           パン（左 -1、中央 0、右 1）
+          daemon stop                    常駐プロセスを停止
+          debug mcu <hex bytes>[; <hex bytes>…]   調査用: 生のMCUメッセージを送信
+        トラック番号は1からです。操作後に状態を読み返します。
+        "verified": true は、確認できた状態が要求と一致したことを表します。
+        --backend appleevent は transport play|stop 専用です。状態はMCUで確認します。
         """
 
     public static func parse(_ argv: [String]) throws -> Request {
@@ -35,8 +36,14 @@ public enum CLIParser {
             }
             if w.hasPrefix("--") {
                 let key = String(w.dropFirst(2))
-                guard key == "tolerance" else { throw CommandError("usage", "unknown option \(w)") }
-                guard i + 1 < argv.count else { throw CommandError("usage", "\(w) needs a value") }
+                guard key == "tolerance" || key == "backend" else {
+                    throw CommandError("usage", "不明なオプションです: \(w)")
+                }
+                guard options[key] == nil else { throw CommandError("usage", "同じオプションは1回だけ指定してください: \(w)") }
+                guard i + 1 < argv.count else { throw CommandError("usage", "\(w) の値を指定してください") }
+                guard !argv[i + 1].hasPrefix("--") else {
+                    throw CommandError("usage", "\(w) の値を指定してください")
+                }
                 options[key] = argv[i + 1]
                 i += 2
                 continue
@@ -46,44 +53,65 @@ public enum CLIParser {
         }
 
         func need(_ n: Int, _ form: String) throws {
-            guard words.count == n else { throw CommandError("usage", "expected: logicctl \(form)") }
+            guard words.count == n else { throw CommandError("usage", "使い方: logicctl \(form)") }
+        }
+
+        let backend = options["backend"]
+        if let backend, backend != BackendKind.mcu.rawValue && backend != BackendKind.appleEvent.rawValue {
+            throw CommandError("usage", "経路 \(backend) は使えません。mcu または appleevent を指定してください")
+        }
+        if backend == BackendKind.appleEvent.rawValue &&
+            !(words.count == 2 && words[0] == "transport" && ["play", "stop"].contains(words[1])) {
+            throw CommandError("usage", "--backend appleevent は transport play|stop で使えます")
+        }
+        if options["tolerance"] != nil && !(words.count >= 2 && words[0] == "track" && words[1] == "volume") {
+            throw CommandError("usage", "--tolerance は track volume で使えます")
+        }
+        if let tolerance = options["tolerance"] {
+            guard let value = Double(tolerance), value.isFinite, value >= 0 else {
+                throw CommandError("usage", "--tolerance は0以上の有限の数で指定してください")
+            }
+        }
+
+        func request(_ command: String, args: [String: String] = [:]) -> Request {
+            Request(command: command, args: args, backend: backend)
         }
 
         switch (words.first, words.dropFirst().first) {
         case ("status", _):
             try need(1, "status")
-            return Request(command: "status")
+            return request("status")
         case ("state", _):
             try need(1, "state")
-            return Request(command: "state")
+            return request("state")
         case ("transport", "play"), ("transport", "stop"):
             try need(2, "transport play|stop")
-            return Request(command: "transport.\(words[1])")
+            return request("transport.\(words[1])")
         case ("track", "list"):
             try need(2, "track list")
-            return Request(command: "track.list")
+            return request("track.list")
         case ("track", "get"), ("track", "select"):
             try need(3, "track \(words[1]) <n>")
-            return Request(command: "track.\(words[1])", args: ["track": words[2]])
+            return request("track.\(words[1])", args: ["track": words[2]])
         case ("track", "mute"), ("track", "solo"):
             try need(4, "track \(words[1]) <n> on|off")
-            return Request(command: "track.\(words[1])", args: ["track": words[2], "state": words[3]])
+            return request("track.\(words[1])", args: ["track": words[2], "state": words[3]])
         case ("track", "volume"):
             try need(4, "track volume <n> <dB>")
             var args = ["track": words[2], "db": words[3]]
             if let t = options["tolerance"] { args["tolerance"] = t }
-            return Request(command: "track.volume", args: args)
+            return request("track.volume", args: args)
         case ("track", "pan"):
             try need(4, "track pan <n> <-1…1>")
-            return Request(command: "track.pan", args: ["track": words[2], "value": words[3]])
+            return request("track.pan", args: ["track": words[2], "value": words[3]])
         case ("debug", "mcu"):
-            guard words.count > 2 else { throw CommandError("usage", "expected: logicctl debug mcu <hex bytes>") }
-            return Request(command: "debug.mcu", args: ["messages": words.dropFirst(2).joined(separator: " ")])
+            guard words.count > 2 else { throw CommandError("usage", "使い方: logicctl debug mcu <hex bytes>") }
+            return request("debug.mcu", args: ["messages": words.dropFirst(2).joined(separator: " ")])
         case ("daemon", "stop"):
             try need(2, "daemon stop")
-            return Request(command: "daemon.stop")
+            return request("daemon.stop")
         default:
-            throw CommandError("usage", "unknown command: \(words.joined(separator: " "))")
+            throw CommandError("usage", "不明なコマンドです: \(words.joined(separator: " "))")
         }
     }
 }

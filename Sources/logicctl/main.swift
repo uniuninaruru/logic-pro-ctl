@@ -2,10 +2,11 @@ import Darwin
 import Foundation
 import LogicCore
 
-// logicctl: thin client. Parses argv, sends one Request to logicd, prints
+// logicctl: thin client. Parses argv, probes native support when selected,
+// sends the command Request to logicd, and prints
 // the Response as one JSON line on stdout. Starts logicd if it is not
 // running. Exit status: 0 ok, 1 command failed (incl. verification),
-// 3 daemon unavailable, 64 usage.
+// 64 usage. Connection failures also return 1.
 
 func stderr(_ s: String) { FileHandle.standardError.write(Data((s + "\n").utf8)) }
 
@@ -39,7 +40,7 @@ func startDaemon() -> Bool {
     let selfURL = URL(fileURLWithPath: CommandLine.arguments[0]).resolvingSymlinksInPath()
     let path = env["LOGICD_PATH"] ?? selfURL.deletingLastPathComponent().appendingPathComponent("logicd").path
     guard FileManager.default.isExecutableFile(atPath: path) else {
-        stderr("logicctl: logicd not found at \(path) (set LOGICD_PATH)")
+        stderr("logicctl: \(path) に logicd がありません。LOGICD_PATH で場所を指定できます")
         return false
     }
     let logDir = NSString(string: "~/Library/Logs/logicctl").expandingTildeInPath
@@ -63,17 +64,17 @@ func startDaemon() -> Bool {
     defer { cargs.forEach { free($0) } }
     let rc = posix_spawn(&pid, path, &actions, &attr, &cargs, environ)
     guard rc == 0 else {
-        stderr("logicctl: failed to start logicd: \(String(cString: strerror(rc)))")
+        stderr("logicctl: logicd を起動できませんでした: \(String(cString: strerror(rc)))")
         return false
     }
-    stderr("logicctl: started logicd pid=\(pid), log \(logPath)")
+    stderr("logicctl: logicd を起動しました。PID=\(pid)、ログ: \(logPath)")
     return true
 }
 
 var socket = try? LineSocket.connect(path: defaultSocketPath)
 if socket == nil {
     if request.command == "daemon.stop" {
-        emit(Response(id: request.id, ok: true, command: request.command, message: "logicd is not running"))
+        emit(Response(id: request.id, ok: true, command: request.command, message: "logicd は起動していません"))
     }
     if startDaemon() {
         let deadline = Date().addingTimeInterval(5)
@@ -85,13 +86,32 @@ if socket == nil {
 }
 guard let socket else {
     emit(Response(id: request.id, ok: false, command: request.command, error: "daemon_unavailable",
-                  message: "cannot reach logicd at \(defaultSocketPath)"))
+                  message: "logicd に接続できません。接続先: \(defaultSocketPath)"))
 }
 
 do {
+    if request.backend == BackendKind.appleEvent.rawValue {
+        // Older daemons ignore unknown request fields and would silently write
+        // through MCU. Check their capability before sending any transport write.
+        let status = Request(command: "status")
+        try socket.writeLine(String(decoding: try JSONEncoder.logicctl.encode(status), as: UTF8.self))
+        let statusLine = try socket.readLine()
+        let statusResponse = try JSONDecoder().decode(Response.self, from: Data(statusLine.utf8))
+        guard statusResponse.ok,
+              statusResponse.result?["capabilities"]?["appleevent_transport"] == .bool(true) else {
+            emit(Response(id: request.id, ok: false, command: request.command,
+                          backend: request.backend, error: "daemon_upgrade_required",
+                          message: "起動中の logicd はAppleEvent操作に対応していません。logicctl daemon stop で停止してから、このコマンドを再実行してください"))
+        }
+    }
     try socket.writeLine(String(decoding: try JSONEncoder.logicctl.encode(request), as: UTF8.self))
     let line = try socket.readLine()
     let response = try JSONDecoder().decode(Response.self, from: Data(line.utf8))
+    if request.backend == BackendKind.appleEvent.rawValue && response.backend != request.backend {
+        emit(Response(id: request.id, ok: false, command: request.command,
+                      backend: request.backend, error: "backend_mismatch",
+                      message: "logicd の応答した経路が指定と異なります（応答: \(response.backend ?? "未指定")、指定: appleevent）。再送信はしていません"))
+    }
     print(line)
     exit(response.ok ? 0 : 1)
 } catch {

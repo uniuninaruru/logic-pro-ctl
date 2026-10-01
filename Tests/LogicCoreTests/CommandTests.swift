@@ -32,6 +32,54 @@ import Testing
     #expect(throws: CommandError.self) { try CLIParser.parse(["fly"]) }
 }
 
+@Test func parsesExplicitTransportBackendsAnywhere() throws {
+    for argv in [
+        ["--backend", "appleevent", "transport", "play"],
+        ["transport", "--backend", "appleevent", "play"],
+        ["transport", "play", "--backend", "appleevent", "--json"],
+    ] {
+        let request = try CLIParser.parse(argv)
+        #expect(request.command == "transport.play")
+        #expect(request.backend == "appleevent")
+        #expect(request.args.isEmpty)
+    }
+    let stop = try CLIParser.parse(["transport", "stop", "--backend", "appleevent"])
+    #expect(stop.command == "transport.stop")
+    #expect(stop.backend == "appleevent")
+    #expect(try CLIParser.parse(["transport", "play"]).backend == nil)
+    #expect(try CLIParser.parse(["--backend", "mcu", "track", "list"]).backend == "mcu")
+}
+
+@Test func rejectsInvalidBackendAndOptionUsage() {
+    for argv in [
+        ["transport", "play", "--backend", "native-ipc"],
+        ["transport", "play", "--backend"],
+        ["transport", "play", "--backend", "--json"],
+        ["transport", "play", "--backend", "appleevent", "--backend", "mcu"],
+        ["track", "volume", "1", "-6", "--tolerance", "0.1", "--tolerance", "0.2"],
+        ["track", "volume", "1", "-6", "--tolerance", "typo"],
+        ["track", "volume", "1", "-6", "--tolerance", "-0.1"],
+        ["track", "volume", "1", "-6", "--tolerance", "inf"],
+        ["track", "volume", "1", "-6", "--tolerance", "nan"],
+        ["transport", "play", "--tolerance", "0.1"],
+        ["status", "--backend", "appleevent"],
+        ["state", "--backend", "appleevent"],
+        ["track", "mute", "1", "on", "--backend", "appleevent"],
+        ["daemon", "stop", "--backend", "appleevent"],
+        ["debug", "mcu", "90 5E 7F", "--backend", "appleevent"],
+        ["transport", "record", "--backend", "appleevent"],
+    ] {
+        do {
+            _ = try CLIParser.parse(argv)
+            Issue.record("expected a usage error for \(argv)")
+        } catch let error as CommandError {
+            #expect(error.code == "usage")
+        } catch {
+            Issue.record("unexpected error for \(argv): \(error)")
+        }
+    }
+}
+
 @Test func validatesArguments() throws {
     func cmd(_ c: String, _ a: [String: String]) throws -> LogicCommand {
         try LogicCommand(request: Request(command: c, args: a))

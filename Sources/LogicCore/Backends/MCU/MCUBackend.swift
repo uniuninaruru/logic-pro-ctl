@@ -9,7 +9,7 @@ import Foundation
 ///
 /// Scope (v0.1): tracks 1–8 = MCU strips 1–8 of the first bank. Strip order
 /// is Logic's mixer order and also contains Stereo Out / Master strips.
-public final class MCUBackend: LogicBackend {
+public final class MCUBackend: LogicBackend, TransportReadback {
     public let kind = BackendKind.mcu
     /// Same name as the research probe so Logic reuses its surface entry.
     public static let portName = "logicctl-mcu"
@@ -20,6 +20,14 @@ public final class MCUBackend: LogicBackend {
     private let cond = NSCondition()
     private var surface = MCUSurface()
     private var handshakeAt: Date?
+    private var handshakePID: Int32?
+    private var handshakeGeneration = 0
+    private var handshakeLCDBaseline = 0
+    private var transportBaseline = (play: 0, record: 0)
+    // A prepare/snapshot/send/wait sequence runs under logicd's command lock.
+    // Capturing the session and counters keeps old LEDs out of write verification.
+    private var preparedTransport: (pid: Int32, generation: Int, playUpdates: Int,
+                                    recordUpdates: Int, state: TransportSnapshot)?
     private var lastTX = Date.distantPast
     private var client = MIDIClientRef()
     private var source = MIDIEndpointRef()
@@ -36,18 +44,18 @@ public final class MCUBackend: LogicBackend {
 
     public func start() throws {
         let status = MIDIClientCreateWithBlock("logicd" as CFString, &client) { _ in }
-        guard status == noErr else { throw CommandError("midi_error", "MIDIClientCreate failed: \(status)") }
+        guard status == noErr else { throw CommandError("midi_error", "MIDIクライアントの作成に失敗しました: \(status)") }
         try createPorts()
     }
 
     private func createPorts() throws {
         var status = MIDISourceCreate(client, Self.portName as CFString, &source)
-        guard status == noErr else { throw CommandError("midi_error", "MIDISourceCreate failed: \(status)") }
+        guard status == noErr else { throw CommandError("midi_error", "MIDI送信ポートの作成に失敗しました: \(status)") }
         status = MIDIDestinationCreateWithBlock(client, Self.portName as CFString, &destination) { [weak self] list, _ in
             self?.received(list)
         }
-        guard status == noErr else { throw CommandError("midi_error", "MIDIDestinationCreate failed: \(status)") }
-        log("mcu: virtual ports '\(Self.portName)' created; waiting for Logic's device query")
+        guard status == noErr else { throw CommandError("midi_error", "MIDI受信ポートの作成に失敗しました: \(status)") }
+        log("mcu: 仮想ポート '\(Self.portName)' を作成しました。Logicの接続要求を待っています")
     }
 
     /// Removes and recreates the ports, like unplugging the device. Logic did
@@ -55,13 +63,21 @@ public final class MCUBackend: LogicBackend {
     /// disappearing (3 of 5 restarts, 2026-10-01); a fresh appearance after a
     /// pause does trigger the device query.
     private func replugPorts() {
-        log("mcu: no device query from Logic; re-plugging virtual ports")
+        log("mcu: Logicから接続要求がないため、仮想ポートを作り直します")
         MIDIEndpointDispose(source)
         MIDIEndpointDispose(destination)
         cond.lock()
         surface.reset()
         handshakeAt = nil
+        handshakePID = nil
+        handshakeGeneration += 1
+        handshakeLCDBaseline = 0
+        transportBaseline = (0, 0)
+        preparedTransport = nil
         cond.unlock()
+        bankOffset = nil
+        colorsAtPositioning = -1
+        generationAtPositioning = -1
         Thread.sleep(forTimeInterval: 1.0)
         do {
             try createPorts()
@@ -80,11 +96,17 @@ public final class MCUBackend: LogicBackend {
         var replies: [[UInt8]] = []
         cond.lock()
         let events = surface.feed(bytes)
-        for event in events {
+        for (index, event) in events.enumerated() {
             switch event {
             case .deviceQuery(MCU.model):
                 replies.append(MCU.sysexHeader + [0x01] + Self.serial + [0x01, 0x02, 0x03, 0x04, 0xF7])
                 handshakeAt = Date()
+                handshakePID = LogicApp.running()?.pid
+                handshakeGeneration += 1
+                let baseline = surface.feedbackCounters(atEvent: index, in: events)
+                handshakeLCDBaseline = baseline.lcd
+                transportBaseline = (baseline.play, baseline.record)
+                preparedTransport = nil
             case .versionRequest(MCU.model):
                 replies.append(MCU.sysexHeader + [0x14] + Array("V1.02".utf8) + [0xF7])
             case .connectionReply(MCU.model):
@@ -97,7 +119,7 @@ public final class MCUBackend: LogicBackend {
         cond.unlock()
         if trace { log("mcu RX \(hex(bytes))") }
         if !replies.isEmpty {
-            log("mcu: answering Logic handshake (\(replies.count) replies)")
+            log("mcu: Logicの接続要求に応答します（\(replies.count) 件）")
             send(replies)
         }
     }
@@ -163,13 +185,18 @@ public final class MCUBackend: LogicBackend {
         }
     }
 
-    public var isConnected: Bool { read { $0.lcdUpdates > 0 } && handshakeAt != nil }
+    public var isConnected: Bool {
+        guard let pid = LogicApp.running()?.pid else { return false }
+        return read { $0.lcdUpdates > handshakeLCDBaseline && handshakeAt != nil && handshakePID == pid }
+    }
 
     private func ensureConnected() -> Outcome? {
-        guard LogicApp.running() != nil else {
-            return .failure("logic_not_running", "Logic Pro is not running.")
+        guard let app = LogicApp.running() else {
+            return .failure("logic_not_running", "Logic Proを起動してください。")
         }
-        let connected = { (s: MCUSurface) in self.handshakeAt != nil && s.lcdUpdates > 0 }
+        let connected = { (s: MCUSurface) in
+            self.handshakeAt != nil && self.handshakePID == app.pid && s.lcdUpdates > self.handshakeLCDBaseline
+        }
         if !wait(2.5, until: connected) { replugPorts() }
         if wait(4, until: connected) {
             // Logic streams its full state dump for a few hundred ms after the
@@ -179,8 +206,59 @@ public final class MCUBackend: LogicBackend {
             return nil
         }
         return .failure("surface_not_connected",
-                        "Logic has not connected to the '\(Self.portName)' control surface. "
-                            + "Check Logic Pro > Control Surfaces > Setup… for a Logic Control on that port.")
+                        "Logicが '\(Self.portName)' コントロールサーフェスに接続していません。 "
+                            + "Logic Proの「コントロールサーフェス」→「設定」で、このポートのLogic Controlを確認してください。")
+    }
+
+    // MARK: - Independent transport readback (no transport MIDI writes)
+
+    private func transportSnapshotLocked(_ state: MCUSurface, pid: Int32) -> TransportSnapshot? {
+        guard handshakePID == pid, handshakeAt != nil, state.lcdUpdates > handshakeLCDBaseline else { return nil }
+        return state.transportSnapshot(sincePlayUpdate: transportBaseline.play,
+                                       sinceRecordUpdate: transportBaseline.record)
+    }
+
+    public func prepareTransportReadback() -> Outcome? {
+        if let failure = ensureConnected() { return failure }
+        guard let pid = LogicApp.running()?.pid else {
+            return .failure("logic_not_running", "Logic Proを起動してください。")
+        }
+        guard wait(1.0, until: { self.transportSnapshotLocked($0, pid: pid) != nil }) else {
+            return .failure("readback_unavailable", "この接続で再生・録音の両方のLED状態を受信できていません。")
+        }
+        cond.lock()
+        defer { cond.unlock() }
+        guard let snapshot = transportSnapshotLocked(surface, pid: pid) else {
+            return .failure("readback_unavailable", "状態の確認中にLogicとの接続が変わりました。")
+        }
+        preparedTransport = (pid, handshakeGeneration, surface.ledUpdates[Int(MCU.playNote)],
+                             surface.ledUpdates[Int(MCU.recordNote)], snapshot)
+        return nil
+    }
+
+    public func transportSnapshot() -> TransportSnapshot? {
+        guard let pid = LogicApp.running()?.pid else { return nil }
+        return read { transportSnapshotLocked($0, pid: pid) }
+    }
+
+    public func waitForTransport(playing: Bool, recording: Bool?, timeout: TimeInterval) -> TransportSnapshot? {
+        guard let pid = LogicApp.running()?.pid else { return nil }
+        let deadline = Date().addingTimeInterval(max(0, timeout))
+        cond.lock()
+        guard let start = preparedTransport, start.pid == pid else { cond.unlock(); return nil }
+        while true {
+            guard handshakeGeneration == start.generation,
+                  let snapshot = transportSnapshotLocked(surface, pid: pid) else { cond.unlock(); return nil }
+            let freshPlay = start.state.playing == playing || surface.ledUpdates[Int(MCU.playNote)] > start.playUpdates
+            let freshRecord = recording == nil || start.state.recording == recording ||
+                surface.ledUpdates[Int(MCU.recordNote)] > start.recordUpdates
+            let matched = snapshot.playing == playing && (recording == nil || snapshot.recording == recording)
+            if (matched && freshPlay && freshRecord) || Date() >= deadline {
+                cond.unlock()
+                return LogicApp.running()?.pid == pid ? snapshot : nil
+            }
+            _ = cond.wait(until: deadline)
+        }
     }
 
     // MARK: - Banking
@@ -191,6 +269,13 @@ public final class MCUBackend: LogicBackend {
     /// sysex arrived that we did not cause.
     private var bankOffset: Int?
     private var colorsAtPositioning = -1
+    private var generationAtPositioning = -1
+
+    private func rememberBankSession() {
+        let session = read { ($0.colorUpdates, handshakeGeneration) }
+        colorsAtPositioning = session.0
+        generationAtPositioning = session.1
+    }
 
     private func trackID(_ strip: Int) -> Int { strip + (bankOffset ?? 0) + 1 }
 
@@ -225,11 +310,15 @@ public final class MCUBackend: LogicBackend {
             if presses > 512 { return false }
         }
         bankOffset = 0
-        colorsAtPositioning = read { $0.colorUpdates }
+        rememberBankSession()
         return true
     }
 
-    private var bankIsKnown: Bool { bankOffset != nil && read { $0.colorUpdates } == colorsAtPositioning }
+    private var bankIsKnown: Bool {
+        bankOffset != nil && read {
+            $0.colorUpdates == colorsAtPositioning && handshakeGeneration == generationAtPositioning
+        }
+    }
 
     /// Brings track `track` (1-based, Logic mixer order) onto the surface and
     /// returns its strip. Channel Right moves by one; Logic clamps the bank at
@@ -242,15 +331,15 @@ public final class MCUBackend: LogicBackend {
             return .strip(index - o)
         }
         guard home() else {
-            return .failed(.failure("bank_unknown", "could not move the MCU bank to its start"))
+            return .failed(.failure("bank_unknown", "MCUが表示するトラックの範囲を先頭へ戻せませんでした"))
         }
         var offset = 0
         while index - offset >= MCU.strips, navigate(MCU.channelRightNote) { offset += 1 }
         bankOffset = offset
-        colorsAtPositioning = read { $0.colorUpdates }
+        rememberBankSession()
         let strip = index - offset
         guard (0..<MCU.strips).contains(strip), !read({ $0.upperText(strip) }).isEmpty else {
-            return .failed(.failure("no_such_track", "Logic has no channel strip \(track) on the control surface."))
+            return .failed(.failure("no_such_track", "コントロールサーフェスに \(track) 番のチャンネルストリップがありません。"))
         }
         return .strip(strip)
     }
@@ -309,7 +398,7 @@ public final class MCUBackend: LogicBackend {
                 tracks.append(trackInfo(strip, readVolume: false))
             }
         } while navigateRight()
-        colorsAtPositioning = read { $0.colorUpdates }
+        rememberBankSession()
         return tracks
     }
 
@@ -348,7 +437,7 @@ public final class MCUBackend: LogicBackend {
                 // Logic blinks the mute LED of strips muted implicitly by a solo.
                 "mute": soloActive ? .null : .bool(s.led(MCU.muteNote(strip))),
             ]
-            if soloActive { o["mute_note"] = "unknown while a solo is active (Logic blinks implied mutes)" }
+            if soloActive { o["mute_note"] = "ソロ中はミュートLEDが点滅するため、状態を確定できません" }
             return o
         }
         let (db, source) = withVolume
@@ -393,7 +482,7 @@ public final class MCUBackend: LogicBackend {
         // A second Stop moves the playhead to the start, so never send Stop when already stopped.
         if playing == play && !(recording && !play) {
             return .write(matched: true, requested: requested, observed: ["playing": .bool(playing)],
-                          message: "already in the requested state; nothing sent")
+                          message: "既に要求どおりの状態です。送信していません。")
         }
         send(MCU.press(play ? MCU.playNote : MCU.stopNote))
         let ok = wait(1.0) { $0.led(MCU.playNote) == play }
@@ -407,12 +496,12 @@ public final class MCUBackend: LogicBackend {
         }
         if read({ $0.led(MCU.selectNote(strip)) }) {
             return .write(matched: true, requested: requested, observed: observed(),
-                          message: "already selected; nothing sent")
+                          message: "既に選択されています。送信していません。")
         }
         send(MCU.press(MCU.selectNote(strip)))
         let ok = wait(0.5) { $0.led(MCU.selectNote(strip)) }
         return .write(matched: ok, requested: requested, observed: observed(),
-                      message: "Logic moves record-arm with the selection when auto rec-arm is on.")
+                      message: "自動録音待機が有効な場合、選択に合わせて録音待機も移動します。")
     }
 
     private enum Toggle {
@@ -437,7 +526,7 @@ public final class MCUBackend: LogicBackend {
         if read({ ledTrustworthy($0) && $0.led(note) == on }) {
             return .write(matched: true, requested: requested,
                           observed: ["track": .int(trackID(strip)), kind.key: .bool(on)],
-                          message: "already in the requested state; nothing sent")
+                          message: "既に要求どおりの状態です。送信していません。")
         }
         var observedState: Bool?
         for _ in 0..<2 {
@@ -496,7 +585,7 @@ public final class MCUBackend: LogicBackend {
         let fader = read { $0.faders[strip] }
         return .write(matched: obs.map { error($0) <= tolerance + 1e-9 } ?? false, requested: requested,
                       observed: ["track": .int(trackID(strip)), "volume_db": .db(obs), "fader_value": .int(fader)],
-                      message: obs == nil ? "no dB readback on the LCD" : nil)
+                      message: obs == nil ? "MCUの表示から音量（dB）を確認できませんでした" : nil)
     }
 
     private func pan(_ strip: Int, normalized: Double) -> Outcome {
@@ -524,12 +613,12 @@ public final class MCUBackend: LogicBackend {
             current = turn(target < 0 ? -1 : 1)
         }
         guard var now = current else {
-            return .failure("readback_unavailable", "Logic did not print a pan value on the MCU LCD.",
+            return .failure("readback_unavailable", "MCUの表示からパンの値を確認できませんでした。",
                             requested: requested)
         }
         if now == target {
             return .write(matched: true, requested: requested, observed: observed(now),
-                          message: "already in the requested state; nothing sent")
+                          message: "既に要求どおりの状態です。送信していません。")
         }
         for _ in 0..<2 {
             guard let after = turn(target - now) else { break }

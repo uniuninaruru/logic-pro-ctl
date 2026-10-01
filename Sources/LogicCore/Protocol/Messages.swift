@@ -12,11 +12,14 @@ public struct Request: Codable, Equatable {
     public var id: String
     public var command: String
     public var args: [String: String]
+    public var backend: String?
 
-    public init(id: String = UUID().uuidString, command: String, args: [String: String] = [:]) {
+    public init(id: String = UUID().uuidString, command: String, args: [String: String] = [:],
+                backend: String? = nil) {
         self.id = id
         self.command = command
         self.args = args
+        self.backend = backend
     }
 }
 
@@ -30,6 +33,7 @@ public struct Response: Codable, Equatable {
     public var ok: Bool
     public var command: String
     public var backend: String?
+    public var readbackBackend: String?
     public var verified: Bool
     public var requested: JSONValue?
     public var observed: JSONValue?
@@ -37,13 +41,15 @@ public struct Response: Codable, Equatable {
     public var error: String?
     public var message: String?
 
-    public init(id: String, ok: Bool, command: String, backend: String? = nil, verified: Bool = false,
+    public init(id: String, ok: Bool, command: String, backend: String? = nil,
+                readbackBackend: String? = nil, verified: Bool = false,
                 requested: JSONValue? = nil, observed: JSONValue? = nil, result: JSONValue? = nil,
                 error: String? = nil, message: String? = nil) {
         self.id = id
         self.ok = ok
         self.command = command
         self.backend = backend
+        self.readbackBackend = readbackBackend
         self.verified = verified
         self.requested = requested
         self.observed = observed
@@ -51,12 +57,18 @@ public struct Response: Codable, Equatable {
         self.error = error
         self.message = message
     }
+
+    enum CodingKeys: String, CodingKey {
+        case id, ok, command, backend, verified, requested, observed, result, error, message
+        case readbackBackend = "readback_backend"
+    }
 }
 
-/// Control paths, in the order logicd prefers them.
+/// Known control paths. AppleEvent transport requires explicit selection.
 public enum BackendKind: String, Codable, CaseIterable {
     case nativeIPC = "native-ipc"
     case logicRemote = "logic-remote"
+    case appleEvent = "appleevent"
     case mcu = "mcu"
     case scripter = "scripter"
     case accessibility = "accessibility"

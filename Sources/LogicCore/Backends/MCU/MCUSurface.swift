@@ -68,6 +68,7 @@ public struct MCUSurface {
     private var pending: [UInt8] = []
     private var inSysex = false
     private var runningStatus: UInt8?
+    private var transportSessionBaseline = (play: 0, record: 0)
 
     public init() {}
 
@@ -193,6 +194,7 @@ public struct MCUSurface {
     /// Counters keep counting so callers comparing with an earlier snapshot,
     /// and the baselines taken at the handshake, stay valid.
     mutating func discardSessionData() {
+        transportSessionBaseline = (ledUpdates[Int(MCU.playNote)], ledUpdates[Int(MCU.recordNote)])
         lcd = [UInt8](repeating: 0x20, count: lcd.count)
         faders = [Int?](repeating: nil, count: faders.count)
         leds = [UInt8](repeating: 0, count: leds.count)
@@ -215,6 +217,31 @@ public struct MCUSurface {
     }
 
     public func led(_ note: UInt8) -> Bool { leds[Int(note)] != 0 }
+
+    /// `feed` applies the whole packet batch before returning its events. A
+    /// handshake may precede valid feedback in that same batch, so recover
+    /// counters at that event boundary rather than discarding later updates.
+    func feedbackCounters(atEvent index: Int, in events: [Event]) -> (lcd: Int, play: Int, record: Int) {
+        var counts = (lcd: lcdUpdates, play: ledUpdates[Int(MCU.playNote)],
+                      record: ledUpdates[Int(MCU.recordNote)])
+        for event in events.dropFirst(index + 1) {
+            switch event {
+            case .lcd: counts.lcd -= 1
+            case .led(let note, _) where note & 0x7f == MCU.playNote: counts.play -= 1
+            case .led(let note, _) where note & 0x7f == MCU.recordNote: counts.record -= 1
+            default: break
+            }
+        }
+        return counts
+    }
+
+    /// Defaults are unknown until Logic has actually sent both transport LEDs.
+    /// Baselines let the owner require new feedback after a reconnect.
+    public func transportSnapshot(sincePlayUpdate: Int = 0, sinceRecordUpdate: Int = 0) -> TransportSnapshot? {
+        guard ledUpdates[Int(MCU.playNote)] > max(sincePlayUpdate, transportSessionBaseline.play),
+              ledUpdates[Int(MCU.recordNote)] > max(sinceRecordUpdate, transportSessionBaseline.record) else { return nil }
+        return TransportSnapshot(playing: led(MCU.playNote), recording: led(MCU.recordNote))
+    }
     public var anySoloActive: Bool { (0..<MCU.strips).contains { led(MCU.soloNote($0)) } }
 }
 

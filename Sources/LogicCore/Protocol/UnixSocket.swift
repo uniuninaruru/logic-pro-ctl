@@ -8,9 +8,9 @@ public enum SocketError: Error, CustomStringConvertible {
 
     public var description: String {
         switch self {
-        case .pathTooLong(let p): return "socket path too long: \(p)"
-        case .system(let call, let err): return "\(call): \(String(cString: strerror(err)))"
-        case .closed: return "connection closed"
+        case .pathTooLong(let p): return "ソケットのパスが長すぎます: \(p)"
+        case .system(let call, let err): return "\(call) に失敗しました: \(String(cString: strerror(err)))"
+        case .closed: return "接続が閉じられました"
         }
     }
 }

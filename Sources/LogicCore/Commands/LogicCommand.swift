@@ -54,7 +54,7 @@ extension LogicCommand {
         let a = request.args
         func track() throws -> Int {
             guard let s = a["track"], let n = Int(s), n >= 1 else {
-                throw CommandError("invalid_argument", "track must be an integer >= 1, got \(a["track"] ?? "nothing")")
+                throw CommandError("invalid_argument", "トラック番号は1以上の整数です。指定値: \(a["track"] ?? "未指定")")
             }
             return n
         }
@@ -62,7 +62,7 @@ extension LogicCommand {
             switch a["state"]?.lowercased() {
             case "on", "true", "1": return true
             case "off", "false", "0": return false
-            default: throw CommandError("invalid_argument", "state must be on or off, got \(a["state"] ?? "nothing")")
+            default: throw CommandError("invalid_argument", "状態は on または off で指定してください。指定値: \(a["state"] ?? "未指定")")
             }
         }
         switch request.command {
@@ -77,15 +77,15 @@ extension LogicCommand {
         case "track.solo": self = .trackSolo(track: try track(), on: try onOff())
         case "track.volume":
             guard let s = a["db"], let db = parseDB(s) else {
-                throw CommandError("invalid_argument", "db must be a number or -inf, got \(a["db"] ?? "nothing")")
+                throw CommandError("invalid_argument", "音量は数値または -inf で指定してください。指定値: \(a["db"] ?? "未指定")")
             }
-            guard db <= 6.0 else { throw CommandError("invalid_argument", "db must be <= 6.0 (Logic's fader maximum)") }
+            guard db <= 6.0 else { throw CommandError("invalid_argument", "音量は6.0 dB以下で指定してください（Logicのフェーダーの上限）") }
             let tol = a["tolerance"].flatMap(Double.init) ?? 0.1
-            guard tol >= 0 else { throw CommandError("invalid_argument", "tolerance must be >= 0") }
+            guard tol >= 0 else { throw CommandError("invalid_argument", "許容差は0以上で指定してください") }
             self = .trackVolume(track: try track(), db: db, tolerance: tol)
         case "track.pan":
             guard let s = a["value"], let v = Double(s), (-1.0...1.0).contains(v) else {
-                throw CommandError("invalid_argument", "pan must be a number in -1…1, got \(a["value"] ?? "nothing")")
+                throw CommandError("invalid_argument", "パンは -1〜1 の数値で指定してください。指定値: \(a["value"] ?? "未指定")")
             }
             self = .trackPan(track: try track(), pan: v)
         case "daemon.stop": self = .daemonStop
@@ -94,9 +94,9 @@ extension LogicCommand {
             let messages = (a["messages"] ?? "").split(separator: ";").map {
                 $0.split(separator: " ").compactMap { UInt8($0, radix: 16) }
             }.filter { !$0.isEmpty }
-            guard !messages.isEmpty else { throw CommandError("invalid_argument", "messages must be hex bytes, ';'-separated") }
+            guard !messages.isEmpty else { throw CommandError("invalid_argument", "メッセージは16進数のバイト列です。複数の列は ; で区切ってください") }
             self = .debugMCU(messages: messages)
-        default: throw CommandError("unknown_command", "unknown command \(request.command)")
+        default: throw CommandError("unknown_command", "不明なコマンドです: \(request.command)")
         }
     }
 }
