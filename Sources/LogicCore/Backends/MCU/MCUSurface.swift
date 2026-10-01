@@ -151,7 +151,10 @@ public struct MCUSurface {
         guard s == 0xF0, m.count >= 7, Array(m[1...3]) == [0x00, 0x00, 0x66] else { return .other(m) }
         let model = m[4]
         switch m[5] {
-        case 0x00: return .deviceQuery(model: model)
+        case 0x00:
+            // Logic probes several models; only our own query starts a new session.
+            if model == MCU.model { discardSessionData() }
+            return .deviceQuery(model: model)
         case 0x13: return .versionRequest(model: model)
         case 0x02: return .connectionReply(model: model)
         case 0x72 where model == MCU.model:
@@ -181,8 +184,20 @@ public struct MCUSurface {
         }
     }
 
-    /// Clears everything; called when Logic re-runs the handshake.
+    /// Clears everything, counters included (ports re-plugged, nothing in flight).
     public mutating func reset() { self = MCUSurface() }
+
+    /// Logic re-runs the handshake and then re-sends the whole surface. Names,
+    /// faders, LEDs and V-Pot rings read before that belong to the previous
+    /// session (possibly another project) and must not be used as evidence.
+    /// Counters keep counting so callers comparing with an earlier snapshot,
+    /// and the baselines taken at the handshake, stay valid.
+    mutating func discardSessionData() {
+        lcd = [UInt8](repeating: 0x20, count: lcd.count)
+        faders = [Int?](repeating: nil, count: faders.count)
+        leds = [UInt8](repeating: 0, count: leds.count)
+        rings = [UInt8?](repeating: nil, count: rings.count)
+    }
 
     public func row(_ r: Int) -> String {
         String(decoding: lcd[(r * 56)..<((r + 1) * 56)], as: UTF8.self)

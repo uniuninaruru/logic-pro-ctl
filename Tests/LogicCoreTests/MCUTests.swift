@@ -64,6 +64,34 @@ func fixture(_ name: String) throws -> [[UInt8]] {
     #expect(s.lcdUpdates == 0)
 }
 
+@Test func handshakeDiscardsPreviousSessionState() throws {
+    var s = MCUSurface()
+    for m in try fixture("mcu_connect_dump.hex") { _ = s.feed(m) }
+    #expect(s.upperText(0) == "Piano")
+    #expect(s.faders[0] != nil)
+    #expect(s.led(MCU.recNote(0)))
+    let before = (lcd: s.lcdUpdates, colour: s.colorUpdates)
+
+    // Logic probes several models; a query for another one must not touch our state.
+    _ = s.feed([0xF0, 0x00, 0x00, 0x66, 0x10, 0x00, 0xF7])
+    #expect(s.upperText(0) == "Piano")
+
+    // Our model is queried again (Logic or the project changed): old data is dropped.
+    _ = s.feed(MCU.sysexHeader + [0x00, 0xF7])
+    #expect(s.upperText(0).isEmpty)
+    #expect(s.lowerText(0).isEmpty)
+    #expect(s.faders.allSatisfy { $0 == nil })
+    #expect(s.rings.allSatisfy { $0 == nil })
+    #expect(!s.led(MCU.recNote(0)) && !s.led(MCU.selectNote(0)))
+    // Counters keep counting, so earlier snapshots and baselines stay comparable.
+    #expect(s.lcdUpdates == before.lcd && s.colorUpdates == before.colour)
+
+    // The new dump fills the surface again.
+    _ = s.feed(MCU.sysexHeader + [0x12, 0] + Array("Vox".utf8) + [0xF7])
+    #expect(s.upperText(0) == "Vox")
+    #expect(s.lcdUpdates == before.lcd + 1)
+}
+
 @Test func lcdParsers() {
     #expect(parseLCDDecibels("-3.7 dB") == -3.7)
     #expect(parseLCDDecibels("+0.0 dB") == 0)
