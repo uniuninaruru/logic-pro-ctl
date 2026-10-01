@@ -100,3 +100,36 @@ MCU over virtual MIDI is a viable v0.1 backend with readback:
 volume (fader echo + LCD dB), mute (LED), track names (LCD), 8-strip banks.
 logicd must keep a long-lived CoreMIDI client (virtual ports exist only while
 it runs) and answer the handshake within milliseconds.
+
+# EXP-MCU-010…016 (same session, 13:38–13:41 JST, raw in 20261001-133000-mcu-auto)
+
+All writes from the probe; GUI checked by screenshot where noted. State restored after each.
+
+| ID | TX | RX (readback) | GUI |
+|---|---|---|---|
+| 010a–c | Mute press strips 2,3,4 (`90 11/12/13 7F`, release) | LCD "Muted" at offset 63/70/77 (=56+7n); LED `90 11/12/13 7F` | M lit on tracks 2–4 |
+| restore | same presses | LED `90 11/12/13 00` | — |
+| 011a | Solo strip 1 (`90 08 7F`, release) | LCD "Soloed" @56; LED `90 08 7F`; `90 73 01` (rude solo, vel 1); LEDs 0x11–0x13 then **blink** 7F/00 every ~0.75 s | S lit on track 1 |
+| 011b | Solo strip 1 again | LCD "--" @56; `90 73 00`; `90 08 00`; LEDs 0x11–0x13 → 00, blinking stops | — |
+| 012 | Select strip 3 (`90 1A 7F`, release) | LEDs 0x18→00, 0x1A→7F; rec-arm LED 0x00→00, 0x02→7F | inspector "トラック: Bass", R moved to track 3 |
+| 013a | V-Pot strip 1 `B0 10 41` (ccw 1) | LCD lower @56 "-1", upper strip 1 → "Pan"; ring `B0 30 16` | — |
+| 013b | `B0 10 45` (ccw 5) | LCD "-6" | — |
+| 013c | `B0 10 06` (cw 6) | LCD "0"; ring `B0 30 56` | — |
+| 014a | Play `90 5E 7F`, release | LED 0x5E→7F, 0x5D→00; meters `D0 4x` (strip 4 = St Out) | playing |
+| 014b | Stop `90 5D 7F`, release | LED 0x5D→7F, 0x5E→00 | stopped (bar 8 beat 2) |
+| 015 | Touch strip 2 only (`90 69 7F`), no fader move | LCD @63 "+0.0 dB " | unchanged |
+| 016a/b | V-Pot `B0 10 54` (ccw 20), `B0 10 14` (cw 20) | LCD "-20", then "0" | — |
+
+Findings:
+- Strip n (0-based): mute note 0x10+n, solo 0x08+n, select 0x18+n, rec 0x00+n, fader touch 0x68+n, V-Pot CC 0x10+n (bit 6 = ccw, low 6 bits = ticks), ring CC 0x30+n. LCD lower row strip n at offset 56+7n. Verified for n=0..3 (mute), n=0 (solo, pan), n=2 (select), n=0,1 (touch).
+- 1 V-Pot tick = 1 Logic pan unit, linear up to 20 ticks per message (no acceleration observed).
+- **Mute LED is not the explicit mute state while any solo is active**: implicitly muted strips blink. Readback must use the LCD transient ("Muted"/"--", "Soloed"/"--") right after a press, or sample the LED twice >0.8 s apart.
+- **Touch without moving reads the exact dB** on the LCD → exact volume readback without writing.
+- Selecting a track moves record-arm with it (Logic's auto rec-arm), visible as rec LEDs.
+
+## Accessibility cross-check (13:42, after the user granted Accessibility)
+`AXIsProcessTrusted() == true` for the shell (responsible app: `~/Library/Application Support/Claude/claude-code/2.1.284/claude.app`, a versioned path).
+Track header: AXSlider "ボリューム" value=173 desc "+0.0 dB"; AXSlider (pan) value=64 desc "0のパン"; AXCheckBox "ミュート" value=0.
+Inspector strip: AXSlider "ボリュームフェーダー" value=173 desc "0.0 dB"; AXButton "ミュート" value "オフ".
+Transport/position: AXSlider "bar"=8, "beat"=2, "テンポ"=120.
+→ Independent second readback channel; not used by v0.1.
