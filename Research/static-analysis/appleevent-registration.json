@@ -1,0 +1,85 @@
+{
+  "generated_utc": "20261001T084513Z",
+  "app": "/Applications/Logic Pro Creator Studio.app",
+  "bundle_id": "com.apple.mobilelogic",
+  "version": "12.3.1",
+  "build": "6682",
+  "binary": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+  "arch": "arm64",
+  "uuid_hex": "641ea797e5a33ff18188b36067cf8361",
+  "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+  "inventory_binary_count": 68,
+  "AEInstallEventHandler_indirect_symbol_addresses": [
+    "0x1aeca40",
+    "0x2286330"
+  ],
+  "direct_registration_calls": [
+    {
+      "call_address": "0x4f11fc",
+      "event_class": "aUeV",
+      "event_id": "Spt2",
+      "register_values": {
+        "x2": "0x590e30",
+        "x0": "0x61556556",
+        "x1": "0x53707432",
+        "x3": "0x0",
+        "x4": "0x0"
+      }
+    }
+  ],
+  "known_objc_stub_calls": [
+    {
+      "call_address": "0x17ccb08",
+      "event_class": "GURL",
+      "event_id": "GURL",
+      "note": "Confirm selector identity separately from ObjC metadata"
+    }
+  ],
+  "spot_handler_anchor": "0x590e30",
+  "spot_handler_size": 3600,
+  "positive_sPkc_table": {
+    "address": "0x1cbeb70",
+    "little_endian_bytes": "0000050017020a000b000c000d000700f804f904040003000e00f202f102",
+    "signed_int16_values": [
+      0,
+      5,
+      535,
+      10,
+      11,
+      12,
+      13,
+      7,
+      1272,
+      1273,
+      4,
+      3,
+      14,
+      754,
+      753
+    ],
+    "accepted_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "limitations": [
+    "Inventory scope: app main executable, top-level bundled frameworks and dylibs",
+    "Only arm64 direct calls are inventoried; indirect registration is not ruled out",
+    "ObjC stub/handler/table anchors are specific to the examined build",
+    "Register recognizer is local, conservative, and requires assembly review",
+    "No runtime registration status or behavior is established by this script"
+  ],
+  "curation_note": "Registration constants and table verified against exact assembly and transient Ghidra report; no runtime actions in this inventory."
+}

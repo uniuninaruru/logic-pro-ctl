@@ -72,24 +72,32 @@ exists and the check reads a per-peer version).
 ## 4. Transport
 - `-setHeaderState:` stores a 64-bit value and, **only when it changed**, sends
   `/transport/headerState` with an integer.
-- `-updateTransportButtonStates` reads `transportStopButtonStateForSong:` and calls two
-  selector stubs (`FUN_01ba7fa0`, `FUN_01ba7f20`) that were not resolved to message
-  names. Hypothesis: they send `/transport/stopButtonState` and
-  `/transport/playButtonFlags`. Confidence: medium. Not verified.
+- Subsequent ARM64/selector-slot analysis in
+  [SA-AE-STATE-002](SA-AE-STATE-002-native-transport-state.md) resolves
+  `FUN_01ba7fa0` as `setTransportStopButtonState:` and `FUN_01ba7f20` as
+  `setTransportClickWhileRecording:`. `-updateTransportButtonStates` sends
+  `/transport/stopButtonState` and `/transport/clickWhileRecording` through
+  those setters. `/transport/playButtonFlags` is constructed separately by
+  `sendTransportPlayButtonFlags` at `0x0168f238`. These are static findings;
+  their runtime values and a complete transport-state schema remain unvalidated.
 
-## 5. Constraint recorded: an initial snapshot is not a complete state
-Observation reported by the project owner from a live Logic Remote-style session
-(not reproduced by me; no capture in the repo): the first response omits state
-entries whose value is 0.
+## 5. Constraint: key-command setup omits initial zero states
+Correction and scope clarification: the reported initial-zero omission was
+**static evidence for `/keyCommandStateUpdate`**, not a captured live session
+or an observation of `/gtFaderData`. SA-AE-STATE-002 records the exact
+`keyCommandStateSetup:` branch (`0x01683c48..0x01683c50`) that skips sending
+an initial command status of zero. Later subscribed updates can send zero.
+No independent Remote client or live capture established that behavior yet.
 
 Static side:
-- the function in §3 emits all keys when `changedMask == 0`, so **it is not what omits
-  zeros**. The omission must happen elsewhere (which entries are enumerated and
-  collected, the per-element handlers, or serialization). Mechanism: **unknown**.
+- The `/gtFaderData` function in §3 emits all its field keys when
+  `changedMask == 0`. There is no evidence here that it omits zero-valued
+  members. Whether connection-time collection enumerates every relevant
+  instrument/track and yields a complete received snapshot is still unknown.
 - Consequences for any client or for logicctl: treat an absent key as "not reported"
   (unknown), never as 0 / off; build state from the initial reply **plus** later
   incremental updates; never mark a write `verified` from a snapshot in which the
-  field is merely absent.
+  field is merely absent. A field never reported by either path remains unknown.
 
 Next validation experiments (in order):
 1. Static: decompile `FUN_00efe9b4` (feedback refresh) and the per-element handler

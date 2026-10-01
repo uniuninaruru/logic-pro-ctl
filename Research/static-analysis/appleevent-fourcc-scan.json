@@ -1,0 +1,1618 @@
+{
+  "schema_version": 1,
+  "curated_at_utc": "2026-10-01T08:44:48.691595+00:00",
+  "provenance": {
+    "bundle": {
+      "path": "/Applications/Logic Pro Creator Studio.app",
+      "bundle_identifier": "com.apple.mobilelogic",
+      "short_version": "12.3.1",
+      "build_version": "6682",
+      "executable_name": "Logic Pro Creator Studio",
+      "info_plist_sha256": "4dd932ec48c1b667283e4b33371d1e5c9fe796f76fd90721dcf4721d881fee9c"
+    },
+    "script": "Tools/research-scripts/fourcc_scan.py",
+    "script_sha256": "26615607d5d8e53e9bb2b418b899be86f039f41b124616cef684c206ab6ff531",
+    "python_version": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "host_platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "primary_raw_report": "Research/raw/20261001T084112Z-appleevent/fourcc-primary-scan.json",
+    "primary_raw_report_sha256": "94b978108be49b38285cc15dc24c04f8fb9bea6a3c379d34870c543873328837",
+    "full_raw_report": "Research/raw/20261001T084112Z-appleevent/fourcc-scan.json",
+    "full_raw_report_sha256": "0a151bb5d6b0086412cf96dbc2d52ee28d25a2cc61c6781c0570a6f92e11c0d7",
+    "full_scan_generated_at_utc": "2026-10-01T08:43:30.955066+00:00",
+    "commands": [
+      "python3 -m unittest discover -s Tools/research-scripts -p 'test_fourcc_scan.py' -v",
+      "python3 Tools/research-scripts/fourcc_scan.py --bundle '/Applications/Logic Pro Creator Studio.app' --output Research/raw/20261001T084112Z-appleevent/fourcc-primary-scan.json",
+      "python3 Tools/research-scripts/fourcc_scan.py --bundle '/Applications/Logic Pro Creator Studio.app' --all-native --mov-wide --output Research/raw/20261001T084112Z-appleevent/fourcc-scan.json"
+    ]
+  },
+  "methods": {
+    "raw_bytes": "both endian byte orders, every file byte",
+    "arm64_constants": "adjacent MOVZ then MOVK, same register and width, instruction sections only",
+    "context_radius_bytes": 16
+  },
+  "fourcc": [
+    "aUeV",
+    "Spt2",
+    "sPmo",
+    "sPkc"
+  ],
+  "observations": [
+    {
+      "id": "RAW-PRIMARY",
+      "statement": "The primary executable, LogicAppFramework, Logic, and MACore were scanned first in both raw endian orders. The only primary raw hit was little-endian sPkc in Logic __LINKEDIT; there were no raw aUeV, Spt2, or sPmo hits.",
+      "source": "Research/raw/20261001T084112Z-appleevent/fourcc-primary-scan.json"
+    },
+    {
+      "id": "RAW-BUNDLE",
+      "statement": "The expanded scan examined 106 unique Mach-O files in the app bundle without parse/read errors. All 9 raw hits were little-endian sPkc (bytes 63 6b 50 73) inside the same enclosing NUL-terminated Swift symbol string _$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ in __LINKEDIT. These substring hits supply no evidence of an sPkc AppleEvent handler.",
+      "source": "Research/raw/20261001T084112Z-appleevent/fourcc-scan.json"
+    },
+    {
+      "id": "ARM64-AUEV",
+      "statement": "Logic __TEXT,__text contains adjacent MOVZ w0,#0x6556 and MOVK w0,#0x6155,lsl#16 at file offset/unslid VA 0x4f11e4 and 0x4f11e8. The resulting constant is 0x61556556, the big-endian OSType aUeV.",
+      "source": "Research/raw/20261001T084112Z-appleevent/fourcc-scan.json"
+    },
+    {
+      "id": "ARM64-SPT2",
+      "statement": "Logic __TEXT,__text contains adjacent MOVZ w1,#0x7432 and MOVK w1,#0x5370,lsl#16 at file offset/unslid VA 0x4f11ec and 0x4f11f0. The resulting constant is 0x53707432, the big-endian OSType Spt2.",
+      "source": "Research/raw/20261001T084112Z-appleevent/fourcc-scan.json"
+    },
+    {
+      "id": "ARM64-NO-OTHER-PAIR",
+      "statement": "The adjacent arm64 MOVZ/MOVK scan found no sPmo or sPkc constants. This method does not cover nonadjacent materialization, other instructions, x86 code, external shared libraries, or runtime-generated values, so the result does not prove absence of such handlers.",
+      "source": "Research/raw/20261001T084112Z-appleevent/fourcc-scan.json"
+    }
+  ],
+  "primary_files": [
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Logic",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 1,
+      "mov_pair_hit_count": 2
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/LogicAppFramework.framework/LogicAppFramework",
+      "size_bytes": 72320,
+      "sha256": "e15eb82dd787c4519ba6180d3bf1793c61b38ff264a352c09ae3006b6763244d",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MACore.framework/MACore",
+      "size_bytes": 4624224,
+      "sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/MacOS/Logic Pro Creator Studio",
+      "size_bytes": 73744,
+      "sha256": "07de3895ff730c8b6217c88b383c686ebfbbd2b6145ebf97d56e7de00f391553",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    }
+  ],
+  "summary": {
+    "files_scanned": 106,
+    "errors": 0,
+    "raw_hit_count": 9,
+    "mov_pair_hit_count": 2,
+    "by_fourcc": {
+      "aUeV": {
+        "raw": 0,
+        "arm64_mov_pair": 1
+      },
+      "Spt2": {
+        "raw": 0,
+        "arm64_mov_pair": 1
+      },
+      "sPmo": {
+        "raw": 0,
+        "arm64_mov_pair": 0
+      },
+      "sPkc": {
+        "raw": 9,
+        "arm64_mov_pair": 0
+      }
+    }
+  },
+  "files_with_hits": [
+    {
+      "bundle_relative_path": "Contents/Frameworks/AppSubscriptions.framework/AppSubscriptions",
+      "size_bytes": 5735648,
+      "sha256": "91cdde75fa9d300d756374feb5a443648c01a5fb6796122751bcfc3209d98da8",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0,
+      "raw_hits": [
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 2572873,
+          "file_offset_hex": "0x274249",
+          "architecture": "x86_64",
+          "slice_file_offset": 2556489,
+          "segment": "__LINKEDIT",
+          "virtual_address": 2708041,
+          "virtual_address_hex": "0x295249",
+          "context_file_offset": 2572857,
+          "context_file_offset_hex": "0x274239",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 2572865
+        },
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 5413166,
+          "file_offset_hex": "0x52992e",
+          "architecture": "arm64",
+          "slice_file_offset": 2496814,
+          "segment": "__LINKEDIT",
+          "virtual_address": 2660654,
+          "virtual_address_hex": "0x28992e",
+          "context_file_offset": 5413150,
+          "context_file_offset_hex": "0x52991e",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 5413158
+        }
+      ],
+      "mov_pair_hits": []
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Jet2P.framework/Jet2P",
+      "size_bytes": 13897616,
+      "sha256": "49e562aa793cc219876a118b9e2750b81f86db528809eb28a083b183c5fe8def",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0,
+      "raw_hits": [
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 6146152,
+          "file_offset_hex": "0x5dc868",
+          "architecture": "x86_64",
+          "slice_file_offset": 6129768,
+          "segment": "__LINKEDIT",
+          "virtual_address": 6289512,
+          "virtual_address_hex": "0x5ff868",
+          "context_file_offset": 6146136,
+          "context_file_offset_hex": "0x5dc858",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 6146144
+        },
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 12820343,
+          "file_offset_hex": "0xc39f77",
+          "architecture": "arm64",
+          "slice_file_offset": 5578615,
+          "segment": "__LINKEDIT",
+          "virtual_address": 5726071,
+          "virtual_address_hex": "0x575f77",
+          "context_file_offset": 12820327,
+          "context_file_offset_hex": "0xc39f67",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 12820335
+        }
+      ],
+      "mov_pair_hits": []
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Logic",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 1,
+      "mov_pair_hit_count": 2,
+      "raw_hits": [
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 40094044,
+          "file_offset_hex": "0x263c95c",
+          "architecture": "arm64",
+          "slice_file_offset": 40094044,
+          "segment": "__LINKEDIT",
+          "virtual_address": 41781596,
+          "virtual_address_hex": "0x27d895c",
+          "context_file_offset": 40094028,
+          "context_file_offset_hex": "0x263c94c",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 40094036
+        }
+      ],
+      "mov_pair_hits": [
+        {
+          "fourcc": "aUeV",
+          "encoding": "arm64-adjacent-MOVZ-MOVK-big-endian-value",
+          "constant": 1632986454,
+          "constant_hex": "0x61556556",
+          "instructions": [
+            {
+              "mnemonic": "MOVZ",
+              "register": "w0",
+              "immediate": 25942,
+              "immediate_hex": "0x6556",
+              "shift": 0,
+              "word_hex": "0x528caac0"
+            },
+            {
+              "mnemonic": "MOVK",
+              "register": "w0",
+              "immediate": 24917,
+              "immediate_hex": "0x6155",
+              "shift": 16,
+              "word_hex": "0x72ac2aa0"
+            }
+          ],
+          "file_offset": 5181924,
+          "file_offset_hex": "0x4f11e4",
+          "architecture": "arm64",
+          "slice_file_offset": 5181924,
+          "segment": "__TEXT",
+          "virtual_address": 5181924,
+          "virtual_address_hex": "0x4f11e4",
+          "section": "__text",
+          "context_file_offset": 5181908,
+          "context_file_offset_hex": "0x4f11d4",
+          "context_hex": "e0 2b 40 f9 20 09 58 94 e2 04 00 f0 42 c0 38 91 c0 aa 8c 52 a0 2a ac 72 41 86 8e 52 01 6e aa 72 03 00 80 d2 04 00 80 52",
+          "context_ascii": ".+@. .X.....B.8....R.*.rA..R.n.r.......R",
+          "match_offset_in_context": 16,
+          "match_length": 8
+        },
+        {
+          "fourcc": "Spt2",
+          "encoding": "arm64-adjacent-MOVZ-MOVK-big-endian-value",
+          "constant": 1399878706,
+          "constant_hex": "0x53707432",
+          "instructions": [
+            {
+              "mnemonic": "MOVZ",
+              "register": "w1",
+              "immediate": 29746,
+              "immediate_hex": "0x7432",
+              "shift": 0,
+              "word_hex": "0x528e8641"
+            },
+            {
+              "mnemonic": "MOVK",
+              "register": "w1",
+              "immediate": 21360,
+              "immediate_hex": "0x5370",
+              "shift": 16,
+              "word_hex": "0x72aa6e01"
+            }
+          ],
+          "file_offset": 5181932,
+          "file_offset_hex": "0x4f11ec",
+          "architecture": "arm64",
+          "slice_file_offset": 5181932,
+          "segment": "__TEXT",
+          "virtual_address": 5181932,
+          "virtual_address_hex": "0x4f11ec",
+          "section": "__text",
+          "context_file_offset": 5181916,
+          "context_file_offset_hex": "0x4f11dc",
+          "context_hex": "e2 04 00 f0 42 c0 38 91 c0 aa 8c 52 a0 2a ac 72 41 86 8e 52 01 6e aa 72 03 00 80 d2 04 00 80 52 11 ee 57 94 e8 f2 00 d0",
+          "context_ascii": "....B.8....R.*.rA..R.n.r.......R..W.....",
+          "match_offset_in_context": 16,
+          "match_length": 8
+        }
+      ]
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAPlugInGUISwift.framework/MAPlugInGUISwift",
+      "size_bytes": 20193056,
+      "sha256": "730e7c363fb320b1d967de5c548d5b23ebbc399fbc87b0644daa40f7ed2ddee9",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0,
+      "raw_hits": [
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 10154062,
+          "file_offset_hex": "0x9af04e",
+          "architecture": "x86_64",
+          "slice_file_offset": 10137678,
+          "segment": "__LINKEDIT",
+          "virtual_address": 10633294,
+          "virtual_address_hex": "0xa2404e",
+          "context_file_offset": 10154046,
+          "context_file_offset_hex": "0x9af03e",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 10154054
+        },
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 20023810,
+          "file_offset_hex": "0x1318a02",
+          "architecture": "arm64",
+          "slice_file_offset": 9652738,
+          "segment": "__LINKEDIT",
+          "virtual_address": 10144258,
+          "virtual_address_hex": "0x9aca02",
+          "context_file_offset": 20023794,
+          "context_file_offset_hex": "0x13189f2",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 20023802
+        }
+      ],
+      "mov_pair_hits": []
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/UnifiedMessagingKit2P.framework/UnifiedMessagingKit2P",
+      "size_bytes": 21896944,
+      "sha256": "20edf2c346da43ca3acf7c8ce433ded386275d00f112e26717c9241e3533ceec",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0,
+      "raw_hits": [
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 10157220,
+          "file_offset_hex": "0x9afca4",
+          "architecture": "x86_64",
+          "slice_file_offset": 10140836,
+          "segment": "__LINKEDIT",
+          "virtual_address": 10488996,
+          "virtual_address_hex": "0xa00ca4",
+          "context_file_offset": 10157204,
+          "context_file_offset_hex": "0x9afc94",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 10157212
+        },
+        {
+          "fourcc": "sPkc",
+          "encoding": "raw-little-endian-u32",
+          "matched_hex": "63 6b 50 73",
+          "file_offset": 19740900,
+          "file_offset_hex": "0x12d38e4",
+          "architecture": "arm64",
+          "slice_file_offset": 7813348,
+          "segment": "__LINKEDIT",
+          "virtual_address": 8157412,
+          "virtual_address_hex": "0x7c78e4",
+          "context_file_offset": 19740884,
+          "context_file_offset_hex": "0x12d38d4",
+          "context_hex": "61 4b 46 54 6a 54 75 00 5f 24 73 73 35 43 6c 6f 63 6b 50 73 73 30 31 30 43 6f 6e 74 69 6e 75 6f 75 73 41 30",
+          "context_ascii": "aKFTjTu._$ss5ClockPss010ContinuousA0",
+          "match_offset_in_context": 16,
+          "match_length": 4,
+          "enclosing_nul_terminated_ascii": "_$ss5ClockPss010ContinuousA0VRszrlE10continuousADvgZ",
+          "enclosing_ascii_file_offset": 19740892
+        }
+      ],
+      "mov_pair_hits": []
+    }
+  ],
+  "native_binary_manifest": [
+    {
+      "bundle_relative_path": "Contents/Frameworks/AppAnalytics.framework/AppAnalytics",
+      "size_bytes": 3829376,
+      "sha256": "0a748c1ca752130574e210fb616c9e273c48038bb992f2979fb7e0f699c1dc18",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/AppSubscriptions.framework/AppSubscriptions",
+      "size_bytes": 5735648,
+      "sha256": "91cdde75fa9d300d756374feb5a443648c01a5fb6796122751bcfc3209d98da8",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/AppleMediaServicesKit.framework/AppleMediaServicesKit",
+      "size_bytes": 10501920,
+      "sha256": "edafb023640290b822e1863813ede59a2c17c233354ed5ad4ec31b4490005806",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/ChordsKit.framework/ChordsKit",
+      "size_bytes": 398704,
+      "sha256": "f54cb81d86ba122a76c17fce139058e6a447e120684686045941219dcaf2a960",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/DequeModule.framework/DequeModule",
+      "size_bytes": 528784,
+      "sha256": "30c5b621136ed00834f12ceca643ac1ef86290c4b7d8b13e1217d24ed835705d",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/EmbeddedRemoteConfiguration.framework/EmbeddedRemoteConfiguration",
+      "size_bytes": 1246224,
+      "sha256": "e2c4925fe781df6e21105334c2e6fc2a348da0119dc95b459fb48381f074d97a",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/InternalCollectionsUtilities.framework/InternalCollectionsUtilities",
+      "size_bytes": 327104,
+      "sha256": "4cc8f4053f0ff0bdd3b7af3b11a6806bca5c11ec87fb1e872c2f2a37519e32a0",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Jet2P.framework/Jet2P",
+      "size_bytes": 13897616,
+      "sha256": "49e562aa793cc219876a118b9e2750b81f86db528809eb28a083b183c5fe8def",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Logic",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 1,
+      "mov_pair_hit_count": 2
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/CS-32.bundle/Contents/MacOS/CS-32",
+      "size_bytes": 202176,
+      "sha256": "580dc78c0016b9f60c6fa8c38d79ba5afa4823912f8f233dc44620f57e9eb211",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/FaderMaster 4-100.bundle/Contents/MacOS/FaderMaster 4-100",
+      "size_bytes": 136448,
+      "sha256": "c401342bb459787d93a4c3f78d2e1c88585814c249163f6b43fe1e182c1f7c0d",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/HUI.bundle/Contents/MacOS/HUI",
+      "size_bytes": 270832,
+      "sha256": "626fd368601cd87941fba1e04d836de68445d2c6030e00eb82090bff0b20d581",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/Launchpad.bundle/Contents/MacOS/Launchpad",
+      "size_bytes": 350160,
+      "sha256": "b3150133006b6ff1855f9faf93a2fec44a849798352349cac19ae574efcaf53c",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/Logic Control.bundle/Contents/MacOS/Logic Control",
+      "size_bytes": 765040,
+      "sha256": "b71c280816eca9ffb05a576b42861cc75551f0e5d4c5b77f1d1b6e0cd8a36025",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/Logic Remote.bundle/Contents/MacOS/Logic Remote",
+      "size_bytes": 118736,
+      "sha256": "e0c10ebf678944c8776dc46499102b17cf6ec184d72538cc61a0de7de7deba72",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/MCS3.bundle/Contents/MacOS/MCS3",
+      "size_bytes": 135120,
+      "sha256": "b8999236d1cc6d1f377e9b30a8521d4a3832e91089e1f83b39767c1022e92d57",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/Motormix.bundle/Contents/MacOS/Motormix",
+      "size_bytes": 202464,
+      "sha256": "dd1916bdb7029012b96d4d378d81b0e80506874e1c2bd61cb865895148f8bcb9",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/Recording Light.bundle/Contents/MacOS/Recording Light",
+      "size_bytes": 135168,
+      "sha256": "c152fb25ed7abab596a77adf9918352cbe9bf3249859483367498c56dcbcb6a7",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/SAC-2K.bundle/Contents/MacOS/SAC-2K",
+      "size_bytes": 218736,
+      "sha256": "0e9ecf5ca56fbdcb6bdc93391b9293e9243bd5e1e323f2e890dcf27416efac19",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/SI-24.bundle/Contents/MacOS/SI-24",
+      "size_bytes": 169072,
+      "sha256": "e9b53c0b79eba6d0c0b34f280c254376d93d5987bd4784928e264c2811b63a3e",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/TouchOSC.bundle/Contents/MacOS/TouchOSC",
+      "size_bytes": 184304,
+      "sha256": "8499598747b7b3556994d14c390cb99683e41f4ed144855feb99811f166ee3be",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/TranzPort.bundle/Contents/MacOS/TranzPort",
+      "size_bytes": 135952,
+      "sha256": "dfe3ae5a2578b89c87f535ce0065b39811bbb5315ac9258a1be37b5fcaeb4534",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/US-2400.bundle/Contents/MacOS/US-2400",
+      "size_bytes": 201968,
+      "sha256": "a8b20cf03353466418707e79f88514173d43a44f9d452dfe129153f95bbf25f2",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/iControl.bundle/Contents/MacOS/iControl",
+      "size_bytes": 136208,
+      "sha256": "35afcf95b7d0a55d1a4ec3283ddc40686e1788fc3636d6bc1c39cc77d929eb3f",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/Logic.framework/Versions/A/PlugIns/MIDI Device Plug-ins/microKONTROL.bundle/Contents/MacOS/microKONTROL",
+      "size_bytes": 169936,
+      "sha256": "ab7615fcbe7ee04b6355ef6833c8850e86e274665aaeaaf44fe2d5a453285c4a",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/LogicAnalytics.framework/LogicAnalytics",
+      "size_bytes": 734144,
+      "sha256": "9db5bd17bb1fa7e2c78b4bcb5473decc4239361cfe1f31ad00940bc7f012e88b",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/LogicAppFramework.framework/LogicAppFramework",
+      "size_bytes": 72320,
+      "sha256": "e15eb82dd787c4519ba6180d3bf1793c61b38ff264a352c09ae3006b6763244d",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAAccessibility.framework/MAAccessibility",
+      "size_bytes": 515808,
+      "sha256": "6cbcfc2d8b299ccfdedba1199f029e56567ee66f35f78d614fd3b80e24bd6d12",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAAlchemy.framework/MAAlchemy",
+      "size_bytes": 5038272,
+      "sha256": "803e0aebb8ddfb5fbfe50f890bc9815d8fdfcd916fe2f5f2657b7642ff1e3105",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAAnalytics.framework/MAAnalytics",
+      "size_bytes": 410752,
+      "sha256": "997ad25f29ed65a971df2e72220a397710c1f085b699c8b0c1c440fe2ddbedd9",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAApplication.framework/MAApplication",
+      "size_bytes": 2865424,
+      "sha256": "a876767f059ef311c6ba3d46b8ed2f0c21747bbae500b5ef723913c084d1684e",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAAudioEngine.framework/MAAudioEngine",
+      "size_bytes": 18283152,
+      "sha256": "536d378f7f336e394143d2739f9e525632a1e57ccba12f00c7a16034513ed76e",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAAudioUnitSupport.framework/MAAudioUnitSupport",
+      "size_bytes": 365984,
+      "sha256": "dfc6c4921d60617612a871c14d2d5e9d9d15ae82f897a4343f73c3b33105c30a",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAContentDownloading.framework/MAContentDownloading",
+      "size_bytes": 70016,
+      "sha256": "f186fc27d8df985be015992e5f12d42df0ac6abfd2ae10dfcfe20eded158a938",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAContentDownloading.framework/Versions/A/XPCServices/com.apple.musicapps.MAContentInstallation.xpc/Contents/MacOS/com.apple.musicapps.MAContentInstallation",
+      "size_bytes": 92448,
+      "sha256": "5a347605e27fe22636f3259c04ac48820cf8cc9113c62a0abc8f173fd6206b3b",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAContentTagging.framework/MAContentTagging",
+      "size_bytes": 956864,
+      "sha256": "21d46d20c9795573386aabad044ef46613914c12dd975b9dd091f91e90530243",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAContentTaggingUI.framework/MAContentTaggingUI",
+      "size_bytes": 738368,
+      "sha256": "a5585d8edf7cb8a796beeac7844dbbc71d8b6917e295888111bace969b100a05",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MACore.framework/MACore",
+      "size_bytes": 4624224,
+      "sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MADSP.framework/MADSP",
+      "size_bytes": 55651312,
+      "sha256": "ed453f83ad583fb17b5eac838e19c16d15c0c1cc8440f8a11740d756a6f1bcc4",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MADSPPlugInPublic.framework/MADSPPlugInPublic",
+      "size_bytes": 139728,
+      "sha256": "09bff9ea7d35ac864e5a9ce31921cb827f3b59946c6107aa6094d7bd90345604",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAFiles.framework/MAFiles",
+      "size_bytes": 1712752,
+      "sha256": "abfbdac34aae2484c57eb62cd5bdaf51c580b17b497f279a662e423112d5204e",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAGFFoundation.framework/MAGFFoundation",
+      "size_bytes": 632368,
+      "sha256": "8c885b17a9af924365fea93213301ed62634fbdf7a5a5a4797ff0aa86d9b72ea",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAGUI.framework/MAGUI",
+      "size_bytes": 3704800,
+      "sha256": "789c06b6aa73f0a39bd94f6ee22f9cdd842f41c792e4a33737c2824c34eeb800",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAGenerativeInstruments.framework/MAGenerativeInstruments",
+      "size_bytes": 13917680,
+      "sha256": "24d22be2e5b50c258325f23632822e8d2fa53c5bdfa5cec297721360090aa8ea",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAGenerativeInstrumentsCore.framework/MAGenerativeInstrumentsCore",
+      "size_bytes": 325568,
+      "sha256": "d1a3dd4887e50c70b3b8a374ec4271cf2b3e374d055a92404ec4204b34c4144c",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAGenerativeInstrumentsUI.framework/MAGenerativeInstrumentsUI",
+      "size_bytes": 5167696,
+      "sha256": "6f7773e1ea16d560a085c6fbc7828c13d239647385fbdce59804ecc82704b40b",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAHarmony.framework/MAHarmony",
+      "size_bytes": 3022672,
+      "sha256": "12a25bc3ce83dbc2ee2c71e48c69e09f6bfec2ca7b969678395e331c19f06cb9",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAKeymap.framework/MAKeymap",
+      "size_bytes": 6465664,
+      "sha256": "e0f2b3eb00a21b49e5fa245891d3349b3a10f55c4cda358a3c53c0525d924d37",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALiveLoops.framework/MALiveLoops",
+      "size_bytes": 614608,
+      "sha256": "0d73d6118221cba5c534512afc5130c7e185637f3e6e1b936d0c37c49df81442",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALiveLoopsUI.framework/MALiveLoopsUI",
+      "size_bytes": 1281920,
+      "sha256": "05643a3b6e8e84c5799a3bcfe1d9b67380de6a50f06bdf55f155c2cb432a4e59",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALogicCoreInterface.framework/MALogicCoreInterface",
+      "size_bytes": 187840,
+      "sha256": "5ac58502b2bea378419b88f10a6dac0f919ae81ebfe04eea0a20300681de0346",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALogicLegacySong.framework/MALogicLegacySong",
+      "size_bytes": 211616,
+      "sha256": "e24c2c76f2b5ae9f5a4befd8c1ff8b0da6d06f965ef056317f35e9f1cab5a2b2",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALoopBrowser.framework/MALoopBrowser",
+      "size_bytes": 312768,
+      "sha256": "09d4d647cfa925f56022a9567a50e9b705626d4be7a89ac7e3becbd2cf2e92b5",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MALoopManagement.framework/MALoopManagement",
+      "size_bytes": 1249440,
+      "sha256": "cc10f95ebb9d48866b42a045cb8a1e354aa616f3ee7cd42cba012a37d770d850",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAMachineLearning.framework/MAMachineLearning",
+      "size_bytes": 876592,
+      "sha256": "da83137134c6e1b923fb951e2b2c025b88ed693e282d0c459c879d456bd918e6",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAMixer.framework/MAMixer",
+      "size_bytes": 5805952,
+      "sha256": "e69af5abcdec16372568a3a64ddf067dd1edf771e9f8adfbea9631281e0b6174",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAMobileGeneralUI.framework/MAMobileGeneralUI",
+      "size_bytes": 789248,
+      "sha256": "8cee56214b1987b2a352888aebc5d7448f23611d144db6a52b6ed644c8bd74fb",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAMusicAnalysis.framework/MAMusicAnalysis",
+      "size_bytes": 3017616,
+      "sha256": "98c9b121daffded9bf73b9f25c1ca9000c7a80bd6f94f201dbe02760fe2bba83",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAPlaySurface.framework/MAPlaySurface",
+      "size_bytes": 152448,
+      "sha256": "2850f3ab4bc2018d8332dff623c8f32f05601b569e3eea5260dc22f75035a342",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAPlugInGUI.framework/MAPlugInGUI",
+      "size_bytes": 10265344,
+      "sha256": "f31b639fe0bea1d138344540c36b8423eca131f70a8707ad0f241917b32c9a96",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAPlugInGUISwift.framework/MAPlugInGUISwift",
+      "size_bytes": 20193056,
+      "sha256": "730e7c363fb320b1d967de5c548d5b23ebbc399fbc87b0644daa40f7ed2ddee9",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAResources.framework/MAResources",
+      "size_bytes": 169488,
+      "sha256": "2c42236dfb9e5b21db2ec007a63542994cf9a0bea91ff557644b6404b47a869a",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAResourcesGB.framework/MAResourcesGB",
+      "size_bytes": 134816,
+      "sha256": "748d8b124747aba38c2bb77e5a62ebdde4abd541d055c09f150c62164f3c642f",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAResourcesLg.framework/MAResourcesLg",
+      "size_bytes": 134816,
+      "sha256": "6d1cddfe41ff847929ef0fcb18afea10cf3a2c0f7e1ad6322d265e98467652e7",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAResourcesPlugInsShared.framework/MAResourcesPlugInsShared",
+      "size_bytes": 134928,
+      "sha256": "1a0485378de153181b3cf650d143bcb6a868406784393e1b639a8bbff1b149f2",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MASearchKit.framework/MASearchKit",
+      "size_bytes": 1265600,
+      "sha256": "ef3912d39a1daa5aebdeed3bbc4b0f559419533628b5a959b1d148cb07bc35fd",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAStepSequencer.framework/MAStepSequencer",
+      "size_bytes": 2468944,
+      "sha256": "0cdb05f021eb00932478aef40c6c22fbfb69098f0ae8caad65ed3b3e39c13312",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MASubscription.framework/MASubscription",
+      "size_bytes": 262480,
+      "sha256": "affba4c4f1c195761712603d19ab8a91314cabfacf58da8aff8fc18357989ef8",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MASwiftUIControls.framework/MASwiftUIControls",
+      "size_bytes": 4278608,
+      "sha256": "91b89e47e32b6b2672e4fd907cf4a64f960a5097ee9363f49893245dd954e172",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MASwiftUtilities.framework/MASwiftUtilities",
+      "size_bytes": 511440,
+      "sha256": "6a6b46d15b914e54bc0dcd4dddc2051650fd01c0d9702a0417f8501a2bcb82b4",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAToolKit.framework/MAToolKit",
+      "size_bytes": 10505424,
+      "sha256": "acd6ccec11c00505f5536bee90cda64bebe86ace920c0598aceffaa493b13231",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAToolKitHighLevel.framework/MAToolKitHighLevel",
+      "size_bytes": 1042800,
+      "sha256": "d563a1ce06e85a376af0f3da57f7ce8c4becb000edb2e7d0aa7d56bce17b86f3",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MATower.framework/MATower",
+      "size_bytes": 2496368,
+      "sha256": "9c228e7162778f92bfd6fcfc002913c39363ec54d87420b5d0b379a6d6ea1ebb",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAUniversalContent.framework/MAUniversalContent",
+      "size_bytes": 803424,
+      "sha256": "dbb34e970d7fe74f06eb2a8f88bde580aff40c299be44b90e0fcb93a5b105f16",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAUniversalContentAppIntegration.framework/MAUniversalContentAppIntegration",
+      "size_bytes": 416656,
+      "sha256": "3c1e5d45c7f535894b37aea74a9ed6f0a8d6c50252f2db8a2ebf45b75545e0cf",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAVectorUIKit.framework/MAVectorUIKit",
+      "size_bytes": 3928304,
+      "sha256": "aab60a88cf130fc14616da9146c43b1a7a51e8bd29cd46b0bce3eb99c1d90eb4",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAVideo.framework/MAVideo",
+      "size_bytes": 982928,
+      "sha256": "93b412e2362708e76ce5ff163227a11a40780c1ec93a5e3fc8171bea9b899260",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/MAWorkspace.framework/MAWorkspace",
+      "size_bytes": 2120784,
+      "sha256": "fa001d7ea539ef5cc07a5c9e36c45f6326bf5935a96af30762211f6d1b38d53f",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/OMF.framework/OMF",
+      "size_bytes": 2433648,
+      "sha256": "451477f046a8eae88231eb3bc29739b2506710599311780e0ea2172271f4b121",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/OrderedCollections.framework/OrderedCollections",
+      "size_bytes": 1118368,
+      "sha256": "308496c223ceb0ff1fe9ddf91dce814c440f6d8c915009b9ac927958ffa8ce0b",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/UnifiedMessagingKit2P.framework/UnifiedMessagingKit2P",
+      "size_bytes": 21896944,
+      "sha256": "20edf2c346da43ca3acf7c8ce433ded386275d00f112e26717c9241e3533ceec",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 2,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/libaafintp.dylib",
+      "size_bytes": 164208,
+      "sha256": "c0f5b2869364801bd1b5231fa167193d4f9a729c39ad148a3ca565f0038ac1d3",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/libaafpgapi.dylib",
+      "size_bytes": 1373120,
+      "sha256": "02d137ccaf4c37a3db1c8d6c4b377bb66dccb2349d492df3ef461f470a6b2799",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Frameworks/libcom-api.dylib",
+      "size_bytes": 11741632,
+      "sha256": "cb3929b2f16fb4cd70a6b57a352270a5c84085a0c09e15a551d8b99e4eccf29e",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Helpers/Impulse Response Utility.app/Contents/MacOS/Impulse Response Utility",
+      "size_bytes": 2937152,
+      "sha256": "a4ca66084a0c87ba854bd0fbf1cd6fbf818a214a6ef74f2433a7ba2ecdf1afa6",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Library/LaunchServices/com.apple.musicapps.InstallerHelperTool",
+      "size_bytes": 177648,
+      "sha256": "49ffff8ebcc8763238a77345836b797bb27047b67364166a2cc01e17d3c7e793",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/Library/Spotlight/LogicX_MDImport.mdimporter/Contents/MacOS/LogicX_MDImport",
+      "size_bytes": 279792,
+      "sha256": "ba8b9c539ebfd43328078baa74e5b0b5a7163e265ee03420d425578284a94ba3",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/MacOS/Logic Pro Creator Studio",
+      "size_bytes": 73744,
+      "sha256": "07de3895ff730c8b6217c88b383c686ebfbbd2b6145ebf97d56e7de00f391553",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/LogicProQuickLookExtension.appex/Contents/MacOS/LogicProQuickLookExtension",
+      "size_bytes": 151040,
+      "sha256": "3c23b3bdda99c482cb1726aec3c87550db1ae7f786301a54d0321de09f1a1d48",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/LogicProThumbnailExtension.appex/Contents/MacOS/LogicProThumbnailExtension",
+      "size_bytes": 134448,
+      "sha256": "8c1f601ad2a2e3368a978dceb4d48a5c7cb118ebbb5a9c4fd1233eaafb7649d2",
+      "architectures": [
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/CS-32.bundle/Contents/MacOS/CS-32",
+      "size_bytes": 202176,
+      "sha256": "befc977be0050ec60edfc43fb06f8a7150fe92eccf0b948754d5bc3320b705df",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/FaderMaster 4-100.bundle/Contents/MacOS/FaderMaster 4-100",
+      "size_bytes": 136448,
+      "sha256": "93f2aa01621a2c2e7060647fa00b6443eeb77e1b29d88dde32252eac4436d47d",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/HUI.bundle/Contents/MacOS/HUI",
+      "size_bytes": 270832,
+      "sha256": "70c86dd7aa4b614c7ee58f5c84dce4072c7b79306d6ef4cf90642774b3c13f5d",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/Launchpad.bundle/Contents/MacOS/Launchpad",
+      "size_bytes": 350160,
+      "sha256": "e3e05fe1d1082adfddc008c613d2293f49469c805c3747e69e5bb68ad9c0311e",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/Logic Control.bundle/Contents/MacOS/Logic Control",
+      "size_bytes": 765040,
+      "sha256": "50464f81685c9888620542fb88fa2a6f9cbd8e645d86eea4c10f4d8444d90e1c",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/Logic Remote.bundle/Contents/MacOS/Logic Remote",
+      "size_bytes": 118736,
+      "sha256": "799a262890918a386d237e3c7f8657a74e18b19109877685e75437e35d0d008f",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/MCS3.bundle/Contents/MacOS/MCS3",
+      "size_bytes": 135120,
+      "sha256": "df4561a14d25bc1997547e50b0506e60b85a9fc49dd0d1217e8973770dfc2b44",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/Motormix.bundle/Contents/MacOS/Motormix",
+      "size_bytes": 202464,
+      "sha256": "085b883dafbac01a2b1048f1789a7df273224279ff4fd71e1549c256621a805d",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/Recording Light.bundle/Contents/MacOS/Recording Light",
+      "size_bytes": 135168,
+      "sha256": "fc647ca409ed13498db843df02c5ef1b82169ed3b9f53b5b464115301efd03a3",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/SAC-2K.bundle/Contents/MacOS/SAC-2K",
+      "size_bytes": 218736,
+      "sha256": "6d23968054a6b4aec8384964cac2bb520953dd290d5b989bb63c5a63a1c3e1e2",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/SI-24.bundle/Contents/MacOS/SI-24",
+      "size_bytes": 169072,
+      "sha256": "6229d3e47f8651ea3e0521f1c14a1f2572c83f608b03d14a3fe370b78ca589ca",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/TouchOSC.bundle/Contents/MacOS/TouchOSC",
+      "size_bytes": 184304,
+      "sha256": "e7ba5b141326806fe72aae6581725d1603d4489ec553e9bafc6f58115ada853a",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/TranzPort.bundle/Contents/MacOS/TranzPort",
+      "size_bytes": 135952,
+      "sha256": "e25bdcee58a2c34bcce4f54d2d6aea267d7a5f1766b8bf237888c24044581d83",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/US-2400.bundle/Contents/MacOS/US-2400",
+      "size_bytes": 201968,
+      "sha256": "a42d78d2395304a3df8eb28bfac7e5bef8517751bdaa3f0de399ee0b93c7b86c",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/iControl.bundle/Contents/MacOS/iControl",
+      "size_bytes": 136208,
+      "sha256": "9dd55c128ab5ba8d807a3d5252e5e34400a53031f91afbc53492188afb1ea950",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    },
+    {
+      "bundle_relative_path": "Contents/PlugIns/MIDI Device Plug-ins/microKONTROL.bundle/Contents/MacOS/microKONTROL",
+      "size_bytes": 169936,
+      "sha256": "7ff5955f42fe0561fa935cbeff552108966f24f147f87eb924e180f83a5a2528",
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "raw_hit_count": 0,
+      "mov_pair_hit_count": 0
+    }
+  ],
+  "validation": {
+    "synthetic_tests_passed": 8,
+    "synthetic_test_log": "Research/raw/20261001T084112Z-appleevent/scanner-tests.txt",
+    "parse_read_errors": [],
+    "app_files_modified": false,
+    "appleevents_sent": false
+  },
+  "limitations": [
+    "A raw byte hit can be unrelated code or data; no handler semantics are inferred.",
+    "The instruction scan covers adjacent MOVZ/MOVK pairs only; absence of a hit does not exclude other constant synthesis.",
+    "Addresses are unslid Mach-O virtual addresses, not runtime process addresses.",
+    "No AppleEvents were sent and no app files were modified."
+  ]
+}

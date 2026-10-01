@@ -4,3 +4,5 @@
 DerivedData/
 .DS_Store
 Research/raw/
+__pycache__/
+*.py[cod]
