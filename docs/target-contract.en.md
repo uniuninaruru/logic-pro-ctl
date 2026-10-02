@@ -105,13 +105,13 @@ Not guaranteed (limits):
 | Renaming a track (strip on the display) | **Confirmed**: EXP-MCU-022 (`Zed5`; the old name gives `target_mismatch`) | yes |
 | Adding a track | **Confirmed**: EXP-MCU-023 (all three checks against the layout from before the add gave `target_mismatch`). Logic also moves the displayed range itself | yes |
 | Deleting a track | **Confirmed**: EXP-MCU-023. A defect that trusted a stale bank position after a delete was found and fixed (below) | yes |
-| Reordering tracks | **Not confirmed**: a reorder could not be produced (dragging, the reorder menu) | yes (assuming Logic updates the display) |
+| Reordering tracks | **Not confirmed**: a reorder could not be produced (dragging, the reorder menu; no change in 8 attempts in all) | yes (assuming Logic updates the display) |
 | Renaming a strip that is not on the display | Not confirmed (moving the bank should rewrite the display) | — |
 
 Unconfirmed rows are not described as "detected" until they are checked on the real Logic. The unit tests only show that, **if Logic updates the display**,
 this check detects the change.
 
-In a real delete, Logic sometimes rewrote only the name row, without the signal that announces a bank move (the colour sysex).
+In a real delete, Logic rewrote only a differential of the name row and did not send the signal that announces a bank move (the colour sysex) (MIDI record: EXP-MCU-024).
 The earlier `logicd` then trusted the bank position from before the delete and read the non-existent track 13 as `Master`.
 Now, if the name row differs from the one recorded when the position was set, the position is not trusted and is established again (confirmed on the real Logic: it gives `no_such_track`).
 
@@ -121,3 +121,4 @@ Now, if the name row differs from the one recorded when the position was set, th
 - `Tests/integration/test_cli_safety_gate.py` (a request with a safeguard is never sent to an older daemon)
 - [EXP-MCU-022](../Research/experiments/EXP-MCU-022-rename-reaches-surface.en.md) (real Logic: a rename reaches the surface)
 - [EXP-MCU-023](../Research/experiments/EXP-MCU-023-add-delete-reach-surface.en.md) (real Logic: adds and deletes reach it; the stale-bank defect after a delete and its fix)
+- [EXP-MCU-024](../Research/experiments/EXP-MCU-024-trace-add-delete.en.md) (real Logic: the MIDI of an add and a delete; a delete sends no colour sysex)

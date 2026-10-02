@@ -43,7 +43,7 @@
 ### Cause of the defect (Hypothesis)
 
 Hypothesis: when a delete pulls the bank back, Logic rewrites the name row but does not send the colour sysex that signals a bank move.
-Confidence: medium. The evidence is that `bankIsKnown` (the colour-update count and the connection generation are the same as when the position was set) stayed true. No MIDI trace was captured.
+Confidence: high. The evidence is that `bankIsKnown` (the colour-update count and the connection generation are the same as when the position was set) stayed true. A MIDI trace was recorded afterwards and confirmed that no colour sysex arrives right after a delete ([EXP-MCU-024](EXP-MCU-024-trace-add-delete.en.md)).
 `logicd` detected bank moves by counting colour sysex messages (EXP-MCU-020). A move by a button brings one each time; the pull-back from a delete is presumed not to.
 
 ### Fix and re-check (cycle 2, fixed build)
@@ -65,8 +65,12 @@ Confidence: medium. The evidence is that `bankIsKnown` (the colour-update count 
 
 A reorder could not be produced, so there is **no result**.
 
-- Dragging the track header (from the icon): the track was only selected; the order did not change.
-- Menu "Track → Reorder Tracks → Track Name": executed, but neither the order nor the LCD changed.
+- Dragging the track header (background operation, from the icon): the track was only selected; the order did not change.
+- Menu "Track → Reorder Tracks → Track Name" (background operation): executed, but neither the order nor the LCD changed.
+- A later retry (real mouse input with Logic in front): a drag that started on a button only toggled the track's mute (`M`) (restored).
+  Slow drags from the track number, the icon and the gap between buttons (3 variants) only selected the track.
+  Running the menu "Track Name" with real clicks (once with one track selected, once with all 10) changed nothing either. Logic's undo history has no "reorder" entry (only 2 renames, 3 creates and 3 deletes).
+- So **this way of operating does not reorder**. Whether this is Logic's behaviour or a limit of how the input is delivered (synthesised mouse events) is not distinguished.
 
 ## Other observations
 
@@ -77,8 +81,8 @@ A reorder could not be produced, so there is **no result**.
 Hypothesis: when adding or deleting tracks changes the order of strips, Logic rewrites the MCU name row. It does not necessarily send the colour sysex that signals a bank move along with it.
 Confidence: high that adds and deletes are reflected (twice each on the real Logic; LCD copies and check results agree). Medium for the missing colour sysex (above).
 Counterexamples: none.
-Next validation experiment: (1) record the MIDI of a delete with `logicd --trace` and check that no colour sysex really comes.
-(2) Reordering (another way: drag the track header slowly, or a key command). (3) Check that re-establishing the position when the name row differs does not cause excessive re-positioning in real use.
+Next validation experiment: (1) [done] Record the MIDI of a delete: [EXP-MCU-024](EXP-MCU-024-trace-add-delete.en.md).
+(2) Reordering by a person's hands, or a key command (synthesised mouse input has not produced it so far). (3) Check that re-establishing the position when the name row differs does not cause excessive re-positioning in real use.
 
 ## Consequence for logicctl
 

@@ -105,13 +105,13 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 | トラック名の変更（表示中のストリップ） | **確認済み**：EXP-MCU-022（`Zed5`、旧名は `target_mismatch`） | 〇 |
 | トラックの追加 | **確認済み**：EXP-MCU-023（追加前の配置での照合 3 件がすべて `target_mismatch`）。Logic は表示範囲も自分で動かす | 〇 |
 | トラックの削除 | **確認済み**：EXP-MCU-023。削除後に古いバンク位置を信じる不具合を見つけて修正（下記） | 〇 |
-| トラックの並べ替え | **未確認**：並べ替えを起こせなかった（ドラッグ、メニューの並べ替え） | 〇（Logic が表示を更新する、という仮定） |
+| トラックの並べ替え | **未確認**：並べ替えを起こせなかった（ドラッグ、メニューの並べ替え。計 8 回の試行で変化なし） | 〇（Logic が表示を更新する、という仮定） |
 | 表示外のストリップの名前変更 | 未確認（バンクを動かすと表示が書き直されるはず） | — |
 
 未確認の項目は、実機で確かめるまで「検出できる」と書きません。単体試験は、**Logic が表示を更新するなら**
 この照合が検出する、ことを示すだけです。
 
-実機の削除では、Logic が名前行だけを書き直し、バンクの移動を知らせる信号（色の sysex）を伴わない場合がありました。
+実機の削除では、Logic が名前行の差分だけを書き直し、バンクの移動を知らせる信号（色の sysex）を送りませんでした（MIDI の記録：EXP-MCU-024）。
 このとき以前の `logicd` は、削除前のバンク位置を信じ、存在しないトラック 13 を `Master` として読みました。
 現在は、バンク位置を決めたときの名前行が変わっていれば、位置を信じず取り直します（`no_such_track` になることを実機で確認）。
 
@@ -121,3 +121,4 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 - `Tests/integration/test_cli_safety_gate.py`（古い daemon に安全装置つきの要求を送らない）
 - [EXP-MCU-022](../Research/experiments/EXP-MCU-022-rename-reaches-surface.md)（実機：名前変更はサーフェスに届く）
 - [EXP-MCU-023](../Research/experiments/EXP-MCU-023-add-delete-reach-surface.md)（実機：追加・削除は届く。削除後の古いバンク位置の不具合と修正）
+- [EXP-MCU-024](../Research/experiments/EXP-MCU-024-trace-add-delete.md)（実機：追加・削除時の MIDI。削除では色の sysex が届かない）
