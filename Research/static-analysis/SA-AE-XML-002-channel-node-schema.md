@@ -97,9 +97,9 @@ virtual `+0x28` に code `0x205` を渡して count を得る。各 index は si
 
 Channel の二つの group は signed count `+0x4e/+0x4c` と pointer 範囲 `+0x30/+0x38` を使う。type bit `0x40`、type `!=0xc0`、有効 index と child pointer を条件に `0x0154dcb4` を呼び、非 null Plugin をまとめる。非空なら `Plugins` を `addChild:`（`0x0154db44`）。Plugin の Parameter 配列が非空なら `Parameters` を `addChild:`（`0x0154e024`）。続く `+0x4a` の group はこの node 本体で配列へ何も追加せず、`Sends` の追加 branch は count 非ゼロ条件のコードとして存在する。**factory の存在と、この経路の実出力を分ける**。
 
-`_IsALPCheckForEmptySlots`（`0x0154dbfc`）が非ゼロなら `checkForEmptySlots:channelXMLElement:` → `0x0133d5a0`。この feature 判定の実装・設定元は未調査で、既定の有効／無効は決めない。checker は 3 group（`+0x4e/+0x4c/+0x4a`）を走査し `checkSlot:lastSlotEmpty:anySlotEmpty:`（stub `0x01b16720`）へ slot と二つの local byte pointer を渡す。group 間で lastSlotEmpty を 0 に戻し、anySlotEmpty は保持する。
+`_IsALPCheckForEmptySlots`（`0x0154dbfc`）が非ゼロなら `checkForEmptySlots:channelXMLElement:` → `0x0133d5a0`。後続の [XML-003](SA-AE-XML-003-empty-slot-alert.md) で MACore の feature 判定と cached preference を特定した。現在の設定値と global の設定元は未確認で、実行時の有効／無効は決めない。checker は 3 group（`+0x4e/+0x4c/+0x4a`）を走査し `checkSlot:lastSlotEmpty:anySlotEmpty:`（stub `0x01b16720`）へ slot と二つの local byte pointer を渡す。group 間で lastSlotEmpty を 0 に戻し、anySlotEmpty は保持する。
 
-anySlotEmpty bit 0 が立つと、`0x0133d754` で **`HasEmptySlots`**（CFString `0x023ebe08`、payload `0x01e11e8a`、length `13`）を children / attributes なしで作り、Channel に追加（`0x0133d76c`）、その後 **`displayEmptySlotAlert`**（stub `0x01b2cd80`、call `0x0133d77c`）を呼ぶ。slot 判定の定義と alert の実装は未調査。実際に alert を表示したとは扱わないが、XML 生成を pure getter とする根拠もない。
+anySlotEmpty bit 0 が立つと、`0x0133d754` で **`HasEmptySlots`**（CFString `0x023ebe08`、payload `0x01e11e8a`、length `13`）を children / attributes なしで作り、Channel に追加（`0x0133d76c`）、その後 **`displayEmptySlotAlert`**（stub `0x01b2cd80`、call `0x0133d77c`）を呼ぶ。[XML-003](SA-AE-XML-003-empty-slot-alert.md) で、同じ group の null 後の非 null（先頭の空きも含む）という判定と、別の抑制 flag の bit 0 が 0 なら `NSAlert.runModal` を呼ぶ実装を確認した。実際に alert を表示したとは扱わないが、XML 生成を pure getter とする根拠もない。
 
 今回の node / child / factory 本体に入力内部 object の直接 store は見えない。ただし上位 mode 8 の `record+0x12`、iterator の `song+0x658`・`entry+0x6b4/+0x30` store は既知であり、virtual call と ALP の副作用は未解決。XML field を読み取れることだけで read-only 操作や製品 capability に昇格させない。
 
@@ -108,7 +108,7 @@ anySlotEmpty bit 0 が立つと、`0x0133d754` で **`HasEmptySlots`**（CFStrin
 | gate | 確認対象・受け入れ条件 |
 |---|---|
 | X1: backend の意味 | virtual `+0x28/+0x98/+0x88/+0x40/+0x50` の具体的な実装を特定。value / valueLimit の型・単位、count・index、buffer の失敗・終端を確定 |
-| X2: ALP 条件と副作用 | feature 判定、checkSlot、displayEmptySlotAlert の小さな entry/exit。設定値、空 slot の定義、global/UI/内部 object への変更を確定 |
+| X2: ALP 条件と副作用 | [XML-003](SA-AE-XML-003-empty-slot-alert.md) で feature 判定、slot 規則、抑制と modal call を確定。残りは menu global / setter の呼出し元、現在値、cache 更新・無効化 |
 | X3: 出力差の試験設計 | 空文字列と `"0"`、type / mode の境界、raw valueLimit 0、buffer return 0/非ゼロ、空 group を独立条件にする。省略 attribute、欠落 Parameter、欠落 wrapper を別々に確認 |
 | X4: session で許可された実験 | `LogicCLI-Test.logicx`、専用出力先、1 条件ずつ複数値・複数 track、生成 XML と前後状態の独立読み戻し。store・alert・失敗・上書きも確認し、確認できなければ `verified:false`。PLAN-05 接続 gate は別に維持 |
 

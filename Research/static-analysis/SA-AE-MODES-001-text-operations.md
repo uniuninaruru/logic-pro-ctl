@@ -70,7 +70,7 @@
 
 これは `song+0xd4/+0xd8` と内部レコードのデータフローの確認であり、UI のトラック番号、プラグイン slot、リージョン ID の意味や lifetime は未確定。mode 8/9 のコンテナー選択は一部 caller 内にも展開されている。
 
-`0x01a15c7c` は別の pointer 配列 `song+0x788 → +0x1e0/+0x1e8` を参照し、record `+0x69==0x11` と signed byte `+0x335<13` を検査する。さらに `+0x150/+0x158` の配列と record の signed short `+0x320` を使って object を返す。第 3 引数が非 null なら中間 container を out parameter に書く（`0x01a15d84`）。失敗時の return と out parameter は 0。名前付けされていない内部構造を、安定した外部識別子として扱わない。
+`0x01a15c7c` は別の pointer 配列 `song+0x788 → +0x1e0/+0x1e8` を参照し、record `+0x69==0x11` と signed byte `+0x335<13` を検査する。さらに `+0x150/+0x158` の配列と record の signed short `+0x320` を使って object を返す。第 3 引数が非 null なら中間 container を out parameter に書く（`0x01a15d84`）。前段の失敗は return / out とも 0 だが、その store 後の inner-index 検査（`0x01a15d8c..0x01a15d9c`）が失敗すると、return 0 と非 null out が共存し得る。名前付けされていない内部構造を、安定した外部識別子として扱わない。詳細は [TARGET-003](SA-AE-TARGET-003-target-resolution.md)。
 
 ## 各 mode の観察と Hypothesis
 
@@ -147,7 +147,7 @@ alias 解決した path の NSData を読み、`propertyListWithData:options:for
 
 ### mode 10 — `0x017b1e8c` → `0x004b2a08`
 
-二つの resolver 後、type の bit `0x8` を除いた値 `0x43`、object `+0x48` の index が `0x12` 以下か検査する。`0x002c8a10` / `0x002c90cc` の結果から linked entry を探す。指定 path の CFileRef が `IsFile` 非ゼロなら `0x017b1f94 → 0x004b2a08(CFileRef,entry)`。type や entry が具体的な plugin slot を意味するかは未確定。
+二つの resolver 後、type の bit `0x8` を除いた値 `0x43`、object `+0x48` の index が **12（`0x0c`）以下**か検査する（`0x017b1efc` の `cmp w8,#0xc`、`0x017b1f00` の `b.hi`）。以前の `0x12` は数値表記の誤り。`0x002c8a10` / `0x002c90cc` の結果から linked entry を探す。指定 path の CFileRef が `IsFile` 非ゼロなら `0x017b1f94 → 0x004b2a08(CFileRef,entry)`。type や entry が具体的な plugin slot を意味するかは未確定。
 
 下位関数は `.aupreset`（`0x01e0ed4b`）の extension を調べ、`0x004b2adc → 0x004b1234` に file と対象を渡す。buffer が非 null の経路では、対象 `+0xa8` の CFileRef を代入、`0x004b2b38` で `+0x110` を 0、`0x004b2be8 → 0x004afaa0(buffer,entry,2,dictionary)`。その戻りを `w22` で検査し、非ゼロ分岐で entry `+0x18` に `0x40000` / `0x20000` を OR（`0x004b2ce8/0x004b2cf0`）、`0x004b0ad4` に CFString `0x0234cce8` を渡す。pointer/data 出力の完全な内容は **`com.apple.logic.pluginsetting_loaded`**（length `36`、payload `0x01d76217`）。逆コンパイルの symbol 表記から句読点を復元しない。
 

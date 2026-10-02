@@ -68,8 +68,11 @@ flowchart LR
 | [XML の項目と省略条件](static-analysis/SA-AE-XML-002-channel-node-schema.md) | Channel・Plugin・Parameter のタグと属性、空文字の省略、条件付き alert。公開APIではない |
 | [書き出しと削除対象](static-analysis/SA-AE-EXPORT-002-temporary-output.md) | mode 12 の失敗時に directory path が削除 API へ届き得る経路。実行候補から除外 |
 | [位置変換 context の更新と寿命](static-analysis/SA-AE-TIME-002-context-lifecycle.md) | rate/scale の更新、cache 世代、登録解除、fallback record。実際の曲への追従は未確認 |
+| [AppleEvent の対象解決](static-analysis/SA-AE-TARGET-003-target-resolution.md) | 選択値・内部 record・container・object の違い、失敗と out parameter、lookup 内の生成・保存。安定 ID は未確定 |
+| [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
+| [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 
-テキストとファイルの分岐は、現時点では静的解析の記録です。helperの失敗が応答に反映されない経路や、対象を選ぶ段階で内部metadataを書き換える処理があります。製品CLIの対応機能としては公開していません。[入力と解析出力のmanifest](static-analysis/appleevent-mode-analysis-manifest.json)に、対象バイナリ・Ghidra条件・ローカル根拠のハッシュを記録しています。 XML・書き出し・context更新の追補は[follow-up manifest](static-analysis/appleevent-followup-analysis-manifest.json)で照合できます。各資料は日英版の切替と図を備えています。
+テキストとファイルの分岐は、現時点では静的解析の記録です。helperの失敗が応答に反映されない経路や、対象を選ぶ段階で内部metadataを書き換える処理があります。製品CLIの対応機能としては公開していません。[入力と解析出力のmanifest](static-analysis/appleevent-mode-analysis-manifest.json)に、対象バイナリ・Ghidra条件・ローカル根拠のハッシュを記録しています。XML・書き出し・context更新の追補は[follow-up manifest](static-analysis/appleevent-followup-analysis-manifest.json)、対象解決・rate採用・XML警告の追補は[native boundaries manifest](static-analysis/appleevent-native-boundaries-manifest.json)で照合できます。各資料は日英版の切替と図を備えています。
 
 ## 実験の一覧
 

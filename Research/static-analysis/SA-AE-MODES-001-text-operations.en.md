@@ -70,7 +70,7 @@ The result of `AEPutParamPtr` itself reaches the handler's signed 16-bit return.
 
 This establishes dataflow between `song+0xd4/+0xd8` and an internal record. It does not establish a UI track number, plugin slot, region ID, or identifier lifetime. Parts of container selection are also inlined into modes 8 and 9.
 
-`0x01a15c7c` uses another pointer array at `song+0x788 → +0x1e0/+0x1e8`, checks record `+0x69==0x11` and signed byte `+0x335<13`, then uses the array at `+0x150/+0x158` and signed short record field `+0x320` to return an object. A non-null third argument receives an intermediate container (`0x01a15d84`). Both the return and out parameter are 0 on failure. These unnamed internal structures are not stable external identifiers.
+`0x01a15c7c` uses another pointer array at `song+0x788 → +0x1e0/+0x1e8`, checks record `+0x69==0x11` and signed byte `+0x335<13`, then uses the array at `+0x150/+0x158` and signed short record field `+0x320` to return an object. A non-null third argument receives an intermediate container (`0x01a15d84`). Earlier failures clear both the return and out parameter, but inner-index failure after that store (`0x01a15d8c..0x01a15d9c`) can return 0 with a non-null out parameter. These unnamed internal structures are not stable external identifiers. See [TARGET-003](SA-AE-TARGET-003-target-resolution.en.md).
 
 ## Observations and hypotheses by mode
 
@@ -147,7 +147,7 @@ It reads NSData from the alias-resolved path and calls `propertyListWithData:opt
 
 ### Mode 10 — `0x017b1e8c` → `0x004b2a08`
 
-After both resolvers, it requires type `0x43` after masking bit `0x8` and object `+0x48` index at most `0x12`. It searches a linked entry from `0x002c8a10` / `0x002c90cc` results. If CFileRef `IsFile` is nonzero, it calls `0x017b1f94 → 0x004b2a08(CFileRef,entry)`. Whether this type and entry identify a specific plugin slot remains unknown.
+After both resolvers, it requires type `0x43` after masking bit `0x8` and object `+0x48` index at most **12 (`0x0c`)**, established by `cmp w8,#0xc` at `0x017b1efc` and `b.hi` at `0x017b1f00`. The earlier `0x12` was a numeric transcription error. It searches a linked entry from `0x002c8a10` / `0x002c90cc` results. If CFileRef `IsFile` is nonzero, it calls `0x017b1f94 → 0x004b2a08(CFileRef,entry)`. Whether this type and entry identify a specific plugin slot remains unknown.
 
 The callee checks extension `.aupreset` (`0x01e0ed4b`) and passes the file and target to `0x004b2adc → 0x004b1234`. A non-null buffer path assigns the target `+0xa8` CFileRef, clears `+0x110` at `0x004b2b38`, and calls `0x004b2be8 → 0x004afaa0(buffer,entry,2,dictionary)`. It tests that result in `w22`; the nonzero branch ORs entry `+0x18` with `0x40000` / `0x20000` (`0x004b2ce8/0x004b2cf0`) and passes CFString `0x0234cce8` to `0x004b0ad4`. The complete pointer/data contents are **`com.apple.logic.pluginsetting_loaded`** (length `36`, payload `0x01d76217`). Punctuation must not be reconstructed from the decompiler's symbol spelling.
 

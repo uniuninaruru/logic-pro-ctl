@@ -43,7 +43,7 @@ Direct updater calls were confirmed at `0x00417bc0` in `FUN_00417ad8` and `0x004
 - `FUN_00417ad8` reads a value through virtual getter `+0x60` on the object reached from global `0x0275ff60`, using `44100` for zero/absence (`0x00417b88..0x00417bac`). Another candidate comes from enumeration through virtual `+0x40` / `+0x50`. A nonzero result from `FUN_002cc818` leads to passing the adopted candidate in updater `x0` (`0x00417bb0..0x00417bd8`).
 - `FUN_00417bfc` accepts a value in `x1` and forms an absolute-value candidate. For zero, it tries the same virtual getter, with `44100` if no value is obtained. It checks `FUN_002cc818` before calling the updater (`0x00417ee0..0x00417f34`).
 
-The internals of `FUN_002cc818`, virtual getter implementations, and notification order remain unaudited. **Hypothesis, confidence: medium:** these are audio rate selection/change paths. This agrees with the `globalSampleRate` store but does not guarantee equality of project display, hardware rate, and conversion rate under every condition.
+The follow-up [TIME-003](SA-AE-TIME-003-rate-adoption.en.md) audits `FUN_002cc818`, stores around its adoption attempt, return semantics, and two lower functions. Concrete virtual getter ownership and the full notification sequence remain unresolved. **Hypothesis, confidence: medium:** these are audio rate selection/change paths. This agrees with the `globalSampleRate` store but does not guarantee equality of project display, hardware rate, and conversion rate under every condition.
 
 ## 3. Cache generations and destruction
 
@@ -70,7 +70,7 @@ The 32-byte initialization, byte `0x60` at `+0`, and byte `0x7f` at `+0xc` were 
 
 ## 5. Remaining work before an external API
 
-1. Match `FUN_002cc818` and virtual getter implementations to establish rate adoption conditions and synchronization order.
+1. Starting from the adoption conditions, stores, and return semantics in [TIME-003](SA-AE-TIME-003-rate-adoption.en.md), establish concrete virtual getter ownership and notification synchronization order.
 2. Trace bounded generation-update notification sources to establish when stale cache values cannot be reused after tempo/rate changes.
 3. Validate multiple records, signs, boundaries, and rounding with synthetic fixtures, then compare displayed values with independent readback in a dedicated project experiment.
 

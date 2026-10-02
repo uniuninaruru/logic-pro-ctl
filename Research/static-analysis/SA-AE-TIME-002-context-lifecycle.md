@@ -43,7 +43,7 @@ flowchart LR
 - `FUN_00417ad8` は global `0x0275ff60` が指す object の virtual getter `+0x60` から値を得て、0/不在なら `44100` を候補にします（`0x00417b88..0x00417bac`）。別の候補は virtual `+0x40` / `+0x50` の列挙から作ります。`FUN_002cc818` の返値が非 0 の経路で、採用候補を updater の `x0` に渡します（`0x00417bb0..0x00417bd8`）。
 - `FUN_00417bfc` は `x1` の値を受け、絶対値側の候補を作ります。0 の場合は同じ virtual getter を試し、取得できなければ `44100` とします。`FUN_002cc818` の結果を見て updater に渡します（`0x00417ee0..0x00417f34`）。
 
-`FUN_002cc818` の内部、virtual getter の実装、通知順序は未監査です。**Hypothesis、確信度: 中:** これらは音声側の rate 選択・切替経路です。`globalSampleRate` への保存と整合しますが、project の表示値、hardware rate、変換用 rate が全条件で同じという保証にはしません。
+後続の [TIME-003](SA-AE-TIME-003-rate-adoption.md) で `FUN_002cc818`、その前後の保存・採用試行・返値、二つの下位関数を監査しました。virtual getter の具体的な owner と通知全体は未確定です。**Hypothesis、確信度: 中:** これらは音声側の rate 選択・切替経路です。`globalSampleRate` への保存と整合しますが、project の表示値、hardware rate、変換用 rate が全条件で同じという保証にはしません。
 
 ## 3. cache 世代と破棄
 
@@ -70,7 +70,7 @@ atexit の対象 `FUN_0053246c` は、context の `+0x80/+0x48/+0x10` を順に�
 
 ## 5. 外部 API に進むための残り
 
-1. `FUN_002cc818` と virtual getter の実装を照合し、rate の採用条件と同期順序を確定する。
+1. [TIME-003](SA-AE-TIME-003-rate-adoption.md) の採用条件・保存・返値を起点に、virtual getter の具体的な owner と通知の同期順序を確定する。
 2. 世代更新の通知元を限定して追い、テンポ・rate 変更後に古い値が再利用されない条件を確認する。
 3. synthetic fixture で複数 record・正負・境界・丸めを検証し、その後の専用曲の実験で表示値と独立 readback を比較する。
 
