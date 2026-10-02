@@ -146,7 +146,7 @@ R1/R2とR3の静的調査、R0の製品改善は並行できます。R4以降の
 | 段階 | 作業 | 合格条件・残す成果物 |
 |---|---|---|
 | R0：土台 | 全操作の観測契約、session、unknown/partial、取得失敗、capabilities、副作用、実行契約を整える | 未受信・接続変更・途中取得を成功にしない。`state` の取得範囲を機械可読にする。広いwrite公開前にproject/session/revisionの事前条件、timeout・重複・競合を検証 |
-| R1：独立接続 | MACoreの招待・version・hostType・JSON交換・frameを解析し、研究用Swift peerを作る | 独立した3回の接続でアプリmessageを実際に受信。切断・再接続を識別。接続手順とfixtureを保存 |
+| R1：独立接続 | MACoreの招待・version・hostType・JSON交換・frameを解析し、研究用Swift peerを作る | 接続先・送受信範囲を示して明示承認を得てから接続する。独立した3回の接続でアプリmessageを実際に受信。切断・再接続を識別。接続手順とfixtureを保存 |
 | R2：読み取り | `/ati`・`/sti`・`/gtFaderData`・transport・clockを初回＋差分で組み立てる | 複数track・複数値・false/0・再接続・曲切り替えで照合。取得範囲と未取得を判定できる |
 | R3：コマンド台帳 | Remoteのcommands/groups queryと登録tableを照合。ID 3/7の状態評価を先に監査 | ID・名前・category・handler・alias・必要context・副作用・根拠を記録。無差別実行はしない |
 | R4：基本操作拡張 | stableな対象参照、native/Remote mixer、transport seek/cycle、send/routingを追加 | R0の実行契約を満たし、現在のMCU機能との比較、誤対象ゼロ、複数値のfresh readback。recordは専用の別実験 |
@@ -164,7 +164,7 @@ R4〜R7は、各操作を「読み取り → 1つの変更 → 読み戻し → 
 1. **PLAN-01 / PLAN-02**：version/hashと根拠の一覧を固定し、現在のMCUにもunknown・partial・鮮度の契約をそろえる。
 2. **PLAN-03**：上記MACoreの3関数と、Logicの接続blockだけを追い、招待・承認・version交換の順序を文書化する。
 3. **PLAN-04**：受信・送信・圧縮を解析し、tagged plist/JSONのfixtureとparser仕様を作る。
-4. **PLAN-05**：macOSのMultipeerConnectivityを使う研究用peerで、一覧・状態の受信を試す。接続・protocol設定以外の編集commandは送らない。
+4. **PLAN-05**：macOSのMultipeerConnectivityを使う研究用peerを準備する。新規接続は接続先・送受信範囲を示して明示承認を得た後に、一覧・状態の受信を試す。接続・protocol設定以外の編集commandは送らない。
 5. **PLAN-06 / PLAN-07**：初回stateと後続更新を統合し、commands queryから操作の地図を作る。play/recordの状態評価は並行して静的に追う。
 6. **PLAN-08**：Track/instrument/stripのID・完全名・階層を確定する。以降の書き込みはこの対象契約に載せる。
 
@@ -222,17 +222,22 @@ MCUの`track list`はbankを移動し、`track get`はfader touchを送ります
 
 ## 8. Ghidra解析を継続する方法
 
-1. バージョン・build・architecture・UUID・SHA-256を記録し、インストール済みfile、解析copy、Ghidra programの一致を確認する。汎用`query.sh`自体にはhash guardがないので、照合を省かない。
+1. バージョン・build・architecture・UUIDと、インストール済み元file全体のSHA-256、選択したarm64 sliceのSHA-256を別々に記録する。元fileのarm64 slice → 解析copy → Ghidra programの保存済みExecutable SHA-256を照合する。Universal全体のhashとthin arm64のhashを直接比較しない。元fileがthin arm64なら両者は一致する。汎用`query.sh`自体にはhash guardがないので、照合を省かない。
 2. 既存programをread-onlyで再利用する。新frameworkはcopy/sliceにimportし、別profileとして管理する。
 3. 一度に1本の経路を追う。例：受信message → route分岐 → handler → model getter/setter → 返信/通知。
 4. ObjC selector、CFString、chained pointer、callerを復元し、ARM64の引数・返値・分岐と照合する。Cの推定prototypeだけで型を決めない。
 5. 実行context、lock/thread、dirty/Undo/automation、単位・値域・エラーを含めた短い整理記録を残す。
 6. parser fixtureと単独実験を作り、実機照合後にだけ製品実装・capabilityへ昇格する。
 
-基準SHA-256：
+基準SHA-256（2026-10-02に再確認）：
 
-- Logic：`2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998`
-- MACore：`76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52`
+| 対象 | インストール済み元file全体 | arm64 slice・解析copy・Ghidraの保存済みExecutable SHA-256 |
+|---|---|---|
+| Logic：thin arm64 | `2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998` | `2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998` |
+| MACore：universal x86_64 + arm64 | `76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52` | `99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076` |
+
+[バイナリ識別の記録](../static-analysis/SA-IDENTITY-001-binary-inputs.md)と[identity manifest](../static-analysis/binary-identity-12.3.1-6682.json)に、各hash・architecture・UUID・slice位置・Ghidra metadataを分けて記録しています。
+このmanifestはPLAN-01のバイナリ識別部分です。PLAN-01全体の完了を意味しません。
 
 既存program `Logic.arm64` の限定クエリ例です。hashを確認した後、リポジトリのrootで実行します。
 この例は静的出力を作り、Logicへcommandを送信しません。
@@ -265,7 +270,8 @@ MACoreも同じ方法で、対応する解析済みprogramを確認してから�
 | D：統合・文書 | 実験、結果照合、機能台帳、日英説明 | 実機書き込みは1workerずつ。rootが統合・検証 |
 
 接続解析が詰まっても、B/Cの作業は進められます。資料・fixturesを共有し、同じ実機の状態を同時に変えません。
-計測に`sudo`、署名変更、SIP変更、Logicバイナリ改変が必要になった場合だけ、[AGENTS.md](../../AGENTS.md)の確認要件に従います。
+計測に`sudo`、署名変更、SIP変更、Logicバイナリ改変が必要になった場合は、[AGENTS.md](../../AGENTS.md)の確認要件に従います。
+PLAN-05の新規peer接続は、2026-10-02のユーザー指定に従い明示承認後に行います。静的解析・オフラインfixture/parser・prototypeの準備は先に進められます。
 まず静的解析と通常権限の受信記録を使います。実行中processへの注入を製品の前提にしません。
 
 **今後作る成果物**（下記は作成済みfileの一覧ではありません）：

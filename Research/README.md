@@ -57,6 +57,7 @@ flowchart LR
 | [SA-003](static-analysis/SA-003-logic-framework-first-pass.md) | Logic.frameworkの初回調査 |
 | [SA-004](static-analysis/SA-004-command-and-engine-boundaries.md) | コマンドと音声エンジンの境界 |
 | [SA-005](static-analysis/SA-005-logic-remote-state-push.md) | Logic Remoteへの状態送信とキー定数 |
+| [SA-IDENTITY-001](static-analysis/SA-IDENTITY-001-binary-inputs.md) | 元Universal/thinファイル・arm64 slice・解析copy・Ghidra import metadataの識別と照合 |
 | [AppleEvent登録](static-analysis/appleevent-registration.md) | handler・型・戻り値・モード分岐 |
 | [コマンドへの橋渡し](static-analysis/appleevent-command-dispatch.md) | AppleEventからplay/stopの内部コマンドへ |
 | [MACoreのAppleEvent調査](static-analysis/macore-appleevents.md) | x86側の候補と、陰性結果の限界 |

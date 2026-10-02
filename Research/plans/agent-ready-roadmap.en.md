@@ -146,7 +146,7 @@ The backlog's `depends_on` lists prerequisites for completion, live experiments,
 | Stage | Work | Acceptance criteria and deliverables |
 |---|---|---|
 | R0: Foundation | Define observation contracts, sessions, unknown/partial states, retrieval failures, capabilities, side effects, and execution contracts for all operations | Do not treat missing data, connection changes, or incomplete retrieval as success. Make `state` coverage machine-readable. Validate project/session/revision preconditions, timeouts, duplicates, and conflicts before broadly exposing writes |
-| R1: Independent connection | Analyze MACore invitations, version, hostType, JSON exchange, and frames; build a research Swift peer | Actually receive application messages in three independent connections. Identify disconnect/reconnect. Save the connection procedure and fixtures |
+| R1: Independent connection | Analyze MACore invitations, version, hostType, JSON exchange, and frames; build a research Swift peer | Describe the target and messages to be sent/received, then obtain explicit approval before connecting. Actually receive application messages in three independent connections. Identify disconnect/reconnect. Save the connection procedure and fixtures |
 | R2: Readback | Assemble `/ati`, `/sti`, `/gtFaderData`, transport, and clock from initial messages and deltas | Compare across multiple tracks/values, false/0, reconnects, and song switches. Determine coverage and missing fields |
 | R3: Command catalog | Compare Remote commands/groups queries with registration tables. Audit state evaluation for IDs 3/7 first | Record IDs, names, categories, handlers, aliases, required context, side effects, and evidence. Do not execute commands indiscriminately |
 | R4: Expand basic operations | Add stable target references, native/Remote mixer operations, transport seek/cycle, sends/routing | Meet the R0 execution contract; compare with existing MCU capabilities; zero wrong-target writes; fresh readback across multiple values. Recording requires a separate dedicated experiment |
@@ -164,7 +164,7 @@ Completed areas can be exposed within their validated scope before later stages 
 1. **PLAN-01 / PLAN-02**: Fix the version/hash and evidence inventory; align the current MCU contracts for unknown, partial, and freshness states.
 2. **PLAN-03**: Trace only the three MACore functions above and Logic's connection block; document the order of invitation, acceptance, and version exchange.
 3. **PLAN-04**: Analyze receiving, sending, and compression; create tagged plist/JSON fixtures and a parser specification.
-4. **PLAN-05**: Try receiving lists and state with a research peer using macOS MultipeerConnectivity. Send no editing commands beyond connection/protocol configuration.
+4. **PLAN-05**: Prepare a research peer using macOS MultipeerConnectivity. Describe the target and messages to be sent/received, and obtain explicit approval before attempting a new connection to receive lists and state. Limit sent messages to connection/protocol configuration; send no editing commands.
 5. **PLAN-06 / PLAN-07**: Combine initial state and subsequent updates; build an operation map from commands queries. Trace play/record state evaluation statically in parallel.
 6. **PLAN-08**: Establish track/instrument/strip IDs, full names, and hierarchy. Base subsequent writes on this target contract.
 
@@ -222,17 +222,22 @@ Current request IDs are for correlation; duplicate suppression, revision contrac
 
 ## 8. Continuing Ghidra analysis
 
-1. Record version, build, architecture, UUID, and SHA-256; verify that the installed file, analysis copy, and Ghidra program match. The general `query.sh` has no hash guard, so do not skip this check.
+1. Record version, build, architecture, and UUID, with separate SHA-256 values for the entire installed source file and the selected arm64 slice. Verify the source file's arm64 slice → analysis copy → the Ghidra program's stored Executable SHA-256. Do not directly compare the universal file's full hash with the thin arm64 hash. If the source file is already thin arm64, the hashes match. The general `query.sh` has no hash guard, so do not skip this check.
 2. Reuse existing programs read-only. Import copies/slices of new frameworks and manage them as separate profiles.
 3. Trace one path at a time. For example: received message → route branch → handler → model getter/setter → reply/notification.
 4. Recover ObjC selectors, CFStrings, chained pointers, and callers; compare against ARM64 arguments, return values, and branches. Do not assign types from inferred C prototypes alone.
 5. Keep short organized records covering execution context, locks/threads, dirty state/Undo/automation, units, ranges, and errors.
 6. Create parser fixtures and isolated experiments; promote findings to product implementations/capabilities only after live comparison.
 
-Baseline SHA-256:
+Baseline SHA-256 values (checked again on 2026-10-02):
 
-- Logic: `2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998`
-- MACore: `76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52`
+| Target | Entire installed source file | arm64 slice, analysis copy, and Ghidra's stored Executable SHA-256 |
+|---|---|---|
+| Logic: thin arm64 | `2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998` | `2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998` |
+| MACore: universal x86_64 + arm64 | `76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52` | `99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076` |
+
+The [binary identity record](../static-analysis/SA-IDENTITY-001-binary-inputs.en.md) and [identity manifest](../static-analysis/binary-identity-12.3.1-6682.json) record each hash, architecture, UUID, slice location, and Ghidra metadata separately.
+This manifest covers the binary identity subset of PLAN-01. It does not mark the whole of PLAN-01 complete.
 
 These are bounded query examples for the existing `Logic.arm64` program. Run them from the repository root after checking the hash.
 They produce static output and send no commands to Logic.
@@ -266,6 +271,7 @@ Investigate persistence formats using copies of the dedicated project and differ
 
 Work in B/C can continue if connection analysis stalls. Share documents and fixtures; do not change the same live application's state concurrently.
 If measurement requires `sudo`, signature changes, SIP changes, or Logic binary modifications, follow the confirmation requirements in [AGENTS.md](../../AGENTS.md).
+New peer connections in PLAN-05 require explicit approval, as directed by the user on 2026-10-02. Static analysis, offline fixtures/parsers, and prototype preparation can proceed beforehand.
 Start with static analysis and receive records collected with normal permissions. Do not make injection into a running process a product prerequisite.
 
 **Planned deliverables** (these are not a list of files already created):

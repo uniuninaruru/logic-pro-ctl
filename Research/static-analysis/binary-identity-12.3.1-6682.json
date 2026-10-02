@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "record_kind": "static_binary_identity",
+  "scope": "PLAN-01 binary identity subset: Logic and MACore arm64. Does not complete the full PLAN-01 evidence index or any protocol/live gate.",
+  "captured_at_utc": "2026-10-02T00:09:36.849240+00:00",
+  "app": {
+    "path": "/Applications/Logic Pro Creator Studio.app",
+    "bundle_id": "com.apple.mobilelogic",
+    "version": "12.3.1",
+    "build": "6682"
+  },
+  "environment": {
+    "macos_version": "27.0",
+    "macos_build": "26A5416b",
+    "host_architecture": "arm64"
+  },
+  "hash_contract": {
+    "source_file_sha256": "Digest of the entire installed thin/universal file; identifies source provenance.",
+    "selected_slice_sha256": "Digest of the selected architecture bytes within that file.",
+    "required_match": "selected_slice.sha256 == analysis_copy.sha256 == ghidra_program.imported_executable_sha256",
+    "ghidra_hash_scope": "Stored original import-source metadata, not a checksum of the Ghidra database or proof of unchanged analysis annotations."
+  },
+  "binaries": [
+    {
+      "name": "Logic",
+      "installed_source": {
+        "path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+        "format": "thin",
+        "size_bytes": 40710736,
+        "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+        "architecture_slices": [
+          {
+            "architecture": "arm64",
+            "cpu_type": 16777228,
+            "cpu_subtype": 0,
+            "uuid": "641ea797-e5a3-3ff1-8188-b36067cf8361",
+            "size_bytes": 40710736,
+            "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+            "offset_bytes": 0
+          }
+        ]
+      },
+      "selected_slice": {
+        "architecture": "arm64",
+        "cpu_type": 16777228,
+        "cpu_subtype": 0,
+        "uuid": "641ea797-e5a3-3ff1-8188-b36067cf8361",
+        "size_bytes": 40710736,
+        "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+        "offset_bytes": 0
+      },
+      "analysis_copy": {
+        "architecture": "arm64",
+        "cpu_type": 16777228,
+        "cpu_subtype": 0,
+        "uuid": "641ea797-e5a3-3ff1-8188-b36067cf8361",
+        "size_bytes": 40710736,
+        "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+        "path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+        "format": "thin"
+      },
+      "ghidra_program": {
+        "schema_version": 1,
+        "program_name": "Logic.arm64",
+        "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+        "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+        "executable_format": "Mac OS X Mach-O",
+        "image_base": "00000000",
+        "language_id": "AARCH64:LE:64:AppleSilicon",
+        "compiler_spec_id": "swift",
+        "ghidra_version": "12.1.4",
+        "expected_name_and_hash_match": true,
+        "project_directory": "/Users/nagataharuto/GhidraProjects/logicctl",
+        "project_name": "logicctl"
+      },
+      "verification": {
+        "source_slice_and_copy_byte_equal": true,
+        "slice_copy_import_hash_equal": true,
+        "slice_copy_uuid_equal": true,
+        "program_name_and_architecture_match": true,
+        "source_full_hash_equals_selected_slice": true
+      },
+      "local_evidence": [
+        {
+          "path": "Research/raw/20261002T000630Z-binary-profile/Logic.arm64.identity.json",
+          "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+        },
+        {
+          "path": "Research/raw/20261002T000630Z-binary-profile/Logic.arm64.headless.log",
+          "sha256": "9a75a9956e437d13a2222e7d1e00310915376f01811ca652064789ac315d39c6"
+        }
+      ]
+    },
+    {
+      "name": "MACore",
+      "installed_source": {
+        "path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+        "format": "universal",
+        "size_bytes": 4624224,
+        "sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+        "architecture_slices": [
+          {
+            "architecture": "x86_64",
+            "cpu_type": 16777223,
+            "cpu_subtype": 3,
+            "uuid": "0d8a684c-1991-3699-8602-70e453626582",
+            "size_bytes": 2346464,
+            "sha256": "ed6674bc1e19bc64b53a23bd8a53d097248e3664db16b184342f3897f10edb05",
+            "offset_bytes": 16384,
+            "alignment_power": 14
+          },
+          {
+            "architecture": "arm64",
+            "cpu_type": 16777228,
+            "cpu_subtype": 0,
+            "uuid": "c225c0d6-7d88-3bcc-a570-ebae658e1a6a",
+            "size_bytes": 2248544,
+            "sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+            "offset_bytes": 2375680,
+            "alignment_power": 14
+          }
+        ]
+      },
+      "selected_slice": {
+        "architecture": "arm64",
+        "cpu_type": 16777228,
+        "cpu_subtype": 0,
+        "uuid": "c225c0d6-7d88-3bcc-a570-ebae658e1a6a",
+        "size_bytes": 2248544,
+        "sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+        "offset_bytes": 2375680,
+        "alignment_power": 14
+      },
+      "analysis_copy": {
+        "architecture": "arm64",
+        "cpu_type": 16777228,
+        "cpu_subtype": 0,
+        "uuid": "c225c0d6-7d88-3bcc-a570-ebae658e1a6a",
+        "size_bytes": 2248544,
+        "sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+        "path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+        "format": "thin"
+      },
+      "ghidra_program": {
+        "schema_version": 1,
+        "program_name": "MACore.arm64",
+        "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+        "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+        "executable_format": "Mac OS X Mach-O",
+        "image_base": "00000000",
+        "language_id": "AARCH64:LE:64:AppleSilicon",
+        "compiler_spec_id": "swift",
+        "ghidra_version": "12.1.4",
+        "expected_name_and_hash_match": true,
+        "project_directory": "/Users/nagataharuto/GhidraProjects/logicctl",
+        "project_name": "logicctl"
+      },
+      "verification": {
+        "source_slice_and_copy_byte_equal": true,
+        "slice_copy_import_hash_equal": true,
+        "slice_copy_uuid_equal": true,
+        "program_name_and_architecture_match": true,
+        "source_full_hash_equals_selected_slice": false
+      },
+      "local_evidence": [
+        {
+          "path": "Research/raw/20261002T000630Z-binary-profile/MACore.arm64.identity.json",
+          "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+        },
+        {
+          "path": "Research/raw/20261002T000630Z-binary-profile/MACore.arm64.headless.log",
+          "sha256": "5c1aab744f777a1d1302bcc5e24e83e09bc2ebd528659c8dacd573ba50fb2c65"
+        }
+      ]
+    }
+  ],
+  "identity_report_script": {
+    "path": "Tools/ghidra/ProgramIdentityReport.java",
+    "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+  },
+  "local_evidence_directory": "Research/raw/20261002T000630Z-binary-profile",
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "peer_connection_attempted": false,
+    "application_events_sent": false
+  },
+  "generator_evidence": {
+    "path": "Research/raw/20261002T000630Z-binary-profile/build-manifest.py",
+    "sha256": "4be4503188d8705310b9e439ba3d6ca4478da878caf5b331ccc88b36aa164d61"
+  }
+}

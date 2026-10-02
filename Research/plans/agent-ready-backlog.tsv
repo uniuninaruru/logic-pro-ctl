@@ -1,9 +1,9 @@
 id	priority	stage	workstream	status	depends_on	target	planned_deliverable	acceptance
-PLAN-01	P0	R0	D	planned		version/build/arch/UUID/hash・既存根拠の固定	profile manifest・根拠index	installed/copy/Ghidra programが一致し、静的・実機・未確認を区別
+PLAN-01	P0	R0	D	planned		version/build/arch/UUID/hash・既存根拠の固定	profile manifest・根拠index	元file全体とsliceのhashを別記録し、slice/copy/Ghidra保存済みExecutable SHAが一致。静的・実機・未確認を区別
 PLAN-02	P0	R0	C	planned	PLAN-01	既存MCU全命令の観測・取得契約	unknown/partial/session契約・関連失敗test	初期false/古い状態/走査失敗を成功や完全空一覧にしない
 PLAN-03	P0	R1	A	planned	PLAN-01	MACore招待・peer type・接続・version順序	SA-REMOTE-SESSION-001.md	ARM64とselectorを照合し、条件・拒否理由・送受信順序が記録される
 PLAN-04	P0	R1	A	planned	PLAN-01	frame・圧縮・plist/JSON/archive・型	protocol schema・parser・golden fixture	順序・数値key・binary引数・malformed・unknown形式を区別
-PLAN-05	P0	R1	A	planned	PLAN-03,PLAN-04	研究用MultipeerConnectivity peerの受信	EXP-REMOTE-001.md・最小受信prototype	独立3接続でアプリmessageを受信し、切断/再接続を識別。編集commandは送らない
+PLAN-05	P0	R1	A	planned	PLAN-03,PLAN-04	研究用MultipeerConnectivity peerの受信	EXP-REMOTE-001.md・最小受信prototype	接続先・送受信範囲を示して明示承認後に新規接続。独立3接続でアプリmessageを受信し、切断/再接続を識別。編集commandは送らない
 PLAN-06	P0	R2	A	planned	PLAN-02,PLAN-05	ati/sti/gtFaderData/transport/clock初回と差分	領域snapshot・state schema・受信実験	0/false/欠落・複数track/値・再接続/曲切替・完全性を独立照合
 PLAN-07	P0	R3	B	planned	PLAN-01,PLAN-05	command登録tableとRemote commands/groups query	operation-catalog.tsv・SA-COMMAND-CATALOG-001.md	既知ID照合、name/group/handler/alias/context/状態/根拠を記録。全ID実行なし
 PLAN-08	P0	R4	B	planned	PLAN-06	project/track/instrument/stripの対象・名前・階層	entity参照・ID寿命profile・対応実験	同名/rename/reorder/add/delete/reopenで誤対象なし。寿命未確認ならsession限定
