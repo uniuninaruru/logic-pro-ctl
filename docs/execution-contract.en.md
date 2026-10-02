@@ -18,6 +18,10 @@ An agent can tell what happened when a response is lost, a request times out or 
 
 A key is 1–128 characters of letters, digits and `. _ : -`. Read commands cannot take one (`usage`).
 
+If the running `logicd` is older and does not support these options, a write would run without the safeguard that was asked for.
+Before a request that names a safeguard, `logicctl` asks `status` whether the daemon supports it and, if not, returns `daemon_upgrade_required` **without sending anything**.
+Run `logicctl daemon stop` and repeat the command; a new `logicd` starts (the same holds for `--expect-name`; see [the target contract](target-contract.en.md)).
+
 ## 2. `execution` in the response
 
 Every response carries `execution`, saying how the request was handled.
@@ -53,7 +57,7 @@ Around each run a record (the journal) is kept per key. It holds a fingerprint o
 A result becomes "unknown" when it is neither confirmed nor a failure known not to have reached Logic —
 for example `verification_failed` (sent, state differs) or a timeout.
 Failures known not to have reached Logic are `logic_not_running`, `surface_not_connected`, `invalid_argument`, `usage`,
-`unknown_command`, `no_such_track`, `bank_unknown`, `bank_home_failed`, `precondition_failed`, `unsupported_*` and
+`unknown_command`, `no_such_track`, `bank_unknown`, `bank_home_failed`, `precondition_failed`, `target_mismatch`, `unsupported_*` and
 `daemon_upgrade_required`. Any other failure is treated as unknown, on the safe side. For example
 `readback_unavailable` counts as unknown because some paths cannot tell whether it happened before or after sending.
 

@@ -25,6 +25,8 @@ public enum CLIParser {
         実行の安全装置（任意）:
           --idempotency-key <キー>   同じ操作の再送を1回の実行にまとめる（状態を変更するコマンドのみ）
           --expect-session <世代>    読み取りの observation.session.handshake_generation と一致するときだけ実行
+          --expect-name <名前>       表示中のトラック名が一致するときだけ実行（track list が返した name をそのまま指定。
+                                     track get|select|mute|solo|volume|pan で使えます）
           --deadline-ms <ミリ秒>     待ち時間と実行の上限（既定 30000）
         """
 
@@ -40,7 +42,7 @@ public enum CLIParser {
             }
             if w.hasPrefix("--") {
                 let key = String(w.dropFirst(2))
-                guard ["tolerance", "backend", "idempotency-key", "expect-session", "deadline-ms"].contains(key) else {
+                guard ["tolerance", "backend", "idempotency-key", "expect-session", "deadline-ms", "expect-name"].contains(key) else {
                     throw CommandError("usage", "不明なオプションです: \(w)")
                 }
                 guard options[key] == nil else { throw CommandError("usage", "同じオプションは1回だけ指定してください: \(w)") }
@@ -92,6 +94,16 @@ public enum CLIParser {
         }
 
         func request(_ command: String, args: [String: String] = [:]) throws -> Request {
+            var args = args
+            if let name = options["expect-name"] {
+                guard LogicCommand.trackCommandNames.contains(command) else {
+                    throw CommandError("usage", "--expect-name は track get|select|mute|solo|volume|pan で使えます")
+                }
+                guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+                    throw CommandError("usage", "--expect-name は空にできません。track list が返した name を指定してください")
+                }
+                args[LogicCommand.expectNameKey] = name
+            }
             if idempotencyKey != nil && !LogicCommand.isWrite(named: command) {
                 throw CommandError("usage", "--idempotency-key は状態を変更するコマンドだけで使えます")
             }

@@ -203,7 +203,16 @@ public final class MCUBackend: LogicBackend, TransportReadback {
 
     // MARK: - LogicBackend
 
-    public func execute(_ command: LogicCommand) -> Outcome {
+    public func execute(_ command: LogicCommand) -> Outcome { execute(command, expectName: nil) }
+
+    /// `expectName` is the strip name exactly as `track list` / `track get` showed it. It is
+    /// checked against the LCD after positioning and before anything is sent: a track number
+    /// is a mixer position, and a rename, reorder, add or delete since the read moves it
+    /// (docs/target-contract.md). A mismatch is `target_mismatch`, nothing sent.
+    public func execute(_ command: LogicCommand, expectName: String?) -> Outcome {
+        if expectName != nil, command.trackNumber == nil {
+            return .failure("invalid_argument", "名前の照合はトラックを指定するコマンドだけで使えます。")
+        }
         if case .status = command { return status() }
         if let failure = ensureConnected() { return failure }
         switch command {
@@ -216,18 +225,18 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             return Outcome(ok: scan.complete, result: .array(scan.tracks), error: scan.error, message: scan.message,
                            observation: observation(scope: "mixer_strips", complete: scan.complete, extra: scan.extra))
         case .trackGet(let t):
-            return withStrip(t) { strip in
+            return withStrip(t, expectName: expectName) { strip in
                 let info = self.trackInfo(strip, readVolume: true)
                 let known = info["unknown"] == .array([])
                 return Outcome(ok: true, result: info,
                                observation: self.observation(scope: "mixer_strip", complete: known,
                                                              extra: ["track": .int(self.trackID(strip))]))
             }
-        case .trackSelect(let t): return withStrip(t) { self.select($0) }
-        case .trackMute(let t, let on): return withStrip(t) { self.toggle($0, on: on, kind: .mute) }
-        case .trackSolo(let t, let on): return withStrip(t) { self.toggle($0, on: on, kind: .solo) }
-        case .trackVolume(let t, let db, let tol): return withStrip(t) { self.volume($0, db: db, tolerance: tol) }
-        case .trackPan(let t, let pan): return withStrip(t) { self.pan($0, normalized: pan) }
+        case .trackSelect(let t): return withStrip(t, expectName: expectName) { self.select($0) }
+        case .trackMute(let t, let on): return withStrip(t, expectName: expectName) { self.toggle($0, on: on, kind: .mute) }
+        case .trackSolo(let t, let on): return withStrip(t, expectName: expectName) { self.toggle($0, on: on, kind: .solo) }
+        case .trackVolume(let t, let db, let tol): return withStrip(t, expectName: expectName) { self.volume($0, db: db, tolerance: tol) }
+        case .trackPan(let t, let pan): return withStrip(t, expectName: expectName) { self.pan($0, normalized: pan) }
         case .debugMCU(let messages): return debugMCU(messages)
         }
     }
@@ -404,10 +413,27 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         return .strip(strip)
     }
 
-    private func withStrip(_ track: Int, _ body: (Int) -> Outcome) -> Outcome {
+    private func withStrip(_ track: Int, expectName: String? = nil, _ body: (Int) -> Outcome) -> Outcome {
         switch position(track: track) {
-        case .strip(let strip): return body(strip)
         case .failed(let outcome): return outcome
+        case .strip(let strip):
+            guard let expected = expectName?.trimmingCharacters(in: .whitespaces) else { return body(strip) }
+            let shown = read { $0.upperText(strip) }
+            let requested: JSONValue = ["track": .int(track), "expect_name": .string(expected)]
+            guard shown == expected else {
+                return .failure("target_mismatch",
+                                "トラック \(track) の表示名は「\(shown)」で、期待した「\(expected)」と違います。並べ替え・名前変更・追加・削除があった可能性があります。何も送信していません。",
+                                requested: requested, observed: ["track": .int(track), "name": .string(shown),
+                                                                 "identity_scope": "mixer_position"])
+            }
+            var outcome = body(strip)
+            // Say what was checked, so the agent can see which strip the write reached.
+            if outcome.ok, case .object(var result) = outcome.result ?? .object([:]) {
+                result["target"] = ["track": .int(track), "name": .string(shown), "matched_expected_name": .bool(true),
+                                    "identity_scope": "mixer_position"]
+                outcome.result = .object(result)
+            }
+            return outcome
         }
     }
 
@@ -543,12 +569,27 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                 continue
             }
             scan.complete = true
+            scan.tracks = Self.markNameUniqueness(scan.tracks)
             scan.extra = ["strips": .int(scan.tracks.count), "bank_steps": .int(steps), "attempts": .int(attempt),
                           "end": "channel_right_and_bank_right_silent"]
             rememberBankSession()
             return scan
         }
         return last
+    }
+
+    /// Only a complete scan can say a name is unique: an unseen strip could share it. The LCD
+    /// shows a shortened name, so two different tracks can look the same here (and count as not unique).
+    static func markNameUniqueness(_ tracks: [JSONValue]) -> [JSONValue] {
+        var counts: [String: Int] = [:]
+        for track in tracks { if case .string(let name)? = track["name"] { counts[name, default: 0] += 1 } }
+        return tracks.map { track in
+            guard case .object(var object) = track, case .string(let name)? = object["name"],
+                  case .object(var identity)? = object["identity"] else { return track }
+            identity["name_unique"] = .bool(counts[name] == 1)
+            object["identity"] = .object(identity)
+            return .object(object)
+        }
     }
 
     private func navigateRight() -> Bool {
@@ -592,6 +633,9 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                 "mcu_strip": .int(strip + 1),
                 "name": .string(name),
                 "name_may_be_truncated": .bool(name.count >= 6),
+                // `id` is the mixer position, valid only until a track is added, removed or moved.
+                // `name_unique` is filled in by a complete scan; a single read cannot know it.
+                "identity": ["scope": "mixer_position", "stable_across_reorder": .bool(false), "name_unique": .null],
                 "solo": flag("solo", MCU.soloNote(strip)),
                 "selected": flag("selected", MCU.selectNote(strip)),
                 "rec_armed": flag("rec_armed", MCU.recNote(strip)),

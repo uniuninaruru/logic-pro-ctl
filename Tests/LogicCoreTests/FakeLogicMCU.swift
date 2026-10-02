@@ -57,6 +57,36 @@ final class FakeLogicMCU {
 
     var maxOffset: Int { max(0, strips.count - MCU.strips) }
 
+    // Changes a person (or another agent) makes in Logic's mixer ----------
+    /// A rename redraws only that name cell, as Logic does for a strip that is on the surface.
+    func rename(_ index: Int, to name: String) {
+        strips[index].name = name
+        let slot = index - offset
+        if (0..<MCU.strips).contains(slot) { send(lcd(slot * 7, cell(name))) }
+    }
+
+    /// Reordering, adding or deleting tracks changes what every later position shows. Logic
+    /// refreshes the whole view, as it does for a bank move (assumed; see docs/target-contract.md).
+    func swapStrips(_ a: Int, _ b: Int) {
+        strips.swapAt(a, b)
+        refreshView()
+    }
+
+    func removeStrip(at index: Int) {
+        strips.remove(at: index)
+        refreshView()
+    }
+
+    func insertStrip(named name: String, at index: Int) {
+        strips.insert(Strip(name: name), at: index)
+        refreshView()
+    }
+
+    private func refreshView() {
+        offset = min(offset, maxOffset)
+        send(viewMessages(includeLEDs: true))
+    }
+
     // Logic → backend ----------------------------------------------------
     private func send(_ bytes: [UInt8]) { backend?.ingest(bytes) }
 

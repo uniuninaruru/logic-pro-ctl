@@ -90,18 +90,32 @@ guard let socket else {
 }
 
 do {
+    // Older daemons ignore request fields they do not know and would run the command without the
+    // safeguard the caller asked for (another backend, a missing precondition, no duplicate
+    // protection). Ask what the running daemon honours before sending any such request.
+    var needed: [(capability: String, message: String)] = []
     if request.backend == BackendKind.appleEvent.rawValue {
-        // Older daemons ignore unknown request fields and would silently write
-        // through MCU. Check their capability before sending any transport write.
+        needed.append(("appleevent_transport",
+                       "起動中の logicd はAppleEvent操作に対応していません。logicctl daemon stop で停止してから、このコマンドを再実行してください"))
+    }
+    if request.idempotencyKey != nil || request.expectSession != nil || request.deadlineMs != nil {
+        needed.append(("execution_contract",
+                       "起動中の logicd は --idempotency-key / --expect-session / --deadline-ms に対応していません。指定した安全装置なしで実行しないよう、何も送信していません。logicctl daemon stop で停止してから、このコマンドを再実行してください"))
+    }
+    if request.args[LogicCommand.expectNameKey] != nil {
+        needed.append(("target_expectation",
+                       "起動中の logicd は --expect-name に対応していません。対象を確認せずに実行しないよう、何も送信していません。logicctl daemon stop で停止してから、このコマンドを再実行してください"))
+    }
+    if !needed.isEmpty {
         let status = Request(command: "status")
         try socket.writeLine(String(decoding: try JSONEncoder.logicctl.encode(status), as: UTF8.self))
         let statusLine = try socket.readLine()
         let statusResponse = try JSONDecoder().decode(Response.self, from: Data(statusLine.utf8))
-        guard statusResponse.ok,
-              statusResponse.result?["capabilities"]?["appleevent_transport"] == .bool(true) else {
-            emit(Response(id: request.id, ok: false, command: request.command,
-                          backend: request.backend, error: "daemon_upgrade_required",
-                          message: "起動中の logicd はAppleEvent操作に対応していません。logicctl daemon stop で停止してから、このコマンドを再実行してください"))
+        for need in needed {
+            guard statusResponse.ok, statusResponse.result?["capabilities"]?[need.capability] == .bool(true) else {
+                emit(Response(id: request.id, ok: false, command: request.command,
+                              backend: request.backend, error: "daemon_upgrade_required", message: need.message))
+            }
         }
     }
     try socket.writeLine(String(decoding: try JSONEncoder.logicctl.encode(request), as: UTF8.self))

@@ -29,6 +29,23 @@ public enum LogicCommand: Equatable {
         }
     }
 
+    /// The 1-based mixer position this command targets, or nil for a command that targets no track.
+    public var trackNumber: Int? {
+        switch self {
+        case .trackGet(let t), .trackSelect(let t), .trackMute(let t, _), .trackSolo(let t, _),
+             .trackVolume(let t, _, _), .trackPan(let t, _):
+            return t
+        case .status, .state, .transportPlay, .transportStop, .trackList, .daemonStop, .debugMCU:
+            return nil
+        }
+    }
+
+    /// `Request.args` key holding the strip name the caller expects the target to show.
+    public static let expectNameKey = "expect_name"
+    /// Wire names of the commands that take a track (and so may carry `expect_name`).
+    static let trackCommandNames: Set<String> = ["track.get", "track.select", "track.mute", "track.solo",
+                                                 "track.volume", "track.pan"]
+
     /// `isWrite` by wire name, for code that has a Request but no validated command yet.
     /// A test keeps this in step with `isWrite`.
     public static func isWrite(named name: String) -> Bool {
@@ -81,6 +98,14 @@ extension LogicCommand {
             case "on", "true", "1": return true
             case "off", "false", "0": return false
             default: throw CommandError("invalid_argument", "状態は on または off で指定してください。指定値: \(a["state"] ?? "未指定")")
+            }
+        }
+        if let expected = a[Self.expectNameKey] {
+            guard Self.trackCommandNames.contains(request.command) else {
+                throw CommandError("invalid_argument", "expect_name はトラックを指定するコマンドだけで使えます。")
+            }
+            guard !expected.trimmingCharacters(in: .whitespaces).isEmpty else {
+                throw CommandError("invalid_argument", "expect_name は空にできません。track list が返した name を指定してください。")
             }
         }
         switch request.command {

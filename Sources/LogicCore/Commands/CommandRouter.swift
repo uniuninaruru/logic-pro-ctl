@@ -20,6 +20,12 @@ public struct RoutedOutcome {
     public var backend: String
     public var readbackBackend: String?
     public var outcome: Outcome
+
+    public init(backend: String, readbackBackend: String?, outcome: Outcome) {
+        self.backend = backend
+        self.readbackBackend = readbackBackend
+        self.outcome = outcome
+    }
 }
 
 public final class CommandRouter {

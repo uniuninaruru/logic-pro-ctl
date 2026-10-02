@@ -18,6 +18,10 @@
 
 キーは英数字と `. _ : -` の1〜128文字です。読み取りコマンドには付けられません（`usage`）。
 
+起動中の `logicd` が古く、これらのオプションに対応していないと、指定した安全装置なしで書き込みが実行されてしまいます。
+`logicctl` は、安全装置を指定された要求の前に `status` で対応を確認し、対応していなければ **何も送らずに** `daemon_upgrade_required` を返します。
+`logicctl daemon stop` のあとに再実行すると、新しい `logicd` が起動します（`--expect-name` も同じです。[対象の契約](target-contract.md)）。
+
 ## 2. 応答の `execution`
 
 すべての応答に、実行の扱いを示す `execution` が付きます。
@@ -53,7 +57,7 @@
 「結果が不明」になるのは、確認済みでも、届かなかったと分かる失敗でもないときです。
 たとえば `verification_failed`（送ったが状態が違う）や時間切れです。
 届かなかったと分かる失敗は、`logic_not_running`・`surface_not_connected`・`invalid_argument`・`usage`・`unknown_command`・
-`no_such_track`・`bank_unknown`・`bank_home_failed`・`precondition_failed`・`unsupported_*`・`daemon_upgrade_required` です。
+`no_such_track`・`bank_unknown`・`bank_home_failed`・`precondition_failed`・`target_mismatch`・`unsupported_*`・`daemon_upgrade_required` です。
 それ以外の失敗は、安全側に倒して不明として扱います。例：`readback_unavailable` は、
 操作の前後どちらで起きたかを区別できない経路があるため、不明に含めます。
 

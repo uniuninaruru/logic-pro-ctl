@@ -67,6 +67,41 @@ for sig in [SIGINT, SIGTERM] {
     signalSources.append(src)
 }
 
+/// Runs a command on its backend. A request that names the target it expects (`expect_name`)
+/// can only be honoured by the MCU path, which can read strip names; it is never sent anywhere
+/// else, and never without the check.
+func route(_ command: LogicCommand, _ request: Request) -> RoutedOutcome {
+    guard let expected = request.args[LogicCommand.expectNameKey] else {
+        return router.execute(command, backend: request.backend)
+    }
+    do {
+        guard try CommandBackendSelection.resolve(request.backend, for: command) == .mcu else {
+            throw CommandError("unsupported_backend_command", "名前の照合は mcu 経路だけで使えます。")
+        }
+    } catch let e as CommandError {
+        return RoutedOutcome(backend: request.backend ?? BackendKind.mcu.rawValue, readbackBackend: nil,
+                             outcome: .failure(e.code, e.message))
+    } catch {
+        return RoutedOutcome(backend: request.backend ?? BackendKind.mcu.rawValue, readbackBackend: nil,
+                             outcome: .failure("internal", String(describing: error)))
+    }
+    return RoutedOutcome(backend: BackendKind.mcu.rawValue, readbackBackend: nil,
+                         outcome: backend.execute(command, expectName: expected))
+}
+
+/// What this daemon honours beyond the basics. logicctl asks before sending an option an older
+/// daemon would silently ignore (and so run the write without the safeguard).
+func addSafetyCapabilities(_ outcome: Outcome) -> Outcome {
+    guard case .object(var result)? = outcome.result, case .object(var capabilities)? = result["capabilities"]
+            ?? .object([:]) else { return outcome }
+    capabilities["execution_contract"] = .bool(true)  // --idempotency-key, --expect-session, --deadline-ms
+    capabilities["target_expectation"] = .bool(true)  // --expect-name
+    result["capabilities"] = .object(capabilities)
+    var changed = outcome
+    changed.result = .object(result)
+    return changed
+}
+
 func handle(_ line: String) -> (response: Response, stop: Bool) {
     guard let request = try? JSONDecoder().decode(Request.self, from: Data(line.utf8)) else {
         return (Response(id: "", ok: false, command: "", error: "bad_request", message: "リクエストのJSON形式が正しくありません"), false)
@@ -92,10 +127,10 @@ func handle(_ line: String) -> (response: Response, stop: Bool) {
     }
     let started = Date()
     let executed = executor.execute(command, request: request, options: ExecutionOptions(request: request)) {
-        router.execute(command, backend: request.backend)
+        route(command, request)
     }
     let routed = executed.routed
-    let o = routed.outcome
+    let o = command == .status ? addSafetyCapabilities(routed.outcome) : routed.outcome
     log("id=\(request.id) cmd=\(request.command) backend=\(routed.backend) readback=\(routed.readbackBackend ?? "-") "
         + "args=\(request.args) key=\(request.idempotencyKey ?? "-") exec=\(executed.execution["state"] ?? .null) "
         + "ok=\(o.ok) verified=\(o.verified) "

@@ -154,7 +154,8 @@ public final class WriteExecutor {
     static let notApplied: Set<String> = [
         "logic_not_running", "surface_not_connected", "invalid_argument", "usage", "unknown_command",
         "unsupported_backend", "unsupported_backend_command", "no_such_track", "bank_unknown",
-        "bank_home_failed", "daemon_upgrade_required", "precondition_failed", "unsupported_logic_version",
+        "bank_home_failed", "daemon_upgrade_required", "precondition_failed", "target_mismatch",
+        "unsupported_logic_version",
     ]
 
     public static func isValidKey(_ key: String) -> Bool {

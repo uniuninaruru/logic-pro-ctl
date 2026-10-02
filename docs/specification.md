@@ -52,6 +52,7 @@ flowchart LR
 | `--idempotency-key <キー>` | 状態を変更するコマンド | 再送を1回の実行にまとめる。[実行の契約](execution-contract.md) |
 | `--expect-session <世代>` | `daemon stop` 以外 | 読み取りの `handshake_generation` と一致するときだけ実行 |
 | `--deadline-ms <ミリ秒>` | `daemon stop` 以外 | 待ち時間と実行の上限（既定 30000） |
+| `--expect-name <名前>` | `track get\|select\|mute\|solo\|volume\|pan` | 表示中のトラック名が一致するときだけ実行。`track list` が返した `name` を指定。[対象の契約](target-contract.md) |
 
 オプションはコマンドの前後に置けます。同じオプションの重複、値の省略、未知のオプションは引数エラーです。
 パンはLogicの `-64`〜`63` に丸めて送るため、右端は取得時に `63/64` になる場合があります。
@@ -84,6 +85,7 @@ flowchart LR
 `null` は不明・未取得を表します。`false` や `0` ではありません。たとえばソロ中の `mute: null` は「ミュートがオフ」とは読めません。
 読み取りの応答には、結果の完全性・鮮度・出どころを示す `observation` が付きます。詳しくは[読み取り結果の契約](observation-contract.md)。
 すべての応答には、再送・時間切れ・競合の扱いを示す `execution` が付きます。詳しくは[書き込みの実行契約](execution-contract.md)。
+トラック番号はミキサー上の位置です。並びが変わったときに別のトラックへ書かないための照合は[対象の契約](target-contract.md)。
 
 ## 4. AppleEvent経路の条件
 
@@ -120,11 +122,12 @@ flowchart LR
 | `outcome_unknown` / `request_in_flight` | 同じキーの前回が不明 / 実行中 | 状態を読み直し、必要なら別のキー |
 | `idempotency_key_conflict` | 同じキーで内容が違う | 別のキーを使う |
 | `precondition_failed` | `--expect-session` の世代と違う（送信していない） | 状態を読み直す |
+| `target_mismatch` | `--expect-name` と、その位置の表示名が違う（送信していない） | `track list` で読み直し、対象を選び直す。新しい冪等キー |
 | `deadline_exceeded` / `queue_full` / `shutting_down` | 実行を始めなかった | 後でやり直す |
 | `scan_incomplete` / `bank_home_failed` | 一覧を最後まで確認できない（結果は途中まで） | `observation.problem`。もう一度実行 |
 | `verification_failed` | 要求と状態が一致しない | `requested` と `observed` |
 | `no_such_track` / `bank_unknown` | 指定したストリップを特定できない | `track list` と接続 |
-| `daemon_upgrade_required` | 古いdaemonが動いている | 新ビルドで `daemon stop` 後に再実行 |
+| `daemon_upgrade_required` | 古いdaemonが動いている（要求した経路・安全装置に対応していない。何も送信していない） | 新ビルドで `daemon stop` 後に再実行 |
 | `unsupported_logic_version` | native経路の対応外 | バージョン・build |
 | `logic_instance_changed` | 確認中にLogicが再起動した | 新しい接続で状態を確認 |
 | `appleevent_permission_denied` | macOSの権限で拒否 | オートメーションの許可 |
