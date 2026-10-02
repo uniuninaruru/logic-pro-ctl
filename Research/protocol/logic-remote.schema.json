@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/uniuninaruru/logic-pro-ctl/Research/protocol/logic-remote.schema.json",
+  "title": "Logic Remote message batch, as decoded from a frame",
+  "description": "What a frame carries once the tag, the MAZP container and the property list / JSON / keyed archive layer are removed (SA-REMOTE-FRAME-001, static analysis; not checked against real traffic). A dictionary maps an address to its argument. An array is an ordered batch of such dictionaries (sent only to peers with protocol version 7 or later). Dictionary key order is not defined. A keyed archive (format 2) may also use number keys and carry NSData, NSURL and NSIndexPath values, which JSON cannot express; for those, use the Swift RemoteValue model.",
+  "oneOf": [
+    { "$ref": "#/$defs/messages" },
+    { "type": "array", "items": { "$ref": "#/$defs/messages" } }
+  ],
+  "$defs": {
+    "messages": {
+      "type": "object",
+      "description": "address -> argument. Addresses seen in Logic start with '/'.",
+      "additionalProperties": { "$ref": "#/$defs/argument" }
+    },
+    "argument": {
+      "description": "Any JSON value. A message without an argument carries a placeholder number whose value is not yet known.",
+      "type": ["object", "array", "string", "number", "boolean", "null"]
+    }
+  },
+  "x-examples": [
+    { "/protocolVersion": 10 },
+    { "/keyCommand/actionNum": 3 },
+    [ { "/a/first": 1 }, { "/a/second": 2 } ]
+  ]
+}
