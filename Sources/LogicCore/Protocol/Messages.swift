@@ -13,13 +13,32 @@ public struct Request: Codable, Equatable {
     public var command: String
     public var args: [String: String]
     public var backend: String?
+    /// Same key + same content = the same operation: a retry replays the recorded
+    /// result instead of acting again (docs/execution-contract.md). Writes only.
+    public var idempotencyKey: String?
+    /// Run only if Logic's connection is still this generation
+    /// (`observation.session.handshake_generation` of the read it is based on).
+    public var expectSession: Int?
+    /// Upper bound for queue wait plus execution, in milliseconds.
+    public var deadlineMs: Int?
 
     public init(id: String = UUID().uuidString, command: String, args: [String: String] = [:],
-                backend: String? = nil) {
+                backend: String? = nil, idempotencyKey: String? = nil, expectSession: Int? = nil,
+                deadlineMs: Int? = nil) {
         self.id = id
         self.command = command
         self.args = args
         self.backend = backend
+        self.idempotencyKey = idempotencyKey
+        self.expectSession = expectSession
+        self.deadlineMs = deadlineMs
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, command, args, backend
+        case idempotencyKey = "idempotency_key"
+        case expectSession = "expect_session"
+        case deadlineMs = "deadline_ms"
     }
 }
 
@@ -42,11 +61,14 @@ public struct Response: Codable, Equatable {
     public var message: String?
     /// Completeness / freshness / source of a read result. Absent on writes.
     public var observation: JSONValue?
+    /// How the request was run: completed, replayed, rejected, unknown (docs/execution-contract.md).
+    public var execution: JSONValue?
 
     public init(id: String, ok: Bool, command: String, backend: String? = nil,
                 readbackBackend: String? = nil, verified: Bool = false,
                 requested: JSONValue? = nil, observed: JSONValue? = nil, result: JSONValue? = nil,
-                error: String? = nil, message: String? = nil, observation: JSONValue? = nil) {
+                error: String? = nil, message: String? = nil, observation: JSONValue? = nil,
+                execution: JSONValue? = nil) {
         self.id = id
         self.ok = ok
         self.command = command
@@ -59,10 +81,11 @@ public struct Response: Codable, Equatable {
         self.error = error
         self.message = message
         self.observation = observation
+        self.execution = execution
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, ok, command, backend, verified, requested, observed, result, error, message, observation
+        case id, ok, command, backend, verified, requested, observed, result, error, message, observation, execution
         case readbackBackend = "readback_backend"
     }
 }

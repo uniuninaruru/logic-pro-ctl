@@ -49,8 +49,11 @@ flowchart LR
 | `--backend mcu` | 全コマンド | 通常の仮想MIDI経路を明示 |
 | `--backend appleevent` | 再生・停止 | native AppleEvent経路を明示 |
 | `--tolerance <dB>` | `track volume` | 0以上の有限値。既定は0.1 dB |
+| `--idempotency-key <キー>` | 状態を変更するコマンド | 再送を1回の実行にまとめる。[実行の契約](execution-contract.md) |
+| `--expect-session <世代>` | `daemon stop` 以外 | 読み取りの `handshake_generation` と一致するときだけ実行 |
+| `--deadline-ms <ミリ秒>` | `daemon stop` 以外 | 待ち時間と実行の上限（既定 30000） |
 
-オプションはコマンドの前後に置けます。`--backend` と `--tolerance` の重複、値の省略、未知のオプションは引数エラーです。
+オプションはコマンドの前後に置けます。同じオプションの重複、値の省略、未知のオプションは引数エラーです。
 パンはLogicの `-64`〜`63` に丸めて送るため、右端は取得時に `63/64` になる場合があります。
 
 ## 3. 成功・確認済み・不明の違い
@@ -80,6 +83,7 @@ flowchart LR
 これは主要部分を抜粋した例です。通常の応答には `result` 内の送信情報なども入ります。
 `null` は不明・未取得を表します。`false` や `0` ではありません。たとえばソロ中の `mute: null` は「ミュートがオフ」とは読めません。
 読み取りの応答には、結果の完全性・鮮度・出どころを示す `observation` が付きます。詳しくは[読み取り結果の契約](observation-contract.md)。
+すべての応答には、再送・時間切れ・競合の扱いを示す `execution` が付きます。詳しくは[書き込みの実行契約](execution-contract.md)。
 
 ## 4. AppleEvent経路の条件
 
@@ -112,6 +116,11 @@ flowchart LR
 | `logic_not_running` | Logicが起動していない | Logicの起動 |
 | `surface_not_connected` | MCUの接続ができない | `status`、Logicのコントロールサーフェス設定 |
 | `readback_unavailable` | 状態を確認できない | 接続が安定したあとに `status` |
+| `timeout` | 時間内に完了しなかった。**実行された可能性がある** | 状態を読み直す。同じキーは再実行されない |
+| `outcome_unknown` / `request_in_flight` | 同じキーの前回が不明 / 実行中 | 状態を読み直し、必要なら別のキー |
+| `idempotency_key_conflict` | 同じキーで内容が違う | 別のキーを使う |
+| `precondition_failed` | `--expect-session` の世代と違う（送信していない） | 状態を読み直す |
+| `deadline_exceeded` / `queue_full` / `shutting_down` | 実行を始めなかった | 後でやり直す |
 | `scan_incomplete` / `bank_home_failed` | 一覧を最後まで確認できない（結果は途中まで） | `observation.problem`。もう一度実行 |
 | `verification_failed` | 要求と状態が一致しない | `requested` と `observed` |
 | `no_such_track` / `bank_unknown` | 指定したストリップを特定できない | `track list` と接続 |

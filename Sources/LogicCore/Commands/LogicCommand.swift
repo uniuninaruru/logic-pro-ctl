@@ -19,6 +19,24 @@ public enum LogicCommand: Equatable {
     /// Research aid: send raw MCU messages, return the surface state afterwards.
     case debugMCU(messages: [[UInt8]])
 
+    /// Commands that change Logic. Only these are journaled and accept an idempotency key.
+    public var isWrite: Bool {
+        switch self {
+        case .transportPlay, .transportStop, .trackSelect, .trackMute, .trackSolo, .trackVolume, .trackPan, .debugMCU:
+            return true
+        case .status, .state, .trackList, .trackGet, .daemonStop:
+            return false
+        }
+    }
+
+    /// `isWrite` by wire name, for code that has a Request but no validated command yet.
+    /// A test keeps this in step with `isWrite`.
+    public static func isWrite(named name: String) -> Bool {
+        !Self.readOnlyNames.contains(name)
+    }
+
+    static let readOnlyNames: Set<String> = ["status", "state", "track.list", "track.get", "daemon.stop"]
+
     /// The wire name used in `Request.command`.
     public var name: String {
         switch self {

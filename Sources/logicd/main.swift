@@ -31,6 +31,12 @@ while let arg = argv.first {
 let backend = MCUBackend(trace: trace, log: log)
 let appleEventBackend = AppleEventTransportBackend(readback: backend)
 let router = CommandRouter(mcu: backend, appleEvent: appleEventBackend)
+// Serialises commands, enforces deadlines/preconditions and records writes so a retry is
+// never a second effect (docs/execution-contract.md).
+let journalPath = ProcessInfo.processInfo.environment["LOGICCTL_JOURNAL"]
+    ?? NSString(string: "~/Library/Application Support/logicctl/journal.jsonl").expandingTildeInPath
+let executor = WriteExecutor(store: FileJournalStore(path: journalPath),
+                             sessionProbe: { backend.sessionGeneration() }, log: log)
 do {
     try backend.start()
 } catch {
@@ -53,14 +59,13 @@ for sig in [SIGINT, SIGTERM] {
     let src = DispatchSource.makeSignalSource(signal: sig, queue: .main)
     src.setEventHandler {
         log("シグナル \(sig) を受け取り、終了します")
+        executor.shutdown()
         unlink(socketPath)
         exit(0)
     }
     src.resume()
     signalSources.append(src)
 }
-
-let commandLock = NSLock()
 
 func handle(_ line: String) -> (response: Response, stop: Bool) {
     guard let request = try? JSONDecoder().decode(Request.self, from: Data(line.utf8)) else {
@@ -82,20 +87,24 @@ func handle(_ line: String) -> (response: Response, stop: Bool) {
         } catch {
             return (Response(id: request.id, ok: false, command: request.command, error: "internal"), false)
         }
+        executor.shutdown()
         return (Response(id: request.id, ok: true, command: request.command, message: "logicd を停止します"), true)
     }
-    commandLock.lock()
     let started = Date()
-    let routed = router.execute(command, backend: request.backend)
+    let executed = executor.execute(command, request: request, options: ExecutionOptions(request: request)) {
+        router.execute(command, backend: request.backend)
+    }
+    let routed = executed.routed
     let o = routed.outcome
-    commandLock.unlock()
     log("id=\(request.id) cmd=\(request.command) backend=\(routed.backend) readback=\(routed.readbackBackend ?? "-") "
-        + "args=\(request.args) ok=\(o.ok) verified=\(o.verified) "
+        + "args=\(request.args) key=\(request.idempotencyKey ?? "-") exec=\(executed.execution["state"] ?? .null) "
+        + "ok=\(o.ok) verified=\(o.verified) "
         + "error=\(o.error ?? "-") ms=\(Int(Date().timeIntervalSince(started) * 1000))")
     return (Response(id: request.id, ok: o.ok, command: request.command, backend: routed.backend,
                      readbackBackend: routed.readbackBackend,
                      verified: o.verified, requested: o.requested, observed: o.observed, result: o.result,
-                     error: o.error, message: o.message, observation: o.observation), false)
+                     error: o.error, message: o.message, observation: o.observation,
+                     execution: executed.execution), false)
 }
 
 Thread.detachNewThread {

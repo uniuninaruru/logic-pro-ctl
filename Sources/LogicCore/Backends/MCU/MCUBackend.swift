@@ -232,6 +232,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
     }
 
+    /// Generation of Logic's current connection (the same number reads report as
+    /// `observation.session.handshake_generation`), or nil when not connected.
+    public func sessionGeneration() -> Int? {
+        read { _ in handshakeAt == nil ? nil : handshakeGeneration }
+    }
+
     public var isConnected: Bool {
         guard let pid = environment.runningApp()?.pid else { return false }
         return read { $0.lcdUpdates > handshakeLCDBaseline && handshakeAt != nil && handshakePID == pid }

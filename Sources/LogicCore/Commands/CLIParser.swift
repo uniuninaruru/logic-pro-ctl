@@ -22,6 +22,10 @@ public enum CLIParser {
         トラック番号は1からです。操作後に状態を読み返します。
         "verified": true は、確認できた状態が要求と一致したことを表します。
         --backend appleevent は transport play|stop 専用です。状態はMCUで確認します。
+        実行の安全装置（任意）:
+          --idempotency-key <キー>   同じ操作の再送を1回の実行にまとめる（状態を変更するコマンドのみ）
+          --expect-session <世代>    読み取りの observation.session.handshake_generation と一致するときだけ実行
+          --deadline-ms <ミリ秒>     待ち時間と実行の上限（既定 30000）
         """
 
     public static func parse(_ argv: [String]) throws -> Request {
@@ -36,7 +40,7 @@ public enum CLIParser {
             }
             if w.hasPrefix("--") {
                 let key = String(w.dropFirst(2))
-                guard key == "tolerance" || key == "backend" else {
+                guard ["tolerance", "backend", "idempotency-key", "expect-session", "deadline-ms"].contains(key) else {
                     throw CommandError("usage", "不明なオプションです: \(w)")
                 }
                 guard options[key] == nil else { throw CommandError("usage", "同じオプションは1回だけ指定してください: \(w)") }
@@ -73,43 +77,64 @@ public enum CLIParser {
             }
         }
 
-        func request(_ command: String, args: [String: String] = [:]) -> Request {
-            Request(command: command, args: args, backend: backend)
+        func positiveInt(_ name: String) throws -> Int? {
+            guard let text = options[name] else { return nil }
+            guard let value = Int(text), value > 0 else {
+                throw CommandError("usage", "--\(name) は1以上の整数で指定してください")
+            }
+            return value
+        }
+        let expectSession = try positiveInt("expect-session")
+        let deadlineMs = try positiveInt("deadline-ms")
+        let idempotencyKey = options["idempotency-key"]
+        if let key = idempotencyKey, !WriteExecutor.isValidKey(key) {
+            throw CommandError("usage", "--idempotency-key は英数字と . _ : - の1〜128文字で指定してください")
+        }
+
+        func request(_ command: String, args: [String: String] = [:]) throws -> Request {
+            if idempotencyKey != nil && !LogicCommand.isWrite(named: command) {
+                throw CommandError("usage", "--idempotency-key は状態を変更するコマンドだけで使えます")
+            }
+            if command == "daemon.stop" && (expectSession != nil || deadlineMs != nil) {
+                throw CommandError("usage", "daemon stop では --expect-session / --deadline-ms は使えません")
+            }
+            return Request(command: command, args: args, backend: backend, idempotencyKey: idempotencyKey,
+                           expectSession: expectSession, deadlineMs: deadlineMs)
         }
 
         switch (words.first, words.dropFirst().first) {
         case ("status", _):
             try need(1, "status")
-            return request("status")
+            return try request("status")
         case ("state", _):
             try need(1, "state")
-            return request("state")
+            return try request("state")
         case ("transport", "play"), ("transport", "stop"):
             try need(2, "transport play|stop")
-            return request("transport.\(words[1])")
+            return try request("transport.\(words[1])")
         case ("track", "list"):
             try need(2, "track list")
-            return request("track.list")
+            return try request("track.list")
         case ("track", "get"), ("track", "select"):
             try need(3, "track \(words[1]) <n>")
-            return request("track.\(words[1])", args: ["track": words[2]])
+            return try request("track.\(words[1])", args: ["track": words[2]])
         case ("track", "mute"), ("track", "solo"):
             try need(4, "track \(words[1]) <n> on|off")
-            return request("track.\(words[1])", args: ["track": words[2], "state": words[3]])
+            return try request("track.\(words[1])", args: ["track": words[2], "state": words[3]])
         case ("track", "volume"):
             try need(4, "track volume <n> <dB>")
             var args = ["track": words[2], "db": words[3]]
             if let t = options["tolerance"] { args["tolerance"] = t }
-            return request("track.volume", args: args)
+            return try request("track.volume", args: args)
         case ("track", "pan"):
             try need(4, "track pan <n> <-1…1>")
-            return request("track.pan", args: ["track": words[2], "value": words[3]])
+            return try request("track.pan", args: ["track": words[2], "value": words[3]])
         case ("debug", "mcu"):
             guard words.count > 2 else { throw CommandError("usage", "使い方: logicctl debug mcu <hex bytes>") }
-            return request("debug.mcu", args: ["messages": words.dropFirst(2).joined(separator: " ")])
+            return try request("debug.mcu", args: ["messages": words.dropFirst(2).joined(separator: " ")])
         case ("daemon", "stop"):
             try need(2, "daemon stop")
-            return request("daemon.stop")
+            return try request("daemon.stop")
         default:
             throw CommandError("usage", "不明なコマンドです: \(words.joined(separator: " "))")
         }
