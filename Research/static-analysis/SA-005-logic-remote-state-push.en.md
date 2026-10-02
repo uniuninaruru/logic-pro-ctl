@@ -109,6 +109,12 @@ Next validation experiments (in order):
 3. Dynamic (needs a real Logic Remote or our own MPC peer): capture the first reply and
    a mute ON/OFF update of one track; compare keys present before/after.
 
+Update (2026-10-02): the static parts of steps 1 and 2 are done in
+[SA-REMOTE-STATE-001](SA-REMOTE-STATE-001.en.md). `FUN_01b407c0` is `handleUpdateBitsForElement:`;
+the `/ati`, `/sti` and `/trackSelectionStates` dictionaries are built in `FUN_01696ebc`,
+`updateSelectedTrackInfo` and `sendTrackSelectionStates`, and none of them skips a zero member
+(only the initial pass of `keyCommandStateSetup:` does). Step 3 still needs PLAN-05 (approval pending).
+
 ## 6. Correction to SA-002
 `Logic Remote.bundle` `_CSFeedback` is **not** the message builder: it returns the
 feedback type of an Assign (`0` if the table entry's pointer at `+0x30` is null, else the

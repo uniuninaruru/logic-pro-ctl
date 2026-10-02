@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/uniuninaruru/logic-pro-ctl/Research/protocol/logic-remote-state.schema.json",
+  "title": "Logic Remote state messages, as Logic sends them (decoded argument values)",
+  "description": "The state messages that Logic sends to a Logic Remote peer, after the frame, the optional MAZP layer and the keyed-archive layer are removed (SA-REMOTE-STATE-001). STATIC ANALYSIS ONLY: derived from decompiled code, not checked against real traffic. A property is optional because a receiver may see only some of them at a time; a key that did not arrive is UNKNOWN, never 0 or false. Number-keyed dictionaries (in /gtFaderData) are written here with decimal-string keys because JSON has no number keys; on the wire they are NSNumber keys of a keyed archive. 'NSData' values are written as base64 strings. Facts that JSON Schema cannot express are given as x-notes (for example: all 13 arrays of /ati have the same length).",
+  "type": "object",
+  "properties": {
+    "/ati": { "$ref": "#/$defs/ati" },
+    "/sti": { "$ref": "#/$defs/sti" },
+    "/gtFaderData": { "$ref": "#/$defs/gtFaderData" },
+    "/trackSelectionStates": { "$ref": "#/$defs/trackSelectionStates" },
+    "/allTrackCount": { "type": "integer", "minimum": 0 },
+    "/trackCount": { "type": "integer", "minimum": 0 },
+    "/transport/stopButtonState": { "type": "integer" },
+    "/transport/headerState": { "type": "integer" },
+    "/transport/clickWhileRecording": { "type": "boolean" },
+    "/transport/playButtonFlags": { "type": "integer", "minimum": -128, "maximum": 127 },
+    "/logicClock/spl": { "type": "integer" },
+    "/logicClock/currentTempo": { "type": "integer" },
+    "/multiTempo": { "type": "boolean" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "nsdata": {
+      "type": "string",
+      "contentEncoding": "base64",
+      "description": "NSData. Binary on the wire; base64 only in this JSON rendering."
+    },
+    "ati": {
+      "type": "object",
+      "description": "Parallel arrays: element i of every array describes the same strip. Written by the block FUN_01696ebc (0x01696ebc) inside sendChannelStripInfo: (0x0168d478); sent by setAllTrackInfo: (0x016867b4) over TCP, only when it differs from the previous dictionary.",
+      "required": ["c", "n", "t", "nc", "p", "tn", "BgTrackInfoTrackIDKey", "BgTrackInfoTrackUUIDKey", "BgTrackInfoIconIDKey", "BgTrackInfoHasArrangeKey", "BgTrackInfoArrangeHiddenKey", "BgTrackInfoCollapsibleInfoKey", "BgTrackInfoMetaInfoFlagsKey"],
+      "properties": {
+        "c": {
+          "type": "array",
+          "description": "Four colours per strip: normal (nc), selected (sc), icon-tint normal (tnc), icon-tint selected (tsc). Each is 4 bytes; the byte order is not confirmed.",
+          "items": {
+            "type": "object",
+            "required": ["nc", "sc", "tnc", "tsc"],
+            "properties": {
+              "nc": { "$ref": "#/$defs/nsdata" },
+              "sc": { "$ref": "#/$defs/nsdata" },
+              "tnc": { "$ref": "#/$defs/nsdata" },
+              "tsc": { "$ref": "#/$defs/nsdata" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "n": {
+          "type": "array",
+          "description": "Name and the strip info's identifier. gindex is the same identifier as the keys of /gtFaderData 'g' (confirmed in code, not on the wire).",
+          "items": {
+            "type": "object",
+            "required": ["name", "gindex"],
+            "properties": {
+              "name": { "type": "string" },
+              "gindex": { "type": "integer" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "t": {
+          "type": "array",
+          "description": "Track kind from trackTypeForTrack:seqID:ginst:inSong: (0x01693e90). The range is the set of values that function can return (all return statements seen); the meaning of each value is unresolved.",
+          "items": { "type": "integer", "minimum": 0, "maximum": 10 }
+        },
+        "nc": {
+          "type": "array",
+          "description": "From the key name: number of channels. The value comes from a song-level byte through a 15-entry table (DAT_01d59030), so it may be the same for every strip. Hypothesis.",
+          "items": { "type": "integer" }
+        },
+        "p": {
+          "type": "array",
+          "description": "From the key name: pan type. One of 0, -5, -1, -4 when the strip allows it, otherwise -1; two further constants appear when there is no song (unresolved). Hypothesis.",
+          "items": { "type": "integer", "minimum": -128, "maximum": 127 }
+        },
+        "tn": {
+          "type": "array",
+          "description": "From the key name: strip number; -1 when numberOfStrip: returns 0.",
+          "items": { "type": "integer" }
+        },
+        "BgTrackInfoTrackIDKey": {
+          "type": "array",
+          "description": "(folder << 16) | (track & 0xffff). Lifetime of the ID is not confirmed (PLAN-08).",
+          "items": { "type": "integer" }
+        },
+        "BgTrackInfoTrackUUIDKey": {
+          "type": "array",
+          "description": "UUID string; a short default string if the track has none (content not confirmed).",
+          "items": { "type": "string" }
+        },
+        "BgTrackInfoIconIDKey": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "BgTrackInfoHasArrangeKey": {
+          "type": "array",
+          "description": "From the key name: the track also exists on the arrange side. Hypothesis.",
+          "items": { "type": "boolean" }
+        },
+        "BgTrackInfoArrangeHiddenKey": {
+          "type": "array",
+          "description": "From the key name: hidden in the arrange. Hypothesis.",
+          "items": { "type": "boolean" }
+        },
+        "BgTrackInfoCollapsibleInfoKey": {
+          "type": "array",
+          "description": "Bits 0-7: nesting depth; bit 9: the next row is one level deeper (reads as 'has children'); bits 8 and 10: unknown. Hypothesis, confidence medium.",
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "BgTrackInfoMetaInfoFlagsKey": {
+          "type": "array",
+          "description": "0 or 1 (bit 5 of a 32-bit value of the 'spu' argument). May be the same for every strip.",
+          "items": { "type": "integer", "minimum": 0, "maximum": 1 }
+        }
+      },
+      "additionalProperties": false,
+      "x-notes": ["All 13 arrays have the same length (the block appends one element to each per strip).", "The same dictionary can be sent twice during the initial send."]
+    },
+    "sti": {
+      "type": "object",
+      "description": "The selected track. On the wire the argument is MAZP(NSKeyedArchiver(dictionary)) (compression level 9); this schema describes the dictionary. Sent only when it differs from the previous one (setSelectedTrackInfo: 0x0168df54).",
+      "required": ["n", "t", "BgTrackInfoMetaInfoFlagsKey", "tn", "BgTrackInfoIndexKey"],
+      "properties": {
+        "n": { "type": "string", "description": "The track name; 'NoTrackSelected' when nothing is selected." },
+        "t": { "type": "integer", "minimum": -128, "maximum": 127, "description": "One byte (+3) of the selected track's record. A different computation from /ati 't'." },
+        "BgTrackInfoMetaInfoFlagsKey": { "type": "integer", "minimum": 0 },
+        "tn": { "type": "integer" },
+        "BgTrackInfoShowArpeggiatorButtonKey": { "type": "boolean", "description": "Absent when nothing is selected." },
+        "BgTrackInfoIndexKey": { "type": "integer", "description": "Strip index from getStrip:forTrackWithID:; NSIntegerMax (9223372036854775807) if not found." }
+      },
+      "additionalProperties": false
+    },
+    "gtFaderData": {
+      "type": "object",
+      "description": "Fader, mute, solo and record-enable state. 'g' is keyed by the strip's identifier (instID = /ati gindex), 't' by the track ID. Either may be absent in one message. With changedMask 0 every field is included; otherwise only the changed ones, so a single entry may carry only some of its fields.",
+      "properties": {
+        "g": {
+          "type": "object",
+          "patternProperties": {
+            "^-?[0-9]+$": {
+              "type": "object",
+              "properties": {
+                "vL": { "type": "integer", "minimum": -2147483648, "maximum": 2147483647, "description": "Signed 32-bit volume level: (int8 at +0x8b) << 24 unless the strip's own 32-bit value has the same top byte. Hypothesis: fader position. The relation to dB and to the MCU's 14 bits is not confirmed." },
+                "s": { "type": "integer", "minimum": -128, "maximum": 127, "description": "Signed byte at +0x8c. Range not confirmed." },
+                "m": { "type": "integer", "minimum": 0, "description": "0/1 normally, 2/3 under some conditions, +0x80 when a global flag is set. Meaning not confirmed." }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "t": {
+          "type": "object",
+          "patternProperties": {
+            "^-?[0-9]+$": {
+              "type": "object",
+              "properties": {
+                "r": { "enum": [0, 1, 3, 64, 128], "description": "Record-enable kind (the values the code can assign). Present only when the target could be looked up." },
+                "ip": { "type": "integer", "minimum": 0, "maximum": 4095, "description": "Up to 12 bits; bit k is a flag of channel k ('independent pan' from the key name)." }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "trackSelectionStates": {
+      "type": "object",
+      "description": "On the wire the argument is NSKeyedArchiver(dictionary), not compressed. From the key names: whether the previous / next track can be selected.",
+      "required": ["PreviousTrackKey", "NextTrackKey"],
+      "properties": {
+        "PreviousTrackKey": { "type": "boolean" },
+        "NextTrackKey": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "x-examples": [
+    { "/allTrackCount": 12, "/trackCount": 12, "/transport/clickWhileRecording": false, "/transport/playButtonFlags": 0 },
+    { "/trackSelectionStates": { "PreviousTrackKey": true, "NextTrackKey": true } },
+    { "/gtFaderData": { "g": { "7": { "vL": 1073741824, "s": 0, "m": 0 } }, "t": { "65537": { "r": 0, "ip": 0 } } } },
+    { "/gtFaderData": { "g": { "7": { "m": 1 } } } }
+  ],
+  "x-examples-note": "Synthetic; not captured from a real connection."
+}

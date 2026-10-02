@@ -123,6 +123,11 @@ SA-AE-STATE-002 には、初期コマンド状態が 0 の送信を飛ばす
 3. 動的解析（実際の Logic Remote または自前の MPC peer が必要）:
    初回応答と、1 トラックの mute ON/OFF 更新を記録し、含まれるキーを前後で比較する。
 
+追記（2026-10-02）: 手順 1・2 の静的な部分は
+[SA-REMOTE-STATE-001](SA-REMOTE-STATE-001.md) で完了した。`FUN_01b407c0` は `handleUpdateBitsForElement:`、
+`/ati`・`/sti`・`/trackSelectionStates` の辞書は `FUN_01696ebc`・`updateSelectedTrackInfo`・`sendTrackSelectionStates` で作られ、
+どれも値 0 のメンバーを省略しない（省略するのは `keyCommandStateSetup:` の初回だけ）。手順 3 は PLAN-05（承認待ち）が必要。
+
 ## 6. SA-002 の訂正
 
 `Logic Remote.bundle` の `_CSFeedback` は**メッセージを作る関数ではない**。
