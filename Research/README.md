@@ -62,6 +62,11 @@ flowchart LR
 | [コマンドへの橋渡し](static-analysis/appleevent-command-dispatch.md) | AppleEventからplay/stopの内部コマンドへ |
 | [MACoreのAppleEvent調査](static-analysis/macore-appleevents.md) | x86側の候補と、陰性結果の限界 |
 | [状態取得候補](static-analysis/SA-AE-STATE-002-native-transport-state.md) | 内部getter・外部購読・mode 4の副作用 |
+| [テキスト操作の分岐](static-analysis/SA-AE-MODES-001-text-operations.md) | mode 7〜14の設定読み込み・ファイル書き込み・MIDI取込候補と、応答の限界 |
+| [ファイル・リージョン分岐](static-analysis/SA-AE-FILE-001-file-region.md) | ファイル入力の型、対象・位置の決定、metadata変更、未知modeの到達 |
+| [ファイル配置の位置変換](static-analysis/SA-AE-TIME-001-position-conversion.md) | 44100の初期値、固定小数点の算術、anchorとdelta、cache書き込み。単位は未確定 |
+
+テキストとファイルの分岐は、現時点では静的解析の記録です。helperの失敗が応答に反映されない経路や、対象を選ぶ段階で内部metadataを書き換える処理があります。製品CLIの対応機能としては公開していません。[入力と解析出力のmanifest](static-analysis/appleevent-mode-analysis-manifest.json)に、対象バイナリ・Ghidra条件・ローカル根拠のハッシュを記録しています。
 
 ## 実験の一覧
 
@@ -86,6 +91,8 @@ flowchart LR
 
 録音ID `7` の状態にはLive Loopsの条件もあります。状態の解析と、録音を実行する実験は別に扱います。
 AppleEventのmode 4には条件付きのテンポ書き込みがあるため、状態取得APIとしては採用していません。
+
+MCP層の設計参考は、[mcp-server-apple-eventsの適合性調査](notes/mcp-apple-events-reference.md)に構成図とともにまとめました。既存のSwift CLIをMCPで公開する境界が参考になり、Logic固有の送信・読み戻しはこのプロジェクト側で扱います。
 
 Ghidraでは、API登録・名前付きメソッド・既知のメッセージを起点に追います。
 デコンパイルの型だけで判断せず、命令と引数を照合し、対象のバージョン・ハッシュを記録します。

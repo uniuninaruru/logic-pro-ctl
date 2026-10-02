@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "ghidra_flags": [
+    "-process Logic.arm64",
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "analysis_id": "SA-AE-TIME-001",
+  "scope": "Static position conversion helpers only; no runtime app calls or new product capability.",
+  "program": {
+    "schema_version": 1,
+    "program_name": "Logic.arm64",
+    "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+    "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "query_groups": {
+    "q-appleevent-time-core-001": [
+      "0x019adc00",
+      "0x019fd568",
+      "0x019ade8c",
+      "0x019ae130"
+    ],
+    "q-appleevent-time-constructor-001": [
+      "0x01a125c4"
+    ]
+  },
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd",
+      "size_bytes": 3123
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c",
+      "size_bytes": 5102
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9",
+      "size_bytes": 3163
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-core-001.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f",
+      "size_bytes": 461
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-core-001.c",
+      "sha256": "7b858bcf36f825a67fcf5e6584fb52cfc984055597be5e26f90eb989319c4409",
+      "size_bytes": 11081
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-core-001.log",
+      "sha256": "80a064e1093b92d88f52cbfd0788f50b08d56143d0c0ba90e1cccad5ee424dbf",
+      "size_bytes": 4533
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-core-001-machinecode.txt",
+      "sha256": "8375eab8a1b7549a141a50e2a8bdba072a5de9aa02ac6ca08f255f618f95a828",
+      "size_bytes": 20691
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-core-001-machinecode.log",
+      "sha256": "c1d9d4c1a6954345659208922d42e53f51c8f993dac64d520e501de40df26091",
+      "size_bytes": 4150
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-constructor-001.c",
+      "sha256": "eb51bed17695c0b2b0c27bb9610222bf8e003863afa7ee51c4a0ffb2d5d29ac5",
+      "size_bytes": 724
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-constructor-001-machinecode.txt",
+      "sha256": "1a6af91a80a4868032fe685efb0113a6b7503d2314f353a8b93da6401c246d60",
+      "size_bytes": 1226
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-time-constructor-001.log",
+      "sha256": "40859f67170839b3f5a7dfc4b6260525e18c57212aea73f581078d2a61d2d8fa",
+      "size_bytes": 4555
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-modes-001-machinecode.txt",
+      "sha256": "8f4da4dffd1307e798a3ae3fbd47730a6385c84bd440b1ca7e546a4dc39d3d47",
+      "size_bytes": 102304
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-modes-callees-001-machinecode.txt",
+      "sha256": "e3412a5929260028cb07350ac732f2fef69a9ce3ad284b2a6147c3264ada4960",
+      "size_bytes": 49152
+    }
+  ],
+  "dynamic_verification": "not_attempted",
+  "product_capabilities_added": false,
+  "notes": [
+    "Stored import SHA identifies import source, not Ghidra database checksum.",
+    "Decompiler return/prototype artifacts must be checked against ARM64 caller and callee registers.",
+    "Initialization constant is not proof that the conversion context remains unchanged at runtime."
+  ]
+}

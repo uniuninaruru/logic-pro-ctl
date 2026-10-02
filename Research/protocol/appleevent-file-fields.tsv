@@ -1,0 +1,12 @@
+# Logic 12.3.1 / 6682 ARM64; static field flow only, no live event validation.
+# Evidence: q-appleevent-modes-001-machinecode.txt; semantics in SA-AE-FILE-001-file-region.md/.en.md.
+# Fields describe the file/region branch of aUeV/Spt2, not a supported public editing API.
+field	descriptor_type	default	storage	machine_span	confirmed_use	semantic_status
+sPmo	long	required	0x02633d60	0x00590ecc..0x00590ee4;0x00592188..0x005921e4	1/2/3/5 choose position sources; other modes reaching helper use default anchor	mode_names_unverified
+sPfi	bmrk|furl|fsrf	required	CFileRef@0x02633cf0	0x005913c0..0x00591458;0x00591598..0x00591690	file reference copied; file type selects MIDI/non-MIDI path	runtime_file_support_unverified
+sPve	long_optional	1	low16@0x02633ce0	0x00591698..0x005916fc	input low16 stored; no direct helper read found	meaning_unknown
+sPtn	long_optional	1	u32@0x02633d5c	0x00591704..0x00591764;0x00591e44..0x00592170	clamp_to_1; filtered ordinal remap; mode2 may replace target	entity_and_lifetime_unverified
+sPss	long_optional	0	u32@0x02633d64	0x0059176c..0x005917c8;0x005921d4..0x00592388	signed32 input to modes3/5 conversion; mode5 subtracts offset	units_unknown
+sPst	long_optional	0	u32@0x02633e68	0x005917d0..0x0059182c;0x00592794..0x005927b8	file_metadata+8=input,+0xc=0	file_start_hypothesis_medium;units_unknown
+sPsp	long_optional	0	u32@0x02633e6c	0x00591834..0x00591890;0x00592794..0x005927b8	if_signed_input>0,file_metadata+0x18=input-sPst	file_end_hypothesis_medium;units_unknown
+sPrg	utxt|utf8	required	PascalBuffer@0x02633d68	0x00591894..0x00591934;0x005919dc..0x00591b10;0x00592764..0x00592790	CFString to system-encoding Pascal buffer; copy/fix name into file_metadata+0x30	not_established_as_existing_region_selector;unicode_preservation_unverified

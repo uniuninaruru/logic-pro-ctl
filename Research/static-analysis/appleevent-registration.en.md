@@ -257,10 +257,14 @@ See `SA-004-command-and-engine-boundaries.md` and
 | all other modes | file/region branch | `sPfi` exact `bmrk`, `furl` or `fsrf`; optional `sPve`, `sPtn`, `sPss`, `sPst`, `sPsp` exact `long`; mandatory `sPrg` exact `utxt` or `utf8`; then `FUN_00591de0` |
 
 Text is converted to an NSString through UTF-16 `CFStringCreateWithCharacters`
-or UTF-8 `CFStringCreateWithBytes`. After the listed text-mode action the
-handler puts `sPer:long = 0` into a non-null reply. It does not propagate the
-action function's return as a reliable operation status. Wrong text/file
-descriptor types can likewise produce successful no-op.
+or UTF-8 `CFStringCreateWithBytes`. The common return path for **modes
+7, 8, 9, 10, 11, 12 and 14** puts `sPer:long = 0` into a non-null reply.
+It does not propagate the action function's return as a reliable operation
+status. Mode 13 and the file/region branch take a separate path that returns
+handler status zero after the helper call without adding `sPer`. Wrong
+text/file descriptor types can likewise produce successful no-op. The helper
+and reply details are recorded in the [text-mode analysis](SA-AE-MODES-001-text-operations.en.md)
+and [file/region analysis](SA-AE-FILE-001-file-region.en.md).
 
 For mode 4, `sPsr` is the return of `FUN_003b1c58(currentSong)` and `sPfr` is
 the signed byte at currentSong `+0xc4`, clamped into 0..11. `sPso` is the UTF-8

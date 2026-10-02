@@ -25,3 +25,7 @@
 
 - https://hardware.hexler.net/touchosc/manual/setup-logic — TouchOSC を Logic のコントロールサーフェスとして使う設定です。Logic はポート 7000 で OSC を受信します。
 - https://cycling74.com/forums/controlling-logic-pro-x-through-osc
+
+## FradSer — mcp-server-apple-events
+
+[適合性の調査記録](mcp-apple-events-reference.md)でcommitを固定し、ソースを確認しました。Reminders/Calendarのnative CLIをMCPで公開する構成は参考になります。Logicのprivate AppleEvent送信や状態取得の実装は含まれません。日英の記録には構成図、再利用できる境界、結果・権限・versionの違いを整理しています。

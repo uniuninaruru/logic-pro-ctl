@@ -171,7 +171,7 @@ return 0;
 | 14 | 同じテキスト解析 | `FUN_017b19c0` |
 | その他すべてのモード | ファイル・リージョン分岐 | `sPfi` が正確に `bmrk`、`furl`、`fsrf` のいずれか。任意の `sPve`、`sPtn`、`sPss`、`sPst`、`sPsp` は正確に `long`。必須の `sPrg` は正確に `utxt` または `utf8`。その後 `FUN_00591de0` |
 
-テキストは、UTF-16 の `CFStringCreateWithCharacters` または UTF-8 の `CFStringCreateWithBytes` を通じて NSString に変換される。上記テキストモードの処理後、ハンドラーは null でない応答に `sPer:long = 0` を入れる。処理関数の戻り値を、信頼できる操作ステータスとして伝えてはいない。テキスト・ファイルのディスクリプター型が違う場合も、何もせず成功を返すことがある。
+テキストは、UTF-16 の `CFStringCreateWithCharacters` または UTF-8 の `CFStringCreateWithBytes` を通じて NSString に変換される。**モード 7・8・9・10・11・12・14** の共通復帰経路では、ハンドラーは null でない応答に `sPer:long = 0` を入れる。処理関数の戻り値を、信頼できる操作ステータスとして伝えてはいない。モード 13 とファイル・リージョン分岐は、helper 呼び出し後にハンドラーの成功値 0 を返す別経路で、`sPer` を追加しない。テキスト・ファイルのディスクリプター型が違う場合も、何もせず成功を返すことがある。応答と helper 内部の処理は、[テキスト操作の解析](SA-AE-MODES-001-text-operations.md)・[ファイルとリージョンの解析](SA-AE-FILE-001-file-region.md)に整理した。
 
 モード 4 では、`sPsr` は `FUN_003b1c58(currentSong)` の戻り値であり、`sPfr` は currentSong の `+0xc4` にある符号付きバイトを 0..11 に制限した値である。`sPso` は、`FUN_01079a2c` が返した文字列の UTF-8 表現。バイナリからは、この対応関係を証明できる。省略形のキーが人間にとって何を意味するかは、まだ動的に検証していない。
 

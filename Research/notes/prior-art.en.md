@@ -32,3 +32,11 @@ macOS 27 and recorded under `Research/experiments/`.
 - https://hardware.hexler.net/touchosc/manual/setup-logic — TouchOSC as a Logic
   control surface; Logic receives OSC on port 7000.
 - https://cycling74.com/forums/controlling-logic-pro-x-through-osc
+
+## FradSer — mcp-server-apple-events
+
+The [fit assessment](mcp-apple-events-reference.en.md) pins a commit and checks
+the source. Its MCP wrapper around a native Reminders/Calendar CLI is an
+architectural reference; it does not implement Logic's private AppleEvent
+sending or state observation. The bilingual notes contain a diagram and the
+reusable boundaries, with differences in results, permissions and versions.
