@@ -99,7 +99,7 @@
 
 `0x017b1db0` の generator 戻りを retain して `x20` に保存する。`0x017b1de4` の write receiver はその **生成文字列**であり、song ではない。`maStringByResolvingSymlinksAndAliasesInPath` 後の path に、`writeToFile:atomically:encoding:error:`（`0x017b1df4 → 0x01bcd400`）を atomically `1`、numeric encoding `4`、NSError pointer で呼ぶ。結果 bit 0 が 0 なら NSLog。正常末尾 `0x017b1e38–0x017b1e50` に明示的な status return はない。
 
-generator は `0x017b04b8 → 0x0154d8fc` の object を receiver に、`XMLStringWithOptions:1`（`0x017b04cc`）を呼び、`stringWithFormat:`（`0x017b0518`）で wrapper を作って autoreleased object を返す。別経路は block `0x017b0598` を `0x01a15eb0` に渡し NSMutableString を作る。限定した追加出力で、この block の引数、選別条件、XML append、iterator の store、`0x0154d8fc` の factory / child 境界まで照合した。完全な Channels schema は下位の factory / child 関数の調査待ち。
+generator は `0x017b04b8 → 0x0154d8fc` の object を receiver に、`XMLStringWithOptions:1`（`0x017b04cc`）を呼び、`stringWithFormat:`（`0x017b0518`）で wrapper を作って autoreleased object を返す。別経路は block `0x017b0598` を `0x01a15eb0` に渡し NSMutableString を作る。限定した追加出力で、この block の引数、選別条件、XML append、iterator の store、`0x0154d8fc` の factory / child 境界まで照合した。[XML-002](SA-AE-XML-002-channel-node-schema.md)でfactory / childのタグ・属性・省略条件を確認しました。全対象の網羅性と再インポート互換性は未確定です。
 
 wrapper は命令の stack varargs と CFString 本体を照合した。format `0x02414488` は `%@%@\n%@`（length `7`）、第 1 object `0x024144a8` は `<?xml version="1.0"?>\n<Patch>\n<Channels>\n`（length `41`）、第 2 object は生成内容 `x20`、第 3 object `0x024144c8` は `</Channels>\n</Patch>`（length `20`）。したがって Patch / Channels の XML wrapper は確定する。生成対象の channel/slot 範囲や再読み込みの可否までは確定しない。
 
@@ -122,7 +122,7 @@ callback は entry `+0x69==0x11`、signed byte `+0x335<=12`、song magic を検�
 
 遍歴のたびに有効な type `0x11` entry へ **`0x01a15fdc: str w21,[x2,#0x30]`** を実行し、`+0x6b4` から次の index を読み、その後 callback を呼ぶ。したがって callback の filter で XML に採用されない要素にも、この store は先に実行される。これらは書き込みの存在の確認であり、既存値が毎回変わる、プロジェクトへ永続化される、dirty/Undo を立てるという意味までは証明しない。iterator の正常末尾 `0x01a16000–0x01a1601c` にも明示的な return `0` はなく、逆コンパイルの `return 0` を成功 status として使わない。各 entry を UI の track や安定 entity と同一視しない。
 
-**XML node factory の限定確認 — `0x0154d8fc`。** `x0` の内部 object を `x22`、`x1` の name を retain して保持する。name が nil なら object `+0x73` から `stringWithCString:encoding:`、numeric encoding `0x1e` で作る。`0x0154d9c8 → 0x01af4980` の receiver は逆コンパイルで `MAXMLElement` とされた class slot。引数は `x2=name, x3=typeCFString, x4=formatCFString, x5=emptyCFString`。この stub の完全な selector と XML の tag / attribute 名は今回の出力にない。
+**XML node factory の限定確認 — `0x0154d8fc`。** `x0` の内部 object を `x22`、`x1` の name を retain して保持する。name が nil なら object `+0x73` から `stringWithCString:encoding:`、numeric encoding `0x1e` で作る。`0x0154d9c8 → 0x01af4980` の receiver は逆コンパイルで `MAXMLElement` とされた class slot。引数は `x2=name, x3=typeCFString, x4=formatCFString, x5=emptyCFString`。[XML-002](SA-AE-XML-002-channel-node-schema.md)に、完全なselector、相対method表から解決した実装、XML tag / attribute名の追補があります。
 
 | ラベルの選択 | 命令と pointer/data で確認した対応 |
 |---|---|
@@ -131,9 +131,9 @@ callback は entry `+0x69==0x11`、signed byte `+0x335<=12`、song magic を検�
 
 これらは XML object の factory に渡される channel-like な分類ラベル。`AudioTrack` 等の文字列だけで UI の track entity、安定 ID、公開 schema と同一視しない。
 
-二つの group は object の signed short `+0x4e` / `+0x4c` を count とし、pointer 範囲 `+0x30/+0x38` からそれぞれ index `i + signed(+0x4c) + signed(+0x4a)` / `i + signed(+0x4a)` を選ぶ。type bit `0x40` があり type `!=0xc0`、index が範囲内、child pointer 非 null の場合、`0x0154da68` / `0x0154daf4` から `0x0154dcb4(child,object)` を呼ぶ。戻り child が非 null なら配列に追加。配列が非空なら `0x0154db2c → 0x01af4b40` の wrapper を `0x0154db44` で root の `addChild:` に渡す。この child 生成関数と wrapper stub は未調査なので、子要素の意味・schema は未確定。
+二つの group は object の signed short `+0x4e` / `+0x4c` を count とし、pointer 範囲 `+0x30/+0x38` からそれぞれ index `i + signed(+0x4c) + signed(+0x4a)` / `i + signed(+0x4a)` を選ぶ。type bit `0x40` があり type `!=0xc0`、index が範囲内、child pointer 非 null の場合、`0x0154da68` / `0x0154daf4` から `0x0154dcb4(child,object)` を呼ぶ。戻り child が非 null なら配列に追加。配列が非空なら `0x0154db2c → 0x01af4b40` の wrapper を `0x0154db44` で root の `addChild:` に渡す。[XML-002](SA-AE-XML-002-channel-node-schema.md)でchildとwrapperの静的な構造を確認しました。公開IDや再インポート互換性の根拠にはしません。
 
-続く新しい配列は signed short `+0x4a` の group を走査するが、この区間に child 生成や `addObject:` はない。通常の空 `arrayWithCapacity:` の内容はこの本体では増えず、`0x01af4b80` / `addChild:` は非空 count を条件にしたコードとしてのみ残る。実行時の包含を確認したとは扱わない。`0x0154dbfc` の `_IsALPCheckForEmptySlots` が非ゼロなら、`0x0154dc14 → 0x01b16080` に内部 object と XML root を渡す。この追加処理も未調査。
+続く新しい配列は signed short `+0x4a` の group を走査するが、この区間に child 生成や `addObject:` はない。通常の空 `arrayWithCapacity:` の内容はこの本体では増えず、`0x01af4b80` / `addChild:` は非空 count を条件にしたコードとしてのみ残る。実行時の包含を確認したとは扱わない。`0x0154dbfc` の `_IsALPCheckForEmptySlots` が非ゼロなら、`0x0154dc14 → 0x01b16080` に内部 object と XML root を渡す。[XML-002](SA-AE-XML-002-channel-node-schema.md)で、この追加処理の条件付きtag追加とalert selector呼び出しを追補しました。下位callee全体は未監査です。
 
 この node 本体に入力 `x22` を直接更新する store は見えないが、下位 call の副作用まで否定しない。確認したのは name・type・format の選択、XML root を返す ABI、二つの child group と未調査の追加処理までである。
 
@@ -163,7 +163,7 @@ song / path 非 null、選択フィールド `song+0xd8 != -1`、CFileRef `IsFil
 
 選択フィールド `song+0xd8` が `-1` なら処理しない。指定 path の CFileRef と、`NSTemporaryDirectory` から作った **mutable な別の CFileRef** を用意する。track 候補の local はこの選択フィールド minus 1。`0x017b211c → 0x0037b858` に song、folder `song+0x10`、track pointer、一時 CFileRef pointer、flags `0x2200` または `0x40002200` 等を渡す。戻りが非ゼロのときだけ、指定 path の拡張子を消し CFString `0x023469a8` を append した文字列で `0x017b2180 → 0x00354128` を呼ぶ。CFString は pointer/data 出力で **`aac`**（length `3`、payload `0x01d72138`）と確認した。下位二関数の render / convert という操作名は Hypothesis。
 
-生成候補 call の後は、戻り 0 の場合も含めて、一時 CFileRef の `CopyFileSystemPath` を `removeItemAtPath:error:`（`0x017b21d0`、error pointer nil）に渡す。結果を見ない。CFileRef は `0x0037b858` に pointer で渡されるため、**削除時に指す最終 path はまだ分からない**。「安全に一時ファイルだけを消す」とは確定できず、この点を解決する前に実行試験へ進めない。出力ファイルの完成、codec、範囲、上書き、非同期処理、変換失敗は reply から確認できない。
+生成候補 call の後は、戻り 0 の場合も含めて、一時 CFileRef の `CopyFileSystemPath` を `removeItemAtPath:error:`（`0x017b21d0`、error pointer nil）に渡す。結果を見ない。[EXPORT-002](SA-AE-EXPORT-002-temporary-output.md)で、producerの早期0終了が一時参照を更新せず、**temp directoryのpathを削除APIへ渡し得る**ことを確認しました。実際の削除は観測していません。この具体的な境界を理由に、mode 12は実行試験・製品機能の対象に入れません。出力ファイルの完成、codec、範囲、上書き、非同期処理、変換失敗は reply から確認できない。
 
 ### mode 13 — `0x017b22f8`
 
@@ -181,11 +181,11 @@ resolver のレコード `+0x20` が正値で、二つ目の resolver が非 nul
 
 | gate | 限定した確認対象 | 受け入れ条件 |
 |---|---|---|
-| M1: XML の未調査境界 | factory stub `0x01af4980`、child `0x0154dcb4`、wrapper stub `0x01af4b40/0x01af4b80`、条件付き `0x01b16080` | wrapper と文字列、block ABI・filter・append、iterator store、node の name / type / format と二つの child group は照合済み。次は各 stub の完全な selector と child schema、empty-slot 分岐の変更範囲を限定して確定。完全な schema や再インポート互換性へ推測で拡張しない |
+| M1: XML の未調査境界 | factory stub `0x01af4980`、child `0x0154dcb4`、wrapper stub `0x01af4b40/0x01af4b80`、条件付き `0x01b16080` | [XML-002](SA-AE-XML-002-channel-node-schema.md)でselector、factory実装、child属性、省略条件、条件付きtagとalert境界を確認。残る下位virtual call・empty-slot判定・対象の網羅性を限定して追う。全schemaや再インポート互換性は未確定 |
 | M2: 対象の表現 | 二つの resolver の呼び出し元、record の既知型参照 | `+0xd4/+0xd8`、0x50 record、container、object を別々に図示。公開 ID、UI track number、slot に推測で統合しない |
 | M3: mode 10 の適用境界 | `0x004b1234` / `0x004afaa0` の entry/exit と named selector | file から buffer、適用結果、rollback、通知を受け渡しとして確定。全 preset 種を扱えるとはまだ言わない |
 | M4: mode 11 の import 境界 | `0x004f3ba8`、`0x002a2ee0` の entry/exit と position units | 0 が進行条件である理由、track/position in/out、失敗・変更条件を確定 |
-| M5: mode 12 の削除 path | `0x0037b858` の CFileRef 書き換えと `0x00354128` の completion/error | 0/非ゼロの全 return で最終 temporary path、生成・変換の同期性と失敗、削除対象を追う。削除 path 未解決なら live 試験へ進まない |
+| M5: mode 12 の削除 path | `0x0037b858` の CFileRef 書き換えと `0x00354128` の completion/error | 0/非ゼロの全 return で最終 temporary path、生成・変換の同期性と失敗、削除対象を追う。[EXPORT-002](SA-AE-EXPORT-002-temporary-output.md)に早期失敗時のdirectory path削除要求と、変換前のdestination削除を記録。実行候補にはせず、下位生成・待機の境界を静的に追う |
 | M6: mode 13/14 の意味 | `0x005e559c` の入口の args 消費、`0x0022cc34/0x0022cadc/0x0022c914` の小さい setter | window type と action、変更対象・field・file reference、状態更新を確定。engine 全体への無制限展開はしない |
 | M7: 条件付き live 検証 | 定義した実験範囲と session の許可がある `LogicCLI-Test.logicx`、専用一時ファイル | 1 条件ずつ、複数値と複数 track、前後差分、失敗・上書き・Undo、独立読み戻し。確認できなければ `verified:false`。既存の許可を生かし、本記録自体は新たな送信・接続の許可を与えない。PLAN-05 の接続許可 gate は別に維持 |
 

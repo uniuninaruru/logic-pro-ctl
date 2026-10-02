@@ -48,6 +48,20 @@ Logicには既存の [NativeAppleEventTransportSender](../../Sources/LogicCore/B
 
 今後のMCP設計では、CLIの終了コード0や `isError: false` を `verified: true` へ変換しません。`observed: null`、未取得、unknown/stale/partial、読み戻し不可、timeout後の結果不明を維持し、欠落した値をfalse/0で補いません。読み取りの `verified: false` と書き込みの検証失敗も区別します。構造化結果とtext表示の対応は、ユーザーが進めるPLAN-22等の契約を前提に別途決める設計事項であり、この参照記録では実装・契約・担当範囲を変更しません。
 
+### PLAN-09との対応
+
+既存の[書き込み実行契約](../../docs/execution-contract.md)に、MCPのタイムアウト後の扱いを対応づけます。次のMCP側の条件は将来のadapter設計であり、追加実装はしていません。
+
+| 起きたこと | 既存logicdの契約 | MCP adapterで保持すること |
+|---|---|---|
+| logicdが実行の締め切りに達した | 書き込みは `timeout` / `execution.state: "unknown"`。実行枠は下位処理が終わるまで維持 | 返されたexecution全体を保持。時間切れを未実行・取り消し成功に変換しない |
+| adapterの子プロセスが時間切れ・応答消失になった | CLIを止めても、受理済みのdaemon処理は取り消せない。execution応答を受け取れていない場合がある | adapter側の結果不明として返す。daemonがunknownを返したと捏造せず、送信済みか不明なら自動再実行しない |
+| 同じキー・同じ内容で再照会する | 前回completedなら `replayed`、実行中なら `request_in_flight`、unknownなら `outcome_unknown` | 元の冪等キーとcommand・args・backendを保持し、その分岐をそのまま返す |
+| 同じキーで内容が変わる | `idempotency_key_conflict`、実行しない | キーを勝手に差し替えて実行しない |
+| 前回がnot_appliedと確定している | 同じキーでの再実行を許す | 結果不明からnot_appliedを推定しない。原因を解消してから扱う |
+
+読み戻し後も元の書き込み結果が確定しない場合、**新しいキーは新しい実行**です。目的・対象・現在状態を確認して、意図した追加実行として決めます。adapterの再起動やtool再呼び出しのたびに新しいキーを自動生成すると、この重複防止を失います。キーなし、journalの保持範囲外、結果不明を含めて無条件のexactly-onceは約束しません。[実装の分岐](../../Sources/LogicCore/Commands/WriteExecutor.swift)と[契約の検証](../../Tests/LogicCoreTests/WriteExecutorTests.swift)を根拠にします。
+
 権限分類もEventKitの `reminders/calendars` が中心です。そこにあるpermissionやdisclaim処理を、LogicへのAutomation許可の解決方法として扱いません。[permission domain](https://github.com/FradSer/mcp-server-apple-events/blob/b538b19dff6f3d8b68b642711944405ee787b690/src/utils/eventCli.ts#L188-L214)
 
 ## version・license・採用判断

@@ -49,7 +49,7 @@ constructorは`str x1,[x0]`で整数を保存し、64-bit整数の`625*x1`を`SC
 
 `0x01a12618..0x01a12628`はcontext内の`+0x10`、`+0x48`、`+0x80`を順に結び、最後にglobal `0x02777108`を`context+0x80`へ更新します。単一のcontext pointerを登録するだけではなく、3つの内部nodeを連結する処理です。初期化にはguard・atexit登録もあります。
 
-**未解決:** このcontextのrate/scaleを後から更新する処理と、連結したglobal listの利用側は今回追跡していません。初期44100は実際のproject sample rateが44100である証拠でも、48/96 kHzの曲で固定44100が使われ続ける証拠でもありません。
+**追補:** [TIME-002](SA-AE-TIME-002-context-lifecycle.md)でrate/scaleの更新関数、cache世代更新、破棄時の登録解除を確認しました。初期44100は固定値が使われ続ける証拠ではありません。実際の48/96 kHzの曲への追従と通知順序は未確認です。
 
 ## 4. map走査と確認済み算術
 
@@ -95,13 +95,13 @@ cache不一致ではgeneration様fieldとmap pointerを更新し、走査後に�
 
 map resolver `FUN_019adc00`は参照countのatomic更新・virtual call・map準備calleeを含みます（`0x019adce8..0x019add60`）。fallbackへ進むとsong `+0xc4`のformat値と`+0xcc`の整数を`FUN_019ae130`へ渡し、global record `0x027771c0`を返します（`0x019ade5c..0x019ade78`）。下位callee全部の副作用は未監査です。
 
-fallback初期化は`FUN_019ae9dc`を2回呼び、1回目は`x0=0x027771c0`・anchor引数`0x960000000000`、2回目は**1回目の返値`x0`に`0x20`を加えた宛先**・sentinel引数`0x3fffffff00000000`を渡します（`0x019ae254..0x019ae284`）。calleeの返値・field配置は未監査です。nonzero denominator入力はsigned比較で`50000..9900000`へclampし、`0x027771d0`へstoreします。0は既存値を保持します（`0x019ae194..0x019ae1b8`）。format値が`-1`でない場合は別のglobal fieldも更新します（`0x019ae1bc..0x019ae1cc`）。
+fallback初期化は`FUN_019ae9dc`を2回呼び、1回目は`x0=0x027771c0`・anchor引数`0x960000000000`、2回目は**1回目の返値`x0`に`0x20`を加えた宛先**・sentinel引数`0x3fffffff00000000`を渡します（`0x019ae254..0x019ae284`）。[TIME-002](SA-AE-TIME-002-context-lifecycle.md)でcalleeが入力pointerを返すこととfield保存を確認し、2回目の宛先を`0x027771e0`と確定しました。nonzero denominator入力はsigned比較で`50000..9900000`へclampし、`0x027771d0`へstoreします。0は既存値を保持します（`0x019ae194..0x019ae1b8`）。format値が`-1`でない場合は別のglobal fieldも更新します（`0x019ae1bc..0x019ae1cc`）。
 
 これはglobal/cacheの変更を確認した結果であり、保存されるtempo mapやsong dirty flagが必ず変わるという主張ではありません。同時に、全経路の読み取り専用保証にもなりません。file/regionのcallerの0返信が実行成功を保証しない点は先行記録から変わりません。
 
 ## 7. 次の限定確認
 
-1. `0x0266b680`とglobal登録nodeの参照を追い、rate/scale更新・cache generation invalidation・寿命を確認する。
+1. [TIME-002](SA-AE-TIME-002-context-lifecycle.md)で確認した更新経路の採用条件・通知順序を追い、rate変更後のcache整合性を確認する。
 2. denominatorを作るrecord constructorとsong `+0xcc`のsetterから、値の単位とtempo変更との対応を監査する。
 3. 先にローカルfixtureでflat/multiple-record/bit63/正負・境界・丸めを再現し、算術仕様を検証する。実機のsnapshotと同一とは称さない。
 4. その後に専用曲の別実験でsample rate・tempo・positionを1条件ずつ比較し、独立readbackと保存再読込で確認する。

@@ -49,7 +49,7 @@ The constructor stores the integer with `str x1,[x0]`, multiplies it by 625 as a
 
 At `0x01a12618..0x01a12628`, it links context `+0x10`, `+0x48`, and `+0x80` in sequence, then updates global `0x02777108` to `context+0x80`. This links three internal nodes rather than merely registering one context pointer. Initialization also has a guard and atexit registration.
 
-**Unresolved:** This pass does not trace later rate/scale updates or consumers of the linked global list. The initial 44100 neither proves that the actual project sample rate is 44100 nor that this context remains fixed at 44100 for 48/96 kHz songs.
+**Follow-up:** [TIME-002](SA-AE-TIME-002-context-lifecycle.en.md) establishes a rate/scale updater, cache generation increments, and removal of registrations during destruction. Initial 44100 is not evidence of a permanently fixed rate. Following actual 48/96 kHz songs and notification order remain unverified.
 
 ## 4. Map scanning and confirmed arithmetic
 
@@ -95,13 +95,13 @@ Cache mismatches update generation-like fields and the map pointer; scans store 
 
 Map resolver `FUN_019adc00` includes atomic reference-count updates, virtual calls, and map-preparation callees (`0x019adce8..0x019add60`). Its fallback sends the format value at song `+0xc4` and integer at `+0xcc` to `FUN_019ae130`, then returns global record `0x027771c0` (`0x019ade5c..0x019ade78`). All lower-level callee side effects remain unaudited.
 
-Fallback initialization calls `FUN_019ae9dc` twice: first with `x0=0x027771c0` and anchor argument `0x960000000000`, then with **the first call's returned `x0` plus `0x20` as destination** and sentinel argument `0x3fffffff00000000` (`0x019ae254..0x019ae284`). That callee's return behavior and field layout remain unaudited. Nonzero denominator inputs are clamped with signed comparisons to `50000..9900000` and stored at `0x027771d0`; zero preserves the existing value (`0x019ae194..0x019ae1b8`). Format values other than `-1` also update separate global fields (`0x019ae1bc..0x019ae1cc`).
+Fallback initialization calls `FUN_019ae9dc` twice: first with `x0=0x027771c0` and anchor argument `0x960000000000`, then with **the first call's returned `x0` plus `0x20` as destination** and sentinel argument `0x3fffffff00000000` (`0x019ae254..0x019ae284`). [TIME-002](SA-AE-TIME-002-context-lifecycle.en.md) establishes that the callee returns its input pointer and confirms field stores, resolving the second destination to `0x027771e0`. Nonzero denominator inputs are clamped with signed comparisons to `50000..9900000` and stored at `0x027771d0`; zero preserves the existing value (`0x019ae194..0x019ae1b8`). Format values other than `-1` also update separate global fields (`0x019ae1bc..0x019ae1cc`).
 
 This confirms global/cache writes, not that persisted tempo maps or song dirty flags necessarily change. It also supplies no read-only guarantee for every path. The earlier finding that a file/region caller reply of zero does not prove execution success still applies.
 
 ## 7. Next bounded checks
 
-1. Trace references to `0x0266b680` and the globally registered nodes for rate/scale updates, cache generation invalidation, and lifetime.
+1. Trace adoption conditions and notification order for the paths established in [TIME-002](SA-AE-TIME-002-context-lifecycle.en.md), checking cache consistency after rate changes.
 2. Audit denominator record constructors and setters of song `+0xcc` for units and their relationship to tempo changes.
 3. First reproduce flat/multiple-record/bit63/positive/negative/boundary/rounding cases in local fixtures to validate the arithmetic contract. Do not label them equivalent to live snapshots.
 4. Then compare sample rate, tempo, and position one condition at a time in a separate dedicated-project experiment, with independent readback and save/reload.

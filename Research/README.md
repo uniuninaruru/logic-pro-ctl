@@ -65,8 +65,11 @@ flowchart LR
 | [テキスト操作の分岐](static-analysis/SA-AE-MODES-001-text-operations.md) | mode 7〜14の設定読み込み・ファイル書き込み・MIDI取込候補と、応答の限界 |
 | [ファイル・リージョン分岐](static-analysis/SA-AE-FILE-001-file-region.md) | ファイル入力の型、対象・位置の決定、metadata変更、未知modeの到達 |
 | [ファイル配置の位置変換](static-analysis/SA-AE-TIME-001-position-conversion.md) | 44100の初期値、固定小数点の算術、anchorとdelta、cache書き込み。単位は未確定 |
+| [XML の項目と省略条件](static-analysis/SA-AE-XML-002-channel-node-schema.md) | Channel・Plugin・Parameter のタグと属性、空文字の省略、条件付き alert。公開APIではない |
+| [書き出しと削除対象](static-analysis/SA-AE-EXPORT-002-temporary-output.md) | mode 12 の失敗時に directory path が削除 API へ届き得る経路。実行候補から除外 |
+| [位置変換 context の更新と寿命](static-analysis/SA-AE-TIME-002-context-lifecycle.md) | rate/scale の更新、cache 世代、登録解除、fallback record。実際の曲への追従は未確認 |
 
-テキストとファイルの分岐は、現時点では静的解析の記録です。helperの失敗が応答に反映されない経路や、対象を選ぶ段階で内部metadataを書き換える処理があります。製品CLIの対応機能としては公開していません。[入力と解析出力のmanifest](static-analysis/appleevent-mode-analysis-manifest.json)に、対象バイナリ・Ghidra条件・ローカル根拠のハッシュを記録しています。
+テキストとファイルの分岐は、現時点では静的解析の記録です。helperの失敗が応答に反映されない経路や、対象を選ぶ段階で内部metadataを書き換える処理があります。製品CLIの対応機能としては公開していません。[入力と解析出力のmanifest](static-analysis/appleevent-mode-analysis-manifest.json)に、対象バイナリ・Ghidra条件・ローカル根拠のハッシュを記録しています。 XML・書き出し・context更新の追補は[follow-up manifest](static-analysis/appleevent-followup-analysis-manifest.json)で照合できます。各資料は日英版の切替と図を備えています。
 
 ## 実験の一覧
 

@@ -48,6 +48,20 @@ The reference server's shared wrapper returns `content: [{type: "text", text: re
 
 Future MCP design must not convert CLI exit code zero or `isError: false` into `verified: true`. Preserve `observed: null`, missing observations, unknown/stale/partial states, unavailable readback, and unknown outcomes after timeouts; do not fill missing values with false/zero. Distinguish `verified: false` for reads from write verification failure. Mapping structured results to text remains a separate design decision based on the user's PLAN-22 and related contracts. This reference does not implement or alter those contracts or ownership.
 
+### Mapping to PLAN-09
+
+Map MCP timeout handling to the existing [write execution contract](../../docs/execution-contract.en.md). The adapter requirements below describe future design; no additional adapter implementation is added here.
+
+| Situation | Existing logicd contract | What the MCP adapter must preserve |
+|---|---|---|
+| logicd reaches its execution deadline | Writes return `timeout` / `execution.state: "unknown"`; the execution slot remains held until the underlying operation ends | Preserve the complete execution response. Do not interpret a timeout as not applied or successfully cancelled |
+| The adapter's child process times out or its response is lost | Killing the CLI cannot cancel an accepted daemon operation; the execution response may never reach the adapter | Report an unknown adapter outcome. Do not fabricate an unknown response from the daemon or automatically execute again when dispatch is uncertain |
+| Reconcile the same key and content | A completed result is `replayed`; an in-flight operation yields `request_in_flight`; an unknown result yields `outcome_unknown` | Preserve the original idempotency key, command, args and backend, and return that branch unchanged |
+| Content changes with the same key | `idempotency_key_conflict`; no execution | Do not silently substitute another key and run the operation |
+| The previous result is known to be not_applied | Execution with the same key is permitted | Do not infer not_applied from an unknown outcome. Resolve its cause before proceeding |
+
+If readback still cannot settle the original write outcome, **a new key means a new execution**. Confirm the intent, target and current state before choosing it as a deliberate additional operation. Generating new keys automatically after adapter restarts or repeated tool calls loses duplicate protection. Do not promise unconditional exactly-once behavior for missing keys, journal retention limits or unknown results. The [implementation branches](../../Sources/LogicCore/Commands/WriteExecutor.swift) and [contract tests](../../Tests/LogicCoreTests/WriteExecutorTests.swift) provide the local evidence.
+
 Permission classification focuses on EventKit's `reminders/calendars` domains. Its permission/disclaim handling is not established as a solution for Automation permission to control Logic. [Permission domains](https://github.com/FradSer/mcp-server-apple-events/blob/b538b19dff6f3d8b68b642711944405ee787b690/src/utils/eventCli.ts#L188-L214)
 
 ## Versions, licenses, and adoption decision
