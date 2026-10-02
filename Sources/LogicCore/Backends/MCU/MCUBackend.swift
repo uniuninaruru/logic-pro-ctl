@@ -103,6 +103,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         bankOffset = nil
         colorsAtPositioning = -1
         generationAtPositioning = -1
+        namesAtPositioning = nil
         guard environment.transmit == nil else { return }
         pause(1.0)
         do {
@@ -333,11 +334,16 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private var bankOffset: Int?
     private var colorsAtPositioning = -1
     private var generationAtPositioning = -1
+    /// The name row as it was when the bank position was last established. Logic can shift the
+    /// visible strips without a colour sysex (a delete that clamps the bank: EXP-MCU-023), so a
+    /// position is only trusted while the surface still shows what it showed then.
+    private var namesAtPositioning: String?
 
     private func rememberBankSession() {
         let session = read { ($0.colorUpdates, handshakeGeneration) }
         colorsAtPositioning = session.0
         generationAtPositioning = session.1
+        namesAtPositioning = read { $0.row(0) }
     }
 
     private func trackID(_ strip: Int) -> Int { strip + (bankOffset ?? 0) + 1 }
@@ -381,6 +387,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private var bankIsKnown: Bool {
         bankOffset != nil && read {
             $0.colorUpdates == colorsAtPositioning && handshakeGeneration == generationAtPositioning
+                && $0.row(0) == namesAtPositioning
         }
     }
 

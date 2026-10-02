@@ -14,7 +14,7 @@ This page sets out the rules that keep a write from **reaching a different track
 - With **`--expect-name <name>`** the command runs only if the name displayed at that position matches. Otherwise it is `target_mismatch` and **nothing is sent**.
 - Always pass the `name` exactly as `track list` / `track get` returned it.
 - Where several tracks share a name, the name cannot tell them apart. `identity.name_unique` in `track list` says so.
-- The check works **when Logic sends the changed display to the control surface**. A rename was confirmed on the real Logic. Reorder, add and delete are **not confirmed** (§6).
+- The check works **when Logic sends the changed display to the control surface**. A rename, adding a track and deleting a track were confirmed on the real Logic. Reordering is **not confirmed** (§6).
 
 ## 2. Usage
 
@@ -91,6 +91,8 @@ Not guaranteed (limits):
 
 - **Swapping two tracks that display the same name** is not detected.
 - A change for which Logic does not update the display is not detected. The check only compares with what the surface shows.
+- The MCU LCD can show only short ASCII names. Non-ASCII characters may not be displayed ("オーディオ 8" appeared as `8`).
+  For the check, use the displayed `name` as it is; it will not equal the original name.
 - The song (project) name cannot be read from the MCU. After a switch to another song, tracks with the same names still match.
   A switch that makes Logic reconnect is detected by `--expect-session`.
 - Hierarchy (folders, stacks), instruments, inserts and plug-ins are outside this contract (the MCU does not expose them).
@@ -101,16 +103,21 @@ Not guaranteed (limits):
 | Change | Confirmed on the real Logic | Unit test |
 |---|---|---|
 | Renaming a track (strip on the display) | **Confirmed**: EXP-MCU-022 (`Zed5`; the old name gives `target_mismatch`) | yes |
-| Reordering tracks | **Not confirmed** | yes (assuming Logic updates the display) |
-| Adding a track | **Not confirmed** | yes (same) |
-| Deleting a track | **Not confirmed** | yes (same) |
+| Adding a track | **Confirmed**: EXP-MCU-023 (all three checks against the layout from before the add gave `target_mismatch`). Logic also moves the displayed range itself | yes |
+| Deleting a track | **Confirmed**: EXP-MCU-023. A defect that trusted a stale bank position after a delete was found and fixed (below) | yes |
+| Reordering tracks | **Not confirmed**: a reorder could not be produced (dragging, the reorder menu) | yes (assuming Logic updates the display) |
 | Renaming a strip that is not on the display | Not confirmed (moving the bank should rewrite the display) | — |
 
 Unconfirmed rows are not described as "detected" until they are checked on the real Logic. The unit tests only show that, **if Logic updates the display**,
 this check detects the change.
+
+In a real delete, Logic sometimes rewrote only the name row, without the signal that announces a bank move (the colour sysex).
+The earlier `logicd` then trusted the bank position from before the delete and read the non-existent track 13 as `Master`.
+Now, if the name row differs from the one recorded when the position was set, the position is not trusted and is established again (confirmed on the real Logic: it gives `no_such_track`).
 
 ## 7. Evidence
 
 - `Tests/LogicCoreTests/TargetIdentityTests.swift` (rename, swap, delete, add; nothing sent for every command; duplicate names; truncation; argument validation; relation to idempotency keys)
 - `Tests/integration/test_cli_safety_gate.py` (a request with a safeguard is never sent to an older daemon)
 - [EXP-MCU-022](../Research/experiments/EXP-MCU-022-rename-reaches-surface.en.md) (real Logic: a rename reaches the surface)
+- [EXP-MCU-023](../Research/experiments/EXP-MCU-023-add-delete-reach-surface.en.md) (real Logic: adds and deletes reach it; the stale-bank defect after a delete and its fix)

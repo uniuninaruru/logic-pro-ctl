@@ -72,9 +72,11 @@ final class FakeLogicMCU {
         refreshView()
     }
 
-    func removeStrip(at index: Int) {
+    /// `colourSignal: false` is what real Logic did when a delete shifted the visible strips and
+    /// clamped the bank (EXP-MCU-023): the names were redrawn but no colour sysex came with them.
+    func removeStrip(at index: Int, colourSignal: Bool = true) {
         strips.remove(at: index)
-        refreshView()
+        refreshView(colourSignal: colourSignal)
     }
 
     func insertStrip(named name: String, at index: Int) {
@@ -82,9 +84,9 @@ final class FakeLogicMCU {
         refreshView()
     }
 
-    private func refreshView() {
+    private func refreshView(colourSignal: Bool = true) {
         offset = min(offset, maxOffset)
-        send(viewMessages(includeLEDs: true))
+        send(viewMessages(includeLEDs: true, colour: colourSignal))
     }
 
     // Logic → backend ----------------------------------------------------
@@ -107,7 +109,7 @@ final class FakeLogicMCU {
         MCU.sysexHeader + [0x72] + [UInt8](repeating: 4, count: 8) + [0xF7]
     }
 
-    private func viewMessages(includeLEDs: Bool) -> [UInt8] {
+    private func viewMessages(includeLEDs: Bool, colour: Bool = true) -> [UInt8] {
         var out: [UInt8] = []
         out += lcd(0, (0..<MCU.strips).map { cell(strip(at: $0)?.name ?? "") }.joined())
         out += lcd(56, (0..<MCU.strips).map { slot -> String in
@@ -127,7 +129,7 @@ final class FakeLogicMCU {
                 out += led(MCU.selectNote(slot), s != nil && offset + slot == selected)
             }
         }
-        out += colourSysex()
+        if colour { out += colourSysex() }
         return out
     }
 

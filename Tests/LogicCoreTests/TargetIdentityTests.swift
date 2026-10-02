@@ -95,6 +95,24 @@ private func connected(tracks count: Int = 10) -> (FakeLogicMCU, MCUBackend) {
     #expect(!sim.strips.contains { $0.solo })
 }
 
+@Test func aBankShiftWithoutAColourSignalIsStillNoticed() {
+    // Real Logic (EXP-MCU-023): deleting a track while the bank sat at its end redrew the names
+    // one strip over and clamped the bank, with no colour sysex. The old offset must not be trusted.
+    let sim = FakeLogicMCU.project(tracks: 11)  // 13 strips: the last bank starts at strip 6
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    #expect(backend.execute(.trackGet(track: 13), expectName: "Master").ok)  // bank offset 5
+    sim.removeStrip(at: 5, colourSignal: false)  // T06 is gone: 12 strips, the bank clamps to offset 4
+
+    // Track 8 is now T09; the old offset 5 would have read the cell that shows T08.
+    let eighth = backend.execute(.trackGet(track: 8), expectName: "T09")
+    #expect(eighth.ok)
+    #expect(eighth.result?["name"] == .string("T09"))
+    #expect(backend.execute(.trackGet(track: 8), expectName: "T08").error == "target_mismatch")
+    // And a track number past the end is no track, not the last cell of a stale view.
+    #expect(backend.execute(.trackGet(track: 13)).error == "no_such_track")
+}
+
 @Test func theCheckAlsoWorksAfterTheBankHasToBeMovedToReachTheTarget() {
     let (sim, backend) = connected()  // 12 strips: track 11 is only on the second bank view
     _ = backend.execute(.trackList)
