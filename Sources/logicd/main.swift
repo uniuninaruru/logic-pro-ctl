@@ -95,7 +95,7 @@ func handle(_ line: String) -> (response: Response, stop: Bool) {
     return (Response(id: request.id, ok: o.ok, command: request.command, backend: routed.backend,
                      readbackBackend: routed.readbackBackend,
                      verified: o.verified, requested: o.requested, observed: o.observed, result: o.result,
-                     error: o.error, message: o.message), false)
+                     error: o.error, message: o.message, observation: o.observation), false)
 }
 
 Thread.detachNewThread {

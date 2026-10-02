@@ -40,11 +40,13 @@ public struct Response: Codable, Equatable {
     public var result: JSONValue?
     public var error: String?
     public var message: String?
+    /// Completeness / freshness / source of a read result. Absent on writes.
+    public var observation: JSONValue?
 
     public init(id: String, ok: Bool, command: String, backend: String? = nil,
                 readbackBackend: String? = nil, verified: Bool = false,
                 requested: JSONValue? = nil, observed: JSONValue? = nil, result: JSONValue? = nil,
-                error: String? = nil, message: String? = nil) {
+                error: String? = nil, message: String? = nil, observation: JSONValue? = nil) {
         self.id = id
         self.ok = ok
         self.command = command
@@ -56,10 +58,11 @@ public struct Response: Codable, Equatable {
         self.result = result
         self.error = error
         self.message = message
+        self.observation = observation
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, ok, command, backend, verified, requested, observed, result, error, message
+        case id, ok, command, backend, verified, requested, observed, result, error, message, observation
         case readbackBackend = "readback_backend"
     }
 }

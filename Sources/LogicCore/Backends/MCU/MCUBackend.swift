@@ -9,6 +9,24 @@ import Foundation
 ///
 /// Scope (v0.1): tracks 1–8 = MCU strips 1–8 of the first bank. Strip order
 /// is Logic's mixer order and also contains Stereo Out / Master strips.
+/// What the backend needs from the outside world. The default talks to CoreMIDI
+/// and the running Logic; tests inject a fake surface and shrink time.
+public struct MCUEnvironment {
+    /// Sends one MIDI message to Logic. nil = through the virtual CoreMIDI source.
+    public var transmit: (([UInt8]) -> Void)?
+    public var runningApp: () -> LogicAppInfo?
+    /// Multiplies every wait and sleep. Only tests set it below 1.
+    public var timeScale: Double
+
+    public init(transmit: (([UInt8]) -> Void)? = nil,
+                runningApp: @escaping () -> LogicAppInfo? = { LogicApp.running() },
+                timeScale: Double = 1) {
+        self.transmit = transmit
+        self.runningApp = runningApp
+        self.timeScale = timeScale
+    }
+}
+
 public final class MCUBackend: LogicBackend, TransportReadback {
     public let kind = BackendKind.mcu
     /// Same name as the research probe so Logic reuses its surface entry.
@@ -34,11 +52,16 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private var destination = MIDIEndpointRef()
     private let log: (String) -> Void
     private let trace: Bool
+    private let environment: MCUEnvironment
 
-    public init(trace: Bool = false, log: @escaping (String) -> Void) {
+    public init(trace: Bool = false, environment: MCUEnvironment = MCUEnvironment(),
+                log: @escaping (String) -> Void) {
         self.trace = trace
+        self.environment = environment
         self.log = log
     }
+
+    private func pause(_ t: TimeInterval) { Thread.sleep(forTimeInterval: t * environment.timeScale) }
 
     // MARK: - CoreMIDI
 
@@ -64,8 +87,10 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// pause does trigger the device query.
     private func replugPorts() {
         log("mcu: Logicから接続要求がないため、仮想ポートを作り直します")
-        MIDIEndpointDispose(source)
-        MIDIEndpointDispose(destination)
+        if environment.transmit == nil {
+            MIDIEndpointDispose(source)
+            MIDIEndpointDispose(destination)
+        }
         cond.lock()
         surface.reset()
         handshakeAt = nil
@@ -78,7 +103,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         bankOffset = nil
         colorsAtPositioning = -1
         generationAtPositioning = -1
-        Thread.sleep(forTimeInterval: 1.0)
+        guard environment.transmit == nil else { return }
+        pause(1.0)
         do {
             try createPorts()
         } catch {
@@ -93,6 +119,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             let data = UnsafeRawPointer(packet).advanced(by: MemoryLayout<MIDIPacket>.offset(of: \.data)!)
             bytes.append(contentsOf: UnsafeRawBufferPointer(start: data, count: length))
         }
+        ingest(bytes)
+    }
+
+    /// Feeds bytes received from Logic into the surface mirror and answers the
+    /// handshake. Internal so tests can play Logic's part without CoreMIDI.
+    func ingest(_ bytes: [UInt8]) {
         var replies: [[UInt8]] = []
         cond.lock()
         let events = surface.feed(bytes)
@@ -101,7 +133,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             case .deviceQuery(MCU.model):
                 replies.append(MCU.sysexHeader + [0x01] + Self.serial + [0x01, 0x02, 0x03, 0x04, 0xF7])
                 handshakeAt = Date()
-                handshakePID = LogicApp.running()?.pid
+                handshakePID = environment.runningApp()?.pid
                 handshakeGeneration += 1
                 let baseline = surface.feedbackCounters(atEvent: index, in: events)
                 handshakeLCDBaseline = baseline.lcd
@@ -128,10 +160,14 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// LCD text (bank navigation), so they do not delay LCD reads.
     private func send(_ messages: [[UInt8]], transient: Bool = true) {
         for m in messages {
-            var list = MIDIPacketList()
-            let packet = MIDIPacketListInit(&list)
-            _ = MIDIPacketListAdd(&list, MemoryLayout<MIDIPacketList>.size, packet, 0, m.count, m)
-            MIDIReceived(source, &list)
+            if let transmit = environment.transmit {
+                transmit(m)
+            } else {
+                var list = MIDIPacketList()
+                let packet = MIDIPacketListInit(&list)
+                _ = MIDIPacketListAdd(&list, MemoryLayout<MIDIPacketList>.size, packet, 0, m.count, m)
+                MIDIReceived(source, &list)
+            }
             if trace { log("mcu TX \(hex(m))") }
         }
         guard transient else { return }
@@ -149,7 +185,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// Waits until `pred` holds or `timeout` passes; returns the final value of `pred`.
     @discardableResult
     private func wait(_ timeout: TimeInterval, until pred: (MCUSurface) -> Bool) -> Bool {
-        let deadline = Date().addingTimeInterval(timeout)
+        let deadline = Date().addingTimeInterval(timeout * environment.timeScale)
         cond.lock()
         defer { cond.unlock() }
         while !pred(surface) {
@@ -161,7 +197,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// Waits until Logic has had time to revert transient LCD text.
     private func waitForSteadyLCD() {
         let since = read { _ in Date().timeIntervalSince(lastTX) }
-        if since < Self.lcdRevert { Thread.sleep(forTimeInterval: Self.lcdRevert - since) }
+        let revert = Self.lcdRevert * environment.timeScale
+        if since < revert { Thread.sleep(forTimeInterval: revert - since) }
     }
 
     // MARK: - LogicBackend
@@ -174,8 +211,18 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         case .state: return state()
         case .transportPlay: return transport(play: true)
         case .transportStop: return transport(play: false)
-        case .trackList: return Outcome(ok: true, result: .array(trackList()))
-        case .trackGet(let t): return withStrip(t) { Outcome(ok: true, result: self.trackInfo($0, readVolume: true)) }
+        case .trackList:
+            let scan = scanTracks()
+            return Outcome(ok: scan.complete, result: .array(scan.tracks), error: scan.error, message: scan.message,
+                           observation: observation(scope: "mixer_strips", complete: scan.complete, extra: scan.extra))
+        case .trackGet(let t):
+            return withStrip(t) { strip in
+                let info = self.trackInfo(strip, readVolume: true)
+                let known = info["unknown"] == .array([])
+                return Outcome(ok: true, result: info,
+                               observation: self.observation(scope: "mixer_strip", complete: known,
+                                                             extra: ["track": .int(self.trackID(strip))]))
+            }
         case .trackSelect(let t): return withStrip(t) { self.select($0) }
         case .trackMute(let t, let on): return withStrip(t) { self.toggle($0, on: on, kind: .mute) }
         case .trackSolo(let t, let on): return withStrip(t) { self.toggle($0, on: on, kind: .solo) }
@@ -186,12 +233,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     }
 
     public var isConnected: Bool {
-        guard let pid = LogicApp.running()?.pid else { return false }
+        guard let pid = environment.runningApp()?.pid else { return false }
         return read { $0.lcdUpdates > handshakeLCDBaseline && handshakeAt != nil && handshakePID == pid }
     }
 
     private func ensureConnected() -> Outcome? {
-        guard let app = LogicApp.running() else {
+        guard let app = environment.runningApp() else {
             return .failure("logic_not_running", "Logic Proを起動してください。")
         }
         let connected = { (s: MCUSurface) in
@@ -202,7 +249,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             // Logic streams its full state dump for a few hundred ms after the
             // handshake; LCD writes from it would overwrite our readback.
             let age = read { _ in handshakeAt.map { Date().timeIntervalSince($0) } ?? 0 }
-            if age < 1.0 { Thread.sleep(forTimeInterval: 1.0 - age) }
+            let dump = 1.0 * environment.timeScale
+            if age < dump { Thread.sleep(forTimeInterval: dump - age) }
             return nil
         }
         return .failure("surface_not_connected",
@@ -220,7 +268,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
 
     public func prepareTransportReadback() -> Outcome? {
         if let failure = ensureConnected() { return failure }
-        guard let pid = LogicApp.running()?.pid else {
+        guard let pid = environment.runningApp()?.pid else {
             return .failure("logic_not_running", "Logic Proを起動してください。")
         }
         guard wait(1.0, until: { self.transportSnapshotLocked($0, pid: pid) != nil }) else {
@@ -237,12 +285,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     }
 
     public func transportSnapshot() -> TransportSnapshot? {
-        guard let pid = LogicApp.running()?.pid else { return nil }
+        guard let pid = environment.runningApp()?.pid else { return nil }
         return read { transportSnapshotLocked($0, pid: pid) }
     }
 
     public func waitForTransport(playing: Bool, recording: Bool?, timeout: TimeInterval) -> TransportSnapshot? {
-        guard let pid = LogicApp.running()?.pid else { return nil }
+        guard let pid = environment.runningApp()?.pid else { return nil }
         let deadline = Date().addingTimeInterval(max(0, timeout))
         cond.lock()
         guard let start = preparedTransport, start.pid == pid else { cond.unlock(); return nil }
@@ -255,7 +303,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             let matched = snapshot.playing == playing && (recording == nil || snapshot.recording == recording)
             if (matched && freshPlay && freshRecord) || Date() >= deadline {
                 cond.unlock()
-                return LogicApp.running()?.pid == pid ? snapshot : nil
+                return environment.runningApp()?.pid == pid ? snapshot : nil
             }
             _ = cond.wait(until: deadline)
         }
@@ -283,7 +331,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private func settle() {
         var last = read { ($0.lcdUpdates, $0.colorUpdates) }
         for _ in 0..<25 {
-            Thread.sleep(forTimeInterval: 0.08)
+            pause(0.08)
             let now = read { ($0.lcdUpdates, $0.colorUpdates) }
             if now == last { return }
             last = now
@@ -291,12 +339,13 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     }
 
     /// Presses a bank/channel button. Returns true if Logic moved the bank:
-    /// a move always brings LCD and colour updates; a no-op press brings
-    /// nothing (EXP-MCU-020).
+    /// a move always brings LCD and colour updates and arrives within ~40 ms
+    /// (EXP-MCU-020); a no-op press brings nothing. 0.8 s of silence is the
+    /// evidence for "did not move", so a slow Logic is not mistaken for the end.
     private func navigate(_ note: UInt8) -> Bool {
         let before = read { ($0.lcdUpdates, $0.colorUpdates) }
         send(MCU.press(note), transient: false)
-        let moved = wait(0.3) { $0.lcdUpdates > before.0 || $0.colorUpdates > before.1 }
+        let moved = wait(0.8) { $0.lcdUpdates > before.0 || $0.colorUpdates > before.1 }
         if moved { settle() }
         return moved
     }
@@ -336,6 +385,11 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         var offset = 0
         while index - offset >= MCU.strips, navigate(MCU.channelRightNote) { offset += 1 }
         bankOffset = offset
+        if index - offset >= MCU.strips, navigate(MCU.bankRightNote) {
+            // A different button moved the bank: the earlier silence was a missed press, not the end.
+            bankOffset = nil
+            return .failed(.failure("bank_unknown", "MCUバンクの末尾を確認できませんでした。もう一度実行してください。"))
+        }
         rememberBankSession()
         let strip = index - offset
         guard (0..<MCU.strips).contains(strip), !read({ $0.upperText(strip) }).isEmpty else {
@@ -351,10 +405,33 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
     }
 
-    // MARK: - Reads
+    // MARK: - Reads (observation contract: docs/observation-contract.md)
+
+    private func sessionJSON() -> JSONValue {
+        read { _ in
+            ["logic_pid": .int(handshakePID.map(Int.init)),
+             "handshake_generation": .int(handshakeGeneration),
+             "handshake_at": .string(handshakeAt.map { ISO8601DateFormatter().string(from: $0) }),
+             "bank_offset": .int(bankOffset)]
+        }
+    }
+
+    /// Completeness, freshness and source of a read. `complete: false` means the
+    /// result must not be treated as the whole truth about `scope`.
+    private func observation(scope: String, complete: Bool, extra: [String: JSONValue] = [:]) -> JSONValue {
+        var o: [String: JSONValue] = [
+            "source": .string(BackendKind.mcu.rawValue),
+            "scope": .string(scope),
+            "complete": .bool(complete),
+            "observed_at": .string(ISO8601DateFormatter().string(from: Date())),
+            "session": sessionJSON(),
+        ]
+        for (key, value) in extra { o[key] = value }
+        return .object(o)
+    }
 
     private func status() -> Outcome {
-        let logic = LogicApp.running()
+        let logic = environment.runningApp()
         let connected = logic != nil && isConnected
         var result: [String: JSONValue] = [
             "daemon": ["pid": .int(Int(getpid()))],
@@ -367,39 +444,105 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             // Raw surface LCD, for diagnosing readback problems.
             result["mcu_lcd"] = read { s in [.string(s.row(0)), .string(s.row(1))] }
         }
-        return Outcome(ok: true, result: .object(result))
+        return Outcome(ok: true, result: .object(result),
+                       observation: observation(scope: "status", complete: connected))
     }
 
+    /// `null` = Logic has not reported the LED in this session. It is never `false`.
     private func transportJSON() -> JSONValue {
-        read { s in ["playing": .bool(s.led(MCU.playNote)), "recording": .bool(s.led(MCU.recordNote))] }
+        read { s in ["playing": .bool(s.ledIfKnown(MCU.playNote)), "recording": .bool(s.ledIfKnown(MCU.recordNote))] }
     }
 
     private func state() -> Outcome {
-        let tracks = trackList()
-        let selected = tracks.first { $0["selected"] == .bool(true) }?["id"] ?? .null
-        return Outcome(ok: true, result: [
-            "transport": transportJSON(),
-            "selected_track": selected,
-            "tracks": .array(tracks),
-        ])
+        let scan = scanTracks()
+        // With a complete scan, "no strip selected" is a real answer (null). An
+        // incomplete scan cannot say, so the field is null there too and
+        // observation.complete tells them apart.
+        let selected: JSONValue = scan.complete
+            ? (scan.tracks.first { $0["selected"] == .bool(true) }?["id"] ?? .null) : .null
+        return Outcome(ok: scan.complete,
+                       result: ["transport": transportJSON(), "selected_track": selected, "tracks": .array(scan.tracks)],
+                       error: scan.error, message: scan.message,
+                       observation: observation(scope: "mixer_strips", complete: scan.complete, extra: scan.extra))
     }
 
-    /// Every channel strip in Logic mixer order: home, then step right one
-    /// strip at a time. Volume comes from the fader position through Logic's
-    /// own table (exact to the LCD's 0.1 dB, SA-001) so no fader is touched.
-    private func trackList() -> [JSONValue] {
-        guard home() else { return [] }
+    private struct Scan {
         var tracks: [JSONValue] = []
-        var seen = Set<Int>()
-        repeat {
-            for strip in 0..<MCU.strips where !seen.contains(trackID(strip)) {
-                guard !read({ $0.upperText(strip) }).isEmpty else { continue }
-                seen.insert(trackID(strip))
-                tracks.append(trackInfo(strip, readVolume: false))
+        var complete = false
+        var error: String?
+        var message: String?
+        var extra: [String: JSONValue] = [:]
+    }
+
+    /// Visits every channel strip in Logic's mixer order: home, then Channel
+    /// Right until the end is *confirmed* by a second, different button (Bank
+    /// Right) also producing no update. A scan that cannot prove it saw every
+    /// strip is returned incomplete, never as a shorter or empty success.
+    /// Volume comes from the fader position through Logic's own table (exact to
+    /// the LCD's 0.1 dB, SA-001) so no fader is touched.
+    private func scanTracks() -> Scan {
+        var last = Scan()
+        for attempt in 1...2 {
+            var scan = Scan()
+            guard home() else {
+                scan.error = "bank_home_failed"
+                scan.message = "MCUバンクを先頭に戻せませんでした。Logicがバンクを動かし続けている可能性があります。"
+                scan.extra = ["attempts": .int(attempt)]
+                last = scan
+                continue
             }
-        } while navigateRight()
-        rememberBankSession()
-        return tracks
+            var seen = Set<Int>()
+            var steps = 0
+            var expectedColours = read { $0.colorUpdates }
+            var problem: String?
+            while true {
+                let viewStart = scan.tracks.count
+                for strip in 0..<MCU.strips where !seen.contains(trackID(strip)) {
+                    guard !read({ $0.upperText(strip) }).isEmpty else { continue }
+                    seen.insert(trackID(strip))
+                    scan.tracks.append(trackInfo(strip, readVolume: false))
+                }
+                if read({ $0.colorUpdates }) != expectedColours {
+                    // Logic moved the bank itself while this view was being read: its ids may be wrong.
+                    scan.tracks.removeSubrange(viewStart...)
+                    problem = "bank_moved_externally"
+                    break
+                }
+                let coloursBefore = read { $0.colorUpdates }
+                if navigateRight() {
+                    // Logic sends exactly one colour sysex per move (EXP-MCU-020); more means a
+                    // second, unrelated move landed together with ours and the offset is lost.
+                    if read({ $0.colorUpdates }) != coloursBefore + 1 {
+                        problem = "bank_moved_externally"
+                        break
+                    }
+                    steps += 1
+                    expectedColours = read { $0.colorUpdates }
+                    continue
+                }
+                if navigate(MCU.bankRightNote) {
+                    problem = "end_not_confirmed"
+                    break
+                }
+                break
+            }
+            if let problem {
+                bankOffset = nil
+                scan.error = "scan_incomplete"
+                scan.message = problem == "bank_moved_externally"
+                    ? "走査中にLogicがMCUバンクを動かしたため、一覧を確定できません。"
+                    : "一覧の末尾を確認できませんでした。一覧は途中までです。"
+                scan.extra = ["attempts": .int(attempt), "problem": .string(problem)]
+                last = scan
+                continue
+            }
+            scan.complete = true
+            scan.extra = ["strips": .int(scan.tracks.count), "bank_steps": .int(steps), "attempts": .int(attempt),
+                          "end": "channel_right_and_bank_right_silent"]
+            rememberBankSession()
+            return scan
+        }
+        return last
     }
 
     private func navigateRight() -> Bool {
@@ -420,31 +563,52 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
     }
 
+    /// One strip. A value Logic has not reported in this session is `null` and is
+    /// listed in `unknown`; a value that does not exist for this strip (Master
+    /// has no pan) is `null` and listed in `unavailable`. `null` is never `false`/0.
     private func trackInfo(_ strip: Int, readVolume withVolume: Bool) -> JSONValue {
         waitForPanDisplay(strip)
+        var unknown: [JSONValue] = []
+        var unavailable: [JSONValue] = []
         var o: [String: JSONValue] = read { s in
-            let soloActive = s.anySoloActive
-            let pan = parseLCDPan(s.lowerText(strip))
+            func flag(_ name: String, _ note: UInt8) -> JSONValue {
+                guard let value = s.ledIfKnown(note) else { unknown.append(.string(name)); return .null }
+                return .bool(value)
+            }
+            let name = s.upperText(strip)
+            let cell = s.lowerText(strip)
+            let pan = parseLCDPan(cell)
+            if pan == nil { (cell.isEmpty ? { unavailable.append("pan") } : { unknown.append("pan") })() }
+            // Logic blinks the mute LED of strips muted implicitly by a solo (also one on another bank).
+            let soloActive = s.anySoloActive || s.ledIfKnown(MCU.rudeSoloNote) == true
             var o: [String: JSONValue] = [
                 "id": .int(trackID(strip)),
                 "mcu_strip": .int(strip + 1),
-                "name": .string(s.upperText(strip)),
-                "solo": .bool(s.led(MCU.soloNote(strip))),
-                "selected": .bool(s.led(MCU.selectNote(strip))),
-                "rec_armed": .bool(s.led(MCU.recNote(strip))),
+                "name": .string(name),
+                "name_may_be_truncated": .bool(name.count >= 6),
+                "solo": flag("solo", MCU.soloNote(strip)),
+                "selected": flag("selected", MCU.selectNote(strip)),
+                "rec_armed": flag("rec_armed", MCU.recNote(strip)),
                 "pan": pan.map { .number(Double($0) / 64) } ?? .null,
                 "pan_raw": .int(pan),
-                // Logic blinks the mute LED of strips muted implicitly by a solo.
-                "mute": soloActive ? .null : .bool(s.led(MCU.muteNote(strip))),
             ]
-            if soloActive { o["mute_note"] = "ソロ中はミュートLEDが点滅するため、状態を確定できません" }
+            if soloActive {
+                unknown.append("mute")
+                o["mute"] = .null
+                o["mute_note"] = "ソロ中はミュートLEDが点滅するため、状態を確定できません"
+            } else {
+                o["mute"] = flag("mute", MCU.muteNote(strip))
+            }
             return o
         }
         let (db, source) = withVolume
             ? readVolume(strip)
             : (read { $0.faders[strip] }.map(FaderCalibration.db(forValue:)), "fader")
+        if db == nil { unknown.append("volume_db") }
         o["volume_db"] = .db(db.map { $0.isFinite ? ($0 * 10).rounded() / 10 : $0 })
         o["volume_source"] = .string(source)
+        o["unknown"] = .array(unknown)
+        o["unavailable"] = .array(unavailable)
         return .object(o)
     }
 
@@ -453,7 +617,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let before = read { $0.lowerWrites[strip] }
         send([[0x90, MCU.touchNote(strip), 0x7F]])
         wait(0.3) { $0.lowerWrites[strip] > before }
-        let (text, fader) = read { ($0.lowerText(strip), $0.faders[strip]) }
+        let (text, fader) = read { ($0.dbText(strip), $0.faders[strip]) }
         send([[0x90, MCU.touchNote(strip), 0x00]])
         if let db = parseLCDDecibels(text) { return (db, "lcd") }
         return (fader.map { (FaderCalibration.db(forValue: $0) * 10).rounded() / 10 }, "fader_estimate")
@@ -465,7 +629,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let before = read { $0.lcdUpdates }
         send(messages)
         wait(0.4) { $0.lcdUpdates > before }
-        Thread.sleep(forTimeInterval: 0.2)
+        pause(0.2)
         return Outcome(ok: true, result: read { s in
             ["sent": .array(messages.map { .string(hex($0)) }),
              "lcd": [.string(s.row(0)), .string(s.row(1))],
@@ -478,6 +642,13 @@ public final class MCUBackend: LogicBackend, TransportReadback {
 
     private func transport(play: Bool) -> Outcome {
         let requested: JSONValue = ["playing": .bool(play)]
+        // Logic reports the transport LEDs in its state dump after the handshake. A missing
+        // report is unknown, not "off": without evidence nothing is sent or verified.
+        guard wait(1.0, until: { $0.ledIfKnown(MCU.playNote) != nil && $0.ledIfKnown(MCU.recordNote) != nil }) else {
+            return .failure("readback_unavailable",
+                            "再生・録音の状態をLogicから受信していません。状態が不明なため、何も送信していません。",
+                            requested: requested)
+        }
         let (playing, recording) = read { ($0.led(MCU.playNote), $0.led(MCU.recordNote)) }
         // A second Stop moves the playhead to the start, so never send Stop when already stopped.
         if playing == play && !(recording && !play) {
@@ -523,7 +694,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let note = kind.note(strip)
         // While a solo is active the mute LED blinks for implied mutes, so it is not the mute state.
         let ledTrustworthy = { (s: MCUSurface) in kind == .solo || !s.anySoloActive }
-        if read({ ledTrustworthy($0) && $0.led(note) == on }) {
+        // Only a reported LED proves "already in that state"; an unreported one is not "off".
+        if read({ ledTrustworthy($0) && $0.ledIfKnown(note) == on }) {
             return .write(matched: true, requested: requested,
                           observed: ["track": .int(trackID(strip)), kind.key: .bool(on)],
                           message: "既に要求どおりの状態です。送信していません。")
@@ -567,7 +739,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             let before = read { $0.faderUpdates[strip] }
             send([MCU.fader(strip, value)])
             wait(0.4) { $0.faderUpdates[strip] > before }
-            guard let obs = parseLCDDecibels(read { $0.lowerText(strip) }) else { break }
+            guard let obs = parseLCDDecibels(read { $0.dbText(strip) }) else { break }
             if best == nil || error(obs) < error(best!.db) { best = (read { $0.faders[strip] } ?? value, obs) }
             if error(obs) <= 0.05 { break }
             // Logic snaps the fader; if the LCD did not move, take bigger steps.
@@ -581,7 +753,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             send([MCU.fader(strip, b.value)])
             wait(0.4) { $0.faders[strip] == b.value }
         }
-        let obs = parseLCDDecibels(read { $0.lowerText(strip) }) ?? best?.db
+        let obs = parseLCDDecibels(read { $0.dbText(strip) }) ?? best?.db
         let fader = read { $0.faders[strip] }
         return .write(matched: obs.map { error($0) <= tolerance + 1e-9 } ?? false, requested: requested,
                       observed: ["track": .int(trackID(strip)), "volume_db": .db(obs), "fader_value": .int(fader)],

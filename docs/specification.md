@@ -78,7 +78,8 @@ flowchart LR
 ```
 
 これは主要部分を抜粋した例です。通常の応答には `result` 内の送信情報なども入ります。
-`null` は不明・未取得を表すことがあります。たとえばソロ中の `mute: null` は「ミュートがオフ」とは読めません。
+`null` は不明・未取得を表します。`false` や `0` ではありません。たとえばソロ中の `mute: null` は「ミュートがオフ」とは読めません。
+読み取りの応答には、結果の完全性・鮮度・出どころを示す `observation` が付きます。詳しくは[読み取り結果の契約](observation-contract.md)。
 
 ## 4. AppleEvent経路の条件
 
@@ -111,6 +112,7 @@ flowchart LR
 | `logic_not_running` | Logicが起動していない | Logicの起動 |
 | `surface_not_connected` | MCUの接続ができない | `status`、Logicのコントロールサーフェス設定 |
 | `readback_unavailable` | 状態を確認できない | 接続が安定したあとに `status` |
+| `scan_incomplete` / `bank_home_failed` | 一覧を最後まで確認できない（結果は途中まで） | `observation.problem`。もう一度実行 |
 | `verification_failed` | 要求と状態が一致しない | `requested` と `observed` |
 | `no_such_track` / `bank_unknown` | 指定したストリップを特定できない | `track list` と接続 |
 | `daemon_upgrade_required` | 古いdaemonが動いている | 新ビルドで `daemon stop` 後に再実行 |

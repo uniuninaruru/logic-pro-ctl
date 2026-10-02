@@ -9,9 +9,12 @@ public struct Outcome {
     public var result: JSONValue?
     public var error: String?
     public var message: String?
+    /// How complete, fresh and sourced a *read* is (docs/observation-contract.md).
+    public var observation: JSONValue?
 
     public init(ok: Bool, verified: Bool = false, requested: JSONValue? = nil, observed: JSONValue? = nil,
-                result: JSONValue? = nil, error: String? = nil, message: String? = nil) {
+                result: JSONValue? = nil, error: String? = nil, message: String? = nil,
+                observation: JSONValue? = nil) {
         self.ok = ok
         self.verified = verified
         self.requested = requested
@@ -19,6 +22,7 @@ public struct Outcome {
         self.result = result
         self.error = error
         self.message = message
+        self.observation = observation
     }
 
     public static func failure(_ error: String, _ message: String, requested: JSONValue? = nil,

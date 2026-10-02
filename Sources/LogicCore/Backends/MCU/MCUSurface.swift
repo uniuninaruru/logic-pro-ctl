@@ -53,6 +53,9 @@ public struct MCUSurface {
     public private(set) var lcd = [UInt8](repeating: 0x20, count: 112)
     public private(set) var faders = [Int?](repeating: nil, count: 9)
     public private(set) var leds = [UInt8](repeating: 0, count: 128)
+    /// True once Logic has reported this LED in the current session. An LED that
+    /// was never reported is *unknown*, not off (the default value 0 is not evidence).
+    public private(set) var ledSeen = [Bool](repeating: false, count: 128)
     public private(set) var rings = [UInt8?](repeating: nil, count: 8)
     /// Per-strip counters, bumped on every update touching that strip;
     /// callers snapshot them before a write and wait for them to change.
@@ -138,6 +141,7 @@ public struct MCUSurface {
             return .fader(channel: ch, value: v)
         case 0x90 where m.count == 3:
             leds[Int(m[1] & 0x7F)] = m[2]
+            ledSeen[Int(m[1] & 0x7F)] = true
             ledUpdates[Int(m[1] & 0x7F)] += 1
             return .led(note: m[1], velocity: m[2])
         case 0xB0 where m.count == 3 && (0x30...0x37).contains(m[1]):
@@ -198,6 +202,7 @@ public struct MCUSurface {
         lcd = [UInt8](repeating: 0x20, count: lcd.count)
         faders = [Int?](repeating: nil, count: faders.count)
         leds = [UInt8](repeating: 0, count: leds.count)
+        ledSeen = [Bool](repeating: false, count: ledSeen.count)
         rings = [UInt8?](repeating: nil, count: rings.count)
     }
 
@@ -211,12 +216,23 @@ public struct MCUSurface {
         String(decoding: lcd[(strip * 7)..<(strip * 7 + 7)], as: UTF8.self).trimmingCharacters(in: .whitespaces)
     }
 
+    /// The dB text Logic prints on a touched fader. It is 8 characters wide and Logic
+    /// shifts it left so it fits the row, so the last strip's text starts one column
+    /// before its cell (column 104, not 105; EXP-MCU-021). Read it from there.
+    public func dbText(_ strip: Int) -> String {
+        let start = min(56 + strip * 7, 104)
+        return String(decoding: lcd[start..<(start + 7)], as: UTF8.self).trimmingCharacters(in: .whitespaces)
+    }
+
     public func lowerText(_ strip: Int) -> String {
         String(decoding: lcd[(56 + strip * 7)..<(56 + strip * 7 + 7)], as: UTF8.self)
             .trimmingCharacters(in: .whitespaces)
     }
 
     public func led(_ note: UInt8) -> Bool { leds[Int(note)] != 0 }
+
+    /// LED state, or nil if Logic has not reported it in this session.
+    public func ledIfKnown(_ note: UInt8) -> Bool? { ledSeen[Int(note)] ? leds[Int(note)] != 0 : nil }
 
     /// `feed` applies the whole packet batch before returning its events. A
     /// handshake may precede valid feedback in that same batch, so recover
