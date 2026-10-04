@@ -60,7 +60,7 @@ The vocabulary:
 | `not_started` | Not started (including waiting for approval) |
 | `other` | Follow another owner's document |
 
-Current counts (rows of [support-matrix.tsv](../Research/protocol/support-matrix.tsv)): `live` 16, `tested` 3, `static` 4, `unconfirmed` 2, `not_started` 2, `other` 1 (28 rows).
+Current counts (rows of [support-matrix.tsv](../Research/protocol/support-matrix.tsv)): `live` 17, `tested` 2, `static` 4, `unconfirmed` 2, `not_started` 2, `other` 1 (28 rows).
 
 **All 11 commands of the MCU path** (`status`, `state`, `transport play`, `transport stop`, `track list`, `track get`, `track select`, `track mute`, `track solo`, `track volume`, `track pan`)
 were checked on the real Logic ([EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)).

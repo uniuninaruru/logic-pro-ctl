@@ -12,12 +12,12 @@ MCU 書き込み	track volume	mcu	live	EXP-CLI-001; EXP-MCU-021	許容差 0.1 dB
 MCU 書き込み	track pan	mcu	live	EXP-CLI-001	Logic の -64〜63 に丸める
 MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効だと、録音待機も選択に伴って動く
 対象の契約	--expect-name（名前の照合）	mcu	live	EXP-MCU-022; EXP-MCU-023; EXP-MCU-025; Tests/LogicCoreTests/TargetIdentityTests.swift	名前変更・追加・削除は実機で検出。同名のトラック同士は区別できない
-対象の契約	トラックの並べ替えの検出	mcu	unconfirmed	EXP-MCU-023	並べ替えを起こせなかった（8 回の試行）。人の手による確認が必要（docs/manual-validation.md）
+対象の契約	トラックの並べ替えの検出	mcu	unconfirmed	EXP-MCU-023	並べ替えを起こせなかった（8 回の試行）。次の手は人の手による確認（docs/manual-validation.md）
 対象の契約	バンク位置を信じる条件（名前行が変わっていない）	mcu	live	EXP-MCU-023; EXP-MCU-024	削除では色の sysex が来ない（MIDI で確認）
 契約	observation（unknown・complete・session）	mcu	live	docs/observation-contract.md; MCUObservationTests; EXP-CLI-001	
-契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; Tests/LogicCoreTests/WriteExecutorTests.swift	実機は 2026-10-02 の 1 回の確認（replayed）
-契約	--deadline-ms と timeout が unknown になること	mcu	live	WriteExecutorTests	実機は timeout の 1 例
-契約	--expect-session	mcu	tested	WriteExecutorTests	接続の世代の確認のみ。同じ接続の中の変化は検出しない。不一致（precondition_failed）は実機で起こしていない
+契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; WriteExecutorTests; EXP-MCU-026	実機は replayed を 2 回確認（2026-10-02、2026-10-05）。実行中の同じキー（request_in_flight）は未確認
+契約	--deadline-ms と timeout が unknown になること	mcu	live	WriteExecutorTests; EXP-MCU-026	実機は timeout を 2 例確認。その後の同じキーの再送は replayed
+契約	--expect-session	mcu	live	WriteExecutorTests; EXP-MCU-026	接続の世代の確認のみ。同じ接続の中の変化（並べ替え・同名の入れ替え）は検出しない。不一致の拒否は実機で 1 回確認
 契約	古い logicd に安全装置つきの要求を送らない	mcu	tested	Tests/integration/test_cli_safety_gate.py	偽の daemon での試験。実機の古い daemon では試していない
 互換性	status の compatibility（検証済みの環境の判定）	mcu	tested	Tests/LogicCoreTests/CompatibilityProfileTests.swift	判定だけ。未検証の環境でもコマンドは止めない
 Remote	接続の手順（広告・招待・承認・version）	remote	static	Research/static-analysis/SA-REMOTE-SESSION-001.md	実接続なし

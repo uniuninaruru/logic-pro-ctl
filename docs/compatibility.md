@@ -60,7 +60,7 @@
 | `not_started` | 未着手（承認待ちを含む） |
 | `other` | 別の担当の資料に従う |
 
-現在の件数（[support-matrix.tsv](../Research/protocol/support-matrix.tsv) の行）：`live` 16、`tested` 3、`static` 4、`unconfirmed` 2、`not_started` 2、`other` 1（計 28 行）。
+現在の件数（[support-matrix.tsv](../Research/protocol/support-matrix.tsv) の行）：`live` 17、`tested` 2、`static` 4、`unconfirmed` 2、`not_started` 2、`other` 1（計 28 行）。
 
 **MCU 経路のコマンド 11 個**（`status`、`state`、`transport play`、`transport stop`、`track list`、`track get`、`track select`、`track mute`、`track solo`、`track volume`、`track pan`）は、
 すべて実機で確かめています（[EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)）。

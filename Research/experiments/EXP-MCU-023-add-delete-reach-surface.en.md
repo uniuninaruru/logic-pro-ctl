@@ -71,6 +71,8 @@ A reorder could not be produced, so there is **no result**.
   Slow drags from the track number, the icon and the gap between buttons (3 variants) only selected the track.
   Running the menu "Track Name" with real clicks (once with one track selected, once with all 10) changed nothing either. Logic's undo history has no "reorder" entry (only 2 renames, 3 creates and 3 deletes).
 - So **this way of operating does not reorder**. Whether this is Logic's behaviour or a limit of how the input is delivered (synthesised mouse events) is not distinguished.
+- I searched the command catalog ([SA-COMMAND-CATALOG-001](../static-analysis/SA-COMMAND-CATALOG-001.en.md), 2353 entries) for commands whose names contain reorder / sort / move track / track up·down / swap / exchange and
+  found none that moves a track. **This is a negative result for the catalog and for those search terms only.** It does not mean that no other key-command table, menu or other Remote route exists.
 
 ## Other observations
 
@@ -82,7 +84,7 @@ Hypothesis: when adding or deleting tracks changes the order of strips, Logic re
 Confidence: high that adds and deletes are reflected (twice each on the real Logic; LCD copies and check results agree). Medium for the missing colour sysex (above).
 Counterexamples: none.
 Next validation experiment: (1) [done] Record the MIDI of a delete: [EXP-MCU-024](EXP-MCU-024-trace-add-delete.en.md).
-(2) Reordering by a person's hands, or a key command (synthesised mouse input has not produced it so far). (3) Check that re-establishing the position when the name row differs does not cause excessive re-positioning in real use.
+(2) Reordering by a person's hands ([the procedure](../../docs/manual-validation.en.md)). Synthesised mouse input and the menu have not produced it so far. (3) Check that re-establishing the position when the name row differs does not cause excessive re-positioning in real use.
 
 ## Consequence for logicctl
 

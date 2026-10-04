@@ -25,14 +25,26 @@ def main():
         print(f"Waiting for project lock: {args.lock}", file=sys.stderr, flush=True)
         fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
         print(f"Acquired project lock: pid={os.getpid()}", file=sys.stderr, flush=True)
-        child = subprocess.Popen(command)
+        child = None
+        pending_signal = None
 
         def forward(signum, _frame):
-            if child.poll() is None:
-                child.send_signal(signum)
+            nonlocal pending_signal
+            if child is None:
+                pending_signal = signum
+            else:
+                try:
+                    os.killpg(child.pid, signum)
+                except ProcessLookupError:
+                    pass
 
         old_handlers = {s: signal.signal(s, forward) for s in (signal.SIGINT, signal.SIGTERM)}
         try:
+            # The command has its own process group. Descendants inherit the lock
+            # descriptor so the lock survives an abrupt wrapper exit as well.
+            child = subprocess.Popen(command, start_new_session=True, pass_fds=(lock.fileno(),))
+            if pending_signal is not None:
+                forward(pending_signal, None)
             result = child.wait()
         finally:
             for sig, handler in old_handlers.items():
