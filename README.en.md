@@ -132,6 +132,11 @@ Additional native errors include `unsupported_logic_version`,
 - Track *n* is the *n*-th channel strip in Logic's mixer order, which ends
   with Stereo Out and Master; check `name`. logicd moves the MCU bank to reach
   any strip and re-homes whenever Logic moves the bank itself (EXP-MCU-020).
+  After a track is added, deleted or moved, the same number points at another
+  track, so a write can carry the name `track list` returned as `--expect-name`
+  ([target contract](docs/target-contract.en.md)).
+- Only Logic 12.3.1 (6682) on macOS 27.0 has actually been checked; `compatibility`
+  in `status` says whether the running pair was ([compatibility](docs/compatibility.en.md)).
 - Names come from the MCU LCD: cut to 6 characters, ASCII only
   ("オーディオ 2" shows as "2").
 - While any track is soloed, `mute` reads as `null` for tracks whose mute LED
