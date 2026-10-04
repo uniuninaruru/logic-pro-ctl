@@ -1,5 +1,7 @@
 # 構成と、操作が「確認済み」になるまで
 
+[日本語](architecture.md) | [English](architecture.en.md)
+
 `logicctl` が命令を送り、常駐する `logicd` が Logic Pro を操作します。
 操作後は Logic から状態を読み戻し、要求と一致した場合に `verified: true` を返します。
 送信しただけでは確認済みになりません。
@@ -46,7 +48,7 @@ Logic のコントロールサーフェスに接続します。
 |---|---|---|
 | `logicctl` | 引数を確認する。必要なら `logicd` を起動する。AppleEvent 指定時は対応機能を確認し、要求を送って JSON を標準出力に返す | [クライアント](../Sources/logicctl/main.swift) |
 | Unix ソケット | ローカルで要求と応答を運ぶ。1 行が 1 つの JSON オブジェクト | [メッセージ定義](../Sources/LogicCore/Protocol/Messages.swift)、[ソケット](../Sources/LogicCore/Protocol/UnixSocket.swift) |
-| `logicd` | 仮想 MIDI ポートを生かし続ける。要求を再検証し、同時に来た操作も 1 件ずつ実行する | [デーモン](../Sources/logicd/main.swift)、[経路選択](../Sources/LogicCore/Commands/CommandRouter.swift) |
+| `logicd` | 仮想 MIDI ポートを生かし続ける。要求を再検証し、同時に来た操作も 1 件ずつ実行する。期限・冪等キー・接続の世代の前提を扱う（[実行の契約](execution-contract.md)） | [デーモン](../Sources/logicd/main.swift)、[経路選択](../Sources/LogicCore/Commands/CommandRouter.swift) |
 | MCU バックエンド | 再生・停止、トラック選択、ミュート、ソロ、音量、パンなどを操作し、Logic のフィードバックを読む | [MCUBackend](../Sources/LogicCore/Backends/MCU/MCUBackend.swift)、[受信状態](../Sources/LogicCore/Backends/MCU/MCUSurface.swift) |
 | AppleEvent バックエンド | 対応バージョンと実行中の PID を確認し、再生・停止を送信する。送信結果と MCU の読み戻しを合わせて判定する | [AppleEventTransportBackend](../Sources/LogicCore/Backends/AppleEvent/AppleEventTransportBackend.swift) |
 
@@ -110,6 +112,10 @@ handshake と同じ MIDI batch の後半に届く情報も保持します。
 AppleEvent の返信が成功でも、要求した状態にならなければ
 `ok: false` / `error: "verification_failed"` を返します。
 送信エラーのあとも可能な範囲で最終状態を読み、再送はしません。
+
+トラック番号はミキサー上の位置なので、書き込みには期待する名前を添えられます（`--expect-name`）。
+MCU バックエンドは、何かを送る前に、その名前を LCD の表示と照合します（[対象の契約](target-contract.md)）。
+バンク位置は、名前の行が変わっていない間だけ信じます。
 
 ## 製品コードと調査記録の境界
 

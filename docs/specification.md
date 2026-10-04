@@ -1,5 +1,7 @@
 # logicctl の仕様 — コマンドと結果の読み方
 
+[日本語](specification.md) | [English](specification.en.md)
+
 [READMEに戻る](../README.md) · [図で読む仕組み](architecture.md) · [調査ガイド](../Research/README.md)
 
 ## 1. 基本の考え方
