@@ -107,6 +107,7 @@
 ### 公開前の共通の確認（毎回）
 
 - `swift test`、`python3 Tests/integration/*.py`、`Tools/research-scripts` の試験がすべて通る。
+- 専用テストプロジェクトで `python3 Tests/integration/live_smoke.py .build/debug/logicctl --test-project` を実行し、全件合格する（[EXP-MCU-027](../Research/experiments/EXP-MCU-027-live-smoke.md)。名前が合わないプロジェクトでは何も書かずに止まる）。
 - 公開する操作ごとに、対象の環境・入力・単位・事前条件・読み戻し・副作用・失敗時の挙動・根拠（実験記録または試験）が文書にある。
 - 文書は日本語と英語がそろい、リンクが有効である。
 - `verified: true` は、読み戻した状態が要求と一致したときだけ。未取得・古い・部分的な値を、0・false・成功に読み替えていない。

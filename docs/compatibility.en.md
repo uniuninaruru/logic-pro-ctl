@@ -107,6 +107,7 @@ The stages (the [plan](../Research/plans/agent-ready-roadmap.en.md) §10), their
 ### Checks common to every release
 
 - `swift test`, `python3 Tests/integration/*.py` and the tests in `Tools/research-scripts` all pass.
+- On the dedicated test project, `python3 Tests/integration/live_smoke.py .build/debug/logicctl --test-project` passes in full ([EXP-MCU-027](../Research/experiments/EXP-MCU-027-live-smoke.en.md); on a project whose names do not match it stops without writing).
 - For every released operation, the document gives the environment, input, unit, precondition, read-back, side effects, failure behaviour and evidence (an experiment record or a test).
 - The documents exist in Japanese and English, and the links work.
 - `verified: true` only when the state read back matches the request. A value that was not obtained, is stale or partial is never read as 0, false or success.
