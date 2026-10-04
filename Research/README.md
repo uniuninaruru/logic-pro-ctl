@@ -1,6 +1,6 @@
 # 調査ガイド — 分かったことと、次に調べること
 
-[製品のREADME](../README.md) · [やさしい仕様](../docs/specification.md) · [図で読む仕組み](../docs/architecture.md)
+[製品のREADME](../README.md) · [やさしい仕様](../docs/specification.md) · [図で読む仕組み](../docs/architecture.md) · [対応する環境](../docs/compatibility.md)
 
 このフォルダは、Logicを外から操作できる経路を調べた記録です。
 **静的解析で見つけた処理**と、**専用プロジェクトで実際に動いた操作**を区別して記録します。
@@ -22,7 +22,7 @@
 |---|---|---|
 | MCU：仮想MIDI | 製品の状態取得・再生・停止・ミキサー操作。自動接続とバンク移動 | 名前の完全取得、プラグインなどの拡張 |
 | private AppleEvent | 登録先・正しい引数・再生と停止。MCUで結果を検証するCLI実装 | 純粋な状態取得、他バージョン、録音など |
-| Logic Remote | 通信フレーム、キー定数、`/gtFaderData`、キーコマンド状態の購読経路の静的解析 | 独立クライアントの接続、初回の完全な状態、状態値の実機対応 |
+| Logic Remote | 接続の手順、通信フレーム、キー定数、初回送信と差分（`/ati`・`/sti`・`/gtFaderData`）、曲の切り替え、コマンド台帳の静的解析 | 独立クライアントの接続、初回の完全な状態、状態値の実機対応 |
 | OSC / Lua | 存在と関連する設定・スクリプト | 任意のCLIからの割り当て・応答の条件 |
 | XPC | インストーラー関連の接続 | 操作用のサービスは未発見 |
 
@@ -44,7 +44,7 @@ flowchart LR
 |---|---|
 | `static-analysis/` | Ghidra、命令、メタデータ、ハッシュを使った根拠 |
 | `experiments/` | 対象・初期状態・1回の操作・観測・再現回数 |
-| `protocol/` | ワイヤーキーなどの抽出表 |
+| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）などの抽出表 |
 | `notes/` | 関連資料・先行例 |
 | `raw/` | ローカルの生出力。Gitには含めない |
 
@@ -57,6 +57,10 @@ flowchart LR
 | [SA-003](static-analysis/SA-003-logic-framework-first-pass.md) | Logic.frameworkの初回調査 |
 | [SA-004](static-analysis/SA-004-command-and-engine-boundaries.md) | コマンドと音声エンジンの境界 |
 | [SA-005](static-analysis/SA-005-logic-remote-state-push.md) | Logic Remoteへの状態送信とキー定数 |
+| [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md) | Logic Remote の接続：広告・招待・承認・バージョンの順序と拒否の条件 |
+| [SA-REMOTE-FRAME-001](static-analysis/SA-REMOTE-FRAME-001.md) | Logic Remote のフレーム：タグ・圧縮（MAZP）・形式の選び方・型と順序 |
+| [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) | Logic の状態送信：初回送信の順序、`/ati`・`/sti`・`/gtFaderData`、差分、曲の切り替えと接続 |
+| [SA-COMMAND-CATALOG-001](static-analysis/SA-COMMAND-CATALOG-001.md) | 登録コマンド 2353 件の台帳と、Remote のコマンド一覧（実行はしていない） |
 | [SA-IDENTITY-001](static-analysis/SA-IDENTITY-001-binary-inputs.md) | 元Universal/thinファイル・arm64 slice・解析copy・Ghidra import metadataの識別と照合 |
 | [AppleEvent登録](static-analysis/appleevent-registration.md) | handler・型・戻り値・モード分岐 |
 | [コマンドへの橋渡し](static-analysis/appleevent-command-dispatch.md) | AppleEventからplay/stopの内部コマンドへ |
@@ -81,6 +85,13 @@ flowchart LR
 |---|---|
 | [EXP-MCU-001〜009](experiments/EXP-MCU-001-009-virtual-mcu.md) | 仮想MCUの接続と基本操作 |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
+| [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
+| [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |
+| [EXP-MCU-023](experiments/EXP-MCU-023-add-delete-reach-surface.md) | 追加・削除は届く。削除後に古いバンク位置を信じる不具合と修正。並べ替えは未確認 |
+| [EXP-MCU-024](experiments/EXP-MCU-024-trace-add-delete.md) | 追加・削除で Logic が送る MIDI（削除では色の sysex が来ない） |
+| [EXP-MCU-025](experiments/EXP-MCU-025-same-name-tracks.md) | 同名のトラックと `--expect-name` の限界 |
+| [EXP-MCU-026](experiments/EXP-MCU-026-execution-contract-live.md) | 実行契約の実機確認：期限切れ・同じキーの再送・実行中の重複・世代の不一致 |
+| [EXP-MCU-027](experiments/EXP-MCU-027-live-smoke.md) | 実機の抜き取り試験 `live_smoke.py` の初回実行（26 件合格） |
 | [EXP-A3-001](experiments/EXP-A3-001-remote-port-per-launch.md) | 起動ごとに変わるRemoteのポート |
 | [EXP-UNDO-001](experiments/EXP-UNDO-001-mixer-writes-and-undo.md) | 既定設定でのUndoと名前の更新 |
 | [EXP-UNDO-002](experiments/EXP-UNDO-002-mixer-undo-enabled.md) | ミキサーUndoを有効にした場合 |
@@ -93,7 +104,7 @@ flowchart LR
 次の区切りは、**再生状態を外部から取得する経路を確定すること**です。
 
 1. キーコマンドID `3` の状態評価分岐を追い、値の意味と副作用を命令で照合する。
-2. `MAPeerRouter` の接続・バージョン確認・購読の条件を詰める。
+2. `MAPeerRouter` の接続・バージョン確認・購読の条件を詰める（接続とバージョンの順序は [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md)、初回送信は [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) で整理済み。実機での受信は承認待ち）。
 3. 専用プロジェクトで初回応答と後続更新を取得し、再生中・停止中の両方をMCUと照合する。
 
 録音ID `7` の状態にはLive Loopsの条件もあります。状態の解析と、録音を実行する実験は別に扱います。
