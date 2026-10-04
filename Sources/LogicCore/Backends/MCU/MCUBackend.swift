@@ -475,6 +475,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         var result: [String: JSONValue] = [
             "daemon": ["pid": .int(Int(getpid()))],
             "logic": logic?.json ?? ["running": false],
+            // Which Logic build / macOS this was checked on; unlisted ones are unverified, not blocked.
+            "compatibility": CompatibilityProfile.assess(logic: logic),
             "mcu": ["port": .string(Self.portName), "connected": .bool(connected),
                     "handshake_at": .string(read { _ in handshakeAt }.map { ISO8601DateFormatter().string(from: $0) })],
         ]

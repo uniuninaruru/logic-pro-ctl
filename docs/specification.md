@@ -24,7 +24,7 @@ flowchart LR
 
 | コマンド | 入力 | 戻る情報・動作 |
 |---|---|---|
-| `status` | なし | daemonのPID、Logicのバージョン、MCUの接続、対応機能。接続があると再生状態も返す |
+| `status` | なし | daemonのPID、Logicのバージョン、MCUの接続、対応機能、検証済みの環境かどうか（`compatibility`）。接続があると再生状態も返す |
 | `state` | なし | 再生状態、選択中のトラック、全ストリップの情報 |
 | `transport play` | なし | 再生を要求 |
 | `transport stop` | なし | 停止を要求 |
@@ -86,6 +86,7 @@ flowchart LR
 読み取りの応答には、結果の完全性・鮮度・出どころを示す `observation` が付きます。詳しくは[読み取り結果の契約](observation-contract.md)。
 すべての応答には、再送・時間切れ・競合の扱いを示す `execution` が付きます。詳しくは[書き込みの実行契約](execution-contract.md)。
 トラック番号はミキサー上の位置です。並びが変わったときに別のトラックへ書かないための照合は[対象の契約](target-contract.md)。
+検証した環境、読み取りを含む副作用、公開の条件は[互換性](compatibility.md)。
 
 ## 4. AppleEvent経路の条件
 

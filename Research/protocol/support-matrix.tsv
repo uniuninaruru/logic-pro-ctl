@@ -1,0 +1,30 @@
+# Support matrix for profile Logic 12.3.1 (6682), macOS 27.0, arm64 unless the row says otherwise. Status: live, tested, static, unconfirmed, not_started, other. See docs/compatibility.md.
+area	operation	backend	status	evidence	limits
+MCU 読み取り	status	mcu	live	EXP-CLI-001; Tests/LogicCoreTests/MCUObservationTests.swift	Logic が確認ダイアログで止まっていると MCU は接続しない（2026-10-05 に観測。ダイアログを閉じて daemon を再起動すると接続）
+MCU 読み取り	transport の状態（再生・録音 LED）	mcu	live	EXP-CLI-001; MCUObservationTests	LED を Logic が報告していないときは null。再接続直後に古い状態を返さない
+MCU 読み取り	track list（全ストリップの走査）	mcu	live	EXP-CLI-001; EXP-MCU-020; EXP-MCU-023; MCUObservationTests	表示範囲（バンク）を動かす。末尾を確認できなければ complete:false。非 ASCII の名前は LCD に出ないことがある
+MCU 読み取り	track get	mcu	live	EXP-CLI-001; EXP-MCU-021	フェーダーに触れて dB を読む（読み取りに副作用がある）
+MCU 読み取り	state	mcu	live	EXP-CLI-001	track list と同じ走査
+MCU 書き込み	transport play / stop	mcu	live	EXP-CLI-001	再生・録音の状態が不明なら何も送らない
+MCU 書き込み	track mute	mcu	live	EXP-CLI-001; EXP-MCU-022〜025	ソロ中は mute LED が点滅するため状態は null になる
+MCU 書き込み	track solo	mcu	live	EXP-CLI-001	
+MCU 書き込み	track volume	mcu	live	EXP-CLI-001; EXP-MCU-021	許容差 0.1 dB。最後のストリップの dB 表示位置のずれを補正済み
+MCU 書き込み	track pan	mcu	live	EXP-CLI-001	Logic の -64〜63 に丸める
+MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効だと、録音待機も選択に伴って動く
+対象の契約	--expect-name（名前の照合）	mcu	live	EXP-MCU-022; EXP-MCU-023; EXP-MCU-025; Tests/LogicCoreTests/TargetIdentityTests.swift	名前変更・追加・削除は実機で検出。同名のトラック同士は区別できない
+対象の契約	トラックの並べ替えの検出	mcu	unconfirmed	EXP-MCU-023	並べ替えを起こせなかった（8 回の試行）。人の手による確認が必要（docs/manual-validation.md）
+対象の契約	バンク位置を信じる条件（名前行が変わっていない）	mcu	live	EXP-MCU-023; EXP-MCU-024	削除では色の sysex が来ない（MIDI で確認）
+契約	observation（unknown・complete・session）	mcu	live	docs/observation-contract.md; MCUObservationTests; EXP-CLI-001	
+契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; Tests/LogicCoreTests/WriteExecutorTests.swift	実機は 2026-10-02 の 1 回の確認（replayed）
+契約	--deadline-ms と timeout が unknown になること	mcu	live	WriteExecutorTests	実機は timeout の 1 例
+契約	--expect-session	mcu	tested	WriteExecutorTests	接続の世代の確認のみ。同じ接続の中の変化は検出しない。不一致（precondition_failed）は実機で起こしていない
+契約	古い logicd に安全装置つきの要求を送らない	mcu	tested	Tests/integration/test_cli_safety_gate.py	偽の daemon での試験。実機の古い daemon では試していない
+互換性	status の compatibility（検証済みの環境の判定）	mcu	tested	Tests/LogicCoreTests/CompatibilityProfileTests.swift	判定だけ。未検証の環境でもコマンドは止めない
+Remote	接続の手順（広告・招待・承認・version）	remote	static	Research/static-analysis/SA-REMOTE-SESSION-001.md	実接続なし
+Remote	フレームの形式（tag・MAZP・plist／JSON／archive）	remote	static	SA-REMOTE-FRAME-001; Tests/LogicCoreTests/RemoteFrameTests.swift	試験の fixture は合成。実機の記録での確認なし
+Remote	初回の状態と差分（/ati・/sti・/gtFaderData・transport・clock）	remote	static	SA-REMOTE-STATE-001; Research/protocol/logic-remote-state.schema.json	受信実験なし。初回送信の終了の合図は見つかっていない
+Remote	コマンド台帳と commands query	remote	static	SA-COMMAND-CATALOG-001; Research/protocol/operation-catalog.tsv	コマンドは実行していない。状態評価・副作用は未解析
+Remote	新しい peer の接続と受信	remote	not_started	Research/plans/agent-ready-backlog.tsv の PLAN-05	ユーザーの承認待ち。誰も実行しない
+Remote	Remote 経由の書き込み	remote	not_started		接続の実験が先
+AppleEvent	transport play / stop（--backend appleevent）	appleevent	other	docs/specification.md §4	別の担当の資料に従う。この対応表では特徴づけない
+互換性	別の macOS・別の Logic build	—	unconfirmed		検証済みの環境（12.3.1／6682、macOS 27.0）以外は unverified と表示する
