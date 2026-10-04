@@ -9,7 +9,7 @@ Contributions can range from typo fixes to Swift improvements, live verification
 
 | Your interests or available environment | Welcome contributions | Starting point |
 |---|---|---|
-| You found an unclear explanation | Japanese / English documentation, diagrams, and instructions | [README](README.en.md), [specification](docs/specification.md) and [architecture](docs/architecture.md) (Japanese) |
+| You found an unclear explanation | Japanese / English documentation, diagrams, and instructions | [README](README.en.md), [specification](docs/specification.en.md) and [architecture](docs/architecture.en.md) |
 | You use Swift or Python | Bug fixes, meaningful regression tests, and research tools | `Sources/`, `Tests/`, `Tools/` |
 | You own Logic Pro | Reproduction in a dedicated test project and verification on other versions | [Manual validation](docs/manual-validation.en.md) · [Experiment template](Research/experiments/TEMPLATE.en.md) |
 | You use Ghidra or analyze protocols | Cross-checking functions and messages, testing unresolved hypotheses | [Research guide](Research/README.md), [roadmap](Research/plans/agent-ready-roadmap.en.md) |
@@ -29,9 +29,19 @@ Issues and PRs can be written in Japanese or English. If an existing page has bo
 
 macOS 13+ and Swift 5.9+ are required. The current live verification baseline is Logic Pro 12.3.1 / build 6682.
 
+Use `test-all.sh` for all offline checks, or `test.sh` for Swift tests only. Neither command needs Logic Pro to be running.
+
+```sh
+./scripts/test-all.sh   # All offline checks
+./scripts/test.sh       # Swift tests only
+```
+
+`test-all.sh` runs Swift tests, Python unit tests for the research tools, and CLI integration tests against fake daemons. It also builds the debug CLI used by those integration tests.
+
+To check the release CLI, use:
+
 ```sh
 swift build -c release
-./scripts/test.sh
 python3 Tests/integration/test_cli_backend_compat.py .build/release/logicctl
 ```
 
@@ -62,7 +72,7 @@ Run live experiments **only in the dedicated `LogicCLI-Test.logicx` project**. C
 - Use `verified: false` when state cannot be confirmed, and distinguish unknown, unavailable, zero, and off.
 - After a timeout, recheck state because the operation may already have run. Do not blindly repeat the same write.
 
-See the [specification](docs/specification.md) (Japanese), [track target contract](docs/target-contract.en.md), and [AGENTS.en.md](AGENTS.en.md) for detailed contracts and agent working rules.
+See the [specification](docs/specification.en.md), [track target contract](docs/target-contract.en.md), and [AGENTS.en.md](AGENTS.en.md) for detailed contracts and agent working rules.
 
 ## License
 

@@ -153,6 +153,18 @@ Additional native errors include `unsupported_logic_version`,
 - Track names on the MCU LCD can be stale: undoing a rename did not update
   them until logicd reconnected (EXP-UNDO-001).
 
+## Understand the system and research
+
+| What you want to read | Starting point |
+|---|---|
+| Commands, JSON results, and errors | [Specification](docs/specification.en.md) |
+| What each component does | [Architecture with diagrams](docs/architecture.en.md) |
+| Findings so far and what to investigate next | [Research guide](Research/README.md) (Japanese) |
+| The plan for broad agent control | [Research and development roadmap](Research/plans/agent-ready-roadmap.en.md) · [Task dependencies and acceptance criteria](Research/plans/agent-ready-backlog.tsv) (Japanese) |
+| Evidence for the connection routes | [Detailed architecture research](Research/architecture.en.md) |
+| Live AppleEvent results | [EXP-AE-001](Research/experiments/EXP-AE-001-private-command-dispatch.en.md) · [EXP-AE-002](Research/experiments/EXP-AE-002-cli-backend.en.md) |
+| Candidates and limits for native state reads | [SA-AE-STATE-002](Research/static-analysis/SA-AE-STATE-002-native-transport-state.en.md) |
+
 ## Development
 ```sh
 ./scripts/test.sh        # swift test; also works with Command Line Tools only

@@ -29,9 +29,19 @@
 
 macOS 13 以降・Swift 5.9 以降が必要です。現在の実機検証の基準は Logic Pro 12.3.1 / build 6682 です。
 
+全オフライン確認には `test-all.sh`、Swift のテストだけを確認する場合は `test.sh` を使います。どちらも Logic Pro の起動は不要です。
+
+```sh
+./scripts/test-all.sh   # 全オフライン確認
+./scripts/test.sh       # Swift のテストのみ
+```
+
+`test-all.sh` は Swift のテスト、調査ツールの Python 単体テスト、偽の daemon を使う CLI 統合テストを実行します。CLI 統合テスト用の debug ビルドも行います。
+
+release ビルドの CLI を確認する場合は、次を使います。
+
 ```sh
 swift build -c release
-./scripts/test.sh
 python3 Tests/integration/test_cli_backend_compat.py .build/release/logicctl
 ```
 
