@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""Serialize cooperating headless jobs; do not bypass Ghidra's own locks."""
+
+import argparse
+import fcntl
+import os
+from pathlib import Path
+import signal
+import subprocess
+import sys
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--lock", type=Path, required=True)
+    parser.add_argument("command", nargs=argparse.REMAINDER)
+    args = parser.parse_args()
+    command = args.command
+    if command and command[0] == "--":
+        command = command[1:]
+    if not command:
+        parser.error("a command is required after --")
+    args.lock.parent.mkdir(parents=True, exist_ok=True)
+    with args.lock.open("a+") as lock:
+        print(f"Waiting for project lock: {args.lock}", file=sys.stderr, flush=True)
+        fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
+        print(f"Acquired project lock: pid={os.getpid()}", file=sys.stderr, flush=True)
+        child = subprocess.Popen(command)
+
+        def forward(signum, _frame):
+            if child.poll() is None:
+                child.send_signal(signum)
+
+        old_handlers = {s: signal.signal(s, forward) for s in (signal.SIGINT, signal.SIGTERM)}
+        try:
+            result = child.wait()
+        finally:
+            for sig, handler in old_handlers.items():
+                signal.signal(sig, handler)
+        return result if result >= 0 else 128 - result
+
+
+if __name__ == "__main__":
+    sys.exit(main())
