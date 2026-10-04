@@ -95,6 +95,8 @@ Fresh raw evidence comprises `q-appleevent-target-mutations-004`, `q-appleevent-
 
 ## 7. Bounded next steps
 
+The 2026-10-05 follow-up is in [TARGET-005](SA-AE-TARGET-005-root-utf8-export-retry.en.md). It establishes numeric roots 1/2, UTF8 byte capacity, wrapper dispatch, index arithmetic and owner counters/mutex/notification. Exception ranges omitted from defined function bodies contain catch/retry and cleanup; LSDA mapping remains unresolved. The items below are retained as the next steps at this report's original date.
+
 1. Inspect numeric roots `2/1` in `0x00575150` and concrete UTF8 copy behavior only as far as needed.
 2. Trace wrapper-generation selector, `0x002c048c`, `0x01a18254`, and owner virtual slots `+0x18/+0x20`; separate output coverage, restoration of temporary changes, and notification order.
 3. Independently establish stable target identity, pointer lifetime, epoch, readback, and reopening saved content. CRC, pointer, and `sPer=0` do not substitute for these.

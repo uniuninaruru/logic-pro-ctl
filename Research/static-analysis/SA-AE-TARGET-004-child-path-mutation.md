@@ -95,6 +95,8 @@ table initializer `0x002c8b84`（132 B）は多数の field を 0 にし、uint3
 
 ## 7. 次の有限境界
 
+2026-10-05 の追跡結果は [TARGET-005](SA-AE-TARGET-005-root-utf8-export-retry.md) にあります。numeric root 1/2、UTF8 の byte 容量、wrapper selector、index の算術、owner の counters/mutex/通知を確認しました。定義 function body から漏れた例外経路にも catch/retry と cleanup があり、LSDA の対応付けはまだ未確定です。以下は本資料の作成時点の次項目として残します。
+
 1. numeric root `2/1` を作る `0x00575150` と UTF8 copy の実装を必要な範囲だけ確認する。
 2. wrapper 生成 selector、`0x002c048c`、`0x01a18254`、owner virtual `+0x18/+0x20` を追い、出力 coverage・一時変更の復元・通知順序を区別する。
 3. stable target identity、pointer lifetime、epoch、読み戻し・保存後再読込を独立に確立する。今回の CRC、pointer、`sPer=0` はその代用にしない。

@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-005"
+  ],
+  "captured_at_utc": "2026-10-04T16:18:18.332267+00:00",
+  "binary_inputs_rechecked_on_jst": "2026-10-05",
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "Research/static-analysis/appleevent-target-mutations-manifest.json"
+  ],
+  "scope": "Bounded static root registry, UTF8 byte capacity, wrapper retry/unwind and owner effects. No runtime calls or product capability.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "programs": {
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    },
+    "MACore.arm64": {
+      "schema_version": 1,
+      "program_name": "MACore.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "binary": "Logic",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+      "installed_source_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_offset_bytes": 0,
+      "slice_size_bytes": 40710736,
+      "selected_arm64_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    },
+    {
+      "binary": "MACore",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+      "installed_source_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "slice_offset_bytes": 2375680,
+      "slice_size_bytes": 2248544,
+      "selected_arm64_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    }
+  ],
+  "shared_lock_absolute_path": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock",
+  "query_groups": {
+    "q-appleevent-target-next-005": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x00575150",
+          "defined_body_size_bytes": 3480,
+          "inventory_name": "FUN_00575150"
+        },
+        {
+          "address": "0x01b21660",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::FUN_01b21660"
+        },
+        {
+          "address": "0x0162cb10",
+          "defined_body_size_bytes": 2328,
+          "inventory_name": "CLgMainStageExporter::createFileWrapperForTracks:inSeqID:finishedErasePhase:patchURL:"
+        },
+        {
+          "address": "0x002c048c",
+          "defined_body_size_bytes": 288,
+          "inventory_name": "FUN_002c048c"
+        },
+        {
+          "address": "0x01a18254",
+          "defined_body_size_bytes": 1608,
+          "inventory_name": "FUN_01a18254"
+        },
+        {
+          "address": "0x00196c5c",
+          "defined_body_size_bytes": 3488,
+          "inventory_name": "FUN_00196c5c"
+        }
+      ],
+      "data_report": "q-appleevent-target-owner-data-005.txt",
+      "data": [
+        "0254a150",
+        "022e94b8",
+        "022e94d0",
+        "022e94d8"
+      ]
+    },
+    "q-appleevent-target-utf8-005": {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x0005cdb4",
+          "defined_body_size_bytes": 252,
+          "inventory_name": "_utf8_strlcpy"
+        },
+        {
+          "address": "0x0005d2b4",
+          "defined_body_size_bytes": 192,
+          "inventory_name": "_utf8_check_and_fix"
+        }
+      ]
+    },
+    "q-appleevent-owner-roots-005": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x005745c0",
+          "defined_body_size_bytes": 1496,
+          "inventory_name": "FUN_005745c0"
+        },
+        {
+          "address": "0x00e65454",
+          "defined_body_size_bytes": 16,
+          "inventory_name": "FUN_00e65454"
+        },
+        {
+          "address": "0x00e65464",
+          "defined_body_size_bytes": 8,
+          "inventory_name": "FUN_00e65464"
+        },
+        {
+          "address": "0x010a44a0",
+          "defined_body_size_bytes": 444,
+          "inventory_name": "FUN_010a44a0"
+        },
+        {
+          "address": "0x010a4844",
+          "defined_body_size_bytes": 536,
+          "inventory_name": "FUN_010a4844"
+        }
+      ],
+      "data_report": "q-appleevent-root-registry-data-005.txt",
+      "skipped_uninitialized_data": [
+        "026323b8"
+      ]
+    },
+    "q-appleevent-root-registry-005": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x00574164",
+          "defined_body_size_bytes": 1036,
+          "inventory_name": "FUN_00574164"
+        }
+      ],
+      "data_report": "q-appleevent-root-literals-005.txt",
+      "data": [
+        "01d5fbe0",
+        "0233ec68",
+        "02348f48"
+      ]
+    },
+    "q-appleevent-export-unwind-final-005": {
+      "program": "Logic.arm64",
+      "ranges_end_exclusive": [
+        "016328b4:016328c4",
+        "01632d90:01632e5c",
+        "0162d428:0162d578",
+        "01632ee4:01632f08"
+      ],
+      "report": "q-appleevent-export-unwind-final-005.txt"
+    },
+    "q-appleevent-phase-literal-005": {
+      "program": "Logic.arm64",
+      "data_report": "q-appleevent-phase-literal-005.txt",
+      "data": [
+        "023eb0c8"
+      ]
+    }
+  },
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd",
+      "size_bytes": 3123
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c",
+      "size_bytes": 5102
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9",
+      "size_bytes": 3163
+    },
+    {
+      "path": "Tools/ghidra/PointerDataReport.java",
+      "sha256": "98ea97b2c1d588230fc1c76ec167ddffc14e7c2f4ad0e150bf6220911e480c12",
+      "size_bytes": 3664
+    },
+    {
+      "path": "Tools/ghidra/InstructionRangeReport.java",
+      "sha256": "5e2a0d3e8e0bfe1dd236f77df50a76b9866544db3525f38f51ea827aaae39a5d",
+      "size_bytes": 3915
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597",
+      "size_bytes": 1981
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331",
+      "size_bytes": 11784200
+    },
+    {
+      "path": "Research/raw/ghidra/MACore.arm64.functions.tsv",
+      "sha256": "85f49623a810fd76a14675936dd0a1b84344f14ce7dbd955c364dd24694dcec0",
+      "size_bytes": 894302
+    },
+    {
+      "path": "Research/raw/ghidra/build-target-boundaries-manifest-005.py",
+      "sha256": "3519f6bd4cb536e9b8e235f6cc6bd9d12d14bd05e21234e99f27b8effd016dfd",
+      "size_bytes": 10275
+    },
+    {
+      "path": "Research/raw/ghidra/child-005-notes.md",
+      "sha256": "13c71e0bb11dacff7572a5509b9145917f1abbc84f0483b04bb00f3dcb1a4296",
+      "size_bytes": 33409
+    },
+    {
+      "path": "Research/raw/ghidra/llvm-objdump-005.version.txt",
+      "sha256": "daf97ed1902b65c69716a2f0b1477d0a3a180f1cc673170ac733282e06fed5fb",
+      "size_bytes": 561
+    },
+    {
+      "path": "Research/raw/ghidra/path-005-notes.md",
+      "sha256": "f8e10473fbb1ac788d123bf9368bf4e1e24aaa862542d49b68a9d99dcd98d104",
+      "size_bytes": 28093
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-export-unwind-final-005.log",
+      "sha256": "296732a663f78d59488aeec14448d6bd9fe26d012464b33034c970371c970323",
+      "size_bytes": 4312
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-export-unwind-final-005.txt",
+      "sha256": "f106d928fb35cddc7d01f84376f4a1cb25ff9f7887d60a2ea0f7b1be3f39153d",
+      "size_bytes": 6716
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-owner-roots-005-machinecode.txt",
+      "sha256": "0bc0d58d65b25abb7ebe1028303c050a76ae808638e7abb068bb44832d704a4d",
+      "size_bytes": 28108
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-owner-roots-005.c",
+      "sha256": "bd37d19c2afa350d526097eadc5b552b215462a8a3231ddbcab5e4f2a89c2d80",
+      "size_bytes": 13056
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-owner-roots-005.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f",
+      "size_bytes": 461
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-owner-roots-005.log",
+      "sha256": "a5be170e69e9c59531923d2dcd07bd5b98248209ac2b7ad40c50faa39e0adc0c",
+      "size_bytes": 5854
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-phase-literal-005.log",
+      "sha256": "0f00b7667b4ad555d4525db0ad22741aa29a1ffbc2248ac4e8374120a50b93d3",
+      "size_bytes": 4197
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-phase-literal-005.txt",
+      "sha256": "ee8cd6551dd154abeda7abb2d1f62bea3320fc3538614bf38b1626eb317e9d84",
+      "size_bytes": 554
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-root-literals-005.txt",
+      "sha256": "adb14b4469b3d855fc221a1e0a8dc21a14b1a3084feb93f2e425fd4cff69b1f4",
+      "size_bytes": 1139
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-root-registry-005-machinecode.txt",
+      "sha256": "5941d2a6c39528a1986d2d0e99b09acf2c069123db40b0a6c2577e6eb599386f",
+      "size_bytes": 13737
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-root-registry-005.c",
+      "sha256": "6e39e0502b619e3913d4a8834d8fe8ae4beb2f68f9d6ad8980cf49cefe8f1066",
+      "size_bytes": 2510
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-root-registry-005.log",
+      "sha256": "a4c3c6a16d58d26ab4de38f313a2ff50221ddbd4081acba2c8e19c1159f8f56a",
+      "size_bytes": 5229
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-root-registry-data-005.txt",
+      "sha256": "419b77ca39df3a14be6847fa5d1caef6d2eb461928593906bed2552b3fdc07d4",
+      "size_bytes": 230
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-selected-unwind-005.llvm.txt",
+      "sha256": "8658a0bbd7f759ff7cc47e872214e04ce758c2ad8db379d46056edf8e813f8d2",
+      "size_bytes": 2855
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-selected-unwind-tail-005.llvm.txt",
+      "sha256": "4446b9edebee3aa30f8513fb8c719c258f85417a3f4dd3e210d76db3820e778d",
+      "size_bytes": 623
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-next-005-machinecode.txt",
+      "sha256": "75253699091f60f3b1e2df467ff2c8dc6a744c6c89e8d406a37548b24a3ea1cf",
+      "size_bytes": 114459
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-next-005.c",
+      "sha256": "26c194216e44ec961680044cd2372094a53127dedd2c198466d9d631374a56c5",
+      "size_bytes": 73463
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-next-005.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f",
+      "size_bytes": 461
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-next-005.log",
+      "sha256": "a5ad0ab1e73ce61942d1e313aca8cfeabf054b650239aacc3373010285717f33",
+      "size_bytes": 5916
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-owner-data-005.txt",
+      "sha256": "0b111d4c918a2372a25de7063f98ddd1fc22b75cff9e3f844b22d746c523ef25",
+      "size_bytes": 1158
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-ownership-004-machinecode.txt",
+      "sha256": "c836dd196db971f5f6babfbe2120808e6144093d780bb6480a7130be4cfabf89",
+      "size_bytes": 34431
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-utf8-005-machinecode.txt",
+      "sha256": "4502a803197f0af1e2677152e1ae4df24671fff3aa0a21fbb6a18c0c08389e4d",
+      "size_bytes": 4020
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-utf8-005.c",
+      "sha256": "b27ff6889c2383ac3e25676d6c47cc692af88d256a7b007780a0c7cdf371a720",
+      "size_bytes": 2567
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-utf8-005.identity.json",
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f",
+      "size_bytes": 463
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-target-utf8-005.log",
+      "sha256": "f86f2504c58c41a1db314207305b644eb70e8cada9c85a09715fcce79dd6e06d",
+      "size_bytes": 5242
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-unwind-byte-check-005.json",
+      "sha256": "1ed184fb99bace020d7c061b60b957934b92a2e5bba65e8386f5245c41ad7c0f",
+      "size_bytes": 174
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-utf8-imports-005.txt",
+      "sha256": "c54a27f13ea8e16a4621b9f7e79fc2eaebdefc6a5f5b1bdad452902cde61a65a",
+      "size_bytes": 394
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-wrapper-unwind-005.llvm.txt",
+      "sha256": "7e6f91e223789956c01d4c383014bb577d4726333f4368c6c39c34f2fc18be02",
+      "size_bytes": 5029
+    },
+    {
+      "path": "Research/raw/ghidra/q-foundation-directory-enums-005.txt",
+      "sha256": "24a5a53b0f890d611b8c6daa0a7a3536d73e2c7604f8420818764885140b0836",
+      "size_bytes": 383
+    }
+  ],
+  "successful_logs": [
+    "Research/raw/ghidra/q-appleevent-target-next-005.log",
+    "Research/raw/ghidra/q-appleevent-target-utf8-005.log",
+    "Research/raw/ghidra/q-appleevent-owner-roots-005.log",
+    "Research/raw/ghidra/q-appleevent-root-registry-005.log",
+    "Research/raw/ghidra/q-appleevent-export-unwind-final-005.log",
+    "Research/raw/ghidra/q-appleevent-phase-literal-005.log"
+  ],
+  "range_verification": {
+    "llvm_instruction_words_compared": 144,
+    "all_words_equal": true,
+    "positive_defined_range_bytes": 16,
+    "llvm_symbol_annotations_used_for_function_ownership": false
+  },
+  "additional_read_only_commands": [
+    {
+      "argv": [
+        "xcrun",
+        "llvm-objdump",
+        "-d",
+        "--start-address=0x01632d90",
+        "--stop-address=0x01632e5c",
+        "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64"
+      ],
+      "output": "Research/raw/ghidra/q-appleevent-selected-unwind-005.llvm.txt"
+    },
+    {
+      "argv": [
+        "xcrun",
+        "llvm-objdump",
+        "-d",
+        "--start-address=0x0162d428",
+        "--stop-address=0x0162d578",
+        "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64"
+      ],
+      "output": "Research/raw/ghidra/q-appleevent-wrapper-unwind-005.llvm.txt"
+    },
+    {
+      "argv": [
+        "xcrun",
+        "llvm-objdump",
+        "-d",
+        "--start-address=0x01632ee4",
+        "--stop-address=0x01632f08",
+        "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64"
+      ],
+      "output": "Research/raw/ghidra/q-appleevent-selected-unwind-tail-005.llvm.txt"
+    }
+  ],
+  "sdk_enum_evidence": {
+    "header": "NSPathUtilities.h",
+    "source_sha256": "d16910e959b0b3aba7b423a4d81cd4f91787e07fc90a47866ef0ad6e24555d0d",
+    "enum_lines": {
+      "NSMusicDirectory": 229,
+      "NSUserDomainMask": 258
+    },
+    "excerpt": "Research/raw/ghidra/q-foundation-directory-enums-005.txt"
+  },
+  "dynamic_verification": "not_attempted",
+  "product_capabilities_added": false,
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "peer_connection_attempted": false,
+    "application_events_sent": false,
+    "preferences_changed": false
+  },
+  "notes": [
+    "Stored import SHA is the original input identity, not a checksum of the database.",
+    "MACore universal source and selected ARM64 slice hashes are distinct.",
+    "Undefined listing ranges are decoded with bounded LLVM commands; numeric targets use Ghidra inventory names, not LLVM nearby-symbol comments.",
+    "Final range report reran after PrintWriter.checkError hardening; earlier range logs are not the canonical successful evidence for this source revision.",
+    "Initial SDK lookup used NSFileManager.h and found no constants; it was not evidence. The recorded excerpt uses NSPathUtilities.h.",
+    "Retry branch exists; LSDA exception-type/call-site mapping, retry bounds and outer exception restoration remain unresolved.",
+    "Normal flow can mutate model and remove-before-write; no actual event, filesystem operation or export was attempted."
+  ]
+}
