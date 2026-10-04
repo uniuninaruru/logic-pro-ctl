@@ -77,8 +77,8 @@ FILE-001 の `sPtn` は predicate を通す ordinal、XML の Plugin `id` は ch
 |---|---|
 | `0x002c8a10`、372 bytes | global `0x0261c5e8 + signed32(index)*0x1a0` を返す。ただし unsigned index `<13`、それ以外は null（`0x002c8a28..0x002c8a38`）。guard `0x0261db08` が未初期化なら `__cxa_guard_acquire`、13 回の `0x002c8b84`、atexit 登録、guard release（`0x002c8a58..0x002c8b68`）。lookup に lazy initialization が含まれる |
 | `0x002c90cc`、296 bytes | x0 が null または signed index が負なら null。type の下位16 bitsを `0x40..0x4d` の jump table に使う。mode 10 の type `0x43` / `0x4b` は下記の byte・branch 計算で確定。具体的な UI entity 名は未確定 |
-| `0x0022cadc`、324 bytes | object の type bit6、type `!=0xc0`、signed `+0x54>=1` を検査。signed short `+0x4a/+0x4c/+0x4e/+0x50/+0x52` の合計を index とし、object `+0x30/+0x38` の pointer 配列から既存 child を返す（`0x0022cafc..0x0022cb48`）。失敗側は `operator.new(0xc4)`、初期化 store、条件付き `CUUIDBase::Init`、`0x01a18cd8(song,container,object,newRecord)`（`0x0022cb4c..0x0022cc04`）。対象探索だけの getter ではない。下位 call の attachment / dirty / Undo は未監査 |
-| `0x0022c914`、288 bytes | ID を R2 で再解決（`0x0022c940`）、同じ type/count/sum-index で非 null child を要求。入力 x2 の CFileRef を local に copyし、symlink 解決 path、`GetPath`、`0x003e99e4` を経て、返値 w0 の下位16 bits を child `+0xae` に保存（`0x0022c9e8..0x0022c9f0`）。この本体は CFileRef の object への直接代入ではない。path の登録・lookup という意味は Hypothesis、確信度: 中 |
+| `0x0022cadc`、324 bytes | object の type bit6、type `!=0xc0`、signed `+0x54>=1` を検査。signed short `+0x4a/+0x4c/+0x4e/+0x50/+0x52` の合計を index とし、object `+0x30/+0x38` の pointer 配列から既存 child を返す（`0x0022cafc..0x0022cb48`）。失敗側は `operator.new(0xc4)`、初期化 store、条件付き `CUUIDBase::Init`、`0x01a18cd8(song,container,object,newRecord)`（`0x0022cb4c..0x0022cc04`）。対象探索だけの getter ではない。attachment と配列所有権は [TARGET-004](SA-AE-TARGET-004-child-path-mutation.md) で追補。dirty / Undo は未監査 |
+| `0x0022c914`、288 bytes | ID を R2 で再解決（`0x0022c940`）、同じ type/count/sum-index で非 null child を要求。入力 x2 の CFileRef を local に copyし、symlink 解決 path、`GetPath`、`0x003e99e4` を経て、返値 w0 の下位16 bits を child `+0xae` に保存（`0x0022c9e8..0x0022c9f0`）。この本体は CFileRef の object への直接代入ではない。[TARGET-004](SA-AE-TARGET-004-child-path-mutation.md) で directory 由来の CRC16 と確定。以前の登録・lookup の Hypothesis は置き換えた |
 
 mode 10 は `(object.type & ~8)==0x43`、uint16 `object+0x48<=0x0c`（**十進12**）を要求し、後者を `0x002c8a10`、type と signed short `k=object+2` を `0x002c90cc` に渡します（`0x017b1ee8..0x017b1f20`）。jump table `0x01cb04ee` の index 3（type `0x43`）は byte `0x0a`、index 11（type `0x4b`）は `0x09`。branch base `0x002c9104 + byte*4` はそれぞれ `0x002c912c` / `0x002c9128`、後者だけ `k<<1` を先に行います。その index と signed count `table+0xee`、base pointer `table+0x48` を検査し、stride `0x3c0` で record を返す経路を確定しました（`0x002c9128..0x002c9140`、`0x002c919c..0x002c91a4`）。
 
@@ -99,8 +99,8 @@ mode 14 は上記 record に directory 名を copy/fix して `+0xae=0` を先�
 
 | gate | 限定範囲 | 受け入れ条件 |
 |---|---|---|
-| T1: lookup の下位変更 | `0x002c8b84`（132 B）、`0x01a18cd8`（356 B）、`0x003e99e4`（344 B）、filename helper `0x0022cc34`（180 B） | initialization / child attachment / path 値の型と失敗を、store・返値・call ABI で表にする。engine 全体へ広げない |
+| T1: lookup の下位変更 | `0x002c8b84`（132 B）、`0x01a18cd8`（356 B）、`0x003e99e4`（344 B）、filename helper `0x0022cc34`（180 B） | [TARGET-004](SA-AE-TARGET-004-child-path-mutation.md) で initializer・配列挿入・所有権移動・名前・directory CRC を記録済み。残る owner virtual / container 下位処理・wrapper coverage は同資料の有限境界へ |
 | T2: identity の対応 | AE selection、record+20、XML id、ユーザーの PLAN-08 で調べる MCU/Remote ID | scope・namespace・世代を別々に保持。名称一致・同じ数値だけでは mapping を確定しない |
-| T3: 将来の freshness 検証 | session で許可された定義済み実験と `LogicCLI-Test.logicx` のみ | 一条件ずつ複数対象で、選択変更・追加削除・song 切替の前後差分と独立 readbackを照合。mode 12 の実行除外と PLAN-05 の接続 gate を維持。本記録は送信・接続の許可を与えない |
+| T3: 将来の freshness 検証 | session で許可された定義済み実験と `LogicCLI-Test.logicx` のみ | 一条件ずつ複数対象で、選択変更・追加削除・song 切替の前後差分と独立 readbackを照合。mode 12 / 14 の実行除外と PLAN-05 の接続 gate を維持。本記録は送信・接続の許可を与えない |
 
 runtime の対応・freshness・readback が無い現時点では、対象 snapshot を信頼できる agent write capability として公開できません。

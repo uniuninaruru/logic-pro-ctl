@@ -175,7 +175,7 @@ window/editor 関連という候補以外の具体的な操作名は未確定。
 
 resolver のレコード `+0x20` が正値で、二つ目の resolver が非 null の経路を進む。`0x001ab414` で path を CFileRef にし `IsValid` bit 0 を確認。filename の UTF8String を `0x0022cc34(song,id,name)`、parent directory の lastPathComponent を文字列置換後、別 resolver と `0x0022cadc` の戻った record へ書く。置換は CFString `0x0233a448` の **`/`**（length `1`）→ `0x02338b48` の **空文字列**（length `0`）と pointer/data で確認した。
 
-確定した store は `0x017b1b44: bzero(record+0x62,0x40)`、`0x017b1b54: utf8_strlcpy(...,0x40)`、`0x017b1b5c: utf8_check_and_fix`、`0x017b1b60: strh wzr,[record,#0xae]`。続いて `0x0022c914(song,id,&fileRef)`、保持した CFURL がある場合 `0x002bfdb0(song,url,id,container,object,0)` を呼ぶ。filename、親 directory 名、file reference と対象が関係することは確認できるが、sample/instrument/region のどれを変更するか、何を読み込むかは下位 setter の調査待ち。
+確定した store は `0x017b1b44: bzero(record+0x62,0x40)`、`0x017b1b54: utf8_strlcpy(...,0x40)`、`0x017b1b5c: utf8_check_and_fix`、`0x017b1b60: strh wzr,[record,#0xae]`。続いて `0x0022c914(song,id,&fileRef)`、保持した CFURL がある場合 `0x002bfdb0(song,url,id,container,object,0)` を呼ぶ。[TARGET-004](SA-AE-TARGET-004-child-path-mutation.md) で child の filename / directory label / directory CRC を区別し、最後の call が選択トラックの書き出しへ進むことを確定した。下位 exporter は指定 URL を削除してから書き込み、削除結果を検査せず、write の成否も AE reply へ伝えない。全出力 schema・復元・永続化は未確認。この境界を持つ mode 14 は実行試験・製品機能へ昇格しない。
 
 ## 有限の次工程と受け入れ条件
 
@@ -186,7 +186,7 @@ resolver のレコード `+0x20` が正値で、二つ目の resolver が非 nul
 | M3: mode 10 の適用境界 | `0x004b1234` / `0x004afaa0` の entry/exit と named selector | file から buffer、適用結果、rollback、通知を受け渡しとして確定。全 preset 種を扱えるとはまだ言わない |
 | M4: mode 11 の import 境界 | `0x004f3ba8`、`0x002a2ee0` の entry/exit と position units | 0 が進行条件である理由、track/position in/out、失敗・変更条件を確定 |
 | M5: mode 12 の削除 path | `0x0037b858` の CFileRef 書き換えと `0x00354128` の completion/error | 0/非ゼロの全 return で最終 temporary path、生成・変換の同期性と失敗、削除対象を追う。[EXPORT-002](SA-AE-EXPORT-002-temporary-output.md)に早期失敗時のdirectory path削除要求と、変換前のdestination削除を記録。実行候補にはせず、下位生成・待機の境界を静的に追う |
-| M6: mode 13/14 の意味 | `0x005e559c` の入口の args 消費、`0x0022cc34/0x0022cadc/0x0022c914` の小さい setter | window type と action、変更対象・field・file reference、状態更新を確定。engine 全体への無制限展開はしない |
+| M6: mode 13/14 の意味 | `0x005e559c` の入口の args 消費、`0x0022cc34/0x0022cadc/0x0022c914` の小さい setter | [TARGET-004](SA-AE-TARGET-004-child-path-mutation.md) で mode 14 の field・directory CRC・選択書き出し・削除前置を確認。残る window action、wrapper coverage、owner / 復元境界を限定して追う |
 | M7: 条件付き live 検証 | 定義した実験範囲と session の許可がある `LogicCLI-Test.logicx`、専用一時ファイル | 1 条件ずつ、複数値と複数 track、前後差分、失敗・上書き・Undo、独立読み戻し。確認できなければ `verified:false`。既存の許可を生かし、本記録自体は新たな送信・接続の許可を与えない。PLAN-05 の接続許可 gate は別に維持 |
 
 操作カタログへの登録は、各候補の対象選択、入力 schema、副作用、失敗、完了、独立した読み戻しがそろってから判断する。今回の到達点は静的な呼び出し／書き込み境界と、応答が operation success を返していないことの確認である。

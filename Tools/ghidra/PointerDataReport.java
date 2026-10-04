@@ -5,6 +5,8 @@ import ghidra.app.script.GhidraScript;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Data;
 import ghidra.program.model.data.StringDataInstance;
+import ghidra.program.model.mem.MemoryBlock;
+import ghidra.program.model.mem.MemoryAccessException;
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +19,21 @@ public class PointerDataReport extends GhidraScript {
     private final Set<String> seen = new HashSet<>();
     private void emit(Address address, int depth) throws Exception {
         if (!seen.add(address.toString())) return;
+        MemoryBlock block = currentProgram.getMemory().getBlock(address);
+        if (block == null || !block.isInitialized() || !block.contains(address.add(31))) {
+            out.println("\n# Skipped unreadable 32-byte range @ " + address);
+            return;
+        }
         byte[] bytes = new byte[32];
-        currentProgram.getMemory().getBytes(address, bytes);
+        try {
+            if (currentProgram.getMemory().getBytes(address, bytes) != bytes.length) {
+                out.println("\n# Skipped incomplete 32-byte range @ " + address);
+                return;
+            }
+        } catch (MemoryAccessException error) {
+            out.println("\n# Skipped unreadable 32-byte range @ " + address);
+            return;
+        }
         out.println("\n# Data @ " + address + ": " + HexFormat.of().formatHex(bytes));
         Data d = currentProgram.getListing().getDefinedDataAt(address);
         if (d == null) { out.println("# No defined data"); return; }
