@@ -89,7 +89,7 @@ Guaranteed:
 
 Not guaranteed (limits):
 
-- **Swapping two tracks that display the same name** is not detected.
+- **Swapping two tracks that display the same name** is not detected. Two tracks with one name get `name_unique: false`, and the check passes with that name at either position (confirmed on the real Logic: EXP-MCU-025).
 - A change for which Logic does not update the display is not detected. The check only compares with what the surface shows.
 - The MCU LCD can show only short ASCII names. Non-ASCII characters may not be displayed ("オーディオ 8" appeared as `8`).
   For the check, use the displayed `name` as it is; it will not equal the original name.
@@ -103,6 +103,7 @@ Not guaranteed (limits):
 | Change | Confirmed on the real Logic | Unit test |
 |---|---|---|
 | Renaming a track (strip on the display) | **Confirmed**: EXP-MCU-022 (`Zed5`; the old name gives `target_mismatch`) | yes |
+| Two tracks with the same name | **Confirmed**: EXP-MCU-025 (both `name_unique: false`; the check passes with the shared name) | yes |
 | Adding a track | **Confirmed**: EXP-MCU-023 (all three checks against the layout from before the add gave `target_mismatch`). Logic also moves the displayed range itself | yes |
 | Deleting a track | **Confirmed**: EXP-MCU-023. A defect that trusted a stale bank position after a delete was found and fixed (below) | yes |
 | Reordering tracks | **Not confirmed**: a reorder could not be produced (dragging, the reorder menu; no change in 8 attempts in all) | yes (assuming Logic updates the display) |
@@ -122,3 +123,4 @@ Now, if the name row differs from the one recorded when the position was set, th
 - [EXP-MCU-022](../Research/experiments/EXP-MCU-022-rename-reaches-surface.en.md) (real Logic: a rename reaches the surface)
 - [EXP-MCU-023](../Research/experiments/EXP-MCU-023-add-delete-reach-surface.en.md) (real Logic: adds and deletes reach it; the stale-bank defect after a delete and its fix)
 - [EXP-MCU-024](../Research/experiments/EXP-MCU-024-trace-add-delete.en.md) (real Logic: the MIDI of an add and a delete; a delete sends no colour sysex)
+- [EXP-MCU-025](../Research/experiments/EXP-MCU-025-same-name-tracks.en.md) (real Logic: two tracks with one name get `name_unique: false`; the check passes with the shared name)

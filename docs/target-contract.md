@@ -89,7 +89,7 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 
 守れないこと（限界）：
 
-- **同じ表示名のトラック同士の入れ替え**は検出できません。
+- **同じ表示名のトラック同士の入れ替え**は検出できません。同名の 2 本は `name_unique: false` になり、どちらの位置でも同じ名前で照合が通ります（実機で確認：EXP-MCU-025）。
 - Logic が表示を更新しない変更は検出できません。この確認は、サーフェスに出ている表示と比べるだけです。
 - MCU の LCD は ASCII の短い名前しか出せません。非 ASCII の文字は表示されないことがあります（「オーディオ 8」が `8` と出た例）。
   照合には、表示された `name` をそのまま使ってください。元の名前とは一致しません。
@@ -103,6 +103,7 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 | 変更 | 実機での確認 | 単体試験 |
 |---|---|---|
 | トラック名の変更（表示中のストリップ） | **確認済み**：EXP-MCU-022（`Zed5`、旧名は `target_mismatch`） | 〇 |
+| 同じ名前のトラック 2 本 | **確認済み**：EXP-MCU-025（両方が `name_unique: false`。共有名での照合は通る） | 〇 |
 | トラックの追加 | **確認済み**：EXP-MCU-023（追加前の配置での照合 3 件がすべて `target_mismatch`）。Logic は表示範囲も自分で動かす | 〇 |
 | トラックの削除 | **確認済み**：EXP-MCU-023。削除後に古いバンク位置を信じる不具合を見つけて修正（下記） | 〇 |
 | トラックの並べ替え | **未確認**：並べ替えを起こせなかった（ドラッグ、メニューの並べ替え。計 8 回の試行で変化なし） | 〇（Logic が表示を更新する、という仮定） |
@@ -122,3 +123,4 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 - [EXP-MCU-022](../Research/experiments/EXP-MCU-022-rename-reaches-surface.md)（実機：名前変更はサーフェスに届く）
 - [EXP-MCU-023](../Research/experiments/EXP-MCU-023-add-delete-reach-surface.md)（実機：追加・削除は届く。削除後の古いバンク位置の不具合と修正）
 - [EXP-MCU-024](../Research/experiments/EXP-MCU-024-trace-add-delete.md)（実機：追加・削除時の MIDI。削除では色の sysex が届かない）
+- [EXP-MCU-025](../Research/experiments/EXP-MCU-025-same-name-tracks.md)（実機：同名の 2 本は `name_unique: false`、共有名の照合は通る）
