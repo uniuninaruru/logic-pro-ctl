@@ -30,8 +30,8 @@ sequenceDiagram
     L->>R: /jsonSupport (no argument)
     R-->>L: /protocolVersion = n, /jsonSupport (from the client)
     Note over L: if /protocolVersion does not arrive within 0.5 s it is taken as 6
-    L->>L: didConnectToPeerID: → if version < 10, ask for an update and disconnect
-    L->>R: initial state push (SA-005)
+    L->>R: didConnectToPeerID: → initial state push (when a song is open; SA-REMOTE-STATE-001 §3.4)
+    L->>L: afterwards, if version < 10, ask for an update and disconnect
 ```
 
 ## 2. Advertising (Logic side)
@@ -137,6 +137,9 @@ The version starts at `-1` (not received). It becomes definite by one of:
 The connect block from [SA-005 §2](SA-005-logic-remote-state-push.en.md) (0x01699828) shows an "update Logic Remote"
 notice and disconnects when the peer's version is **below 10**.
 So **a client that stays silent about `/protocolVersion` is taken as 6 and should be refused** (**hypothesis**, read from the block's branches).
+
+**A note on order (confirmed):** in this block the **initial state is sent before the version is checked** ([SA-REMOTE-STATE-001 §3.4](SA-REMOTE-STATE-001.en.md)).
+A peer with a version below 10 may therefore receive the initial state before it is disconnected. Whether the version value is already settled before the block (whether the wait finishes first) is not confirmed, so what is really sent has to be checked on the wire.
 
 ### Refusals and failures
 

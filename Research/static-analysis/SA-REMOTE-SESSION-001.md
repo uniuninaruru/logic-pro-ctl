@@ -30,8 +30,8 @@ sequenceDiagram
     L->>R: /jsonSupport（引数なし）
     R-->>L: /protocolVersion = n、/jsonSupport（クライアントから）
     Note over L: 0.5 秒以内に /protocolVersion が届かないと 6 とみなす
-    L->>L: didConnectToPeerID: → version < 10 なら更新を促して切断
-    L->>R: 初期状態の送信（SA-005）
+    L->>R: didConnectToPeerID: → 初期状態の送信（曲が開いているとき。SA-REMOTE-STATE-001 §3.4）
+    L->>L: そのあとで version < 10 なら更新を促して切断
 ```
 
 ## 2. 広告（Logic 側）
@@ -137,6 +137,9 @@ Logic の確認ダイアログでユーザーが承認する前提です。
 [SA-005 §2](SA-005-logic-remote-state-push.md) の接続ブロック（0x01699828）は、
 ピアのバージョンが **10 未満**なら「Logic Remote を更新してください」の通知を出して切断します。
 したがって、**`/protocolVersion` を黙っているクライアントは、6 とみなされて拒否される**はずです（**仮説**。ブロックの分岐から読んだもの）。
+
+**順序の補足（確認）:** このブロックでは、**初期状態の送信がバージョンの確認より前**にある（[SA-REMOTE-STATE-001 §3.4](SA-REMOTE-STATE-001.md)）。
+バージョンが 10 未満の peer にも、切断の前に初期状態が送られる可能性がある。ただし、バージョンの値がこのブロックの前に確定しているか（待ちが先に済むか）は未確認なので、実際に何が送られるかは通信で確かめる必要がある。
 
 ### 拒否・失敗の一覧
 
