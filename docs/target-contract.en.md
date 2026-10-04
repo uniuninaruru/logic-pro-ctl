@@ -94,7 +94,7 @@ Not guaranteed (limits):
 - The MCU LCD can show only short ASCII names. Non-ASCII characters may not be displayed ("オーディオ 8" appeared as `8`).
   For the check, use the displayed `name` as it is; it will not equal the original name.
 - The song (project) name cannot be read from the MCU. After a switch to another song, tracks with the same names still match.
-  A switch that makes Logic reconnect is detected by `--expect-session`.
+  A switch that makes Logic reconnect is detected by `--expect-session`. That option confirms the **connection generation** only; it does not detect a reorder, a rename or a swap of same-named tracks inside one connection.
 - Hierarchy (folders, stacks), instruments, inserts and plug-ins are outside this contract (the MCU does not expose them).
 - A person acting **between** the read and the write cannot be prevented. The check runs just before the write, after the position has been reached.
 

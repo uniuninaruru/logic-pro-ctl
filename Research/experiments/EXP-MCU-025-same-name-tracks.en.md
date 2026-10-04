@@ -39,5 +39,6 @@ Not verified: swapping two tracks with the same name (a reorder could not be pro
 ## Consequence for logicctl
 
 - When tracks share a name, `--expect-name` only guarantees that "the name at that position is as expected". It cannot tell which `Trk06` it is.
-- For a track whose `identity.name_unique` in `track list` is `false`, an agent has to guarantee in another way that the order has not changed since the position was chosen (re-read, `--expect-session`, and so on).
+- `--expect-session` only confirms the **connection generation**. It cannot detect two same-named tracks being swapped inside one connection, so the identity of a same-named track cannot be guaranteed by the current contract.
+- For a track whose `identity.name_unique` is `false`, an agent has to write right after choosing the position, or arrange a check other than the name (a person's confirmation, for example). It must not rely on the name-and-position check alone.
 - No change in behaviour. The "not guaranteed" item of the contract now says it was confirmed on the real Logic.
