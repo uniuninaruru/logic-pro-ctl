@@ -130,12 +130,12 @@ Implications (hypothesis; confidence: medium):
 
 The order in the block that `didConnectToPeerID:` runs (`FUN_01699828`):
 
-1. Tell the router about this peer.
+1. Call the router's `waitForProtocolVersionIfNeededForPeerWithID:`. **If the peer's version has not arrived, it waits here** (up to about 2.5 s; SA-REMOTE-SESSION-001 §5; taken as 6 if it never arrives).
 2. For each object of Remote's control surface tied to this peer, run a feedback refresh (`FUN_00efe9b4`).
 3. **Only when a song is open**, call `sendWakeupMessageInSong:activeSongChanged:` for that song with **`activeSongChanged = NO`**. With no song open this call does not happen.
 4. Afterwards, check the peer's version and, **if it is below 10**, show the alert "Logic Remote needs to be updated" and call the disconnect handling.
 
-So the order in the code is "initial send → version check" (whether the wait for the version has already finished before the block is not confirmed; SA-REMOTE-SESSION-001 §4 and §5).
+So the order in the code is "wait for the version → initial send → version check". **A peer whose version is below 10 (including one taken as 6 because it never arrived) should still get the initial send before it is disconnected** (hypothesis; confidence: medium; read from the order in the block, not confirmed on the wire).
 The difference from a song change (§3.3) is that `activeSongChanged` is NO (the call of row 17 of the table in §3 does not happen).
 
 ## 4. `/ati` — information about all tracks

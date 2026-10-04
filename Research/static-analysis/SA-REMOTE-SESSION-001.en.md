@@ -139,7 +139,7 @@ notice and disconnects when the peer's version is **below 10**.
 So **a client that stays silent about `/protocolVersion` is taken as 6 and should be refused** (**hypothesis**, read from the block's branches).
 
 **A note on order (confirmed):** in this block the **initial state is sent before the version is checked** ([SA-REMOTE-STATE-001 §3.4](SA-REMOTE-STATE-001.en.md)).
-A peer with a version below 10 may therefore receive the initial state before it is disconnected. Whether the version value is already settled before the block (whether the wait finishes first) is not confirmed, so what is really sent has to be checked on the wire.
+A peer with a version below 10 may therefore receive the initial state before it is disconnected. The first thing the block does is `waitForProtocolVersionIfNeededForPeerWithID:` (it waits up to about 2.5 s for the version), so the version is settled after that. What is really sent has to be checked on the wire.
 
 ### Refusals and failures
 
