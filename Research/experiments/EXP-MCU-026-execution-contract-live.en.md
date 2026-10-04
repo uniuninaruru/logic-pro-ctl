@@ -38,7 +38,7 @@ The same request with the same key was sent about 0.8 seconds after A, and again
 
 - The write of A went on in the background after the response and **seems to have ended confirmed, so the record became `completed`** (the first resend returned a `verified: true` result).
 - The resends took 0–1 ms, so nothing was sent to Logic. **No MIDI was recorded**, though, so "sent only once" is an inference from the response time and the number of log lines.
-- By the time of the first resend the background write had already finished. `request_in_flight` (the same key still running) did not occur, so that path was not checked on the real Logic.
+- By the time of the first resend the background write had already finished. A same key while it is still running was checked in D.
 
 ### C. A write with a wrong generation
 
@@ -50,9 +50,23 @@ The same request with the same key was sent about 0.8 seconds after A, and again
 | Log | `exec=rejected error=precondition_failed ms=0` |
 | Result | Track 2 stayed unmuted (checked with `track get 2`) |
 
+### D. A same key while the first one is running (checked with a raw socket)
+
+A write to the volume of track 9 (the bank has to move, so it takes about 3 seconds) was started and the same key was sent while it ran. Before a request that names a safeguard, `logicctl` sends a `status`,
+and that `status` also waits for the execution slot (it does not proceed until the running write ends). So the CLI cannot observe "running", and the requests were sent directly over a plain Unix socket on two connections.
+
+| Condition | Response to the second request with the same key |
+|---|---|
+| The first one **missed its deadline** (`--deadline-ms 20`) and is still running in the background | at once `outcome_unknown`, `execution.state: unknown` ("it will not be rerun automatically") |
+| The first one is **still waiting with the default deadline** (the second is sent 0.3 s later) | at once `request_in_flight`, `execution.state: rejected` (the first ended `completed`, `verified: true`, after 3.19 s) |
+| After the first one ended | `replayed`, `verified: true` |
+
+- A duplicate while the write is running is **refused without waiting**, and nothing was run again (the first result is the only `completed` one).
+- After a missed deadline the background run is treated as "unknown" and is not rerun automatically. When it ends the answer becomes `replayed`.
+
 ### Clean-up
 
-`track volume 2 0` (a new key) put the volume back to 0 dB. `verified: true`. The whole state is as before the experiment.
+`track volume 2 0` (a new key) put the volume back to 0 dB; after D the volumes of tracks 9 and 10 were also put back to 0 dB. All `verified: true`. The whole state is as before the experiment.
 
 ## Hypothesis
 
@@ -60,7 +74,7 @@ Hypothesis: the execution contract (a missed deadline gives "unknown", a resend 
 Confidence: medium to high (one run each; A→B confirmed by the combination of responses and the record).
 Evidence: the tables above and `logicd`'s log. It also agrees with the unit tests (`WriteExecutorTests`).
 Counterexamples: none.
-Not verified: `request_in_flight` (the same key still running), a full queue (`queue_full`), reconciliation across a `logicd` restart, and a matching `--expect-session` with the state changed inside the connection (outside what the contract guarantees).
+Not verified: a full queue (`queue_full`), reconciliation across a `logicd` restart, and a matching `--expect-session` with the state changed inside the connection (outside what the contract guarantees).
 Next validation experiment: confirm with the MIDI of `logicd --trace` that the write was sent only once. To produce a running same key, resend during a slow write (timing has to be controlled).
 
 ## Consequence for logicctl

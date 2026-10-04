@@ -15,7 +15,7 @@ MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効�
 対象の契約	トラックの並べ替えの検出	mcu	unconfirmed	EXP-MCU-023	並べ替えを起こせなかった（8 回の試行）。次の手は人の手による確認（docs/manual-validation.md）
 対象の契約	バンク位置を信じる条件（名前行が変わっていない）	mcu	live	EXP-MCU-023; EXP-MCU-024	削除では色の sysex が来ない（MIDI で確認）
 契約	observation（unknown・complete・session）	mcu	live	docs/observation-contract.md; MCUObservationTests; EXP-CLI-001	
-契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; WriteExecutorTests; EXP-MCU-026	実機は replayed を 2 回確認（2026-10-02、2026-10-05）。実行中の同じキー（request_in_flight）は未確認
+契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; WriteExecutorTests; EXP-MCU-026	実機は replayed・outcome_unknown・request_in_flight を確認（2026-10-02、2026-10-05）。queue_full と daemon 再起動をまたぐ照合は未確認
 契約	--deadline-ms と timeout が unknown になること	mcu	live	WriteExecutorTests; EXP-MCU-026	実機は timeout を 2 例確認。その後の同じキーの再送は replayed
 契約	--expect-session	mcu	live	WriteExecutorTests; EXP-MCU-026	接続の世代の確認のみ。同じ接続の中の変化（並べ替え・同名の入れ替え）は検出しない。不一致の拒否は実機で 1 回確認
 契約	古い logicd に安全装置つきの要求を送らない	mcu	tested	Tests/integration/test_cli_safety_gate.py	偽の daemon での試験。実機の古い daemon では試していない
