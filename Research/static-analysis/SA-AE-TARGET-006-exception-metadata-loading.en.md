@@ -81,6 +81,8 @@ The block checks a class predicate, `logicOnlyGInstID`, and `index`. For candida
 
 The changed path calls the mode 1 setter and ignores its status. Another branch follows related internal IDs. When the changed and loading-state conditions are both met, it calls `reloadWorkspaceAndMappingsInDocument:`. Reload completion, synchrony of every lower operation, termination / cycles in the ID chain, and restoration remain unverified.
 
+**Follow-up:** [SA-AE-TARGET-007](SA-AE-TARGET-007-mapping-classes-index-ranges.en.md) establishes the two predicates' numeric ranges and the extensible set returned by `mappingClasses`. New-index validation, the full allowed-class set, and successful storage remain unresolved.
+
 ## 5. Wrapper metadata and a cache branch that appears unreachable
 
 `0x0162dbc8` chooses processing using the collection count and bit 0 of the input flag / authoring predicate. It builds a one-entry dictionary from `FileChecks` and `allObjects`, then calls property-list serialization with **format 200 / options 0**. The SDK enum confirms that 200 denotes the binary format.

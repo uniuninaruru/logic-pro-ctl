@@ -81,6 +81,8 @@ block は class predicate、`logicOnlyGInstID`、`index` を照合します。in
 
 changed の経路は mode 1 setter を呼び、status を無視します。内部の関連 ID を辿る枝もあり、changed と loading 状態の条件がそろうと `reloadWorkspaceAndMappingsInDocument:` を呼びます。reload の完了、全下位処理の同期性、ID chain の終了・cycle、復元は未確認です。
 
+**追補：** [SA-AE-TARGET-007](SA-AE-TARGET-007-mapping-classes-index-ranges.md)で、二つの predicate の数値範囲と `mappingClasses` の登録可能な集合を確認しました。new index の検証・全 allowed classes・保存成功は引き続き未確定です。
+
 ## 5. wrapper metadata と到達しないように見える cache 枝
 
 `0x0162dbc8` は collection の count と入力 flag / authoring predicate の bit 0 で処理を選びます。`FileChecks` と `allObjects` から一項目の辞書を作り、**format 200 / options 0** で property-list serialization を呼びます。SDK enum で 200 は binary format と照合しました。

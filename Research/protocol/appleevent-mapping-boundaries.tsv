@@ -1,0 +1,10 @@
+id	program	entry	role	static_evidence	unresolved_boundary	runtime_verified	product_capability
+mapping-007-01	MACore.arm64	0x0009a7c0	registry_copy	Copies global registry under objc_sync_enter and returns autoreleased copy; no local initialization or nonnull gate	Full membership; class object ownership; fixed membership across decode; runtime contents	false	false
+mapping-007-02	MACore.arm64	0x0009a820	registry_addition	Dispatch-once then addObject to registry under synchronization	All registration sources; initialization body; exceptions	false	false
+mapping-007-03	MACore.arm64	0x0009a76c	mapping_load	Registers WsMapping alias and passes incoming self to addMappingClass	Load order; current membership; allowed classes in a particular live decode	false	false
+mapping-007-04	MACore.arm64	0x000a4a9c	send_range	Unsigned64(index-0x1c)<0x10; true for 0x1c..0x2b; exact 0/1 return	Public parameter semantics; runtime binding; new index validation	false	false
+mapping-007-05	MACore.arm64	0x000a4abc	send_mute_range	Unsigned64(index-0x48)<0x10; true for 0x48..0x57; exact 0/1 return	Public parameter semantics; runtime binding; new index validation	false	false
+mapping-007-06	MACore.arm64	0x000c9d38	default_plist_cached_set	Dispatch-once then returns cached global by retain/autorelease rather than copy	Initializer membership; immutability; use by Logic getter	false	false
+mapping-007-07	MACore.arm64	0x000c9d78	common_core_cached_set	Captures incoming receiver in once block; returns cached global by retain/autorelease rather than copy	Initializer membership; immutability; use by Logic getter	false	false
+mapping-007-08	Logic.arm64	0x01aee54c	send_import_thunk	Three instruction indirect branch via named send import slot	Final loaded binding; runtime predicate result	false	false
+mapping-007-09	Logic.arm64	0x01aee558	send_mute_import_thunk	Three instruction indirect branch via named send-mute import slot	Final loaded binding; runtime predicate result	false	false
