@@ -123,8 +123,20 @@ Implications (hypothesis; confidence: medium):
 
 - On a song switch, **nearly all state is sent again**. A client has to drop the old song's tracks, fader values and so on, and rebuild from the new `/ati` onward.
   No end-of-send marker was found, so it is not known when the rebuild has finished.
-- A connection (a reconnect included) also calls the same function for its initial send (`FUN_01699828`; SA-005 §2). The value of `activeSongChanged` there is not confirmed.
+- A connection (a reconnect included) also calls the same function for its initial send, with `activeSongChanged = NO` (§3.4).
 - During a switch while tracks are being imported, the initial send is not called. What is sent in the meantime is not confirmed.
+
+### 3.4 When a peer connects (confirmed)
+
+The order in the block that `didConnectToPeerID:` runs (`FUN_01699828`):
+
+1. Tell the router about this peer.
+2. For each object of Remote's control surface tied to this peer, run a feedback refresh (`FUN_00efe9b4`).
+3. **Only when a song is open**, call `sendWakeupMessageInSong:activeSongChanged:` for that song with **`activeSongChanged = NO`**. With no song open this call does not happen.
+4. Afterwards, check the peer's version and, **if it is below 10**, show the alert "Logic Remote needs to be updated" and call the disconnect handling.
+
+So the order in the code is "initial send → version check" (whether the wait for the version has already finished before the block is not confirmed; SA-REMOTE-SESSION-001 §4 and §5).
+The difference from a song change (§3.3) is that `activeSongChanged` is NO (the call of row 17 of the table in §3 does not happen).
 
 ## 4. `/ati` — information about all tracks
 
@@ -335,7 +347,7 @@ The analysis procedure (all local; nothing was sent to Logic).
 | Relation of `vL` to dB / MCU fader values | Not confirmed | In the receive experiment, line it up with known dB values (PLAN-02's MCU reads are the comparison) |
 | Whether messages that arrive twice carry identical content | Not confirmed | Receive experiment |
 | Whether a 0 is dropped during framing or receiving | Not confirmed | Receive experiment |
-| What is resent on a song change or reconnect | A song change: §3.3 (confirmed). A reconnect: `FUN_01699828` calls the same initial send; the value of `activeSongChanged` there and the `tronMessageRouter` side are not analysed | Continue statically; on a real connection, after PLAN-05 |
+| What is resent on a song change or reconnect | A song change: §3.3; a connection: §3.4 (both confirmed). What the `tronMessageRouter` call of row 17 does is not analysed | Continue statically; on a real connection, after PLAN-05 |
 | A signal that the initial send has finished | **Not found** | Whether the last sends (rows 16 / 17) include a message that marks the end. If not, decide "completeness" another way |
 
 ### Rules to apply in the client (logicctl) — a proposal, not implemented
