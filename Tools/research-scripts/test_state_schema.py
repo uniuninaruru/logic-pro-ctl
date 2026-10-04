@@ -102,6 +102,10 @@ class StateSchemaTests(unittest.TestCase):
     def test_the_selection_dictionary_needs_both_booleans(self):
         self.assertTrue(self.errors({"/trackSelectionStates": {"NextTrackKey": True}}))
 
+    def test_doc_open_is_a_boolean(self):
+        self.assertEqual(self.errors({"/docOpen": True}), [])
+        self.assertTrue(self.errors({"/docOpen": 1}))
+
     def test_other_addresses_are_not_rejected(self):
         self.assertEqual(self.errors({"/protocolVersion": 10, "/jsonSupport": 0}), [])
 

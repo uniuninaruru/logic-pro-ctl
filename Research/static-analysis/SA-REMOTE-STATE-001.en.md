@@ -44,6 +44,8 @@ Nothing was confirmed on a real connection. The "evidence" in the tables is func
 | Selection state | `sendTrackSelectionStates` | 0x0168e508 |
 | Clock | `handleUM_CLOCK:` | 0x0168f314 |
 | Play-button flags | `handleUM_PLAY_BUTTON_FLAGS_CHANGED:` | 0x0168f238 |
+| Song change | `handleUM_SONG:` | 0x0168ac84 |
+| Whether a song is open | `_sendDocOpen:` | 0x01689c18 |
 
 The small functions Ghidra calls `FUN_01bXXXXX` are Objective-C message-send stubs.
 Each stub just names one selector and calls `objc_msgSend`, so decompiling the stub's address reveals the selector
@@ -101,6 +103,28 @@ So the initial send and the deltas of the **clock and transport share one schema
 - `setAllTrackCount:mixerTrackCount:` sends `/allTrackCount` and `/trackCount` only when the counts changed.
   Row 6 sends them unconditionally.
 - Both pairs should carry **the same content**, but this is not confirmed on the wire. A client should take "the last one received" as authoritative and not treat a duplicate as an error.
+
+### 3.3 A song change (confirmed; the details of the branches are not worked out)
+
+`handleUM_SONG:` (0x0168ac84) handles the song notification as follows.
+
+1. When the notification kind is not 0xd0, it sets an internal global (`DAT_0276e2a0`) to 0.
+2. It looks up the "active song" (the song record whose byte at +0x85c is 1) before and after the notification.
+3. **When the active song changed** (a song became active, or another song replaced it):
+   - It reloads the document's workspace and mappings (`reloadWorkspaceAndMappingsInDocument:avoiding:`).
+   - **Unless tracks are being imported** (`isImportingTracks`), **it calls `sendWakeupMessageInSong:activeSongChanged:` for the new song with `activeSongChanged = YES`.**
+     So the initial send of §3 **runs through once more** (the `/ati` cache is cleared too, so `/ati` is sent again).
+   - If there was no active song before, it also sends `/docOpen` = true.
+4. When there is no active song any more: it sends `/docOpen` = false and sets the stored reference to the song (+0x38) to 0.
+
+`/docOpen` (`_sendDocOpen:`) is a boolean, sent **once over UDP and once over TCP**: the same value arrives twice.
+
+Implications (hypothesis; confidence: medium):
+
+- On a song switch, **nearly all state is sent again**. A client has to drop the old song's tracks, fader values and so on, and rebuild from the new `/ati` onward.
+  No end-of-send marker was found, so it is not known when the rebuild has finished.
+- A connection (a reconnect included) also calls the same function for its initial send (`FUN_01699828`; SA-005 §2). The value of `activeSongChanged` there is not confirmed.
+- During a switch while tracks are being imported, the initial send is not called. What is sent in the meantime is not confirmed.
 
 ## 4. `/ati` — information about all tracks
 
@@ -311,7 +335,7 @@ The analysis procedure (all local; nothing was sent to Logic).
 | Relation of `vL` to dB / MCU fader values | Not confirmed | In the receive experiment, line it up with known dB values (PLAN-02's MCU reads are the comparison) |
 | Whether messages that arrive twice carry identical content | Not confirmed | Receive experiment |
 | Whether a 0 is dropped during framing or receiving | Not confirmed | Receive experiment |
-| What is resent on a song change or reconnect | Only one branch, `activeSongChanged`, was read; the `tronMessageRouter` side is not analysed | Continue statically; on a real connection, after PLAN-05 |
+| What is resent on a song change or reconnect | A song change: §3.3 (confirmed). A reconnect: `FUN_01699828` calls the same initial send; the value of `activeSongChanged` there and the `tronMessageRouter` side are not analysed | Continue statically; on a real connection, after PLAN-05 |
 | A signal that the initial send has finished | **Not found** | Whether the last sends (rows 16 / 17) include a message that marks the end. If not, decide "completeness" another way |
 
 ### Rules to apply in the client (logicctl) — a proposal, not implemented
@@ -321,5 +345,6 @@ The analysis procedure (all local; nothing was sent to Logic).
 3. Since **no end-of-send signal has been found** for the initial send, do not mark a received snapshot `complete: true`. The condition under which completeness may be claimed
    is to be decided by experiment (PLAN-06's receive experiment).
 4. The lifetimes of `gindex` / `instID` / track IDs are not confirmed, so do not use them across connections (sessions) (PLAN-08).
+5. On receiving `/docOpen`, or when a song change is evident, drop all state of the previous song (tracks, fader values, selection) (§3.3).
 
 This document is not the result of observing a real Logic Remote connection. The receive experiment will be done after PLAN-05 is approved.

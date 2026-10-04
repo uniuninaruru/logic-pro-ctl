@@ -17,7 +17,8 @@
     "/transport/playButtonFlags": { "type": "integer", "minimum": -128, "maximum": 127 },
     "/logicClock/spl": { "type": "integer" },
     "/logicClock/currentTempo": { "type": "integer" },
-    "/multiTempo": { "type": "boolean" }
+    "/multiTempo": { "type": "boolean" },
+    "/docOpen": { "type": "boolean", "description": "Whether a song is open. Sent twice, over UDP and over TCP (_sendDocOpen: 0x01689c18)." }
   },
   "additionalProperties": true,
   "$defs": {
