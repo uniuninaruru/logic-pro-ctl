@@ -9,6 +9,7 @@
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。
 [22件の作業一覧](plans/agent-ready-backlog.tsv)には依存関係と合格条件もあります。
+Logic Remote への最初の接続（PLAN-05）は承認が前提です。承認していただく内容は[承認用の計画書](plans/PLAN-05-approval-brief.md)にまとめました。
 
 ## 最初に読む3つ
 
