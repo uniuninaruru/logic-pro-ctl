@@ -64,6 +64,16 @@ and that `status` also waits for the execution slot (it does not proceed until t
 - A duplicate while the write is running is **refused without waiting**, and nothing was run again (the first result is the only `completed` one).
 - After a missed deadline the background run is treated as "unknown" and is not rerun automatically. When it ends the answer becomes `replayed`.
 
+### E. `status` during a long write
+
+D showed that the CLI's capability check (`status`) waited for the running write to end. `status` neither moves the surface nor writes, so it was changed to answer without waiting for the execution slot
+([WriteExecutor](../../Sources/LogicCore/Commands/WriteExecutor.swift); 3 unit tests). It was checked on the real Logic after the change.
+
+| Condition | Result |
+|---|---|
+| `logicctl status` while the volume of track 9 was being written (3.21 s) | answered in **0.02 s** (`execution.state: read`, `compatibility.profile_verified: true`) |
+| A write with safeguards (`--idempotency-key`, `--expect-name`) at the same moment | waited its turn, `completed` after 2.85 s, `verified: true` |
+
 ### Clean-up
 
 `track volume 2 0` (a new key) put the volume back to 0 dB; after D the volumes of tracks 9 and 10 were also put back to 0 dB. All `verified: true`. The whole state is as before the experiment.

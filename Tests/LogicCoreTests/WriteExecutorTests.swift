@@ -199,6 +199,47 @@ private func error(_ result: ExecutionResult) -> String? { result.routed.outcome
     release.signal()
 }
 
+@Test func statusAnswersAtOnceWhileALongWriteHoldsTheSlot() {
+    // logicctl asks `status` before a request that names a safeguard; that probe must not wait for the write.
+    let executor = WriteExecutor(store: MemoryJournalStore())
+    let release = DispatchSemaphore(value: 0)
+    let started = DispatchSemaphore(value: 0)
+    let writeDone = DispatchSemaphore(value: 0)
+    Thread.detachNewThread {
+        run(executor, play(key: "k1")) { started.signal(); release.wait(); return routed() }
+        writeDone.signal()
+    }
+    started.wait()
+
+    let asked = Date()
+    let status = run(executor, play(command: "status")) { RoutedOutcome(backend: "mcu", readbackBackend: nil, outcome: Outcome(ok: true)) }
+    #expect(Date().timeIntervalSince(asked) < 1)
+    #expect(status.routed.outcome.ok)
+    #expect(state(status) == .string("read"))
+    #expect(status.execution["queue_wait_ms"] == .int(0))
+
+    // Any other read still takes its turn behind the write (it moves the surface).
+    let waiting = DispatchSemaphore(value: 0)
+    Thread.detachNewThread { _ = run(executor, play(command: "track.list")) { waiting.signal(); return routed() } }
+    #expect(waiting.wait(timeout: .now() + 0.3) == .timedOut)
+    release.signal()
+    #expect(writeDone.wait(timeout: .now() + 2) == .success)
+    #expect(waiting.wait(timeout: .now() + 2) == .success)
+}
+
+@Test func statusWithASafeguardIsNotTreatedAsTheFastProbe() {
+    // A key on `status` is a misuse (keys are for writes); the fast path must not hide that.
+    let executor = WriteExecutor(store: MemoryJournalStore())
+    let result = run(executor, play(key: "k1", command: "status")) { routed() }
+    #expect(error(result) == "invalid_argument")
+}
+
+@Test func statusIsRefusedOnceTheDaemonIsShuttingDown() {
+    let executor = WriteExecutor(store: MemoryJournalStore())
+    executor.shutdown()
+    #expect(error(run(executor, play(command: "status")) { routed() }) == "shutting_down")
+}
+
 @Test func shutdownMakesRunningWritesUnknownAndRefusesNewOnes() {
     let store = MemoryJournalStore()
     let executor = WriteExecutor(store: store)

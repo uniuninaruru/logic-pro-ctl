@@ -251,6 +251,15 @@ public final class WriteExecutor {
         }
         let fingerprint = Self.fingerprint(request)
 
+        // `status` only reports what the daemon already holds (connection, cached LEDs); it neither
+        // moves the surface nor writes. It answers at once, even while a long write holds the slot,
+        // because logicctl asks it before sending a request that names a safeguard (EXP-MCU-026).
+        if command == .status, key == nil, options.expectSession == nil {
+            lock.lock(); let isStopping = stopping; lock.unlock()
+            if isStopping { return reject("shutting_down", "logicd は停止中です。") }
+            return ExecutionResult(routed: run(), execution: executionJSON(state: "read", key: nil, waitedMs: 0))
+        }
+
         // 1. A duplicate is answered before it waits in the queue.
         if let key, let early = decide(key: key, fingerprint: fingerprint, backend: backend, reject: reject) { return early }
 

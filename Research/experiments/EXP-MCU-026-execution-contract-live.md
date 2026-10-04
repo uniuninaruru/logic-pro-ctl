@@ -64,6 +64,16 @@ A の直後（約 0.8 秒後）と、さらに 4 秒後に、同じ要求を同�
 - 実行中の重複は**待たされずに拒否**され、再実行も行われなかった（1 本目の結果は `completed` の 1 件だけ）。
 - 期限切れの後の裏の実行中は「不明」として扱われ、自動では再実行されない。終わると `replayed` に変わる。
 
+### E. 長い書き込みの最中の `status`
+
+D で、CLI の事前確認（`status`）が、実行中の書き込みの終了まで待たされることが分かった。`status` は表面を動かさず、書き込みもしないので、実行枠を待たずに答えるよう変更した
+（[WriteExecutor](../../Sources/LogicCore/Commands/WriteExecutor.swift)。単体試験 3 件）。変更後に実機で確かめた。
+
+| 条件 | 結果 |
+|---|---|
+| トラック 9 の音量を書き込み中（3.21 秒）に `logicctl status` | **0.02 秒**で応答（`execution.state: read`、`compatibility.profile_verified: true`） |
+| 同じ最中に、安全装置つきの書き込み（`--idempotency-key`、`--expect-name`） | 順番を待ち、2.85 秒で `completed`、`verified: true` |
+
 ### 後始末
 
 `track volume 2 0`（新しいキー）、D のあとはトラック 9・10 の音量も 0 dB に戻した。いずれも `verified: true`。全体の状態は実験前と同じ。

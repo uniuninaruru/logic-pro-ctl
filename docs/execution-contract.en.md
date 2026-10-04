@@ -72,6 +72,8 @@ Execution has a deadline. When it passes, `logicd` returns `timeout` (`execution
 
 - The operation on Logic **cannot be stopped**. It runs on in the background until it ends.
 - Meanwhile the next command **does not overlap** it (there is one execution slot; the next waits for it).
+  The only exception is `status`. It just returns what the daemon already holds, neither moves the surface nor writes, so it answers without waiting for the slot
+  (so that the check `logicctl` sends before a request that names a safeguard does not wait for a long write to end).
 - If the background operation **ends confirmed**, the record is updated to `completed` and a resend with the same key returns `replayed`.
   If it does not end confirmed it stays `unknown`.
 - Waiting past the deadline gives `deadline_exceeded` and the command is **not started** (`rejected`).
