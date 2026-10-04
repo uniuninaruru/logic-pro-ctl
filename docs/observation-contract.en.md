@@ -64,7 +64,9 @@ Each track in `track list` / `track get` / `state` carries two arrays:
 - `volume_db` is derived from Logic's fader value. Without a value it is `null` and listed in `unknown`.
 - `name` is read from the MCU display, so it is **at most 6 characters, ASCII only**.
   With 6 or more characters `name_may_be_truncated: true` is returned.
-  It can also be stale, for example right after undoing a rename. Do not use a name as an identifier; use `id`.
+  It can also be stale, for example right after undoing a rename.
+- `id` is a **position in the mixer**; after a track is added, deleted or moved it points at a different track. A name is not an identifier either (names can repeat).
+  The `identity` of each track says so. To keep a write from reaching the wrong track, use `--expect-name` ([the target contract](target-contract.en.md)).
 
 `transport.playing` / `transport.recording` in `status` and `state` work the same way.
 Until Logic reports the play and record LEDs they are `null`, not `false`.

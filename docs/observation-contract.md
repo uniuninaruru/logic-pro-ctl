@@ -65,7 +65,9 @@
 - `volume_db` は、Logicのフェーダー値から求めます。値がなければ `null` で `unknown` に載ります。
 - `name` はMCUの表示から読むため、**最大6文字・ASCIIだけ**です。
   6文字以上のときは `name_may_be_truncated: true` を返します。
-  名前の変更を取り消した直後など、古いままのことがあります。名前は識別子として使わず、`id` を使ってください。
+  名前の変更を取り消した直後など、古いままのことがあります。
+- `id` は**ミキサー上の位置**で、トラックの追加・削除・並べ替えがあると別のトラックを指します。名前も識別子にはなりません（同名がありえます）。
+  各トラックの `identity` がこの性質を示します。書き込みで取り違えを防ぐには `--expect-name` を使います（[対象の契約](target-contract.md)）。
 
 `status` と `state` の `transport.playing` / `transport.recording` も同じです。
 Logicが再生・録音のLEDを報告するまでは `null` で、`false` ではありません。
