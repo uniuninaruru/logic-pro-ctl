@@ -2,6 +2,8 @@
 
 **日本語** · [English](README.en.md)
 
+**PR・Issue 歓迎** — 日本語・英語どちらでも参加できます。[参加ガイド](CONTRIBUTING.md)。
+
 Logic Pro の再生・停止やミキサー操作を、ターミナルやAIエージェントから行うためのCLIです。
 **操作したあとにLogicの状態を読み返し、合っていたかをJSONで返します。**
 
@@ -135,6 +137,14 @@ Ghidra解析は、API登録・名前付きメソッド・メッセージを起�
 daemonのログ：`~/Library/Logs/logicctl/logicd.log`。
 環境変数 `LOGICD_PATH` でdaemonの実行ファイル、`LOGICCTL_SOCKET` で接続先を指定できます。
 調査用の生MIDI送信は `logicctl debug mcu <hex>[; <hex>…]` です。
+
+## PR・Issue 歓迎です
+
+誤字や説明の改善、Swift の修正、テスト、Ghidra の解析、専用テストプロジェクトでの実機検証まで歓迎します。
+Logic を持っていなくても参加できます。日本語・英語のどちらでも大丈夫です。
+小さい修正はそのまま PR、大きな機能や実験の提案は Issue からどうぞ。途中の成果は Draft PR でも歓迎です。
+
+[参加ガイド](CONTRIBUTING.md)に、最初にできること・確認方法・調査結果のまとめ方を載せています。Logic を操作して協力する場合は、[手動検証の手順](docs/manual-validation.md)から始められます。
 
 ## ライセンス
 

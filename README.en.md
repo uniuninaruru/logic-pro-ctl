@@ -2,6 +2,9 @@
 
 [日本語](README.md) · **English**
 
+**PRs and issues welcome** — Japanese and English are both welcome. [Contribution guide](CONTRIBUTING.en.md).
+For hands-on Logic testing, start with the [manual validation procedure](docs/manual-validation.en.md).
+
 CLI (`logicctl`) and daemon (`logicd`) for controlling Logic Pro on macOS
 from AI agents. Every command prints one JSON object on stdout; every write
 reads Logic's state back and says whether it matched.
@@ -172,6 +175,17 @@ explicit backend option; integration checks and live results are recorded in
 Research tools retain dedicated `LogicCLI-Test.logicx` guards. Ongoing Ghidra
 analysis starts from known registrations, selectors, and message routes;
 findings and unvalidated candidates are kept in `Research/static-analysis/`.
+
+## PRs and issues are welcome
+
+Contributions can include typo and documentation fixes, Swift changes, tests,
+Ghidra analysis, and live verification in a dedicated test project.
+You can contribute without owning Logic Pro. Japanese and English are both welcome.
+Send small changes as a PR; start an issue for a large feature or experiment.
+Draft PRs are welcome, too.
+
+The [contribution guide](CONTRIBUTING.en.md) explains where to start, relevant
+checks, and how to share research findings.
 
 ## License
 MIT. See `LICENSE`.
