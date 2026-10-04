@@ -86,6 +86,8 @@ Dictionary-key CFString `0x023eb0c8 → 0x01e112b6` was checked against bytes `U
 
 **The retry branch is established; the throw-to-catch type mapping is not.** LSDA call-site / type tables have not been matched. This does not establish that the UUID throw necessarily reaches this retry, that all exceptions restore state, or a retry-count bound. A normal wrapper return reaches the previously documented `removeItemAtURL:` → unchecked-removal-result → `writeToURL:` path. The exporter saves and returns the write result. Lower serializers, postprocessors, nil returns and filesystem effects remain unaudited.
 
+**Follow-up (SA-AE-TARGET-006):** [Exception-type, metadata and loading analysis](SA-AE-TARGET-006-exception-metadata-loading.en.md) matches the wrapper-call / throw LSDAs and type-info above. For these two fixed functions, the named exception and filter 1 now have an established static type correspondence. Runtime capture, successful retry, retry-count bounds and outer restoration remain unverified.
+
 ## 5. Temporary changes and concrete owner effects
 
 `0x002c048c(song,ID,inputIndex,rawDelta)` re-resolves the ID and clears the selected child's old cell only if that cell matches the pointer. Its store is **`child+2 = lower16(inputIndex + rawDelta)`** (`0x002c0538/0x002c053c`), not an increment of the old child index. It then reattaches through `0x01a18cd8` and passes a captured block to `blockInstID:whileLoading:`. Block execution timing is unresolved.

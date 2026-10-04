@@ -86,6 +86,8 @@ dispatch stub `0x01b21660` の selector slot `0x0254a150 → 0x01e791f0` は **`
 
 **retry の branch は確認済みですが、throw と catch の type 対応は未確定です。** LSDA の call-site / type table を照合していないため、上の UUID throw が必ずその retry に届くこと、全例外の復元、回数上限は保証しません。正常な wrapper return 後は、前回の `removeItemAtURL:` の結果を検査せず `writeToURL:` に進む経路へ続きます。write の返値は exporter 内で保存して返します。下位 serializer、postprocessor、nil return、filesystem 副作用は未監査です。
 
+**追補（SA-AE-TARGET-006）：** [例外の型対応・metadata・loading の解析](SA-AE-TARGET-006-exception-metadata-loading.md)で、上の wrapper call / throw の LSDA と type-info を照合しました。この固定 2 関数については、named exception と filter 1 の静的な型対応が確定しています。実行時の捕捉・再試行成功・回数上限・外側の復元は引き続き未確認です。
+
 ## 5. 一時変更と owner の具体的な効果
 
 `0x002c048c(song,ID,inputIndex,rawDelta)` は ID を再解決し、選んだ child の旧 cell が pointer と一致すれば clear します。保存するのは **`child+2 = lower16(inputIndex + rawDelta)`**（`0x002c0538/0x002c053c`）であり、旧 child index に delta を加える式ではありません。その後 `0x01a18cd8` で reattach、captured block を `blockInstID:whileLoading:` に渡します。block の実行時機は未確認です。
