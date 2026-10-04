@@ -12,6 +12,7 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 BIN="$1"
 FILTER="${2:-.*}"
 PROJ="${GHIDRA_PROJECTS:-$HOME/GhidraProjects}/logicctl"
+LOCK="${GHIDRA_LOCK:-$ROOT/Research/raw/ghidra/logicctl-project.lock}"
 HEADLESS="${GHIDRA_HEADLESS:-$(brew --prefix ghidra)/libexec/support/analyzeHeadless}"
 export JAVA_HOME="${JAVA_HOME:-$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home}"
 # Decompiled Apple code stays local (gitignored); commit notes only.
@@ -26,12 +27,14 @@ else
   lipo -thin arm64 "$BIN" -output "$thin"
 fi
 
-if [ -d "$PROJ/logicctl.rep/idata" ] && "$HEADLESS" "$PROJ" logicctl -process "$name.arm64" -noanalysis \
+if [ -d "$PROJ/logicctl.rep/idata" ] && python3 "$ROOT/Tools/ghidra/with-project-lock.py" --lock "$LOCK" -- \
+     "$HEADLESS" "$PROJ" logicctl -process "$name.arm64" -noanalysis \
      -readOnly -scriptPath "$ROOT/Tools/ghidra" -postScript ExportDecompiled.java "$OUT" "$FILTER" \
      >"$PROJ/$name.export.log" 2>&1 && grep -q "ExportDecompiled:" "$PROJ/$name.export.log"; then
   echo "reused existing analysis of $name"
 else
-  "$HEADLESS" "$PROJ" logicctl -import "$thin" -overwrite \
+  python3 "$ROOT/Tools/ghidra/with-project-lock.py" --lock "$LOCK" -- \
+    "$HEADLESS" "$PROJ" logicctl -import "$thin" -overwrite \
     -scriptPath "$ROOT/Tools/ghidra" -postScript ExportDecompiled.java "$OUT" "$FILTER" \
     >"$PROJ/$name.import.log" 2>&1
 fi

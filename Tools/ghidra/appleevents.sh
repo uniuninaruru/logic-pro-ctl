@@ -5,6 +5,7 @@ set -eu
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 APP="${1:?usage: bash Tools/ghidra/appleevents.sh /path/to/Logic.app [output-directory]}"
 PROJ="${GHIDRA_PROJECTS:-$HOME/GhidraProjects}/logicctl"
+LOCK="${GHIDRA_LOCK:-$ROOT/Research/raw/ghidra/logicctl-project.lock}"
 OUT="${2:-$ROOT/Research/raw/$(date -u +%Y%m%dT%H%M%SZ)-ghidra-appleevents}"
 BIN="$APP/Contents/Frameworks/Logic.framework/Versions/A/Logic"
 ANALYZED="$PROJ/bin/Logic.arm64"
@@ -26,7 +27,8 @@ export JAVA_HOME="${JAVA_HOME:-$(brew --prefix openjdk@21)/libexec/openjdk.jdk/C
 export GHIDRA_HEADLESS_MAXMEM="${GHIDRA_HEADLESS_MAXMEM:-10G}"
 mkdir -p "$OUT"
 OUT="$(cd "$OUT" && pwd)"
-"$HEADLESS" "$PROJ" logicctl -process Logic.arm64 -noanalysis -readOnly \
+python3 "$ROOT/Tools/ghidra/with-project-lock.py" --lock "$LOCK" -- \
+  "$HEADLESS" "$PROJ" logicctl -process Logic.arm64 -noanalysis -readOnly \
   -scriptPath "$ROOT/Tools/ghidra" -postScript AppleEventHandlerReport.java "$OUT" \
   >"$OUT/headless.log" 2>&1 || { tail -30 "$OUT/headless.log" >&2; exit 1; }
 if ! rg -q 'AppleEventHandlerReport: exported' "$OUT/headless.log"; then
