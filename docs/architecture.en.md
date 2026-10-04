@@ -9,8 +9,7 @@ Having sent a command does not make it confirmed.
 For use see the [README](../README.en.md); for the commands and the JSON see the
 [specification](specification.en.md).
 
-> The Japanese [architecture](architecture.md) is the primary text. This English version follows it, except for the parts on the private
-> AppleEvent route (its diagram node, the worked example and its details), which are only in Japanese for now.
+The Japanese [architecture](architecture.md) and this English version explain the same operating and readback routes.
 
 ## The whole picture first
 
@@ -21,12 +20,16 @@ flowchart LR
     socket["Unix socket<br/>one JSON per line"]
     daemon["logicd<br/>keeps the connection, runs one command at a time"]
     mcu["MCU backend<br/>operates and receives state over virtual MIDI"]
+    ae["AppleEvent backend<br/>explicit play / stop requests"]
     logic["Logic Pro"]
     user --> cli --> socket --> daemon
     daemon -->|"the standard route"| mcu
+    daemon -->|"--backend appleevent"| ae
     mcu -->|"MCU operations"| logic
+    ae -->|"aUeV / Spt2"| logic
     logic -->|"LED, LCD and fader state"| mcu
     mcu -->|"the state read back"| daemon
+    ae -->|"send and reply result"| daemon
     daemon -->|"result JSON"| socket
     socket --> cli
     cli -->|"standard output"| user
@@ -36,8 +39,10 @@ A "backend" is a route that carries a command to Logic.
 The standard one is the **MCU**: it provides a virtual MIDI port as a Mackie Control device
 and connects to Logic's control surface setup.
 
-The native AppleEvent route (`--backend appleevent`, play and stop only) is a second backend, described only in the Japanese text for now.
-It still needs the MCU connection for the read-back.
+**AppleEvent** is used only for play and stop explicitly requested with `--backend appleevent`.
+Writing uses macOS `AESendMessage`; readback uses the independent MCU connection.
+The verified Logic profile is **12.3.1 / build 6682**.
+This route currently requires an MCU connection as well.
 
 ## What each part does
 
@@ -47,11 +52,49 @@ It still needs the MCU connection for the read-back.
 | Unix socket | Carries requests and replies locally. One line is one JSON object | [message definitions](../Sources/LogicCore/Protocol/Messages.swift), [socket](../Sources/LogicCore/Protocol/UnixSocket.swift) |
 | `logicd` | Keeps the virtual MIDI ports alive. Revalidates requests and runs concurrent commands one at a time. Handles the deadline, idempotency keys and the connection-generation precondition ([the execution contract](execution-contract.en.md)) | [daemon](../Sources/logicd/main.swift), [route selection](../Sources/LogicCore/Commands/CommandRouter.swift) |
 | MCU backend | Operates play / stop, track selection, mute, solo, volume and pan, and reads Logic's feedback | [MCUBackend](../Sources/LogicCore/Backends/MCU/MCUBackend.swift), [received state](../Sources/LogicCore/Backends/MCU/MCUSurface.swift) |
-| AppleEvent backend | See the Japanese text | [AppleEventTransportBackend](../Sources/LogicCore/Backends/AppleEvent/AppleEventTransportBackend.swift) |
+| AppleEvent backend | Checks the supported version and running PID, then sends play / stop. Judges the send result together with MCU readback | [AppleEventTransportBackend](../Sources/LogicCore/Backends/AppleEvent/AppleEventTransportBackend.swift) |
 
 The standard socket is `~/Library/Application Support/logicctl/logicd.sock`.
 `LOGICCTL_SOCKET` changes it. JSON keys and command names are fixed machine-oriented names, and
 diagnostic messages go to standard error.
+
+## Example: Play through AppleEvent and verify the result
+
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant C as logicctl
+    participant D as logicd
+    participant M as MCU readback
+    participant L as Logic Pro
+    U->>C: transport play --backend appleevent
+    C->>D: Check capabilities with status
+    D-->>C: Report AppleEvent support
+    C->>D: transport.play JSON request
+    D->>D: Check request, 12.3.1 / 6682 and PID
+    D->>M: Prepare state for the current connection
+    L-->>M: Play / record LEDs and LCD feedback
+    M-->>D: State actually received on this connection
+    alt State already matches
+        D-->>C: verified: true / sent: false
+    else State must change
+        D->>L: AESendMessage: aUeV / Spt2
+        L-->>D: AppleEvent reply
+        L-->>M: Transport state after the operation
+        M-->>D: State with PID, generation and updates checked
+        D->>D: Judge send/reply result and requested state
+        D-->>C: requested / observed / verified
+    end
+    C-->>U: Result JSON and exit status
+```
+
+The diagram assumes the capability check and readback preparation succeed.
+If Logic exits or restarts during preparation, or the play / record state has not arrived,
+the request fails before sending an AppleEvent.
+
+If the state already matches, return `sent: false` without sending a new command.
+This matters particularly for stop: repeating it can move the playhead.
+The no-send result also requires confirmed state actually received from Logic.
 
 ## Stale state and "not known yet" are never success
 
@@ -70,6 +113,7 @@ Information that arrives in the second half of the same MIDI batch as the handsh
 A send or reply error, a failure to read back, or a mismatch with the request is `verified: false`.
 A write whose reply is a success but whose state does not reach the request returns
 `ok: false` / `error: "verification_failed"`.
+After a sending error, read the final state as far as possible without resending.
 
 A track number is a position in the mixer, so a write can carry the name it expects (`--expect-name`);
 the MCU backend checks it against the LCD before anything is sent ([the target contract](target-contract.en.md)).
@@ -97,5 +141,5 @@ The evidence for the live checks is in [EXP-AE-002](../Research/experiments/EXP-
 ([the support matrix](../Research/protocol/support-matrix.tsv)) on the dedicated `LogicCLI-Test.logicx`.
 A native state-query API and a Logic Remote client independent of the MCU
 have not been verified yet. For the routes under study see the
-[research architecture](../Research/architecture.md) and
+[research architecture](../Research/architecture.en.md) and
 [the analysis of how Logic sends state to Remote](../Research/static-analysis/SA-005-logic-remote-state-push.en.md).

@@ -4,8 +4,7 @@
 
 [Back to the README](../README.en.md) · [Architecture](architecture.en.md) · [Research guide](../Research/README.md)
 
-> The Japanese [specification](specification.md) is the primary text. This English version follows it, except for the sections on the
-> private AppleEvent route (§4 and the `appleevent_*` error rows), which are only in Japanese for now.
+The Japanese [specification](specification.md) and this English version describe the same commands and result contract.
 
 ## 1. The idea
 
@@ -52,7 +51,7 @@ Check numbers and names with `track list` first. Fetching the list moves the MCU
 |---|---|---|
 | `--json` | every command | For compatibility. Output is always JSON |
 | `--backend mcu` | every command | Names the usual virtual-MIDI route explicitly |
-| `--backend appleevent` | play and stop | Names the native AppleEvent route (see the Japanese specification §4) |
+| `--backend appleevent` | play and stop | Names the native AppleEvent route (see §4) |
 | `--tolerance <dB>` | `track volume` | A finite value of 0 or more. The default is 0.1 dB |
 | `--idempotency-key <key>` | commands that change state | Folds a resend into one execution. [The execution contract](execution-contract.en.md) |
 | `--expect-session <generation>` | everything except `daemon stop` | Runs only if it matches the `handshake_generation` of a read |
@@ -78,9 +77,11 @@ Pan is sent rounded to Logic's `-64` to `63`, so the right edge may read back as
   "command": "transport.stop",
   "ok": true,
   "verified": true,
-  "backend": "mcu",
-  "requested": {"playing": false},
-  "observed": {"playing": false, "recording": false}
+  "backend": "appleevent",
+  "readback_backend": "mcu",
+  "requested": {"playing": false, "recording": false},
+  "observed": {"playing": false, "recording": false},
+  "result": {"sent": true, "command_id": 5}
 }
 ```
 
@@ -93,7 +94,26 @@ The verified environment, the side effects (reads included) and the conditions f
 
 ## 4. The AppleEvent route
 
-This section is only in Japanese for now: see [the Japanese specification §4](specification.md#4-appleevent経路の条件).
+- Supported Logic profile: **12.3.1 / build 6682**. The running PID is the target.
+- Supported commands: play and stop. Recording, seeking and mixer operations are not accepted through this route.
+- Before operating, receive the MCU play and record LEDs and establish the state of the current session.
+- After operating, read the state back through the MCU. Stop requires both `playing: false` and `recording: false`.
+- If Logic's PID or the connection generation changes, do not judge success using old state.
+- A send error or timeout still returns the final state if available. The write is not automatically resent.
+
+| `result` field | Meaning |
+|---|---|
+| `sent` | Whether sending was attempted. `false` if the state already matched |
+| `event_class` / `event_id` | `aUeV` / `Spt2` |
+| `command_id` | Play `3`, stop `5`; `null` if nothing was sent |
+| `target_pid` | Logic process targeted by the event |
+| `appleevent_send_status` | Sending API result; normal status is `0` |
+| `appleevent_reply_received` | Whether a reply in AppleEvent form was received |
+| `appleevent_reply_error` | Error returned by Logic; `null` if the reply omitted the field |
+| `logic_version` / `logic_build` | Version and build of the target |
+
+**An omitted error field is not replaced with an observed error code of 0.**
+Sending, reply reception and state verification are returned as separate information.
 
 ## 5. When something goes wrong
 
@@ -114,7 +134,12 @@ This section is only in Japanese for now: see [the Japanese specification §4](s
 | `no_such_track` / `bank_unknown` | The strip cannot be identified | `track list` and the connection |
 | `daemon_upgrade_required` | An older daemon is running (it does not support the requested route or safeguard; nothing was sent) | Run `daemon stop` with the new build and repeat |
 | `unsupported_logic_version` | Outside what the native route supports | The version and build |
-| `appleevent_*`, `logic_instance_changed`, `no_project`, `backend_mismatch` | Errors of the native AppleEvent route | See the Japanese specification §5 |
+| `logic_instance_changed` | Logic restarted during verification | Check state on the new connection |
+| `appleevent_permission_denied` | macOS denied Automation permission | Automation permission |
+| `appleevent_timeout` | AppleEvent timed out | `observed`; it may already have been executed |
+| `appleevent_not_handled` / `no_project` | Event not handled / no current song | Logic's state and the open project |
+| `appleevent_send_failed` / `appleevent_reply_failed` / `appleevent_invalid_reply` | Send or reply problem | Codes and state in `result` |
+| `backend_mismatch` | The reply's route differs from the requested one | Update the daemon. The request was not resent |
 | `daemon_unavailable` | Cannot talk to the daemon | The executable, the socket, the log |
 
 The current CLI returns exit status `0` on success, `1` for `ok: false` in the JSON and `64` for a CLI syntax error.

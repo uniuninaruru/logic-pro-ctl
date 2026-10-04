@@ -151,8 +151,8 @@ JSONのキー・コマンド名・エラー識別子は英語の固定値です�
 リクエストは `id`・`command`・文字列辞書 `args` と、任意の `backend` です。
 省略時は従来のMCU経路になるため、以前のリクエストも読み込めます。
 
-明示AppleEventの利用時は、同じ接続でまず `status` を問い合わせます。
-`result.capabilities.appleevent_transport: true` がないdaemonには操作リクエストを送りません。
+安全装置（`--idempotency-key`・`--expect-session`・`--deadline-ms`・`--expect-name`）や標準以外の経路を明示すると、同じ接続でまず `status` を問い合わせます。
+`result.capabilities` に要求した機能がないdaemonには操作リクエストを送りません。AppleEvent指定では `appleevent_transport: true` を確認します。
 この対応機能はdaemon側の実装の有無を示します。今のLogicのバージョンやMCU接続の可否は、別に確認します。
 
 環境変数は `LOGICCTL_SOCKET`：接続先、`LOGICD_PATH`：daemonの場所、`LOGICD_TRACE=1`：MIDIの詳細ログです。
