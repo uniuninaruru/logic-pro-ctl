@@ -271,11 +271,16 @@ class RealImageTests(unittest.TestCase):
             raise unittest.SkipTest(str(missing))
         cls.path, cls.image = path, ba.Image(content)
 
-    def test_every_anchor_holds_in_the_real_image(self):
-        _, anchors = ba.parse_anchors(ANCHORS)
-        errors, notes = ba.check(anchors, self.image, self.path)
-        self.assertEqual(notes, [])
-        self.assertEqual(errors, [])
+    def test_every_anchor_table_holds_in_the_real_image(self):
+        tables = sorted(PROTOCOL.glob("*-anchors.tsv"))
+        self.assertIn(ANCHORS, tables)
+        for table in tables:
+            sha, anchors = ba.parse_anchors(table)
+            if sha != SHA:
+                continue                      # a table for another image is not this test's to check
+            errors, notes = ba.check(anchors, self.image, self.path)
+            self.assertEqual(notes, [], table.name)
+            self.assertEqual(errors, [], table.name)
 
     def test_the_model_reproduces_the_table_value_from_the_tables_in_the_image(self):
         table1, table2 = model.load_tables(self.image)

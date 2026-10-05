@@ -46,7 +46,7 @@ Notes のリンク（`RemoteCommandSupport`）が含まれる。
 - `befehl < 0x1357` なら、コマンドテーブル `DAT_026883b0[befehl]` を引く。
   要素は 40-byte のエントリーを指し、`+0x18` がハンドラー、`+0x20` が引数。
   ハンドラー `FUN_00f2c010` は `DAT_01cd1d98` を経由して別名のコマンドへ転送する。
-- 第 4 引数 `source`: 2 は Notes のリンク。6/7 は修飾キーを読む
+- 第 4 引数 `source`: 2 は Notes のリンク。Logic Remote の `/keyCommand/actionNum` も 2 を使う（[SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.md)）。6/7 は修飾キーを読む
   メニュー / キー操作の経路。1 はその処理をスキップする。
 - 同じコマンドが 500 ms 以内に 2 回来るとフラグを立てる（`DAT_02701c54`）。
 - `FUN_00865cec` を経て実行する。失敗時は `NSBeep` と、

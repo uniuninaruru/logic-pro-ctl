@@ -1,0 +1,86 @@
+# Evidence anchors for SA-REMOTE-KEYCOMMAND-001 (/keyCommand/actionNum).
+# Image: Logic.arm64  sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998  (Logic 12.3.1 / 6682, arm64)
+# Checked against the image file (bytes, llvm-objdump text, dyld_info binds, selector strings), not Ghidra:
+#   python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-remote-keycommand-anchors.tsv
+# Static only: nothing was sent to Logic.
+# id<TAB>kind<TAB>address<TAB>bytes<TAB>text<TAB>claim
+KC-prefix@0x11e0eb0	insn	0x011e0eb0	088500d0	adrp x8, 0x2282000	routeMessage:withArgument: tests hasPrefix: BgKeyCommandBasePattern ("/keyCommand")
+KC-prefix@0x11e0eb4	insn	0x011e0eb4	089541f9	ldr x8, [x8, #0x328]	routeMessage:withArgument: tests hasPrefix: BgKeyCommandBasePattern ("/keyCommand")
+KC-prefix@0x11e0ec0	insn	0x011e0ec0	58822594	bl 0x1b41820	routeMessage:withArgument: tests hasPrefix: BgKeyCommandBasePattern ("/keyCommand")
+KC-prefix@0x11e0ec4	insn	0x011e0ec4	60040034	cbz w0, 0x11e0f50	routeMessage:withArgument: tests hasPrefix: BgKeyCommandBasePattern ("/keyCommand")
+KC-equal@0x11e0ec8	insn	0x011e0ec8	088500d0	adrp x8, 0x2282000	then isEqualToString: BgKeyCommandActionKey ("/keyCommand/actionNum"); any other address goes on to the next test
+KC-equal@0x11e0ecc	insn	0x011e0ecc	089141f9	ldr x8, [x8, #0x320]	then isEqualToString: BgKeyCommandActionKey ("/keyCommand/actionNum"); any other address goes on to the next test
+KC-equal@0x11e0ed8	insn	0x011e0ed8	0ac12594	bl 0x1b51300	then isEqualToString: BgKeyCommandActionKey ("/keyCommand/actionNum"); any other address goes on to the next test
+KC-equal@0x11e0edc	insn	0x011e0edc	c0080034	cbz w0, 0x11e0ff4	then isEqualToString: BgKeyCommandActionKey ("/keyCommand/actionNum"); any other address goes on to the next test
+KC-int@0x11e0ee0	insn	0x011e0ee0	e05340f9	ldr x0, [sp, #0xa0]	the argument (saved at sp+0xa0) is read with integerValue into w22
+KC-int@0x11e0ee4	insn	0x011e0ee4	f7b72594	bl 0x1b4eec0	the argument (saved at sp+0xa0) is read with integerValue into w22
+KC-int@0x11e0ee8	insn	0x011e0ee8	f60300aa	mov x22, x0	the argument (saved at sp+0xa0) is read with integerValue into w22
+KC-save@0x11e0ef0	insn	0x011e0ef0	dfca0b71	cmp w22, #0x2f2	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0ef4	insn	0x011e0ef4	e10c0054	b.ne 0x11e1090	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0efc	insn	0x011e0efc	492e2794	bl 0x1bac820	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0f0c	insn	0x011e0f0c	5dfe2594	bl 0x1b60880	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0f20	insn	0x011e0f20	008d47f9	ldr x0, [x8, #0xf18]	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0f30	insn	0x011e0f30	bb492494	bl 0x1af361c	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-save@0x11e0f48	insn	0x011e0f48	f7020052	eor w23, w23, #0x1	only number 0x2f2 (754, Save) is special: it is skipped while NSApp modalWindow is an NSSavePanel
+KC-active@0x11e1090	insn	0x011e1090	37008052	mov w23, #0x1	NSApp isActive decides the path; w23 = 0 (Save while a save panel is up) runs nothing
+KC-active@0x11e10a8	insn	0x011e10a8	56ba2594	bl 0x1b4fa00	NSApp isActive decides the path; w23 = 0 (Save while a save panel is up) runs nothing
+KC-active@0x11e10b8	insn	0x011e10b8	94160036	tbz w20, #0x0, 0x11e1388	NSApp isActive decides the path; w23 = 0 (Save while a save panel is up) runs nothing
+KC-active@0x11e10bc	insn	0x011e10bc	37980736	tbz w23, #0x0, 0x11e03c0	NSApp isActive decides the path; w23 = 0 (Save while a save panel is up) runs nothing
+KC-enqueue@0x11e111c	insn	0x011e111c	28000090	adrp x8, 0x11e5000	active: a block with invoke 0x11e56a0 capturing w22 (number) and x21 is handed to CFRunLoopPerformBlock; the router does not wait
+KC-enqueue@0x11e1120	insn	0x011e1120	08811a91	add x8, x8, #0x6a0	active: a block with invoke 0x11e56a0 capturing w22 (number) and x21 is handed to CFRunLoopPerformBlock; the router does not wait
+KC-enqueue@0x11e1134	insn	0x011e1134	f6fb02b9	str w22, [sp, #0x2f8]	active: a block with invoke 0x11e56a0 capturing w22 (number) and x21 is handed to CFRunLoopPerformBlock; the router does not wait
+KC-enqueue@0x11e1138	insn	0x011e1138	f57b01f9	str x21, [sp, #0x2f0]	active: a block with invoke 0x11e56a0 capturing w22 (number) and x21 is handed to CFRunLoopPerformBlock; the router does not wait
+KC-enqueue@0x11e1148	insn	0x011e1148	0c302494	bl 0x1aed178	active: a block with invoke 0x11e56a0 capturing w22 (number) and x21 is handed to CFRunLoopPerformBlock; the router does not wait
+BLK-active@0x11e56a0	insn	0x011e56a0	0850c079	ldrsh w8, [x0, #0x28]	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56a4	insn	0x011e56a4	011040f9	ldr x1, [x0, #0x20]	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56a8	insn	0x011e56a8	e00308aa	mov x0, x8	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56ac	insn	0x011e56ac	02008052	mov w2, #0x0	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56b0	insn	0x011e56b0	43008052	mov w3, #0x2	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56b4	insn	0x011e56b4	040080d2	mov x4, #0x0	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-active@0x11e56b8	insn	0x011e56b8	4703da17	b 0x8663d4	block: number as signed 16 bits (ldrsh), then FUN_008663d4(number, x1, 0, source 2, 0)
+BLK-inactive@0x11e5680	insn	0x011e5680	0850c079	ldrsh w8, [x0, #0x28]	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e5684	insn	0x011e5684	011040f9	ldr x1, [x0, #0x20]	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e5688	insn	0x011e5688	e00308aa	mov x0, x8	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e568c	insn	0x011e568c	02008052	mov w2, #0x0	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e5690	insn	0x011e5690	030080d2	mov x3, #0x0	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e5694	insn	0x011e5694	04008052	mov w4, #0x0	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e5698	insn	0x011e5698	05008052	mov w5, #0x0	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+BLK-inactive@0x11e569c	insn	0x011e569c	26fed917	b 0x864f34	block after activating Logic (100 ms later): FUN_00864f34(number, x1, 0, 0, 0, 0)
+DEF-perform@0x86506c	insn	0x0086506c	95194b94	bl 0x1b2b6c0	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DEF-perform@0x865078	insn	0x00865078	b5be44f9	ldr x21, [x21, #0x978]	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DEF-perform@0x865080	insn	0x00865080	48e70090	adrp x8, 0x254d000	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DEF-perform@0x865084	insn	0x00865084	148142f9	ldr x20, [x8, #0x500]	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DEF-perform@0x86508c	insn	0x0086508c	6a394a94	bl 0x1af3634	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DEF-perform@0x8650a4	insn	0x008650a4	ef1c4c94	bl 0x1b6c460	FUN_00864f34 packs 7 values into an NSDictionary and, if NSApp responds to doLogicAction:, performs it on the main thread without waiting
+DISP-range@0x86640c	insn	0x0086640c	c86a8252	mov w8, #0x1356	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x866410	insn	0x00866410	df02086b	cmp w22, w8	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x866414	insn	0x00866414	88020054	b.hi 0x866464	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x866418	insn	0x00866418	19f100d0	adrp x25, 0x2688000	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x86641c	insn	0x0086641c	39c30e91	add x25, x25, #0x3b0	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x866420	insn	0x00866420	38db76f8	ldr x24, [x25, w22, sxtw #3]	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+DISP-range@0x866424	insn	0x00866424	380200b4	cbz x24, 0x866468	the dispatcher refuses numbers above 0x1356 (4950) and empty table slots; the table is DAT_026883b0
+STUB-hasPrefix@0x1b41820	insn	0x01b41820	815000b0	adrp x1, 0x2552000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-hasPrefix@0x1b41824	insn	0x01b41824	21e040f9	ldr x1, [x1, #0x1c0]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-hasPrefix@0x25521c0	selref	0x025521c0		hasPrefix:	selector reference used by the stub at 0x1b41820
+STUB-isEqualToString@0x1b51300	insn	0x01b51300	215000b0	adrp x1, 0x2556000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-isEqualToString@0x1b51304	insn	0x01b51304	213c40f9	ldr x1, [x1, #0x78]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-isEqualToString@0x2556078	selref	0x02556078		isEqualToString:	selector reference used by the stub at 0x1b51300
+STUB-integerValue@0x1b4eec0	insn	0x01b4eec0	215000f0	adrp x1, 0x2555000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-integerValue@0x1b4eec4	insn	0x01b4eec4	21b443f9	ldr x1, [x1, #0x768]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-integerValue@0x2555768	selref	0x02555768		integerValue	selector reference used by the stub at 0x1b4eec0
+STUB-sharedApplication@0x1bac820	insn	0x01bac820	014e0090	adrp x1, 0x256c000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-sharedApplication@0x1bac824	insn	0x01bac824	21e046f9	ldr x1, [x1, #0xdc0]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-sharedApplication@0x256cdc0	selref	0x0256cdc0		sharedApplication	selector reference used by the stub at 0x1bac820
+STUB-modalWindow@0x1b60880	insn	0x01b60880	c14f00b0	adrp x1, 0x2559000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-modalWindow@0x1b60884	insn	0x01b60884	21ec46f9	ldr x1, [x1, #0xdd8]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-modalWindow@0x2559dd8	selref	0x02559dd8		modalWindow	selector reference used by the stub at 0x1b60880
+STUB-isActive@0x1b4fa00	insn	0x01b4fa00	215000d0	adrp x1, 0x2555000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-isActive@0x1b4fa04	insn	0x01b4fa04	211c45f9	ldr x1, [x1, #0xa38]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-isActive@0x2555a38	selref	0x02555a38		isActive	selector reference used by the stub at 0x1b4fa00
+STUB-performSelectorOnMainThread@0x1b6c460	insn	0x01b6c460	814f0090	adrp x1, 0x255c000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-performSelectorOnMainThread@0x1b6c464	insn	0x01b6c464	216846f9	ldr x1, [x1, #0xcd0]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-performSelectorOnMainThread@0x255ccd0	selref	0x0255ccd0		performSelectorOnMainThread:withObject:waitUntilDone:	selector reference used by the stub at 0x1b6c460
+SEL-doLogicAction@0x254d500	selref	0x0254d500		doLogicAction:	the selector FUN_00864f34 performs on NSApp
+BD-basePattern@0x2282328	bind	0x02282328		MACore/_BgKeyCommandBasePattern	imported MACore constant read at 0x11e0eb4
+BD-actionKey@0x2282320	bind	0x02282320		MACore/_BgKeyCommandActionKey	imported MACore constant read at 0x11e0ecc
+BD-NSApp@0x2285978	bind	0x02285978		AppKit/_NSApp	the receiver of doLogicAction: in FUN_00864f34

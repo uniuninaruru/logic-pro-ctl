@@ -157,7 +157,7 @@ Remote から Logic への問い合わせは、`LgLogicRemoteMessageRouter route
 | `/keyCommand/commandsQuery` | 引数（MAZP 圧縮の NSKeyedArchive）から `groupName` と `requestRange`（範囲）を読む。応答の送り先は `/keyCommand/commandsResponse`。**応答の組み立ての細部は読んでいない** |
 | `/keyCommand/commandSearch` | 引数の文字列で、コマンド名を大文字小文字・発音記号を無視して**部分一致**検索する（`rangeOfString:options:0x81`）。`commandName` の昇順に並べ、**大文字小文字を無視して完全一致するもの**を先頭へ寄せる。結果は NSKeyedArchive を MAZP 圧縮（レベル 9）して `/keyCommand/commandResponse` で返す |
 | `/keyCommand/localizationRequest` | 引数の `valueArray` の番号を、**20 個ずつ**処理して、ローカライズした名前を `/keyCommand/localizationResponse` で返す |
-| `/keyCommand/groupsQuery`、`/keyCommand/keyCommandDictResponse`、`/keyCommand/actionNum` | 振り分けの分岐があることは確認した（`groupsResponse` を送る処理も同じ関数にある）。**本体は読んでいない**。`actionNum` は番号で実行する経路と推定する（未読） |
+| `/keyCommand/groupsQuery`、`/keyCommand/keyCommandDictResponse`、`/keyCommand/actionNum` | 振り分けの分岐があることは確認した（`groupsResponse` を送る処理も同じ関数にある）。`groupsQuery`・`keyCommandDictResponse` の本体は読んでいない。**`actionNum` は読んだ**：番号は台帳の `command_id` として、共通のディスパッチャー `FUN_008663d4` に `source` 2 で渡る。結果は待たず、返事も送らない（[SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.md)） |
 
 これらの応答の元は、**§3 と同じ 28 個のグループ記述子**である。`LgLogicRemoteController keyCommands:`（0x01683e10）が組み立てる。
 
@@ -248,4 +248,4 @@ python3 Tools/research-scripts/command_catalog.py --out Research/protocol/operat
 | 抑制セットのうち未登録の 4 個（558、639、1033、1162） | 理由不明 | 別のグループ・古い番号か、機能による登録かを調べる |
 | Remote の一覧に実際に載る件数 | 未確認 | 受信実験（PLAN-05 の承認後） |
 | ローカライズされた名前 | 未取得 | `/keyCommand/localizationRequest` の応答（受信実験） |
-| `actionNum` が番号をどう扱うか（条件・戻り値） | 未解析 | 本書の対象外。解析する場合は、実行しない静的解析に限る |
+| `actionNum` が番号をどう扱うか（条件・戻り値） | **解決**（静的）：[SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.md) | 送ったときの振る舞いは未確認（送信は承認が要る） |

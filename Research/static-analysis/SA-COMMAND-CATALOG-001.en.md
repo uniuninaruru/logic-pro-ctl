@@ -157,7 +157,7 @@ Requests from Remote to Logic are routed under `/keyCommand/…` by `LgLogicRemo
 | `/keyCommand/commandsQuery` | Reads `groupName` and `requestRange` (a range) from the argument (an NSKeyedArchive compressed as MAZP). The reply goes to `/keyCommand/commandsResponse`. **The details of building the reply were not read** |
 | `/keyCommand/commandSearch` | Searches command names for the argument string as a **substring**, ignoring case and diacritics (`rangeOfString:options:0x81`). Sorts by `commandName` ascending and moves the items that **equal the string ignoring case** to the front. The result is an NSKeyedArchive compressed as MAZP (level 9), returned under `/keyCommand/commandResponse` |
 | `/keyCommand/localizationRequest` | Takes the numbers in the argument's `valueArray` **20 at a time** and returns the localized names under `/keyCommand/localizationResponse` |
-| `/keyCommand/groupsQuery`, `/keyCommand/keyCommandDictResponse`, `/keyCommand/actionNum` | Branches for them exist (the code that sends `groupsResponse` is in the same function). **The bodies were not read.** `actionNum` is presumed to be a way to execute by number (not read) |
+| `/keyCommand/groupsQuery`, `/keyCommand/keyCommandDictResponse`, `/keyCommand/actionNum` | Branches for them exist (the code that sends `groupsResponse` is in the same function). The bodies of `groupsQuery` and `keyCommandDictResponse` were not read. **`actionNum` was read**: its number goes to the common dispatcher `FUN_008663d4` as the catalog's `command_id`, with `source` 2; nothing waits for the result and no reply is sent ([SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.en.md)) |
 
 The data behind these replies is **the same 28 group descriptors as in §3**. `LgLogicRemoteController keyCommands:` (0x01683e10) builds it.
 
@@ -248,4 +248,4 @@ The addresses are for this build only (12.3.1 / 6682, arm64). For another build,
 | 4 numbers in the suppressed set that are unregistered (558, 639, 1033, 1162) | Reason unknown | Check whether they are old numbers, or registered depending on a feature |
 | How many commands Remote's list really contains | Not confirmed | Receive experiment (after PLAN-05 is approved) |
 | Localized names | Not obtained | The reply to `/keyCommand/localizationRequest` (receive experiment) |
-| How `actionNum` treats a number (conditions, return value) | Not analysed | Out of scope here. If analysed, only as static analysis that executes nothing |
+| How `actionNum` treats a number (conditions, return value) | **Resolved** (static): [SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.en.md) | Behaviour when actually sent is unconfirmed (sending needs approval) |

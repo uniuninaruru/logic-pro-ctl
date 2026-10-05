@@ -43,7 +43,7 @@ Dispatcher internals:
 - `befehl < 0x1357` indexes a command table `DAT_026883b0[befehl]` (pointer to a
   40-byte entry; `+0x18` handler, `+0x20` argument; one handler `FUN_00f2c010`
   redirects to an alias via `DAT_01cd1d98`).
-- `source` (4th arg): 2 = Notes link; 6/7 = menu/key paths that read modifier
+- `source` (4th arg): 2 = Notes link, and also Logic Remote's `/keyCommand/actionNum` ([SA-REMOTE-KEYCOMMAND-001](SA-REMOTE-KEYCOMMAND-001.en.md)); 6/7 = menu/key paths that read modifier
   keys; 1 skips that block.
 - Same command twice within 500 ms is flagged (`DAT_02701c54`).
 - Executes via `FUN_00865cec`; on failure `NSBeep` + notification
