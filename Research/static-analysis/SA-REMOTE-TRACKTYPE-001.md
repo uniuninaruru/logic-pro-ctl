@@ -7,7 +7,7 @@
 | 状態 | 静的解析。**2026-10-05 に 1 回の受信（[EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.md)）で照合した**：規則と `c` の並びは合格、`t` の値ごとの意味づけは 3 つが外れ、§1・§2.1・§7 を受信結果で直した |
 | 日付 | 2026-10-05 |
 | 対象 | Logic 12.3.1 (6682)、arm64 の `Logic.arm64`（SHA-256 `2f141e1a…0998`） |
-| 根拠 | 機械語の抜粋（`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`、`q-p6-ati-colour-006-machinecode.txt`、`q-p6-colourmap-006-machinecode.txt`。Git の追跡対象外）と、命令・定数を画像ファイルから照合する [アンカー表](../protocol/logic-remote-trackcolor-anchors.tsv)（269 行） |
+| 根拠 | 機械語の抜粋（`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`、`q-p6-ati-colour-006-machinecode.txt`、`q-p6-colourmap-006-machinecode.txt`。Git の追跡対象外）と、命令・定数をバイナリファイルから照合する [アンカー表](../protocol/logic-remote-trackcolor-anchors.tsv)（269 行） |
 | 機械可読表 | [`logic-remote-track-types.tsv`](../protocol/logic-remote-track-types.tsv)・[`logic-remote-colour-bytes.tsv`](../protocol/logic-remote-colour-bytes.tsv) |
 | 前提 | [SA-REMOTE-STATE-001](SA-REMOTE-STATE-001.md) §4（`/ati` の 13 列） |
 
@@ -102,7 +102,7 @@
 
 - `FUN_017e5998` は R, G, B を `d0`〜`d2` に、**入力のアルファを `d3` にそのまま**返す。第 1 色のアルファは 1.0 なので、4 バイト目は 0xFF。
 - 色番号 −1 と 0 は、`FUN_00d34de8` ではパレットの 9 番目に当たる（`0x00d34e58`）。`tnc`・`tsc` では、`FUN_00d358a0` が定数（色相 212、バイト 55 と 100、アルファ 1.0）を使う。
-- **計算値（捕捉した値ではない）:** その定数を `FUN_017e5998` の補正表（画像内の `0x01d434f8`・`0x01d44038`）で計算すると **`8c c0 ff ff`**（R 140、G 192、B 255、A 255）。色番号が −1 か 0 のストリップの `tnc`・`tsc` で一致するはずである（[`remote_colour_model.py`](../../Tools/research-scripts/remote_colour_model.py)）。
+- **計算値（捕捉した値ではない）:** その定数を `FUN_017e5998` の補正表（バイナリ内の `0x01d434f8`・`0x01d44038`）で計算すると **`8c c0 ff ff`**（R 140、G 192、B 255、A 255）。色番号が −1 か 0 のストリップの `tnc`・`tsc` で一致するはずである（[`remote_colour_model.py`](../../Tools/research-scripts/remote_colour_model.py)）。
 - 色番号が 1 以上の `nc`・`sc` は、パレット（`FUN_00d34de8`）が実行時に設定値から組み立てる表を使うため、**静的には値を出せない**。`tnc`・`tsc` の番号 1 以上は `MASharedInstrumentIconService` の `tintColorWithHue:withModifier:mode:` の結果で、これも未解析。
 
 ## 6. 訂正した記述
@@ -136,7 +136,7 @@ python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-r
 python3 -m unittest test_binary_anchors   # Tools/research-scripts で実行
 ```
 
-アンカー表の各行は、画像ファイルのバイト列、`llvm-objdump` の命令、`dyld_info -fixups` のシンボル、セレクタ文字列で照合する（Ghidra を使わない）。画像のハッシュが違えば拒否する。
+アンカー表の各行は、バイナリファイルのバイト列、`llvm-objdump` の命令、`dyld_info -fixups` のシンボル、セレクタ文字列で照合する（Ghidra を使わない）。バイナリのハッシュが違えば拒否する。
 
 ## 9. 同じ呼び出しの `nc` と `p`（追記）
 

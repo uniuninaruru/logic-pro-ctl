@@ -14,10 +14,10 @@
 
 | Item | Conclusion | Kind | Confidence |
 |---|---|---|---|
-| What the number is | The argument (an integer) of `/keyCommand/actionNum` is **passed unchanged as `befehl` to the common command dispatcher `FUN_008663d4`**: the same number as `command_id` in [operation-catalog.tsv](../protocol/operation-catalog.tsv) | Static fact (instructions) | High |
-| Path | The **same** dispatcher as the menus, toolbar and Accessibility. There is no Remote-only execution path | Static fact (SA-004 and this note) | High |
-| Range | The number is taken as **signed 16 bits** (`ldrsh`); the dispatcher does not run numbers above 4950 (0x1356) or empty slots | Static fact | High |
-| Special case | **Only 754 (Save)** is skipped while a save panel (`NSSavePanel`) is the modal window | Static fact | High |
+| What the number is | With Logic in front, the argument (an integer) of `/keyCommand/actionNum`, **cut to 16 bits**, is passed as `befehl` to the common command dispatcher `FUN_008663d4`: the same number as `command_id` in [operation-catalog.tsv](../protocol/operation-catalog.tsv) | Static fact (instructions) | High |
+| Path | **With Logic in front**, the same dispatcher as the menus, toolbar and Accessibility. **With Logic in the back** it goes through `NSApp doLogicAction:`, and whether that reaches the same dispatcher is not read (§5) | Static fact (front) / unconfirmed (back) | High (front) |
+| Range | The number is taken as **signed 16 bits** (`ldrsh`) and the dispatcher compares it **unsigned** with 4950 (0x1356) (`b.hi`). Only **0 ≤ number ≤ 4950** after the cut runs; negative values are refused too. It is not the integer as sent: 65539 (0x10003), for example, becomes 3 (Play) | Static fact | High |
+| Special case | **Only 754 (Save)** is skipped while a save panel (`NSSavePanel`) is the modal window. But that check compares the **32-bit value before the cut** (`cmp w22, #0x2f2`): sending 66290 (0x102F2) passes the check and can run as 754 (Save) after the cut | Static fact (read from how the instructions combine; not tried by sending) | High |
 | Reply | The router **only queues** the command: it does not wait for the result and sends no reply to the Remote. Whether it worked can only be told by reading the state again | Static fact (within this branch) | High |
 | Hidden commands | This branch does **not** consult `suppressedKeyCommands` (the 100 commands hidden from the Remote's list). A number missing from the list is not stopped here | Static fact (within this branch; whether a deeper check exists in the dispatcher is unread) | Medium |
 
@@ -34,19 +34,19 @@ flowchart TD
     F --> G["FUN_008663d4(number 16-bit, x21, 0, source 2, 0)"]
     E -->|back| H["activateIgnoringOtherApps → 0.1 s later<br/>block 0x11e5680"]
     H --> I["FUN_00864f34 → NSApp doLogicAction: on the main thread (no wait)"]
-    G --> J{"number ≤ 4950 and the slot exists"}
+    G --> J{"0 ≤ number ≤ 4950 (unsigned compare) and the slot exists"}
     J -->|yes| K["handler of the command table DAT_026883b0[number]"]
 ```
 
 - **Logic in front** (anchors `KC-enqueue`, `BLK-active`): a block capturing the number and `x21` is queued on the main run loop. The block reads the number as signed 16 bits and calls `FUN_008663d4(number, x21, 0, 2, 0)`. The fourth argument (`source`) is **2**. SA-004 said "`source` 2 is the Notes link"; **the Remote's `actionNum` uses 2 as well**.
 - **Logic in the back** (`BLK-inactive`, `DEF-perform`): Logic is brought to the front and, 0.1 s later, `FUN_00864f34(number, x21, 0, 0, 0, 0)` is called. It packs 7 values into a dictionary and, if `NSApp` responds to `doLogicAction:`, has it performed **on the main thread without waiting**. The body of `doLogicAction:` is not read.
-- **Dispatcher** (`DISP-range`): `cmp w22, #0x1356` and `b.hi` drop numbers above 4950, and an empty `DAT_026883b0[number]` does nothing (matches SA-004's "`befehl < 0x1357`").
+- **Dispatcher** (`DISP-range`): `cmp w22, #0x1356` and `b.hi` (an unsigned compare) drop numbers above 4950 and sign-extended negative numbers, and an empty `DAT_026883b0[number]` does nothing (matches SA-004's "`befehl < 0x1357`").
 
 What `x21` points to (the dispatcher's second argument; the song in SA-004) is not traced within this branch.
 
 ## 3. Relation to the catalog
 
-- A catalog `command_id` is the `actionNum` number as it is. For example 754 is `Save` and 3 is `Play` in the catalog.
+- A catalog `command_id` (0 to 4950) is the `actionNum` number as it is (on the front path). For example 754 is `Save` and 3 is `Play` in the catalog. The integer sent is cut to 16 bits, so an out-of-range integer can alias another command (65539 → 3).
 - The catalog's `remote_offered` column (whether the Remote's list shows it) is **about the list, not about whether it can run**. This branch does not stop commands hidden from the list (§1).
 - **Not a permission to run anything**: like the catalog, this note is only a map of which number calls what. The handlers' state checks (the mode 0x8000 call and the like) and side effects have to be read per command (PLAN-10).
 
@@ -54,7 +54,7 @@ What `x21` points to (the dispatcher's second argument; the song in SA-004) is n
 
 - Sending `actionNum` over the Remote route **may** run commands that have no MCU assignment, by their catalog number. However:
   - **There is no reply**, so whether it ran must be confirmed by reading the state again (this project's "a write is confirmed by reading back").
-  - The number is cut to 16 bits, so the sender must keep it within 0 to 4950.
+  - The number is cut to 16 bits, so the sender must keep it within 0 to 4950 (otherwise another command can run).
   - A Logic in the back is **brought to the front** (`activateIgnoringOtherApps`), which can disturb the user's work.
 - Actually sending is a new experiment (with sending) and needs separate approval. Nothing was sent for this note.
 
