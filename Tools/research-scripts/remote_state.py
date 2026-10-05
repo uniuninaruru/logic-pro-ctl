@@ -253,10 +253,13 @@ class StateBuilder:
         """Tie the selection to a strip of the latest /ati by its index, and check name and tn.
         Called for a new /sti and again for every new /ati (an /sti may arrive before the first /ati)."""
         selection = self.selection
-        if not selection or not selection.get("selected") or not self.order:
+        if not selection or not selection.get("selected"):
             return
         index = selection["index"]
         selection.update(gindex=None, position=None, resolved_with_ati_frame=self.ati_frame)
+        # Pending before the first /ati; a received empty /ati must invalidate the old binding.
+        if self.last_ati is None:
+            return
         problems = []
         if isinstance(index, int) and 0 <= index < len(self.order):
             strip = self.strips[self.order[index]]

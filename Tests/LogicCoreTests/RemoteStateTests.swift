@@ -4,6 +4,7 @@ import Foundation
 
 // The Remote state builder (RemoteState.swift) against the contract of EXP-REMOTE-002.
 // Every message here is SYNTHETIC; the contract was checked once against a real reception (EXP-REMOTE-001).
+// The optional real-data regression uses only EXP-REMOTE-001's reference recording, 20261005-094234-e1.
 #if canImport(Testing)
 import Testing
 
@@ -77,6 +78,43 @@ private func mazp(_ body: Data) -> Data {
 
 private func archive(_ object: Any) throws -> Data {
     try NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: false)
+}
+
+private func replacing(_ dictionary: RemoteValue, _ key: String, with value: RemoteValue?) -> RemoteValue {
+    guard case .dictionary(var entries) = dictionary else { preconditionFailure("fixture is not a dictionary") }
+    entries.removeAll { $0.key == .string(key) }
+    if let value { entries.append(RemoteEntry(key: .string(key), value: value)) }
+    return .dictionary(entries)
+}
+
+/// Fixture encoding only. Plists use decimal strings for the number keys; archive-key parity is tested separately.
+private func fixtureObject(_ value: RemoteValue) throws -> Any {
+    switch value {
+    case .bool(let v): return v
+    case .int(let v): return v
+    case .double(let v): return v
+    case .string(let v): return v
+    case .data(let v): return v
+    case .array(let values): return try values.map(fixtureObject)
+    case .dictionary(let entries):
+        var out: [String: Any] = [:]
+        for entry in entries {
+            let key: String
+            switch entry.key {
+            case .string(let s): key = s
+            case .int(let n): key = String(n)
+            default: throw NSError(domain: "RemoteStateFixture", code: 1)
+            }
+            out[key] = try fixtureObject(entry.value)
+        }
+        return out
+    default: throw NSError(domain: "RemoteStateFixture", code: 2)
+    }
+}
+
+private func decodedFixture(_ address: String, _ argument: RemoteValue) throws -> RemoteFrame {
+    let body = try PropertyListSerialization.data(fromPropertyList: [address: fixtureObject(argument)], format: .binary, options: 0)
+    return try RemoteFrameParser.decode(Data([0x01]) + body).get()
 }
 
 // MARK: - 1. Unknown is nil, not 0
@@ -316,21 +354,152 @@ private func archive(_ object: Any) throws -> Data {
     b.apply(frame: 1, message("/mixerLevels", .array([.int(0)])))
     #expect(b.events.isEmpty && b.snapshot().lastFrame == nil)
 }
+
+// MARK: - Regression boundaries: decoded inputs, old state retained on rejection
+
+@Test func anEmptyATIUnresolvesSelectionWithoutInventingNoSelection() throws {
+    var b = RemoteStateBuilder()
+    b.apply(frame: 1, try decodedFixture("/ati", ati(["A"])))
+    b.apply(frame: 2, try decodedFixture("/sti", sti("A", index: 0, tn: 1)))
+    #expect(b.snapshot().selection?.gindex == 100)
+    b.apply(frame: 3, try decodedFixture("/ati", ati([])))
+    #expect(b.snapshot().strips.isEmpty && b.snapshot().atiFrame == 3)
+    #expect(b.snapshot().selection?.selected == true) // no NoTrackSelected message was received
+    #expect(b.snapshot().selection?.gindex == nil && b.snapshot().selection?.position == nil)
+    #expect(b.issues.last?.kind == .selectionMismatch)
+
+    var pending = RemoteStateBuilder()
+    pending.apply(frame: 1, try decodedFixture("/sti", sti("A", index: 0, tn: 1)))
+    #expect(pending.issues.isEmpty)
+    pending.apply(frame: 2, try decodedFixture("/ati", ati([])))
+    #expect(pending.issues.last?.kind == .selectionMismatch)
+    pending.apply(frame: 3, try decodedFixture("/ati", ati(["A"])))
+    #expect(pending.snapshot().selection?.gindex == 100)
+}
+
+@Test func malformedNestedATIAndItsKnownBoundsLeaveTheWholeStateIntact() throws {
+    let base = ati(["A"]), changed = ati(["B"], uuid: ["OTHER"])
+    let data = RemoteValue.data(Data([1, 2, 3, 4]))
+    let colours = dict([("nc", data), ("sc", data), ("tnc", data), ("tsc", data)])
+    var broken = [dict([]), replacing(colours, "nc", with: .int(1)), replacing(colours, "tsc", with: nil),
+                  replacing(colours, "extra", with: data)].map { replacing(changed, "c", with: .array([$0])) }
+    broken += [replacing(changed, "n", with: .array([dict([("name", .string("B"))])])),
+               replacing(changed, "n", with: .array([dict([("name", .string("B")), ("gindex", .int(100)), ("extra", .int(1))])])),
+               replacing(changed, "extra", with: .array([]))]
+    for (key, values) in [("t", [-1, 11]), ("p", [-129, 128]), ("BgTrackInfoCollapsibleInfoKey", [-1]),
+                          ("BgTrackInfoMetaInfoFlagsKey", [-1, 2])] {
+        broken += values.map { replacing(changed, key, with: .array([.int($0)])) }
+    }
+    for bad in broken {
+        var b = RemoteStateBuilder()
+        b.apply(frame: 1, try decodedFixture("/ati", base))
+        b.apply(frame: 2, message("/gtFaderData", fader(g: [100: ["vL": 7]], t: [0x40001: ["r": 64]])))
+        let previous = b.snapshot()
+        b.apply(frame: 3, try decodedFixture("/ati", bad))
+        #expect(b.events.last?.kind == .atiRejected)
+        #expect(b.snapshot().strips == previous.strips && b.snapshot().atiFrame == previous.atiFrame)
+        b.apply(frame: 4, try decodedFixture("/ati", base))
+        #expect(b.events.last?.kind == .atiDuplicate) // the rejected snapshot did not replace the duplicate baseline
+    }
+    // No invented constraints on nc/tn/icon or NSData length; JSON-rendered data is a string in the schema.
+    for (kind, pan) in [(0, -128), (10, 127)] {
+        var valid = replacing(base, "t", with: .array([.int(kind)]))
+        valid = replacing(valid, "p", with: .array([.int(pan)]))
+        valid = replacing(valid, "nc", with: .array([.int(-1)]))
+        valid = replacing(valid, "BgTrackInfoCollapsibleInfoKey", with: .array([.int(Int.max)]))
+        valid = replacing(valid, "BgTrackInfoMetaInfoFlagsKey", with: .array([.int(1)]))
+        valid = replacing(valid, "c", with: .array([dict([("nc", .data(Data())), ("sc", .string("AQIDBA==")), ("tnc", data), ("tsc", data)])]))
+        var b = RemoteStateBuilder()
+        b.apply(frame: 1, try decodedFixture("/ati", valid))
+        #expect(b.issues.isEmpty && b.snapshot().strips.count == 1)
+    }
+}
+
+@Test func malformedSTILeavesTheSelectionAndDuplicateBaselineIntact() throws {
+    let base = sti("A", index: 0, tn: 1)
+    var broken = [dict([("n", .string("NoTrackSelected"))])]
+    for key in ["n", "t", "BgTrackInfoMetaInfoFlagsKey", "tn", "BgTrackInfoIndexKey"] {
+        broken.append(replacing(base, key, with: nil))
+    }
+    for (key, value) in [("n", RemoteValue.int(0)), ("t", .bool(false)), ("t", .int(-1)), ("t", .int(5)),
+                         ("tn", .bool(false)), ("BgTrackInfoIndexKey", .string("0")),
+                         ("BgTrackInfoMetaInfoFlagsKey", .double(0)), ("BgTrackInfoMetaInfoFlagsKey", .int(-1)),
+                         ("BgTrackInfoShowArpeggiatorButtonKey", .int(0)), ("extra", .bool(true))] {
+        broken.append(replacing(base, key, with: value))
+    }
+    for bad in broken {
+        var b = RemoteStateBuilder()
+        b.apply(frame: 1, message("/ati", ati(["A"])))
+        b.apply(frame: 2, try decodedFixture("/sti", base))
+        let previous = b.snapshot().selection
+        b.apply(frame: 3, try decodedFixture("/sti", bad))
+        #expect(b.events.last?.kind == .stiRejected)
+        #expect(b.snapshot().selection == previous)
+        b.apply(frame: 4, try decodedFixture("/sti", base))
+        #expect(b.events.last?.kind == .stiDuplicate)
+    }
+    for kind in [0, 4] {
+        var valid = replacing(base, "t", with: .int(kind))
+        valid = replacing(valid, "BgTrackInfoMetaInfoFlagsKey", with: .int(Int.max))
+        valid = replacing(valid, "BgTrackInfoShowArpeggiatorButtonKey", with: .bool(false))
+        var b = RemoteStateBuilder()
+        b.apply(frame: 1, message("/ati", ati(["A"])))
+        b.apply(frame: 2, try decodedFixture("/sti", valid))
+        #expect(b.issues.isEmpty && b.snapshot().selection?.gindex == 100)
+    }
+}
+
+@Test func invalidFaderRangesAndCountsCannotReplaceKnownValues() throws {
+    for (field, value) in [("vL", Int(Int32.min) - 1), ("vL", Int(Int32.max) + 1), ("s", -129), ("s", 128),
+                           ("m", -1), ("r", -1), ("r", 2), ("ip", -1), ("ip", 4096)] {
+        var b = RemoteStateBuilder()
+        b.apply(frame: 1, message("/ati", ati(["A"])))
+        b.apply(frame: 2, message("/gtFaderData", fader(g: [100: ["vL": 7, "m": 0]], t: [0x40001: ["r": 64, "ip": 0]])))
+        let previous = b.snapshot().strips
+        let bad = ["r", "ip"].contains(field)
+            ? fader(g: [100: ["m": 1]], t: [0x40001: [field: value]])
+            : fader(g: [100: [field: value]], t: [0x40001: ["r": 128]])
+        b.apply(frame: 3, try decodedFixture("/gtFaderData", bad))
+        #expect(b.events.last?.kind == .faderRejected)
+        #expect(b.snapshot().strips == previous) // even the valid side of the refused message is not applied
+    }
+    var b = RemoteStateBuilder()
+    b.apply(frame: 1, message("/ati", ati(["A"])))
+    for (i, r) in [0, 1, 3, 64, 128].enumerated() {
+        let lower = i % 2 == 0
+        b.apply(frame: i + 2, try decodedFixture("/gtFaderData", fader(
+            g: [100: ["vL": lower ? Int(Int32.min) : Int(Int32.max), "s": lower ? -128 : 127, "m": Int.max]],
+            t: [0x40001: ["r": r, "ip": lower ? 0 : 4095]])))
+        #expect(b.snapshot().strips[0].track.r?.value == r)
+    }
+    #expect(b.issues.isEmpty)
+    for address in ["/allTrackCount", "/trackCount"] {
+        var counts = RemoteStateBuilder()
+        counts.apply(frame: 1, try decodedFixture(address, .int(0)))
+        counts.apply(frame: 2, try decodedFixture(address, .int(-1)))
+        #expect(counts.events.last?.kind == .countRejected)
+        let snapshot = counts.snapshot()
+        #expect((address == "/allTrackCount" ? snapshot.allTrackCount : snapshot.trackCount) == RemoteKnown(0, frame: 1))
+        counts.apply(frame: 3, try decodedFixture(address, .int(Int.max)))
+        #expect(counts.events.last?.kind == .countApplied)
+    }
+}
 #endif
 
 #if canImport(Testing)
-// MARK: - The real reception, when it is on this machine (Research/raw is not tracked by Git)
+// MARK: - EXP-REMOTE-001 reference recording, when present (Research/raw is not tracked by Git)
 
-private let capturedFrames: URL? = {
-    let raw = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-        .appendingPathComponent("Research/raw/remote-recv")
-    let captures = (try? FileManager.default.contentsOfDirectory(at: raw, includingPropertiesForKeys: nil)) ?? []
-    return captures.filter { $0.lastPathComponent.hasSuffix("-e1") }.sorted { $0.path < $1.path }.last?.appendingPathComponent("frames")
+private let exp001ReferenceFrames: URL? = {
+    let frames = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        .appendingPathComponent("Research/raw/remote-recv/20261005-094234-e1/frames")
+    var isDirectory = ObjCBool(false)
+    guard FileManager.default.fileExists(atPath: frames.path, isDirectory: &isDirectory), isDirectory.boolValue else { return nil }
+    return frames
 }()
 
-@Test(.enabled(if: capturedFrames != nil, "no capture under Research/raw/remote-recv/"))
-func theRealReceptionRebuildsLikeTheResearchTool() throws {
-    let files = try FileManager.default.contentsOfDirectory(at: capturedFrames!, includingPropertiesForKeys: nil)
+@Test(.enabled(if: exp001ReferenceFrames != nil, "EXP-REMOTE-001 reference recording 20261005-094234-e1 is absent"))
+func theEXP001ReferenceRecordingRebuildsLikeTheResearchTool() throws {
+    let files = try FileManager.default.contentsOfDirectory(at: exp001ReferenceFrames!, includingPropertiesForKeys: nil)
         .filter { $0.pathExtension == "bin" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
     var b = RemoteStateBuilder()
     for file in files {
@@ -338,7 +507,7 @@ func theRealReceptionRebuildsLikeTheResearchTool() throws {
         b.apply(frame: Int(file.deletingPathExtension().lastPathComponent)!, frame)
     }
     let snap = b.snapshot()
-    // The same numbers as Tools/research-scripts/remote_state.py (EXP-REMOTE-002).
+    // Only this EXP-REMOTE-001 recording has the fixed EXP-REMOTE-002 initial-state expectations.
     #expect(b.issues.isEmpty)
     #expect(snap.strips.count == 12)
     #expect(snap.knownFaderFields == 36 && snap.knownTrackFields == 24)

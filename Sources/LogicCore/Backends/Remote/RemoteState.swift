@@ -183,6 +183,7 @@ public struct RemoteStateBuilder: Sendable {
     /// Reads /ati into rows, or returns why it is refused.
     private static func parseATI(_ value: RemoteValue) -> Result<[ATIRow], RemoteStateRefusal> {
         guard let table = value.stringKeyedDictionary else { return .failure(RemoteStateRefusal(reason: "not a dictionary")) }
+        guard Set(table.keys).isSubset(of: Set(atiColumns)) else { return .failure(RemoteStateRefusal(reason: "unknown column")) }
         var columns: [String: [RemoteValue]] = [:]
         for name in atiColumns {
             guard let column = table[name] else { return .failure(RemoteStateRefusal(reason: "missing column \(name)")) }
@@ -193,15 +194,19 @@ public struct RemoteStateBuilder: Sendable {
         guard lengths.count == 1, let count = lengths.first else { return .failure(RemoteStateRefusal(reason: "columns differ in length")) }
         var rows: [ATIRow] = []
         for i in 0..<count {
-            guard let n = columns["n"]![i].stringKeyedDictionary, let name = n["name"]?.string, let gindex = n["gindex"]?.int,
+            guard let n = columns["n"]![i].stringKeyedDictionary, Set(n.keys) == ["name", "gindex"],
+                  let name = n["name"]?.string, let gindex = n["gindex"]?.int,
                   let kind = columns["t"]![i].int, let channels = columns["nc"]![i].int, let panKind = columns["p"]![i].int,
                   let tn = columns["tn"]![i].int, let trackID = columns["BgTrackInfoTrackIDKey"]![i].int,
                   let uuid = columns["BgTrackInfoTrackUUIDKey"]![i].string,
-                  columns["c"]![i].stringKeyedDictionary != nil,
-                  columns["BgTrackInfoIconIDKey"]![i].int != nil, columns["BgTrackInfoCollapsibleInfoKey"]![i].int != nil,
-                  columns["BgTrackInfoMetaInfoFlagsKey"]![i].int != nil,
+                  validColours(columns["c"]![i]),
+                  columns["BgTrackInfoIconIDKey"]![i].int != nil,
+                  let collapsible = columns["BgTrackInfoCollapsibleInfoKey"]![i].int,
+                  let meta = columns["BgTrackInfoMetaInfoFlagsKey"]![i].int,
                   case .bool = columns["BgTrackInfoHasArrangeKey"]![i], case .bool = columns["BgTrackInfoArrangeHiddenKey"]![i]
             else { return .failure(RemoteStateRefusal(reason: "row \(i) has a value of the wrong type")) }
+            guard (0...10).contains(kind), (-128...127).contains(panKind), collapsible >= 0, (0...1).contains(meta)
+            else { return .failure(RemoteStateRefusal(reason: "row \(i) has a value outside the known range")) }
             rows.append(ATIRow(gindex: gindex, trackID: trackID, tn: tn, kind: kind, channels: channels, panKind: panKind,
                                uuid: uuid, name: name))
         }
@@ -210,6 +215,17 @@ public struct RemoteStateBuilder: Sendable {
             return .failure(RemoteStateRefusal(reason: "repeated \(label)"))
         }
         return .success(rows)
+    }
+
+    /// NSData on the wire, or its string representation in JSON. The current schema imposes no byte-length rule.
+    private static func validColours(_ value: RemoteValue) -> Bool {
+        guard let colours = value.stringKeyedDictionary, Set(colours.keys) == ["nc", "sc", "tnc", "tsc"] else { return false }
+        return colours.values.allSatisfy {
+            switch $0 {
+            case .data, .string: return true
+            default: return false
+            }
+        }
     }
 
     private mutating func ati(_ frame: Int, _ value: RemoteValue) {
@@ -271,6 +287,18 @@ public struct RemoteStateBuilder: Sendable {
     private static let stripFields: Set<String> = ["vL", "s", "m"]
     private static let trackFields: Set<String> = ["r", "ip"]
 
+    /// Only the bounds/enum currently established in logic-remote-state.schema.json; values remain uninterpreted.
+    private static func validFaderValue(_ value: Int, field: String) -> Bool {
+        switch field {
+        case "vL": return (Int(Int32.min)...Int(Int32.max)).contains(value)
+        case "s": return (-128...127).contains(value)
+        case "m": return value >= 0
+        case "r": return [0, 1, 3, 64, 128].contains(value)
+        case "ip": return (0...4095).contains(value)
+        default: return false
+        }
+    }
+
     /// Keys are numbers in a keyed archive and strings in JSON; both name the same identifier.
     private static func identifier(_ key: RemoteValue) -> Int? {
         switch key {
@@ -290,6 +318,7 @@ public struct RemoteStateBuilder: Sendable {
             for (name, field) in fields {
                 guard allowed.contains(name) else { return .failure(RemoteStateRefusal(reason: "unknown field \(name)")) }
                 guard let n = field.int else { return .failure(RemoteStateRefusal(reason: "field \(name) is not an integer")) }
+                guard validFaderValue(n, field: name) else { return .failure(RemoteStateRefusal(reason: "field \(name) is outside the known range")) }
                 ints[name] = n
             }
             out.append((entry.key, ints))
@@ -347,9 +376,18 @@ public struct RemoteStateBuilder: Sendable {
     }
 
     private mutating func sti(_ frame: Int, _ raw: RemoteValue) {
+        let required: Set<String> = ["n", "t", "BgTrackInfoMetaInfoFlagsKey", "tn", "BgTrackInfoIndexKey"]
         guard let value = Self.openArchivedArgument(raw), let sti = value.stringKeyedDictionary,
-              let name = sti["n"]?.string else {
-            event(frame, "/sti", .stiRejected, "not a selected-track dictionary"); return
+              required.isSubset(of: Set(sti.keys)), Set(sti.keys).isSubset(of: required.union(["BgTrackInfoShowArpeggiatorButtonKey"])),
+              let name = sti["n"]?.string, let kind = sti["t"]?.int, (0...4).contains(kind),
+              let meta = sti["BgTrackInfoMetaInfoFlagsKey"]?.int, meta >= 0,
+              let tn = sti["tn"]?.int, let index = sti["BgTrackInfoIndexKey"]?.int else {
+            event(frame, "/sti", .stiRejected, "not a selected-track dictionary with valid fields"); return
+        }
+        if let arpeggiator = sti["BgTrackInfoShowArpeggiatorButtonKey"] {
+            guard case .bool = arpeggiator else {
+                event(frame, "/sti", .stiRejected, "arpeggiator field is not a boolean"); return
+            }
         }
         if value == lastSTI { event(frame, "/sti", .stiDuplicate, ""); return }
         lastSTI = value
@@ -358,16 +396,17 @@ public struct RemoteStateBuilder: Sendable {
             event(frame, "/sti", .stiApplied, "no selection")
             return
         }
-        selection = RemoteSelection(selected: true, name: name, index: sti["BgTrackInfoIndexKey"]?.int, tn: sti["tn"]?.int,
-                                    kind: sti["t"]?.int, frame: frame)
+        selection = RemoteSelection(selected: true, name: name, index: index, tn: tn, kind: kind, frame: frame)
         resolveSelection(frame, "/sti")
         event(frame, "/sti", .stiApplied, selection?.gindex.map { "gindex \($0)" } ?? "unresolved")
     }
 
     private mutating func resolveSelection(_ frame: Int, _ address: String) {
-        guard var current = selection, current.selected, !order.isEmpty else { return }
+        guard var current = selection, current.selected else { return }
         current.gindex = nil
         current.position = nil
+        // Before the first /ati the selection is pending; a received empty /ati is a mismatch.
+        guard lastATI != nil else { selection = current; return }
         var problems: [String] = []
         if let index = current.index, order.indices.contains(index), let strip = strips[order[index]] {
             if strip.name != current.name { problems.append("name") }
@@ -383,7 +422,7 @@ public struct RemoteStateBuilder: Sendable {
     // MARK: - Counts
 
     private mutating func count(_ frame: Int, _ address: String, _ value: RemoteValue) {
-        guard let n = value.int else { event(frame, address, .countRejected, "not an integer"); return }
+        guard let n = value.int, n >= 0 else { event(frame, address, .countRejected, "not a nonnegative integer"); return }
         let previous = address == "/allTrackCount" ? allTrackCount : trackCount
         let known = RemoteKnown(n, frame: frame)
         if address == "/allTrackCount" { allTrackCount = known } else { trackCount = known }

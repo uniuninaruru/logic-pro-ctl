@@ -16,11 +16,11 @@
 
 ## The builder's contract
 
-The same contract is also implemented on the product side in Swift: `Sources/LogicCore/Backends/Remote/RemoteState.swift` (`RemoteStateBuilder`). It only takes decoded messages and returns state; it is not wired to any connection, sending or the CLI. Tests: `Tests/LogicCoreTests/RemoteStateTests.swift` (22; they also check that JSON string keys and archive number keys, and a MAZP-archived `/sti` and a plain one, give the same state, and, when the recording is on this machine, that the real data gives the same numbers as the Python tool).
+The same contract is also implemented on the product side in Swift: `Sources/LogicCore/Backends/Remote/RemoteState.swift` (`RemoteStateBuilder`). It only takes decoded messages and returns state; it is not wired to any connection, sending or the CLI. Tests: `Tests/LogicCoreTests/RemoteStateTests.swift` (26; they also check that JSON string keys and archive number keys, and a MAZP-archived `/sti` and a plain one, give the same state, and, when the recording is on this machine, that the real data gives the same numbers as the Python tool).
 
 The port found one mistake in the Python tool, now fixed: track values (`r`, `ip`) were carried over by `track_id` alone, but `track_id` follows position (EXP-REMOTE-001), so after a reorder the values landed on another strip. Now they are carried only while the `track_id` stays with a strip of the same UUID.
 
-A research tool, not part of the product (`Sources/`). Like the [read contract](../../docs/observation-contract.en.md), **it does not treat what it does not know as known.**
+The Python version is a research tool that the product (`Sources/`) does not depend on; the Swift version is a pure state builder inside the product. Neither provides connection or sending functionality. Like the [read contract](../../docs/observation-contract.en.md), **it does not treat what it does not know as known.**
 
 | # | Rule | Why |
 |---|---|---|
@@ -65,7 +65,7 @@ A research tool, not part of the product (`Sources/`). Like the [read contract](
 
 ## Tests
 
-`Tools/research-scripts/test_remote_state.py` (35 tests) checks each rule of the contract on synthetic message sequences.
+`Tools/research-scripts/test_remote_state.py` (37 tests) checks each rule of the contract on synthetic message sequences.
 
 - Zero and absence: an `m` that was never sent stays `null` (not 0); a received 0 is 0; a partial delta does not erase other fields.
 - Broken `/ati`: columns of different length, a missing column, and a repeated `gindex`, `track_id` or UUID are refused, and the previous state is kept.
@@ -78,6 +78,23 @@ A research tool, not part of the product (`Sources/`). Like the [read contract](
 - Real data (only when the recording is on this machine): 0 inconsistencies, 36 / 24 fields, the second `/ati` is a duplicate, and right after the first `/ati` every fader value is `null`.
 
 That the tests catch errors was seen when a version without the selection re-check failed the real-data test (that failure is how the early `/sti` was noticed).
+
+## Boundaries found by independent review and their fixes
+
+The first Swift version (`9ed170a`) passed its 22 existing tests and Python passed 36, but separate synthetic inputs through **binary plist → the product frame decoder → the builder** reproduced four gaps outside those tests.
+
+| Input / boundary | Problem in the first version | Corrected behavior |
+|---|---|---|
+| Empty `/ati` after resolving a selection | Both versions kept the removed strip's `gindex` / position in the selection | Clear the old binding and report a mismatch. Distinguish this from pending selection before the first `/ati` |
+| Missing or incorrectly typed fields inside an `/ati` colour dictionary | Swift replaced the previous valid state with the malformed whole list | Check known required colour keys and data / JSON string types; reject the whole invalid list and preserve the previous state |
+| Missing required fields or incorrect types in `/sti` | Swift applied an invalid selection message | Validate required fields, types and known bounds before updating, including `NoTrackSelected`. Preserve the previous selection on rejection |
+| Deltas outside known numeric constraints or negative counts | Swift stored `r=2`, `ip=5000` and count `−1` as known values | Reject according to the current schema's enum / bounds. This does not establish new value semantics |
+
+After the fixes, all 26 Swift tests, 37 Python tests and the nine independent cases pass. Integration also passes the full 147-test Swift suite and 70 related Python state/schema/capture tests. The real-data regression uses only the fixed EXP-REMOTE-001 recording, so a new experiment is not compared to the initial capture's fixed expected values. If the reference recording is absent, only those real-data tests skip.
+
+These are **offline checks** with malformed inputs, not live observations that Logic sent those inputs. Continue comparing the saved initial capture to ensure valid reception is still accepted.
+
+**A separate design limit:** An orphan delta carrying only an ID and no UUID cannot distinguish a new strip's early data from a removed strip's late delta when a subsequent `/ati` contains the same ID. Both versions follow the current contract of attaching orphans later. This review did not observe such late deltas in real traffic. UUID checks on lists do not guarantee that this ambiguity is resolved. This state alone is not yet proof of target identity for product writes.
 
 ## Hypothesis
 

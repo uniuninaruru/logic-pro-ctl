@@ -1,7 +1,7 @@
 """Checks for remote_state.py: the contract of EXP-REMOTE-002 on synthetic message sequences.
 
-None of the synthetic messages was captured. The last group replays the newest real capture under
-Research/raw/remote-recv/ when there is one (not tracked by Git) and is skipped otherwise.
+None of the synthetic messages was captured. The last group replays only EXP-REMOTE-001's reference
+recording, Research/raw/remote-recv/20261005-094234-e1/ (not tracked by Git), and is skipped when absent.
 """
 
 import plistlib
@@ -243,6 +243,28 @@ class SelectionAndCountTests(unittest.TestCase):
         b.apply(3, "/sti", sti("A", 0, 1))
         self.assertEqual(kinds(b)[-1], "sti_duplicate")
 
+    def test_an_empty_ati_unresolves_selection_without_inventing_no_selection(self):
+        b = rs.StateBuilder()
+        b.apply(1, "/ati", ati(["A"]))
+        b.apply(2, "/sti", sti("A", 0, 1))
+        self.assertEqual(b.snapshot()["selection"]["gindex"], 100)
+        b.apply(3, "/ati", ati([]))
+        self.assertEqual(b.snapshot()["strips"], [])
+        selection = b.snapshot()["selection"]
+        self.assertTrue(selection["selected"])  # no NoTrackSelected message arrived
+        self.assertIsNone(selection["gindex"])
+        self.assertIsNone(selection["position"])
+        self.assertEqual(selection["resolved_with_ati_frame"], 3)
+        self.assertEqual(b.issues[-1]["kind"], "selection_mismatch")
+
+        pending = rs.StateBuilder()
+        pending.apply(1, "/sti", sti("A", 0, 1))
+        self.assertEqual(pending.issues, [])
+        pending.apply(2, "/ati", ati([]))
+        self.assertEqual(pending.issues[-1]["kind"], "selection_mismatch")
+        pending.apply(3, "/ati", ati(["A"]))
+        self.assertEqual(pending.snapshot()["selection"]["gindex"], 100)
+
     def test_a_count_that_disagrees_with_ati_is_reported(self):
         b = rs.StateBuilder()
         b.apply(1, "/ati", ati(["A", "B"]))
@@ -315,20 +337,19 @@ class TableTests(unittest.TestCase):
         self.assertEqual(rs._summary([True, True]), "true")
 
 
-def newest_capture():
-    captures = sorted(RAW.glob("*-e1")) if RAW.is_dir() else []
-    captures = [c for c in captures if (c / "frames").is_dir() and (c / "events.jsonl").is_file()]
-    return captures[-1] if captures else None
+def exp001_reference_capture():
+    capture = RAW / "20261005-094234-e1"
+    return capture if (capture / "frames").is_dir() and (capture / "events.jsonl").is_file() else None
 
 
-class RealCaptureTests(unittest.TestCase):
-    """EXP-REMOTE-002's results, re-derived when the capture is on this machine."""
+class EXP001ReferenceCaptureTests(unittest.TestCase):
+    """EXP-REMOTE-002's fixed results, using only EXP-REMOTE-001's reference recording when present."""
 
     @classmethod
     def setUpClass(cls):
-        cls.capture = newest_capture()
+        cls.capture = exp001_reference_capture()
         if cls.capture is None:
-            raise unittest.SkipTest("no capture under Research/raw/remote-recv/")
+            raise unittest.SkipTest("EXP-REMOTE-001 reference recording 20261005-094234-e1 is absent")
         cls.builder = rs.replay(cls.capture)
         cls.snap = cls.builder.snapshot()
 
