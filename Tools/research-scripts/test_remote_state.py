@@ -11,6 +11,7 @@ import zlib
 from pathlib import Path
 
 import remote_state as rs
+from test_remote_capture import capture, json_frame
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "Research" / "raw" / "remote-recv"
@@ -270,7 +271,35 @@ class CompletenessAndOrderTests(unittest.TestCase):
         self.assertEqual(b.events, [])
 
 
+class CsTableTests(unittest.TestCase):
+    ASSIGN = [
+        {"model": "1", "kind": "5", "sub": "0", "param": "7", "flags": "2", "address": "/cs/mixer/volume/volume"},
+        {"model": "1", "kind": "5", "sub": "4096", "param": "7", "flags": "2", "address": "/cs/mixer/volume/volume1"},
+        {"model": "1", "kind": "9", "sub": "0", "param": "0", "flags": "3", "address": "/cs/mixer/mutereset"},
+        {"model": "1", "kind": "2", "sub": "0", "param": "0", "flags": "0", "address": "Transport"},
+    ]
+
+    def test_instances_fold_into_the_table_template_and_gaps_are_named(self):
+        frames = [json_frame({"/cs/mixer/volume/volume1": 90 / 127}), json_frame({"/cs/mixer/volume/volume2": 90 / 127}),
+                  json_frame({"/cs/mixer/unknown3": 1})]
+        rows = {r[0]: r for r in rs.cs_rows(capture(frames), self.ASSIGN)}
+        self.assertEqual(rows["/cs/mixer/volume/volume"][1], "both")
+        self.assertEqual(rows["/cs/mixer/volume/volume"][3:5], ["2", "2"])
+        self.assertIn("(= 90/127)", rows["/cs/mixer/volume/volume"][6])
+        self.assertEqual(rows["/cs/mixer/mutereset"][1], "static only (not received)")
+        self.assertEqual(rows["/cs/mixer/unknown"][1], "received only (not in the table)")
+        self.assertNotIn("Transport", rows)                                   # only /cs/ rows
+
+    def test_the_real_table_is_readable(self):
+        rows = rs.read_assign_table()
+        self.assertTrue(any(r["address"] == "/cs/mixer/volume/volume" for r in rows))
+
+
 class TableTests(unittest.TestCase):
+    def test_floats_are_listed_with_their_127ths(self):
+        self.assertEqual(rs._summary([90 / 127, 90 / 127]), "0.70866 (= 90/127)")
+        self.assertEqual(rs._summary([0.123]), "0.12300")
+
     def test_the_summary_never_lists_a_string(self):
         self.assertEqual(rs._summary(["Piano ", "secret-uuid"]), "2 distinct strings (not listed)")
         self.assertEqual(rs._summary([b"\x01", b"\x01"]), "1 distinct byte strings (not listed)")

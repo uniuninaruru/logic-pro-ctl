@@ -48,9 +48,19 @@ A research tool, not part of the product (`Sources/`). Like the [read contract](
 
 [`logic-remote-captured-addresses.tsv`](../protocol/logic-remote-captured-addresses.tsv) lists every address received, folded into 116 patterns with digits as `{n}` (no values). The schema covers 14 of them; `/cs/…` (8 control-surface strips), `/mixer/io/…`, `/mixer/plugins/…`, the meters and others are not in the schema yet.
 
+### `/cs/…` (the control-surface feedback) against the static assignment table
+
+[`logic-remote-cs-feedback.tsv`](../protocol/logic-remote-cs-feedback.tsv) lines up the received `/cs/…` with the default assignment table of the Logic Remote plug-in ([`cs-assign-remote.tsv`](../protocol/cs-assign-remote.tsv), SA-002), folded into templates with the trailing number (the strip) removed.
+
+- **All 33 templates received are in the assignment table.** No address outside the table arrived.
+- 5 templates of the table did not arrive: `/cs/mixer/mutereset`, `/cs/mixer/soloreset`, `/cs/mixer/volume`, `/cs/transport/track+`, `/cs/transport/track-`. From their names and table values (`kind` 9 with `flags` 3, `kind` 1) they look like **buttons the Remote sends to Logic, which Logic does not echo** (hypothesis; confidence medium).
+- Values: `volume`, `trimvolume` and `mastervolume` are **90/127** at 0 dB, `pan` **64/127** at centre. In the assignment table `param` is 7 for volume and 10 for pan (the MIDI control-change numbers for volume and pan). This matches the top byte 90 of `vL` in `/gtFaderData`. So the `/cs` volume looks like **Logic's 7-bit volume (90 = 0 dB) divided by 127** (hypothesis; confidence medium; one point at 0 dB).
+- **The scale differs from the MCU's**: the MCU's 14-bit fader is about 12440 at 0 dB (between −0.4 dB = 12283 and +0.2 dB = 12523 in [`mcu-fader-calibration.tsv`](../protocol/mcu-fader-calibration.tsv); 0.759), which is 97 when cut to 7 bits, not 90. The two routes' values must not be converted into each other by dropping bits.
+- `/cs` covers only **8 strips** (8 from `/cs/bankLeftOffset` = 0), a different range from `/ati` and `/gtFaderData`, which cover all 12. Sends are 64 addresses with two-digit numbers (8 × 8); which digit is the strip and which the send slot is unconfirmed.
+
 ## Tests
 
-`Tools/research-scripts/test_remote_state.py` (32 tests) checks each rule of the contract on synthetic message sequences.
+`Tools/research-scripts/test_remote_state.py` (35 tests) checks each rule of the contract on synthetic message sequences.
 
 - Zero and absence: an `m` that was never sent stays `null` (not 0); a received 0 is 0; a partial delta does not erase other fields.
 - Broken `/ati`: columns of different length, a missing column, and a repeated `gindex`, `track_id` or UUID are refused, and the previous state is kept.
@@ -59,6 +69,7 @@ A research tool, not part of the product (`Sources/`). Like the [read contract](
 - Mismatches: an unknown `gindex` / `track_id` is reported as an orphan and attached by a later `/ati`; a schema-invalid `/gtFaderData` changes nothing.
 - Selection: an `/sti` before `/ati` is attached later; an old `/sti` after a reorder is not attached and is reported.
 - Completeness: `complete` is `null` even when every field is known.
+- `/cs` matching: numbered addresses fold into the table's templates; "in the table but not received" and "received but not in the table" are told apart.
 - Real data (only when the recording is on this machine): 0 inconsistencies, 36 / 24 fields, the second `/ati` is a duplicate, and right after the first `/ati` every fader value is `null`.
 
 That the tests catch errors was seen when a version without the selection re-check failed the real-data test (that failure is how the early `/sti` was noticed).

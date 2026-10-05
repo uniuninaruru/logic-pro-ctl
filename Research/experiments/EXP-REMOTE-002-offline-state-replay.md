@@ -48,9 +48,19 @@
 
 [`logic-remote-captured-addresses.tsv`](../protocol/logic-remote-captured-addresses.tsv) には、届いたすべてのアドレスを、数字を `{n}` にまとめた 116 の型で載せた（値は載せていない）。スキーマが扱うのはそのうち 14 の型だけで、`/cs/…`（コントロールサーフェスの 8 本分）・`/mixer/io/…`・`/mixer/plugins/…`・メーターなどは、スキーマにまだ無い。
 
+### `/cs/…`（コントロールサーフェスの返信）と静的な割り当て表
+
+[`logic-remote-cs-feedback.tsv`](../protocol/logic-remote-cs-feedback.tsv) で、受信した `/cs/…` を、Logic Remote のプラグインが持つ既定の割り当て表（[`cs-assign-remote.tsv`](../protocol/cs-assign-remote.tsv)、SA-002）と突き合わせた。末尾の数字（ストリップの番号）を外した型でまとめている。
+
+- 受信した 33 の型は、**すべて割り当て表にあった**。表に無いアドレスは届いていない。
+- 表にあって届かなかったのは 5 つ：`/cs/mixer/mutereset`、`/cs/mixer/soloreset`、`/cs/mixer/volume`、`/cs/transport/track+`、`/cs/transport/track-`。名前と表の値（`kind` 9 で `flags` 3、`kind` 1）から、**Remote から Logic へ送るボタン側で、Logic からは返さないもの**と考えられる（仮説。確信度: 中）。
+- 値：`volume`・`trimvolume`・`mastervolume` は 0 dB で **90/127**、`pan` は中央で **64/127**。割り当て表の `param` は、音量が 7、パンが 10（MIDI のコントロールチェンジの音量・パンの番号と同じ）。`/gtFaderData` の `vL` の上位バイト 90 とも一致する。したがって、`/cs` の音量は **Logic の 7 ビットの音量（90 = 0 dB）を 127 で割った値**と考えられる（仮説。確信度: 中。0 dB の 1 点だけ）。
+- **MCU の値とは尺度が違う**：MCU の 14 ビットのフェーダーは、0 dB が約 12440（[`mcu-fader-calibration.tsv`](../protocol/mcu-fader-calibration.tsv) の −0.4 dB = 12283 と +0.2 dB = 12523 の間。0.759）で、7 ビットに縮めると 97 になる。90 とは合わないので、2 つの経路の値をビットの切り詰めで相互に変換してはいけない。
+- `/cs` が扱うのは **8 本**（`/cs/bankLeftOffset` = 0 から 8 本）だけで、12 本すべてを扱う `/ati`・`/gtFaderData` とは範囲が違う。送り（sends）は、2 桁の番号の 64 アドレス（8 × 8）。どちらの桁がストリップで、どちらが送りの番号かは未確認。
+
 ## 試験
 
-`Tools/research-scripts/test_remote_state.py`（32 件）。合成のメッセージ列で、契約の各項を確かめる。
+`Tools/research-scripts/test_remote_state.py`（35 件）。合成のメッセージ列で、契約の各項を確かめる。
 
 - 0 と欠落：送られていない `m` は `null` のまま（0 にならない）。届いた 0 は 0。部分的な差分は他の項目を消さない。
 - 壊れた `/ati`：列の長さの違い、列の欠落、`gindex`・`track_id`・UUID の重複は受け付けず、前の状態を保つ。
@@ -59,6 +69,7 @@
 - 不一致：知らない `gindex`／`track_id` は孤児として報告し、後の `/ati` で結び付く。スキーマ違反の `/gtFaderData` は何も変えない。
 - 選択：`/ati` より前の `/sti` は後で結び付く。並べ替えの後の古い `/sti` は結び付けず、報告する。
 - 完全性：すべての項目が分かっても `complete` は `null`。
+- `/cs` の照合：番号付きのアドレスが表の型にまとまること、表にあって届かないもの・表に無いのに届いたものを区別すること。
 - 実データ（手元に記録があるときだけ）：矛盾 0、36／24 項目、2 回目の `/ati` は重複、`/ati` 直後の時点ではフェーダーの値が全部 `null`。
 
 試験が誤りを検出できることは、選択の再照合を外した版で、実データの試験が失敗したことで確かめた（その失敗から、`/sti` が先に届くことに気づいた）。

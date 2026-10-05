@@ -31,6 +31,8 @@ The contract (EXP-REMOTE-002):
   remote_state.py replay CAPTURE [--at FRAME]     state, events and issues as JSON
   remote_state.py coverage CAPTURE                the coverage table (TSV) of the schema addresses
   remote_state.py addresses CAPTURE               every address family seen (TSV), without values
+  remote_state.py cs CAPTURE                      received /cs/ feedback against the plug-in's static
+                                                  assignment table (Research/protocol/cs-assign-remote.tsv)
 """
 import argparse
 import base64
@@ -329,6 +331,11 @@ def _summary(values):
     if all(isinstance(v, int) and not isinstance(v, bool) for v in values):
         distinct = sorted(set(values))
         return ", ".join(str(v) for v in distinct) if len(distinct) <= 6 else f"{distinct[0]}..{distinct[-1]} ({len(distinct)} distinct)"
+    if all(isinstance(v, float) for v in values):
+        distinct = sorted(set(values))
+        if len(distinct) > 6:
+            return f"{distinct[0]:.5f}..{distinct[-1]:.5f} ({len(distinct)} distinct)"
+        return ", ".join(f"{v:.5f} (= {round(v * 127)}/127)" if abs(v * 127 - round(v * 127)) < 1e-4 else f"{v:.5f}" for v in distinct)
     if all(isinstance(v, (bytes, str)) for v in values):
         return f"{len(set(values))} distinct {'byte strings' if isinstance(values[0], bytes) else 'strings'} (not listed)"
     return f"{len(values)} values of mixed or structured type"
@@ -401,6 +408,63 @@ def address_rows(capture: Path):
     return rows
 
 
+CS_ASSIGN_TABLE = Path(__file__).resolve().parents[2] / "Research" / "protocol" / "cs-assign-remote.tsv"
+
+
+def cs_template(address):
+    """'/cs/mixer/mute/3' and the table's '/cs/mixer/mute/' fold to the same key; so do 'sends/send23' and 'sends/send2'."""
+    return re.sub(r"\d+$", "", address)
+
+
+def read_assign_table(path=CS_ASSIGN_TABLE):
+    rows = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        if line.startswith("#") or not line.strip():
+            continue
+        cells = line.split("\t")
+        if cells[0] == "model":
+            continue
+        rows.append({"model": cells[0], "kind": cells[1], "sub": cells[2], "param": cells[3], "flags": cells[4], "address": cells[5]})
+    return rows
+
+
+def cs_rows(capture: Path, assign_rows=None):
+    """One row per /cs/ template: the static assignment fields, and what was received for it."""
+    assign_rows = read_assign_table() if assign_rows is None else assign_rows
+    static = collections.defaultdict(set)
+    for r in assign_rows:
+        if r["address"].startswith("/cs/"):
+            static[cs_template(r["address"])].add((r["kind"], r["param"], r["flags"]))
+    received = collections.defaultdict(list)
+    addresses = collections.defaultdict(set)
+    for _, address, value in _messages(capture):
+        if address.startswith("/cs/"):
+            received[cs_template(address)].append(value)
+            addresses[cs_template(address)].add(address)
+    rows = []
+    for template in sorted(set(static) | set(received)):
+        values = received.get(template, [])
+        kinds = sorted({type(v).__name__ for v in values})
+        if template in static and values:
+            seen = "both"
+        elif template in static:
+            seen = "static only (not received)"
+        else:
+            seen = "received only (not in the table)"
+        fields = ";".join(f"kind={k},param={p},flags={f}" for k, p, f in sorted(static.get(template, ())))
+        rows.append([template, seen, fields or "—", str(len(addresses.get(template, ()))), str(len(values)),
+                     ",".join(kinds) or "—", _summary(values) if values else "—"])
+    return rows
+
+
+CS_HEADER = """# /cs/ (the Logic Remote control-surface feedback) received in one reception (EXP-REMOTE-001) against the
+# Logic Remote plug-in's static assignment table (Research/protocol/cs-assign-remote.tsv, SA-002). See EXP-REMOTE-002.
+# Generated: python3 Tools/research-scripts/remote_state.py cs <capture>. The capture itself is not committed.
+# template: the address with its trailing number removed (per-strip instances fold together). Strings are counted, not listed.
+# kind/param/flags: assignment fields as named in cs-assign-remote.tsv (their meaning is a hypothesis there).
+# template\tseen\tstatic_fields\treceived_addresses\treceived_messages\tvalue_types\tsummary"""
+
+
 COVERAGE_HEADER = """# Schema addresses of logic-remote-state.schema.json against one captured reception (EXP-REMOTE-001, EXP-REMOTE-002).
 # Generated: python3 Tools/research-scripts/remote_state.py coverage <capture>. The capture itself is not committed.
 # Strings (track names, UUIDs, locale, host data) are summarised by count only; no string value is listed.
@@ -415,7 +479,7 @@ ADDRESS_HEADER = """# Every address family seen in one captured reception (EXP-R
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("command", choices=["replay", "coverage", "addresses"])
+    parser.add_argument("command", choices=["replay", "coverage", "addresses", "cs"])
     parser.add_argument("capture")
     parser.add_argument("--at", type=int, help="replay: stop after this frame number")
     options = parser.parse_args(argv)
@@ -426,7 +490,9 @@ def main(argv=None) -> int:
             print(json.dumps({"state": builder.snapshot(), "issues": builder.issues,
                               "events": collections.Counter(e["kind"] for e in builder.events)}, ensure_ascii=False, indent=1))
         else:
-            header, rows = (COVERAGE_HEADER, coverage_rows(capture)) if options.command == "coverage" else (ADDRESS_HEADER, address_rows(capture))
+            header, rows = {"coverage": (COVERAGE_HEADER, coverage_rows), "addresses": (ADDRESS_HEADER, address_rows),
+                            "cs": (CS_HEADER, cs_rows)}[options.command]
+            rows = rows(capture)
             print(header)
             for r in rows:
                 print("\t".join(r))

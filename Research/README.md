@@ -45,7 +45,7 @@ flowchart LR
 |---|---|
 | `static-analysis/` | Ghidra、命令、メタデータ、ハッシュを使った根拠 |
 | `experiments/` | 対象・初期状態・1回の操作・観測・再現回数 |
-| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）、`t`・`c` の表と命令の照合表（`logic-remote-track-types.tsv`・`logic-remote-colour-bytes.tsv`・`logic-remote-trackcolor-anchors.tsv`。確認は `Tools/research-scripts/binary_anchors.py`）、受信とスキーマの対応（`logic-remote-state-coverage.tsv`・`logic-remote-captured-addresses.tsv`。値は載せない）などの抽出表 |
+| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）、`t`・`c` の表と命令の照合表（`logic-remote-track-types.tsv`・`logic-remote-colour-bytes.tsv`・`logic-remote-trackcolor-anchors.tsv`。確認は `Tools/research-scripts/binary_anchors.py`）、受信とスキーマの対応（`logic-remote-state-coverage.tsv`・`logic-remote-captured-addresses.tsv`・`logic-remote-cs-feedback.tsv`。値は載せない）などの抽出表 |
 | `notes/` | 関連資料・先行例 |
 | `raw/` | ローカルの生出力。Gitには含めない |
 
