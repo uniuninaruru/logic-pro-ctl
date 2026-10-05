@@ -48,8 +48,10 @@ Logic の前回 getter は `mappingClasses` の返値に追加の class-set を�
 
 ## 3. 次に読む範囲
 
-1. private archive / unarchive initializer の selector と実装の対応、失敗・delegate・ownership。
-2. registry の初期化 block と必要な登録元だけを読み、特定 profile での許可クラスを再現可能に記録する。
+**追補：** [SA-AE-TARGET-008](SA-AE-TARGET-008-archive-classes-initializers.md)で、registry / plist / common core の初期化と私有 initializer の実装対応を確認しました。候補の個数と実行中の集合の要素数は区別しています。
+
+1. private archive / unarchive initializer の最終 dispatch、失敗・追加 class-set・delegate・ownership。
+2. 必要な後続登録元と first receiver を読み、registry の全メンバーや decode 可能性を初期化候補だけから決めない。
 3. cache を使わない archive round trip の検証条件と、mapping 更新の新 index の制約。復元・Undo は別の境界として調べる。
 
 今回も製品コードの追加・実機書き込みは行っていません。

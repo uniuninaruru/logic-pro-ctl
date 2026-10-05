@@ -1,0 +1,606 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-008"
+  ],
+  "captured_at_utc": "2026-10-05T00:01:17.683791+00:00",
+  "binary_inputs_rechecked_on_jst": "2026-10-05",
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "Research/static-analysis/appleevent-mapping-analysis-manifest.json",
+    "Research/static-analysis/appleevent-phase-analysis-manifest.json"
+  ],
+  "scope": "Three container initialization blocks and four archive initializer dispatch bodies; fixed class references and two category selectors only.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "programs": {
+    "MACore.arm64": {
+      "schema_version": 1,
+      "program_name": "MACore.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    },
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "binary": "Logic",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+      "installed_source_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_offset_bytes": 0,
+      "slice_size_bytes": 40710736,
+      "selected_arm64_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    },
+    {
+      "binary": "MACore",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+      "installed_source_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "slice_offset_bytes": 2375680,
+      "slice_size_bytes": 2248544,
+      "selected_arm64_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    }
+  ],
+  "shared_lock_absolute_path": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock",
+  "query_groups": {
+    "q-appleevent-class-init-008": {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x0009a8ac",
+          "defined_body_size_bytes": 280,
+          "inventory_name": "FUN_0009a8ac"
+        },
+        {
+          "address": "0x000c9ed4",
+          "defined_body_size_bytes": 320,
+          "inventory_name": "FUN_000c9ed4"
+        },
+        {
+          "address": "0x000c9dec",
+          "defined_body_size_bytes": 232,
+          "inventory_name": "FUN_000c9dec"
+        }
+      ]
+    },
+    "q-appleevent-archive-shims-008": {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x000ca058",
+          "defined_body_size_bytes": 4,
+          "inventory_name": "objc_stub::initRequiringSecureCoding:"
+        },
+        {
+          "address": "0x000ca014",
+          "defined_body_size_bytes": 4,
+          "inventory_name": "objc_stub::initForReadingFromData:error:"
+        },
+        {
+          "address": "0x00129ee0",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::initRequiringSecureCoding:"
+        },
+        {
+          "address": "0x00129e60",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::initForReadingFromData:error:"
+        }
+      ]
+    }
+  },
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd",
+      "size_bytes": 3123
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c",
+      "size_bytes": 5102
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9",
+      "size_bytes": 3163
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597",
+      "size_bytes": 1981
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331",
+      "size_bytes": 11784200
+    },
+    {
+      "path": "Research/raw/ghidra/MACore.arm64.functions.tsv",
+      "sha256": "85f49623a810fd76a14675936dd0a1b84344f14ce7dbd955c364dd24694dcec0",
+      "size_bytes": 894302
+    },
+    {
+      "path": "Research/raw/ghidra/archive-008-plan.md",
+      "sha256": "e6cf1f3d8f8936959f6d1c4f03406347ec1ca62a15f6422d927a46faa77ce5ee",
+      "size_bytes": 1188
+    },
+    {
+      "path": "Research/raw/ghidra/build-class-candidates-008.py",
+      "sha256": "2aabb0fc6c1f47c859b374404b46b42aa2fe0ebb8e981fc1650c6bedbb2ec2a8",
+      "size_bytes": 2332
+    },
+    {
+      "path": "Research/raw/ghidra/build-class-construction-manifest-008.py",
+      "sha256": "261a5932c53643963f1d78e4701b97a735593a88a94c2e26c32f7732bb5a0537",
+      "size_bytes": 10909
+    },
+    {
+      "path": "Research/raw/ghidra/class-init-review-008-notes.md",
+      "sha256": "9ee8ca57d17ab27d14fcaa17afed871054599491c39c6b19a7cd6ccee4f240c9",
+      "size_bytes": 9019
+    },
+    {
+      "path": "Research/raw/ghidra/class-references-008-verification.json",
+      "sha256": "79c4bf021d4edbbf4332764625095750a91efefdeda8fd087f720bfcfcba36e7",
+      "size_bytes": 324
+    },
+    {
+      "path": "Research/raw/ghidra/class-references-008.json",
+      "sha256": "4d9bfa1b47946a6a45a8dde2f1b5e22db667783ad6742ff1dd85c2c44ce83e50",
+      "size_bytes": 9679
+    },
+    {
+      "path": "Research/raw/ghidra/class-references-008.py",
+      "sha256": "0073c628062b759d4b9ed55b1fdd7d8892da3b72946e0a3ef1446d784faf4ad0",
+      "size_bytes": 4869
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-format-sources.json",
+      "sha256": "472f7b6dc0da93e645e08263e017f9ed11c25e0b33645bfc24a0b77b1cc75f72",
+      "size_bytes": 1316
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-logic-fixup-header.bin",
+      "sha256": "a6f62e91d491c659921e75750577026a53dc1fd48a850159eab84cbe565fda99",
+      "size_bytes": 28
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-logic-selector-0-name-0.bin",
+      "sha256": "d4c663f546e604e51b8468b3890011e453d90b309b68e785f3ac5d5d983eecaa",
+      "size_bytes": 30
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-logic-selector-1-name-0.bin",
+      "sha256": "481a9d2c1bf49ef24e23aeb207fc38c32334ecf1f9f686d6bb03ffe5bf69ccd1",
+      "size_bytes": 33
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-header.bin",
+      "sha256": "b1ab562b1c4b9e219deceba047abd4a5a30bef9a5b0b73fc8938f676f55c196e",
+      "size_bytes": 28
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-segment-1-header.bin",
+      "sha256": "4b30dff3d4d4eb368463f00f3b0e267861084d1a0072146ab70d1d882206b822",
+      "size_bytes": 22
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-segment-1-page-6-start.bin",
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+      "size_bytes": 2
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-segment-2-header.bin",
+      "sha256": "10177721da3daf6bf3a8f9bf7b62c75718caa3d141dd94d5101d5d7842261f07",
+      "size_bytes": 22
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-segment-2-page-2-start.bin",
+      "sha256": "78a23af8da46b1b37e8767921a2d3f528fdc8eca37cea8aea775fd2b283d3776",
+      "size_bytes": 2
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-fixup-segment-2-page-4-start.bin",
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
+      "size_bytes": 2
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-class-pointer-import-entry.bin",
+      "sha256": "fcabc84289be5dd4799b5855a97e6126c1a06f60924ce0789324b95bb047fc6b",
+      "size_bytes": 4
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-class-pointer-import-name.bin",
+      "sha256": "2bd27229ea16f378bbafc6cbcc0f247f1f0046492785288197dcc2eca1fd5d5b",
+      "size_bytes": 30
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-class-pointer.bin",
+      "sha256": "db47af78ac2e7a2dfafd1a39fa49f712ff644e11365a756ad2ab224ba40b2119",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-list-pointer.bin",
+      "sha256": "63a56790ee3bcfd118708eea4a80136120a29bca3c2f934f031abe184af8c1ec",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-name-pointer.bin",
+      "sha256": "7dbdf3049c87e441457aeaf0479d466dfc26ebeb982a6684924e3bf39a9c27e6",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-name.bin",
+      "sha256": "0399502e10e178b04859d4654d2489af9a328a93cdacbecb165a53300802f6a7",
+      "size_bytes": 13
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-category-prefix.bin",
+      "sha256": "da58aa985a96a44752eea29702655b007245b296162167de0f417cb60aa81d8f",
+      "size_bytes": 32
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-imp-word.bin",
+      "sha256": "edc09c5a44fd5b6d372e04360989d5fc1fdb52084c977f7bdd252b89781f4206",
+      "size_bytes": 4
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-method-entry.bin",
+      "sha256": "7bb85b14588edb2c831538cd51b6e3fffa643ff9bbf2ce9295921b596d3fbc76",
+      "size_bytes": 12
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-method-list-header.bin",
+      "sha256": "e1412e0086cb78191177aeddabd29a82fd93754943a4e6757ab0a5619a7d6fec",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-method-list-pointer.bin",
+      "sha256": "a568f2548235b8d341befd6d2b162c3ed62094b7db498d077b30cc872443b94b",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-selector-ref.bin",
+      "sha256": "529e8efa50ff5cd7752ca2d8b9a5f5d19912f9203fa44aac32563eb350a71515",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-0-type-encoding.bin",
+      "sha256": "eff08a31d3126de78e1a81aef0d0433fc16aef9bf57c467733c8283290c4d750",
+      "size_bytes": 11
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-class-pointer-import-entry.bin",
+      "sha256": "277292658f1cd98fd74225d49b527feacbff32337778f81a1e2b5ca0ef74ffac",
+      "size_bytes": 4
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-class-pointer-import-name.bin",
+      "sha256": "6cf5a9cfbf9382078e8b2a0fd6e8be153003fccb2807a8e3739dacbea1a24502",
+      "size_bytes": 32
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-class-pointer.bin",
+      "sha256": "51d876d21659098a5b1fda4eeecd9593c280d4cdf60124f146150ba50587ac5b",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-list-pointer.bin",
+      "sha256": "3e4d3dd8fcee5a20f5d88d716dfde4bd2df257726b802f18eae56b0e405d0f0c",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-name-pointer.bin",
+      "sha256": "7dbdf3049c87e441457aeaf0479d466dfc26ebeb982a6684924e3bf39a9c27e6",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-name.bin",
+      "sha256": "0399502e10e178b04859d4654d2489af9a328a93cdacbecb165a53300802f6a7",
+      "size_bytes": 13
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-category-prefix.bin",
+      "sha256": "3bd711bb08875e43cde8b73cd89e511cfadd06c8089cb1a32021070673262081",
+      "size_bytes": 32
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-imp-word.bin",
+      "sha256": "240ff032e63715fcc8419f20f117cae64a7f1bff831b67e11cffba6538ad9081",
+      "size_bytes": 4
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-method-entry.bin",
+      "sha256": "b392d071a95faaf598771c2b98040dccafafd321410cd36dfd0d83fd3dc83dad",
+      "size_bytes": 12
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-method-list-header.bin",
+      "sha256": "6be717aa53e07b1ef50eaa1431f864d55670491e521993fb95196af4e65e9ae8",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-method-list-pointer.bin",
+      "sha256": "55523f93e1613b2d8158afe8dc4366a82b00f3d50095292995bc28142dd9272e",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-selector-ref.bin",
+      "sha256": "65bf621da90f33557249eed084ea31b75fc46853cbfa6de2f3e2055daff97c04",
+      "size_bytes": 8
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-match-1-type-encoding.bin",
+      "sha256": "de5dfb89711b175b81323b157d7e652fe960188b60ca70e78ec8e6a255f0bb26",
+      "size_bytes": 15
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-selector-0-name-0.bin",
+      "sha256": "d4c663f546e604e51b8468b3890011e453d90b309b68e785f3ac5d5d983eecaa",
+      "size_bytes": 30
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-macore-selector-1-name-0.bin",
+      "sha256": "481a9d2c1bf49ef24e23aeb207fc38c32334ecf1f9f686d6bb03ffe5bf69ccd1",
+      "size_bytes": 33
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-notes.md",
+      "sha256": "ed054111c3d9f0d381c88d4fae22f3db04c09e1c62c47d0ca9332bdee0923f22",
+      "size_bytes": 10694
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008-verification.json",
+      "sha256": "6d72ffe4801e3a71b69df5c3db21f1efb9192c62aa37827f0da628d989f3c995",
+      "size_bytes": 818
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008.json",
+      "sha256": "32e9ca418927fba9e7ac9ac454abd8f307bd8264957502a84cc004aedbf3c1df",
+      "size_bytes": 21751
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008.py",
+      "sha256": "1202e0acdb41fba3f8694baa68a5f89b9da9fa7b4bce79476f9e204f3a6cf108",
+      "size_bytes": 19764
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-classes-007-machinecode.txt",
+      "sha256": "72df956a1729a0ed67edda0d5331fe8a11185adf859f92ad788a336eaba2694d",
+      "size_bytes": 5621
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-data-007.txt",
+      "sha256": "084d3f6cfa09cb9d4d0b794e7baaa6d58d5f4ee632b22268afe9e6008a825408",
+      "size_bytes": 821
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-shims-008-machinecode.txt",
+      "sha256": "3ae7fc389c84f7bcdc1b788e73a06d9cf3472f3768eb458fd6e034ef686b58d1",
+      "size_bytes": 1119
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-shims-008.c",
+      "sha256": "4da333dcc3fd57c2d7433ea4cba724febc91a2d3084d85d601cf0d2fc04a07b5",
+      "size_bytes": 1112
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-shims-008.identity.json",
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f",
+      "size_bytes": 463
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-archive-shims-008.log",
+      "sha256": "b796fc21d51bef71cdd8525ac5d48d9e14d2deee438b828b0dcd3a40ce7ea501",
+      "size_bytes": 5307
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-class-init-008-machinecode.txt",
+      "sha256": "6e8e79cfd0054d01920e52b7a9699ed6c7fbd7e183e04a2ed756d55726e023e9",
+      "size_bytes": 9272
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-class-init-008.c",
+      "sha256": "96f9d49f431fa7df8fb2e2d91c72f098ee8bb2408774a5a9b2d2b0e7a8b3d7a2",
+      "size_bytes": 3915
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-class-init-008.identity.json",
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f",
+      "size_bytes": 463
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-class-init-008.log",
+      "sha256": "f6339c28a5736160dcbdc4b81f9ff0dae3cb4021b58a20a9bf9ae893abcb86e3",
+      "size_bytes": 5263
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-phase-leaves-006-machinecode.txt",
+      "sha256": "96afa6e6327d396783592282260b28c2be699ef2767e079af736c497caee28c4",
+      "size_bytes": 21355
+    },
+    {
+      "path": "Research/raw/ghidra/run-archive-shims-008.py",
+      "sha256": "a3d93ad8d4cf2f51879468743430041b4cf623e540d8b0134a42bd46e7ee209f",
+      "size_bytes": 1307
+    },
+    {
+      "path": "Research/raw/ghidra/run-class-init-008.py",
+      "sha256": "e12d3680c518f703c8b6cd74dc6e936058a89f1c9cf78e6919979c552049d5c5",
+      "size_bytes": 1330
+    }
+  ],
+  "successful_logs": [
+    "Research/raw/ghidra/q-appleevent-class-init-008.log",
+    "Research/raw/ghidra/q-appleevent-archive-shims-008.log"
+  ],
+  "static_verification": {
+    "function_count": 7,
+    "defined_body_bytes": 880,
+    "machine_instruction_words_compared": 220,
+    "all_words_equal": true,
+    "class_import_slots": 17,
+    "direct_class_symbols": 2,
+    "class_candidate_rows": 23,
+    "registry_candidate_arguments": 10,
+    "registry_distinct_reference_names": 9,
+    "registry_effective_membership_count_verified": false,
+    "category_matches": 2,
+    "raw_objc_slices_compared": 37,
+    "invalid_class_reader_inputs_rejected": 3,
+    "invalid_category_reader_inputs_rejected": 3,
+    "independent_read_only_metadata_review_passed": true
+  },
+  "category_search": [
+    {
+      "program": "MACore.arm64",
+      "category_entries": 25,
+      "method_lists": 34,
+      "method_entries": 230,
+      "scope": "__objc_catlist instance/class method lists only; class lists not searched",
+      "matches": 2
+    },
+    {
+      "program": "Logic.arm64",
+      "category_entries": 51,
+      "method_lists": 70,
+      "method_entries": 600,
+      "scope": "__objc_catlist instance/class method lists only; class lists not searched",
+      "matches": 0
+    }
+  ],
+  "reference_sources": [
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/apple-oss-distributions/objc4/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "github_url": "https://github.com/apple-oss-distributions/objc4/blob/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "commit": "fb265098298302243cd7eeaa1f63f0ba7786dd9a",
+      "sha256": "6a27a1d709f81e7eb1383ca750650797e591896fbc101185ae674f08171659eb",
+      "line_count": 3232,
+      "consulted_1_based_line_bounds": [
+        [
+          635,
+          665
+        ],
+        [
+          696,
+          714
+        ],
+        [
+          920,
+          924
+        ],
+        [
+          975,
+          985
+        ],
+        [
+          1029,
+          1059
+        ],
+        [
+          1241,
+          1255
+        ],
+        [
+          3196,
+          3208
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d",
+      "consulted_1_based_line_bounds": [
+        [
+          36,
+          77
+        ],
+        [
+          95,
+          114
+        ],
+        [
+          163,
+          170
+        ],
+        [
+          220,
+          228
+        ],
+        [
+          327,
+          358
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "url": "https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/fixup-chains.h",
+      "role": "public format reference; local SDK content hash is recorded separately"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-archive-class-candidates.tsv",
+      "sha256": "77fe095f74d9e29cf3975106f2d1663dc023f556bbf7bf270076d921f93bbb5a",
+      "size_bytes": 3208
+    },
+    {
+      "path": "Research/protocol/appleevent-archive-initializers.tsv",
+      "sha256": "8430102d5ff1d1075d4c08039f79ae647e89702ea4bd25f44af22f247bb8f1a0",
+      "size_bytes": 666
+    }
+  ],
+  "dynamic_verification": "not_attempted",
+  "product_capabilities_added": false,
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "peer_connection_attempted": false,
+    "application_events_sent": false,
+    "preferences_changed": false
+  },
+  "notes": [
+    "23 class candidate arguments are not a combined fixed decoder allowlist or an effective runtime membership count.",
+    "Registry initialization repeats WsIdentity; later registrations are unenumerated.",
+    "Common-core base is receiver-derived through dynamic defaultPlistClasses dispatch; no unconditional thirteen-class claim.",
+    "Category method metadata maps private initializers to native-selector thunks; loaded precedence, overrides and native failure behavior are not observed.",
+    "No match in Logic category lists does not establish absence in all class method lists or the entire image.",
+    "Stored import hashes identify original inputs, not Ghidra database contents.",
+    "The readers are fixed-input research tools, not general parsers. Archive persistence, cache-free round trip, restoration and Undo remain open."
+  ]
+}

@@ -71,6 +71,8 @@ parser は固定 2 LSDA と既知 encoding に限定します。生の bytes・p
 
 archive data の nil、allocation の結果、attachment の成功をまとめた保存 status はありません。normal storage path は allocation-result gate の後も object を cache に保存し、末尾は release へ進みます。archive bytes と cache があることは disk 保存・再読込・UUID 除去成功を保証しません。getter は cached object があれば archive bytes を decode せず返すため、更新直後の読み戻しだけでは archive の内容や保存後の再読込を検証できません。nested aux-key 修復の枝では top-level copy の下の object を変更し、nested copy は明示されていません。
 
+**追補：** [SA-AE-TARGET-008](SA-AE-TARGET-008-archive-classes-initializers.md)で、私有 initializer の metadata → IMP → 通常 selector の転送と、三つの class 候補集合の構築を確認しました。Foundation 本体の失敗・最終 dispatch・追加 class-set / delegate・保存後再読込は引き続き未確認です。
+
 ## 4. loading は同期呼び出し、下位では mapping を更新する
 
 `0x00edc344` は global32 `0x026e9b30` を保存して incoming ID を置き、block `+0x10` の invoke pointer を **その場で `blr`**（`0x00edc364`）、normal return 後に global を復元（`0x00edc368`）。この 52-byte body に enqueue/skip はありません。例外時復元と thread isolation は未確認です。

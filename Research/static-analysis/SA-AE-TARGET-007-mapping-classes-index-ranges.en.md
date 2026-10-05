@@ -48,8 +48,10 @@ The previous enumeration block's candidate check uses `signExtend(oldInputIndex3
 
 ## 3. Next bounded reads
 
-1. Map private archive / unarchive initializer selectors to implementations, then examine failure, delegate, and ownership.
-2. Read the registry initialization block and only necessary registration sources to record permitted classes reproducibly for a specific profile.
+**Follow-up:** [SA-AE-TARGET-008](SA-AE-TARGET-008-archive-classes-initializers.en.md) establishes registry / plist / common-core initialization and the private-initializer implementation mappings. Candidate counts remain distinct from actual runtime set cardinality.
+
+1. Examine private archive / unarchive initializer final dispatch, failure, additional class-set, delegate, and ownership.
+2. Read necessary later registration sources and the first receiver; initial candidates alone do not establish all registry members or decode acceptance.
 3. Define verification of an archive round trip without the cache, and constraints on the new index in mapping updates. Investigate restoration and Undo separately.
 
 No product code additions or live writes were performed in this round either.

@@ -1,0 +1,3 @@
+id	program	receiver_class	category_name	private_selector	category_address	method_list_address	method_entry_address	method_list_flags	type_encoding	implementation_entry	native_stub_entry	native_selector	runtime_verified	product_capability
+archive-init-008-01	MACore.arm64	NSKeyedArchiver	MAExtensions	initRequiringSecureCoding_ma:	0x001a1f18	0x001332f0	0x001332f8	0x8000000c	@20@0:8B16	0x000ca058	0x00129ee0	initRequiringSecureCoding:	false	false
+archive-init-008-02	MACore.arm64	NSKeyedUnarchiver	MAExtensions	initForReadingFromData_ma:error:	0x001a1f58	0x00133308	0x00133310	0x8000000c	@32@0:8@16^@24	0x000ca014	0x00129e60	initForReadingFromData:error:	false	false

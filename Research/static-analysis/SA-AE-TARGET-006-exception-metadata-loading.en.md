@@ -71,6 +71,8 @@ The nonnil-input branch of `0x0022ce34` creates a **64-byte record** with type 7
 
 There is no combined storage status covering nil archive data, the allocation result, and attachment success. Even after the allocation-result gate, the normal storage path stores the object in the cache and proceeds to release at the tail. Archive bytes and a cache do not guarantee disk storage, reloading, or successful UUID removal. Because the getter returns a cached object without decoding archive bytes, an immediate readback cannot validate the archive contents or a persisted round trip. The nested aux-key repair branch modifies an object beneath the top-level copy; a nested copy is not explicit.
 
+**Follow-up:** [SA-AE-TARGET-008](SA-AE-TARGET-008-archive-classes-initializers.en.md) establishes private-initializer metadata → IMP → standard-selector forwarding and construction of three class-candidate sets. Foundation's internal failures, final dispatch, the additional class-set / delegate, and reopening after storage remain unverified.
+
 ## 4. Loading invokes synchronously; lower paths update mappings
 
 `0x00edc344` saves global32 `0x026e9b30`, places the incoming ID there, and **immediately invokes the block's `+0x10` invoke pointer with `blr`** (`0x00edc364`). After normal return, it restores the global (`0x00edc368`). This 52-byte body contains no enqueue or skip. Restoration on exception and thread isolation remain unverified.
