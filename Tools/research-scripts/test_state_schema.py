@@ -109,6 +109,35 @@ class StateSchemaTests(unittest.TestCase):
     def test_other_addresses_are_not_rejected(self):
         self.assertEqual(self.errors({"/protocolVersion": 10, "/jsonSupport": 0}), [])
 
+    def test_control_surface_faders_are_fractions(self):
+        self.assertEqual(self.errors({"/cs/mixer/volume/volume3": 90 / 127, "/cs/mixer/volume/pan3": 64 / 127}), [])
+        self.assertTrue(self.errors({"/cs/mixer/volume/volume3": 1.5}))
+        self.assertTrue(self.errors({"/cs/mixer/mastervolume": "0 dB"}))
+
+    def test_control_surface_buttons_and_texts_have_their_types(self):
+        self.assertEqual(self.errors({"/cs/mixer/mute/2": 0, "/cs/mixer/trackname2": "Bass", "/cs/transport/stop": 1}), [])
+        self.assertTrue(self.errors({"/cs/mixer/mute/2": "on"}))
+        self.assertTrue(self.errors({"/cs/mixer/trackname2": 5}))
+        self.assertTrue(self.errors({"/cs/bankLeftOffset": -1}))
+
+    def test_an_unknown_control_surface_address_is_not_rejected(self):
+        self.assertEqual(self.errors({"/cs/mixer/somethingNew9": [1, 2]}), [])
+
+    def test_every_control_surface_template_received_has_a_pattern(self):
+        import re
+        from pathlib import Path
+        table = Path(check.SCHEMA_PATH).parent / "logic-remote-cs-feedback.tsv"
+        patterns = list(self.schema["patternProperties"])
+        for line in table.read_text(encoding="utf-8").splitlines():
+            if line.startswith("#") or not line.strip():
+                continue
+            template, seen = line.split("\t")[:2]
+            if seen != "both":
+                continue
+            # the template is the address without its trailing number: try it bare, with one strip number, with two digits
+            candidates = (template, template + "1", template + "11")
+            self.assertTrue(any(re.search(p, c) for p in patterns for c in candidates), template)
+
     def test_the_checker_refuses_keywords_it_does_not_understand(self):
         schema = copy.deepcopy(self.schema)
         schema["$defs"]["trackSelectionStates"]["oneOf"] = []

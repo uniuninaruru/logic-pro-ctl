@@ -56,6 +56,7 @@
 - 表にあって届かなかったのは 5 つ：`/cs/mixer/mutereset`、`/cs/mixer/soloreset`、`/cs/mixer/volume`、`/cs/transport/track+`、`/cs/transport/track-`。名前と表の値（`kind` 9 で `flags` 3、`kind` 1）から、**Remote から Logic へ送るボタン側で、Logic からは返さないもの**と考えられる（仮説。確信度: 中）。
 - 値：`volume`・`trimvolume`・`mastervolume` は 0 dB で **90/127**、`pan` は中央で **64/127**。割り当て表の `param` は、音量が 7、パンが 10（MIDI のコントロールチェンジの音量・パンの番号と同じ）。`/gtFaderData` の `vL` の上位バイト 90 とも一致する。したがって、`/cs` の音量は **Logic の 7 ビットの音量（90 = 0 dB）を 127 で割った値**と考えられる（仮説。確信度: 中。0 dB の 1 点だけ）。
 - **MCU の値とは尺度が違う**：MCU の 14 ビットのフェーダーは、0 dB が約 12440（[`mcu-fader-calibration.tsv`](../protocol/mcu-fader-calibration.tsv) の −0.4 dB = 12283 と +0.2 dB = 12523 の間。0.759）で、7 ビットに縮めると 97 になる。90 とは合わないので、2 つの経路の値をビットの切り詰めで相互に変換してはいけない。
+- スキーマ（`logic-remote-state.schema.json`）に、受信した 33 の型を `patternProperties` として足した（フェーダーは 0〜1 の数、ボタンは整数、表示は文字列。範囲を付けたのはフェーダーとバンクの位置だけ）。受信した全メッセージが合格し、型の違う値は拒まれることを試験で確かめた。
 - `/cs` が扱うのは **8 本**（`/cs/bankLeftOffset` = 0 から 8 本）だけで、12 本すべてを扱う `/ati`・`/gtFaderData` とは範囲が違う。送り（sends）は、2 桁の番号の 64 アドレス（8 × 8）。どちらの桁がストリップで、どちらが送りの番号かは未確認。
 
 ## 試験

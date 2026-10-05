@@ -20,6 +20,20 @@
     "/multiTempo": { "type": "boolean" },
     "/docOpen": { "type": "boolean", "description": "Whether a song is open. Sent twice, over UDP and over TCP (_sendDocOpen: 0x01689c18)." }
   },
+  "patternProperties": {
+    "^/cs/mixer/volume/(volume|trimvolume|pan)[0-9]+$": {"type": "number", "minimum": 0, "maximum": 1, "description": "A fader as a fraction 0..1 (volume 90/127 at 0 dB, pan 64/127 at centre in EXP-REMOTE-001). Hypothesis: Logic's 7-bit value / 127. Not the MCU's 14-bit scale. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/mastervolume$": {"type": "number", "minimum": 0, "maximum": 1, "description": "The master fader as a fraction 0..1. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/(mute|solo|select|record|automation)/[0-9]+$": {"type": "integer", "description": "A per-strip button or mode as an integer (mute/solo/select/record seen as 0 and 1, automation as 1). The full range is not known. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/(mastermute|muteactive|soloactive)$": {"type": "integer", "description": "A button state as an integer (seen: 0). Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/volume/panspread[0-9]+$": {"type": "integer", "description": "Seen: 0. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/sends/(send|sendbypass|position)[0-9]+$": {"type": "integer", "description": "Per strip and send slot (two digits; which is which is unconfirmed). Seen: 0. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/(level|panval|selectlabel|trackname|track#)[0-9]+$": {"type": "string", "description": "Display text for one strip. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/sends/(sendname|sendval)[0-9]+$": {"type": "string", "description": "Display text for a send. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/mixer/(masterlevel|mastername)$": {"type": "string", "description": "Display text of the master strip. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/transport/(bar|time)$": {"type": "string", "description": "Position display text. Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/transport/(play|stop|record|cycle|click)$": {"type": "integer", "description": "A transport button state as an integer (seen: play 0, stop 1, record 0, cycle 0, click 1). Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."},
+    "^/cs/bankLeftOffset$": {"type": "integer", "minimum": 0, "description": "The first strip of the 8-strip bank, 0-based (seen: 0). Control-surface feedback for 8 strips; see EXP-REMOTE-002 and logic-remote-cs-feedback.tsv. Seen in one reception only."}
+  },
   "additionalProperties": true,
   "$defs": {
     "nsdata": {
