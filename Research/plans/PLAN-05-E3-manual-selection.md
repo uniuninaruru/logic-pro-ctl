@@ -2,6 +2,8 @@
 
 [日本語](PLAN-05-E3-manual-selection.md) · [English](PLAN-05-E3-manual-selection.en.md) · [前回の承認範囲](PLAN-05-approval-brief.md)
 
+1回目の受信結果・時刻・検証範囲は [EXP-REMOTE-003](../experiments/EXP-REMOTE-003-reconnect-selection-baseline.md) に記録しています。
+
 **目的は、人が Logic で選択した操作を、受信メッセージと静的な送信関数に対応づけることです。** 前回は初回送信だけを受信しました。今回は受信中に選択を1回変え、`/sti` などの差分と既存の Ghidra の結果を照合します。
 
 | 項目 | 内容 |

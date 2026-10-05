@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-REMOTE-003",
+  "verified_at_utc": "2026-10-05T10:05:06.259049+00:00",
+  "capture": "Research/raw/remote-recv/20261005-134359-e1",
+  "profile": "Logic Pro Creator Studio 12.3.1 / 6682, macOS 27.0 arm64",
+  "project": "LogicCLI-Test.logicx",
+  "authorization": "Human approved one same-peer reconnection, up to 120 seconds receiving, one intended manual selection",
+  "status": "reconnection_baseline_observed_selection_comparison_incomplete",
+  "capture_counts": {
+    "frames": 11459,
+    "messages": 11690,
+    "distinct_addresses": 743,
+    "formats": [
+      {
+        "format": "archive",
+        "compressed": true,
+        "frames": 2
+      },
+      {
+        "format": "json",
+        "compressed": false,
+        "frames": 11297
+      },
+      {
+        "format": "plist",
+        "compressed": false,
+        "frames": 154
+      },
+      {
+        "format": "plist",
+        "compressed": true,
+        "frames": 6
+      }
+    ]
+  },
+  "receive_window": {
+    "event": "receive_window",
+    "seconds": 120,
+    "t_ms": 229.8,
+    "wall": "2026-10-05T04:44:01Z"
+  },
+  "finish": {
+    "connected": true,
+    "event": "finish",
+    "frames": 11459,
+    "reason": "receive_window_over",
+    "t_ms": 120248.2,
+    "wall": "2026-10-05T04:46:01Z"
+  },
+  "elapsed_receive_seconds": 120.0184,
+  "sent_by_peer": [
+    {
+      "address": "/protocolVersion",
+      "argument": 10
+    },
+    {
+      "address": "/jsonSupport",
+      "argument": 1
+    }
+  ],
+  "initial_send_semantics": "send API returned without an error; no application ACK established",
+  "build_provenance": {
+    "fresh_build": true,
+    "inputs_match_before_after_build": true,
+    "inputs": [
+      {
+        "path": "Tools/remote-research-peer/main.swift",
+        "bytes": 18803,
+        "sha256": "7aec43bfbfc9925805a6e2e538941b64dfd082d5a14453b6b3edb00d33fe5725"
+      },
+      {
+        "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+        "bytes": 12143,
+        "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+      },
+      {
+        "path": "Tools/remote-research-peer/build.sh",
+        "bytes": 1705,
+        "sha256": "297c3f77918d308560655194572c56a381b97f70d68c088d2b51ce2bcf9721ec"
+      }
+    ],
+    "executable": {
+      "bytes": 256384,
+      "sha256": "c31bc7c0e4572165a0b6a7d2959e3bb5f9dd4c5680afc69b2a6edc718b99ac12"
+    },
+    "swift_version": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0"
+  },
+  "baseline": {
+    "/ati": {
+      "frame": 613,
+      "t_ms": 473.8
+    },
+    "/gtFaderData": {
+      "frame": 619,
+      "t_ms": 476.5
+    },
+    "/sti": {
+      "frame": 468,
+      "t_ms": 413.7
+    }
+  },
+  "baseline_marker": {
+    "observed_at_utc": "2026-10-05T04:44:26.059055+00:00",
+    "latest_frame": 2852,
+    "baseline_ready": true
+  },
+  "intended_selection": {
+    "name": "Ballad",
+    "ui_track_number": 3
+  },
+  "observed_selection": {
+    "selected": true,
+    "name": "Amped Up",
+    "index": 5,
+    "tn": 6,
+    "t": 2,
+    "frame": 468,
+    "gindex": 132,
+    "position": 6
+  },
+  "selection_change_verified": false,
+  "function_entry_execution_verified": false,
+  "codex_logic_ui_edit_performed": false,
+  "additional_reconnection_performed": false,
+  "ati_selected_strip": {
+    "position": 6,
+    "gindex": 132,
+    "t": 7,
+    "tn": 6,
+    "collapsible": 1536,
+    "meta": 1
+  },
+  "final_coverage": {
+    "strips": 14,
+    "fader_fields_known": 42,
+    "fader_fields_total": 42,
+    "track_fields_known": 28,
+    "track_fields_total": 28
+  },
+  "complete": null,
+  "offline_parity": {
+    "frames": 11459,
+    "messages": 11690,
+    "swift_decode_errors": 0,
+    "decoded_wire_different_frames": 0,
+    "state_checkpoints": 13,
+    "state_different_checkpoints": 0,
+    "event_different_frames": 4,
+    "final_state_differences": [],
+    "issue_differences": [],
+    "python_issues": 0,
+    "swift_issues": 0,
+    "normalization": {
+      "dictionary_message_order": "sorted within each group; array/group order retained",
+      "numeric": "int and float compare by exact numeric equality, no tolerance; bool remains separate",
+      "data": "base64 with base64 key on both sides",
+      "shared_state_fields": "Every Swift snapshot field represented by this probe is compared recursively, including value provenance frame numbers.",
+      "python_only_strip_fields": [
+        "has_arrange",
+        "arrange_hidden",
+        "icon",
+        "collapsible",
+        "meta",
+        "colours"
+      ],
+      "python_only_selection_fields": [
+        "resolved_with_ati_frame"
+      ],
+      "other_api_limits": "Python retains orphan values and annotation text; Swift snapshot exposes orphan IDs. Orphans and issues are empty in this capture. Raw decoded groups compare all fields including metadata and data."
+    },
+    "findings": [
+      {
+        "kind": "event_surface_difference",
+        "frames": [
+          4,
+          5,
+          415,
+          675
+        ],
+        "fact": "Swift emits nonissue docOpen events while Python updates doc_open state without an event.",
+        "state_or_issue_different": false,
+        "limit": "Event surface parity differs; this does not make the identical state invalid."
+      },
+      {
+        "kind": "python_capture_order",
+        "file": "Tools/research-scripts/remote_capture.py",
+        "line": 137,
+        "fact": "load sorts numeric frame filenames lexicographically rather than by their numeric frame counter.",
+        "first_backstep": [
+          10009,
+          1001
+        ],
+        "backsteps": 146,
+        "final_state_affected_in_this_capture": false,
+        "limit": "Default replay final state happens to match numeric order here; a later state-bearing frame could be replayed out of chronology."
+      }
+    ]
+  },
+  "numeric_replay_after_fix": {
+    "commit": "f0016cb",
+    "capture": "Research/raw/remote-recv/20261005-134359-e1",
+    "offline_only": true,
+    "frames": 11459,
+    "messages": 11690,
+    "first_counter": 1,
+    "last_counter": 11459,
+    "numeric_counter_sequence_contiguous": true,
+    "backsteps": 0,
+    "state_last_frame": 675,
+    "issues": 0,
+    "final_coverage": {
+      "strips": 14,
+      "fader_fields_known": 42,
+      "fader_fields_total": 42,
+      "track_fields_known": 28,
+      "track_fields_total": 28,
+      "selection_known": true,
+      "counts_known": true,
+      "note": "coverage is not completeness: a field can change after this point"
+    },
+    "final_selection": {
+      "selected": true,
+      "index": 5,
+      "tn": 6,
+      "t": 2,
+      "frame": 468,
+      "gindex": 132,
+      "position": 6
+    },
+    "selected_ati_t": 7,
+    "counts": {
+      "/allTrackCount": 14,
+      "/trackCount": 14
+    },
+    "complete": null,
+    "source_hashes": [
+      {
+        "path": "Tools/research-scripts/remote_capture.py",
+        "sha256": "e8561e68dbea3a26ecf85428dc69d541d93e06f5a745632ec45afdcae65ff5ec"
+      },
+      {
+        "path": "Tools/research-scripts/test_remote_capture.py",
+        "sha256": "e00e89a75ffff160fefa876f3a95d0b9f0c49ad5ba502239f5fa3912b28f66fb"
+      }
+    ],
+    "matches_previous_independent_numeric_coverage_and_selection": true,
+    "related_tests": {
+      "test_remote_capture": 15,
+      "test_remote_state": 37,
+      "test_state_schema": 21
+    },
+    "related_tests_total": 73,
+    "related_tests_passed": true
+  },
+  "checks": {
+    "all_frame_hashes_verified": true,
+    "sequential_frame_counters": true,
+    "summary_file_decoded_counts_equal": true,
+    "events_after_finish": 0,
+    "known_schema_violations": 0,
+    "decoded_failures": 0,
+    "observations_rows": 17
+  },
+  "local_artifacts": [
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/events.jsonl",
+      "size_bytes": 2987160,
+      "sha256": "2ed02108baa9cd27f924d32c9e1b2d9825244f10e0a3ba25f870fe2207ba7f4f"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/decoded.jsonl",
+      "size_bytes": 3462007,
+      "sha256": "68e25790bfa63ca68c6e2d13f7a2a0eb928a41340dff0375f065f28c385ded61"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/summary.json",
+      "size_bytes": 339,
+      "sha256": "39cea849a2caa5d3e8ba5dc22e563108e7ee946127fed3937142a33cb901bbe7"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/report.json",
+      "size_bytes": 53248,
+      "sha256": "cd5e755cdbc4d528cb886e0cef163094906fa4f441bd4166e7bf503f852e5476"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/build-provenance.json",
+      "size_bytes": 1482,
+      "sha256": "8eda0ce958467030fb5a34efc207716b92899168bbbe31db13dd866bb16e73a3"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/manual-actions.jsonl",
+      "size_bytes": 2393,
+      "sha256": "9403b7bdd7d7c6b15933e4b2766c34503cc3beedfdf6743b2ceb8cd65a0241f7"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/ui-before.json",
+      "size_bytes": 721,
+      "sha256": "5220e71bc49af48aebab5740e97d51d409c9bed8948241c80d42a95c6a50dd29"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/approval.json",
+      "size_bytes": 396,
+      "sha256": "d78d4a4ab37bc42764c0bb37e0564b4c6c1e2d0d423ed2a321f313825bde853c"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/e3-termination-verification.json",
+      "size_bytes": 1378,
+      "sha256": "8d14ccc1efbc4f99132dbd17a7b85379ac040a0c8a6bb00b431a25cd160166cc"
+    },
+    {
+      "path": "Research/raw/review/e3-state-parity-013.json",
+      "size_bytes": 6205,
+      "sha256": "ce7f850752aa71f117fe8c4916811e361b41bdb094f191a0bb51157955bec431"
+    },
+    {
+      "path": "Research/raw/review/e3-state-parity-013.frames.json",
+      "size_bytes": 1434362,
+      "sha256": "835156b01c89130afe0a6e0abbd381f0164fff5e655d3cab2615d101864cb527"
+    },
+    {
+      "path": "Research/raw/review/capture-numeric-order-013-replay.json",
+      "size_bytes": 1421,
+      "sha256": "01c688f4273f12608b1b74448c53cb7f0c509406383e1e8382b4b88b23b806ff"
+    },
+    {
+      "path": "Research/raw/review/capture-numeric-order-013-mutation.json",
+      "size_bytes": 545,
+      "sha256": "3c92dc1beca30daba2194daf0a8912223a86b5eee33dfee4362f17cd4436a765"
+    }
+  ],
+  "parity_source_hashes_at_review": [
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+      "size_bytes": 12143,
+      "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+    },
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteState.swift",
+      "size_bytes": 25318,
+      "sha256": "6c466e7a7a3a51ce65cc72ec7fe3d5b1cadb994f58775f7a4e7530c40e7b0e4c"
+    },
+    {
+      "path": "Tools/research-scripts/remote_capture.py",
+      "size_bytes": 11485,
+      "sha256": "baa6f51ff1ca443077d2b3f313148482cb298b56a1031a04bd1fc4806188d1bc"
+    },
+    {
+      "path": "Tools/research-scripts/remote_state.py",
+      "size_bytes": 26779,
+      "sha256": "e9e6aa9ef78c5d252762f763f795db0e72e7f070d890a8803f7f3eff66c81193"
+    },
+    {
+      "path": "Tools/research-scripts/state_schema_check.py",
+      "size_bytes": 4410,
+      "sha256": "5f0ba8e7eb1598ee374733488c7d048d3fe9acacf9571d7175b66596cf571cda"
+    },
+    {
+      "path": "Research/protocol/logic-remote-state.schema.json",
+      "size_bytes": 14392,
+      "sha256": "0cbd0add31d0bb1d3e63a97b885d336bc1744c54ee27dbdface1218734a4c17e"
+    },
+    {
+      "path": "Research/raw/review/e3-state-parity-013.swift",
+      "size_bytes": 4415,
+      "sha256": "13066942a9d5e59627b85be6d02bf37fa3c13c45e9f27f9d6aea289c75c8fc06"
+    },
+    {
+      "path": "Research/raw/review/e3-state-parity-013.py",
+      "size_bytes": 9815,
+      "sha256": "12b505e3ad1e6f1db196849e8ba1e69e7ed877ce34a4835cc315c648e276aaae"
+    },
+    {
+      "path": "Research/raw/review/e3-state-parity-013.bin",
+      "size_bytes": 435656,
+      "sha256": "d0ba1260c0b90303f1609b8160db12421cddd79cbc16c4114c10ad72939e9e97"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/events.jsonl",
+      "size_bytes": 2987160,
+      "sha256": "2ed02108baa9cd27f924d32c9e1b2d9825244f10e0a3ba25f870fe2207ba7f4f"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261005-134359-e1/summary.json",
+      "size_bytes": 339,
+      "sha256": "39cea849a2caa5d3e8ba5dc22e563108e7ee946127fed3937142a33cb901bbe7"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/logic-remote-e3-observations.tsv",
+      "size_bytes": 2696,
+      "sha256": "e229460b947abf418273b23a6257563dbf3b5b5f9d41dc45305d3b8011feed82"
+    }
+  ],
+  "limits": [
+    "No manual action confirmation marker or selection change was observed during the receiving window.",
+    "This does not establish all human actions or the current Logic state after the window.",
+    "Four docOpen event differences are real API differences even though shared state agrees.",
+    "The lexicographic replay defect did not alter this particular final state; it still violated arrival order.",
+    "No save/reload/Undo, stable identity across reorder, arbitrary track total or complete-state guarantee.",
+    "Raw captures remain local and untracked; no host discovery name, absolute project path or full UUID values are published here."
+  ]
+}

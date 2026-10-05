@@ -2,6 +2,8 @@
 
 [日本語](PLAN-05-E3-manual-selection.md) · [English](PLAN-05-E3-manual-selection.en.md) · [Previous approval scope](PLAN-05-approval-brief.en.md)
 
+The first run's reception, timing, and verification scope are recorded in [EXP-REMOTE-003](../experiments/EXP-REMOTE-003-reconnect-selection-baseline.en.md).
+
 **The goal is to match a human selection change in Logic to received messages and statically identified sender functions.** The previous reception covered initial state only. This run changes selection once while receiving, then compares `/sti` and other updates with the existing Ghidra results.
 
 | Item | Scope |

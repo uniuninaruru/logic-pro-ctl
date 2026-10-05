@@ -1,0 +1,18 @@
+id	address_or_scope	observed_result	frames_or_anchor	limit	evidence_kind	selection_change_verified
+e3-capture	transport	11459 frames / 11690 messages / 743 addresses	capture	One reconnection; no additional live trial	live_capture	false
+e3-window	receive_window	120.0184 seconds	229.8..120248.2 ms	120-second timer; scheduling overhead, not an exact 120.0000-second duration	live_capture	false
+e3-sent	initial_frames	/protocolVersion=10; /jsonSupport=1	sent events	Local send API success, not a Logic ACK	live_capture	false
+e3-decode	all_frames	0 failures in Swift and Python	1..11459	Agreement on this capture only	live_capture	false
+e3-schema	known_messages	0 violations	report.json	Unknown addresses are not thereby understood	live_capture	false
+e3-sti	/sti	Amped Up; index=5; tn=6; t=2	468;658	Both initial copies equal; requested Ballad change not observed	live_capture	false
+e3-ati	/ati	14 strips; Amped Up position=6; gindex=132; t=7	613;624	Both initial copies equal; collapsed child tracks not enumerated	live_capture	false
+e3-types	/ati.t; /sti.t	7;2 for the same Amped Up strip	613;468	Different type calculations; not interchangeable enums	live_capture	false
+e3-fader	/gtFaderData	one message; 42/42 g fields; 28/28 t fields	619	Coverage does not imply complete=true	live_capture	false
+e3-volume	/gtFaderData.g.vL	0x5a000000;0x7f000000	619	Two raw values; no controlled dB conversion calibration	live_capture	false
+e3-record	/gtFaderData.t.r	3 for selected Amped Up track ID 262150	619	Retain the raw enum; do not interpret as a Boolean recording state	live_capture	false
+e3-complete	snapshot.complete	null	final replay	No completion marker or complete-state inference	offline_replay	false
+e3-parity	decoded fields; shared state	0 differing decoded frames; 0 differing shared-state checkpoints	11459 frames;13 checkpoints;final	Python-only snapshot fields are outside the shared snapshot projection	offline_replay	false
+e3-events	/docOpen	4 nonissue event-surface differences	4;5;415;675	Swift emits docOpen events; Python updates the same state without that event	offline_replay	false
+e3-order	Python loader before fix	146 counter backsteps; final state unchanged in this capture	10009 -> 1001 first backstep	Lexicographic filename sorting is not arrival order	offline_replay	false
+e3-order-fixed	Python loader after f0016cb	0 counter backsteps; all 11459 frames in numeric order	1..11459	Fixed-loader final coverage and selection agree with the independent numeric replay	offline_replay	false
+e3-end	finish	0 following events; counts match files/decoded records	finish final event	connected=true is the state at finish before disconnect, not an ongoing connection	live_capture	false

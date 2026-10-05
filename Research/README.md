@@ -9,7 +9,7 @@
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。
 [22件の作業一覧](plans/agent-ready-backlog.tsv)には依存関係と合格条件もあります。
-Logic Remote への最初の接続（PLAN-05）は、[承認用の計画書](plans/PLAN-05-approval-brief.md)の範囲で 2026-10-05 に承認され、受信だけを 1 回行いました（[EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md)）。E3 以降は改めて相談します。
+Logic Remote への最初の接続（PLAN-05）は、[承認用の計画書](plans/PLAN-05-approval-brief.md)の範囲で 2026-10-05 に承認され、初回状態を受信しました（[EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md)）。追加承認された[E3-1](plans/PLAN-05-E3-manual-selection.md)の1回の再接続も終了しています（[EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md)）。初回状態の照合はできましたが、時間内に選択変更を観測できず、操作との比較は未完了です。再試行は追加接続への回答待ちです。
 
 ## 最初に読む3つ
 
@@ -23,7 +23,7 @@ Logic Remote への最初の接続（PLAN-05）は、[承認用の計画書](pla
 |---|---|---|
 | MCU：仮想MIDI | 製品の状態取得・再生・停止・ミキサー操作。自動接続とバンク移動 | 名前の完全取得、プラグインなどの拡張 |
 | private AppleEvent | 登録先・正しい引数・再生と停止。MCUで結果を検証するCLI実装 | 純粋な状態取得、他バージョン、録音など |
-| Logic Remote | 接続の手順、通信フレーム、キー定数、初回送信と差分（`/ati`・`/sti`・`/gtFaderData`）、曲の切り替え、コマンド台帳の静的解析 | 独立クライアントの接続、初回の完全な状態、状態値の実機対応 |
+| Logic Remote | 静的な接続・送信手順、通信フレームとコマンド台帳。研究用ピアの初回受信と再接続、Swift/Pythonの保存記録の再生 | 初回の完全性の判定、操作と差分の実機対応、製品への接続統合 |
 | OSC / Lua | 存在と関連する設定・スクリプト | 任意のCLIからの割り当て・応答の条件 |
 | XPC | インストーラー関連の接続 | 操作用のサービスは未発見 |
 
@@ -61,7 +61,7 @@ flowchart LR
 | [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md) | Logic Remote の接続：広告・招待・承認・バージョンの順序と拒否の条件 |
 | [SA-REMOTE-FRAME-001](static-analysis/SA-REMOTE-FRAME-001.md) | Logic Remote のフレーム：タグ・圧縮（MAZP）・形式の選び方・型と順序 |
 | [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) | Logic の状態送信：初回送信の順序、`/ati`・`/sti`・`/gtFaderData`、差分、曲の切り替えと接続 |
-| [SA-REMOTE-TRACKTYPE-001](static-analysis/SA-REMOTE-TRACKTYPE-001.md) | `/ati` の `t`（トラックの種類。判定の 8 規則）と `c`（色の 4 バイトは R, G, B, A）。命令・定数の照合表付き（実機の受信は未確認） |
+| [SA-REMOTE-TRACKTYPE-001](static-analysis/SA-REMOTE-TRACKTYPE-001.md) | `/ati` の `t`（トラックの種類。判定の 8 規則）と `c`（色の 4 バイトは R, G, B, A）。命令・定数の照合表付き。受信値の確認範囲は実験記録に分けて記載 |
 | [SA-COMMAND-CATALOG-001](static-analysis/SA-COMMAND-CATALOG-001.md) | 登録コマンド 2353 件の台帳と、Remote のコマンド一覧（実行はしていない） |
 | [SA-IDENTITY-001](static-analysis/SA-IDENTITY-001-binary-inputs.md) | 元Universal/thinファイル・arm64 slice・解析copy・Ghidra import metadataの識別と照合 |
 | [AppleEvent登録](static-analysis/appleevent-registration.md) | handler・型・戻り値・モード分岐 |
@@ -96,6 +96,7 @@ flowchart LR
 | [EXP-MCU-001〜009](experiments/EXP-MCU-001-009-virtual-mcu.md) | 仮想MCUの接続と基本操作 |
 | [EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md) | 研究用ピアで 1 回接続し、初回送信を受信だけ：全フレームを復号、スキーマ違反 0。`t` の意味の推測 3 つは外れ、`gindex` は作成順 |
 | [EXP-REMOTE-002](experiments/EXP-REMOTE-002-offline-state-replay.md) | 保存した受信からの状態の組み立て直し（オフライン）：未受信は null、識別子を分け、`complete` は推定しない。矛盾 0、`/sti` は `/ati` より先に届く |
+| [EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md) | 120秒の再接続で14ストリップ、同じ選択のATI `t=7` / STI `t=2`。11,459フレームを日英・観測表・manifestに整理。選択変更の比較は未完了 |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
 | [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
 | [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |
@@ -116,7 +117,7 @@ flowchart LR
 次の区切りは、**再生状態を外部から取得する経路を確定すること**です。
 
 1. キーコマンドID `3` の状態評価分岐を追い、値の意味と副作用を命令で照合する。
-2. `MAPeerRouter` の接続・バージョン確認・購読の条件を詰める（接続とバージョンの順序は [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md)、初回送信は [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) で整理済み。実機での受信は承認待ち）。
+2. `MAPeerRouter` の接続・バージョン確認・購読の条件を詰める（接続とバージョンの順序は [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md)、初回送信は [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) で整理済み。実機の初回受信は確認済み、選択変更との比較は[E3-1](plans/PLAN-05-E3-manual-selection.md)の再試行への回答待ち）。
 3. 専用プロジェクトで初回応答と後続更新を取得し、再生中・停止中の両方をMCUと照合する。
 
 録音ID `7` の状態にはLive Loopsの条件もあります。状態の解析と、録音を実行する実験は別に扱います。
