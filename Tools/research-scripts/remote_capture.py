@@ -134,7 +134,9 @@ def for_schema(value):
 
 def load(capture: Path):
     events = [json.loads(line) for line in (capture / "events.jsonl").read_text(encoding="utf-8").splitlines() if line]
-    frames = sorted((capture / "frames").glob("*.bin"))
+    # The recorder uses a minimum width of four digits; 10000.bin must follow 9999.bin.
+    # Keep all duplicate numeric counters, with the same filename ordering for ties as before.
+    frames = sorted((capture / "frames").glob("*.bin"), key=lambda path: (int(path.stem), path.name))
     times = {e["n"]: e["t_ms"] for e in events if e.get("event") == "frame"}
     decoded = []
     for path in frames:

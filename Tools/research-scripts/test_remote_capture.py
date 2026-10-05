@@ -116,6 +116,47 @@ class DecodeTests(unittest.TestCase):
         self.assertEqual((value, how), ({"n": "Trk08", "t": 1}, "mazp-archive"))
 
 
+class LoadOrderTests(unittest.TestCase):
+    @staticmethod
+    def write_capture(directory, entries, frame_events):
+        (directory / "frames").mkdir()
+        for filename, value in entries:
+            (directory / "frames" / filename).write_bytes(json_frame({"/trackCount": value}))
+        events = [{"event": "frame", "n": number, "t_ms": time} for number, time in frame_events]
+        (directory / "events.jsonl").write_text("\n".join(json.dumps(e) for e in events) + "\n", encoding="utf-8")
+
+    def test_four_to_five_digit_frame_names_keep_numeric_arrival_order(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            # Actual recorder names (%04d), copied in an order unrelated to arrival.
+            numbers = [10001, 1001, 10000, 9999]
+            self.write_capture(directory, [(f"{n:04d}.bin", n) for n in numbers],
+                               [(n, float(n)) for n in sorted(numbers)])
+            _, frames = rc.load(directory)
+            self.assertEqual([f["n"] for f in frames], [1001, 9999, 10000, 10001])
+            self.assertEqual([f["t_ms"] for f in frames], [1001.0, 9999.0, 10000.0, 10001.0])
+            report = rc.report(directory)
+            self.assertEqual(report["frames"], 4)  # counter gaps are not filled or renumbered
+            self.assertEqual(report["track_counts"]["/trackCount"], [1001, 9999, 10000, 10001])
+
+    def test_duplicate_numeric_counters_keep_both_files_and_last_event_time(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            self.write_capture(directory, [("1.bin", 20), ("0002.bin", 30), ("0001.bin", 10)],
+                               [(1, 10.0), (2, 20.0), (1, 11.0)])
+            _, frames = rc.load(directory)
+            self.assertEqual([f["n"] for f in frames], [1, 1, 2])
+            self.assertEqual([f["groups"][0][0][1] for f in frames], [10, 20, 30])
+            self.assertEqual([f["t_ms"] for f in frames], [11.0, 11.0, 20.0])
+
+    def test_a_non_numeric_frame_counter_is_still_an_error(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            self.write_capture(directory, [("not-a-counter.bin", 1)], [])
+            with self.assertRaises(ValueError):
+                rc.load(directory)
+
+
 class ReportTests(unittest.TestCase):
     def test_a_small_capture_is_reported(self):
         names, gindex = ["Piano ", "Audio"], [88, 92]
