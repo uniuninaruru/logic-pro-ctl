@@ -1,0 +1,20 @@
+id	program	function_entry	encode_call	key_cfstring	key	selector	value_source	ivar_offset_slot	ivar_offset	declared_ivar_name	declared_ivar_type	call_condition	runtime_verified	product_capability
+parent-encode-011-01	MACore.arm64	0x0009b460	0x9b49c	0x18e840	rangeLow	encodeLong:forKey:	rangeLow	0x1ab4b4	8	_rangeLow	q	unconditional on normal path	false	false
+parent-encode-011-02	MACore.arm64	0x0009b460	0x9b4b8	0x18e860	rangeHigh	encodeLong:forKey:	rangeHigh	0x1ab4b8	16	_rangeHigh	q	unconditional on normal path	false	false
+parent-encode-011-03	MACore.arm64	0x0009b460	0x9b4dc	0x18e920	rangeIsFlipped	encodeBool:forKey:	mappingRangeMode==1	0x1ab4c0	104	_mappingRangeMode	q	unconditional on normal path	false	false
+parent-encode-011-04	MACore.arm64	0x0009b460	0x9b4f0	0x18eaa0	kRangeMappingModeKey	encodeLong:forKey:	mappingRangeMode	0x1ab4c0	104	_mappingRangeMode	q	unconditional on normal path	false	false
+parent-encode-011-05	MACore.arm64	0x0009b460	0x9b50c	0x18e880	momentaryType	encodeBool:forKey:	momentaryType byte	0x1ab4c4	65	_momentaryType	B	unconditional on normal path	false	false
+parent-encode-011-06	MACore.arm64	0x0009b460	0x9b528	0x18e8c0	takeVelocity	encodeBool:forKey:	takeVelocity byte	0x1ab4cc	67	_takeVelocity	B	unconditional on normal path	false	false
+parent-encode-011-07	MACore.arm64	0x0009b460	0x9b544	0x18e8a0	wasAutoset	encodeBool:forKey:	wasAutoset byte	0x1ab4c8	68	_wasAutoset	B	unconditional on normal path	false	false
+parent-encode-011-08	MACore.arm64	0x0009b460	0x9b564	0x18e8e0	scalingGraph	encodeObject:forKey:	scalingGraph object, only nonnil	0x1ab4d0	80	_scalingGraph	"@""NSArray"""	object != nil	false	false
+parent-encode-011-09	MACore.arm64	0x0009b460	0x9b584	0x18e900	alternativeGraph	encodeObject:forKey:	alternativeGraph object, only nonnil	0x1ab4d4	88	_alternativeGraph	"@""NSArray"""	object != nil	false	false
+parent-encode-011-10	MACore.arm64	0x0009b460	0x9b5a4	0x18e980	kSavedValueDoubleKey	encodeDouble:forKey:	d0 from shouldUseSavedValueWithCoder:					unconditional on normal path	false	false
+parent-encode-011-11	MACore.arm64	0x0009b460	0x9b5b8	0x18e960	kSavedValueFloatKey	encodeFloat:forKey:	fcvt s0 from saved d8 (same returned double)					unconditional on normal path	false	false
+parent-encode-011-12	MACore.arm64	0x0009b460	0x9b5d4	0x18e9a0	kIsNewSavedValueKey	encodeBool:forKey:	isNewSavedValueType byte	0x1ab4bc	71	_isNewSavedValueType	B	unconditional on normal path	false	false
+parent-encode-011-13	MACore.arm64	0x0009b460	0x9b5f0	0x18e9c0	kHasSavedValueKey	encodeBool:forKey:	hasSavedValue byte	0x1ab52c	24	_hasSavedValue	B	unconditional on normal path	false	false
+parent-encode-011-14	MACore.arm64	0x0009b460	0x9b60c	0x18e9e0	kFilterMappingKey	encodeBool:forKey:	filterMapping byte	0x1ab4e4	69	_filterMapping	B	unconditional on normal path	false	false
+parent-encode-011-15	MACore.arm64	0x0009b460	0x9b628	0x18ea00	kDisplayIndexKey	encodeInteger:forKey:	displayIndex qword	0x1ab4e8	56	_displayIndex	q	unconditional on normal path	false	false
+parent-encode-011-16	MACore.arm64	0x0009b460	0x9b644	0x18ea80	kGInstIDKey	encodeInteger:forKey:	logicOnlyGInstID signed32->x2	0x1ab4ec	76	_logicOnlyGInstID	i	unconditional on normal path	false	false
+parent-encode-011-17	MACore.arm64	0x0009b460	0x9b660	0x18ea20	kDiscreteStepsKey	encodeBool:forKey:	isStepped byte	0x1ab4f0	70	_isStepped	B	unconditional on normal path	false	false
+parent-encode-011-18	MACore.arm64	0x0009b460	0x9b67c	0x18ea40	kDisplayParameterValueAsPercentageKey	encodeBool:forKey:	displayParameterValueAsPercentage byte	0x1ab4f4	72	_displayParameterValueAsPercentage	B	unconditional on normal path	false	false
+parent-encode-011-19	MACore.arm64	0x0009b460	0x9b698	0x18ea60	kMappingCreatedFromSmartMapKey	encodeBool:forKey:	x0 from createdFromSmartMap					unconditional on normal path	false	false

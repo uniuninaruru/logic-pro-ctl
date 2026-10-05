@@ -96,6 +96,6 @@ wrapper の `0x000ca028` は `error` を取得し、`0x000ca034..0x000ca038` で
 
 新規18関数の204命令と、既存 getter の149命令を元の ARM64 byte へ照合しました。クラス名・selector・category method entry は raw chained fixup の page membership と relative field の基準を確認しました。installed universal 全体、ARM64 slice、解析 copy、Ghidra program の hash を区別して照合しています。別 reader でも命令・metadata・CFString の結果が一致しました。
 
-次は getter から呼ばれる once body の末尾の間接 call を、その fallback object / vtable の固定 metadata から追います。親の encode と LogicAdditions の `destination` を読む場合も、定義 body と runtime dispatch を区別します。Foundation の受理・失敗、native allocation、cache を使わない round trip、保存後の復元・Undo は引き続き実機未確認です。
+**追補:** 固定 fallback の先、LogicAdditions の `destination`、親 encoder と小さい helper の定義は、[SA-AE-TARGET-011](SA-AE-TARGET-011-fallback-parent-encode.md) で照合しました。fallback の固定先は RET、Logic の宛先は `logicOnlyGInstID` の符号拡張、親 encoder は19キーへの保存呼出しです。この本文の「未読」は010時点の範囲を表し、実効 dispatch を確認したことにはなりません。Foundation の受理・失敗、native allocation、cache を使わない round trip、保存後の復元・Undo は引き続き実機未確認です。
 
 今回の結果は、代替候補と cache の挙動を読み戻し契約に反映させるための静的証拠です。製品の AppleEvent capability を追加したものではありません。

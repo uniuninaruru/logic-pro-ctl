@@ -1,0 +1,1070 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-011"
+  ],
+  "captured_at_utc": "2026-10-05T04:15:08.775739+00:00",
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "Research/static-analysis/appleevent-registration-finish-manifest.json"
+  ],
+  "scope": "14 fixed functions/860 bytes plus selected keys, relative method and ivar metadata, initial fallback, 20-byte Logic selector stub and 24-byte MACore native import stubs; static root work only.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "programs": {
+    "MACore.arm64": {
+      "schema_version": 1,
+      "program_name": "MACore.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    },
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "binary": "Logic",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+      "installed_source_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_offset_bytes": 0,
+      "slice_size_bytes": 40710736,
+      "selected_arm64_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    },
+    {
+      "binary": "MACore",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+      "installed_source_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "slice_offset_bytes": 2375680,
+      "slice_size_bytes": 2248544,
+      "selected_arm64_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    }
+  ],
+  "shared_lock_absolute_path": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock",
+  "query_groups": {
+    "q-appleevent-parent-encode-011": {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x0009b460",
+          "defined_body_size_bytes": 636,
+          "inventory_name": "MAParameterMapping::encodeWithCoder:"
+        }
+      ]
+    },
+    "q-appleevent-parent-support-011": {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x0009b450",
+          "defined_body_size_bytes": 16,
+          "inventory_name": "MAParameterMapping::shouldUseSavedValueWithCoder:"
+        },
+        {
+          "address": "0x0009bf78",
+          "defined_body_size_bytes": 16,
+          "inventory_name": "MAParameterMapping::createdFromSmartMap"
+        },
+        {
+          "address": "0x0009a744",
+          "defined_body_size_bytes": 4,
+          "inventory_name": "MAMapping::encodeWithCoder:"
+        },
+        {
+          "address": "0x001289e0",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeBool:forKey:"
+        },
+        {
+          "address": "0x00128a80",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeLong:forKey:"
+        },
+        {
+          "address": "0x00128aa0",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeObject:forKey:"
+        },
+        {
+          "address": "0x00128a00",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeDouble:forKey:"
+        },
+        {
+          "address": "0x00128a20",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeFloat:forKey:"
+        },
+        {
+          "address": "0x00128a60",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::encodeInteger:forKey:"
+        },
+        {
+          "address": "0x00131020",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::shouldUseSavedValueWithCoder:"
+        },
+        {
+          "address": "0x00127ac0",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::createdFromSmartMap"
+        }
+      ]
+    },
+    "q-appleevent-fallback-ae-path-011": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x019d8958",
+          "defined_body_size_bytes": 4,
+          "inventory_name": "FUN_019d8958"
+        },
+        {
+          "address": "0x013f62c8",
+          "defined_body_size_bytes": 24,
+          "inventory_name": "FUN_013f62c8"
+        }
+      ]
+    }
+  },
+  "selected_methods": [
+    {
+      "entry": "0x13761c",
+      "raw_hex": "841b0700232603002c3ef6ff",
+      "selector": "shouldUseSavedValueWithCoder:",
+      "types": "d24@0:8@16",
+      "imp": "0x9b450"
+    },
+    {
+      "entry": "0x137628",
+      "raw_hex": "b0ea0600820d0300303ef6ff",
+      "selector": "encodeWithCoder:",
+      "types": "v24@0:8@16",
+      "imp": "0x9b460"
+    },
+    {
+      "entry": "0x1379a0",
+      "raw_hex": "a8f2060060080300d045f6ff",
+      "selector": "createdFromSmartMap",
+      "types": "B16@0:8",
+      "imp": "0x9bf78"
+    },
+    {
+      "entry": "0x13761c",
+      "selector": "shouldUseSavedValueWithCoder:",
+      "types": "d24@0:8@16",
+      "imp": "0x9b450",
+      "raw_hex": "841b0700232603002c3ef6ff"
+    },
+    {
+      "entry": "0x1379a0",
+      "selector": "createdFromSmartMap",
+      "types": "B16@0:8",
+      "imp": "0x9bf78",
+      "raw_hex": "a8f2060060080300d045f6ff"
+    },
+    {
+      "entry": "0x137398",
+      "selector": "encodeWithCoder:",
+      "types": "v24@0:8@16",
+      "imp": "0x9a744",
+      "raw_hex": "40ed060012100300a433f6ff"
+    }
+  ],
+  "selected_ivars": [
+    {
+      "entry": "0x19dc98",
+      "raw_hex": "b4b41a0000001000ab8415000000100042881600000020000300000008000000",
+      "offset_slot": "0x1ab4b4",
+      "offset": 8,
+      "name": "_rangeLow",
+      "type": "q",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19dcb8",
+      "raw_hex": "b8b41a0000001000a08415000000100042881600000020000300000008000000",
+      "offset_slot": "0x1ab4b8",
+      "offset": 16,
+      "name": "_rangeHigh",
+      "type": "q",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19dcd8",
+      "raw_hex": "2cb51a0000001000a07e150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab52c",
+      "offset": 24,
+      "name": "_hasSavedValue",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19dd58",
+      "raw_hex": "e8b41a00000010006b7c15000000100042881600000020000300000008000000",
+      "offset_slot": "0x1ab4e8",
+      "offset": 56,
+      "name": "_displayIndex",
+      "type": "q",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19dd98",
+      "raw_hex": "c4b41a00000010005382150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4c4",
+      "offset": 65,
+      "name": "_momentaryType",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19ddd8",
+      "raw_hex": "ccb41a00000010000388150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4cc",
+      "offset": 67,
+      "name": "_takeVelocity",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19ddf8",
+      "raw_hex": "c8b41a0000001000e389150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4c8",
+      "offset": 68,
+      "name": "_wasAutoset",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19de18",
+      "raw_hex": "e4b41a00000010004c7d150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4e4",
+      "offset": 69,
+      "name": "_filterMapping",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19de38",
+      "raw_hex": "f0b41a0000001000ef7f150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4f0",
+      "offset": 70,
+      "name": "_isStepped",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19de58",
+      "raw_hex": "bcb41a0000001000a67f150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4bc",
+      "offset": 71,
+      "name": "_isNewSavedValueType",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19de78",
+      "raw_hex": "f4b41a0000001000b37c150000001000b8871600000020000000000001000000",
+      "offset_slot": "0x1ab4f4",
+      "offset": 72,
+      "name": "_displayParameterValueAsPercentage",
+      "type": "B",
+      "alignment": 0,
+      "size": 1
+    },
+    {
+      "entry": "0x19deb8",
+      "raw_hex": "ecb41a0000001000758015000000100021a61600000020000200000004000000",
+      "offset_slot": "0x1ab4ec",
+      "offset": 76,
+      "name": "_logicOnlyGInstID",
+      "type": "i",
+      "alignment": 2,
+      "size": 4
+    },
+    {
+      "entry": "0x19ded8",
+      "raw_hex": "d0b41a0000001000c0851500000010009b881600000020000300000008000000",
+      "offset_slot": "0x1ab4d0",
+      "offset": 80,
+      "name": "_scalingGraph",
+      "type": "@\"NSArray\"",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19def8",
+      "raw_hex": "d4b41a0000001000e2751500000010009b881600000020000300000008000000",
+      "offset_slot": "0x1ab4d4",
+      "offset": 88,
+      "name": "_alternativeGraph",
+      "type": "@\"NSArray\"",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19df38",
+      "raw_hex": "c0b41a0000001000548115000000100042881600000020000300000008000000",
+      "offset_slot": "0x1ab4c0",
+      "offset": 104,
+      "name": "_mappingRangeMode",
+      "type": "q",
+      "alignment": 3,
+      "size": 8
+    },
+    {
+      "entry": "0x19dcf8",
+      "offset_slot": "0x1ab4e0",
+      "offset": 32,
+      "name": "_savedValue",
+      "type": "d",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "e0b41a0000001000b48515000000100071981600000020000300000008000000"
+    },
+    {
+      "entry": "0x19de98",
+      "offset_slot": "0x1ab508",
+      "offset": 73,
+      "name": "_createdFromSmartMap",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "08b51a0000001000847a150000001000b8871600000020000000000001000000"
+    }
+  ],
+  "key_call_sites": [
+    {
+      "cfstring": "0x18e840",
+      "raw_hex": "5b04000000002080c807000000000000c9cf1400000020000800000000000000",
+      "text": "rangeLow",
+      "length": 8,
+      "callsite": "0x9b49c",
+      "selector": "encodeLong:forKey:",
+      "value_source": "rangeLow",
+      "ivar_offset_slot": "0x1ab4b4",
+      "ivar_offset": 8,
+      "runtime_verified": false,
+      "declared_ivar_name": "_rangeLow",
+      "declared_ivar_type": "q"
+    },
+    {
+      "cfstring": "0x18e860",
+      "raw_hex": "5b04000000002080c807000000000000d2cf1400000020000900000000000000",
+      "text": "rangeHigh",
+      "length": 9,
+      "callsite": "0x9b4b8",
+      "selector": "encodeLong:forKey:",
+      "value_source": "rangeHigh",
+      "ivar_offset_slot": "0x1ab4b8",
+      "ivar_offset": 16,
+      "runtime_verified": false,
+      "declared_ivar_name": "_rangeHigh",
+      "declared_ivar_type": "q"
+    },
+    {
+      "cfstring": "0x18e920",
+      "raw_hex": "5b04000000002080c80700000000000020d01400000020000e00000000000000",
+      "text": "rangeIsFlipped",
+      "length": 14,
+      "callsite": "0x9b4dc",
+      "selector": "encodeBool:forKey:",
+      "value_source": "mappingRangeMode==1",
+      "ivar_offset_slot": "0x1ab4c0",
+      "ivar_offset": 104,
+      "runtime_verified": false,
+      "declared_ivar_name": "_mappingRangeMode",
+      "declared_ivar_type": "q"
+    },
+    {
+      "cfstring": "0x18eaa0",
+      "raw_hex": "5b04000000002080c80700000000000013d11400000020001400000000000000",
+      "text": "kRangeMappingModeKey",
+      "length": 20,
+      "callsite": "0x9b4f0",
+      "selector": "encodeLong:forKey:",
+      "value_source": "mappingRangeMode",
+      "ivar_offset_slot": "0x1ab4c0",
+      "ivar_offset": 104,
+      "runtime_verified": false,
+      "declared_ivar_name": "_mappingRangeMode",
+      "declared_ivar_type": "q"
+    },
+    {
+      "cfstring": "0x18e880",
+      "raw_hex": "5b04000000002080c807000000000000dccf1400000020000d00000000000000",
+      "text": "momentaryType",
+      "length": 13,
+      "callsite": "0x9b50c",
+      "selector": "encodeBool:forKey:",
+      "value_source": "momentaryType byte",
+      "ivar_offset_slot": "0x1ab4c4",
+      "ivar_offset": 65,
+      "runtime_verified": false,
+      "declared_ivar_name": "_momentaryType",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18e8c0",
+      "raw_hex": "5b04000000002080c807000000000000f5cf1400000020000c00000000000000",
+      "text": "takeVelocity",
+      "length": 12,
+      "callsite": "0x9b528",
+      "selector": "encodeBool:forKey:",
+      "value_source": "takeVelocity byte",
+      "ivar_offset_slot": "0x1ab4cc",
+      "ivar_offset": 67,
+      "runtime_verified": false,
+      "declared_ivar_name": "_takeVelocity",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18e8a0",
+      "raw_hex": "5b04000000002080c807000000000000eacf1400000020000a00000000000000",
+      "text": "wasAutoset",
+      "length": 10,
+      "callsite": "0x9b544",
+      "selector": "encodeBool:forKey:",
+      "value_source": "wasAutoset byte",
+      "ivar_offset_slot": "0x1ab4c8",
+      "ivar_offset": 68,
+      "runtime_verified": false,
+      "declared_ivar_name": "_wasAutoset",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18e8e0",
+      "raw_hex": "5b04000000002080c80700000000000002d01400000020000c00000000000000",
+      "text": "scalingGraph",
+      "length": 12,
+      "callsite": "0x9b564",
+      "selector": "encodeObject:forKey:",
+      "value_source": "scalingGraph object, only nonnil",
+      "ivar_offset_slot": "0x1ab4d0",
+      "ivar_offset": 80,
+      "runtime_verified": false,
+      "declared_ivar_name": "_scalingGraph",
+      "declared_ivar_type": "@\"NSArray\""
+    },
+    {
+      "cfstring": "0x18e900",
+      "raw_hex": "5b04000000002080c8070000000000000fd01400000020001000000000000000",
+      "text": "alternativeGraph",
+      "length": 16,
+      "callsite": "0x9b584",
+      "selector": "encodeObject:forKey:",
+      "value_source": "alternativeGraph object, only nonnil",
+      "ivar_offset_slot": "0x1ab4d4",
+      "ivar_offset": 88,
+      "runtime_verified": false,
+      "declared_ivar_name": "_alternativeGraph",
+      "declared_ivar_type": "@\"NSArray\""
+    },
+    {
+      "cfstring": "0x18e980",
+      "raw_hex": "5b04000000002080c80700000000000052d01400000020001400000000000000",
+      "text": "kSavedValueDoubleKey",
+      "length": 20,
+      "callsite": "0x9b5a4",
+      "selector": "encodeDouble:forKey:",
+      "value_source": "d0 from shouldUseSavedValueWithCoder:",
+      "ivar_offset_slot": null,
+      "ivar_offset": null,
+      "runtime_verified": false
+    },
+    {
+      "cfstring": "0x18e960",
+      "raw_hex": "5b04000000002080c8070000000000003ed01400000020001300000000000000",
+      "text": "kSavedValueFloatKey",
+      "length": 19,
+      "callsite": "0x9b5b8",
+      "selector": "encodeFloat:forKey:",
+      "value_source": "fcvt s0 from saved d8 (same returned double)",
+      "ivar_offset_slot": null,
+      "ivar_offset": null,
+      "runtime_verified": false
+    },
+    {
+      "cfstring": "0x18e9a0",
+      "raw_hex": "5b04000000002080c80700000000000067d01400000020001300000000000000",
+      "text": "kIsNewSavedValueKey",
+      "length": 19,
+      "callsite": "0x9b5d4",
+      "selector": "encodeBool:forKey:",
+      "value_source": "isNewSavedValueType byte",
+      "ivar_offset_slot": "0x1ab4bc",
+      "ivar_offset": 71,
+      "runtime_verified": false,
+      "declared_ivar_name": "_isNewSavedValueType",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18e9c0",
+      "raw_hex": "5b04000000002080c8070000000000007bd01400000020001100000000000000",
+      "text": "kHasSavedValueKey",
+      "length": 17,
+      "callsite": "0x9b5f0",
+      "selector": "encodeBool:forKey:",
+      "value_source": "hasSavedValue byte",
+      "ivar_offset_slot": "0x1ab52c",
+      "ivar_offset": 24,
+      "runtime_verified": false,
+      "declared_ivar_name": "_hasSavedValue",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18e9e0",
+      "raw_hex": "5b04000000002080c8070000000000008dd01400000020001100000000000000",
+      "text": "kFilterMappingKey",
+      "length": 17,
+      "callsite": "0x9b60c",
+      "selector": "encodeBool:forKey:",
+      "value_source": "filterMapping byte",
+      "ivar_offset_slot": "0x1ab4e4",
+      "ivar_offset": 69,
+      "runtime_verified": false,
+      "declared_ivar_name": "_filterMapping",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18ea00",
+      "raw_hex": "5b04000000002080c8070000000000009fd01400000020001000000000000000",
+      "text": "kDisplayIndexKey",
+      "length": 16,
+      "callsite": "0x9b628",
+      "selector": "encodeInteger:forKey:",
+      "value_source": "displayIndex qword",
+      "ivar_offset_slot": "0x1ab4e8",
+      "ivar_offset": 56,
+      "runtime_verified": false,
+      "declared_ivar_name": "_displayIndex",
+      "declared_ivar_type": "q"
+    },
+    {
+      "cfstring": "0x18ea80",
+      "raw_hex": "5b04000000002080c80700000000000007d11400000020000b00000000000000",
+      "text": "kGInstIDKey",
+      "length": 11,
+      "callsite": "0x9b644",
+      "selector": "encodeInteger:forKey:",
+      "value_source": "logicOnlyGInstID signed32->x2",
+      "ivar_offset_slot": "0x1ab4ec",
+      "ivar_offset": 76,
+      "runtime_verified": false,
+      "declared_ivar_name": "_logicOnlyGInstID",
+      "declared_ivar_type": "i"
+    },
+    {
+      "cfstring": "0x18ea20",
+      "raw_hex": "5b04000000002080c807000000000000b0d01400000020001100000000000000",
+      "text": "kDiscreteStepsKey",
+      "length": 17,
+      "callsite": "0x9b660",
+      "selector": "encodeBool:forKey:",
+      "value_source": "isStepped byte",
+      "ivar_offset_slot": "0x1ab4f0",
+      "ivar_offset": 70,
+      "runtime_verified": false,
+      "declared_ivar_name": "_isStepped",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18ea40",
+      "raw_hex": "5b04000000002080c807000000000000c2d01400000020002500000000000000",
+      "text": "kDisplayParameterValueAsPercentageKey",
+      "length": 37,
+      "callsite": "0x9b67c",
+      "selector": "encodeBool:forKey:",
+      "value_source": "displayParameterValueAsPercentage byte",
+      "ivar_offset_slot": "0x1ab4f4",
+      "ivar_offset": 72,
+      "runtime_verified": false,
+      "declared_ivar_name": "_displayParameterValueAsPercentage",
+      "declared_ivar_type": "B"
+    },
+    {
+      "cfstring": "0x18ea60",
+      "raw_hex": "5b04000000002080c807000000000000e8d01400000020001e00000000000000",
+      "text": "kMappingCreatedFromSmartMapKey",
+      "length": 30,
+      "callsite": "0x9b698",
+      "selector": "encodeBool:forKey:",
+      "value_source": "x0 from createdFromSmartMap",
+      "ivar_offset_slot": null,
+      "ivar_offset": null,
+      "runtime_verified": false
+    }
+  ],
+  "initial_fallback": {
+    "object": "0x025ecf00",
+    "vptr": {
+      "vm_address": "0x25ecf00",
+      "raw_word": "0x30000002337b58",
+      "pointer_format": 6,
+      "next_stride_units": 6,
+      "kind": "rebase",
+      "target": "0x2337b58",
+      "high8": 0,
+      "chain_membership_verified": true,
+      "segment_index": 2,
+      "page_index": 108,
+      "page_size": 16384,
+      "page_start": "0x0"
+    },
+    "slot": {
+      "vm_address": "0x2337b70",
+      "raw_word": "0x100000019d8958",
+      "pointer_format": 6,
+      "next_stride_units": 2,
+      "kind": "rebase",
+      "target": "0x19d8958",
+      "high8": 0,
+      "chain_membership_verified": true,
+      "segment_index": 1,
+      "page_index": 45,
+      "page_size": 16384,
+      "page_start": "0x0"
+    },
+    "target_body": "0x019d8958",
+    "contains_only_RET_x30": true
+  },
+  "logic_destination": {
+    "row": 9,
+    "entry_address": "0x1bd3604",
+    "entry_raw_hex": "ec8f97003d0c3f00bc2c82ff",
+    "signed_deltas": [
+      9932780,
+      4131901,
+      -8246084
+    ],
+    "name_field_base": "0x1bd3604",
+    "selector_reference": {
+      "vm_address": "0x254c5f0",
+      "raw_word": "0x10000001ee6916",
+      "pointer_format": 6,
+      "next_stride_units": 2,
+      "kind": "rebase",
+      "target": "0x1ee6916",
+      "high8": 0,
+      "chain_membership_verified": true,
+      "segment_index": 2,
+      "page_index": 68,
+      "page_size": 16384,
+      "page_start": "0x0"
+    },
+    "selector": "destination",
+    "types_field_base": "0x1bd3608",
+    "types_address": "0x1fc4245",
+    "types": "q16@0:8",
+    "imp_field_base": "0x1bd360c",
+    "imp_address": "0x13f62c8",
+    "inventory": {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "address": "013f62c8",
+      "defined_body_size_bytes": 24,
+      "name": "FUN_013f62c8",
+      "signature": "undefined FUN_013f62c8(void)"
+    }
+  },
+  "metadata_only_getter_candidate": {
+    "row": 1,
+    "entry_address": "0x1bd35a4",
+    "entry_raw_hex": "8c5198007c0d3f00802c82ff",
+    "signed_deltas": [
+      9982348,
+      4132220,
+      -8246144
+    ],
+    "name_field_base": "0x1bd35a4",
+    "selector_reference": {
+      "vm_address": "0x2558730",
+      "raw_word": "0x10000001f1c853",
+      "pointer_format": 6,
+      "next_stride_units": 2,
+      "kind": "rebase",
+      "target": "0x1f1c853",
+      "high8": 0,
+      "chain_membership_verified": true,
+      "segment_index": 2,
+      "page_index": 71,
+      "page_size": 16384,
+      "page_start": "0x0"
+    },
+    "selector": "logicOnlyGInstID",
+    "types_field_base": "0x1bd35a8",
+    "types_address": "0x1fc4324",
+    "types": "i16@0:8",
+    "imp_field_base": "0x1bd35ac",
+    "imp_address": "0x13f622c",
+    "inventory": {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "address": "013f622c",
+      "defined_body_size_bytes": 8,
+      "name": "FUN_013f622c",
+      "signature": "undefined FUN_013f622c(void)"
+    }
+  },
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Research/raw/ghidra/MACore.arm64.functions.tsv",
+      "size_bytes": 894302,
+      "sha256": "85f49623a810fd76a14675936dd0a1b84344f14ce7dbd955c364dd24694dcec0"
+    },
+    {
+      "path": "Research/raw/ghidra/build-parent-encode-manifest-011.py",
+      "size_bytes": 17668,
+      "sha256": "8c9d4124f410624f6ebed3bf55714bf2bdc92d74370050f7ea1f2fc0d266e648"
+    },
+    {
+      "path": "Research/raw/ghidra/fallback-ae-path-011-notes.md",
+      "size_bytes": 5841,
+      "sha256": "9a92364b219dd5baf71ddf8bdd76c456e57f3fed203e8f077c08aebb5c74c1d9"
+    },
+    {
+      "path": "Research/raw/ghidra/fallback-ae-path-011-verification.json",
+      "size_bytes": 19928,
+      "sha256": "49f60fed1d2f8a659da751110bc567c9bf13b14a5fce61ff3978664b9d180ac1"
+    },
+    {
+      "path": "Research/raw/ghidra/fallback-ae-path-011.json",
+      "size_bytes": 3180,
+      "sha256": "641892ae7b3b28e686bfaf6a26e958d4b82ad2d988cd2e014213c86e8b4ed668"
+    },
+    {
+      "path": "Research/raw/ghidra/fallback-ae-path-011.py",
+      "size_bytes": 3531,
+      "sha256": "9d9cacddc7323409ab0181171fdd02077c2d11a1965a338a8d601a0f5823a357"
+    },
+    {
+      "path": "Research/raw/ghidra/objc-archive-008.py",
+      "size_bytes": 19764,
+      "sha256": "1202e0acdb41fba3f8694baa68a5f89b9da9fa7b4bce79476f9e204f3a6cf108"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-encode-011-fixed.json",
+      "size_bytes": 49035,
+      "sha256": "289f51cadbc8d96c65f6287103d1af4fcf754ed1186201d33d8c546c1835d88b"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-encode-011-fixed.py",
+      "size_bytes": 12114,
+      "sha256": "d54ff39f7837015b406707154aa1fbdff28dfb62841844a2c75c1fe7354af2d1"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-encode-011-notes.md",
+      "size_bytes": 2964,
+      "sha256": "32fa4af866ac598822b74525345f7ebf3e996a54de2bf1ed95db0a487aa1ae77"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-encode-011-review.json",
+      "size_bytes": 5028,
+      "sha256": "22cbcafd75db5e869b0587ee91f4297c179a7f2e864fd64fb188499246e86206"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-encode-verification-011.json",
+      "size_bytes": 973,
+      "sha256": "73f3fc87ac2eeb3f2b2063387eb0b34121c67d9913674ceca744d241377483a3"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-support-011-fixed.json",
+      "size_bytes": 51839,
+      "sha256": "cad7e92c752cadea885d17cea4d4b00fe77cbdcbc46abc5ea042065e0f8a6428"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-support-011-fixed.py",
+      "size_bytes": 12037,
+      "sha256": "167c2f6989a87791dcccd5268fde96de1f741e02badf5c4bd66c41e6f9684729"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-fallback-ae-path-011-machinecode.txt",
+      "size_bytes": 546,
+      "sha256": "3081ffe9fba5a107db065f7c71e5b1e9fb9bc7b7b82eae6df5ccc031979dc9f1"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-fallback-ae-path-011.c",
+      "size_bytes": 324,
+      "sha256": "80253df01af9bec46a0013ec60ae8ea0116bc5e18cf278af69db40fb1ef12795"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-fallback-ae-path-011.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-fallback-ae-path-011.log",
+      "size_bytes": 5270,
+      "sha256": "d59215afb5028673b3e7ce1d5140cda993b3af3d5f07f312aa7501bf50dfba09"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-encode-011-machinecode.txt",
+      "size_bytes": 7030,
+      "sha256": "c02cbbdf64762e04ecc2ac83ce142bd02e290f53db9a81e4ad888773c7935a6e"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-encode-011.c",
+      "size_bytes": 3099,
+      "sha256": "d7ecc39ddb64b4c354c8670ea4082648e8494799443e9419d35e3c2575e4eebc"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-encode-011.identity.json",
+      "size_bytes": 463,
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-encode-011.log",
+      "size_bytes": 5229,
+      "sha256": "60cb25a207269f64a6a9a5542d6608239226408aa5a6de2cee719ea568bf6498"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-support-011-machinecode.txt",
+      "size_bytes": 2995,
+      "sha256": "aaa5c2d0442d71ab9ca2956a4e0641734a987d9317de614dd5039e2b3de25e6c"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-support-011.c",
+      "size_bytes": 2977,
+      "sha256": "27a52f927308206287fe439bb47220838e98c2d62f8cfdee62dee6c0aa96b350"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-support-011.identity.json",
+      "size_bytes": 463,
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-support-011.log",
+      "size_bytes": 5495,
+      "sha256": "0f772e295bb7995a50b4093396e639d283091fcc8dfb3931b2c66757d722acf5"
+    },
+    {
+      "path": "Research/raw/ghidra/registration-references-010.py",
+      "size_bytes": 7776,
+      "sha256": "10d9e998957d57d77cebe05060c89457115a04f6a6c9a8c2c962620fffe0564a"
+    },
+    {
+      "path": "Research/raw/ghidra/run-fallback-ae-path-011.py",
+      "size_bytes": 1904,
+      "sha256": "dc8966eb84722b2142307f78f8d96941daa1ae98f24f61cceb68691070848254"
+    },
+    {
+      "path": "Research/raw/ghidra/run-parent-encode-011.py",
+      "size_bytes": 1287,
+      "sha256": "5558e67cb7bac174927b777d0c5f7ed170b266efb30c324b7c873de44a1d0013"
+    },
+    {
+      "path": "Research/raw/ghidra/run-parent-support-011.py",
+      "size_bytes": 1455,
+      "sha256": "61da37e01b3b46ce3896455f50cf5c339a4f0bb7848facd0baef8d43dca299d6"
+    },
+    {
+      "path": "Research/raw/ghidra/verify-fallback-ae-path-011.py",
+      "size_bytes": 12131,
+      "sha256": "0e1d4c2fed5c550dd8297c7a520ed33db28cc7fa99ff800a723979efc68353ef"
+    }
+  ],
+  "successful_logs": [
+    "Research/raw/ghidra/q-appleevent-parent-encode-011.log",
+    "Research/raw/ghidra/q-appleevent-parent-support-011.log",
+    "Research/raw/ghidra/q-appleevent-fallback-ae-path-011.log"
+  ],
+  "static_verification": {
+    "new_function_count": 14,
+    "new_defined_body_bytes": 860,
+    "new_function_words_compared": 215,
+    "all_words_equal": true,
+    "cfstring_keys_verified": 19,
+    "encoder_call_targets_and_key_registers_verified": 19,
+    "fixed_pointer_words_recomputed": 106,
+    "selected_relative_method_rows_recomputed": 6,
+    "selected_ivar_entries_recomputed": 17,
+    "logic_source_slices_recomputed": 36,
+    "macore_support_source_slices_recomputed": 116,
+    "additional_logic_selector_stub_bytes": 20,
+    "additional_macore_native_stub_bytes": 24,
+    "published_key_rows": 19,
+    "published_boundary_rows": 13,
+    "negative_checks": [
+      {
+        "case": "one exported instruction byte changed",
+        "rejected": true
+      },
+      {
+        "case": "CFString flags field is not a fixup pointer",
+        "rejected": true
+      },
+      {
+        "case": "relative IMP delta applied to entry instead of entry+8",
+        "rejected": true
+      }
+    ],
+    "source_modified": false,
+    "runtime_execution": false
+  },
+  "reference_sources": [
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/apple-oss-distributions/objc4/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "github_url": "https://github.com/apple-oss-distributions/objc4/blob/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "commit": "fb265098298302243cd7eeaa1f63f0ba7786dd9a",
+      "sha256": "6a27a1d709f81e7eb1383ca750650797e591896fbc101185ae674f08171659eb",
+      "line_count": 3232,
+      "consulted_1_based_line_bounds": [
+        [
+          635,
+          665
+        ],
+        [
+          696,
+          714
+        ],
+        [
+          920,
+          924
+        ],
+        [
+          975,
+          985
+        ],
+        [
+          1029,
+          1059
+        ],
+        [
+          1241,
+          1255
+        ],
+        [
+          3196,
+          3208
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d",
+      "consulted_1_based_line_bounds": [
+        [
+          36,
+          77
+        ],
+        [
+          95,
+          114
+        ],
+        [
+          163,
+          170
+        ],
+        [
+          220,
+          228
+        ],
+        [
+          327,
+          358
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "url": "https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/fixup-chains.h",
+      "role": "public format reference; local SDK content hash is recorded separately"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-parent-encode-keys.tsv",
+      "size_bytes": 3810,
+      "sha256": "37116d61191219d3c205a7094eed8ad137b5e8e179a164fc44d1e14d64ae9880"
+    },
+    {
+      "path": "Research/protocol/appleevent-parent-encode-boundaries.tsv",
+      "size_bytes": 3295,
+      "sha256": "4fb5b4180421d57f94368cc3957fc84f356e6e5dfd59e1370c676de1679d2ba6"
+    }
+  ],
+  "dynamic_verification": "not_attempted",
+  "product_capabilities_added": false,
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "peer_connection_attempted": false,
+    "application_events_sent": false,
+    "preferences_changed": false
+  },
+  "notes": [
+    "Root TARGET011 static work only; independent of Claude offline RemoteState product work.",
+    "The fixed fallback branch ends in RET; nonzero external receiver and later vptr changes remain unobserved.",
+    "Logic destination definition sign-extends the dynamic logicOnlyGInstID result; it is not the MACore constant -1 definition.",
+    "The inherited encoder definition has 19 keys; 2 nil-object call gates, no scalar zero gate. Actual archive contents and runtime MANull encoder reachability remain unobserved.",
+    "The MACore shouldUseSavedValueWithCoder: definition returns double, not BOOL; caller encodes double and converted float without predicate.",
+    "Super2 class/selector and fixed RET definition verified; effective loaded-category/native dispatch remains unobserved.",
+    "No live Logic operation, connection, AppleEvent send, archive restore, persistence, reload, Undo or new product AE capability."
+  ]
+}
