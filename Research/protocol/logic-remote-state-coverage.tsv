@@ -1,0 +1,45 @@
+# Schema addresses of logic-remote-state.schema.json against one captured reception (EXP-REMOTE-001, EXP-REMOTE-002).
+# Generated: python3 Tools/research-scripts/remote_state.py coverage <capture>. The capture itself is not committed.
+# Strings (track names, UUIDs, locale, host data) are summarised by count only; no string value is listed.
+# changed_seen: whether two messages of the address differed. stability: one reception only, so no value is known to be stable.
+# address	field	in_schema	values_seen	summary	schema_check	changed_seen	stability
+/allTrackCount	(argument)	yes	2	12	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	c.nc	yes	24	4 distinct byte strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	c.sc	yes	24	4 distinct byte strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	c.tnc	yes	24	4 distinct byte strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	c.tsc	yes	24	4 distinct byte strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	n.name	yes	24	12 distinct strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	n.gindex	yes	24	80..124 (12 distinct)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	t	yes	24	1, 2, 5, 6	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	nc	yes	24	1, 2, 6	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	p	yes	24	-1, 0	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	tn	yes	24	-1..11 (12 distinct)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoTrackIDKey	yes	24	262145..524303 (12 distinct)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoTrackUUIDKey	yes	24	12 distinct strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoIconIDKey	yes	24	4579, 4643	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoHasArrangeKey	yes	24	false/true	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoArrangeHiddenKey	yes	24	false/true	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoCollapsibleInfoKey	yes	24	0	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/ati	BgTrackInfoMetaInfoFlagsKey	yes	24	0	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/docOpen	(argument)	yes	4	true	pass 4/4	no	one reception (EXP-REMOTE-001); not repeated
+/gtFaderData	g.vL	yes	12	1509949440	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/gtFaderData	g.s	yes	12	0	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/gtFaderData	g.m	yes	12	0	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/gtFaderData	t.r	yes	12	0, 64	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/gtFaderData	t.ip	yes	12	0	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/logicClock/currentTempo	(argument)	yes	1	1200000	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/logicClock/spl	(argument)	yes	1	174324820213760	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/multiTempo	(argument)	yes	1	true	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/sti	BgTrackInfoIndexKey	yes	2	2	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/sti	BgTrackInfoMetaInfoFlagsKey	yes	2	0	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/sti	BgTrackInfoShowArpeggiatorButtonKey	yes	2	true	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/sti	n	yes	2	1 distinct strings (not listed)	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/sti	t	yes	2	1	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/sti	tn	yes	2	3	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/trackCount	(argument)	yes	2	12	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/trackSelectionStates	NextTrackKey	yes	3	true	pass 3/3	no	one reception (EXP-REMOTE-001); not repeated
+/trackSelectionStates	PreviousTrackKey	yes	3	true	pass 3/3	no	one reception (EXP-REMOTE-001); not repeated
+/transport/clickWhileRecording	(argument)	yes	2	true	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated
+/transport/headerState	(argument)	yes	1	0	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/transport/playButtonFlags	(argument)	yes	1	3	pass 1/1	no	one reception (EXP-REMOTE-001); not repeated
+/transport/stopButtonState	(argument)	yes	2	1	pass 2/2	no	one reception (EXP-REMOTE-001); not repeated

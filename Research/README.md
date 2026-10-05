@@ -45,7 +45,7 @@ flowchart LR
 |---|---|
 | `static-analysis/` | Ghidra、命令、メタデータ、ハッシュを使った根拠 |
 | `experiments/` | 対象・初期状態・1回の操作・観測・再現回数 |
-| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）、`t`・`c` の表と命令の照合表（`logic-remote-track-types.tsv`・`logic-remote-colour-bytes.tsv`・`logic-remote-trackcolor-anchors.tsv`。確認は `Tools/research-scripts/binary_anchors.py`）などの抽出表 |
+| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）、`t`・`c` の表と命令の照合表（`logic-remote-track-types.tsv`・`logic-remote-colour-bytes.tsv`・`logic-remote-trackcolor-anchors.tsv`。確認は `Tools/research-scripts/binary_anchors.py`）、受信とスキーマの対応（`logic-remote-state-coverage.tsv`・`logic-remote-captured-addresses.tsv`。値は載せない）などの抽出表 |
 | `notes/` | 関連資料・先行例 |
 | `raw/` | ローカルの生出力。Gitには含めない |
 
@@ -93,6 +93,7 @@ flowchart LR
 |---|---|
 | [EXP-MCU-001〜009](experiments/EXP-MCU-001-009-virtual-mcu.md) | 仮想MCUの接続と基本操作 |
 | [EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md) | 研究用ピアで 1 回接続し、初回送信を受信だけ：全フレームを復号、スキーマ違反 0。`t` の意味の推測 3 つは外れ、`gindex` は作成順 |
+| [EXP-REMOTE-002](experiments/EXP-REMOTE-002-offline-state-replay.md) | 保存した受信からの状態の組み立て直し（オフライン）：未受信は null、識別子を分け、`complete` は推定しない。矛盾 0、`/sti` は `/ati` より先に届く |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
 | [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
 | [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |
