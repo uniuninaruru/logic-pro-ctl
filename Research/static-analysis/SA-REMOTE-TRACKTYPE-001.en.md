@@ -7,7 +7,7 @@
 | Status | **Static analysis only. Not confirmed on a Logic Remote connection** (PLAN-05 is not approved; nothing was connected) |
 | Date | 2026-10-05 |
 | Subject | Logic 12.3.1 (6682), the arm64 `Logic.arm64` (SHA-256 `2f141e1a…0998`) |
-| Evidence | Machine-code excerpts (`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`, `q-p6-ati-colour-006-machinecode.txt`, `q-p6-colourmap-006-machinecode.txt`; not tracked by Git) and an [anchor table](../protocol/logic-remote-trackcolor-anchors.tsv) (219 rows) that checks instructions and constants against the image file |
+| Evidence | Machine-code excerpts (`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`, `q-p6-ati-colour-006-machinecode.txt`, `q-p6-colourmap-006-machinecode.txt`; not tracked by Git) and an [anchor table](../protocol/logic-remote-trackcolor-anchors.tsv) (269 rows) that checks instructions and constants against the image file |
 | Machine-readable tables | [`logic-remote-track-types.tsv`](../protocol/logic-remote-track-types.tsv) · [`logic-remote-colour-bytes.tsv`](../protocol/logic-remote-colour-bytes.tsv) |
 | Prerequisite | [SA-REMOTE-STATE-001](SA-REMOTE-STATE-001.en.md) §4 (the 13 columns of `/ati`) |
 
@@ -22,6 +22,7 @@
 | `t = 9` | Kind word `0x42`. `ginstNeedsMidiClipType:` is true for this kind | Hypothesis "a MIDI-driven strip (software instrument)" | Medium |
 | The other values of `t` (1, 2, 3, 4, 6, 7, 8, 10) | The conditions are read, but the Logic track kinds they correspond to are not settled | Hypothesis (confidence in the table) / unresolved | Low to medium |
 | `/sti`'s `t` | **The result of the same function, merged over the selected strips.** Values 0 to 4 | Static fact. The earlier wording (a different computation) was a **misreading** (§6) | High |
+| `nc` and `p` of the same call | Both are read from *G*. The table for `nc` (1, 2, 4, 4, 6, 7, 8, …, 16) and the one for `p` were read out (§9) | Static fact (machine code). The earlier "a song value" was a misreading | High |
 | Values on a real connection | **Unconfirmed** | — | — |
 
 ## 2. `t` — how it is decided
@@ -29,6 +30,8 @@
 The inputs of `trackTypeForTrack:seqID:ginst:inSong:` (`0x01693e90`) are a track entry *E* (0x50 bytes: kind at +0x10, depth +0x12, flags +0x14, id +0x20), `seqID`, `ginst` and the song.
 
 **The ginst object *G*.** The function first calls `FUN_01a15c7c(song, ginst, NULL)` (`0x01693ebc`). It returns *G* only when the strip that `ginst` selects has type byte (+0x69) **0x11** and class byte (+0x335) below 13; it looks *G* up in a table on the song. Otherwise it returns NULL. The "kind word" is the leading `ushort` of *G* with bit 3 cleared (`and #0xfffffff7`). The name `ginst` is Logic's own term (the same root as `gindex`; **guess**: generic instrument).
+
+**What `/ati` passes.** *E* is the track entry; `seqID` is the strip's `folder` (the upper 16 bits of `BgTrackInfoTrackIDKey`); `ginst` is **the value of the same register** as `n.gindex` (the same as the keys of `g` in `/gtFaderData`; anchors `TT-callsite`, `CB-gindex`); `song` is the song. The `/sti` block passes no *E* and gives the selected strip's index as `ginst` (§3).
 
 **The sequence *Q*.** A `seqID` of 0x7ffffff8 or 0x7ffffffc selects an element of another array (+0x318); any other value is an ordinary ID, a multiple of 4, that indexes the array at +0x228. A set bit 0 at *Q*+0x30 marks it invalid. If no *E* is passed, the function looks in *Q* for the entry whose id (+0x20) equals `ginst`.
 
@@ -131,7 +134,21 @@ python3 -m unittest test_binary_anchors   # run in Tools/research-scripts
 
 Each row of the anchor table is checked against the image file's bytes, `llvm-objdump`'s instruction, `dyld_info -fixups`'s symbol or the selector string (Ghidra is not used). A different image hash is refused.
 
-## 9. Unresolved
+## 9. `nc` and `p` of the same call (addendum)
+
+The `nc` and `p` columns that the `/ati` block makes are also read from *G* (the return value of `FUN_01a15c7c`, saved on the stack at `sp+0x80`; anchor `NC-src`).
+
+| Column | Value | Condition |
+|---|---|---|
+| `nc` | the *n*-th entry of the table at `0x01d59030` (*n* = *G*[+0xd4], 1 to 15): 1, 2, 4, 4, 6, 7, 8, 8, 8, 8, 10, 10, 12, 14, 16 | *G* exists and *n* is 1 to 15 |
+| `nc` | 0 | no *G*, or *n* is 0 or above 15 (the constant `0x0242fcb8` = 0) |
+| `p` | `0`, `-5`, `-1`, `-4`, `-1`, `-4` for *k* = 0 to 5 | *G* exists, bit 27 of `allowedElementsForStrip:` is set, and the result *k* of `FUN_01a2cc68(G, 0)` is below 6 (byte *k* of the 64-bit constant `0xfcfffcfffb00`) |
+| `p` | `-1` | *G* exists but the condition above fails; or no *G* and `t` is not 4 (the constant `0x0242fce8` = −1) |
+| `p` | `0` | no *G* and `t` is 4 (the constant `0x0242fcd0` = 0) |
+
+**Correction of an earlier reading:** SA-REMOTE-STATE-001 gave `nc` as "a byte at +0xd4 of the song". The decompiler showed the return value of `FUN_01a15c7c` as discarded and used one variable name for both the song and *G*, which caused the misreading; in machine code the value saved by `str x0,[sp,#0x80]` (*G*) is read later. The shape of the values (1, 2, 4, 4, 6, 7, 8, …, 16) looks like the channel counts of surround formats (**hypothesis**, confidence medium). The meaning of *k*, the result of `FUN_01a2cc68`, is unresolved.
+
+## 10. Unresolved
 
 | Item | State | Next |
 |---|---|---|

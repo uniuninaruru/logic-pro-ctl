@@ -1,4 +1,4 @@
-# /ati "t" (track kind), /sti "t" and the default colour index per track kind. Logic 12.3.1 (6682), Logic.arm64 sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998.
+# /ati "t" (track kind), /sti "t", the default colour index per track kind, and the nc and p columns of /ati (scopes ati.nc and ati.p). Logic 12.3.1 (6682), Logic.arm64 sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998.
 # Source: SA-REMOTE-TRACKTYPE-001. Static analysis only: no value below was captured from a Remote connection (live_check = unconfirmed).
 # The condition column is read from the code (anchors name the rows of logic-remote-trackcolor-anchors.tsv that pin the constants).
 # The meaning column is a hypothesis with the stated confidence; it is not a fact.
@@ -25,3 +25,9 @@ default_colour_index	-	1	colour index 16	DC-dict,DC-key1,DC-idx16	default colour
 default_colour_index	-	2	colour index 9	DC-dict,DC-key2,DC-idx9	default colour index of key 2	high	unconfirmed
 default_colour_index	-	3	colour index 76	DC-dict,DC-key3,DC-idx76	default colour index of key 3	high	unconfirmed
 default_colour_index	-	4	colour index 9	DC-dict,DC-key4,DC-idx9	default colour index of key 4	high	unconfirmed
+ati.nc	-	0	G is absent, or the byte G[+0xd4] is 0 or above 15 (constant 0x0242fcb8 = 0 without G)	NC-src,NC-none	no channel count	medium	unconfirmed
+ati.nc	-	1,2,4,4,6,7,8,8,8,8,10,10,12,14,16	G[+0xd4] = n (1 to 15) gives the n-th entry of the table at 0x01d59030	NC-src,NC-table	channel count of the strip format (from the key name and the shape of the values); the source is G, not the song	medium	unconfirmed
+ati.p	-	-1	G exists and bit 27 of allowedElementsForStrip: is clear; or k = FUN_01a2cc68(G,0) is 6 or more or is 2 or 4; or G is absent and t is not 4 (constant 0x0242fce8 = -1)	P-src,NC-none,NC-none-p	pan type (from the key name); the meaning of k is unresolved	low	unconfirmed
+ati.p	-	0	G is absent and t is 4 (constant 0x0242fcd0 = 0); or k = 0	P-src,NC-none	pan type	low	unconfirmed
+ati.p	-	-5	k = 1	P-src	pan type	low	unconfirmed
+ati.p	-	-4	k = 3 or 5	P-src	pan type	low	unconfirmed

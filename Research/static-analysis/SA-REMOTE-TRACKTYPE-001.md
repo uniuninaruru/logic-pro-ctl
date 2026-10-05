@@ -7,7 +7,7 @@
 | 状態 | **静的解析のみ。Logic Remote の通信では未確認**（PLAN-05 は未承認で、接続していない） |
 | 日付 | 2026-10-05 |
 | 対象 | Logic 12.3.1 (6682)、arm64 の `Logic.arm64`（SHA-256 `2f141e1a…0998`） |
-| 根拠 | 機械語の抜粋（`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`、`q-p6-ati-colour-006-machinecode.txt`、`q-p6-colourmap-006-machinecode.txt`。Git の追跡対象外）と、命令・定数を画像ファイルから照合する [アンカー表](../protocol/logic-remote-trackcolor-anchors.tsv)（219 行） |
+| 根拠 | 機械語の抜粋（`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`、`q-p6-ati-colour-006-machinecode.txt`、`q-p6-colourmap-006-machinecode.txt`。Git の追跡対象外）と、命令・定数を画像ファイルから照合する [アンカー表](../protocol/logic-remote-trackcolor-anchors.tsv)（269 行） |
 | 機械可読表 | [`logic-remote-track-types.tsv`](../protocol/logic-remote-track-types.tsv)・[`logic-remote-colour-bytes.tsv`](../protocol/logic-remote-colour-bytes.tsv) |
 | 前提 | [SA-REMOTE-STATE-001](SA-REMOTE-STATE-001.md) §4（`/ati` の 13 列） |
 
@@ -22,6 +22,7 @@
 | `t = 9` | 種別語が `0x42`。`ginstNeedsMidiClipType:` がこの種別で真になる | 仮説「MIDI で動くストリップ（ソフトウェア音源）」 | 中 |
 | `t` のその他（1・2・3・4・6・7・8・10） | 条件は読めたが、対応する Logic のトラック種別は未確定 | 仮説（確信度は表のとおり）／未解決 | 低〜中 |
 | `/sti` の `t` | **`/ati` と同じ関数の戻り値を、選択中のストリップについてまとめたもの**。値は 0〜4 | 静的事実。以前の記述（別の計算）は**誤読**だった（§6） | 高 |
+| 同じ呼び出しの `nc`・`p` | どちらも *G* から読む。`nc` の表（1, 2, 4, 4, 6, 7, 8, …, 16）と `p` の表を読み出した（§9） | 静的事実（機械語）。以前の「曲の値」は誤読 | 高 |
 | 実機での値 | **未確認** | — | — |
 
 ## 2. `t` — 判定の手順
@@ -29,6 +30,8 @@
 `trackTypeForTrack:seqID:ginst:inSong:`（`0x01693e90`）の入力は、トラックエントリ *E*（0x50 バイト。種類 +0x10、深さ +0x12、フラグ +0x14、ID +0x20）、`seqID`、`ginst`、曲である。
 
 **ginst オブジェクト *G*。** 最初に `FUN_01a15c7c(曲, ginst, NULL)`（`0x01693ebc`）を呼ぶ。これは、`ginst` が選ぶストリップの種類バイト（+0x69）が **0x11** で、分類バイト（+0x335）が 13 未満のときだけ、曲側の表を引いて *G* を返す。それ以外は NULL。*G* の先頭の `ushort` から bit 3 を除いた値を「種別語」と呼ぶ（`and #0xfffffff7`）。名前の `ginst` は Logic 内の用語（`gindex` と同じ語源。**推測**: generic instrument）。
+
+**`/ati` が渡す引数。** *E* はトラックエントリ、`seqID` はストリップの `folder`（`BgTrackInfoTrackIDKey` の上位 16 ビット）、`ginst` は `n.gindex` と**同じレジスタの値**（`/gtFaderData` の `g` のキーと同じ。アンカー `TT-callsite`、`CB-gindex`）、`song` は曲。`/sti` のブロックは *E* を渡さず、`ginst` に選択中のストリップの添字を渡す（§3）。
 
 **シーケンス *Q*。** `seqID` が 0x7ffffff8 または 0x7ffffffc のときは別の配列（+0x318）の要素、それ以外は 4 の倍数の通常 ID で配列（+0x228）を引く。*Q* の +0x30 の bit 0 が立っていると無効として扱う。*E* が渡されなければ、*Q* の中から `ginst` と同じ ID（+0x20）を持つエントリを探す。
 
@@ -131,7 +134,21 @@ python3 -m unittest test_binary_anchors   # Tools/research-scripts で実行
 
 アンカー表の各行は、画像ファイルのバイト列、`llvm-objdump` の命令、`dyld_info -fixups` のシンボル、セレクタ文字列で照合する（Ghidra を使わない）。画像のハッシュが違えば拒否する。
 
-## 9. 不明なこと
+## 9. 同じ呼び出しの `nc` と `p`（追記）
+
+`/ati` の同じブロックで作る `nc` と `p` の 2 列も、*G*（`FUN_01a15c7c` の戻り値。スタックの `sp+0x80` に保存される。アンカー `NC-src`）から読んでいる。
+
+| 列 | 値 | 条件 |
+|---|---|---|
+| `nc` | 表 `0x01d59030` の *n* 番目（*n* = *G*[+0xd4]、1〜15）: 1, 2, 4, 4, 6, 7, 8, 8, 8, 8, 10, 10, 12, 14, 16 | *G* があり、*n* が 1〜15 |
+| `nc` | 0 | *G* が無い、または *n* が 0 か 16 以上（定数 `0x0242fcb8` = 0） |
+| `p` | `0`、`-5`、`-1`、`-4`、`-1`、`-4`（*k* = 0〜5） | *G* があり、`allowedElementsForStrip:` の bit 27 が立ち、`FUN_01a2cc68(G, 0)` の結果 *k* が 6 未満（64 ビット定数 `0xfcfffcfffb00` の第 *k* バイト） |
+| `p` | `-1` | 上の条件を満たさない *G*。または *G* が無く `t` が 4 でない（定数 `0x0242fce8` = −1） |
+| `p` | `0` | *G* が無く `t` が 4（定数 `0x0242fcd0` = 0） |
+
+**以前の読みの訂正:** SA-REMOTE-STATE-001 は `nc` を「曲の +0xd4 のバイト」としていた。デコンパイラが `FUN_01a15c7c` の戻り値を捨てたように表示し、同じ変数名を曲にも *G* にも使っていたための誤読で、機械語では `str x0,[sp,#0x80]` で保存した値（*G*）を後で読んでいる。値の並び（1, 2, 4, 4, 6, 7, 8, …, 16）は、サラウンド形式ごとのチャンネル数に見える（**仮説**、確信度: 中）。`FUN_01a2cc68` の結果 *k* の意味は未解決。
+
+## 10. 不明なこと
 
 | 項目 | 状態 | 次の手 |
 |---|---|---|

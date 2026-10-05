@@ -5,6 +5,7 @@ Logic image and the Apple tools; it is skipped when they are absent or the image
 """
 
 import hashlib
+import re
 import struct
 import tempfile
 import unittest
@@ -198,6 +199,26 @@ class CommittedTableTests(unittest.TestCase):
 
         self.assertEqual({k: value(f"DC-key{k}") for k in range(5)}, {k: k for k in range(5)})
         self.assertEqual((value("DC-idx9"), value("DC-idx16"), value("DC-idx76")), (9, 16, 76))
+
+    def test_the_nc_table_and_the_p_constant_decode_to_the_values_in_the_note(self):
+        table = next(a.data for a in self.anchors if a.id.startswith("NC-table@"))
+        self.assertEqual(struct.unpack("<15i", table), (1, 2, 4, 4, 6, 7, 8, 8, 8, 8, 10, 10, 12, 14, 16))
+        # the 64-bit constant of `p` is built by mov x9,#imm / movk x9,#imm,lsl #16 / movk x9,#imm,lsl #32
+        value = 0
+        for a in self.anchors:
+            if a.id.startswith("P-src@"):
+                mov = re.fullmatch(r"mov x9, #(0x[0-9a-f]+)", a.text)
+                movk = re.fullmatch(r"movk x9, #(0x[0-9a-f]+), lsl #(\d+)", a.text)
+                if mov:
+                    value = int(mov.group(1), 16)
+                elif movk:
+                    value |= int(movk.group(1), 16) << int(movk.group(2))
+        self.assertEqual(value, 0xFCFFFCFFFB00)
+        signed = [(value >> (8 * k)) & 0xFF for k in range(6)]
+        self.assertEqual([b - 256 if b > 127 else b for b in signed], [0, -5, -1, -4, -1, -4])
+        for row in read_tsv(TRACK_TYPES, 8):
+            for group in self.referenced_groups(row[4]):
+                self.assertIn(group, self.groups, row[:3])
 
     def test_the_colour_table_covers_the_four_keys_in_rgba_order(self):
         rows = read_tsv(COLOUR_BYTES, 9)

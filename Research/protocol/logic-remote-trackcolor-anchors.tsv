@@ -227,3 +227,53 @@ SEL-trackTypeForTrack@0x25714d0	selref	0x025714d0		trackTypeForTrack:seqID:ginst
 SEL-getRed@0x2550f80	selref	0x02550f80		getRed:green:blue:alpha:	selector reference used by the stub at 0x1b3cf20
 SEL-dictionaryWithObjects@0x254c968	selref	0x0254c968		dictionaryWithObjects:forKeys:count:	selector reference used by the stub at 0x1b2b6c0
 SEL-dataWithBytes@0x254b788	selref	0x0254b788		dataWithBytes:length:	selector reference used by the stub at 0x1b26f40
+NC-src@0x1697110	insn	0x01697110	e04300f9	str x0, [sp, #0x80]	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697750	insn	0x01697750	e84340f9	ldr x8, [sp, #0x80]	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697754	insn	0x01697754	480100b4	cbz x8, 0x169777c	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697758	insn	0x01697758	08514339	ldrb w8, [x8, #0xd4]	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x169775c	insn	0x0169775c	08050051	sub w8, w8, #0x1	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697760	insn	0x01697760	1f390071	cmp w8, #0xe	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697764	insn	0x01697764	68030054	b.hi 0x16977d0	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697768	insn	0x01697768	081d4092	and x8, x8, #0xff	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x169776c	insn	0x0169776c	093600d0	adrp x9, 0x1d59000	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697770	insn	0x01697770	29c10091	add x9, x9, #0x30	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-src@0x1697774	insn	0x01697774	227968b8	ldr w2, [x9, x8, lsl #2]	nc: G (saved at sp+0x80) gives byte G[+0xd4]; values 1..15 index a table of 4-byte ints at 0x1d59030, anything else gives 0
+NC-none@0x1697754	insn	0x01697754	480100b4	cbz x8, 0x169777c	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x1697780	insn	0x01697780	c26c0090	adrp x2, 0x242f000	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x1697784	insn	0x01697784	42e03291	add x2, x2, #0xcb8	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x1697790	insn	0x01697790	08a13391	add x8, x8, #0xce8	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x1697798	insn	0x01697798	29413391	add x9, x9, #0xcd0	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x169779c	insn	0x0169779c	7f130071	cmp w27, #0x4	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+NC-none@0x16977a0	insn	0x016977a0	2201889a	csel x2, x9, x8, eq	without G, nc gets the constant at 0x242fcb8 and p gets the constant at 0x242fcd0 if t == 4, else the one at 0x242fce8
+P-src@0x1697810	insn	0x01697810	8001d836	tbz w0, #0x1b, 0x1697840	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697814	insn	0x01697814	e04340f9	ldr x0, [sp, #0x80]	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697818	insn	0x01697818	01008052	mov w1, #0x0	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x169781c	insn	0x0169781c	13550e94	bl 0x1a2cc68	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697820	insn	0x01697820	1f180071	cmp w0, #0x6	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697824	insn	0x01697824	e2000054	b.hs 0x1697840	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697828	insn	0x01697828	08701d53	lsl w8, w0, #3	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x169782c	insn	0x0169782c	09609fd2	mov x9, #0xfb00	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697830	insn	0x01697830	e99fbff2	movk x9, #0xfcff, lsl #16	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697834	insn	0x01697834	e99fdff2	movk x9, #0xfcff, lsl #32	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697838	insn	0x01697838	2825c89a	lsr x8, x9, x8	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697840	insn	0x01697840	e81f8052	mov w8, #0xff	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+P-src@0x1697850	insn	0x01697850	021d0013	sxtb w2, w8	p: with bit 27 of allowedElementsForStrip: set, FUN_01a2cc68(G, 0) below 6 indexes the bytes of 0xfcfffcfffb00 (0, -5, -1, -4, -1, -4); otherwise -1
+STUB-allowedElementsForStrip@0x1b09a60	insn	0x01b09a60	c15100f0	adrp x1, 0x2544000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-allowedElementsForStrip@0x1b09a64	insn	0x01b09a64	212841f9	ldr x1, [x1, #0x250]	objc stub: loads the selector reference then jumps to objc_msgSend
+NC-table@0x1d59030	data	0x01d59030	010000000200000004000000040000000600000007000000080000000800000008000000080000000a0000000a0000000c0000000e00000010000000		15 four-byte ints: 1,2,4,4,6,7,8,8,8,8,10,10,12,14,16 (channel counts by format number 1..15)
+NC-none-p@0x242fcf8	data	0x0242fcf8	ffffffffffffffff		NSConstantIntegerNumber at 0x242fce8: value -1 (p without G when t != 4)
+SEL-allowedElementsForStrip@0x2544250	selref	0x02544250		allowedElementsForStrip:	selector reference used by the stub at 0x1b09a60
+TT-callsite@0x1697514	insn	0x01697514	802740f9	ldr x0, [x28, #0x48]	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x1697518	insn	0x01697518	855f40f9	ldr x5, [x28, #0xb8]	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x169751c	insn	0x0169751c	e20316aa	mov x2, x22	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x1697520	insn	0x01697520	e35b40b9	ldr w3, [sp, #0x58]	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x1697524	insn	0x01697524	e40314aa	mov x4, x20	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x1697528	insn	0x01697528	ce9b1494	bl 0x1bbe460	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x169752c	insn	0x0169752c	fb0300aa	mov x27, x0	/ati calls trackTypeForTrack with x2=entry (x22), seqID=[sp+0x58] (the strip folder), ginst=x20, song=[x28+0xb8]; the result is kept in x27
+TT-callsite@0x1697118	insn	0x01697118	b2891294	bl 0x1b397e0	seqID comes from objc folder of the strip (stored at sp+0x58)
+TT-callsite@0x169711c	insn	0x0169711c	e05b00b9	str w0, [sp, #0x58]	seqID comes from objc folder of the strip (stored at sp+0x58)
+CB-gindex@0x169740c	insn	0x0169740c	e20314aa	mov x2, x20	n.gindex is numberWithInt: of the same register x20 that is passed as ginst
+CB-gindex@0x1697410	insn	0x01697410	943f1394	bl 0x1b67260	n.gindex is numberWithInt: of the same register x20 that is passed as ginst
+STUB-folder@0x1b397e0	insn	0x01b397e0	a15000f0	adrp x1, 0x2550000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-folder@0x1b397e4	insn	0x01b397e4	21d840f9	ldr x1, [x1, #0x1b0]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-folder@0x25501b0	selref	0x025501b0		folder	selector reference used by the stub at 0x1b397e0
