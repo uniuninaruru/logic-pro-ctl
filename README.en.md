@@ -50,6 +50,7 @@ logicctl track get <n>
 logicctl track select <n>
 logicctl track mute <n> on|off
 logicctl track solo <n> on|off
+logicctl track arm <n> on|off         (REC LED readback; fake-Logic tests only, live behavior unverified)
 logicctl track volume <n> <dB|-inf> [--tolerance <dB>]   (default tolerance 0.1)
 logicctl track pan <n> <-1…1>         (Logic pan -64…+63 = value × 64)
 logicctl daemon stop

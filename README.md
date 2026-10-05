@@ -45,6 +45,7 @@ swift build -c release
 | トラック一覧 / 詳細 | `logicctl track list` / `get 1` | 番号は1から |
 | 選択 | `logicctl track select 1` | 自動録音待機の設定により録音待機も移動 |
 | ミュート / ソロ | `logicctl track mute 1 on` / `solo 1 off` | `on`・`off`で指定 |
+| 録音待機 | `logicctl track arm 1 on` / `off` | MCUのREC LEDで確認。実機は未確認、偽のLogicで試験済み |
 | 音量 | `logicctl track volume 1 -6` | dBで指定。無音は `-inf` |
 | パン | `logicctl track pan 1 -0.5` | 左 `-1` ← 中央 `0` → 右 `1` |
 | 常駐プロセスを停止 | `logicctl daemon stop` | 次の利用で再起動 |
