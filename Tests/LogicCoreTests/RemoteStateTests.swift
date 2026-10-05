@@ -500,7 +500,9 @@ private let exp001ReferenceFrames: URL? = {
 @Test(.enabled(if: exp001ReferenceFrames != nil, "EXP-REMOTE-001 reference recording 20261005-094234-e1 is absent"))
 func theEXP001ReferenceRecordingRebuildsLikeTheResearchTool() throws {
     let files = try FileManager.default.contentsOfDirectory(at: exp001ReferenceFrames!, includingPropertiesForKeys: nil)
-        .filter { $0.pathExtension == "bin" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
+        .filter { $0.pathExtension == "bin" }
+        // Frame files are numbered in arrival order; "10000.bin" sorts before "2000.bin" as text, so sort by number.
+        .sorted { (Int($0.deletingPathExtension().lastPathComponent) ?? 0) < (Int($1.deletingPathExtension().lastPathComponent) ?? 0) }
     var b = RemoteStateBuilder()
     for file in files {
         guard case .success(let frame) = RemoteFrameParser.decode(try Data(contentsOf: file)) else { Issue.record("\(file.lastPathComponent)"); continue }
