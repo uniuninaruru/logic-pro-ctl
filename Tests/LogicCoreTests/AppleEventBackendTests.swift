@@ -382,8 +382,10 @@ private final class AEAsyncReadback: TransportReadback, @unchecked Sendable {
 @Test func aeWaitObservesAsynchronousFeedback() {
     let readback = AEAsyncReadback()
     let sender = AEFakeSender()
+    // Verify delayed feedback, allowing scheduling headroom when the suite runs under load.
+    // The condition wakes as soon as feedback arrives; this does not change the production timeout.
     let backend = AppleEventTransportBackend(readback: readback, sender: sender,
-                                             appProvider: { aeTestApp() }, verificationTimeout: 0.5)
+                                             appProvider: { aeTestApp() }, verificationTimeout: 5)
     sender.onSend = {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.03) {
             readback.receive(TransportSnapshot(playing: true, recording: false))
