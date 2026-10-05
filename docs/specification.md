@@ -27,7 +27,7 @@ flowchart LR
 | コマンド | 入力 | 戻る情報・動作 |
 |---|---|---|
 | `status` | なし | daemonのPID、Logicのバージョン、MCUの接続、対応機能、検証済みの環境かどうか（`compatibility`）。接続があると再生状態も返す |
-| `state` | なし | 再生状態、選択中のトラック、全ストリップの情報 |
+| `state` | なし | 再生状態、再生位置（`position`）、選択中のトラック、全ストリップの情報。`position` は MCU の時刻表示の文字列（`display`）と BEATS/SMPTE（`mode`）で、BEATS のときは `bar`・`beat`・`division`・`tick` に分ける。表示がまだ届いていなければ `null`。分け方は、実機の停止中の 1 つの値でだけ確かめた |
 | `transport play` | なし | 再生を要求 |
 | `transport stop` | なし | 停止を要求 |
 | `track list` | なし | 全チャンネルストリップの配列 |

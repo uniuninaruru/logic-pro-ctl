@@ -2,6 +2,7 @@
 area	operation	backend	status	evidence	limits
 MCU 読み取り	status	mcu	live	EXP-CLI-001; Tests/LogicCoreTests/MCUObservationTests.swift	Logic が確認ダイアログで止まっていると MCU は接続しない（2026-10-05 に観測。ダイアログを閉じて daemon を再起動すると接続）
 MCU 読み取り	transport の状態（再生・録音 LED）	mcu	live	EXP-CLI-001; MCUObservationTests	LED を Logic が報告していないときは null。再接続直後に古い状態を返さない
+MCU 読み取り	再生位置（state の position。時刻表示と BEATS/SMPTE）	mcu	tested	Tests/LogicCoreTests/PositionTests.swift; EXP-MCU-024 のログ	実機のログの停止中の 1 値（1 3 2 29、BEATS）で復号を確認。再生中の値と SMPTE は偽の Logic だけ。読んだ瞬間の値で、再生中は動く
 MCU 読み取り	track list（全ストリップの走査）	mcu	live	EXP-CLI-001; EXP-MCU-020; EXP-MCU-023; MCUObservationTests	表示範囲（バンク）を動かす。末尾を確認できなければ complete:false。非 ASCII の名前は LCD に出ないことがある
 MCU 読み取り	track get	mcu	live	EXP-CLI-001; EXP-MCU-021	フェーダーに触れて dB を読む（読み取りに副作用がある）
 MCU 読み取り	state	mcu	live	EXP-CLI-001	track list と同じ走査

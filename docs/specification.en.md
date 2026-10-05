@@ -29,7 +29,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 | Command | Input | What it returns / does |
 |---|---|---|
 | `status` | none | The daemon's PID, Logic's version, the MCU connection, supported features, and whether the environment is a verified one (`compatibility`). With a connection it also returns the play state |
-| `state` | none | The play state, the selected track and information about all strips |
+| `state` | none | The play state, the playhead (`position`), the selected track and information about all strips. `position` is the MCU time display's text (`display`) and BEATS/SMPTE (`mode`); in BEATS mode it is also split into `bar`, `beat`, `division` and `tick`. `null` until the display has arrived. The split was checked against one stopped value on the real Logic only |
 | `transport play` | none | Requests playback |
 | `transport stop` | none | Requests stop |
 | `track list` | none | An array of all channel strips |

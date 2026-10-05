@@ -18,6 +18,18 @@ public enum MCU {
     public static let playNote: UInt8 = 0x5E
     public static let recordNote: UInt8 = 0x5F
     public static let rudeSoloNote: UInt8 = 0x73
+    /// Time display mode LEDs. Logic lit BEATS and not SMPTE in the logs of EXP-MCU-009/024.
+    public static let smpteNote: UInt8 = 0x71
+    public static let beatsNote: UInt8 = 0x72
+    /// The 10-digit time display: CC 0x40 is the rightmost digit, 0x49 the leftmost.
+    public static let timecodeCCs: ClosedRange<UInt8> = 0x40...0x49
+
+    /// One digit of the time display: the low 6 bits are a character (0x00–0x1F → '@', 'A'…'_';
+    /// 0x20–0x3F → ASCII), bit 6 lights the dot after it.
+    public static func displayCharacter(_ value: UInt8) -> (character: Character, dot: Bool) {
+        let code = value & 0x3F
+        return (Character(UnicodeScalar(code < 0x20 ? code + 0x40 : code)), value & 0x40 != 0)
+    }
     public static let bankLeftNote: UInt8 = 0x2E
     public static let bankRightNote: UInt8 = 0x2F
     public static let channelLeftNote: UInt8 = 0x30
@@ -57,6 +69,8 @@ public struct MCUSurface {
     /// was never reported is *unknown*, not off (the default value 0 is not evidence).
     public private(set) var ledSeen = [Bool](repeating: false, count: 128)
     public private(set) var rings = [UInt8?](repeating: nil, count: 8)
+    /// The time display, leftmost digit first; nil until Logic reports that digit in this session.
+    public private(set) var timecode = [UInt8?](repeating: nil, count: 10)
     /// Per-strip counters, bumped on every update touching that strip;
     /// callers snapshot them before a write and wait for them to change.
     public private(set) var lowerWrites = [Int](repeating: 0, count: 8)
@@ -148,6 +162,9 @@ public struct MCUSurface {
             let strip = Int(m[1] - 0x30)
             rings[strip] = m[2]
             return .ring(strip: strip, value: m[2])
+        case 0xB0 where m.count == 3 && MCU.timecodeCCs.contains(m[1]):
+            timecode[9 - Int(m[1] - MCU.timecodeCCs.lowerBound)] = m[2]
+            return .other(m)
         case 0xD0 where m.count == 2:
             return .meter(strip: Int(m[1] >> 4), level: Int(m[1] & 0x0F))
         default:
@@ -204,6 +221,14 @@ public struct MCUSurface {
         leds = [UInt8](repeating: 0, count: leds.count)
         ledSeen = [Bool](repeating: false, count: ledSeen.count)
         rings = [UInt8?](repeating: nil, count: rings.count)
+        timecode = [UInt8?](repeating: nil, count: timecode.count)
+    }
+
+    /// The ten characters of the time display, or nil until every digit was reported in this session.
+    /// Logic sends all ten in its state dump and then only the digits that change.
+    public func timecodeCharacters() -> [(character: Character, dot: Bool)]? {
+        guard timecode.allSatisfy({ $0 != nil }) else { return nil }
+        return timecode.map { MCU.displayCharacter($0!) }
     }
 
     public func row(_ r: Int) -> String {

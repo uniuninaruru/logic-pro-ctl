@@ -490,6 +490,28 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                        observation: observation(scope: "status", complete: connected))
     }
 
+    /// The playhead as Logic's time display shows it at the moment of reading (it moves while playing).
+    /// `display` is the text as shown. In BEATS mode it is also split by the display's layout (3-2-2-3
+    /// digits: bar, beat, division, tick); that split was checked against one stopped value only
+    /// (EXP-MCU-009/024 logs). `null` until Logic has reported all ten digits in this session.
+    private func positionJSON() -> JSONValue {
+        read { s -> JSONValue in
+            guard let chars = s.timecodeCharacters() else { return .null }
+            let display = String(chars.map { $0.dot ? "\($0.character)." : String($0.character) }.joined())
+            let beats = s.ledIfKnown(MCU.beatsNote), smpte = s.ledIfKnown(MCU.smpteNote)
+            let mode: JSONValue = beats == true ? "beats" : smpte == true ? "smpte" : .null
+            var o: [String: JSONValue] = ["display": .string(display), "mode": mode]
+            if beats == true {
+                let digits = chars.map(\.character)
+                func group(_ r: Range<Int>) -> JSONValue {
+                    Int(String(digits[r]).trimmingCharacters(in: .whitespaces)).map { .int($0) } ?? .null
+                }
+                o["bar"] = group(0..<3); o["beat"] = group(3..<5); o["division"] = group(5..<7); o["tick"] = group(7..<10)
+            }
+            return .object(o)
+        }
+    }
+
     /// `null` = Logic has not reported the LED in this session. It is never `false`.
     private func transportJSON() -> JSONValue {
         read { s in ["playing": .bool(s.ledIfKnown(MCU.playNote)), "recording": .bool(s.ledIfKnown(MCU.recordNote))] }
@@ -503,7 +525,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let selected: JSONValue = scan.complete
             ? (scan.tracks.first { $0["selected"] == .bool(true) }?["id"] ?? .null) : .null
         return Outcome(ok: scan.complete,
-                       result: ["transport": transportJSON(), "selected_track": selected, "tracks": .array(scan.tracks)],
+                       result: ["transport": transportJSON(), "position": positionJSON(), "selected_track": selected,
+                                "tracks": .array(scan.tracks)],
                        error: scan.error, message: scan.message,
                        observation: observation(scope: "mixer_strips", complete: scan.complete, extra: scan.extra))
     }

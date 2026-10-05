@@ -38,6 +38,9 @@ final class FakeLogicMCU {
     /// Do not send LED states in the state dump.
     var withholdLEDDump = false
     var withholdTransportLEDs = false
+    /// The time display Logic shows (10 characters) and its mode; nil time = not sent in the dump.
+    var timeDisplay: String? = "  1 3 2 29"
+    var timeModeBeats = true
 
     // Observations ------------------------------------------------------
     private(set) var presses: [UInt8] = []
@@ -146,6 +149,27 @@ final class FakeLogicMCU {
         guard !withholdDump else { return }
         send(viewMessages(includeLEDs: !withholdLEDDump))
         if !withholdLEDDump && !withholdTransportLEDs { send(transportLEDs() + led(MCU.rudeSoloNote, false)) }
+        if let timeDisplay { send(timecodeMessages(timeDisplay) + led(MCU.beatsNote, timeModeBeats) + led(MCU.smpteNote, !timeModeBeats)) }
+    }
+
+    /// The time display as Logic sends it: CC 0x49 (leftmost) … 0x40 (rightmost); letters use 0x01–0x1A.
+    func timecodeMessages(_ text: String, only positions: Set<Int>? = nil) -> [UInt8] {
+        let chars = Array(text.padding(toLength: 10, withPad: " ", startingAt: 0))
+        var out: [UInt8] = []
+        for (i, ch) in chars.enumerated() where positions?.contains(i) ?? true {
+            let ascii = UInt8(ch.asciiValue ?? 0x20)
+            let code = (0x41...0x5F).contains(ascii) ? ascii - 0x40 : ascii
+            out += [0xB0, 0x49 - UInt8(i), code]
+        }
+        return out
+    }
+
+    /// Logic sends only the digits that change.
+    func moveTime(to text: String) {
+        let old = Array((timeDisplay ?? "").padding(toLength: 10, withPad: " ", startingAt: 0))
+        let new = Array(text.padding(toLength: 10, withPad: " ", startingAt: 0))
+        timeDisplay = text
+        send(timecodeMessages(text, only: Set((0..<10).filter { old[$0] != new[$0] })))
     }
 
     // backend → Logic ------------------------------------------------------

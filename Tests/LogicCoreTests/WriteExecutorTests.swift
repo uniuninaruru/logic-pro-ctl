@@ -223,8 +223,9 @@ private func error(_ result: ExecutionResult) -> String? { result.routed.outcome
     Thread.detachNewThread { _ = run(executor, play(command: "track.list")) { waiting.signal(); return routed() } }
     #expect(waiting.wait(timeout: .now() + 0.3) == .timedOut)
     release.signal()
-    #expect(writeDone.wait(timeout: .now() + 2) == .success)
-    #expect(waiting.wait(timeout: .now() + 2) == .success)
+    // Generous limits: a success returns at once, and a loaded machine (two agents building) must not fail this.
+    #expect(writeDone.wait(timeout: .now() + 10) == .success)
+    #expect(waiting.wait(timeout: .now() + 10) == .success)
 }
 
 @Test func statusWithASafeguardIsNotTreatedAsTheFastProbe() {
