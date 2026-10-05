@@ -129,7 +129,7 @@ Sending, reply reception and state verification are returned as separate informa
 | `idempotency_key_conflict` | The same key with different content | Use another key |
 | `precondition_failed` | The `--expect-session` generation differs (nothing was sent) | Read the state again |
 | `target_mismatch` | `--expect-name` differs from the name displayed at that position (nothing was sent) | Re-read with `track list` and choose the target again; use a new idempotency key |
-| `session_changed` | Logic re-ran the MCU handshake after a button was pressed and before it was confirmed (mute, solo, arm). **The press may have reached Logic** | Read the state again; retry with a new idempotency key |
+| `session_changed` | Logic re-ran the MCU handshake after a button was pressed and before confirmation finished (mute, solo, arm). **The press may have reached Logic.** Evidence is always read together with the connection generation, and the generation is checked again before a second press; but a reconnect in the brief gap between that check and the send can let the second press reach the new connection (the result is still this error, never verified) | Read the state again; retry with a new idempotency key |
 | `deadline_exceeded` / `queue_full` / `shutting_down` | It was not started | Try again later |
 | `scan_incomplete` / `bank_home_failed` | The list could not be confirmed to the end (the result is partial) | `observation.problem`; run it again |
 | `verification_failed` | The state differs from the request | `requested` and `observed` |

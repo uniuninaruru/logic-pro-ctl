@@ -188,12 +188,18 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private func wait(_ timeout: TimeInterval, until pred: (MCUSurface) -> Bool) -> Bool {
         let deadline = Date().addingTimeInterval(timeout * environment.timeScale)
         cond.lock()
-        defer { cond.unlock() }
+        var held = true
         while !pred(surface) {
-            if !cond.wait(until: deadline) { return pred(surface) }
+            if !cond.wait(until: deadline) { held = pred(surface); break }
         }
-        return true
+        cond.unlock()
+        testHook?("afterWait")
+        return held
     }
+
+    /// Tests only: called (outside the lock) at named points of the button writes, to let a fake Logic
+    /// re-run the handshake exactly there. Never set in the product.
+    var testHook: ((String) -> Void)?
 
     /// Waits until Logic has had time to revert transient LCD text.
     private func waitForSteadyLCD() {
@@ -788,15 +794,20 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         var observedState: Bool?
         let session = read { _ in handshakeGeneration }
-        for _ in 0..<2 {
+        for attempt in 0..<2 {
+            if attempt > 0, let changed = stillSession(session, before: "repress") { return changed }
             let before = read { $0.lowerWrites[strip] }
             send(MCU.press(note))
             wait(0.5) { $0.lowerWrites[strip] > before }
-            if let changed = sessionChanged(since: session) { return changed }
-            observedState = kind.state(fromLCD: read { $0.lowerText(strip) })
-            if observedState == nil, read(ledTrustworthy) {
+            // Every piece of evidence is read together with the session it belongs to.
+            let (generation, text, trusted) = read { s in (handshakeGeneration, s.lowerText(strip), ledTrustworthy(s)) }
+            guard generation == session else { return sessionChangedOutcome() }
+            observedState = kind.state(fromLCD: text)
+            if observedState == nil, trusted {
                 wait(0.3) { $0.led(note) == on }
-                observedState = read { $0.led(note) }
+                let (later, led) = read { s in (handshakeGeneration, s.led(note)) }
+                guard later == session else { return sessionChangedOutcome() }
+                observedState = led
             }
             // The starting state was unknown (blinking LED) and the toggle went the wrong way.
             if observedState != on && observedState != nil { continue }
@@ -804,7 +815,10 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         var matched = observedState == on
         if matched, read(ledTrustworthy) {
-            matched = wait(0.5) { $0.led(note) == on }
+            wait(0.5) { $0.led(note) == on }
+            let (generation, led) = read { s in (handshakeGeneration, s.led(note)) }
+            guard generation == session else { return sessionChangedOutcome() }
+            matched = led == on
         }
         return .write(matched: matched, requested: requested,
                       observed: ["track": .int(trackID(strip)), kind.key: .bool(observedState)])
@@ -812,10 +826,19 @@ public final class MCUBackend: LogicBackend, TransportReadback {
 
     /// After a button was pressed: if Logic re-ran the handshake, the state now shown belongs to another session,
     /// so neither "verified" nor another press is safe. The result is unknown (not a "nothing was sent" refusal).
-    private func sessionChanged(since generation: Int) -> Outcome? {
-        guard read({ _ in handshakeGeneration }) != generation else { return nil }
-        return .failure("session_changed",
-                        "ボタンを押した後に Logic との接続が切り替わりました。操作の結果は不明です。状態を読み直してください。")
+    private func sessionChangedOutcome() -> Outcome {
+        .failure("session_changed",
+                 "ボタンを押した後に Logic との接続が切り替わりました。操作の結果は不明です。状態を読み直してください。")
+    }
+
+    /// Right before pressing again: nil while still in `session`. A reconnect in the instant between this check
+    /// and the send cannot be excluded without holding the lock across the send (a synchronous fake would
+    /// deadlock); it is then caught after the wait, and the result is session_changed, never verified.
+    private func stillSession(_ session: Int, before point: String) -> Outcome? {
+        testHook?("before-\(point)")
+        let changed = read({ _ in handshakeGeneration }) != session
+        testHook?("after-check-\(point)")
+        return changed ? sessionChangedOutcome() : nil
     }
 
     /// Record-enable through the strip's REC button. Logic shows no text for it, so the REC LED is the only
@@ -832,14 +855,16 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         var state: Bool?
         let session = read { _ in handshakeGeneration }
         // The button toggles. With an unknown starting state the first press may go the wrong way: one more try.
-        for _ in 0..<2 {
+        for attempt in 0..<2 {
+            if attempt > 0, let changed = stillSession(session, before: "repress") { return changed }
             let before = read { $0.ledUpdates[Int(note)] }
             send(MCU.press(note))
             wait(0.8) { $0.ledUpdates[Int(note)] > before }
-            // A press was sent; if Logic reconnected meanwhile, what it shows now belongs to another session.
-            if let changed = sessionChanged(since: session) { return changed }
-            state = read { $0.ledIfKnown(note) }
-            if state == nil || state == on || read({ $0.ledUpdates[Int(note)] }) == before { break }
+            // The evidence and the session it belongs to, read together.
+            let (generation, led, updates) = read { s in (handshakeGeneration, s.ledIfKnown(note), s.ledUpdates[Int(note)]) }
+            guard generation == session else { return sessionChangedOutcome() }
+            state = led
+            if state == nil || state == on || updates == before { break }
         }
         let matched = state == on
         return .write(matched: matched, requested: requested, observed: observed(state),

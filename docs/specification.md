@@ -127,7 +127,7 @@ flowchart LR
 | `idempotency_key_conflict` | 同じキーで内容が違う | 別のキーを使う |
 | `precondition_failed` | `--expect-session` の世代と違う（送信していない） | 状態を読み直す |
 | `target_mismatch` | `--expect-name` と、その位置の表示名が違う（送信していない） | `track list` で読み直し、対象を選び直す。新しい冪等キー |
-| `session_changed` | ボタンを押した後、確認する前に Logic が MCU の接続をやり直した（mute・solo・arm）。**押した操作は届いたかもしれない** | 状態を読み直す。やり直すなら新しい冪等キーで |
+| `session_changed` | ボタンを押した後、確認し終える前に Logic が MCU の接続をやり直した（mute・solo・arm）。**押した操作は届いたかもしれない**。証拠と接続の世代は毎回いっしょに読み、押し直す前にも世代を確かめるが、確認と送信の間のごく短い隙にやり直された場合は、押し直しが新しい接続へ届くことがある（その場合も結果はこのエラーで、確認済みにはならない） | 状態を読み直す。やり直すなら新しい冪等キーで |
 | `deadline_exceeded` / `queue_full` / `shutting_down` | 実行を始めなかった | 後でやり直す |
 | `scan_incomplete` / `bank_home_failed` | 一覧を最後まで確認できない（結果は途中まで） | `observation.problem`。もう一度実行 |
 | `verification_failed` | 要求と状態が一致しない | `requested` と `observed` |

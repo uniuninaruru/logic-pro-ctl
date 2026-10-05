@@ -88,6 +88,48 @@ private func connected(tracks count: Int = 4) -> (FakeLogicMCU, MCUBackend) {
     #expect(sim.presses.filter { (0x10..<0x18).contains($0) }.count == 1)
 }
 
+// Review CDEX-024 (015): a reconnect during the LAST wait of a mute write must not end as verified.
+@Test func aReconnectDuringTheFinalWaitOfMuteIsNotVerified() {
+    let (sim, backend) = connected()
+    var waitsAfterPress = 0
+    backend.testHook = { point in
+        guard point == "afterWait", sim.presses.contains(where: { (0x10..<0x18).contains($0) }) else { return }
+        waitsAfterPress += 1
+        if waitsAfterPress == 2 { sim.connect() }          // the new session also shows the strip muted
+    }
+    let outcome = backend.execute(.trackMute(track: 2, on: true))
+    #expect(!outcome.verified)
+    #expect(outcome.error == "session_changed")
+}
+
+// Review CDEX-024 (015): a reconnect just before the corrective second press stops it.
+@Test func aReconnectBeforeTheSecondArmPressStopsIt() {
+    let sim = FakeLogicMCU.project(tracks: 4)
+    sim.withholdLEDDump = true
+    sim.strips[2].rec = true                                // unknown start: the first press goes the wrong way
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    backend.testHook = { point in if point == "before-repress" { sim.connect() } }
+    let outcome = backend.execute(.trackArm(track: 3, on: true))
+    #expect(outcome.error == "session_changed")
+    #expect(recPresses(sim) == 1)
+}
+
+// The gap that is not closed: a reconnect between the last check and the send. The press reaches the new
+// session, but the result is still session_changed, never verified.
+@Test func aReconnectBetweenTheCheckAndTheSendIsStillNotVerified() {
+    let sim = FakeLogicMCU.project(tracks: 4)
+    sim.withholdLEDDump = true
+    sim.strips[2].rec = true
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    backend.testHook = { point in if point == "after-check-repress" { sim.connect() } }
+    let outcome = backend.execute(.trackArm(track: 3, on: true))
+    #expect(!outcome.verified)
+    #expect(outcome.error == "session_changed")
+    #expect(recPresses(sim) == 2)
+}
+
 @Test func armIsAWriteThatTheCommandLineAndTheWireAccept() throws {
     let request = try CLIParser.parse(["track", "arm", "3", "on"])
     #expect(request.command == "track.arm")
