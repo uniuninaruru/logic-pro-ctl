@@ -29,7 +29,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 | Command | Input | What it returns / does |
 |---|---|---|
 | `status` | none | The daemon's PID, Logic's version, the MCU connection, supported features, and whether the environment is a verified one (`compatibility`). With a connection it also returns the play state |
-| `state` | none | The play state, the playhead (`position`), the selected track and information about all strips. `position` is the MCU time display's text (`display`) and BEATS/SMPTE (`mode`); in BEATS mode it is also split into `bar`, `beat`, `division` and `tick`. `null` until the display has arrived. The split was checked against one stopped value on the real Logic only |
+| `state` | none | The play state, the playhead (`position`), the selected track and information about all strips. `position` is the MCU time display's text (`display`) and BEATS/SMPTE (`mode`); in BEATS mode it is also split into `bar`, `beat`, `division` and `tick`. `null` until the display has arrived, and again after the display mode changes until the digits are re-sent. With both the BEATS and SMPTE LEDs on, `mode` is `null` and nothing is split. Logic sends only the digits that change, so a read during an update can mix old and new digits (a reading of the display, not an atomic value). The split was checked against one stopped value on the real Logic only |
 | `transport play` | none | Requests playback |
 | `transport stop` | none | Requests stop |
 | `track list` | none | An array of all channel strips |
@@ -129,6 +129,7 @@ Sending, reply reception and state verification are returned as separate informa
 | `idempotency_key_conflict` | The same key with different content | Use another key |
 | `precondition_failed` | The `--expect-session` generation differs (nothing was sent) | Read the state again |
 | `target_mismatch` | `--expect-name` differs from the name displayed at that position (nothing was sent) | Re-read with `track list` and choose the target again; use a new idempotency key |
+| `session_changed` | Logic re-ran the MCU handshake after a button was pressed and before it was confirmed (mute, solo, arm). **The press may have reached Logic** | Read the state again; retry with a new idempotency key |
 | `deadline_exceeded` / `queue_full` / `shutting_down` | It was not started | Try again later |
 | `scan_incomplete` / `bank_home_failed` | The list could not be confirmed to the end (the result is partial) | `observation.problem`; run it again |
 | `verification_failed` | The state differs from the request | `requested` and `observed` |

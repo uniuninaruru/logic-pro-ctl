@@ -41,6 +41,10 @@ final class FakeLogicMCU {
     /// The time display Logic shows (10 characters) and its mode; nil time = not sent in the dump.
     var timeDisplay: String? = "  1 3 2 29"
     var timeModeBeats = true
+    /// The next REC press makes Logic re-run the handshake (another session) with that strip disarmed.
+    var reconnectOnNextRecPress = false
+    /// The same for a mute press (the strip stays unmuted in the new session).
+    var reconnectOnNextMutePress = false
 
     // Observations ------------------------------------------------------
     private(set) var presses: [UInt8] = []
@@ -164,6 +168,17 @@ final class FakeLogicMCU {
         return out
     }
 
+    /// Only the mode LEDs, as when the display mode is switched (Logic may or may not re-send the digits).
+    func setTimeLEDs(beats: Bool, smpte: Bool) {
+        send(led(MCU.beatsNote, beats) + led(MCU.smpteNote, smpte))
+    }
+
+    /// All ten digits again.
+    func resendTime(_ text: String) {
+        timeDisplay = text
+        send(timecodeMessages(text))
+    }
+
     /// Logic sends only the digits that change.
     func moveTime(to text: String) {
         let old = Array((timeDisplay ?? "").padding(toLength: 10, withPad: " ", startingAt: 0))
@@ -214,11 +229,22 @@ final class FakeLogicMCU {
         case 0x00..<0x08:
             let index = offset + Int(note)
             guard index < strips.count, strips[index].armable else { return }   // no change, no answer
+            if reconnectOnNextRecPress {
+                reconnectOnNextRecPress = false
+                strips[index].rec = false
+                connect()
+                return
+            }
             strips[index].rec.toggle()
             send(led(note, strips[index].rec))
         case 0x10..<0x18:
             let index = offset + Int(note - 0x10)
             guard index < strips.count else { return }
+            if reconnectOnNextMutePress {
+                reconnectOnNextMutePress = false
+                connect()
+                return
+            }
             strips[index].mute.toggle()
             send(lcd(56 + Int(note - 0x10) * 7, cell(strips[index].mute ? "Muted" : "--")))
             send(led(note, strips[index].mute))

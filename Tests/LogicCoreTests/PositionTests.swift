@@ -57,13 +57,37 @@ private func position(_ outcome: Outcome) -> JSONValue? { outcome.result?["posit
 
 @Test func smpteModeGivesTheTextButNoBeatFields() {
     let sim = FakeLogicMCU.project(tracks: 2)
-    sim.timeDisplay = " 01 00 0100"
+    sim.timeDisplay = " 0100 0100"
     sim.timeModeBeats = false
     let backend = makeBackend(for: sim)
     sim.connect()
     let p = position(backend.execute(.state))
     #expect(p?["mode"] == "smpte")
     #expect(p?["display"] != nil && p?["bar"] == nil)
+}
+
+@Test func aModeSwitchForgetsTheDigitsUntilTheyAreSentAgain() {
+    // Review CDEX-022 (2): BEATS digits must not be reported as SMPTE after only the LEDs changed.
+    let sim = FakeLogicMCU.project(tracks: 2)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    sim.setTimeLEDs(beats: false, smpte: true)
+    #expect(position(backend.execute(.state)) == .null)
+    sim.resendTime(" 0100 0100")
+    let p = position(backend.execute(.state))
+    #expect(p?["mode"] == "smpte" && p?["display"] == " 0100 0100" && p?["bar"] == nil)
+}
+
+@Test func bothModeLEDsOnGiveNoModeAndNoSplit() {
+    // Review CDEX-022 (3): a contradiction (or a switch in progress) is not read as BEATS.
+    let sim = FakeLogicMCU.project(tracks: 2)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    sim.setTimeLEDs(beats: true, smpte: true)
+    let p = position(backend.execute(.state))
+    #expect(p?["mode"] == .null)
+    #expect(p?["bar"] == nil)
+    #expect(p?["display"] == "  1 3 2 29")      // no known mode changed, so the digits stay
 }
 
 @Test func aNewHandshakeForgetsTheOldDisplay() {

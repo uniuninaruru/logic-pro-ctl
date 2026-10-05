@@ -68,6 +68,26 @@ private func connected(tracks count: Int = 4) -> (FakeLogicMCU, MCUBackend) {
     #expect(allowed.ok && allowed.verified)
 }
 
+@Test func aReconnectAfterThePressIsAnUnknownResultNotASecondPress() {
+    // Review CDEX-022 (1): press, Logic re-runs the handshake, the new session shows REC off. Pressing again and
+    // calling it verified would act on another session.
+    let (sim, backend) = connected()
+    sim.reconnectOnNextRecPress = true
+    let outcome = backend.execute(.trackArm(track: 2, on: true))
+    #expect(!outcome.verified)
+    #expect(outcome.error == "session_changed")
+    #expect(recPresses(sim) == 1)
+    #expect(!WriteExecutor.notApplied.contains("session_changed"))   // a press was sent: unknown, never "nothing sent"
+}
+
+@Test func muteHasTheSameGuardAgainstAReconnectAfterThePress() {
+    let (sim, backend) = connected()
+    sim.reconnectOnNextMutePress = true
+    let outcome = backend.execute(.trackMute(track: 2, on: true))
+    #expect(outcome.error == "session_changed")
+    #expect(sim.presses.filter { (0x10..<0x18).contains($0) }.count == 1)
+}
+
 @Test func armIsAWriteThatTheCommandLineAndTheWireAccept() throws {
     let request = try CLIParser.parse(["track", "arm", "3", "on"])
     #expect(request.command == "track.arm")

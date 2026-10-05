@@ -493,15 +493,18 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// The playhead as Logic's time display shows it at the moment of reading (it moves while playing).
     /// `display` is the text as shown. In BEATS mode it is also split by the display's layout (3-2-2-3
     /// digits: bar, beat, division, tick); that split was checked against one stopped value only
-    /// (EXP-MCU-009/024 logs). `null` until Logic has reported all ten digits in this session.
+    /// (EXP-MCU-009/024 logs). `null` until Logic has reported all ten digits in this session, and again
+    /// after the mode changes until the digits are re-sent. Logic sends only the digits that change, so a
+    /// read during an update can mix old and new digits: it is a reading of the display, not an atomic value.
     private func positionJSON() -> JSONValue {
         read { s -> JSONValue in
             guard let chars = s.timecodeCharacters() else { return .null }
             let display = String(chars.map { $0.dot ? "\($0.character)." : String($0.character) }.joined())
-            let beats = s.ledIfKnown(MCU.beatsNote), smpte = s.ledIfKnown(MCU.smpteNote)
-            let mode: JSONValue = beats == true ? "beats" : smpte == true ? "smpte" : .null
-            var o: [String: JSONValue] = ["display": .string(display), "mode": mode]
-            if beats == true {
+            let mode = s.timeDisplayMode
+            var o: [String: JSONValue] = ["display": .string(display),
+                                          "mode": mode == MCU.beatsNote ? "beats" : mode == MCU.smpteNote ? "smpte" : .null]
+            // Both LEDs on (or neither) is a contradiction or a switch in progress: no mode, no split.
+            if mode == MCU.beatsNote {
                 let digits = chars.map(\.character)
                 func group(_ r: Range<Int>) -> JSONValue {
                     Int(String(digits[r]).trimmingCharacters(in: .whitespaces)).map { .int($0) } ?? .null
@@ -784,10 +787,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                           message: "既に要求どおりの状態です。送信していません。")
         }
         var observedState: Bool?
+        let session = read { _ in handshakeGeneration }
         for _ in 0..<2 {
             let before = read { $0.lowerWrites[strip] }
             send(MCU.press(note))
             wait(0.5) { $0.lowerWrites[strip] > before }
+            if let changed = sessionChanged(since: session) { return changed }
             observedState = kind.state(fromLCD: read { $0.lowerText(strip) })
             if observedState == nil, read(ledTrustworthy) {
                 wait(0.3) { $0.led(note) == on }
@@ -805,6 +810,14 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                       observed: ["track": .int(trackID(strip)), kind.key: .bool(observedState)])
     }
 
+    /// After a button was pressed: if Logic re-ran the handshake, the state now shown belongs to another session,
+    /// so neither "verified" nor another press is safe. The result is unknown (not a "nothing was sent" refusal).
+    private func sessionChanged(since generation: Int) -> Outcome? {
+        guard read({ _ in handshakeGeneration }) != generation else { return nil }
+        return .failure("session_changed",
+                        "ボタンを押した後に Logic との接続が切り替わりました。操作の結果は不明です。状態を読み直してください。")
+    }
+
     /// Record-enable through the strip's REC button. Logic shows no text for it, so the REC LED is the only
     /// evidence. A strip that cannot be armed (an output, Master) leaves the LED as it was: verification fails.
     private func arm(_ strip: Int, on: Bool) -> Outcome {
@@ -817,11 +830,14 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                           message: "既に要求どおりの状態です。送信していません。")
         }
         var state: Bool?
+        let session = read { _ in handshakeGeneration }
         // The button toggles. With an unknown starting state the first press may go the wrong way: one more try.
         for _ in 0..<2 {
             let before = read { $0.ledUpdates[Int(note)] }
             send(MCU.press(note))
             wait(0.8) { $0.ledUpdates[Int(note)] > before }
+            // A press was sent; if Logic reconnected meanwhile, what it shows now belongs to another session.
+            if let changed = sessionChanged(since: session) { return changed }
             state = read { $0.ledIfKnown(note) }
             if state == nil || state == on || read({ $0.ledUpdates[Int(note)] }) == before { break }
         }

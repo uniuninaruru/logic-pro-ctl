@@ -71,6 +71,8 @@ public struct MCUSurface {
     public private(set) var rings = [UInt8?](repeating: nil, count: 8)
     /// The time display, leftmost digit first; nil until Logic reports that digit in this session.
     public private(set) var timecode = [UInt8?](repeating: nil, count: 10)
+    /// The last unambiguous display mode (MCU.beatsNote or MCU.smpteNote) in this session.
+    private var lastTimeMode: UInt8?
     /// Per-strip counters, bumped on every update touching that strip;
     /// callers snapshot them before a write and wait for them to change.
     public private(set) var lowerWrites = [Int](repeating: 0, count: 8)
@@ -157,6 +159,12 @@ public struct MCUSurface {
             leds[Int(m[1] & 0x7F)] = m[2]
             ledSeen[Int(m[1] & 0x7F)] = true
             ledUpdates[Int(m[1] & 0x7F)] += 1
+            if m[1] & 0x7F == MCU.smpteNote || m[1] & 0x7F == MCU.beatsNote, let mode = timeDisplayMode {
+                // Digits read in the other mode mean something else. The first report (digits come first in
+                // Logic's dump) does not clear them; only a change from one known mode to the other does.
+                if let last = lastTimeMode, last != mode { timecode = [UInt8?](repeating: nil, count: timecode.count) }
+                lastTimeMode = mode
+            }
             return .led(note: m[1], velocity: m[2])
         case 0xB0 where m.count == 3 && (0x30...0x37).contains(m[1]):
             let strip = Int(m[1] - 0x30)
@@ -222,6 +230,16 @@ public struct MCUSurface {
         ledSeen = [Bool](repeating: false, count: ledSeen.count)
         rings = [UInt8?](repeating: nil, count: rings.count)
         timecode = [UInt8?](repeating: nil, count: timecode.count)
+        lastTimeMode = nil
+    }
+
+    /// MCU.beatsNote or MCU.smpteNote when exactly one of the two LEDs is reported on; nil otherwise.
+    public var timeDisplayMode: UInt8? {
+        switch (ledIfKnown(MCU.beatsNote), ledIfKnown(MCU.smpteNote)) {
+        case (true?, false?): return MCU.beatsNote
+        case (false?, true?): return MCU.smpteNote
+        default: return nil
+        }
     }
 
     /// The ten characters of the time display, or nil until every digit was reported in this session.
