@@ -83,6 +83,7 @@ flowchart LR
 | [decode の追加候補・delegate・UUID](static-analysis/SA-AE-TARGET-009-decoder-delegate-uuid.md) | getter の追加3候補、mode 1 の代替 class、UUIDBytes の16バイトと長さ検査。復元・class 受理・生成成功は未確認 |
 | [クラス名の登録・空マッピング・decode 終了](static-analysis/SA-AE-TARGET-010-registrations-null-mapping-finish.md) | 旧 class 名3件、属性を読まない代替 initializer、終了前 error の BOOL。getter は BOOL を使わず先に条件付き cache 保存を行う |
 | [fallback・Logic の宛先・親の保存キー](static-analysis/SA-AE-TARGET-011-fallback-parent-encode.md) | 固定 fallback の RET、Logic 宛先の符号拡張、19保存キー。saved-value helper は double を返し、数値の保存を gate しない |
+| [親 decoder の20キー・旧保存値・ID getter](static-analysis/SA-AE-TARGET-012-parent-decode.md) | 保存した19キーと旧longキーの読出し。nil・range入替え・保存値の優先順、32 bitのIDとLogicのconstant 0定義。実効dispatchと保存往復は未確認 |
 | [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
 | [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 

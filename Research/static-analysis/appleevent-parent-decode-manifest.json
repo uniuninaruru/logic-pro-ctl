@@ -1,0 +1,1028 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-012"
+  ],
+  "captured_at_utc": "2026-10-05T09:20:51.550132+00:00",
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "Research/static-analysis/appleevent-parent-encode-manifest.json"
+  ],
+  "scope": "Four TARGET012 definitions/1224B plus fixed data used by these bodies; no extra queried bodies or runtime calls.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "programs": {
+    "MACore.arm64": {
+      "schema_version": 1,
+      "program_name": "MACore.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    },
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "program": "MACore.arm64",
+      "installed_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+      "installed_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "arm64_slice_offset": 2375680,
+      "arm64_slice_size": 2248544,
+      "copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "copy_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "slice_copy_equal": true
+    },
+    {
+      "program": "Logic.arm64",
+      "installed_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+      "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "arm64_slice_offset": 0,
+      "arm64_slice_size": 40710736,
+      "copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_copy_equal": true
+    }
+  ],
+  "shared_lock_absolute_path": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock",
+  "query_groups": [
+    {
+      "program": "MACore.arm64",
+      "functions": [
+        {
+          "address": "0x0009afd4",
+          "defined_body_size_bytes": 1148,
+          "inventory_name": "MAParameterMapping::initWithCoder:",
+          "runtime_verified": false
+        },
+        {
+          "address": "0x0009a710",
+          "defined_body_size_bytes": 52,
+          "inventory_name": "MAMapping::initWithCoder:",
+          "runtime_verified": false
+        },
+        {
+          "address": "0x0009bf38",
+          "defined_body_size_bytes": 16,
+          "inventory_name": "MAParameterMapping::logicOnlyGInstID",
+          "runtime_verified": false
+        }
+      ],
+      "ghidra_flags": [
+        "-noanalysis",
+        "-readOnly"
+      ]
+    },
+    {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x013f622c",
+          "defined_body_size_bytes": 8,
+          "inventory_name": "FUN_013f622c",
+          "runtime_verified": false
+        }
+      ],
+      "ghidra_flags": [
+        "-noanalysis",
+        "-readOnly"
+      ]
+    }
+  ],
+  "execution_jobs": [
+    {
+      "name": "q-appleevent-parent-decode-012",
+      "program": "MACore.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-05T04:34:13.046621+00:00"
+    },
+    {
+      "name": "q-appleevent-ginst-012",
+      "program": "Logic.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-05T04:34:15.901248+00:00"
+    }
+  ],
+  "selected_methods": [
+    {
+      "entry": "0x137610",
+      "selector": "initWithCoder:",
+      "types": "@24@0:8@16",
+      "imp": "0x9afd4",
+      "raw_hex": "78ea0600300d0300bc39f6ff"
+    },
+    {
+      "entry": "0x137970",
+      "selector": "logicOnlyGInstID",
+      "types": "i16@0:8",
+      "imp": "0x9bf38",
+      "raw_hex": "a02c0700270a0300c045f6ff"
+    },
+    {
+      "entry": "0x13738c",
+      "selector": "initWithCoder:",
+      "types": "@24@0:8@16",
+      "imp": "0x9a710",
+      "raw_hex": "fcec0600b40f03007c33f6ff"
+    },
+    {
+      "entry": "0x1bd35a4",
+      "selector": "logicOnlyGInstID",
+      "types": "i16@0:8",
+      "imp": "0x13f622c",
+      "raw_hex": "8c5198007c0d3f00802c82ff"
+    }
+  ],
+  "selected_ivars": [
+    {
+      "entry": "0x19dc98",
+      "offset_slot": "0x1ab4b4",
+      "offset": 8,
+      "name": "_rangeLow",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "b4b41a0000001000ab8415000000100042881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19dcb8",
+      "offset_slot": "0x1ab4b8",
+      "offset": 16,
+      "name": "_rangeHigh",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "b8b41a0000001000a08415000000100042881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19dcd8",
+      "offset_slot": "0x1ab52c",
+      "offset": 24,
+      "name": "_hasSavedValue",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "2cb51a0000001000a07e150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19dcf8",
+      "offset_slot": "0x1ab4e0",
+      "offset": 32,
+      "name": "_savedValue",
+      "type": "d",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "e0b41a0000001000b48515000000100071981600000020000300000008000000"
+    },
+    {
+      "entry": "0x19dd18",
+      "offset_slot": "0x1ab4d8",
+      "offset": 40,
+      "name": "_unarchivedSavedFromLong",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "d8b41a0000001000aa88150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19dd38",
+      "offset_slot": "0x1ab4dc",
+      "offset": 48,
+      "name": "_savedLongValue",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "dcb41a0000001000a45b15000000100042881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19dd58",
+      "offset_slot": "0x1ab4e8",
+      "offset": 56,
+      "name": "_displayIndex",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "e8b41a00000010006b7c15000000100042881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19dd98",
+      "offset_slot": "0x1ab4c4",
+      "offset": 65,
+      "name": "_momentaryType",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "c4b41a00000010005382150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19ddd8",
+      "offset_slot": "0x1ab4cc",
+      "offset": 67,
+      "name": "_takeVelocity",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "ccb41a00000010000388150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19ddf8",
+      "offset_slot": "0x1ab4c8",
+      "offset": 68,
+      "name": "_wasAutoset",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "c8b41a0000001000e389150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19de18",
+      "offset_slot": "0x1ab4e4",
+      "offset": 69,
+      "name": "_filterMapping",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "e4b41a00000010004c7d150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19de38",
+      "offset_slot": "0x1ab4f0",
+      "offset": 70,
+      "name": "_isStepped",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "f0b41a0000001000ef7f150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19de58",
+      "offset_slot": "0x1ab4bc",
+      "offset": 71,
+      "name": "_isNewSavedValueType",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "bcb41a0000001000a67f150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19de78",
+      "offset_slot": "0x1ab4f4",
+      "offset": 72,
+      "name": "_displayParameterValueAsPercentage",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "f4b41a0000001000b37c150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19deb8",
+      "offset_slot": "0x1ab4ec",
+      "offset": 76,
+      "name": "_logicOnlyGInstID",
+      "type": "i",
+      "alignment": 2,
+      "size_bytes": 4,
+      "raw_hex": "ecb41a0000001000758015000000100021a61600000020000200000004000000"
+    },
+    {
+      "entry": "0x19ded8",
+      "offset_slot": "0x1ab4d0",
+      "offset": 80,
+      "name": "_scalingGraph",
+      "type": "@\"NSArray\"",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "d0b41a0000001000c0851500000010009b881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19def8",
+      "offset_slot": "0x1ab4d4",
+      "offset": 88,
+      "name": "_alternativeGraph",
+      "type": "@\"NSArray\"",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "d4b41a0000001000e2751500000010009b881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19df38",
+      "offset_slot": "0x1ab4c0",
+      "offset": 104,
+      "name": "_mappingRangeMode",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "c0b41a0000001000548115000000100042881600000020000300000008000000"
+    }
+  ],
+  "classes": [
+    {
+      "class": "0x1aebb0",
+      "class_ro": "0x19e290",
+      "name": "MAParameterMapping",
+      "superclass_pointer": {
+        "vm_address": "0x1aebb8",
+        "raw_word": "0x100000001aed90",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 5,
+        "nodes_before_target": 1119,
+        "kind": "rebase",
+        "target": "0x1aed90",
+        "high8": 0
+      }
+    },
+    {
+      "class": "0x1aed90",
+      "class_ro": "0x19dbd0",
+      "name": "MAMapping",
+      "superclass_pointer": {
+        "vm_address": "0x1aed98",
+        "raw_word": "0x80100000000000e6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 5,
+        "nodes_before_target": 1167,
+        "kind": "bind",
+        "import_index": 230,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_OBJC_CLASS_$_NSObject"
+      }
+    },
+    {
+      "class": "0x1ad850",
+      "class_ro": "0x1a1678",
+      "name": "MAGraphPoint",
+      "runtime_verified": false
+    }
+  ],
+  "logic_category": {
+    "address": "0x24e2c98",
+    "owner": {
+      "vm_address": "0x24e2ca0",
+      "raw_word": "0x80100000000005f5",
+      "pointer_format": 6,
+      "chain_membership_verified": true,
+      "page_index": 41,
+      "nodes_before_target": 913,
+      "kind": "bind",
+      "import_index": 1525,
+      "addend_unsigned": 0,
+      "library_ordinal": 25,
+      "library": "@rpath/MACore.framework/Versions/A/MACore",
+      "weak_import": false,
+      "import_name": "_OBJC_CLASS_$_MANullParameterMapping"
+    },
+    "name": "LogicAdditions",
+    "method_list": "0x1bd3590",
+    "flags": "0x8000000c",
+    "count": 19
+  },
+  "decode_call_sites": [
+    {
+      "callsite": "0x9b0a4",
+      "key": "rangeLow",
+      "key_address": "0x18e840",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "stub": "0x128180",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b0c4",
+      "key": "rangeHigh",
+      "key_address": "0x18e860",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "stub": "0x128180",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b0e0",
+      "key": "kRangeMappingModeKey",
+      "key_address": "0x18eaa0",
+      "selector": "containsValueForKey:",
+      "stub": "0x127440",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b0f8",
+      "key": "kRangeMappingModeKey",
+      "key_address": "0x18eaa0",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "stub": "0x128180",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b10c",
+      "key": "rangeIsFlipped",
+      "key_address": "0x18e920",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b15c",
+      "key": "momentaryType",
+      "key_address": "0x18e880",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b178",
+      "key": "wasAutoset",
+      "key_address": "0x18e8a0",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b194",
+      "key": "takeVelocity",
+      "key_address": "0x18e8c0",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b1f4",
+      "key": "scalingGraph",
+      "key_address": "0x18e8e0",
+      "selector": "decodeObjectOfClasses:forKey:",
+      "stub": "0x1281e0",
+      "key_register": "x3",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b264",
+      "key": "alternativeGraph",
+      "key_address": "0x18e900",
+      "selector": "decodeObjectOfClasses:forKey:",
+      "stub": "0x1281e0",
+      "key_register": "x3",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b29c",
+      "key": "kIsNewSavedValueKey",
+      "key_address": "0x18e9a0",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b2b8",
+      "key": "kSavedValueKey",
+      "key_address": "0x18e940",
+      "selector": "containsValueForKey:",
+      "stub": "0x127440",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b2e0",
+      "key": "kSavedValueKey",
+      "key_address": "0x18e940",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "stub": "0x128180",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b300",
+      "key": "kSavedValueDoubleKey",
+      "key_address": "0x18e980",
+      "selector": "containsValueForKey:",
+      "stub": "0x127440",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b314",
+      "key": "kSavedValueDoubleKey",
+      "key_address": "0x18e980",
+      "selector": "decodeDoubleForKey:",
+      "stub": "0x1280e0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b330",
+      "key": "kIsNewSavedValueKey",
+      "key_address": "0x18e9a0",
+      "selector": "containsValueForKey:",
+      "stub": "0x127440",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b350",
+      "key": "kSavedValueFloatKey",
+      "key_address": "0x18e960",
+      "selector": "decodeFloatForKey:",
+      "stub": "0x128100",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b370",
+      "key": "kHasSavedValueKey",
+      "key_address": "0x18e9c0",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b38c",
+      "key": "kFilterMappingKey",
+      "key_address": "0x18e9e0",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b3a8",
+      "key": "kDisplayIndexKey",
+      "key_address": "0x18ea00",
+      "selector": "decodeIntegerForKey:",
+      "stub": "0x128160",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b3c4",
+      "key": "kGInstIDKey",
+      "key_address": "0x18ea80",
+      "selector": "decodeIntegerForKey:",
+      "stub": "0x128160",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b3e0",
+      "key": "kDiscreteStepsKey",
+      "key_address": "0x18ea20",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b3fc",
+      "key": "kDisplayParameterValueAsPercentageKey",
+      "key_address": "0x18ea40",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    },
+    {
+      "callsite": "0x9b418",
+      "key": "kMappingCreatedFromSmartMapKey",
+      "key_address": "0x18ea60",
+      "selector": "decodeBoolForKey:",
+      "stub": "0x1280c0",
+      "key_register": "x2",
+      "runtime_verified": false
+    }
+  ],
+  "decoder_keys": [
+    {
+      "address": "0x18e840",
+      "text": "rangeLow",
+      "length": 8,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e860",
+      "text": "rangeHigh",
+      "length": 9,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18eaa0",
+      "text": "kRangeMappingModeKey",
+      "length": 20,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e920",
+      "text": "rangeIsFlipped",
+      "length": 14,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e880",
+      "text": "momentaryType",
+      "length": 13,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e8a0",
+      "text": "wasAutoset",
+      "length": 10,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e8c0",
+      "text": "takeVelocity",
+      "length": 12,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e8e0",
+      "text": "scalingGraph",
+      "length": 12,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e900",
+      "text": "alternativeGraph",
+      "length": 16,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e9a0",
+      "text": "kIsNewSavedValueKey",
+      "length": 19,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e940",
+      "text": "kSavedValueKey",
+      "length": 14,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e980",
+      "text": "kSavedValueDoubleKey",
+      "length": 20,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e960",
+      "text": "kSavedValueFloatKey",
+      "length": 19,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e9c0",
+      "text": "kHasSavedValueKey",
+      "length": 17,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18e9e0",
+      "text": "kFilterMappingKey",
+      "length": 17,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18ea00",
+      "text": "kDisplayIndexKey",
+      "length": 16,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18ea80",
+      "text": "kGInstIDKey",
+      "length": 11,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18ea20",
+      "text": "kDiscreteStepsKey",
+      "length": 17,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18ea40",
+      "text": "kDisplayParameterValueAsPercentageKey",
+      "length": 37,
+      "flags": "0x7c8"
+    },
+    {
+      "address": "0x18ea60",
+      "text": "kMappingCreatedFromSmartMapKey",
+      "length": 30,
+      "flags": "0x7c8"
+    }
+  ],
+  "encoder_key_comparison": {
+    "encoder_keys": 19,
+    "decoder_unique_keys": 20,
+    "extra_decoder_key": "kSavedValueKey",
+    "missing_encoder_keys": [],
+    "archive_round_trip_verified": false
+  },
+  "definition_facts": [
+    {
+      "anchor": "0x9b018",
+      "fact": "Equality of native opt_class return values for incoming self and static MAParameterMapping class reaches imported exception raise; inequality skips that call.",
+      "limit": "No native raise behavior or actual class identity observed."
+    },
+    {
+      "anchor": "0x9b090",
+      "fact": "Nil super-initializer result skips every decoder call and returns nil after coder release.",
+      "limit": "Effective super dispatch/native initialization unknown."
+    },
+    {
+      "anchor": "0x9b0e4",
+      "fact": "Nonzero contains w0 chooses range-mode long key; zero chooses flipped Bool key then zero-extends returned w0.",
+      "limit": "Native missing-key/type/failure behavior and bool normalization unknown."
+    },
+    {
+      "anchor": "0x9b130",
+      "fact": "With decoded mode zero, signed low>high and high!=-1 sets mode1 and swaps the two range qwords.",
+      "limit": "No validity or semantic interpretation of ranges or -1."
+    },
+    {
+      "anchor": "0x9b1c8",
+      "fact": "Class-set arguments originate from opt_class NSArray and MAGraphPoint class returns; graph class return and terminator zero placed on stack.",
+      "limit": "Actual set contents and accepted decoded classes unknown."
+    },
+    {
+      "anchor": "0x9b2bc",
+      "fact": "Legacy key presence takes priority, sets legacy flag offset40 and writes long offset48; this branch has no saved-double write.",
+      "limit": "Untouched-field initialization and later long-to-double conversion unknown."
+    },
+    {
+      "anchor": "0x9b304",
+      "fact": "After legacy absence, double presence selects double; absence selects float widening even without a contains check for float.",
+      "limit": "Missing float-key default/result unknown."
+    },
+    {
+      "anchor": "0x9b334",
+      "fact": "Double branch tests bit0 of contains result for new-type key; clear bit forces isNewSavedValueType to1.",
+      "limit": "Presence and truth value of the separately decoded new-type field must not be conflated."
+    },
+    {
+      "anchor": "0x9b370",
+      "fact": "hasSavedValue is decoded after all numeric branches; it does not gate them.",
+      "limit": "No caller archive success or restored value proof."
+    },
+    {
+      "anchor": "0x9b3d0",
+      "fact": "STR w0 retains only lower32 bits of decoded integer in declared signed32 ginst field.",
+      "limit": "No local overflow/range check or public-ID equivalence."
+    },
+    {
+      "anchor": "0x9b424",
+      "fact": "Decoded smart-map Bool result forwarded to dynamic setter.",
+      "limit": "Setter body unqueried."
+    },
+    {
+      "anchor": "0x9a734",
+      "fact": "MAMapping initializer selects super init using incoming self/current MAMapping class, returns native result; body never reads coder.",
+      "limit": "Effective NSObject/category dispatch and init result unknown."
+    },
+    {
+      "anchor": "0x9bf40",
+      "fact": "MACore selected getter loads w0 from declared signed32 ginst ivar offset76.",
+      "limit": "No explicit 64bit sign extension in this getter body."
+    },
+    {
+      "anchor": "0x13f622c",
+      "fact": "LogicNull selected getter contains MOV w0,#0; RET, with no self/ivar read.",
+      "limit": "Definition only; actual loaded-category selection and live destination unobserved."
+    }
+  ],
+  "unqueried_boundaries": [
+    {
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "stub": "0x128180",
+      "body_queried": false
+    },
+    {
+      "selector": "setCreatedFromSmartMap:",
+      "stub": "0x12ef40",
+      "body_queried": false
+    },
+    {
+      "fields": [
+        "_unarchivedSavedFromLong",
+        "_savedLongValue"
+      ],
+      "consumer_graph_queried": false
+    },
+    {
+      "area": "Logic saved-value helper/effective override",
+      "queried": false
+    }
+  ],
+  "limits": [
+    "No effective runtime/category/native dispatch, initialized MANull fields or layout validity.",
+    "No native coder missing-key/error semantics, graph validation, abstract raise behavior or complete EH/ownership proof.",
+    "No symmetry/round trip/legacy migration/original mapping restoration/save-reload/Undo/public ID equivalence."
+  ],
+  "static_verification": {
+    "functions": 4,
+    "defined_bytes": 1224,
+    "instruction_words": 306,
+    "decode_calls": 24,
+    "contains_calls": 4,
+    "value_decode_calls": 20,
+    "unique_decode_keys": 20,
+    "encoder_keys_covered": 19,
+    "extra_legacy_keys": [
+      "kSavedValueKey"
+    ],
+    "declared_ivars": 18,
+    "macore_method_rows": 3,
+    "logic_method_rows": 1,
+    "selector_stubs_fixed_bytes": 200,
+    "native_import_stubs_fixed_bytes": 72,
+    "macore_pointer_words": 133,
+    "logic_pointer_words": 4,
+    "macore_source_slices": 711,
+    "logic_source_slices": 12,
+    "successful_sequential_jobs": 2,
+    "all_exported_words_equal": true,
+    "identity_and_source_copy_equal": true,
+    "root_fresh_reader_without_writes": true,
+    "all_pinned_raw_hashes_verified": true,
+    "negative_checks": [
+      {
+        "case": "one exported word changed",
+        "rejected": true
+      },
+      {
+        "case": "CFString flags mistaken for a chained pointer",
+        "rejected": true
+      },
+      {
+        "case": "relative IMP based on entry instead of entry+8",
+        "rejected": true
+      }
+    ],
+    "published_key_rows": 24,
+    "published_boundary_rows": 14
+  },
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/parent-decode-fixed-012.py",
+      "size_bytes": 15067,
+      "sha256": "cc962bec789e054fcc5285a14407c0ddd9de3bfef8b1025f0660195b1e343757"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-fixed-012.json",
+      "size_bytes": 331622,
+      "sha256": "eb63c4af52d14000a494b96f542deae285f3b19563dc4398ea5d04b478741a32"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-notes-012.md",
+      "size_bytes": 9573,
+      "sha256": "43473058d0ef4493a286f11eb6ade9b71fe87fc93f2db2aa05ac6bcf5cd39fc8"
+    },
+    {
+      "path": "Research/raw/ghidra/run-parent-decode-012.py",
+      "size_bytes": 4609,
+      "sha256": "027c44bfb04ac8b5fe3573a21e869863ac5b0ea1e53cd137ff60cbf0d305218c"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-decode-012.identity.json",
+      "size_bytes": 463,
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-decode-012.log",
+      "size_bytes": 5281,
+      "sha256": "16cc1d9687b28f0544944f543613482e46a74e9af49e3eb4a9bd44b3d7d770bf"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-decode-012.c",
+      "size_bytes": 6311,
+      "sha256": "ba9207cb83c74771cd70f72012904f4f29c611ff7624bf0bd7d98bbe6f8d9ec7"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-decode-012-machinecode.txt",
+      "size_bytes": 13113,
+      "sha256": "063cad01c25fbcf6ba8548e770119ff4edd96d28dd9df868667add290b038d2d"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-ginst-012.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-ginst-012.log",
+      "size_bytes": 5177,
+      "sha256": "d7fd6fe8b948eec025fe815fdb8df8e35f76f0b33a262d56360444413a49fa18"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-ginst-012.c",
+      "size_bytes": 127,
+      "sha256": "393112969104aac55b5a6c6d67d4e358e5348436c1b6588e70e9ba19fd86fa10"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-ginst-012-machinecode.txt",
+      "size_bytes": 307,
+      "sha256": "18e7a5f22dc5985b82377385864f790810a859689730a1c0ca96d6f5215bf899"
+    },
+    {
+      "path": "Research/protocol/appleevent-parent-encode-keys.tsv",
+      "size_bytes": 3810,
+      "sha256": "37116d61191219d3c205a7094eed8ad137b5e8e179a164fc44d1e14d64ae9880"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-parent-decode-keys.tsv",
+      "size_bytes": 5437,
+      "sha256": "938247ec095028b45ed69532f7c353123516194d7c1d4df2b7ab3cfc129c35c6"
+    },
+    {
+      "path": "Research/protocol/appleevent-parent-decode-boundaries.tsv",
+      "size_bytes": 3351,
+      "sha256": "eb9d63bab4c8844e887f60124b60c54306ecfd4c67f6741100ec190cd88a4c07"
+    }
+  ],
+  "dynamic_verification": "not_attempted_for_these_definitions",
+  "product_capabilities_added": false,
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "application_events_sent": false
+  },
+  "notes": [
+    "All decoded keys and callsites are static definition facts, not an archive snapshot.",
+    "For presence_test rows, condition_or_boundary describes use of the returned value in a subsequent branch, not the condition for executing the contains call.",
+    "LogicNull getter constant0 does not establish effective category dispatch or a live destination.",
+    "No cache-free archive round trip, original mapping restoration, save/reload or Undo verification.",
+    "The independent Remote capture is recorded separately and does not execute these AE definitions."
+  ]
+}
