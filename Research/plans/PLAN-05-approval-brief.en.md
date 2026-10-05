@@ -4,7 +4,7 @@
 
 | Item | Value |
 |---|---|
-| Status | **A proposal. Nothing has been run. No connection is made until it is approved** |
+| Status | **Approved (2026-10-05). E0, E1 and E2 were run once each.** Results: [EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md). E3 and later have not been run and will be discussed again |
 | Date | 2026-10-05 |
 | Purpose | Check the predictions from static analysis (the order of the connection, the frames, the initial send, the song change) with one short receive |
 | Scope | Connect **one research peer** to the Logic on this Mac (the dedicated project `LogicCLI-Test.logicx`) and **only receive** |

@@ -9,7 +9,7 @@
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。
 [22件の作業一覧](plans/agent-ready-backlog.tsv)には依存関係と合格条件もあります。
-Logic Remote への最初の接続（PLAN-05）は承認が前提です。承認していただく内容は[承認用の計画書](plans/PLAN-05-approval-brief.md)にまとめました。
+Logic Remote への最初の接続（PLAN-05）は、[承認用の計画書](plans/PLAN-05-approval-brief.md)の範囲で 2026-10-05 に承認され、受信だけを 1 回行いました（[EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md)）。E3 以降は改めて相談します。
 
 ## 最初に読む3つ
 
@@ -91,6 +91,7 @@ flowchart LR
 | 記録 | 内容 |
 |---|---|
 | [EXP-MCU-001〜009](experiments/EXP-MCU-001-009-virtual-mcu.md) | 仮想MCUの接続と基本操作 |
+| [EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md) | 研究用ピアで 1 回接続し、初回送信を受信だけ：全フレームを復号、スキーマ違反 0。`t` の意味の推測 3 つは外れ、`gindex` は作成順 |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
 | [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
 | [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |

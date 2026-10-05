@@ -11,7 +11,9 @@
 | Output (local only) | `Research/raw/ghidra/q-p6-state.c`, `q-p6-state2.c`, `q-p6-fader.c`, `q-p6-type.c`, `q-p6-stubs*.c` |
 | Related | [SA-005](SA-005-logic-remote-state-push.en.md) (overview of state sending) · [SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.en.md) (connection) · [SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.en.md) (frames) · [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.en.md) (`t` and `c` of `/ati`) |
 | Machine-readable | [`Research/protocol/logic-remote-state.schema.json`](../protocol/logic-remote-state.schema.json) |
-| Plan | The **static part** of PLAN-06. The receive experiment needs PLAN-05 (awaiting approval) and has not been done |
+| Plan | The **static part** of PLAN-06. The receive experiment is PLAN-05, done once on 2026-10-05 (EXP-REMOTE-001; see the note below) |
+
+> **Checked against a reception (2026-10-05, [EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md)):** The initial send (§3 rows 2 to 16, 5a to 5f) arrived in this order. `/ati` and the counts arrived twice each and the two `/ati` were identical. `/gtFaderData` arrived between the first and second `/ati`, as a keyed archive (format 2); the keys of `g` equal the `gindex` values; zeros are not omitted. Not in the table: 447 `/cs/…` messages right after connecting (the feedback refresh), an early `/docOpen`, and meters flowing while stopped (30 per second each). Tempo is BPM × 10000; `/multiTempo` is `true` for a song with one tempo. `vL` at 0 dB is `0x5A000000`. One reception only; whether values are stable is unconfirmed.
 
 **Confidence convention:** a fact that matches the decompiled code is "confirmed"; an inference from it is a "hypothesis".
 Nothing was confirmed on a real connection. The "evidence" in the tables is function addresses in `Logic.framework`.
@@ -245,7 +247,7 @@ Only strips for which the argument block (it takes a track ID and returns a bool
 | `/transport/clickWhileRecording` | boolean | initial send; deltas via the setter | |
 | `/transport/playButtonFlags` | `char` (global `DAT_02765b85`) | initial send and `handleUM_PLAY_BUTTON_FLAGS_CHANGED:` | The "0x0168f238" of SA-005 §4 is this function. It **only sends the button flags**; it does not build them |
 | `/logicClock/spl` | `long long` | `handleUM_CLOCK:` (`useTCP: 0` = UDP) | sample position (from the key name; hypothesis) |
-| `/logicClock/currentTempo` | integer | `handleUM_CLOCK:` (UDP) | unit not confirmed (BPM itself, ×100, and so on) |
+| `/logicClock/currentTempo` | integer | `handleUM_CLOCK:` (UDP) | **BPM × 10000** (1200000 at 120 BPM; confirmed by one reception) |
 | `/multiTempo` | boolean | `handleUM_CLOCK:` (UDP) | **mind the direction of the value** (below) |
 
 Caution on `/multiTempo`: the code walks the song's tempo list and **sends 1 if it finds no element whose value differs** (0 as soon as it finds a different one).
@@ -343,7 +345,7 @@ The analysis procedure (all local; nothing was sent to Logic).
 | Byte order of the 4 bytes of `c` | **Resolved**: R, G, B, A (SA-REMOTE-TRACKTYPE-001 §5). The values of `nc` and `sc` for colour numbers of 1 or more cannot be derived statically because the palette depends on run-time configuration | Check by receiving that `tnc` and `tsc` of a colour-number-0 track are `8cc0ffff` |
 | Body of the block that the no-argument `sendChannelStripInfo` passes | Not analysed | It decides which strips get the extra messages |
 | `gindex` and `instID` being the same value | The same in code (§8); not confirmed on the wire | Cross-check on receipt |
-| Direction of `/multiTempo`, unit of `/logicClock/currentTempo` | Not confirmed | Receive experiment |
+| Direction of `/multiTempo`, unit of `/logicClock/currentTempo` | **Seen once**: `true` for a song with one tempo (the code reading "1 = all the same"); tempo is BPM × 10000 | A song with a tempo change (E3 or later) |
 | Relation of `vL` to dB / MCU fader values | Not confirmed | In the receive experiment, line it up with known dB values (PLAN-02's MCU reads are the comparison) |
 | Whether messages that arrive twice carry identical content | Not confirmed | Receive experiment |
 | Whether a 0 is dropped during framing or receiving | Not confirmed | Receive experiment |

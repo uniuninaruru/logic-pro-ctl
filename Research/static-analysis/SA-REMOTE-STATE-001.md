@@ -11,7 +11,9 @@
 | 出力（ローカルのみ） | `Research/raw/ghidra/q-p6-state.c`、`q-p6-state2.c`、`q-p6-fader.c`、`q-p6-type.c`、`q-p6-stubs*.c` |
 | 関連 | [SA-005](SA-005-logic-remote-state-push.md)（状態送信の概要）・[SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.md)（接続）・[SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.md)（フレーム）・[SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.md)（`/ati` の `t` と `c`） |
 | 機械可読 | [`Research/protocol/logic-remote-state.schema.json`](../protocol/logic-remote-state.schema.json) |
-| 計画 | PLAN-06 の**静的部分**。受信実験は PLAN-05（承認待ち）が必要で、まだ行っていない |
+| 計画 | PLAN-06 の**静的部分**。受信実験は PLAN-05 で、2026-10-05 に 1 回行った（EXP-REMOTE-001。下の注記） |
+
+> **受信での照合（2026-10-05、[EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.md)）:** 初回送信の順序（§3 の行 2〜16、5a〜5f）はこの順に届いた。`/ati` と件数は 2 回ずつ、`/ati` の 2 通は同じ内容。`/gtFaderData` は `/ati` の 1 回目と 2 回目の間に届き、キー付きアーカイブ（形式 2）だった。`g` のキーは `gindex` と一致。値 0 も省略されない。表に無いものとして、接続直後の `/cs/…` 447 通（フィードバックの更新）、早い `/docOpen`、停止中も流れるメーター（各 30 通/秒）が届いた。テンポは BPM × 10000、`/multiTempo` はテンポが 1 つの曲で `true`。0 dB の `vL` は `0x5A000000`。受信は 1 回だけで、値の安定性は未確認。
 
 **確信度の約束:** 逆コンパイルの内容と一致する事実は「確認」、そこからの推論は「仮説」と書く。
 実機の通信では何も確認していない。表の「根拠」は `Logic.framework` 内の関数アドレス。
@@ -244,7 +246,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 | `/transport/clickWhileRecording` | 真偽 | 初回送信。差分は setter 経由 | |
 | `/transport/playButtonFlags` | `char`（グローバル `DAT_02765b85`） | 初回送信と `handleUM_PLAY_BUTTON_FLAGS_CHANGED:` | SA-005 §4 の「0x0168f238」はこの関数。**ボタンの旗を単に送るだけ**で、構築はしない |
 | `/logicClock/spl` | `long long` | `handleUM_CLOCK:`（`useTCP: 0` = UDP） | サンプル位置（キー名より。仮説） |
-| `/logicClock/currentTempo` | 整数 | `handleUM_CLOCK:`（UDP） | 単位は未確認（BPM そのものか 100 倍かなど） |
+| `/logicClock/currentTempo` | 整数 | `handleUM_CLOCK:`（UDP） | **BPM × 10000**（120 BPM で 1200000。受信 1 回で確認） |
 | `/multiTempo` | 真偽 | `handleUM_CLOCK:`（UDP） | **値の向きに注意**（下記） |
 
 `/multiTempo` の注意: コードは、曲のテンポ列をたどり、**値が変わる要素が見つからなければ 1 を送る**（途中で違う値を見つけると 0）。
@@ -342,7 +344,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 | `c` の 4 バイトの並び | **解決**: R, G, B, A（SA-REMOTE-TRACKTYPE-001 §5）。色番号 1 以上の `nc`・`sc` の値は、パレットが実行時の設定値で決まるため静的には出せない | 受信で色番号 0 の `tnc`・`tsc` が `8cc0ffff` か確かめる |
 | `sendChannelStripInfo` の引数なし版が渡すブロックの本体 | 未解析 | どのストリップに追加メッセージが付くかが決まる |
 | `gindex` と `instID` が同じ値であること | コード上は同じ（§8）。通信では未確認 | 受信で照合 |
-| `/multiTempo` の向き、`/logicClock/currentTempo` の単位 | 未確認 | 受信実験 |
+| `/multiTempo` の向き、`/logicClock/currentTempo` の単位 | **1 回観測**：テンポが 1 つの曲で `true`（コードの読み「1 = 全部同じ」）。テンポは BPM × 10000 | テンポが変わる曲での受信（E3 以降） |
 | `vL` と dB / MCU のフェーダー値の対応 | 未確認 | 受信実験で既知の dB と並べる（PLAN-02 の MCU 読み取りが比較対象になる） |
 | 重ねて届くメッセージの内容が一致するか | 未確認 | 受信実験 |
 | フレーム化・受信の途中で 0 が落ちないか | 未確認 | 受信実験 |

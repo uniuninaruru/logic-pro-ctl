@@ -11,6 +11,8 @@
 | Output (local only) | `Research/raw/ghidra/q-p3-macore.c`, `q-p3-macore2.c`, `q-p3-logic.c` |
 | Related | [SA-002](SA-002-control-surface-assign-model.en.md) (message format), [SA-005](SA-005-logic-remote-state-push.en.md) (state push after connecting) |
 
+> **Checked against a reception (2026-10-05, [EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md)):** Confirmed: the advertisement (`/hostType = "0"`, `/protocolVersion = "10"`); an invitation from an unknown name raises the confirmation dialog; "Connect" accepts it; right after connecting Logic sends `/protocolVersion = 10` and then `/jsonSupport` (argument 0). The registration stays in `ControlSurfaceDevicesDict` of `com.apple.mobilelogic` and in `~/Library/Preferences/com.apple.logic.pro.cs`, and shows in Control Surfaces Setup as a device in a separate row.
+
 **Confidence convention:** what matches the decompiled code is "confirmed"; inferences from it are "hypothesis".
 Nothing here is confirmed on the wire.
 
@@ -157,11 +159,11 @@ A peer with a version below 10 may therefore receive the initial state before it
 | Item | Status | Next step |
 |---|---|---|
 | Meaning of `/hostType` (0 / 1) | Unknown | Callers of the feature flag `FUN_01b92a80`; values in other configurations |
-| Dialog wording and the first button's label | Unresolved (localised resource) | The resource strings and `FUN_005882a8`'s arguments |
+| Dialog wording and the first button's label | **Observed** (Japanese UI): "\"<name>\" wants to connect to Logic Pro", buttons "Don't Connect" and "Connect" | The English wording was not seen |
 | Meaning of `DAT_026b0b58` | Unknown | Find where it is written |
 | Suppression flag `DAT_001b5a40` in `MAPeerRouter::startAdvertising` (initialised in `dispatch_once`) | Unknown; when true nothing is advertised | Analyse the init block `0x00181730` |
 | Behaviour for an invitation without context (type -1) | Unverified | Live only after PLAN-05 approval. Statically, only the signed comparison |
 | The first message a client sends | Unverified | Without the iOS binary, work back from the receiving branches to the minimum |
-| What an unencrypted session actually carries | Unverified | PLAN-05 receive experiment (needs approval) |
+| What an unencrypted session actually carries | **Confirmed by receiving** (EXP-REMOTE-001): 5,947 frames in 60 s | Whether it leaves the machine (a path other than loopback) is unconfirmed |
 
 **This document does not guarantee how to implement a connection.** Actual connection belongs to PLAN-05 (research peer), after approval.

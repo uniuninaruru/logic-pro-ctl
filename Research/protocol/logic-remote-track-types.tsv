@@ -1,33 +1,33 @@
 # /ati "t" (track kind), /sti "t", the default colour index per track kind, and the nc and p columns of /ati (scopes ati.nc and ati.p). Logic 12.3.1 (6682), Logic.arm64 sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998.
-# Source: SA-REMOTE-TRACKTYPE-001. Static analysis only: no value below was captured from a Remote connection (live_check = unconfirmed).
+# Source: SA-REMOTE-TRACKTYPE-001 (static) and EXP-REMOTE-001 (one reception, 2026-10-05). live_check: observed = seen in that reception; unconfirmed = not seen.
 # The condition column is read from the code (anchors name the rows of logic-remote-trackcolor-anchors.tsv that pin the constants).
-# The meaning column is a hypothesis with the stated confidence; it is not a fact.
+# The meaning column is a hypothesis with the stated confidence unless live_check says observed; even then it rests on one project.
 # For scope ati.t the rule number is the order in which trackTypeForTrack:seqID:ginst:inSong: (0x01693e90) tries the rules; the first that applies wins.
 # Terms: G = the "ginst object" FUN_01a15c7c(song, ginst) returns (only for a strip whose type byte +0x69 is 0x11), kind(G) = ushort at G[0] with bit 3 cleared;
 #        entry = the 0x50-byte track entry (kind byte +0x10, depth byte +0x12, flags +0x14, id +0x20); strip type = byte +0x69 of the strip the entry's id selects.
 # scope<TAB>rule<TAB>value<TAB>condition<TAB>anchors<TAB>meaning_hypothesis<TAB>confidence<TAB>live_check
 ati.t	R1	7	entry known and FUN_019fa680 is true (entry kind not 3, 4, 5, 0xc; the next entry that is not kind 5 or 0xc is exactly one level deeper) and entry[+0x14] & 0x40	TT-parent-call,PT-parent,TT-ret-7	a track with children that is not a kind-3/4 container; flag 0x40 distinguishes it from 8	low	unconfirmed
 ati.t	R1	8	same as 7 with the flag clear; also the fall-back when the parent branch cannot finish (sequence flagged invalid, entry outside the range, depth mismatch)	TT-ret-8,TT-ret-7	the other kind of parent track	low	unconfirmed
-ati.t	R2	5	G known and kind(G) == 0x44	TT-kind-word,TT-ret-5	the Master channel strip: updateSelectedTrackInfo names a single selected strip with kind 0x44 "Master Track" (cf_MasterTrack, 0x02338f08)	high	unconfirmed
-ati.t	R3	10	G known and kind(G) == 0x46 and the signed short G[+2] > 0	TT-ret-6-10	an output-like strip (0x44 and 0x46 are handled together by (kind|2)==0x46 in TrackImportCore::importChannelStripWithGInstID); G[+2] splits it in two	low	unconfirmed
-ati.t	R3	6	G known and kind(G) == 0x46 and the signed short G[+2] <= 0	TT-ret-6-10	see 10	low	unconfirmed
+ati.t	R2	5	G known and kind(G) == 0x44	TT-kind-word,TT-ret-5	the output strip (Stereo Out). Logic names a single selected strip of this kind "Master Track" (cf_MasterTrack, 0x02338f08): the tracks area's Master track stands for the output. The first guess "the Master strip" was wrong	high	observed (EXP-REMOTE-001)
+ati.t	R3	10	G known and kind(G) == 0x46 and the signed short G[+2] > 0	TT-ret-6-10	a strip of the same kind as Master with G[+2] > 0, such as a VCA (guess)	low	unconfirmed
+ati.t	R3	6	G known and kind(G) == 0x46 and the signed short G[+2] <= 0	TT-ret-6-10	Master (kind word 0x46 with G[+2] <= 0). The first guess "an output-like strip" was close: outputs (0x44) and Master (0x46) are handled together	high	observed (EXP-REMOTE-001)
 ati.t	R4	3	entry known and its kind is 4 (an entry of kind 0xc takes the kind of the nearest preceding entry that is not 0xc or 5); also an entry of kind 3 that has a deeper next entry and whose parent entry has kind 4	TT-ret-3	a folder-like container (entry kind 4); the default colour index 76 of key 3 is not shared with other kinds	medium	unconfirmed
-ati.t	R5	1	G known and kind(G) == 0x40	TT-ret-1-2	possibly an audio strip; the default colour index of key 1 (16) differs from the shared 9	low	unconfirmed
-ati.t	R5	2	G known and kind(G) == 0x43	TT-ret-1-2	possibly an aux strip	low	unconfirmed
+ati.t	R5	1	G known and kind(G) == 0x40	TT-ret-1-2	audio track (kind word 0x40)	high	observed (EXP-REMOTE-001)
+ati.t	R5	2	G known and kind(G) == 0x43	TT-ret-1-2	software instrument track (kind word 0x43). The first guess "aux" was wrong	high	observed (EXP-REMOTE-001)
 ati.t	R6	4	entry known, and (when rules 2 to 5 did not apply) the strip type byte +0x69 of the strip that entry[+0x20] selects is below 0x13 and not 0x11	TT-ret-4,GI-strip-type	strips that have no ginst object but a known low type (not yet mapped to Logic track kinds)	low	unconfirmed
-ati.t	R7	9	G known and kind(G) == 0x42	TT-ret-9	a MIDI-driven strip, probably a software instrument: ginstNeedsMidiClipType: returns kind(G)==0x42 and pluginsForTrack:isMIDI: tests it	medium	unconfirmed
+ati.t	R7	9	G known and kind(G) == 0x42	TT-ret-9	a MIDI-driven strip: ginstNeedsMidiClipType: returns kind(G)==0x42 and pluginsForTrack:isMIDI: tests it. Not the software instrument (that is 2); external MIDI is a guess	low	unconfirmed
 ati.t	R8	0	none of the rules applies, or neither an entry nor G can be found	TT-ret-char	no kind	high	unconfirmed
 sti.t	-	0	no selected strip gave a result of 1 to 4 (also the value when nothing is selected)	ST-block	no kind	high	unconfirmed
-sti.t	-	1	every selected strip with a result of 1 to 4 gave 1 (the same for 3 and 4)	ST-block	the common kind	high	unconfirmed
+sti.t	-	1	every selected strip with a result of 1 to 4 gave 1 (the same for 3 and 4)	ST-block	the common kind	high	observed (EXP-REMOTE-001)
 sti.t	-	2	selected strips with results of 1 to 4 differ (set to 2), or all gave 2	ST-block	mixed selection, or kind 2	high	unconfirmed
-default_colour_index	-	0	colour index 9	DC-dict,DC-key0,DC-idx9	default colour index of key 0	high	unconfirmed
-default_colour_index	-	1	colour index 16	DC-dict,DC-key1,DC-idx16	default colour index of key 1	high	unconfirmed
-default_colour_index	-	2	colour index 9	DC-dict,DC-key2,DC-idx9	default colour index of key 2	high	unconfirmed
-default_colour_index	-	3	colour index 76	DC-dict,DC-key3,DC-idx76	default colour index of key 3	high	unconfirmed
-default_colour_index	-	4	colour index 9	DC-dict,DC-key4,DC-idx9	default colour index of key 4	high	unconfirmed
+default_colour_index	-	0	colour index 9	DC-dict,DC-key0,DC-idx9	default colour index of key 0	high	observed (EXP-REMOTE-001)
+default_colour_index	-	1	colour index 16	DC-dict,DC-key1,DC-idx16	default colour index of key 1	high	observed (EXP-REMOTE-001)
+default_colour_index	-	2	colour index 9	DC-dict,DC-key2,DC-idx9	default colour index of key 2	high	observed (EXP-REMOTE-001)
+default_colour_index	-	3	colour index 76	DC-dict,DC-key3,DC-idx76	default colour index of key 3	high	observed (EXP-REMOTE-001)
+default_colour_index	-	4	colour index 9	DC-dict,DC-key4,DC-idx9	default colour index of key 4	high	observed (EXP-REMOTE-001)
 ati.nc	-	0	G is absent, or the byte G[+0xd4] is 0 or above 15 (constant 0x0242fcb8 = 0 without G)	NC-src,NC-none	no channel count	medium	unconfirmed
-ati.nc	-	1,2,4,4,6,7,8,8,8,8,10,10,12,14,16	G[+0xd4] = n (1 to 15) gives the n-th entry of the table at 0x01d59030	NC-src,NC-table	channel count of the strip format (from the key name and the shape of the values); the source is G, not the song	medium	unconfirmed
-ati.p	-	-1	G exists and bit 27 of allowedElementsForStrip: is clear; or k = FUN_01a2cc68(G,0) is 6 or more or is 2 or 4; or G is absent and t is not 4 (constant 0x0242fce8 = -1)	P-src,NC-none,NC-none-p	pan type (from the key name); the meaning of k is unresolved	low	unconfirmed
-ati.p	-	0	G is absent and t is 4 (constant 0x0242fcd0 = 0); or k = 0	P-src,NC-none	pan type	low	unconfirmed
+ati.nc	-	1,2,4,4,6,7,8,8,8,8,10,10,12,14,16	G[+0xd4] = n (1 to 15) gives the n-th entry of the table at 0x01d59030	NC-src,NC-table	channel count of the strip format; received: audio 1, software instrument 2, Stereo Out 2, Master 6 (the source is G, not the song)	medium	observed (EXP-REMOTE-001)
+ati.p	-	-1	G exists and bit 27 of allowedElementsForStrip: is clear; or k = FUN_01a2cc68(G,0) is 6 or more or is 2 or 4; or G is absent and t is not 4 (constant 0x0242fce8 = -1)	P-src,NC-none,NC-none-p	pan type (from the key name); the meaning of k is unresolved	low	observed (EXP-REMOTE-001)
+ati.p	-	0	G is absent and t is 4 (constant 0x0242fcd0 = 0); or k = 0	P-src,NC-none	pan type	low	observed (EXP-REMOTE-001)
 ati.p	-	-5	k = 1	P-src	pan type	low	unconfirmed
 ati.p	-	-4	k = 3 or 5	P-src	pan type	low	unconfirmed

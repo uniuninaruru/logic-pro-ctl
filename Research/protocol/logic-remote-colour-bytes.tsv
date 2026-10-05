@@ -2,6 +2,8 @@
 # Source: SA-REMOTE-TRACKTYPE-001. Static analysis only. Byte order is read from the packing instructions (anchors CB-*); values for a given colour index are not.
 # component_order: the memory order of the 4 bytes of the NSData. Every component is trunc(x * 255.0) of a double (fcvtzs, so 0.999 gives 254) kept in its low byte.
 # index_source: the strip's colour index is the signed byte strip[+0x85] (anchor CB-index).
+# EXP-REMOTE-001 (one reception, 2026-10-05): R,G,B,A observed in all 48 colours (alpha 0xff); nc is 0..1 below the cellBackgroundColor of the same index in /colorIndexMap (truncation);
+#   every sc has 0x99 as its smallest component (saturation 0.40, brightness 1.00). The index -1/0 value was not tested: no strip had colour index 0.
 # wire_key<TAB>constant<TAB>slot<TAB>producer<TAB>argument<TAB>component_order<TAB>alpha<TAB>colour_for_index_-1_or_0<TAB>anchors
 nc	BgTrackInfoColorsNormalColorKey	0x02282450	FUN_017e5998 (HSV to RGB with per-hue tables), input from the palette FUN_00d34de8	alpha 1.0 in d0	R,G,B,A	255 (the d0 argument, copied to d3)	depends on palette entry 9, which FUN_00d34de8 fills at run time from configuration values (not resolved)	CB-index,CB-nc,CB-hsv-in,CB-hsv-out,CB-palette,BD-normal
 sc	BgTrackInfoColorsSelectedColorKey	0x02282458	FUN_00d35578(index, 40, 100): hue of the index, saturation 0.40, brightness 1.00, written to a static at 0x026c6de0	saturation 40, brightness 100	R,G,B,A	255 (1.0 stored at +0x18)	depends on the palette hue of entry 9 (not resolved)	CB-sc,CB-sc-store,BD-selected

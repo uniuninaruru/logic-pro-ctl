@@ -4,7 +4,7 @@
 
 | Item | Value |
 |---|---|
-| Status | **Static analysis only. Not confirmed on a Logic Remote connection** (PLAN-05 is not approved; nothing was connected) |
+| Status | Static analysis. **Checked against one reception on 2026-10-05 ([EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md))**: the rules and the order of `c` pass; three guesses about what values of `t` mean were wrong, and §1, §2.1 and §7 were corrected from the reception |
 | Date | 2026-10-05 |
 | Subject | Logic 12.3.1 (6682), the arm64 `Logic.arm64` (SHA-256 `2f141e1a…0998`) |
 | Evidence | Machine-code excerpts (`Research/raw/ghidra/q-p6-ati-006-machinecode.txt`, `q-p6-ati-colour-006-machinecode.txt`, `q-p6-colourmap-006-machinecode.txt`; not tracked by Git) and an [anchor table](../protocol/logic-remote-trackcolor-anchors.tsv) (269 rows) that checks instructions and constants against the image file |
@@ -18,12 +18,12 @@
 | Byte order of `c` | **R, G, B, A.** Each component is the low byte of `trunc(x × 255.0)` | Static fact (instructions; §5) | High |
 | Which colour goes with which key | The four `NSData` go to `nc`, `sc`, `tnc`, `tsc` in that order | Static fact (stack layout and selector checked) | High |
 | How `t` is decided | Eight rules are tried in order and the first that applies gives the value. Values are 0 to 10 (§2) | Static fact | High |
-| `t = 5` | The ginst object's kind word is `0x44`. Logic itself names a single selected strip of this kind "Master Track" | Fact (the name is used) + hypothesis "the Master strip" | High |
-| `t = 9` | Kind word `0x42`. `ginstNeedsMidiClipType:` is true for this kind | Hypothesis "a MIDI-driven strip (software instrument)" | Medium |
-| The other values of `t` (1, 2, 3, 4, 6, 7, 8, 10) | The conditions are read, but the Logic track kinds they correspond to are not settled | Hypothesis (confidence in the table) / unresolved | Low to medium |
+| `t` = 1, 2, 5, 6 (confirmed by receiving) | 1 = audio (kind word 0x40), 2 = software instrument (0x43), 5 = the output Stereo Out (0x44), 6 = Master (0x46) | Observation (one reception, one project per kind) | High |
+| Guesses from static analysis alone (corrected) | "5 = Master" and "9 = software instrument" were **wrong**: 5 is the Stereo Out, Master is 6, software instruments are 2 | Correction (§2.1) | — |
+| The other values of `t` (3, 4, 7, 8, 9, 10) | The conditions are read, but the Logic track kinds they correspond to are not settled | Hypothesis (confidence in the table) / unresolved | Low |
 | `/sti`'s `t` | **The result of the same function, merged over the selected strips.** Values 0 to 4 | Static fact. The earlier wording (a different computation) was a **misreading** (§6) | High |
 | `nc` and `p` of the same call | Both are read from *G*. The table for `nc` (1, 2, 4, 4, 6, 7, 8, …, 16) and the one for `p` were read out (§9) | Static fact (machine code). The earlier "a song value" was a misreading | High |
-| Values on a real connection | **Unconfirmed** | — | — |
+| Values on a real connection | `c` is R, G, B, A (the fourth byte is 0xFF in all 48 colours); the default colour table matches §4 exactly; `/sti`'s `t` = 1 (an audio track selected) | Observation ([EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md)) | High |
 
 ## 2. `t` — how it is decided
 
@@ -56,13 +56,15 @@ When *E* is unknown (and not found in *Q* either), R4 and R6 are skipped. The re
 
 | Clue | What it tells |
 |---|---|
-| `updateSelectedTrackInfo` (`0x0168e754`) uses `cf_MasterTrack` (`0x02338f08`; the real text is "Master Track") as the name when a single strip is selected and *G*'s kind word is `0x44` | Kind word `0x44` is Master; `t = 5` is this kind |
-| `ginstNeedsMidiClipType:` is true for kind word `0x42`; `pluginsForTrack:isMIDI:` also looks at `0x42` | `0x42` is a MIDI-driven kind: `t = 9` |
-| `importChannelStripWithGInstID:` treats `0x44` and `0x46` together with `(kind \| 2) == 0x46` | `0x46` is close to `0x44` (output side; **hypothesis**, confidence low to medium) |
+| `updateSelectedTrackInfo` (`0x0168e754`) uses `cf_MasterTrack` (`0x02338f08`; the real text is "Master Track") as the name when a single strip is selected and *G*'s kind word is `0x44` | The first guess was "kind word `0x44` is Master". **In the reception 0x44 (`t = 5`) was the Stereo Out.** This fits if the "Master track" of the tracks area stands for the Stereo Out |
+| `ginstNeedsMidiClipType:` is true for kind word `0x42`; `pluginsForTrack:isMIDI:` also looks at `0x42` | `0x42` is a MIDI-driven kind (`t = 9`). The first guess was "software instrument", but **in the reception software instruments were 0x43 (`t = 2`)**. What 0x42 is (external MIDI or the like) is unconfirmed |
+| `importChannelStripWithGInstID:` treats `0x44` and `0x46` together with `(kind \| 2) == 0x46` | **In the reception 0x46 = Master (`t = 6`) and 0x44 = Stereo Out (`t = 5`)**: outputs and Master are handled together. `t = 10` when *G*[+2] is positive is guessed to be a strip of the same kind other than Master, such as a VCA (**hypothesis**, confidence low) |
 | `createBusWithDestinationInstrument:…` looks at kind word `0x45` | `0x45` is a bus. It does not appear in the rules for `/ati`'s `t`; after R4 it goes on to R6 or R8 |
 | In the default colours per kind (§4) only key 3 has its own number (76) | `t = 3` is treated differently (folder-like hypothesis; confidence low to medium) |
 
 The make-up of the dedicated project (checked on Logic's screen) is 3 software-instrument tracks (Piano, Bass, Synth), 7 audio tracks (Audio, Trk05 to Trk10), the output (St Out) and Master. The predictions in §7 rest on it.
+
+**What the reception showed** ([EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md)): the 7 audio tracks have `t` 1, the 3 software instruments 2, the Stereo Out 5 and Master 6. Rules R2, R3 and R5 worked as read statically; only the guesses about what the kind words mean were wrong.
 
 ## 3. `/sti`'s `t`
 
@@ -111,19 +113,21 @@ All four are packed the same way (`0x01697144` to `0x0169716c` and the like). Ea
 | Same, §5 (`/sti`): "`t` is the byte at +3 of the selected track's internal record, a different computation from `/ati`'s `t`" | It is the result of `trackTypeForTrack` merged by the rule in §3 | The "+3" (an index on `undefined8*`) was a shared byte the block captures (`byref + 0x18`). Reading the block's body in machine code showed it |
 | Ghidra's listing: `fmov d1,-0x4010000000000000` | The value is **−1.0** | `llvm-objdump` prints `fmov d1, #-1.00000000`. Ghidra's form is easy to misread. The correction is `2.0 − table1[hue]` (anchor `CB-hsv-in`) |
 
-## 7. What to check on a real connection (if PLAN-05's E2 is approved)
+## 7. Checked on a real connection (PLAN-05 E2, 2026-10-05)
 
-Predictions for the 12 strips of the dedicated project (Piano, Audio, Bass, Synth, Trk05 to Trk10, St Out, Master). If one is wrong, record it as it is and fix the documents; do not rewrite them to fit.
+The predictions made before receiving, for the 12 strips of the dedicated project, and the results. Predictions that were wrong are kept as they were.
 
-| # | Prediction | Basis · confidence |
-|---|---|---|
-| P12a | Master's `t` is **5** | R2. Confidence: high |
-| P12b | `t` of Piano, Bass and Synth is **9** | R7 (kind word 0x42). Confidence: medium |
-| P12c | `t` of Audio and Trk05 to Trk10 is **1** (kind word 0x40); if not, 4 | Confidence: low |
-| P12d | `t` of St Out is **6 or 10** | R3. Confidence: low |
-| P12e | With only a software instrument (result 9) selected, `/sti`'s `t` is 0 | §3. Confidence: high (settled statically) |
-| P13a | Each `c` colour is 4 bytes and the fourth is almost always `0xff` | §5. Confidence: high |
-| P13b | `tnc` and `tsc` of a track with colour number 0 are `8cc0ffff` (check the number separately in `/colorIndexMap`) | Computed. Confidence: medium (whether the number is 0 is confirmed by receiving) |
+| # | Prediction (before receiving) | Basis · confidence (before) | Result |
+|---|---|---|---|
+| P12a | Master's `t` is **5** | R2. Confidence: high | **Wrong**: Master is 6, Stereo Out is 5 |
+| P12b | `t` of Piano, Bass and Synth is **9** | R7 (kind word 0x42). Confidence: medium | **Wrong**: 2 |
+| P12c | `t` of Audio and Trk05 to Trk10 is **1** (kind word 0x40); if not, 4 | Confidence: low | Pass: 1 |
+| P12d | `t` of St Out is **6 or 10** | R3. Confidence: low | **Wrong**: 5 |
+| P12e | With only a software instrument (result 9) selected, `/sti`'s `t` is 0 | §3. Confidence: high (settled statically) | Not tested (the selection was an audio track and `/sti`'s `t` = 1, which does not contradict §3) |
+| P13a | Each `c` colour is 4 bytes and the fourth is almost always `0xff` | §5. Confidence: high | Pass: all 48. The order matches the visible colours (audio = blue, instrument = green) |
+| P13b | `tnc` and `tsc` of a colour-number-0 track are `8cc0ffff` | Computed. Confidence: medium | Not tested: no track had colour number 0 (audio 16, instrument 9, Stereo Out 24, Master 20) |
+
+The default colour table (§4) matched the received `defaultColorIndexForTrackTypes` exactly. The colour number of the audio tracks (`t` = 1), 16, and of the software instruments (`t` = 2), 9, are both the default for that `t`. The smallest component of every `sc` is `0x99` (matches saturation 0.40, brightness 1.00). `nc` is always 0 to 1 below `cellBackgroundColor` in `/colorIndexMap` (matches the truncation).
 
 ## 8. How to reproduce the check
 
@@ -152,7 +156,8 @@ The `nc` and `p` columns that the `/ati` block makes are also read from *G* (the
 
 | Item | State | Next |
 |---|---|---|
-| Kind words `0x40`, `0x43`, `0x46` and `t` = 1, 2, 6, 10 | Hypothesis (low) | Receive in E2 and line up with the dedicated project's strip kinds |
+| Kind words `0x40`, `0x43`, `0x44`, `0x46` and `t` = 1, 2, 5, 6 | **Confirmed by receiving** (EXP-REMOTE-001) | Whether it holds in other projects (surround, several outputs) |
+| `t` = 9 (kind word 0x42) and `t` = 10 (0x46 with *G*[+2] > 0) | Hypothesis (low): external MIDI, VCA and the like | Receive with such tracks added (E3 or later; needs separate approval) |
 | `t` = 3, 4, 7, 8 (folder, stack, others) | Hypothesis (low) | A reception with a folder and a stack added to the project (E3 or later; needs separate approval) |
 | Where the palette table of `FUN_00d34de8` comes from (configuration reads) | Not analysed | Read the initialisation (`0x00d34ea8` onward) |
 | Colours from `MASharedInstrumentIconService` | Not analysed | Analyse another binary |

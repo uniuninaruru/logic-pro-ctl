@@ -13,6 +13,8 @@
 | 機械可読の定義 | `Research/protocol/logic-remote.ksy`（Kaitai。**未コンパイル**）、`Research/protocol/logic-remote.schema.json` |
 | 関連 | [SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.md)（接続）・[SA-002](SA-002-control-surface-assign-model.md) §3（概要）・[SA-005](SA-005-logic-remote-state-push.md)（状態の送信） |
 
+> **受信での照合（2026-10-05、[EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.md)）:** Logic からの 5,947 フレームを、この文書どおりの `RemoteFrameParser` がすべて復号した（失敗 0）。形式の選び方（§2）は観測と一致：`/jsonSupport` の交換の前は plist、その後は JSON、`NSData` を含むものは plist、数値キーの辞書（`/gtFaderData`、`/colorIndexMap`）はキー付きアーカイブ。圧縮していないペイロードはすべて 1,024 バイト以下。試験の固定データは今も合成で、生の記録は Git に入れていない。
+
 **確信度の約束:** 逆コンパイルのコードと一致する事実は「確認」、そこからの推論は「仮説」。通信では未確認。
 
 ## 1. フレームの構造（確認）
@@ -86,5 +88,5 @@ JSON に非対応の相手が一人でもいる間は、形式 4 は使われま
 | 日付型（plist の `NSDate`） | Logic が受け取れるか未確認。パーサーは `unsupportedType` |
 | リソース送信（`sendResourceAtURL:`、リージョンの転送など） | 別の経路。このフレームでは扱わない |
 | MPC 1 回の送信サイズの上限と、Logic が受け取れる最大サイズ | 未確認 |
-| `/gtFaderData` が形式 2 であること | 仮説（上記）。実機の記録で確認する |
+| `/gtFaderData` が形式 2 であること | **受信で確認**（タグ 0x82 = MAZP 付きのキー付きアーカイブ。EXP-REMOTE-001） |
 | `.ksy` の正しさ | 未検証（コンパイラ未導入）。Swift のパーサーが基準 |

@@ -180,13 +180,24 @@ class CommittedTableTests(unittest.TestCase):
         rules = [row[1] for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t"]
         self.assertEqual(sorted(set(rules)), [f"R{i}" for i in range(1, 9)])
         for row in read_tsv(TRACK_TYPES, 8):
-            self.assertEqual(row[7], "unconfirmed", row[:3])           # nothing was captured from a live Remote
+            # a value is either seen in the named reception or explicitly not seen
+            self.assertIn(row[7], ("unconfirmed", "observed (EXP-REMOTE-001)"), row[:3])
             self.assertIn(row[6], ("high", "medium", "low"), row[:3])
             self.assertTrue(row[4], row[:3])
 
-    def test_only_the_master_meaning_is_called_high_confidence_among_the_kinds_with_a_hypothesis(self):
-        high = [row[2] for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t" and row[6] == "high"]
-        self.assertEqual(sorted(high), ["0", "5"])
+    def test_a_kind_meaning_is_high_confidence_only_when_it_was_received(self):
+        rows = [row for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t"]
+        high = sorted(row[2] for row in rows if row[6] == "high" and row[2] != "0")   # 0 is "no kind", not a meaning
+        observed = sorted(row[2] for row in rows if row[7].startswith("observed"))
+        self.assertEqual(high, observed)
+        self.assertEqual(observed, ["1", "2", "5", "6"])
+
+    def test_the_received_kinds_are_the_ones_the_experiment_reports(self):
+        meaning = {row[2]: row[5] for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t"}
+        self.assertTrue(meaning["1"].startswith("audio"))
+        self.assertTrue(meaning["2"].startswith("software instrument"))
+        self.assertIn("Stereo Out", meaning["5"])
+        self.assertTrue(meaning["6"].startswith("Master"))
 
     def test_the_default_colour_indices_agree_with_the_constants_in_the_binary(self):
         expected = {0: 9, 1: 16, 2: 9, 3: 76, 4: 9}

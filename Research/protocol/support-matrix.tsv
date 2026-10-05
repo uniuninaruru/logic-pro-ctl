@@ -20,11 +20,11 @@ MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効�
 契約	--expect-session	mcu	live	WriteExecutorTests; EXP-MCU-026	接続の世代の確認のみ。同じ接続の中の変化（並べ替え・同名の入れ替え）は検出しない。不一致の拒否は実機で 1 回確認
 契約	古い logicd に安全装置つきの要求を送らない	mcu	tested	Tests/integration/test_cli_safety_gate.py	偽の daemon での試験。実機の古い daemon では試していない
 互換性	status の compatibility（検証済みの環境の判定）	mcu	tested	Tests/LogicCoreTests/CompatibilityProfileTests.swift	判定だけ。未検証の環境でもコマンドは止めない
-Remote	接続の手順（広告・招待・承認・version）	remote	static	Research/static-analysis/SA-REMOTE-SESSION-001.md	実接続なし
-Remote	フレームの形式（tag・MAZP・plist／JSON／archive）	remote	static	SA-REMOTE-FRAME-001; Tests/LogicCoreTests/RemoteFrameTests.swift	試験の fixture は合成。実機の記録での確認なし
-Remote	初回の状態と差分（/ati・/sti・/gtFaderData・transport・clock）	remote	static	SA-REMOTE-STATE-001; Research/protocol/logic-remote-state.schema.json	受信実験なし。初回送信の終了の合図は見つかっていない
+Remote	接続の手順（広告・招待・承認・version）	remote	live	SA-REMOTE-SESSION-001; EXP-REMOTE-001	受信専用ピアで 1 回。人がダイアログで「接続」を押す必要がある。Logic にピアが登録される（設定に残る）
+Remote	フレームの形式（tag・MAZP・plist／JSON／archive）	remote	live	SA-REMOTE-FRAME-001; EXP-REMOTE-001; Tests/LogicCoreTests/RemoteFrameTests.swift; Tools/research-scripts/test_remote_capture.py	実機の 5,947 フレームを復号（失敗 0）。試験の fixture は合成のまま（生の記録は Git に入れない）
+Remote	初回の状態と差分（/ati・/sti・/gtFaderData・transport・clock）	remote	live	SA-REMOTE-STATE-001; SA-REMOTE-TRACKTYPE-001; EXP-REMOTE-001; Research/protocol/logic-remote-state.schema.json	初回送信だけを 1 回受信（スキーマ違反 0）。差分（曲の切り替え・値の変更）は未受信。終了の合図は無い
 Remote	コマンド台帳と commands query	remote	static	SA-COMMAND-CATALOG-001; Research/protocol/operation-catalog.tsv	コマンドは実行していない。状態評価・副作用は未解析
-Remote	新しい peer の接続と受信	remote	not_started	Research/plans/agent-ready-backlog.tsv の PLAN-05	ユーザーの承認待ち。誰も実行しない
+Remote	新しい peer の接続と受信	remote	live	EXP-REMOTE-001; Tools/remote-research-peer	研究用ツール（製品には入っていない）。送るのは /protocolVersion と /jsonSupport だけ。E3 以降は未実施
 Remote	Remote 経由の書き込み	remote	not_started		接続の実験が先
 AppleEvent	transport play / stop（--backend appleevent）	appleevent	other	docs/specification.md §4	別の担当の資料に従う。この対応表では特徴づけない
 互換性	別の macOS・別の Logic build	—	unconfirmed		検証済みの環境（12.3.1／6682、macOS 27.0）以外は unverified と表示する

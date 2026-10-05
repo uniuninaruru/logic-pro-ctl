@@ -13,6 +13,8 @@
 | Machine-readable | `Research/protocol/logic-remote.ksy` (Kaitai, **not compiled**), `Research/protocol/logic-remote.schema.json` |
 | Related | [SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.en.md) (connection), [SA-002](SA-002-control-surface-assign-model.en.md) §3 (overview), [SA-005](SA-005-logic-remote-state-push.en.md) (state push) |
 
+> **Checked against a reception (2026-10-05, [EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md)):** The `RemoteFrameParser` written from this document decoded all 5,947 frames from Logic (0 failures). The choice of format (§2) matches what was seen: plist before the `/jsonSupport` exchange, JSON after it, plist for anything holding `NSData`, keyed archives for dictionaries with numeric keys (`/gtFaderData`, `/colorIndexMap`). Every uncompressed payload was 1,024 bytes or less. The test fixtures are still synthetic; the raw capture is not committed.
+
 **Confidence convention:** what matches the decompiled code is "confirmed", inferences are "hypothesis". Not confirmed on the wire.
 
 ## 1. Frame structure (confirmed)
@@ -86,5 +88,5 @@ While any peer lacks JSON support, format 4 is not used (so the first messages r
 | Dates (plist `NSDate`) | Not known whether Logic accepts them. The parser says `unsupportedType` |
 | Resource sends (`sendResourceAtURL:`, region transfer, …) | A separate path, not part of this frame |
 | The MPC per-send size limit, and the largest message Logic accepts | Unverified |
-| That `/gtFaderData` is format 2 | Hypothesis (above); to be checked against a capture |
+| That `/gtFaderData` is format 2 | **Confirmed by receiving** (tag 0x82 = keyed archive in MAZP; EXP-REMOTE-001) |
 | Correctness of the `.ksy` | Unverified (no compiler installed). The Swift parser is the reference |
