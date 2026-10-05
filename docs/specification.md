@@ -35,6 +35,7 @@ flowchart LR
 | `track select <n>` | 1以上の整数 | 選択を要求 |
 | `track mute <n> on\|off` | 番号と状態 | ミュートを要求 |
 | `track solo <n> on\|off` | 番号と状態 | ソロを要求 |
+| `track arm <n> on\|off` | 番号と状態 | 録音待機を要求（REC の LED で確認。出力・Master など待機できないストリップは確認に失敗する。**偽の Logic でのみ試験済みで、実機では未確認**） |
 | `track volume <n> <dB>` | 6.0以下の数、または `-inf` | 音量を要求 |
 | `track pan <n> <値>` | `-1`〜`1` | 左〜右のパンを要求 |
 | `daemon stop` | なし | 常駐プロセスを終了。次の利用で自動起動 |
@@ -54,7 +55,7 @@ flowchart LR
 | `--idempotency-key <キー>` | 状態を変更するコマンド | 再送を1回の実行にまとめる。[実行の契約](execution-contract.md) |
 | `--expect-session <世代>` | `daemon stop` 以外 | 読み取りの `handshake_generation` と一致するときだけ実行 |
 | `--deadline-ms <ミリ秒>` | `daemon stop` 以外 | 待ち時間と実行の上限（既定 30000） |
-| `--expect-name <名前>` | `track get\|select\|mute\|solo\|volume\|pan` | 表示中のトラック名が一致するときだけ実行。`track list` が返した `name` を指定。[対象の契約](target-contract.md) |
+| `--expect-name <名前>` | `track get\|select\|mute\|solo\|arm\|volume\|pan` | 表示中のトラック名が一致するときだけ実行。`track list` が返した `name` を指定。[対象の契約](target-contract.md) |
 
 オプションはコマンドの前後に置けます。同じオプションの重複、値の省略、未知のオプションは引数エラーです。
 パンはLogicの `-64`〜`63` に丸めて送るため、右端は取得時に `63/64` になる場合があります。

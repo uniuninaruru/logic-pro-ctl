@@ -11,6 +11,8 @@ public enum LogicCommand: Equatable {
     case trackSelect(track: Int)
     case trackMute(track: Int, on: Bool)
     case trackSolo(track: Int, on: Bool)
+    /// Record-enable (the strip's REC button). Not every strip can be armed (outputs, Master).
+    case trackArm(track: Int, on: Bool)
     /// `db` may be -infinity. `tolerance` is the accepted |observed - requested| in dB.
     case trackVolume(track: Int, db: Double, tolerance: Double)
     /// `pan` is normalized: -1 (left) … 0 … +1 (right).
@@ -22,7 +24,7 @@ public enum LogicCommand: Equatable {
     /// Commands that change Logic. Only these are journaled and accept an idempotency key.
     public var isWrite: Bool {
         switch self {
-        case .transportPlay, .transportStop, .trackSelect, .trackMute, .trackSolo, .trackVolume, .trackPan, .debugMCU:
+        case .transportPlay, .transportStop, .trackSelect, .trackMute, .trackSolo, .trackArm, .trackVolume, .trackPan, .debugMCU:
             return true
         case .status, .state, .trackList, .trackGet, .daemonStop:
             return false
@@ -32,7 +34,7 @@ public enum LogicCommand: Equatable {
     /// The 1-based mixer position this command targets, or nil for a command that targets no track.
     public var trackNumber: Int? {
         switch self {
-        case .trackGet(let t), .trackSelect(let t), .trackMute(let t, _), .trackSolo(let t, _),
+        case .trackGet(let t), .trackSelect(let t), .trackMute(let t, _), .trackSolo(let t, _), .trackArm(let t, _),
              .trackVolume(let t, _, _), .trackPan(let t, _):
             return t
         case .status, .state, .transportPlay, .transportStop, .trackList, .daemonStop, .debugMCU:
@@ -43,7 +45,7 @@ public enum LogicCommand: Equatable {
     /// `Request.args` key holding the strip name the caller expects the target to show.
     public static let expectNameKey = "expect_name"
     /// Wire names of the commands that take a track (and so may carry `expect_name`).
-    static let trackCommandNames: Set<String> = ["track.get", "track.select", "track.mute", "track.solo",
+    static let trackCommandNames: Set<String> = ["track.get", "track.select", "track.mute", "track.solo", "track.arm",
                                                  "track.volume", "track.pan"]
 
     /// `isWrite` by wire name, for code that has a Request but no validated command yet.
@@ -66,6 +68,7 @@ public enum LogicCommand: Equatable {
         case .trackSelect: return "track.select"
         case .trackMute: return "track.mute"
         case .trackSolo: return "track.solo"
+        case .trackArm: return "track.arm"
         case .trackVolume: return "track.volume"
         case .trackPan: return "track.pan"
         case .daemonStop: return "daemon.stop"
@@ -118,6 +121,7 @@ extension LogicCommand {
         case "track.select": self = .trackSelect(track: try track())
         case "track.mute": self = .trackMute(track: try track(), on: try onOff())
         case "track.solo": self = .trackSolo(track: try track(), on: try onOff())
+        case "track.arm": self = .trackArm(track: try track(), on: try onOff())
         case "track.volume":
             guard let s = a["db"], let db = parseDB(s) else {
                 throw CommandError("invalid_argument", "音量は数値または -inf で指定してください。指定値: \(a["db"] ?? "未指定")")

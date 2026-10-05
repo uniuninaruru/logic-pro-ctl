@@ -23,7 +23,7 @@ logicctl track list                                   # note the name and identi
 logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 ```
 
-`--expect-name` works with `track get|select|mute|solo|volume|pan` (not with `track list` or `transport`).
+`--expect-name` works with `track get|select|mute|solo|arm|volume|pan` (not with `track list` or `transport`).
 It combines with `--idempotency-key` ([the execution contract](execution-contract.en.md)).
 
 ### When it does not match

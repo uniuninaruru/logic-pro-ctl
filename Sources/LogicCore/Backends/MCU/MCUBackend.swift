@@ -235,6 +235,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             }
         case .trackSelect(let t): return withStrip(t, expectName: expectName) { self.select($0) }
         case .trackMute(let t, let on): return withStrip(t, expectName: expectName) { self.toggle($0, on: on, kind: .mute) }
+        case .trackArm(let t, let on): return withStrip(t, expectName: expectName) { self.arm($0, on: on) }
         case .trackSolo(let t, let on): return withStrip(t, expectName: expectName) { self.toggle($0, on: on, kind: .solo) }
         case .trackVolume(let t, let db, let tol): return withStrip(t, expectName: expectName) { self.volume($0, db: db, tolerance: tol) }
         case .trackPan(let t, let pan): return withStrip(t, expectName: expectName) { self.pan($0, normalized: pan) }
@@ -779,6 +780,31 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         return .write(matched: matched, requested: requested,
                       observed: ["track": .int(trackID(strip)), kind.key: .bool(observedState)])
+    }
+
+    /// Record-enable through the strip's REC button. Logic shows no text for it, so the REC LED is the only
+    /// evidence. A strip that cannot be armed (an output, Master) leaves the LED as it was: verification fails.
+    private func arm(_ strip: Int, on: Bool) -> Outcome {
+        let requested: JSONValue = ["track": .int(trackID(strip)), "rec_armed": .bool(on)]
+        let note = MCU.recNote(strip)
+        func observed(_ state: Bool?) -> JSONValue { ["track": .int(trackID(strip)), "rec_armed": .bool(state)] }
+        // Only a reported LED proves "already in that state"; an unreported one is not "off".
+        if read({ $0.ledIfKnown(note) == on }) {
+            return .write(matched: true, requested: requested, observed: observed(on),
+                          message: "既に要求どおりの状態です。送信していません。")
+        }
+        var state: Bool?
+        // The button toggles. With an unknown starting state the first press may go the wrong way: one more try.
+        for _ in 0..<2 {
+            let before = read { $0.ledUpdates[Int(note)] }
+            send(MCU.press(note))
+            wait(0.8) { $0.ledUpdates[Int(note)] > before }
+            state = read { $0.ledIfKnown(note) }
+            if state == nil || state == on || read({ $0.ledUpdates[Int(note)] }) == before { break }
+        }
+        let matched = state == on
+        return .write(matched: matched, requested: requested, observed: observed(state),
+                      message: matched ? nil : "録音待機の LED が要求どおりになりませんでした。出力や Master など、録音待機できないストリップの可能性があります。")
     }
 
     private func volume(_ strip: Int, db target: Double, tolerance: Double) -> Outcome {

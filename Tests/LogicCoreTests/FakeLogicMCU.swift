@@ -11,6 +11,8 @@ final class FakeLogicMCU {
         var mute = false
         var solo = false
         var rec = false
+        /// Outputs and Master cannot be record-enabled: their REC button does nothing.
+        var armable = true
         var fader = 12441
         var pan = 0
         var hasPan = true
@@ -45,6 +47,7 @@ final class FakeLogicMCU {
         strips = names.enumerated().map { index, name in
             var strip = Strip(name: name)
             strip.hasPan = name != "Master"
+            strip.armable = name != "Master" && name != "St Out"
             _ = index
             return strip
         }
@@ -184,6 +187,11 @@ final class FakeLogicMCU {
             playing = false
             recording = false
             send(transportLEDs())
+        case 0x00..<0x08:
+            let index = offset + Int(note)
+            guard index < strips.count, strips[index].armable else { return }   // no change, no answer
+            strips[index].rec.toggle()
+            send(led(note, strips[index].rec))
         case 0x10..<0x18:
             let index = offset + Int(note - 0x10)
             guard index < strips.count else { return }

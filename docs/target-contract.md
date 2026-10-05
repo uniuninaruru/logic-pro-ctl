@@ -23,7 +23,7 @@ logicctl track list                                   # name と identity を控
 logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 ```
 
-`--expect-name` は `track get|select|mute|solo|volume|pan` で使えます（`track list`・`transport` では使えません）。
+`--expect-name` は `track get|select|mute|solo|arm|volume|pan` で使えます（`track list`・`transport` では使えません）。
 `--idempotency-key`（[実行の契約](execution-contract.md)）と組み合わせられます。
 
 ### 一致しなかったとき

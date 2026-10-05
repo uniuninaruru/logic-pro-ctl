@@ -37,6 +37,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 | `track select <n>` | an integer ≥ 1 | Requests the selection |
 | `track mute <n> on\|off` | number and state | Requests mute |
 | `track solo <n> on\|off` | number and state | Requests solo |
+| `track arm <n> on\|off` | number and state | Requests record-enable (checked by the REC LED; a strip that cannot be armed, such as an output or Master, fails verification). **Tested against the fake Logic only; not yet checked on the real Logic** |
 | `track volume <n> <dB>` | a number of 6.0 or less, or `-inf` | Requests the volume |
 | `track pan <n> <value>` | `-1` to `1` | Requests the pan, left to right |
 | `daemon stop` | none | Ends the resident process. It starts again automatically on the next use |
@@ -56,7 +57,7 @@ Check numbers and names with `track list` first. Fetching the list moves the MCU
 | `--idempotency-key <key>` | commands that change state | Folds a resend into one execution. [The execution contract](execution-contract.en.md) |
 | `--expect-session <generation>` | everything except `daemon stop` | Runs only if it matches the `handshake_generation` of a read |
 | `--deadline-ms <ms>` | everything except `daemon stop` | Upper bound for waiting plus running (default 30000) |
-| `--expect-name <name>` | `track get\|select\|mute\|solo\|volume\|pan` | Runs only if the displayed track name matches. Pass the `name` that `track list` returned. [The target contract](target-contract.en.md) |
+| `--expect-name <name>` | `track get\|select\|mute\|solo\|arm\|volume\|pan` | Runs only if the displayed track name matches. Pass the `name` that `track list` returned. [The target contract](target-contract.en.md) |
 
 Options may be placed before or after the command. A repeated option, a missing value or an unknown option is an argument error.
 Pan is sent rounded to Logic's `-64` to `63`, so the right edge may read back as `63/64`.

@@ -15,6 +15,7 @@ public enum CLIParser {
           track select <n>               選択
           track mute <n> on|off           ミュート
           track solo <n> on|off           ソロ
+          track arm <n> on|off            録音待機（出力・Master など、待機できないストリップは確認に失敗します）
           track volume <n> <dB|-inf> [--tolerance <dB>]  音量（既定の許容差: 0.1 dB）
           track pan <n> <-1…1>           パン（左 -1、中央 0、右 1）
           daemon stop                    常駐プロセスを停止
@@ -26,7 +27,7 @@ public enum CLIParser {
           --idempotency-key <キー>   同じ操作の再送を1回の実行にまとめる（状態を変更するコマンドのみ）
           --expect-session <世代>    読み取りの observation.session.handshake_generation と一致するときだけ実行
           --expect-name <名前>       表示中のトラック名が一致するときだけ実行（track list が返した name をそのまま指定。
-                                     track get|select|mute|solo|volume|pan で使えます）
+                                     track get|select|mute|solo|arm|volume|pan で使えます）
           --deadline-ms <ミリ秒>     待ち時間と実行の上限（既定 30000）
         """
 
@@ -130,7 +131,7 @@ public enum CLIParser {
         case ("track", "get"), ("track", "select"):
             try need(3, "track \(words[1]) <n>")
             return try request("track.\(words[1])", args: ["track": words[2]])
-        case ("track", "mute"), ("track", "solo"):
+        case ("track", "mute"), ("track", "solo"), ("track", "arm"):
             try need(4, "track \(words[1]) <n> on|off")
             return try request("track.\(words[1])", args: ["track": words[2], "state": words[3]])
         case ("track", "volume"):

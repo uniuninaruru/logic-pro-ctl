@@ -8,6 +8,7 @@ MCU 読み取り	state	mcu	live	EXP-CLI-001	track list と同じ走査
 MCU 書き込み	transport play / stop	mcu	live	EXP-CLI-001	再生・録音の状態が不明なら何も送らない
 MCU 書き込み	track mute	mcu	live	EXP-CLI-001; EXP-MCU-022〜025	ソロ中は mute LED が点滅するため状態は null になる
 MCU 書き込み	track solo	mcu	live	EXP-CLI-001	
+MCU 書き込み	track arm（録音待機）	mcu	tested	Tests/LogicCoreTests/TrackArmTests.swift	偽の Logic（FakeLogicMCU）だけで試験。実機の REC LED の振る舞い（点滅・自動録音待機との関係）は未確認。出力・Master は待機できない想定
 MCU 書き込み	track volume	mcu	live	EXP-CLI-001; EXP-MCU-021	許容差 0.1 dB。最後のストリップの dB 表示位置のずれを補正済み
 MCU 書き込み	track pan	mcu	live	EXP-CLI-001	Logic の -64〜63 に丸める
 MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効だと、録音待機も選択に伴って動く
