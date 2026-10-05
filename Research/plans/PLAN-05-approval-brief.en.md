@@ -58,7 +58,8 @@ Each hypothesis of the static analysis is compared with what is received. **If o
 | P9 | How `vL` relates to the MCU's dB display (STATE §8.1) | Read against a known dB value (such as 0 dB) |
 | P10 | A value of 0 is omitted only in the initial pass for key commands (STATE §7) | `s`, `m` and `vL` in `/gtFaderData` are present even when 0 |
 | P11 | The initial send has no end marker (STATE §10) | Check whether the last message ends in a fixed shape |
-| P12 | How the values of `t` in `/ati` (track kind) map to the real tracks (software instrument, audio, output, master) | Lined up against the known kinds of the dedicated project |
+| P12 | `/ati`'s `t`: Master = 5 (confidence high), Piano, Bass, Synth = 9 (medium), Audio and Trk05 to Trk10 = 1 (low; 4 if not), St Out = 6 or 10 (low) ([SA-REMOTE-TRACKTYPE-001](../static-analysis/SA-REMOTE-TRACKTYPE-001.en.md) §7) | Lined up against the 12 strips of the dedicated project. A value that is off is recorded as it is |
+| P13 | Each of the 4 colours of `c` is 4 bytes in the order R, G, B, A; the fourth is almost always `0xff`. `tnc` and `tsc` of a colour-number-0 track are `8cc0ffff` (computed; same note, §5 and §7) | Compare the received `NSData` of `c`; check the colour number separately in `/colorIndexMap` |
 
 The first thing to check is whether each received frame decodes with [`RemoteFrameParser`](../../Sources/LogicCore/Backends/Remote/RemoteFrame.swift). If it does not, that fact is the first finding.
 

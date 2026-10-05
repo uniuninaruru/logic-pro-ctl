@@ -34,7 +34,7 @@
       "properties": {
         "c": {
           "type": "array",
-          "description": "Four colours per strip: normal (nc), selected (sc), icon-tint normal (tnc), icon-tint selected (tsc). Each is 4 bytes; the byte order is not confirmed.",
+          "description": "Four colours per strip: normal (nc), selected (sc), icon-tint normal (tnc), icon-tint selected (tsc). Each is 4 bytes in the order R, G, B, A (static fact, SA-REMOTE-TRACKTYPE-001 section 5); each component is trunc(x*255). Alpha is normally 255. Not captured from a live connection.",
           "items": {
             "type": "object",
             "required": ["nc", "sc", "tnc", "tsc"],
@@ -124,7 +124,7 @@
       "required": ["n", "t", "BgTrackInfoMetaInfoFlagsKey", "tn", "BgTrackInfoIndexKey"],
       "properties": {
         "n": { "type": "string", "description": "The track name; 'NoTrackSelected' when nothing is selected." },
-        "t": { "type": "integer", "minimum": -128, "maximum": 127, "description": "One byte (+3) of the selected track's record. A different computation from /ati 't'." },
+        "t": { "type": "integer", "minimum": 0, "maximum": 4, "description": "trackTypeForTrack results of the selected strips, merged: only results 1 to 4 count; equal results give that value, different ones give 2, none gives 0 (SA-REMOTE-TRACKTYPE-001 section 3)." },
         "BgTrackInfoMetaInfoFlagsKey": { "type": "integer", "minimum": 0 },
         "tn": { "type": "integer" },
         "BgTrackInfoShowArpeggiatorButtonKey": { "type": "boolean", "description": "Absent when nothing is selected." },

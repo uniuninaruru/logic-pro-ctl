@@ -9,7 +9,7 @@
 | Target (arm64) | `Logic.framework` (`LgLogicRemoteController`, arm64-only `2f141e1a…`), the `Bg*` constants of `MACore.framework` (arm64 slice `99a4a9ad…`) |
 | Method | **Static analysis only.** Targeted Ghidra 12.1.4 decompilation (`Tools/ghidra/query.sh`). Nothing was sent to Logic and no connection was made |
 | Output (local only) | `Research/raw/ghidra/q-p6-state.c`, `q-p6-state2.c`, `q-p6-fader.c`, `q-p6-type.c`, `q-p6-stubs*.c` |
-| Related | [SA-005](SA-005-logic-remote-state-push.en.md) (overview of state sending) · [SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.en.md) (connection) · [SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.en.md) (frames) |
+| Related | [SA-005](SA-005-logic-remote-state-push.en.md) (overview of state sending) · [SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.en.md) (connection) · [SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.en.md) (frames) · [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.en.md) (`t` and `c` of `/ati`) |
 | Machine-readable | [`Research/protocol/logic-remote-state.schema.json`](../protocol/logic-remote-state.schema.json) |
 | Plan | The **static part** of PLAN-06. The receive experiment needs PLAN-05 (awaiting approval) and has not been done |
 
@@ -145,9 +145,9 @@ The dictionary has 13 keys, each holding an **array of the same length**. The el
 
 | Key (wire value) | Array element | Source of the value (confirmed) | Meaning / range |
 |---|---|---|---|
-| `c` | dictionary `{nc, sc, tnc, tsc}`, each a 4-byte `NSData` | colour computation (four colours) | normal / selected / icon normal / icon selected colours. **The byte order of the 4 bytes is not confirmed** (one of the colours starts with 0xFF) |
+| `c` | dictionary `{nc, sc, tnc, tsc}`, each a 4-byte `NSData` | colour computation (four colours) | normal / selected / icon normal / icon selected colours. **The 4 bytes are in the order R, G, B, A** (confirmed; the fourth byte, alpha, is normally 0xFF). How the values are made: [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.en.md) §5 |
 | `n` | dictionary `{"name": string, "gindex": integer}` | the track name and the strip info's `identifier` | `gindex` is the **same value** as the keys of `g` in `/gtFaderData` (§8; confirmed: same accessor on the same kind of object; not confirmed on the wire) |
-| `t` | integer (`char`) | `trackTypeForTrack:seqID:ginst:inSong:` (0x01693e90) | **can return 0–10**. The meaning of each value is **unresolved** (§10) |
+| `t` | integer (`char`) | `trackTypeForTrack:seqID:ginst:inSong:` (0x01693e90) | **returns 0–10**. The rules are confirmed; the track kind for each value is **mostly hypothesis** (5 = Master with confidence high, 9 = software instrument with medium). [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.en.md) §2 |
 | `nc` | integer | one byte (+0xd4) of the **song**, looked up in the 15-entry table `DAT_01d59030`. 0 if there is no song | number of channels (from the key name; hypothesis. The source is a song-level value, not per strip, so doubts remain) |
 | `p` | integer (`char`) | only when bit 27 of `allowedElementsForStrip:` is set, a table lookup from song settings (one of 0, -5, -1, -4, -1, -4). Otherwise -1. With no song, one of two constants depending on whether `t` is 4 (values unresolved) | pan type (from the key name; hypothesis) |
 | `tn` | integer | `numberOfStrip:`; -1 when that is 0 | strip number (from the key name; hypothesis) |
@@ -215,7 +215,7 @@ Only strips for which the argument block (it takes a track ID and returns a bool
   | Key | Value |
   |---|---|
   | `n` | the track name; `NoTrackSelected` when nothing is selected |
-  | `t` | integer (`char`): the byte at +3 of the selected track's internal record. **A different computation from the `t` of `/ati` (`trackTypeForTrack:…`)**, so the range is not necessarily the same |
+  | `t` | integer (`char`): `trackTypeForTrack:…` is called for each selected strip and only results of 1 to 4 are merged (the value if they agree, 2 if they differ, 0 if none). The value is 0 to 4 (confirmed; [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.en.md) §3. The earlier "byte at +3 of the internal record, a different computation" was a misreading) |
   | `BgTrackInfoMetaInfoFlagsKey` | unsigned integer: `trackMetaInfoFlagsForTrack:spu:inSong:` (the same function as in `/ati`) |
   | `tn` | integer (source not worked out; from the key name, the strip number; hypothesis) |
   | `BgTrackInfoShowArpeggiatorButtonKey` | boolean: whether to show the arpeggiator button for the selected track |
@@ -338,9 +338,9 @@ The analysis procedure (all local; nothing was sent to Logic).
 
 | Item | Status | Next step |
 |---|---|---|
-| Meaning of the values 0–10 of `t` (track kind) | Unresolved. The set of return values was read, but the meaning of the branches is not worked out | Read all the branches and map them to known track kinds (audio, software instrument, folder, and so on). A prerequisite of PLAN-08 |
+| Meaning of the values 0–10 of `t` (track kind) | The rules are confirmed (SA-REMOTE-TRACKTYPE-001 §2). Meaning: 5 = Master (high), 9 = software instrument (medium); the rest is hypothesis (low) or unresolved | Line up with the dedicated project's strips by receiving (E2). Folders and stacks are E3 or later |
 | The value tables for `p` (pan type), `nc` and `DAT_01d59030` | Not read | Read the contents of the tables |
-| Byte order of the 4 bytes of `c` | Not confirmed | Read the colour computation (`FUN_017e5998` and others) |
+| Byte order of the 4 bytes of `c` | **Resolved**: R, G, B, A (SA-REMOTE-TRACKTYPE-001 §5). The values of `nc` and `sc` for colour numbers of 1 or more cannot be derived statically because the palette depends on run-time configuration | Check by receiving that `tnc` and `tsc` of a colour-number-0 track are `8cc0ffff` |
 | Body of the block that the no-argument `sendChannelStripInfo` passes | Not analysed | It decides which strips get the extra messages |
 | `gindex` and `instID` being the same value | The same in code (§8); not confirmed on the wire | Cross-check on receipt |
 | Direction of `/multiTempo`, unit of `/logicClock/currentTempo` | Not confirmed | Receive experiment |

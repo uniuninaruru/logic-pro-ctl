@@ -1,0 +1,27 @@
+# /ati "t" (track kind), /sti "t" and the default colour index per track kind. Logic 12.3.1 (6682), Logic.arm64 sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998.
+# Source: SA-REMOTE-TRACKTYPE-001. Static analysis only: no value below was captured from a Remote connection (live_check = unconfirmed).
+# The condition column is read from the code (anchors name the rows of logic-remote-trackcolor-anchors.tsv that pin the constants).
+# The meaning column is a hypothesis with the stated confidence; it is not a fact.
+# For scope ati.t the rule number is the order in which trackTypeForTrack:seqID:ginst:inSong: (0x01693e90) tries the rules; the first that applies wins.
+# Terms: G = the "ginst object" FUN_01a15c7c(song, ginst) returns (only for a strip whose type byte +0x69 is 0x11), kind(G) = ushort at G[0] with bit 3 cleared;
+#        entry = the 0x50-byte track entry (kind byte +0x10, depth byte +0x12, flags +0x14, id +0x20); strip type = byte +0x69 of the strip the entry's id selects.
+# scope<TAB>rule<TAB>value<TAB>condition<TAB>anchors<TAB>meaning_hypothesis<TAB>confidence<TAB>live_check
+ati.t	R1	7	entry known and FUN_019fa680 is true (entry kind not 3, 4, 5, 0xc; the next entry that is not kind 5 or 0xc is exactly one level deeper) and entry[+0x14] & 0x40	TT-parent-call,PT-parent,TT-ret-7	a track with children that is not a kind-3/4 container; flag 0x40 distinguishes it from 8	low	unconfirmed
+ati.t	R1	8	same as 7 with the flag clear; also the fall-back when the parent branch cannot finish (sequence flagged invalid, entry outside the range, depth mismatch)	TT-ret-8,TT-ret-7	the other kind of parent track	low	unconfirmed
+ati.t	R2	5	G known and kind(G) == 0x44	TT-kind-word,TT-ret-5	the Master channel strip: updateSelectedTrackInfo names a single selected strip with kind 0x44 "Master Track" (cf_MasterTrack, 0x02338f08)	high	unconfirmed
+ati.t	R3	10	G known and kind(G) == 0x46 and the signed short G[+2] > 0	TT-ret-6-10	an output-like strip (0x44 and 0x46 are handled together by (kind|2)==0x46 in TrackImportCore::importChannelStripWithGInstID); G[+2] splits it in two	low	unconfirmed
+ati.t	R3	6	G known and kind(G) == 0x46 and the signed short G[+2] <= 0	TT-ret-6-10	see 10	low	unconfirmed
+ati.t	R4	3	entry known and its kind is 4 (an entry of kind 0xc takes the kind of the nearest preceding entry that is not 0xc or 5); also an entry of kind 3 that has a deeper next entry and whose parent entry has kind 4	TT-ret-3	a folder-like container (entry kind 4); the default colour index 76 of key 3 is not shared with other kinds	medium	unconfirmed
+ati.t	R5	1	G known and kind(G) == 0x40	TT-ret-1-2	possibly an audio strip; the default colour index of key 1 (16) differs from the shared 9	low	unconfirmed
+ati.t	R5	2	G known and kind(G) == 0x43	TT-ret-1-2	possibly an aux strip	low	unconfirmed
+ati.t	R6	4	entry known, and (when rules 2 to 5 did not apply) the strip type byte +0x69 of the strip that entry[+0x20] selects is below 0x13 and not 0x11	TT-ret-4,GI-strip-type	strips that have no ginst object but a known low type (not yet mapped to Logic track kinds)	low	unconfirmed
+ati.t	R7	9	G known and kind(G) == 0x42	TT-ret-9	a MIDI-driven strip, probably a software instrument: ginstNeedsMidiClipType: returns kind(G)==0x42 and pluginsForTrack:isMIDI: tests it	medium	unconfirmed
+ati.t	R8	0	none of the rules applies, or neither an entry nor G can be found	TT-ret-char	no kind	high	unconfirmed
+sti.t	-	0	no selected strip gave a result of 1 to 4 (also the value when nothing is selected)	ST-block	no kind	high	unconfirmed
+sti.t	-	1	every selected strip with a result of 1 to 4 gave 1 (the same for 3 and 4)	ST-block	the common kind	high	unconfirmed
+sti.t	-	2	selected strips with results of 1 to 4 differ (set to 2), or all gave 2	ST-block	mixed selection, or kind 2	high	unconfirmed
+default_colour_index	-	0	colour index 9	DC-dict,DC-key0,DC-idx9	default colour index of key 0	high	unconfirmed
+default_colour_index	-	1	colour index 16	DC-dict,DC-key1,DC-idx16	default colour index of key 1	high	unconfirmed
+default_colour_index	-	2	colour index 9	DC-dict,DC-key2,DC-idx9	default colour index of key 2	high	unconfirmed
+default_colour_index	-	3	colour index 76	DC-dict,DC-key3,DC-idx76	default colour index of key 3	high	unconfirmed
+default_colour_index	-	4	colour index 9	DC-dict,DC-key4,DC-idx9	default colour index of key 4	high	unconfirmed

@@ -9,7 +9,7 @@
 | 対象（arm64） | `Logic.framework`（`LgLogicRemoteController`、arm64 のみ `2f141e1a…`）、`MACore.framework` の `Bg*` 定数（arm64 スライス `99a4a9ad…`） |
 | 方法 | **静的解析のみ**。Ghidra 12.1.4 の限定逆コンパイル（`Tools/ghidra/query.sh`）。Logic には何も送信せず、接続もしていない |
 | 出力（ローカルのみ） | `Research/raw/ghidra/q-p6-state.c`、`q-p6-state2.c`、`q-p6-fader.c`、`q-p6-type.c`、`q-p6-stubs*.c` |
-| 関連 | [SA-005](SA-005-logic-remote-state-push.md)（状態送信の概要）・[SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.md)（接続）・[SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.md)（フレーム） |
+| 関連 | [SA-005](SA-005-logic-remote-state-push.md)（状態送信の概要）・[SA-REMOTE-SESSION-001](SA-REMOTE-SESSION-001.md)（接続）・[SA-REMOTE-FRAME-001](SA-REMOTE-FRAME-001.md)（フレーム）・[SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.md)（`/ati` の `t` と `c`） |
 | 機械可読 | [`Research/protocol/logic-remote-state.schema.json`](../protocol/logic-remote-state.schema.json) |
 | 計画 | PLAN-06 の**静的部分**。受信実験は PLAN-05（承認待ち）が必要で、まだ行っていない |
 
@@ -144,9 +144,9 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 
 | キー（通信上の値） | 配列の要素 | 値の出どころ（確認） | 意味・値域 |
 |---|---|---|---|
-| `c` | 辞書 `{nc, sc, tnc, tsc}`、各 4 バイトの `NSData` | 色の計算（4 色） | 通常 / 選択 / アイコン通常 / アイコン選択の色。**4 バイトの並びは未確認**（先頭が 0xFF の色がある） |
+| `c` | 辞書 `{nc, sc, tnc, tsc}`、各 4 バイトの `NSData` | 色の計算（4 色） | 通常 / 選択 / アイコン通常 / アイコン選択の色。**4 バイトは R, G, B, A の順**（確認。4 バイト目のアルファは通常 0xFF）。値の作り方は [SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.md) §5 |
 | `n` | 辞書 `{"name": 文字列, "gindex": 整数}` | トラック名と、ストリップ情報の `identifier` | `gindex` は `/gtFaderData` の `g` のキーと**同じ値**（§8。確認: 同じ種類のオブジェクトの同じアクセサ。通信では未確認） |
-| `t` | 整数（`char`） | `trackTypeForTrack:seqID:ginst:inSong:`（0x01693e90） | **0〜10 を返しうる**。各値の意味は**未解決**（§10） |
+| `t` | 整数（`char`） | `trackTypeForTrack:seqID:ginst:inSong:`（0x01693e90） | **0〜10 を返す**。判定の規則は確認、値ごとのトラック種別は**多くが仮説**（5 = Master は確信度: 高、9 = ソフトウェア音源は中）。[SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.md) §2 |
 | `nc` | 整数 | **曲**の 1 バイト（+0xd4）を、15 要素の表 `DAT_01d59030` で引いた値。曲が無ければ 0 | チャンネル数（キー名より。仮説。出どころが曲の値で、ストリップごとではないように見える。疑問が残る） |
 | `p` | 整数（`char`） | `allowedElementsForStrip:` の bit 27 が立つときだけ、曲の設定から表引き（値は 0, -5, -1, -4, -1, -4 のいずれか）。それ以外は -1。曲が無いときは、`t` が 4 かどうかで 2 種類の定数（値は未解決） | パンの種類（キー名より。仮説） |
 | `tn` | 整数 | `numberOfStrip:`。0 のときは -1 | ストリップの番号（キー名より。仮説） |
@@ -214,7 +214,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
   | キー | 値 |
   |---|---|
   | `n` | トラック名。何も選択していなければ `NoTrackSelected` |
-  | `t` | 整数（`char`）。選択トラックの内部記録の +3 のバイト。**`/ati` の `t`（`trackTypeForTrack:…`）とは別の算出**で、同じ値域とは限らない |
+  | `t` | 整数（`char`）。選択中のストリップについて `trackTypeForTrack:…` を呼び、結果が 1〜4 のものだけをまとめた値（一致ならその値、食い違えば 2、無ければ 0）。値は 0〜4（確認。[SA-REMOTE-TRACKTYPE-001](SA-REMOTE-TRACKTYPE-001.md) §3。以前の「内部記録の +3 のバイト・別の算出」は誤読だった） |
   | `BgTrackInfoMetaInfoFlagsKey` | 符号なし整数。`trackMetaInfoFlagsForTrack:spu:inSong:`（`/ati` と同じ関数） |
   | `tn` | 整数（算出元は未整理。キー名より、ストリップの番号。仮説） |
   | `BgTrackInfoShowArpeggiatorButtonKey` | 真偽。選択トラックにアルペジエーターのボタンを出すか |
@@ -337,9 +337,9 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 
 | 項目 | 状態 | 次の手 |
 |---|---|---|
-| `t`（トラックの種類）の値 0〜10 の意味 | 未解決。戻り値の集合は読めたが、分岐の意味が未整理 | 関数の分岐を読み切り、既知のトラック種別（オーディオ・ソフトウェア音源・フォルダー等）と対応づける。PLAN-08 の前提 |
+| `t`（トラックの種類）の値 0〜10 の意味 | 判定の規則は確認（SA-REMOTE-TRACKTYPE-001 §2）。意味は 5 = Master（高）、9 = ソフトウェア音源（中）、他は仮説（低）か未解決 | 受信（E2）で専用プロジェクトのストリップと並べる。フォルダーやスタックは E3 以降 |
 | `p`（パンの種類）・`nc`・`DAT_01d59030` の値表 | 未読 | 表の内容を読み出す |
-| `c` の 4 バイトの並び | 未確認 | 色の計算関数（`FUN_017e5998` ほか）を読む |
+| `c` の 4 バイトの並び | **解決**: R, G, B, A（SA-REMOTE-TRACKTYPE-001 §5）。色番号 1 以上の `nc`・`sc` の値は、パレットが実行時の設定値で決まるため静的には出せない | 受信で色番号 0 の `tnc`・`tsc` が `8cc0ffff` か確かめる |
 | `sendChannelStripInfo` の引数なし版が渡すブロックの本体 | 未解析 | どのストリップに追加メッセージが付くかが決まる |
 | `gindex` と `instID` が同じ値であること | コード上は同じ（§8）。通信では未確認 | 受信で照合 |
 | `/multiTempo` の向き、`/logicClock/currentTempo` の単位 | 未確認 | 受信実験 |

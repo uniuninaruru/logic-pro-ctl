@@ -58,7 +58,8 @@ E1・E2 は、**一度の接続**で続けて行う。終わったら接続を�
 | P9 | `vL` と、MCU の dB 表示の対応（STATE §8.1） | 既知の dB（0 dB など）と並べて読む |
 | P10 | 値 0 の省略は、キーコマンドの初回だけ（STATE §7） | `/gtFaderData` の `s`・`m`・`vL` が 0 でも含まれる |
 | P11 | 初回送信に終了の合図は無い（STATE §10） | 最後のメッセージが決まった形で終わるか、確認する |
-| P12 | `/ati` の `t`（トラック種別）の値と、実際のトラック（ソフトウェア音源・オーディオ・出力・マスター）の対応 | 専用プロジェクトの既知の種類と並べる |
+| P12 | `/ati` の `t` は、Master = 5（確信度: 高）、Piano・Bass・Synth = 9（中）、Audio・Trk05〜Trk10 = 1（低。外れれば 4）、St Out = 6 か 10（低）（[SA-REMOTE-TRACKTYPE-001](../static-analysis/SA-REMOTE-TRACKTYPE-001.md) §7） | 専用プロジェクトの 12 ストリップと並べる。外れた値はそのまま記録する |
+| P13 | `c` の 4 色は 4 バイトで、R, G, B, A の順。4 バイト目はほぼ `0xff`。色番号 0 のトラックの `tnc`・`tsc` は `8cc0ffff`（計算値。同 §5・§7） | 受信した `c` の `NSData` を並べる。`/colorIndexMap` で色番号を別に照合する |
 
 受信したフレームは、まず [`RemoteFrameParser`](../../Sources/LogicCore/Backends/Remote/RemoteFrame.swift) で復号できるかを確かめる。復号できなければ、その事実が最初の発見になる。
 

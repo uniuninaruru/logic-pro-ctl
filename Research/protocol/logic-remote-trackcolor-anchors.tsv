@@ -1,0 +1,229 @@
+# Evidence anchors for SA-REMOTE-TRACKTYPE-001 (the `t` and `c` columns of /ati).
+# Image: Logic.arm64  sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998  (Logic 12.3.1 / 6682, arm64 slice as imported into Ghidra)
+# Each row is checked against the image file itself, not against Ghidra:
+#   insn   : 4 bytes at the address (memory order) and the text printed by llvm-objdump
+#   data   : bytes at the address
+#   bind   : the symbol dyld_info -fixups reports for the pointer slot
+#   selref : the selector string reached through the slot's rebase target
+# Verify: python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-remote-trackcolor-anchors.tsv
+# Static only. A row says what the bytes are; the meaning is in the claim column and in the analysis note.
+# id<TAB>kind<TAB>address<TAB>bytes<TAB>text<TAB>claim
+TT-ginst@0x1693eb0	insn	0x01693eb0	e00305aa	mov x0, x5	trackTypeForTrack calls FUN_01a15c7c(song=x5, ginst=x4, NULL) first; its result is the ginst object G
+TT-ginst@0x1693eb4	insn	0x01693eb4	e10304aa	mov x1, x4	trackTypeForTrack calls FUN_01a15c7c(song=x5, ginst=x4, NULL) first; its result is the ginst object G
+TT-ginst@0x1693eb8	insn	0x01693eb8	020080d2	mov x2, #0x0	trackTypeForTrack calls FUN_01a15c7c(song=x5, ginst=x4, NULL) first; its result is the ginst object G
+TT-ginst@0x1693ebc	insn	0x01693ebc	70070e94	bl 0x1a15c7c	trackTypeForTrack calls FUN_01a15c7c(song=x5, ginst=x4, NULL) first; its result is the ginst object G
+TT-song-magic@0x1693ec8	insn	0x01693ec8	69e48852	mov w9, #0x4723	the song object is recognised by the tags 0xabc04723 / 0xabc04713
+TT-song-magic@0x1693ecc	insn	0x01693ecc	0978b572	movk w9, #0xabc0, lsl #16	the song object is recognised by the tags 0xabc04723 / 0xabc04713
+TT-song-magic@0x1693ed4	insn	0x01693ed4	69e28852	mov w9, #0x4713	the song object is recognised by the tags 0xabc04723 / 0xabc04713
+TT-song-magic@0x1693ed8	insn	0x01693ed8	0978b572	movk w9, #0xabc0, lsl #16	the song object is recognised by the tags 0xabc04723 / 0xabc04713
+TT-seq-special@0x1693ee4	insn	0x01693ee4	e86f1d32	mov w8, #0x7ffffff8	seqID values 0x7ffffff8 and 0x7ffffffc are special
+TT-seq-special@0x1693ef0	insn	0x01693ef0	e8731e32	mov w8, #0x7ffffffc	seqID values 0x7ffffff8 and 0x7ffffffc are special
+TT-parent-call@0x1693fb0	insn	0x01693fb0	b4990d94	bl 0x19fa680	the parent test FUN_019fa680(entry, sequence) is called when both are known
+TT-ret-8@0x1693fd4	insn	0x01693fd4	08018052	mov w8, #0x8	a parent entry returns 8 unless the flag test below sets 7
+TT-ret-8@0x16940c0	insn	0x016940c0	08018052	mov w8, #0x8	a parent entry returns 8 unless the flag test below sets 7
+TT-ret-7@0x1694058	insn	0x01694058	88524039	ldrb w8, [x20, #0x14]	7 when (entry[+0x14] & 0x40) != 0, else 8
+TT-ret-7@0x169405c	insn	0x0169405c	1f011a72	tst w8, #0x40	7 when (entry[+0x14] & 0x40) != 0, else 8
+TT-ret-7@0x1694060	insn	0x01694060	e8008052	mov w8, #0x7	7 when (entry[+0x14] & 0x40) != 0, else 8
+TT-ret-7@0x1694064	insn	0x01694064	0815881a	cinc w8, w8, eq	7 when (entry[+0x14] & 0x40) != 0, else 8
+TT-depth-write@0x1694040	insn	0x01694040	894a0039	strb w9, [x20, #0x12]	trackTypeForTrack writes entry[+0x12] when the next entry is 2 or more levels deeper
+TT-kind-word@0x1694104	insn	0x01694104	08004079	ldrh w8, [x0]	G kind word = ushort at G[0], bit 3 ignored (and #0xfffffff7)
+TT-kind-word@0x1694108	insn	0x01694108	0a791c12	and w10, w8, #0xfffffff7	G kind word = ushort at G[0], bit 3 ignored (and #0xfffffff7)
+TT-ret-5@0x169410c	insn	0x0169410c	5f110171	cmp w10, #0x44	kind 0x44 returns 5
+TT-ret-5@0x1694134	insn	0x01694134	a8008052	mov w8, #0x5	kind 0x44 returns 5
+TT-ret-6-10@0x1694114	insn	0x01694114	5f190171	cmp w10, #0x46	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-6-10@0x169411c	insn	0x0169411c	0804c079	ldrsh w8, [x0, #0x2]	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-6-10@0x1694120	insn	0x01694120	c9008052	mov w9, #0x6	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-6-10@0x1694124	insn	0x01694124	4a018052	mov w10, #0xa	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-6-10@0x1694128	insn	0x01694128	1f010071	cmp w8, #0x0	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-6-10@0x169412c	insn	0x0169412c	48c1891a	csel w8, w10, w9, gt	kind 0x46 returns 10 if short G[+2] > 0, else 6
+TT-ret-1-2@0x169438c	insn	0x0169438c	08791c12	and w8, w8, #0xfffffff7	kind 0x40 returns 1, kind 0x43 returns 2
+TT-ret-1-2@0x1694390	insn	0x01694390	1f010171	cmp w8, #0x40	kind 0x40 returns 1, kind 0x43 returns 2
+TT-ret-1-2@0x1694398	insn	0x01694398	1f0d0171	cmp w8, #0x43	kind 0x40 returns 1, kind 0x43 returns 2
+TT-ret-1-2@0x16943a0	insn	0x016943a0	48008052	mov w8, #0x2	kind 0x40 returns 1, kind 0x43 returns 2
+TT-ret-1-2@0x16943a8	insn	0x016943a8	28008052	mov w8, #0x1	kind 0x40 returns 1, kind 0x43 returns 2
+TT-ret-9@0x16943b4	insn	0x016943b4	29018052	mov w9, #0x9	kind 0x42 returns 9
+TT-ret-9@0x16943b8	insn	0x016943b8	1f090171	cmp w8, #0x42	kind 0x42 returns 9
+TT-ret-9@0x16943bc	insn	0x016943bc	28019f1a	csel w8, w9, wzr, eq	kind 0x42 returns 9
+TT-ret-3@0x1694318	insn	0x01694318	3f110071	cmp w9, #0x4	an entry whose kind (looking back past 0xc entries) is 4 returns 3
+TT-ret-3@0x169431c	insn	0x0169431c	61000054	b.ne 0x1694328	an entry whose kind (looking back past 0xc entries) is 4 returns 3
+TT-ret-3@0x1694320	insn	0x01694320	68008052	mov w8, #0x3	an entry whose kind (looking back past 0xc entries) is 4 returns 3
+TT-ret-4@0x1694404	insn	0x01694404	28a54139	ldrb w8, [x9, #0x69]	strip type byte (+0x69) below 0x13 and not 0x11 returns 4
+TT-ret-4@0x1694408	insn	0x01694408	1f4d0071	cmp w8, #0x13	strip type byte (+0x69) below 0x13 and not 0x11 returns 4
+TT-ret-4@0x169440c	insn	0x0169440c	0439517a	ccmp w8, #0x11, #0x4, lo	strip type byte (+0x69) below 0x13 and not 0x11 returns 4
+TT-ret-4@0x1694410	insn	0x01694410	88008052	mov w8, #0x4	strip type byte (+0x69) below 0x13 and not 0x11 returns 4
+TT-ret-4@0x1694414	insn	0x01694414	08119f1a	csel w8, w8, wzr, ne	strip type byte (+0x69) below 0x13 and not 0x11 returns 4
+TT-ret-char@0x1694420	insn	0x01694420	001d0013	sxtb w0, w8	the result is sign-extended from 8 bits (char)
+GI-strip-type@0x1a15d00	insn	0x01a15d00	0ba54139	ldrb w11, [x8, #0x69]	FUN_01a15c7c returns G only for a strip whose type byte (+0x69) is 0x11; slot = short strip[+0x320]
+GI-strip-type@0x1a15d04	insn	0x01a15d04	7f450071	cmp w11, #0x11	FUN_01a15c7c returns G only for a strip whose type byte (+0x69) is 0x11; slot = short strip[+0x320]
+GI-strip-type@0x1a15d0c	insn	0x01a15d0c	0bd5cc39	ldrsb w11, [x8, #0x335]	FUN_01a15c7c returns G only for a strip whose type byte (+0x69) is 0x11; slot = short strip[+0x320]
+GI-strip-type@0x1a15d10	insn	0x01a15d10	7f350071	cmp w11, #0xd	FUN_01a15c7c returns G only for a strip whose type byte (+0x69) is 0x11; slot = short strip[+0x320]
+GI-strip-type@0x1a15d8c	insn	0x01a15d8c	08418679	ldrsh x8, [x8, #0x320]	FUN_01a15c7c returns G only for a strip whose type byte (+0x69) is 0x11; slot = short strip[+0x320]
+PT-parent@0x19fa6b0	insn	0x019fa6b0	1f150071	cmp w8, #0x5	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa6b4	insn	0x019fa6b4	04194c7a	ccmp w8, #0xc, #0x4, ne	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa714	insn	0x019fa714	69050011	add w9, w11, #0x1	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa718	insn	0x019fa718	3f010a6b	cmp w9, w10	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa720	insn	0x019fa720	1f0d0071	cmp w8, #0x3	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa74c	insn	0x019fa74c	1f110071	cmp w8, #0x4	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-parent@0x19fa750	insn	0x019fa750	e0079f1a	cset w0, ne	FUN_019fa680 is 1 iff entry kind is not 3, 4, 5, 0xc and the next non-skipped entry is exactly one level deeper
+PT-depth-write@0x19fa708	insn	0x019fa708	0a480039	strb w10, [x0, #0x12]	FUN_019fa680 also writes entry[+0x12] when the next entry is 2 or more levels deeper
+ST-block@0x1696818	insn	0x01696818	020080d2	mov x2, #0x0	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696820	insn	0x01696820	109f1494	bl 0x1bbe460	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696824	insn	0x01696824	08040051	sub w8, w0, #0x1	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696828	insn	0x01696828	081d0012	and w8, w8, #0xff	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x169682c	insn	0x0169682c	1f0d0071	cmp w8, #0x3	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696830	insn	0x01696830	28010054	b.hi 0x1696854	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x169683c	insn	0x0169683c	09614039	ldrb w9, [x8, #0x18]	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696840	insn	0x01696840	89000034	cbz w9, 0x1696850	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696844	insn	0x01696844	3f01206b	cmp w9, w0, uxtb	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696848	insn	0x01696848	60000054	b.eq 0x1696854	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x169684c	insn	0x0169684c	40008052	mov w0, #0x2	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+ST-block@0x1696850	insn	0x01696850	00610039	strb w0, [x8, #0x18]	/sti t: trackTypeForTrack(track=NULL,...) result in 1..4 is kept if equal, becomes 2 if it differs from a non-zero value, other results are ignored
+CB-index@0x1697120	insn	0x01697120	1a17c239	ldrsb w26, [x24, #0x85]	strip colour index = signed byte strip[+0x85]
+CB-nc@0x1697134	insn	0x01697134	00106e1e	fmov d0, #1.00000000	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697138	insn	0x01697138	183a0594	bl 0x17e5998	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x169713c	insn	0x0169713c	6204186e	mov.d v2[1], v3[0]	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697140	insn	0x01697140	2004186e	mov.d v0[1], v1[0]	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697144	insn	0x01697144	0800dcd2	mov x8, #0xe00000000000	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697148	insn	0x01697148	e80de8f2	movk x8, #0x406f, lsl #48	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697150	insn	0x01697150	00dc616e	fmul.2d v0, v0, v1	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697154	insn	0x01697154	41dc616e	fmul.2d v1, v2, v1	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697158	insn	0x01697158	21b8e14e	fcvtzs.2d v1, v1	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x169715c	insn	0x0169715c	00b8e14e	fcvtzs.2d v0, v0	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697160	insn	0x01697160	0018814e	uzp1.4s v0, v0, v1	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697164	insn	0x01697164	0028610e	xtn.4h v0, v0	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x1697168	insn	0x01697168	0018000e	uzp1.8b v0, v0, v0	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x169716c	insn	0x0169716c	e0df00bd	str s0, [sp, #0xdc]	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-nc@0x169717c	insn	0x0169717c	83008052	mov w3, #0x4	nc: FUN_017e5998 returns R,G,B in d0-d2 and alpha (the d0 argument 1.0) in d3; packed as bytes R,G,B,A by trunc(x*255)
+CB-sc@0x1697194	insn	0x01697194	01058052	mov w1, #0x28	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-sc@0x1697198	insn	0x01697198	820c8052	mov w2, #0x64	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-sc@0x169719c	insn	0x0169719c	f778da97	bl 0xd35578	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-sc@0x16971a8	insn	0x016971a8	010140ad	ldp q1, q0, [x8]	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-sc@0x16971c8	insn	0x016971c8	2018804e	uzp1.4s v0, v1, v0	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-sc@0x16971d4	insn	0x016971d4	e0db00bd	str s0, [sp, #0xd8]	sc: FUN_00d35578(index,40,100) stores R,G,B,1.0 as doubles at 0x26c6de0; packed R,G,B,A
+CB-tnc@0x16971f8	insn	0x016971f8	81008052	mov w1, #0x4	tnc: FUN_00d358a0(index,4) then FUN_006d874c; packed R,G,B,A
+CB-tnc@0x16971fc	insn	0x016971fc	a979da97	bl 0xd358a0	tnc: FUN_00d358a0(index,4) then FUN_006d874c; packed R,G,B,A
+CB-tnc@0x1697214	insn	0x01697214	4e05c197	bl 0x6d874c	tnc: FUN_00d358a0(index,4) then FUN_006d874c; packed R,G,B,A
+CB-tnc@0x1697254	insn	0x01697254	2018804e	uzp1.4s v0, v1, v0	tnc: FUN_00d358a0(index,4) then FUN_006d874c; packed R,G,B,A
+CB-tnc@0x1697260	insn	0x01697260	e0b700bd	str s0, [sp, #0xb4]	tnc: FUN_00d358a0(index,4) then FUN_006d874c; packed R,G,B,A
+CB-tsc@0x1697284	insn	0x01697284	41008052	mov w1, #0x2	tsc: FUN_00d358a0(index,2) then FUN_006d874c; packed R,G,B,A
+CB-tsc@0x1697288	insn	0x01697288	8679da97	bl 0xd358a0	tsc: FUN_00d358a0(index,2) then FUN_006d874c; packed R,G,B,A
+CB-tsc@0x16972a0	insn	0x016972a0	2b05c197	bl 0x6d874c	tsc: FUN_00d358a0(index,2) then FUN_006d874c; packed R,G,B,A
+CB-tsc@0x16972e0	insn	0x016972e0	2018804e	uzp1.4s v0, v1, v0	tsc: FUN_00d358a0(index,2) then FUN_006d874c; packed R,G,B,A
+CB-tsc@0x16972ec	insn	0x016972ec	e0b300bd	str s0, [sp, #0xb0]	tsc: FUN_00d358a0(index,2) then FUN_006d874c; packed R,G,B,A
+CB-dict@0x1697314	insn	0x01697314	082942f9	ldr x8, [x8, #0x450]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169731c	insn	0x0169731c	292d42f9	ldr x9, [x9, #0x458]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697328	insn	0x01697328	482503a9	stp x8, x9, [x10, #0x30]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697338	insn	0x01697338	081d42f9	ldr x8, [x8, #0x438]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697344	insn	0x01697344	292142f9	ldr x9, [x9, #0x440]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169734c	insn	0x0169734c	482504a9	stp x8, x9, [x10, #0x40]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169732c	insn	0x0169732c	e92347a9	ldp x9, x8, [sp, #0x70]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697330	insn	0x01697330	492105a9	stp x9, x8, [x10, #0x50]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697350	insn	0x01697350	e83340f9	ldr x8, [sp, #0x60]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697354	insn	0x01697354	480106a9	stp x8, x0, [x10, #0x60]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697364	insn	0x01697364	a20302d1	sub x2, x29, #0x80	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x1697368	insn	0x01697368	a38302d1	sub x3, x29, #0xa0	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169736c	insn	0x0169736c	84008052	mov w4, #0x4	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169718c	insn	0x0169718c	e03b00f9	str x0, [sp, #0x70]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x16971f0	insn	0x016971f0	e03f00f9	str x0, [sp, #0x78]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-dict@0x169727c	insn	0x0169727c	e03300f9	str x0, [sp, #0x60]	dictionary keys: Normal, Selected, IconTintNormal, IconTintSelected paired with the four NSData in that order
+CB-hsv-in@0x17e5998	insn	0x017e5998	0340601e	fmov d3, d0	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e599c	insn	0x017e599c	0908c039	ldrsb w9, [x0, #0x2]	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59a0	insn	0x017e59a0	0a0cc039	ldrsb w10, [x0, #0x3]	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59a4	insn	0x017e59a4	08004079	ldrh w8, [x0]	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59a8	insn	0x017e59a8	1f9d0571	cmp w8, #0x167	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59b4	insn	0x017e59b4	ec2a00d0	adrp x12, 0x1d43000	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59b8	insn	0x017e59b8	8ce11391	add x12, x12, #0x4f8	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59c0	insn	0x017e59c0	01107e1e	fmov d1, #-1.00000000	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59d0	insn	0x017e59d0	ec2a00f0	adrp x12, 0x1d44000	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-in@0x17e59d4	insn	0x017e59d4	8ce10091	add x12, x12, #0x38	FUN_017e5998 reads hue (ushort), then two signed bytes; per-hue tables at 0x1d434f8 and 0x1d44038; alpha is copied to d3
+CB-hsv-out@0x17e5af4	insn	0x017e5af4	c040601e	fmov d0, d6	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5af8	insn	0x017e5af8	a140601e	fmov d1, d5	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5afc	insn	0x017e5afc	8240601e	fmov d2, d4	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5b40	insn	0x017e5b40	8040601e	fmov d0, d4	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5b44	insn	0x017e5b44	c140601e	fmov d1, d6	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5b48	insn	0x017e5b48	a240601e	fmov d2, d5	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5b50	insn	0x017e5b50	8040601e	fmov d0, d4	HSV sectors return (R,G,B) in d0,d1,d2
+CB-hsv-out@0x17e5b54	insn	0x017e5b54	a140601e	fmov d1, d5	HSV sectors return (R,G,B) in d0,d1,d2
+CB-sc-store@0xd355f8	insn	0x00d355f8	0311006d	stp d3, d4, [x8]	FUN_00d35578 stores R,G at +0, +8, B at +0x10 and 1.0 at +0x18 of the static 0x26c6de0
+CB-sc-store@0xd355fc	insn	0x00d355fc	010900fd	str d1, [x8, #0x10]	FUN_00d35578 stores R,G at +0, +8, B at +0x10 and 1.0 at +0x18 of the static 0x26c6de0
+CB-sc-store@0xd35600	insn	0x00d35600	09fee7d2	mov x9, #0x3ff0000000000000	FUN_00d35578 stores R,G at +0, +8, B at +0x10 and 1.0 at +0x18 of the static 0x26c6de0
+CB-sc-store@0xd35604	insn	0x00d35604	090d00f9	str x9, [x8, #0x18]	FUN_00d35578 stores R,G at +0, +8, B at +0x10 and 1.0 at +0x18 of the static 0x26c6de0
+CB-rgba-out@0x6d8774	insn	0x006d8774	08fee7d2	mov x8, #0x3ff0000000000000	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d8778	insn	0x006d8778	880200f9	str x8, [x20]	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d8780	insn	0x006d8780	bf8e00f8	str xzr, [x21, #0x8]!	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d8788	insn	0x006d8788	df0e01f8	str xzr, [x22, #0x10]!	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d8790	insn	0x006d8790	e88e01f8	str x8, [x23, #0x18]!	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d87f0	insn	0x006d87f0	e20314aa	mov x2, x20	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d87f4	insn	0x006d87f4	e30315aa	mov x3, x21	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d87f8	insn	0x006d87f8	e40316aa	mov x4, x22	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-rgba-out@0x6d87fc	insn	0x006d87fc	e50317aa	mov x5, x23	FUN_006d874c fills a 4-double buffer by getRed:green:blue:alpha: (default 1,0,0,1)
+CB-default@0xd358b0	insn	0x00d358b0	08040011	add w8, w0, #0x1	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358b4	insn	0x00d358b4	1f050071	cmp w8, #0x1	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358b8	insn	0x00d358b8	a8030054	b.hi 0xd3592c	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358bc	insn	0x00d358bc	881a8052	mov w8, #0xd4	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358c0	insn	0x00d358c0	e886ac72	movk w8, #0x6437, lsl #16	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358cc	insn	0x00d358cc	00106e1e	fmov d0, #1.00000000	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-default@0xd358d0	insn	0x00d358d0	32c02a94	bl 0x17e5998	FUN_00d358a0 for index -1 or 0 uses the constant (hue 212, bytes 55, 100) with alpha 1.0
+CB-palette@0xd34e3c	insn	0x00d34e3c	28040011	add w8, w1, #0x1	FUN_00d34de8 maps index -1 and 0 to palette entry 9; others clamp to 0..127
+CB-palette@0xd34e48	insn	0x00d34e48	3ffd0171	cmp w9, #0x7f	FUN_00d34de8 maps index -1 and 0 to palette entry 9; others clamp to 0..127
+CB-palette@0xd34e50	insn	0x00d34e50	2a018052	mov w10, #0x9	FUN_00d34de8 maps index -1 and 0 to palette entry 9; others clamp to 0..127
+CB-palette@0xd34e54	insn	0x00d34e54	1f090071	cmp w8, #0x2	FUN_00d34de8 maps index -1 and 0 to palette entry 9; others clamp to 0..127
+CB-palette@0xd34e58	insn	0x00d34e58	4831891a	csel w8, w10, w9, lo	FUN_00d34de8 maps index -1 and 0 to palette entry 9; others clamp to 0..127
+DC-dict@0xa69bf8	insn	0x00a69bf8	08812e91	add x8, x8, #0xba0	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c00	insn	0x00a69c00	29412f91	add x9, x9, #0xbd0	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c04	insn	0x00a69c04	e82706a9	stp x8, x9, [sp, #0x60]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c0c	insn	0x00a69c0c	08e12e91	add x8, x8, #0xbb8	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c14	insn	0x00a69c14	29a12f91	add x9, x9, #0xbe8	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c18	insn	0x00a69c18	e8a708a9	stp x8, x9, [sp, #0x88]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c20	insn	0x00a69c20	08013091	add x8, x8, #0xc00	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c28	insn	0x00a69c28	4ac13091	add x10, x10, #0xc30	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c2c	insn	0x00a69c2c	e82b07a9	stp x8, x10, [sp, #0x70]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c34	insn	0x00a69c34	08613091	add x8, x8, #0xc18	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c38	insn	0x00a69c38	e8a709a9	stp x8, x9, [sp, #0x98]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c40	insn	0x00a69c40	08213191	add x8, x8, #0xc48	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c44	insn	0x00a69c44	e84300f9	str x8, [sp, #0x80]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c48	insn	0x00a69c48	e95700f9	str x9, [sp, #0xa8]	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c54	insn	0x00a69c54	e2230291	add x2, sp, #0x88	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c58	insn	0x00a69c58	e3830191	add x3, sp, #0x60	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69c5c	insn	0x00a69c5c	a4008052	mov w4, #0x5	defaultColorIndexForTrackTypes: keys at sp+0x60, objects at sp+0x88, count 5
+DC-dict@0xa69bf4	insn	0x00a69bf4	08ce00b0	adrp x8, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69bfc	insn	0x00a69bfc	09ce00b0	adrp x9, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c08	insn	0x00a69c08	08ce00b0	adrp x8, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c10	insn	0x00a69c10	09ce00b0	adrp x9, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c1c	insn	0x00a69c1c	08ce00b0	adrp x8, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c24	insn	0x00a69c24	0ace00b0	adrp x10, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c30	insn	0x00a69c30	08ce00b0	adrp x8, 0x242a000	page base of the constants (0x242a000)
+DC-dict@0xa69c3c	insn	0x00a69c3c	08ce00b0	adrp x8, 0x242a000	page base of the constants (0x242a000)
+STUB-trackTypeForTrack@0x1bbe460	insn	0x01bbe460	814d00f0	adrp x1, 0x2571000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-trackTypeForTrack@0x1bbe464	insn	0x01bbe464	216842f9	ldr x1, [x1, #0x4d0]	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-getRed@0x1b3cf20	insn	0x01b3cf20	a1500090	adrp x1, 0x2550000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-getRed@0x1b3cf24	insn	0x01b3cf24	21c047f9	ldr x1, [x1, #0xf80]	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-dictionaryWithObjects@0x1b2b6c0	insn	0x01b2b6c0	015100b0	adrp x1, 0x254c000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-dictionaryWithObjects@0x1b2b6c4	insn	0x01b2b6c4	21b444f9	ldr x1, [x1, #0x968]	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-dataWithBytes@0x1b26f40	insn	0x01b26f40	215100b0	adrp x1, 0x254b000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-dataWithBytes@0x1b26f44	insn	0x01b26f44	21c443f9	ldr x1, [x1, #0x788]	objc stub: loads the selector reference then jumps to objc_msgSend
+ST-none-t@0x242fce0	data	0x0242fce0	0000000000000000		NSConstantIntegerNumber at 0x242fcd0: the value paired with the type key when nothing is selected (pairing from the decompiler stack layout, not machine code)
+ST-none-flags@0x242fcc8	data	0x0242fcc8	0000000000000000		NSConstantIntegerNumber at 0x242fcb8: meta-info flags and track number when nothing is selected
+ST-none-index@0x242fd10	data	0x0242fd10	ffffffffffffff7f		NSConstantIntegerNumber at 0x242fd00: the strip index when nothing is selected (NSIntegerMax)
+DC-firstColor@0x242ab80	data	0x0242ab80	0100000000000000		NSConstantIntegerNumber at 0x242ab70: firstColor = 1 (value at +0x10)
+DC-lastColor@0x242ab98	data	0x0242ab98	7800000000000000		NSConstantIntegerNumber at 0x242ab88: lastColor = 0x78 (value at +0x10)
+DC-key1@0x242abb0	data	0x0242abb0	0100000000000000		NSConstantIntegerNumber at 0x242aba0: dictionary key 1 (value at +0x10)
+DC-key2@0x242abe0	data	0x0242abe0	0200000000000000		NSConstantIntegerNumber at 0x242abd0: dictionary key 2 (value at +0x10)
+DC-key3@0x242ac10	data	0x0242ac10	0300000000000000		NSConstantIntegerNumber at 0x242ac00: dictionary key 3 (value at +0x10)
+DC-key4@0x242ac40	data	0x0242ac40	0400000000000000		NSConstantIntegerNumber at 0x242ac30: dictionary key 4 (value at +0x10)
+DC-key0@0x242ac58	data	0x0242ac58	0000000000000000		NSConstantIntegerNumber at 0x242ac48: dictionary key 0 (value at +0x10)
+DC-idx16@0x242abc8	data	0x0242abc8	1000000000000000		NSConstantIntegerNumber at 0x242abb8: colour index 0x10, object paired with key 1
+DC-idx9@0x242abf8	data	0x0242abf8	0900000000000000		NSConstantIntegerNumber at 0x242abe8: colour index 9, object paired with keys 2, 4 and 0
+DC-idx76@0x242ac28	data	0x0242ac28	4c00000000000000		NSConstantIntegerNumber at 0x242ac18: colour index 0x4c, object paired with key 3
+CB-T1-212@0x1d43b98	data	0x01d43b98	e17a14ae47e1f23f		per-hue table 1 at hue 212 = 1.18
+CB-T2-212@0x1d446d8	data	0x01d446d8	f6285c8fc2f5f03f		per-hue table 2 at hue 212 = 1.06
+BD-normal@0x2282450	bind	0x02282450		MACore/_BgTrackInfoColorsNormalColorKey	slot of the imported key constant
+BD-selected@0x2282458	bind	0x02282458		MACore/_BgTrackInfoColorsSelectedColorKey	slot of the imported key constant
+BD-tintnormal@0x2282438	bind	0x02282438		MACore/_BgTrackInfoColorsIconTintNormalColorKey	slot of the imported key constant
+BD-tintselected@0x2282440	bind	0x02282440		MACore/_BgTrackInfoColorsIconTintSelectedColorKey	slot of the imported key constant
+BD-typekey@0x22824b8	bind	0x022824b8		MACore/_BgTrackInfoTypeKey	slot of the imported key constant
+BD-defaultcolors@0x22824c8	bind	0x022824c8		MACore/_BgTronDefaultColorIndexForTrackTypesKey	slot of the imported key constant
+SEL-trackTypeForTrack@0x25714d0	selref	0x025714d0		trackTypeForTrack:seqID:ginst:inSong:	selector reference used by the stub at 0x1bbe460
+SEL-getRed@0x2550f80	selref	0x02550f80		getRed:green:blue:alpha:	selector reference used by the stub at 0x1b3cf20
+SEL-dictionaryWithObjects@0x254c968	selref	0x0254c968		dictionaryWithObjects:forKeys:count:	selector reference used by the stub at 0x1b2b6c0
+SEL-dataWithBytes@0x254b788	selref	0x0254b788		dataWithBytes:length:	selector reference used by the stub at 0x1b26f40

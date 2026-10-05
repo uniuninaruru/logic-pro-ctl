@@ -45,7 +45,7 @@ flowchart LR
 |---|---|
 | `static-analysis/` | Ghidra、命令、メタデータ、ハッシュを使った根拠 |
 | `experiments/` | 対象・初期状態・1回の操作・観測・再現回数 |
-| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）などの抽出表 |
+| `protocol/` | ワイヤーキー、コマンド台帳（`operation-catalog.tsv`）、Remote のスキーマ、領域別の対応表（`support-matrix.tsv`）、`t`・`c` の表と命令の照合表（`logic-remote-track-types.tsv`・`logic-remote-colour-bytes.tsv`・`logic-remote-trackcolor-anchors.tsv`。確認は `Tools/research-scripts/binary_anchors.py`）などの抽出表 |
 | `notes/` | 関連資料・先行例 |
 | `raw/` | ローカルの生出力。Gitには含めない |
 
@@ -61,6 +61,7 @@ flowchart LR
 | [SA-REMOTE-SESSION-001](static-analysis/SA-REMOTE-SESSION-001.md) | Logic Remote の接続：広告・招待・承認・バージョンの順序と拒否の条件 |
 | [SA-REMOTE-FRAME-001](static-analysis/SA-REMOTE-FRAME-001.md) | Logic Remote のフレーム：タグ・圧縮（MAZP）・形式の選び方・型と順序 |
 | [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) | Logic の状態送信：初回送信の順序、`/ati`・`/sti`・`/gtFaderData`、差分、曲の切り替えと接続 |
+| [SA-REMOTE-TRACKTYPE-001](static-analysis/SA-REMOTE-TRACKTYPE-001.md) | `/ati` の `t`（トラックの種類。判定の 8 規則）と `c`（色の 4 バイトは R, G, B, A）。命令・定数の照合表付き（実機の受信は未確認） |
 | [SA-COMMAND-CATALOG-001](static-analysis/SA-COMMAND-CATALOG-001.md) | 登録コマンド 2353 件の台帳と、Remote のコマンド一覧（実行はしていない） |
 | [SA-IDENTITY-001](static-analysis/SA-IDENTITY-001-binary-inputs.md) | 元Universal/thinファイル・arm64 slice・解析copy・Ghidra import metadataの識別と照合 |
 | [AppleEvent登録](static-analysis/appleevent-registration.md) | handler・型・戻り値・モード分岐 |
