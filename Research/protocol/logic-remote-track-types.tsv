@@ -1,12 +1,12 @@
 # /ati "t" (track kind), /sti "t", the default colour index per track kind, and the nc and p columns of /ati (scopes ati.nc and ati.p). Logic 12.3.1 (6682), Logic.arm64 sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998.
-# Source: SA-REMOTE-TRACKTYPE-001 (static) and EXP-REMOTE-001 (one reception, 2026-10-05). live_check: observed = seen in that reception; unconfirmed = not seen.
+# Source: SA-REMOTE-TRACKTYPE-001 (static), EXP-REMOTE-001 and EXP-REMOTE-003 (one reception each, 2026-10-05). live_check: observed = seen in the named reception; unconfirmed = not seen.
 # The condition column is read from the code (anchors name the rows of logic-remote-trackcolor-anchors.tsv that pin the constants).
 # The meaning column is a hypothesis with the stated confidence unless live_check says observed; even then it rests on one project.
 # For scope ati.t the rule number is the order in which trackTypeForTrack:seqID:ginst:inSong: (0x01693e90) tries the rules; the first that applies wins.
 # Terms: G = the "ginst object" FUN_01a15c7c(song, ginst) returns (only for a strip whose type byte +0x69 is 0x11), kind(G) = ushort at G[0] with bit 3 cleared;
 #        entry = the 0x50-byte track entry (kind byte +0x10, depth byte +0x12, flags +0x14, id +0x20); strip type = byte +0x69 of the strip the entry's id selects.
 # scope<TAB>rule<TAB>value<TAB>condition<TAB>anchors<TAB>meaning_hypothesis<TAB>confidence<TAB>live_check
-ati.t	R1	7	entry known and FUN_019fa680 is true (entry kind not 3, 4, 5, 0xc; the next entry that is not kind 5 or 0xc is exactly one level deeper) and entry[+0x14] & 0x40	TT-parent-call,PT-parent,TT-ret-7	a track with children that is not a kind-3/4 container; flag 0x40 distinguishes it from 8	low	unconfirmed
+ati.t	R1	7	entry known and FUN_019fa680 is true (entry kind not 3, 4, 5, 0xc; the next entry that is not kind 5 or 0xc is exactly one level deeper) and entry[+0x14] & 0x40	TT-parent-call,PT-parent,TT-ret-7	a track whose entry has children with flag 0x40 (R1). Seen once: Amped Up (gindex 132) in EXP-REMOTE-003, whose /sti t was 2, so its strip kind word is 0x43 (software instrument): a software-instrument track with child tracks, stack-like. What Logic calls it (summing stack or other) is unconfirmed	medium	observed (EXP-REMOTE-003)
 ati.t	R1	8	same as 7 with the flag clear; also the fall-back when the parent branch cannot finish (sequence flagged invalid, entry outside the range, depth mismatch)	TT-ret-8,TT-ret-7	the other kind of parent track	low	unconfirmed
 ati.t	R2	5	G known and kind(G) == 0x44	TT-kind-word,TT-ret-5	the output strip (Stereo Out). Logic names a single selected strip of this kind "Master Track" (cf_MasterTrack, 0x02338f08): the tracks area's Master track stands for the output. The first guess "the Master strip" was wrong	high	observed (EXP-REMOTE-001)
 ati.t	R3	10	G known and kind(G) == 0x46 and the signed short G[+2] > 0	TT-ret-6-10	a strip of the same kind as Master with G[+2] > 0, such as a VCA (guess)	low	unconfirmed
@@ -19,7 +19,7 @@ ati.t	R7	9	G known and kind(G) == 0x42	TT-ret-9	a MIDI-driven strip: ginstNeedsM
 ati.t	R8	0	none of the rules applies, or neither an entry nor G can be found	TT-ret-char	no kind	high	unconfirmed
 sti.t	-	0	no selected strip gave a result of 1 to 4 (also the value when nothing is selected)	ST-block	no kind	high	unconfirmed
 sti.t	-	1	every selected strip with a result of 1 to 4 gave 1 (the same for 3 and 4)	ST-block	the common kind	high	observed (EXP-REMOTE-001)
-sti.t	-	2	selected strips with results of 1 to 4 differ (set to 2), or all gave 2	ST-block	mixed selection, or kind 2	high	unconfirmed
+sti.t	-	2	selected strips with results of 1 to 4 differ (set to 2), or all gave 2	ST-block	mixed selection, or kind 2; EXP-REMOTE-003: 2 for a strip whose /ati t was 7, because /sti passes no entry and R1 cannot apply	high	observed (EXP-REMOTE-003)
 default_colour_index	-	0	colour index 9	DC-dict,DC-key0,DC-idx9	default colour index of key 0	high	observed (EXP-REMOTE-001)
 default_colour_index	-	1	colour index 16	DC-dict,DC-key1,DC-idx16	default colour index of key 1	high	observed (EXP-REMOTE-001)
 default_colour_index	-	2	colour index 9	DC-dict,DC-key2,DC-idx9	default colour index of key 2	high	observed (EXP-REMOTE-001)

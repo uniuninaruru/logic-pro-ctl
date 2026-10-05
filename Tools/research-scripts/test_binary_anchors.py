@@ -181,16 +181,16 @@ class CommittedTableTests(unittest.TestCase):
         self.assertEqual(sorted(set(rules)), [f"R{i}" for i in range(1, 9)])
         for row in read_tsv(TRACK_TYPES, 8):
             # a value is either seen in the named reception or explicitly not seen
-            self.assertIn(row[7], ("unconfirmed", "observed (EXP-REMOTE-001)"), row[:3])
+            self.assertIn(row[7], ("unconfirmed", "observed (EXP-REMOTE-001)", "observed (EXP-REMOTE-003)"), row[:3])
             self.assertIn(row[6], ("high", "medium", "low"), row[:3])
             self.assertTrue(row[4], row[:3])
 
     def test_a_kind_meaning_is_high_confidence_only_when_it_was_received(self):
         rows = [row for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t"]
-        high = sorted(row[2] for row in rows if row[6] == "high" and row[2] != "0")   # 0 is "no kind", not a meaning
-        observed = sorted(row[2] for row in rows if row[7].startswith("observed"))
-        self.assertEqual(high, observed)
-        self.assertEqual(observed, ["1", "2", "5", "6"])
+        high = {row[2] for row in rows if row[6] == "high" and row[2] != "0"}   # 0 is "no kind", not a meaning
+        observed = {row[2] for row in rows if row[7].startswith("observed")}
+        self.assertLessEqual(high, observed)                    # nothing is called high without a reception
+        self.assertEqual(sorted(observed), ["1", "2", "5", "6", "7"])
 
     def test_the_received_kinds_are_the_ones_the_experiment_reports(self):
         meaning = {row[2]: row[5] for row in read_tsv(TRACK_TYPES, 8) if row[0] == "ati.t"}

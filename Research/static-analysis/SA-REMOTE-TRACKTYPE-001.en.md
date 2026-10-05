@@ -158,7 +158,8 @@ The `nc` and `p` columns that the `/ati` block makes are also read from *G* (the
 |---|---|---|
 | Kind words `0x40`, `0x43`, `0x44`, `0x46` and `t` = 1, 2, 5, 6 | **Confirmed by receiving** (EXP-REMOTE-001) | Whether it holds in other projects (surround, several outputs) |
 | `t` = 9 (kind word 0x42) and `t` = 10 (0x46 with *G*[+2] > 0) | Hypothesis (low): external MIDI, VCA and the like | Receive with such tracks added (E3 or later; needs separate approval) |
-| `t` = 3, 4, 7, 8 (folder, stack, others) | Hypothesis (low) | A reception with a folder and a stack added to the project (E3 or later; needs separate approval) |
+| `t` = 7 | **Seen once by receiving** ([EXP-REMOTE-003](../experiments/EXP-REMOTE-003-reconnect-selection-baseline.en.md)): Amped Up (`gindex` 132). The same strip's `/sti` `t` was 2. That matches the reading in §2 and §3: `/sti` passes no entry, so R1 cannot apply and the strip's kind word 0x43 (software instrument) gives 2. So: a software-instrument track with child tracks. What Logic calls it (a summing stack or other) is unconfirmed | A reception with the child tracks expanded; a comparison with a folder |
+| `t` = 3, 4, 8 (folder, stack, others) | Hypothesis (low) | A reception with a folder and a stack added to the project (needs separate approval) |
 | Where the palette table of `FUN_00d34de8` comes from (configuration reads) | Not analysed | Read the initialisation (`0x00d34ea8` onward) |
 | Colours from `MASharedInstrumentIconService` | Not analysed | Analyse another binary |
 | How the Remote app interprets `t` and `c` | Not examined (the app is out of scope) | Not needed: this product reads what Logic sends |
