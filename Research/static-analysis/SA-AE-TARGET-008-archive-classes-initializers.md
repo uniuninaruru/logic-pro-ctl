@@ -56,7 +56,7 @@ MACore の `MAExtensions` category を保存バイナリの metadata で辿り�
 
 両 reader はそれぞれ3種類の不正入力を拒否しました。元バイナリを変更せず、hash 不一致・範囲外・未対応の synthetic header などを検査しました。別の読み取り専用 parser で、class references・category の走査数・relative fields・全37 slice を独立に再計算して一致しています。汎用の ObjC / Mach-O parser ではありません。
 
-1. 今回の class 候補は全 allowed classes ではありません。Logic の getter は追加 class-set と delegate を使うため、その別の経路を読む必要があります。
+1. 今回の class 候補は全 allowed classes ではありません。Logic の getter の追加 class-set・delegate と UUID coder は [SA-AE-TARGET-009](SA-AE-TARGET-009-decoder-delegate-uuid.md)で確認しました。実機での class 受理・decode 成功は未確認です。
 2. すべての登録元と現在の registry、first receiver、decode の失敗・受理した class は未確認です。
 3. [キャッシュを使う読み戻しの限界](SA-AE-TARGET-006-exception-metadata-loading.md)は残ります。archive の保存後再読込・UUID 除去・復元・Undo を別に検証します。
 

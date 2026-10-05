@@ -56,7 +56,7 @@ The 220 instructions in 7 functions and 37 extracted slices were matched against
 
 Each reader rejected three kinds of invalid input. The original binaries were unchanged; checks included a hash mismatch, out-of-range access, and an unsupported synthetic header. A separate read-only parser independently recalculated class references, category search counts, relative fields, and all 37 slices, with matching results. These are not general ObjC / Mach-O parsers.
 
-1. These class candidates are not the full allowed-class set. Logic's getter uses an additional class-set and delegate, so those separate paths still need inspection.
+1. These class candidates are not the full allowed-class set. Logic's getter additions, delegate, and UUID coder are covered in [SA-AE-TARGET-009](SA-AE-TARGET-009-decoder-delegate-uuid.en.md). Runtime class acceptance and successful decoding remain unverified.
 2. All registration sources, current registry membership, the first receiver, decode failures, and accepted classes remain unverified.
 3. The [limits of readback through the cache](SA-AE-TARGET-006-exception-metadata-loading.en.md) remain. Reopening after archive storage, UUID removal, restoration, and Undo require separate verification.
 

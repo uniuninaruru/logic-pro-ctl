@@ -1,0 +1,9 @@
+id	program	boundary	function_entry	evidence_instruction	static_fact	remaining_boundary	runtime_verified	product_capability
+decoder-009-01	Logic.arm64	getter_extra_classes	0x019d82b4	0x019d8428	NSValue / NSData / _WsChannelUUID candidates then union with mappingClasses	Candidates do not establish full runtime membership or decode acceptance	false	false
+decoder-009-02	Logic.arm64	getter_delegate_mode1	0x019d82b4	0x019d83c0	Record +0x02 == 1 gates alloc/init and setDelegate	No explicit alloc/init nil gate; not generalized to mode 2	false	false
+decoder-009-03	Logic.arm64	delegate_fallback	0x019a66d8	0x019a6770	originalClasses element equal to MAMapping yields MANullParameterMapping class candidate; otherwise nil	Callback invocation and returned class acceptance unobserved; original mapping semantics unverified	false	false
+decoder-009-04	Logic.arm64	uuid_secure_flag	0x019a386c	0x019a386c	Class method returns 1	No whole-archive success or failure validation	false	false
+decoder-009-05	Logic.arm64	uuid_decode_length	0x019a39f0	0x019a3a30	decodeBytesForKey:returnedLength: with UUIDBytes; length != 16 returns nil	Returned-length stack slot not initialized before call in this body	false	false
+decoder-009-06	Logic.arm64	uuid_create_result	0x019a39f0	0x019a3a4c	Length 16 path loads bytes and stores CFUUIDCreateFromUUIDBytes result at receiver +0x08	No explicit byte pointer or CFUUID result nil gate; native failure and EH unverified	false	false
+decoder-009-07	Logic.arm64	uuid_encode	0x019a3aa8	0x019a3ae8	CFUUIDGetUUIDBytes x0/x1 saved; encodeBytes:length:forKey: length 16 / UUIDBytes	No explicit receiver +0x08 nil gate or encode result validation	false	false
+decoder-009-08	Logic.arm64	getter_once_invoke	0x019d82b4	0x019d8500	Once block 0x02337fc0 invoke points to 0x019d87e8 (4-byte thunk)	Registration body remains unread	false	false

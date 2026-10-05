@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-009"
+  ],
+  "captured_at_utc": "2026-10-05T00:29:52.899879+00:00",
+  "app_profile": "Logic Pro Creator Studio 12.3.1 / 6682",
+  "identity_manifest": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "Research/static-analysis/appleevent-class-construction-manifest.json",
+    "Research/static-analysis/appleevent-phase-analysis-manifest.json"
+  ],
+  "scope": "Six fixed function bodies plus prior getter and selected class/coder/delegate metadata only.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "programs": {
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "binary": "Logic",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+      "installed_source_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_offset_bytes": 0,
+      "slice_size_bytes": 40710736,
+      "selected_arm64_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    },
+    {
+      "binary": "MACore",
+      "installed_source_path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/MACore.framework/Versions/A/MACore",
+      "installed_source_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "slice_offset_bytes": 2375680,
+      "slice_size_bytes": 2248544,
+      "selected_arm64_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "analysis_copy_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/MACore.arm64",
+      "source_slice_copy_byte_equal": true,
+      "slice_copy_stored_import_hash_equal": true
+    }
+  ],
+  "shared_lock_absolute_path": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock",
+  "query_groups": {
+    "q-appleevent-decoder-009": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x019a66d8",
+          "defined_body_size_bytes": 300,
+          "inventory_name": "CLgMappingUnarchiverDelegate::unarchiver:cannotDecodeObjectOfClassName:originalClasses:"
+        },
+        {
+          "address": "0x019a39f0",
+          "defined_body_size_bytes": 156,
+          "inventory_name": "_WsChannelUUID::initWithCoder:"
+        },
+        {
+          "address": "0x019a3aa8",
+          "defined_body_size_bytes": 92,
+          "inventory_name": "_WsChannelUUID::encodeWithCoder:"
+        },
+        {
+          "address": "0x019a386c",
+          "defined_body_size_bytes": 8,
+          "inventory_name": "_WsChannelUUID::supportsSecureCoding"
+        }
+      ]
+    },
+    "q-appleevent-decoder-support-009": {
+      "program": "Logic.arm64",
+      "functions": [
+        {
+          "address": "0x01b27920",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::FUN_01b27920"
+        },
+        {
+          "address": "0x01b333e0",
+          "defined_body_size_bytes": 20,
+          "inventory_name": "objc_stub::FUN_01b333e0"
+        }
+      ]
+    }
+  },
+  "prior_getter_rechecked": {
+    "address": "0x019d82b4",
+    "defined_body_size_bytes": 596,
+    "inventory_name": "FUN_019d82b4"
+  },
+  "scripts": [
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd",
+      "size_bytes": 3123
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c",
+      "size_bytes": 5102
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9",
+      "size_bytes": 3163
+    },
+    {
+      "path": "Tools/ghidra/PointerDataReport.java",
+      "sha256": "98ea97b2c1d588230fc1c76ec167ddffc14e7c2f4ad0e150bf6220911e480c12",
+      "size_bytes": 3664
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597",
+      "size_bytes": 1981
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331",
+      "size_bytes": 11784200
+    },
+    {
+      "path": "Research/raw/ghidra/build-decoder-manifest-009.py",
+      "sha256": "be37d089dfd2de5fb6492c6afbf82d9c6242b4eb433ec0f2400fee049ed48c73",
+      "size_bytes": 11138
+    },
+    {
+      "path": "Research/raw/ghidra/decoder-independent-review-009.json",
+      "sha256": "c790717e4e55219272f464ad42a72974c60d65fcb25e6c8e60c88027eb55071c",
+      "size_bytes": 523
+    },
+    {
+      "path": "Research/raw/ghidra/decoder-references-009.json",
+      "sha256": "3ea0e2c838ef0eabfb3dc9b0608bf4fdc826529567a5c7a57c2fc932336b7c64",
+      "size_bytes": 10947
+    },
+    {
+      "path": "Research/raw/ghidra/decoder-references-009.py",
+      "sha256": "60e1a7fa18d4642758ad52f5215cf317e6a616ffe707e0461dee1bdc76aacff6",
+      "size_bytes": 7519
+    },
+    {
+      "path": "Research/raw/ghidra/decoder-verification-009.json",
+      "sha256": "a3ea5d2e93b76f3c817db438dcb44b556fdc159919b990aa6cfcde62912e4382",
+      "size_bytes": 583
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-009-machinecode.txt",
+      "sha256": "732bcbeca33329607e916091b3d5f6d12b4792d8dff322f5544595521d2aa0c3",
+      "size_bytes": 6021
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-009.c",
+      "sha256": "1aaf4585e829917924e7d1f7a11cfde39483ee2aa70e498c991bad0e187dd981",
+      "size_bytes": 3864
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-009.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f",
+      "size_bytes": 461
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-009.log",
+      "sha256": "a23eaf55fd8d07ecda20f88768baa0242e50a1ffbdfb209b7eefcae84af66fa7",
+      "size_bytes": 5268
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-support-009-data.txt",
+      "sha256": "46047825ccf681bbc96f0f511b41c59de527c6c7129d8d72fa7a695e526cd89d",
+      "size_bytes": 7110
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-support-009-machinecode.txt",
+      "sha256": "e568b560636eea7bfdf66a5990d6162d0d80fa5edb31040d465cad7254e3157f",
+      "size_bytes": 815
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-support-009.c",
+      "sha256": "94be6b935dbf06d8e336dab47df216b366151970cc71494e3bfe0bb3d2c48328",
+      "size_bytes": 526
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-support-009.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f",
+      "size_bytes": 461
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-decoder-support-009.log",
+      "sha256": "3fcf4342ac2f8a300c95dc271fb4b58fb22eace93786bb51305660419c58e4a6",
+      "size_bytes": 5895
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-phase-leaves-006-machinecode.txt",
+      "sha256": "96afa6e6327d396783592282260b28c2be699ef2767e079af736c497caee28c4",
+      "size_bytes": 21355
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-phase-leaves-006.c",
+      "sha256": "0d7f3be72de1599f3acc6b297880b8324e395ab133c8425b24e693e78f4da54d",
+      "size_bytes": 11047
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-xml-objc-metadata-002.txt",
+      "sha256": "d4351294d924c8f6b50eb086e0c7f6d02df71e297e546c34850124058fadc4ac",
+      "size_bytes": 37362662
+    },
+    {
+      "path": "Research/raw/ghidra/run-decoder-009.py",
+      "sha256": "53dae293d099554d5d024b9bc2bb425e5dbe2649ff438a65b25066cb352455e9",
+      "size_bytes": 1334
+    },
+    {
+      "path": "Research/raw/ghidra/run-decoder-support-009.py",
+      "sha256": "ba2ad719a4b15b322029a5a94a20f0dfda559faaad8e5cbd7970618fa5b8a86a",
+      "size_bytes": 1523
+    }
+  ],
+  "successful_logs": [
+    "Research/raw/ghidra/q-appleevent-decoder-009.log",
+    "Research/raw/ghidra/q-appleevent-decoder-support-009.log"
+  ],
+  "static_verification": {
+    "new_function_words_compared": 149,
+    "prior_getter_words_compared": 149,
+    "all_words_equal": true,
+    "fixed_pointer_words_compared": 21,
+    "relative_method_entries_recomputed": 4,
+    "independent_read_only_review_passed": true,
+    "independent_full_chain_walks": 12,
+    "negative_checks": [
+      {
+        "case": "nonmember pointer byte",
+        "rejected": true
+      },
+      {
+        "case": "unmapped range",
+        "rejected": true
+      },
+      {
+        "case": "unterminated bounded CString",
+        "rejected": true
+      }
+    ],
+    "source_modified": false,
+    "runtime_execution": false,
+    "new_function_count": 6,
+    "new_defined_body_bytes": 596,
+    "total_instruction_words_compared": 298,
+    "additional_getter_class_candidate_count": 3,
+    "local_class_metadata_paths": 2,
+    "coder_selector_stubs": 2,
+    "cfstring_keys": 2,
+    "published_boundary_rows": 8
+  },
+  "reference_sources": [
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/apple-oss-distributions/objc4/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "github_url": "https://github.com/apple-oss-distributions/objc4/blob/fb265098298302243cd7eeaa1f63f0ba7786dd9a/runtime/objc-runtime-new.h",
+      "commit": "fb265098298302243cd7eeaa1f63f0ba7786dd9a",
+      "sha256": "6a27a1d709f81e7eb1383ca750650797e591896fbc101185ae674f08171659eb",
+      "line_count": 3232,
+      "consulted_1_based_line_bounds": [
+        [
+          635,
+          665
+        ],
+        [
+          696,
+          714
+        ],
+        [
+          920,
+          924
+        ],
+        [
+          975,
+          985
+        ],
+        [
+          1029,
+          1059
+        ],
+        [
+          1241,
+          1255
+        ],
+        [
+          3196,
+          3208
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/fixup-chains.h",
+      "sha256": "64836772232f1a90c5dea06e9592a0e632bf167120612991d4d4a1f4051eb67d",
+      "consulted_1_based_line_bounds": [
+        [
+          36,
+          77
+        ],
+        [
+          95,
+          114
+        ],
+        [
+          163,
+          170
+        ],
+        [
+          220,
+          228
+        ],
+        [
+          327,
+          358
+        ]
+      ],
+      "full_source_saved": false
+    },
+    {
+      "url": "https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/fixup-chains.h",
+      "role": "public format reference; local SDK content hash is recorded separately"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-decoder-boundaries.tsv",
+      "sha256": "543213fc4a41ccc9b25a021a2e92e0ea2c43a6fb0a696d71b28ad80e5c04a6b6",
+      "size_bytes": 1851
+    }
+  ],
+  "dynamic_verification": "not_attempted",
+  "product_capabilities_added": false,
+  "research_actions": {
+    "installed_binary_modified": false,
+    "ghidra_database_saved": false,
+    "target_process_attached": false,
+    "peer_connection_attempted": false,
+    "application_events_sent": false,
+    "preferences_changed": false
+  },
+  "notes": [
+    "Local class addresses are named by fixed class metadata paths, not presumed N_SECT class symbols; current process class objects and dispatch unobserved.",
+    "Three additional class candidates do not establish effective or complete runtime decoder membership.",
+    "Delegate mode 1 condition is not generalized to mode 2; callback only supplies a replacement class candidate, not proof of original mapping reconstruction.",
+    "UUIDBytes length sixteen is not proof of pointer validity, successful native creation, complete secure coding, persistence, or stable track identity.",
+    "Private finishDecoding_ma and the once registration body remain unread.",
+    "Native failure, class acceptance, exception cleanup, cache-free round trip, restoration and Undo remain open.",
+    "Fixed-input reader only; raw chained-fixup words are distinguished from Ghidra resolved imports/placeholders."
+  ]
+}
