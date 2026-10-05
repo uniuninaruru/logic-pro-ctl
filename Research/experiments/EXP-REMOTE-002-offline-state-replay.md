@@ -16,6 +16,10 @@
 
 ## 状態構築器の契約
 
+同じ契約を、製品側の Swift でも `Sources/LogicCore/Backends/Remote/RemoteState.swift`（`RemoteStateBuilder`）として実装した。デコード済みのメッセージを受け取って状態を返すだけで、接続・送信・CLI には組み込んでいない。試験は `Tests/LogicCoreTests/RemoteStateTests.swift`（22 件。JSON の文字列キーとアーカイブの数値キー、MAZP 圧縮の `/sti` と辞書の `/sti` が同じ結果になること、手元に記録があれば実データで Python 版と同じ数になることも確かめる）。
+
+移植の途中で、Python 版の誤りを 1 つ直した：トラック側の値（`r`・`ip`）を `track_id` だけで引き継いでいたが、`track_id` は位置に従う（EXP-REMOTE-001）ので、並べ替えの後に別のストリップへ値が付いていた。今は、`track_id` が同じ UUID のストリップに残る場合だけ引き継ぐ。
+
 製品（`Sources/`）には入れない研究用の道具である。[読み取りの契約](../../docs/observation-contract.md)と同じ考え方で、**分からないものを分かったことにしない**。
 
 | # | 決まり | 理由 |

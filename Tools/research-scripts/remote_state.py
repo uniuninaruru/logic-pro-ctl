@@ -163,8 +163,11 @@ class StateBuilder:
         for g in self.strips:
             if g not in new_strips:
                 self._event(frame, "/ati", "strip_removed", gindex=g)
-        kept_tracks = set(track_id)
-        self.track_fader = {tid: v for tid, v in self.track_fader.items() if tid in kept_tracks}
+        # A track ID keeps its values only while it stays with the same strip (same uuid). Track IDs follow
+        # position (EXP-REMOTE-001), so after a reorder the same ID can name another strip.
+        before = {s["track_id"]: s["uuid"] for s in self.strips.values()}
+        now = dict(zip(track_id, uuid))
+        self.track_fader = {tid: v for tid, v in self.track_fader.items() if tid in now and before.get(tid) == now[tid]}
         self.strips, self.order = new_strips, gindex
         self.last_ati, self.ati_frame = ati, frame
         self._event(frame, "/ati", "ati_applied", strips=rows)

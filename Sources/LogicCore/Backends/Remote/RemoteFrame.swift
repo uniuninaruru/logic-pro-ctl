@@ -4,8 +4,9 @@ import Foundation
 // Logic Remote application frames, read from MACore 12.3.1 (6682):
 // MAPeerRouter processReceivedData:fromPeer: (decode), the serializer at 0x000f98c8
 // (encode) and NSData maUncompressedData / maCompressedDataWithCompressionLevel:.
-// Static analysis only (Research/static-analysis/SA-REMOTE-FRAME-001.md): nothing here
-// has been checked against traffic from a real Logic yet.
+// Read by static analysis (Research/static-analysis/SA-REMOTE-FRAME-001.md) and checked once against a
+// real reception (EXP-REMOTE-001, 2026-10-05: all 5,947 frames from Logic decoded). One reception of one
+// project is not proof for every message Logic can send; the test fixtures are still synthetic.
 //
 //   frame       = tag payload
 //   tag         = bit 7: payload is a MAZP container;  bits 0-6: 1 plist, 4 JSON, other = keyed archive (writer uses 2)

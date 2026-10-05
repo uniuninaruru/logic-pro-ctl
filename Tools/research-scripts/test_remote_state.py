@@ -129,6 +129,13 @@ class AtiTests(unittest.TestCase):
         self.assertEqual([(s["name"], s["position"], s["fader"]["vL"]["value"]) for s in strips], [("B", 1, 2), ("A", 2, 1)])
         self.assertIn("strip_moved", kinds(b))
 
+    def test_track_values_do_not_follow_a_track_id_that_now_names_another_strip(self):
+        b = rs.StateBuilder()
+        b.apply(1, "/ati", ati(["A", "B"], gindex=[100, 104]))
+        b.apply(2, "/gtFaderData", {"t": {0x40001: {"r": 64}}})                  # A's track ID
+        b.apply(3, "/ati", ati(["B", "A"], gindex=[104, 100], uuid=["U-104", "U-100"]))   # 0x40001 is now B
+        self.assertIsNone(b.snapshot()["strips"][0]["track_fader"]["r"])
+
     def test_a_new_uuid_under_the_same_gindex_is_another_strip(self):
         b = rs.StateBuilder()
         b.apply(1, "/ati", ati(["A"]))

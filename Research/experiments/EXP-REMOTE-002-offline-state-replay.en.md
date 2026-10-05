@@ -16,6 +16,10 @@
 
 ## The builder's contract
 
+The same contract is also implemented on the product side in Swift: `Sources/LogicCore/Backends/Remote/RemoteState.swift` (`RemoteStateBuilder`). It only takes decoded messages and returns state; it is not wired to any connection, sending or the CLI. Tests: `Tests/LogicCoreTests/RemoteStateTests.swift` (22; they also check that JSON string keys and archive number keys, and a MAZP-archived `/sti` and a plain one, give the same state, and, when the recording is on this machine, that the real data gives the same numbers as the Python tool).
+
+The port found one mistake in the Python tool, now fixed: track values (`r`, `ip`) were carried over by `track_id` alone, but `track_id` follows position (EXP-REMOTE-001), so after a reorder the values landed on another strip. Now they are carried only while the `track_id` stays with a strip of the same UUID.
+
 A research tool, not part of the product (`Sources/`). Like the [read contract](../../docs/observation-contract.en.md), **it does not treat what it does not know as known.**
 
 | # | Rule | Why |
