@@ -63,3 +63,5 @@ initializer の正常経路では coder と receiver を retain/release し、�
 3. Foundation 内部の dispatch / class 受理、cache を使わない round trip、保存後再読込・復元・Undo は実機未確認です。
 
 今回も製品コードや実機操作への追加は行っていません。
+
+**追補（2026-10-05）:** 上記1・2の静的部分は [SA-AE-TARGET-010](SA-AE-TARGET-010-registrations-null-mapping-finish.md) で確認しました。旧 class 名の登録、coder の属性を使わない空マッピング、終了前 error の BOOL と getter がその返値を使わない経路を記録しています。native 失敗・runtime の受理・保存後の復元は未確認のままです。

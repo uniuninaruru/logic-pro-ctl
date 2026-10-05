@@ -1,0 +1,4 @@
+id	program	caller	registration_call	unarchiver_class_ref	alias_cfstring	archived_class_name	replacement_class_candidate	class_source	argument_source	runtime_verified	product_capability
+alias-010-01	Logic.arm64	0x019d87ec	0x019d8844	0x02280d68	0x0241ba08	WsKeyboardLayer	MAKeyboardLayer	import slot0x02283628	objc_opt_class return	false	false
+alias-010-02	Logic.arm64	0x019d87ec	0x019d8868	0x02280d68	0x0241ba28	WsDirectToChannelMIDIParameterMapping	MAChannelMIDIParameterMapping	import slot0x022835e8	objc_opt_class return	false	false
+alias-010-03	MACore.arm64	0x001094f8	0x0010952c	0x0017c5b8	0x00194140	WsNoParameterMapping	MANullParameterMapping	direct class0x001aeb38	objc_opt_class return	false	false

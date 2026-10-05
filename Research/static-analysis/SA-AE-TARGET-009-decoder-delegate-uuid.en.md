@@ -63,3 +63,5 @@ The 149 instructions in the 6 new functions and the 149 instructions in the prev
 3. Foundation's internal dispatch / class acceptance, a round trip without the cache, reopening after saving, restoration, and Undo remain unverified live.
 
 No additions to product code or live operations were made in this round either.
+
+**Follow-up (2026-10-05):** The static parts of items 1 and 2 above are covered by [SA-AE-TARGET-010](SA-AE-TARGET-010-registrations-null-mapping-finish.en.md): old class-name registration, an empty mapping path that does not use coder attributes, the pre-finish error BOOL, and the getter path that ignores it. Native failures, runtime acceptance, and restoration after saving remain unverified.
