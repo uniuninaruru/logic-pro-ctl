@@ -1,44 +1,45 @@
-# /cs/ (the Logic Remote control-surface feedback) received in one reception (EXP-REMOTE-001) against the
-# Logic Remote plug-in's static assignment table (Research/protocol/cs-assign-remote.tsv, SA-002). See EXP-REMOTE-002.
-# Generated: python3 Tools/research-scripts/remote_state.py cs <capture>. The capture itself is not committed.
+# /cs/ (the Logic Remote control-surface feedback) received in the receptions EXP-REMOTE-001, EXP-REMOTE-003, EXP-REMOTE-004
+# (E3) and the aborted E4 run, against the Logic Remote plug-in's static assignment table
+# (Research/protocol/cs-assign-remote.tsv, SA-002). See EXP-REMOTE-002.
+# Generated: python3 Tools/research-scripts/remote_state.py cs <capture>... The captures themselves are not committed.
 # template: the address with its trailing number removed (per-strip instances fold together). Strings are counted, not listed.
 # kind/param/flags: assignment fields as named in cs-assign-remote.tsv (their meaning is a hypothesis there).
 # template	seen	static_fields	received_addresses	received_messages	value_types	summary
-/cs/bankLeftOffset	both	kind=10,param=0,flags=0	1	2	int	0
-/cs/mixer/automation/	both	kind=5,param=264,flags=0	8	8	int	1
-/cs/mixer/level	both	kind=0,param=0,flags=11	8	8	str	1 distinct strings (not listed)
-/cs/mixer/masterlevel	both	kind=0,param=0,flags=12	1	1	str	1 distinct strings (not listed)
-/cs/mixer/mastermute	both	kind=5,param=9,flags=0	1	1	int	0
-/cs/mixer/mastername	both	kind=0,param=2,flags=0	1	1	str	1 distinct strings (not listed)
-/cs/mixer/mastervolume	both	kind=5,param=7,flags=2	1	1	float	0.70866 (= 90/127)
-/cs/mixer/mute/	both	kind=5,param=9,flags=0	8	8	int	0
-/cs/mixer/muteactive	both	kind=9,param=0,flags=0	1	1	int	0
+/cs/bankLeftOffset	both	kind=10,param=0,flags=0	1	9	int	0
+/cs/mixer/automation/	both	kind=5,param=264,flags=0	8	34	int	1
+/cs/mixer/level	both	kind=0,param=0,flags=11	8	32	str	2 distinct strings (not listed)
+/cs/mixer/masterlevel	both	kind=0,param=0,flags=12	1	4	str	1 distinct strings (not listed)
+/cs/mixer/mastermute	both	kind=5,param=9,flags=0	1	4	int	0
+/cs/mixer/mastername	both	kind=0,param=2,flags=0	1	4	str	1 distinct strings (not listed)
+/cs/mixer/mastervolume	both	kind=5,param=7,flags=2	1	4	float	0.70866 (= 90/127)
+/cs/mixer/mute/	both	kind=5,param=9,flags=0	8	34	int	0
+/cs/mixer/muteactive	both	kind=9,param=0,flags=0	1	4	int	0
 /cs/mixer/mutereset	static only (not received)	kind=9,param=0,flags=3	0	0	—	—
-/cs/mixer/panval	both	kind=0,param=0,flags=0	8	8	str	1 distinct strings (not listed)
-/cs/mixer/record/	both	kind=5,param=260,flags=0	8	8	int	0
-/cs/mixer/select/	both	kind=5,param=259,flags=0	8	8	int	0, 1
-/cs/mixer/selectlabel	both	kind=0,param=0,flags=0	8	8	str	1 distinct strings (not listed)
-/cs/mixer/sends/position	both	kind=5,param=320,flags=0;kind=5,param=321,flags=0;kind=5,param=322,flags=0;kind=5,param=323,flags=0;kind=5,param=324,flags=0;kind=5,param=325,flags=0;kind=5,param=326,flags=0;kind=5,param=327,flags=0	64	64	int	0
-/cs/mixer/sends/send	both	kind=5,param=28,flags=2;kind=5,param=29,flags=2;kind=5,param=30,flags=2;kind=5,param=31,flags=2;kind=5,param=32,flags=2;kind=5,param=33,flags=2;kind=5,param=34,flags=2;kind=5,param=35,flags=2	64	64	int	0
-/cs/mixer/sends/sendbypass	both	kind=5,param=288,flags=0;kind=5,param=289,flags=0;kind=5,param=290,flags=0;kind=5,param=291,flags=0;kind=5,param=292,flags=0;kind=5,param=293,flags=0;kind=5,param=294,flags=0;kind=5,param=295,flags=0	64	64	int	0
-/cs/mixer/sends/sendname	both	kind=0,param=0,flags=32	64	64	str	1 distinct strings (not listed)
-/cs/mixer/sends/sendval	both	kind=0,param=0,flags=0	64	64	str	1 distinct strings (not listed)
-/cs/mixer/solo/	both	kind=5,param=3,flags=0	8	8	int	0
-/cs/mixer/soloactive	both	kind=9,param=0,flags=0	1	1	int	0
+/cs/mixer/panval	both	kind=0,param=0,flags=0	8	34	str	1 distinct strings (not listed)
+/cs/mixer/record/	both	kind=5,param=260,flags=0	8	36	int	0, 1
+/cs/mixer/select/	both	kind=5,param=259,flags=0	8	44	int	0, 1
+/cs/mixer/selectlabel	both	kind=0,param=0,flags=0	8	34	str	1 distinct strings (not listed)
+/cs/mixer/sends/position	both	kind=5,param=320,flags=0;kind=5,param=321,flags=0;kind=5,param=322,flags=0;kind=5,param=323,flags=0;kind=5,param=324,flags=0;kind=5,param=325,flags=0;kind=5,param=326,flags=0;kind=5,param=327,flags=0	64	256	int	0
+/cs/mixer/sends/send	both	kind=5,param=28,flags=2;kind=5,param=29,flags=2;kind=5,param=30,flags=2;kind=5,param=31,flags=2;kind=5,param=32,flags=2;kind=5,param=33,flags=2;kind=5,param=34,flags=2;kind=5,param=35,flags=2	64	272	int	0
+/cs/mixer/sends/sendbypass	both	kind=5,param=288,flags=0;kind=5,param=289,flags=0;kind=5,param=290,flags=0;kind=5,param=291,flags=0;kind=5,param=292,flags=0;kind=5,param=293,flags=0;kind=5,param=294,flags=0;kind=5,param=295,flags=0	64	256	int	0
+/cs/mixer/sends/sendname	both	kind=0,param=0,flags=32	64	256	str	1 distinct strings (not listed)
+/cs/mixer/sends/sendval	both	kind=0,param=0,flags=0	64	272	str	1 distinct strings (not listed)
+/cs/mixer/solo/	both	kind=5,param=3,flags=0	8	32	int	0
+/cs/mixer/soloactive	both	kind=9,param=0,flags=0	1	4	int	0
 /cs/mixer/soloreset	static only (not received)	kind=9,param=0,flags=3	0	0	—	—
-/cs/mixer/track#	both	kind=0,param=0,flags=0	8	8	str	8 distinct strings (not listed)
-/cs/mixer/trackname	both	kind=0,param=2,flags=0	8	8	str	8 distinct strings (not listed)
+/cs/mixer/track#	both	kind=0,param=0,flags=0	8	34	str	10 distinct strings (not listed)
+/cs/mixer/trackname	both	kind=0,param=2,flags=0	8	34	str	10 distinct strings (not listed)
 /cs/mixer/volume	static only (not received)	kind=1,param=0,flags=0	0	0	—	—
-/cs/mixer/volume/pan	both	kind=5,param=10,flags=2	8	8	float	0.50394 (= 64/127)
-/cs/mixer/volume/panspread	both	kind=5,param=47,flags=2	8	8	int	0
-/cs/mixer/volume/trimvolume	both	kind=5,param=7,flags=2	8	8	float	0.70866 (= 90/127)
-/cs/mixer/volume/volume	both	kind=5,param=7,flags=2	8	8	float	0.70866 (= 90/127)
-/cs/transport/bar	both	kind=0,param=0,flags=0	1	1	str	1 distinct strings (not listed)
-/cs/transport/click	both	kind=9,param=0,flags=0	1	1	int	1
-/cs/transport/cycle	both	kind=9,param=0,flags=0	1	1	int	0
-/cs/transport/play	both	kind=9,param=0,flags=0	1	1	int	0
-/cs/transport/record	both	kind=9,param=0,flags=0	1	1	int	0
-/cs/transport/stop	both	kind=9,param=0,flags=0	1	1	int	1
-/cs/transport/time	both	kind=0,param=0,flags=0	1	1	str	1 distinct strings (not listed)
+/cs/mixer/volume/pan	both	kind=5,param=10,flags=2	8	34	float	0.50394 (= 64/127)
+/cs/mixer/volume/panspread	both	kind=5,param=47,flags=2	8	34	int	0
+/cs/mixer/volume/trimvolume	both	kind=5,param=7,flags=2	8	32	float,int	32 values of mixed or structured type
+/cs/mixer/volume/volume	both	kind=5,param=7,flags=2	8	32	float,int	32 values of mixed or structured type
+/cs/transport/bar	both	kind=0,param=0,flags=0	1	4	str	2 distinct strings (not listed)
+/cs/transport/click	both	kind=9,param=0,flags=0	1	4	int	1
+/cs/transport/cycle	both	kind=9,param=0,flags=0	1	4	int	0, 1
+/cs/transport/play	both	kind=9,param=0,flags=0	1	4	int	0
+/cs/transport/record	both	kind=9,param=0,flags=0	1	4	int	0
+/cs/transport/stop	both	kind=9,param=0,flags=0	1	4	int	1
+/cs/transport/time	both	kind=0,param=0,flags=0	1	4	str	2 distinct strings (not listed)
 /cs/transport/track+	static only (not received)	kind=9,param=0,flags=0	0	0	—	—
 /cs/transport/track-	static only (not received)	kind=9,param=0,flags=0	0	0	—	—

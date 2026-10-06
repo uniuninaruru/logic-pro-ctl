@@ -508,8 +508,9 @@ def read_assign_table(path=CS_ASSIGN_TABLE):
     return rows
 
 
-def cs_rows(capture: Path, assign_rows=None):
-    """One row per /cs/ template: the static assignment fields, and what was received for it."""
+def cs_rows(captures, assign_rows=None):
+    """One row per /cs/ template: the static assignment fields, and what was received for it (over one or more receptions)."""
+    captures = [captures] if isinstance(captures, (str, Path)) else list(captures)
     assign_rows = read_assign_table() if assign_rows is None else assign_rows
     static = collections.defaultdict(set)
     for r in assign_rows:
@@ -517,10 +518,11 @@ def cs_rows(capture: Path, assign_rows=None):
             static[cs_template(r["address"])].add((r["kind"], r["param"], r["flags"]))
     received = collections.defaultdict(list)
     addresses = collections.defaultdict(set)
-    for _, address, value in _messages(capture):
-        if address.startswith("/cs/"):
-            received[cs_template(address)].append(value)
-            addresses[cs_template(address)].add(address)
+    for capture in captures:
+        for _, address, value in _messages(Path(capture)):
+            if address.startswith("/cs/"):
+                received[cs_template(address)].append(value)
+                addresses[cs_template(address)].add(address)
     rows = []
     for template in sorted(set(static) | set(received)):
         values = received.get(template, [])
@@ -537,9 +539,10 @@ def cs_rows(capture: Path, assign_rows=None):
     return rows
 
 
-CS_HEADER = """# /cs/ (the Logic Remote control-surface feedback) received in one reception (EXP-REMOTE-001) against the
-# Logic Remote plug-in's static assignment table (Research/protocol/cs-assign-remote.tsv, SA-002). See EXP-REMOTE-002.
-# Generated: python3 Tools/research-scripts/remote_state.py cs <capture>. The capture itself is not committed.
+CS_HEADER = """# /cs/ (the Logic Remote control-surface feedback) received in the receptions EXP-REMOTE-001, EXP-REMOTE-003, EXP-REMOTE-004
+# (E3) and the aborted E4 run, against the Logic Remote plug-in's static assignment table
+# (Research/protocol/cs-assign-remote.tsv, SA-002). See EXP-REMOTE-002.
+# Generated: python3 Tools/research-scripts/remote_state.py cs <capture>... The captures themselves are not committed.
 # template: the address with its trailing number removed (per-strip instances fold together). Strings are counted, not listed.
 # kind/param/flags: assignment fields as named in cs-assign-remote.tsv (their meaning is a hypothesis there).
 # template\tseen\tstatic_fields\treceived_addresses\treceived_messages\tvalue_types\tsummary"""
@@ -564,13 +567,13 @@ ADDRESS_HEADER = """# Every address family seen in one captured reception (EXP-R
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("command", choices=["replay", "coverage", "addresses", "cs", "timeline"])
-    parser.add_argument("capture", nargs="+", help="coverage takes several; the other commands take one")
+    parser.add_argument("capture", nargs="+", help="coverage and cs take several; the other commands take one")
     parser.add_argument("--at", type=int, help="replay: stop after this frame number")
     parser.add_argument("--from", dest="start", type=int, help="timeline: first frame number")
     parser.add_argument("--to", dest="end", type=int, help="timeline: last frame number")
     parser.add_argument("--include", help="timeline: only addresses matching this regular expression (meters included)")
     options = parser.parse_args(argv)
-    if options.command != "coverage" and len(options.capture) > 1:
+    if options.command not in ("coverage", "cs") and len(options.capture) > 1:
         parser.error(f"{options.command} takes one capture")
     capture = Path(options.capture[0])
     try:
@@ -585,7 +588,7 @@ def main(argv=None) -> int:
         else:
             header, rows = {"coverage": (COVERAGE_HEADER, coverage_rows), "addresses": (ADDRESS_HEADER, address_rows),
                             "cs": (CS_HEADER, cs_rows)}[options.command]
-            rows = rows([Path(c) for c in options.capture]) if options.command == "coverage" else rows(capture)
+            rows = rows([Path(c) for c in options.capture]) if options.command in ("coverage", "cs") else rows(capture)
             print(header)
             for r in rows:
                 print("\t".join(r))
