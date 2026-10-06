@@ -7,7 +7,7 @@
 | 状態 | **静的解析のみ**。Logic には何も送っていない。Ghidra の新しいジョブも使っていない（保存済みの逆コンパイル結果と、バイナリファイルの `llvm-objdump`） |
 | 日付 | 2026-10-05 |
 | 対象 | Logic 12.3.1 (6682)、arm64 の `Logic.arm64`（SHA-256 `2f141e1a…0998`） |
-| 根拠 | [アンカー表](../protocol/logic-remote-keycommand-anchors.tsv)（113 行、バイナリから照合）、`Research/raw/ghidra/q-p7-route.c`（Git の追跡対象外） |
+| 根拠 | [アンカー表](../protocol/logic-remote-keycommand-anchors.tsv)（136 行、バイナリから照合）、`Research/raw/ghidra/q-p7-route.c`（Git の追跡対象外） |
 | 関連 | [SA-COMMAND-CATALOG-001](SA-COMMAND-CATALOG-001.md)（台帳）・[SA-004](SA-004-command-and-engine-boundaries.md)（共通のディスパッチャー）・[operation-catalog.tsv](../protocol/operation-catalog.tsv) |
 
 ## 1. 結論
@@ -45,6 +45,15 @@ flowchart TD
 - **ディスパッチャー**（`DISP-range`）：`cmp w22, #0x1356` と `b.hi`（符号なしの比較）で、4950 を超える番号と、符号拡張された負の番号を外し、`DAT_026883b0[番号]` が空なら何もしない（SA-004 の「`befehl < 0x1357`」と一致）。
 
 `x21` が何を指すか（ディスパッチャーの第 2 引数。SA-004 では song）は、この分岐の中では辿っていない。
+
+### 2.1 失敗したとき（2026-10-07 追記）
+
+ディスパッチャーは、実行関数 `FUN_00865cec(番号 sxth, 曲, 第 5 引数, 第 3 引数が真なら 0x40000000、偽なら 0)` を呼び、**戻り値の bit 0 が 0 なら失敗**として、`NSBeep` を鳴らし、通知「Command not available because the focused view does not support this command.」を出す（表示するだけで、通知の一覧には残さない。アンカー `DISP-exec`・`DISP-fail`）。
+
+- 理由の文言は**固定**で、実際の原因（機能の可用性、選択の状態など）を表さない。
+- 失敗は、**Logic の画面の音と通知**として現れ、`actionNum` を送った側には何も返らない。製品は、状態を読み直して確かめるしかない。
+- `actionNum` では第 3 引数は常に NO なので、`0x40000000`（機能の可用性の検査を無視する印と推定。仮説）は付かない。
+- 保存済みの逆コンパイル結果は、この判定を「呼ぶ前の番号」の bit 0 として表示していた。機械語では `bl FUN_00865cec` の直後に `tbnz w0, #0` で**戻り値**を見ている（戻り値の取り違え）。
 
 ## 3. 台帳との関係
 

@@ -7,7 +7,7 @@
 | Status | **Static analysis only.** Nothing was sent to Logic. No new Ghidra job either (the saved decompilation and `llvm-objdump` on the image file) |
 | Date | 2026-10-05 |
 | Subject | Logic 12.3.1 (6682), the arm64 `Logic.arm64` (SHA-256 `2f141e1a…0998`) |
-| Evidence | [Anchor table](../protocol/logic-remote-keycommand-anchors.tsv) (113 rows, checked against the binary), `Research/raw/ghidra/q-p7-route.c` (not tracked by Git) |
+| Evidence | [Anchor table](../protocol/logic-remote-keycommand-anchors.tsv) (136 rows, checked against the binary), `Research/raw/ghidra/q-p7-route.c` (not tracked by Git) |
 | Related | [SA-COMMAND-CATALOG-001](SA-COMMAND-CATALOG-001.en.md) (the catalog) · [SA-004](SA-004-command-and-engine-boundaries.en.md) (the common dispatcher) · [operation-catalog.tsv](../protocol/operation-catalog.tsv) |
 
 ## 1. Conclusions
@@ -45,6 +45,15 @@ flowchart TD
 - **Dispatcher** (`DISP-range`): `cmp w22, #0x1356` and `b.hi` (an unsigned compare) drop numbers above 4950 and sign-extended negative numbers, and an empty `DAT_026883b0[number]` does nothing (matches SA-004's "`befehl < 0x1357`").
 
 What `x21` points to (the dispatcher's second argument; the song in SA-004) is not traced within this branch.
+
+### 2.1 When it fails (added 2026-10-07)
+
+The dispatcher calls the executor `FUN_00865cec(number sxth, song, 5th argument, 0x40000000 if the 3rd argument is set else 0)` and, **if bit 0 of the return value is 0**, beeps (`NSBeep`) and shows the notification "Command not available because the focused view does not support this command." (presented, not kept in the notification list; anchors `DISP-exec`, `DISP-fail`).
+
+- The reason text is **fixed**; it does not say what actually failed (feature availability, the selection and so on).
+- A failure shows up as **a beep and a notification on Logic's screen**; the sender of `actionNum` gets nothing back. The product can only read the state again.
+- For `actionNum` the 3rd argument is always NO, so `0x40000000` (presumed to mean "ignore feature availability"; hypothesis) is not set.
+- The saved decompilation showed this check on the bit 0 of the number before the call. The machine code tests the **return value** (`tbnz w0, #0` right after `bl FUN_00865cec`): the return value was mixed up again.
 
 ## 3. Relation to the catalog
 
