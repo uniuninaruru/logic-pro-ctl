@@ -21,7 +21,7 @@ MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効�
 契約	冪等キー・再送（execution）	mcu	live	docs/execution-contract.md; WriteExecutorTests; EXP-MCU-026	実機は replayed・outcome_unknown・request_in_flight を確認（2026-10-02、2026-10-05）。queue_full と daemon 再起動をまたぐ照合は未確認
 契約	--deadline-ms と timeout が unknown になること	mcu	live	WriteExecutorTests; EXP-MCU-026	実機は timeout を 2 例確認。その後の同じキーの再送は replayed
 契約	--expect-session	mcu	live	WriteExecutorTests; EXP-MCU-026	接続の世代の確認のみ。同じ接続の中の変化（並べ替え・同名の入れ替え）は検出しない。不一致の拒否は実機で 1 回確認
-契約	同じポートの装置が 2 台以上（surface_conflict）	mcu	live	EXP-MCU-029; Tests/LogicCoreTests/SurfaceConflictTests.swift	接続時のダンプで、内容の違う全面の LCD が 2 つ以上届いたら、status と debug mcu 以外を断る。実機で 1 回（2 台の構成で検出）。2 台目を外したあとの解除は実機で未確認
+契約	同じポートの装置が 2 台以上（surface_conflict）	mcu	live	EXP-MCU-029; Tests/LogicCoreTests/SurfaceConflictTests.swift	全面の LCD の書き込みが、ハンドシェイクを挟まずに別の名前の表示の上に来たら、status と debug mcu 以外を断る（実行の後にも確認）。実機で 1 回（2 台の構成で検出）。2 台目を外したあとの解除は実機で未確認
 契約	古い logicd に安全装置つきの要求を送らない	mcu	tested	Tests/integration/test_cli_safety_gate.py	偽の daemon での試験。実機の古い daemon では試していない
 互換性	status の compatibility（検証済みの環境の判定）	mcu	tested	Tests/LogicCoreTests/CompatibilityProfileTests.swift	判定だけ。未検証の環境でもコマンドは止めない
 Remote	接続の手順（広告・招待・承認・version）	remote	live	SA-REMOTE-SESSION-001; EXP-REMOTE-001	受信専用ピアで 1 回。人がダイアログで「接続」を押す必要がある。Logic にピアが登録される（設定に残る）

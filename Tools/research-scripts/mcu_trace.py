@@ -4,8 +4,9 @@
 logicd logs every MIDI packet from Logic as `<time> logicd mcu RX <hex bytes>`. Logic writes the whole LCD in one
 sysex (`F0 00 00 66 14 12 00 <111 characters> F7`) only in its dump after a connection. One Mackie Control unit
 writes the same display; a second unit on the same port writes a different one (EXP-MCU-029). This tool groups the
-whole-display writes into bursts (writes no more than --window seconds apart, as logicd does) and counts the
-different name rows in each burst.
+whole-display writes into bursts (writes no more than --window seconds apart) and, as logicd does, flags a burst
+when one of its writes landed on a different, non-blank name row without a handshake (device query) in between. A
+handshake blanks the display, so one unit re-sending changed names after a reconnect is not flagged.
 
     mcu_trace.py dumps ~/Library/Logs/logicctl/logicd.log [--since 2026-10-07T00:00] [--window 1.0] [--names]
 
@@ -54,28 +55,34 @@ def messages(data):
 
 
 def display_writes(lines, since=None):
-    """(time, name row) for every whole-display write from model 0x14."""
+    """(time, name row, contradicted) for every whole-display write from model 0x14, replaying the LCD."""
+    lcd = bytearray(b" " * 112)
     for line in lines:
         m = LINE.match(line.rstrip("\n"))
         if not m:
             continue
         when = parse_time(m.group(1))
-        if since and when < since:
-            continue
         for msg in messages(bytes(int(x, 16) for x in m.group(2).split())):
-            if len(msg) >= 8 and msg[:7] == bytes([0xF0, 0x00, 0x00, 0x66, 0x14, 0x12, 0x00]) and msg[-1] == 0xF7:
-                text = msg[7:-1]
-                if len(text) >= WHOLE_DISPLAY:
-                    yield when, text[:56].decode("ascii", "replace")
+            if msg == bytes([0xF0, 0x00, 0x00, 0x66, 0x14, 0x00, 0xF7]):          # our model's device query
+                lcd[:] = b" " * 112
+            elif len(msg) >= 8 and msg[:6] == bytes([0xF0, 0x00, 0x00, 0x66, 0x14, 0x12]) and msg[-1] == 0xF7:
+                offset, text = msg[6], msg[7:-1]
+                if offset == 0 and len(text) >= WHOLE_DISPLAY:
+                    before = bytes(lcd[:56])
+                    names = text[:56]
+                    contradicted = before.strip(b" ") != b"" and before != names
+                    if not since or when >= since:
+                        yield when, names.decode("ascii", "replace"), contradicted
+                lcd[offset:offset + len(text)] = text[:max(0, 112 - offset)]
 
 
 def bursts(writes, window=1.0):
     groups = []
-    for when, row in writes:
-        if groups and (when - groups[-1][-1][0]).total_seconds() <= window:
-            groups[-1].append((when, row))
+    for write in writes:
+        if groups and (write[0] - groups[-1][-1][0]).total_seconds() <= window:
+            groups[-1].append(write)
         else:
-            groups.append([(when, row)])
+            groups.append([write])
     return groups
 
 
@@ -97,12 +104,14 @@ def main(argv=None):
         print("no whole-display writes (was logicd started with LOGICD_TRACE=1?)", file=sys.stderr)
         return 2
     worst = 0
-    print("# start\twrites\tdifferent_name_rows\tverdict")
+    print("# start\twrites\tdifferent_name_rows\tcontradicting_writes\tverdict")
     for group in groups:
-        rows = list(dict.fromkeys(row for _, row in group))
-        worst = max(worst, len(rows))
-        verdict = "one unit" if len(rows) == 1 else f"{len(rows)} units suspected"
-        print(f"{group[0][0].isoformat()}Z\t{len(group)}\t{len(rows)}\t{verdict}")
+        rows = list(dict.fromkeys(row for _, row, _ in group))
+        contradicting = sum(1 for *_, c in group if c)
+        units = max(2, len(rows)) if contradicting else 1
+        worst = max(worst, units)
+        verdict = "one unit" if units == 1 else f"{units} units suspected"
+        print(f"{group[0][0].isoformat()}Z\t{len(group)}\t{len(rows)}\t{contradicting}\t{verdict}")
         if options.names:
             for row in rows:
                 print(f"\t\t{row.rstrip()}")

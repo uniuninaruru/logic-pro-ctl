@@ -86,6 +86,13 @@ public struct MCUSurface {
     /// Count of `14 72` sysex (per-strip colours). Logic sends one whenever
     /// the bank moves and nothing for a no-op bank press (EXP-MCU-020).
     public private(set) var colorUpdates = 0
+    /// Whole-display writes (offset 0, both rows; Logic sends them in its dump), newest last: the name row and whether
+    /// it contradicted a non-blank name row already on the display. A handshake blanks the display, so one unit's
+    /// re-dump never contradicts; a second unit on the same port writes over the first unit's names (EXP-MCU-029).
+    public private(set) var fullDisplays: [(names: String, contradicted: Bool)] = []
+    /// How many whole-display writes have arrived in total (the list above keeps only the latest).
+    public private(set) var fullDisplayTotal = 0
+    static let fullDisplayMinimum = 100
 
     private var pending: [UInt8] = []
     private var inSysex = false
@@ -196,6 +203,14 @@ public struct MCUSurface {
         case 0x12 where model == MCU.model && m.count >= 8:
             let offset = Int(m[6])
             let text = Array(m[7..<(m.count - 1)])
+            if offset == 0 && text.count >= Self.fullDisplayMinimum {
+                let before = row(0)
+                let names = String(decoding: text.prefix(56), as: UTF8.self)
+                let blank = before.allSatisfy { $0 == " " }
+                fullDisplays.append((names, !blank && before != names))
+                fullDisplayTotal += 1
+                if fullDisplays.count > 32 { fullDisplays.removeFirst(fullDisplays.count - 32) }
+            }
             writeLCD(offset: offset, text: text)
             return .lcd(offset: offset, text: text)
         default:

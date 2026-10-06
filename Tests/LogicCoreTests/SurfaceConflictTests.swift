@@ -87,4 +87,48 @@ private func twoUnits(tracks: Int = 12) -> (FakeLogicMCU, MCUBackend) {
     #expect(list.ok)
     #expect(list.observation?["strips"] == .int(14))
 }
+// Cases from Codex's independent reader (raw/review/surface-conflict-independent-018), ported here.
+
+@Test func oneUnitResendingRenamedNamesAfterAQuickReconnectIsNotAConflict() {
+    let sim = FakeLogicMCU.project(tracks: 12)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    sim.rename(0, to: "Lead")
+    sim.connect()                                      // within the scaled 1 s window, with the new name
+    #expect(backend.execute(.status).result?["mcu"]?["surface_conflict"] == .bool(false))
+    #expect(backend.execute(.trackList).ok)
+}
+
+@Test func aSecondUnitsDumpDuringArmTurnsAVerifiedPressIntoSurfaceConflict() {
+    let sim = FakeLogicMCU.project(tracks: 4)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    var injected = false
+    backend.testHook = { point in
+        guard point == "afterWait", !injected, sim.strips[1].rec else { return }
+        injected = true
+        sim.sendTwoUnitDisplays()                      // after the REC echo, in the same connection
+    }
+    let outcome = backend.execute(.trackArm(track: 2, on: true), expectName: "T02")
+    #expect(injected)
+    #expect(!outcome.ok && !outcome.verified)
+    #expect(outcome.error == "surface_conflict")
+    #expect(outcome.requested?["rec_armed"] == .bool(true))
+}
+
+@Test func aSecondUnitsDumpDuringAScanMakesTheListFail() {
+    let sim = FakeLogicMCU.project(tracks: 12)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    var injected = false
+    backend.testHook = { point in
+        guard point == "afterWait", !injected, !sim.presses.isEmpty else { return }   // once the scan has started
+        injected = true
+        sim.sendTwoUnitDisplays()
+    }
+    let list = backend.execute(.trackList)
+    #expect(injected)
+    #expect(!list.ok)
+    #expect(list.error == "surface_conflict")
+}
 #endif

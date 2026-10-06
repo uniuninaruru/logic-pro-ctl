@@ -170,6 +170,12 @@ final class FakeLogicMCU {
         return lcd(0, names + lower)
     }
 
+    /// A second unit's dump without a handshake in between: unit 1's whole display, then the next 8 strips'.
+    func sendTwoUnitDisplays() {
+        send(fullDisplay(from: offset))
+        send(fullDisplay(from: offset + MCU.strips))
+    }
+
     /// Logic (re)connects: device query, then the state dump.
     func connect(withholdDump: Bool = false) {
         send(MCU.sysexHeader + [0x00, 0xF7])

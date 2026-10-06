@@ -51,8 +51,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// Mackie Control unit writes the same display; a second unit on the same port (for example
     /// "Mackie Control #2", which shows the next 8 strips) writes a different one, and the LCD buffer
     /// then holds whichever came last (EXP-MCU-029).
-    private var fullDisplayWrites: [(at: Date, names: String)] = []
-    static let fullDisplayMinimum = 100
+    private var fullDisplayWrites: [(at: Date, names: String, contradicted: Bool)] = []
     private var client = MIDIClientRef()
     private var source = MIDIEndpointRef()
     private var destination = MIDIEndpointRef()
@@ -134,7 +133,13 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     func ingest(_ bytes: [UInt8]) {
         var replies: [[UInt8]] = []
         cond.lock()
+        let fullBefore = surface.fullDisplayTotal
         let events = surface.feed(bytes)
+        let arrived = min(surface.fullDisplayTotal - fullBefore, surface.fullDisplays.count)
+        for write in surface.fullDisplays.suffix(arrived) {
+            fullDisplayWrites.append((Date(), write.names, write.contradicted))
+        }
+        if fullDisplayWrites.count > 16 { fullDisplayWrites.removeFirst(fullDisplayWrites.count - 16) }
         for (index, event) in events.enumerated() {
             switch event {
             case .deviceQuery(MCU.model):
@@ -150,9 +155,6 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                 replies.append(MCU.sysexHeader + [0x14] + Array("V1.02".utf8) + [0xF7])
             case .connectionReply(MCU.model):
                 replies.append(MCU.sysexHeader + [0x03] + Self.serial + [0xF7])
-            case .lcd(0, let text) where text.count >= Self.fullDisplayMinimum:
-                fullDisplayWrites.append((Date(), String(decoding: text.prefix(56), as: UTF8.self)))
-                if fullDisplayWrites.count > 16 { fullDisplayWrites.removeFirst(fullDisplayWrites.count - 16) }
             default:
                 break
             }
@@ -231,7 +233,20 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         if case .status = command { return status() }
         if let failure = ensureConnected() { return failure }
-        if case .debugMCU = command {} else if let conflict = surfaceConflictFailure() { return conflict }
+        if case .debugMCU = command { return run(command, expectName) }
+        if let conflict = surfaceConflictFailure() { return conflict }
+        let outcome = run(command, expectName)
+        // A second unit's dump can also arrive while a command runs: its reads are then mixed, and a write's
+        // evidence cannot be trusted (the press may have reached Logic).
+        guard surfaceConflictFailure() != nil else { return outcome }
+        guard command.isWrite else { return surfaceConflictFailure()! }
+        return .failure("surface_conflict",
+                        "操作の途中で、Logic が '\(Self.portName)' に 2 台目の Mackie Control の画面を送ってきました。"
+                            + "押した操作は届いたかもしれませんが、結果は確かめられません。2 台目を外してから、状態を読み直してください。",
+                        requested: outcome.requested)
+    }
+
+    private func run(_ command: LogicCommand, _ expectName: String?) -> Outcome {
         switch command {
         case .status, .daemonStop: return status()
         case .state: return state()
@@ -272,12 +287,15 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         return read { $0.lcdUpdates > handshakeLCDBaseline && handshakeAt != nil && handshakePID == pid }
     }
 
-    /// How many different name rows the latest burst of whole-display writes had (writes within 1 s of
-    /// the last one). More than 1 means more than one unit is writing to this port. Caller holds the lock.
+    /// More than 1 when, in the latest burst of whole-display writes (within 1 s of the last one), a write landed on
+    /// another non-blank name row without a handshake in between: a second unit on this port. Then the number of
+    /// different name rows in the burst (at least 2). A re-dump after a handshake starts from a blank display and does
+    /// not count, so one unit re-sending changed names (after a rename) is not a conflict. Caller holds the lock.
     private func displayUnitsInLatestDump() -> Int {
         guard let last = fullDisplayWrites.last else { return 0 }
         let window = 1.0 * environment.timeScale
-        return Set(fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }.map(\.names)).count
+        let burst = fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }
+        return burst.contains { $0.contradicted } ? max(2, Set(burst.map(\.names)).count) : 1
     }
 
     /// Two units write different names into the one LCD buffer, and bank moves that cannot happen (every

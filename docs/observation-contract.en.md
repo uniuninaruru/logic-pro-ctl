@@ -109,7 +109,7 @@ A write that can be skipped is skipped only when the **state Logic reported** eq
 - Verified on Logic 12.3.1 (6682), macOS 27.0, MCU path.
 - The completeness proof rests on the observation that neither Channel Right nor Bank Right gets a reaction for 0.8 s.
   If Logic is delayed beyond 0.8 s under load there remains room to mistake that for the end.
-- The proof assumes **one** unit on the port. When Logic drove two Mackie Control units on the same port, the two showed every strip, the buttons got no reaction, and the result was a false complete list ([EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.en.md)). A connection dump with two or more displays of different content is now `surface_conflict`, and reads and writes are refused. A second unit that sends its dump alone later may go undetected.
+- The proof assumes **one** unit on the port. When Logic drove two Mackie Control units on the same port, the two showed every strip, the buttons got no reaction, and the result was a false complete list ([EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.en.md)). A whole-display write that lands on different names on display without a handshake in between is now `surface_conflict`, and reads and writes are refused (checked again after each command). A second unit that sends its dump alone later may go undetected.
 - One colour update per bank move is an assumption from recorded behaviour (EXP-MCU-020).
   When it does not hold the scan fails safe as `scan_incomplete`.
 - Name identity (same names, reordering, deletion) is outside this contract. It is handled in [PLAN-08 of the roadmap](../Research/plans/agent-ready-roadmap.en.md).

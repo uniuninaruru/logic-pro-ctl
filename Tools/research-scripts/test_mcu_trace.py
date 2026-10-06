@@ -40,7 +40,7 @@ class DumpTests(unittest.TestCase):
         status, out = self.run_dumps([line("00:00:00.100", lcd(["Piano", "Synth"])),
                                       line("00:00:00.150", lcd(["Piano", "Synth"]))])
         self.assertEqual(status, 0)
-        self.assertIn("\t2\t1\tone unit", out)
+        self.assertIn("\t2\t1\t0\tone unit", out)
         self.assertNotIn("Piano", out)                                  # names only with --names
 
     def test_two_different_displays_in_one_dump_are_two_units(self):
@@ -48,7 +48,7 @@ class DumpTests(unittest.TestCase):
                                       line("00:00:00.140", lcd(["Trk07", "Master"])),
                                       line("00:00:00.200", lcd(["Piano", "Synth"]))], "--names")
         self.assertEqual(status, 1)
-        self.assertIn("\t3\t2\t2 units suspected", out)
+        self.assertIn("\t3\t2\t2\t2 units suspected", out)
         self.assertIn("Trk07", out)
 
     def test_navigation_rows_and_other_lines_are_ignored_and_dumps_apart_are_separate(self):
@@ -58,6 +58,13 @@ class DumpTests(unittest.TestCase):
                                       line("00:00:05.000", lcd(["Synth"]))])
         self.assertEqual(status, 0)
         self.assertEqual(out.count("one unit"), 2)
+
+    def test_a_reconnect_with_renamed_names_is_one_unit(self):
+        query = "F0 00 00 66 14 00 F7"
+        status, out = self.run_dumps([line("00:00:00.000", query), line("00:00:00.100", lcd(["Piano", "Synth"])),
+                                      line("00:00:00.200", query), line("00:00:00.300", lcd(["Lead", "Synth"]))])
+        self.assertEqual(status, 0)
+        self.assertIn("\t2\t2\t0\tone unit", out)
 
     def test_nothing_to_read(self):
         status, _ = self.run_dumps(["no trace here"])
