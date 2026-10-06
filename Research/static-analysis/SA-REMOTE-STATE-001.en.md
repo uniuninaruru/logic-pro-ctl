@@ -299,7 +299,7 @@ However, even if a value is in the sender's dictionary, **whether it is dropped 
 |---|---|---|
 | 0 | `vL` (`g`) | 32-bit integer: `(int8)(+0x8b) << 24`, unless the top byte of the internal 32-bit value (+0xcc) agrees with it, in which case that value is used as it is (confirmed). **A signed 32-bit representation of the fader position** (hypothesis). Not the MCU's 14 bits; the conversion is not confirmed |
 | 13 | `s` (`g`) | signed byte at `+0x8c`. Range **not confirmed** (values other than 0 / 1 are possible) |
-| 12, 14 | `m` (`g`) | basically 0 / 1, sometimes 2 / 3: when bit 1 is set, or under particular conditions (presumed to be the effect of groups and the like). The global flag `DAT_0261e118`, when true, adds 0x80. **Meaning not confirmed** |
+| 12, 14 | `m` (`g`) | basically 0 / 1, sometimes 2 / 3: when bit 1 is set, or under particular conditions (presumed to be the effect of groups and the like). The global flag `DAT_0261e118`, when true, adds 0x80 (hypothesis: the flag is the on-screen blink phase; §8.3). **Meaning not confirmed** |
 | 2 | `r` (`t`) | one of 0, 1, 3, 0x40, 0x80. The key is `_BgTrackFaderDataRecEnableStateKey` (record-enable state). How the value is chosen: **§8.3** (checked in machine code) |
 | 32 | `ip` (`t`) | a mask of up to 12 bits. Bit *k* is the internal flag (bit 2 of +0x3a) of channel *k* (confirmed). The key is `_BgTrackInfoIndependentPanKey` (checked with the bind, [anchor table](../protocol/logic-remote-recenable-anchors.tsv)), so a mark of "independent pan" (hypothesis). Not the I (input monitoring) button on screen: in E3 it was 0 on every track although the armed track's I was lit |
 
