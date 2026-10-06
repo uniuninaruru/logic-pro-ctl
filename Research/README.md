@@ -89,6 +89,7 @@ flowchart LR
 | [現在doubleとLogicのlong読出し](static-analysis/SA-AE-TARGET-014-parent-consumers.md) | savedValue の −1.0 / 現在doubleと、proxy の object → longValue。2定義112 bytesを照合。旧longの移行は未解決 |
 | [proxy decoderの辞書・scalar・bytes](static-analysis/SA-AE-TARGET-015-proxy-decoder.md) | 13定義880 bytes。辞書値からarchiveへ渡す条件、型制限引数を使わないwrapper、signed32読出し、bytes長出力。実効dispatchとnative失敗は未確認 |
 | [UIDと型別のオブジェクト復元](static-analysis/SA-AE-TARGET-016-archive-dispatch.md) | 2定義2280 bytes。UID cache・範囲検査、クラス名/subclassによる復元先、固定クラスfallback、version読出し。実効dispatchと保存往復は未確認 |
+| [ファイルの入口と復元先クラス](static-analysis/SA-AE-TARGET-017-archive-containers.md) | 5定義1736 bytes。plist/plistZ・固定version、Class名alias、解決したClassの生成、KVC/root読出し。実機の受理と保存往復は未確認 |
 | [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
 | [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 
