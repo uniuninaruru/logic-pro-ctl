@@ -86,6 +86,8 @@ flowchart LR
 | [fallback・Logic の宛先・親の保存キー](static-analysis/SA-AE-TARGET-011-fallback-parent-encode.md) | 固定 fallback の RET、Logic 宛先の符号拡張、19保存キー。saved-value helper は double を返し、数値の保存を gate しない |
 | [親 decoder の20キー・旧保存値・ID getter](static-analysis/SA-AE-TARGET-012-parent-decode.md) | 保存した19キーと旧longキーの読出し。nil・range入替え・保存値の優先順、32 bitのIDとLogicのconstant 0定義。実効dispatchと保存往復は未確認 |
 | [旧 long の読み方・親の3アクセサ](static-analysis/SA-AE-TARGET-013-parent-helpers.md) | NSCoder category のキー別整数 / NSNumber 読出し、追加引数の用途、setter・旧long・flag getter。4定義260 bytesを照合。実効dispatchと旧値の移行は未確認 |
+| [現在doubleとLogicのlong読出し](static-analysis/SA-AE-TARGET-014-parent-consumers.md) | savedValue の −1.0 / 現在doubleと、proxy の object → longValue。2定義112 bytesを照合。旧longの移行は未解決 |
+| [proxy decoderの辞書・scalar・bytes](static-analysis/SA-AE-TARGET-015-proxy-decoder.md) | 13定義880 bytes。辞書値からarchiveへ渡す条件、型制限引数を使わないwrapper、signed32読出し、bytes長出力。実効dispatchとnative失敗は未確認 |
 | [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
 | [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 

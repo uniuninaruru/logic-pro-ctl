@@ -1,0 +1,817 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-014"
+  ],
+  "status": "static_verification_and_publication_review_complete",
+  "captured_at_utc": "2026-10-06T16:01:32.064077+00:00",
+  "static_verified_at_utc": "2026-10-06T16:07:04.643216+00:00",
+  "manifest_generated_at_utc": "2026-10-06T16:19:55.742601+00:00",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": 6682,
+    "architecture": "arm64"
+  },
+  "identity_manifest": "binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "appleevent-parent-helpers-manifest.json",
+    "appleevent-parent-decode-manifest.json"
+  ],
+  "scope": "Two fixed TARGET014 definitions/112 B/28 words; three selector stubs/60 B, two native import stubs/24 B, two selected method rows/classes and one ivar. No additional callee body.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock": "Research/raw/ghidra/logicctl-project.lock",
+  "shared_lock_used_with_absolute_path": true,
+  "program_identity": {
+    "MACore.arm64": {
+      "schema_version": 1,
+      "program_name": "MACore.arm64",
+      "executable_path": "MACore.arm64",
+      "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    },
+    "Logic.arm64": {
+      "schema_version": 1,
+      "program_name": "Logic.arm64",
+      "executable_path": "Logic.arm64",
+      "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "executable_format": "Mac OS X Mach-O",
+      "image_base": "00000000",
+      "language_id": "AARCH64:LE:64:AppleSilicon",
+      "compiler_spec_id": "swift",
+      "ghidra_version": "12.1.4",
+      "expected_name_and_hash_match": true
+    }
+  },
+  "verified_binary_inputs": [
+    {
+      "program": "MACore.arm64",
+      "installed_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+      "arm64_slice_offset": 2375680,
+      "arm64_slice_size": 2248544,
+      "arm64_slice_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "copy_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+      "slice_copy_equal": true
+    },
+    {
+      "program": "Logic.arm64",
+      "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "arm64_slice_offset": 0,
+      "arm64_slice_size": 40710736,
+      "arm64_slice_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_copy_equal": true
+    }
+  ],
+  "execution_jobs": [
+    {
+      "name": "q-appleevent-parent-consumer-014-Logic",
+      "program": "Logic.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-06T16:01:35.543622+00:00"
+    },
+    {
+      "name": "q-appleevent-parent-consumer-014-MACore",
+      "program": "MACore.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-06T16:01:38.401996+00:00"
+    }
+  ],
+  "selected_methods": [
+    {
+      "program": "MACore.arm64",
+      "owner": "MAParameterMapping",
+      "selector": "savedValue",
+      "entry": "0x9bcfc",
+      "size_bytes": 52,
+      "instruction_words": 13,
+      "body_sha256": "4b8c6a96d36472087f905076239cadcebdde63e524aafb2b06e6b732016b1e75",
+      "method_metadata": {
+        "method_list": "0x1375f0",
+        "flags": "0x8000000c",
+        "count": 81,
+        "entry": "0x1377d8",
+        "entry_index": 40,
+        "relative_fields": [
+          470352,
+          204930,
+          -637668
+        ],
+        "selector_ref_slot": "0x1aa528",
+        "type_address": "0x16985e",
+        "types": "d16@0:8",
+        "imp_relative_base": "0x1377e0",
+        "imp": "0x9bcfc",
+        "raw_hex": "502d0700822003001c45f6ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "entry": "0x18e18e4",
+      "size_bytes": 60,
+      "instruction_words": 15,
+      "body_sha256": "f5283663e7703ff394eb926f3c4c17dda6fc0a73b49899f51b2e08be5fa8f9a6",
+      "method_metadata": {
+        "method_list": "0x1c61268",
+        "flags": "0x8000000c",
+        "count": 13,
+        "entry": "0x1c612a0",
+        "entry_index": 4,
+        "relative_fields": [
+          9349008,
+          3563092,
+          -3668420
+        ],
+        "selector_ref_slot": "0x254ba30",
+        "type_address": "0x1fc70f8",
+        "types": "q32@0:8@16@24",
+        "imp_relative_base": "0x1c612a8",
+        "imp": "0x18e18e4",
+        "raw_hex": "90a78e00545e36003c06c8ff"
+      }
+    }
+  ],
+  "owners": [
+    {
+      "program": "MACore.arm64",
+      "class_address": "0x1aebb0",
+      "class_ro": "0x19e290",
+      "method_list": "0x1375f0",
+      "name": "MAParameterMapping"
+    },
+    {
+      "program": "Logic.arm64",
+      "class_address": "0x25be290",
+      "class_ro": "0x2529e78",
+      "method_list": "0x1c61268",
+      "name": "_CLgMainStageProxyDecoder"
+    }
+  ],
+  "selected_ivars": [
+    {
+      "entry": "0x19dcf8",
+      "offset_slot": "0x1ab4e0",
+      "offset": 32,
+      "name": "_savedValue",
+      "type": "d",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "e0b41a0000001000b48515000000100071981600000020000300000008000000"
+    }
+  ],
+  "selector_stubs": [
+    {
+      "program": "MACore.arm64",
+      "stub": "0x129860",
+      "size_bytes": 20,
+      "selector": "hasSavedValue",
+      "selector_slot": "0x1a73b0",
+      "dispatch_slot": "0x17c840",
+      "dispatch_import": {
+        "address": "0x17c840",
+        "raw_word": "0x8010000000000103",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "e10300d021d841f9900200f0102244f900021fd6",
+      "preserves_x0_x2_x3": true
+    },
+    {
+      "program": "Logic.arm64",
+      "stub": "0x1b27a00",
+      "size_bytes": 20,
+      "selector": "decodeObjectForKey:",
+      "selector_slot": "0x254ba38",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "21510090211c45f9303b0090103642f900021fd6",
+      "preserves_x0_x2_x3": true
+    },
+    {
+      "program": "Logic.arm64",
+      "stub": "0x1b5b040",
+      "size_bytes": 20,
+      "selector": "longValue",
+      "selector_slot": "0x25587c8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "e14f00b021e443f990390090103642f900021fd6",
+      "preserves_x0_x2_x3": true
+    }
+  ],
+  "native_import_stubs": [
+    {
+      "program": "Logic.arm64",
+      "stub": "0x1af3688",
+      "size_bytes": 12,
+      "slot": "0x228b4d8",
+      "import": {
+        "address": "0x228b4d8",
+        "raw_word": "0x80100000000015c4",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_retainAutoreleasedReturnValue",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c0090106e42f900021fd6"
+    },
+    {
+      "program": "Logic.arm64",
+      "stub": "0x1af3658",
+      "size_bytes": 12,
+      "slot": "0x228b4b8",
+      "import": {
+        "address": "0x228b4b8",
+        "raw_word": "0x80100000000015c0",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_release",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c0090105e42f900021fd6"
+    }
+  ],
+  "instruction_words": [
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bcfc",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd00",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd04",
+      "raw_hex": "fd430091"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd08",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd0c",
+      "raw_hex": "d5360294"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd10",
+      "raw_hex": "00107e1e"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd14",
+      "raw_hex": "80000034"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd18",
+      "raw_hex": "88080090"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd1c",
+      "raw_hex": "08e184b9"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd20",
+      "raw_hex": "606a68fc"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd24",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd28",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "program": "MACore.arm64",
+      "address": "0x9bd2c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18e4",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18e8",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18ec",
+      "raw_hex": "fd430091"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18f0",
+      "raw_hex": "44180994"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18f4",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18f8",
+      "raw_hex": "64470894"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e18fc",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1900",
+      "raw_hex": "d0e50994"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1904",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1908",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e190c",
+      "raw_hex": "53470894"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1910",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1914",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e1918",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "program": "Logic.arm64",
+      "address": "0x18e191c",
+      "raw_hex": "c0035fd6"
+    }
+  ],
+  "default_double": {
+    "instruction": "0x0009bd10",
+    "imm8": "0xf0",
+    "IEEE754_bits": "0xbff0000000000000",
+    "value": -1.0
+  },
+  "branch": {
+    "instruction": "0x0009bd14",
+    "kind": "CBZ w0",
+    "target": "0x9bd24",
+    "predicate": "full w0 equals zero, not bit0"
+  },
+  "definition_facts": [
+    {
+      "id": "H014-01",
+      "program": "MACore.arm64",
+      "definition": "0x0009bcfc",
+      "anchors": [
+        "0009bd08",
+        "0009bd0c"
+      ],
+      "fact": "savedValue saves incoming receiver x0 in x19 and sends dynamic hasSavedValue to that receiver; the selected hasSavedValue implementation is outside this body review.",
+      "fact_ja": "savedValueは入口receiver x0をx19へ保存し、そのreceiverへ動的にhasSavedValueを送る。hasSavedValueの実効実装はこの本文照合の範囲外。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-02",
+      "program": "MACore.arm64",
+      "definition": "0x0009bcfc",
+      "anchors": [
+        "0009bd10",
+        "0009bd14",
+        "0009bd24"
+      ],
+      "fact": "FMOV D immediate f0 establishes IEEE754 -1.0 in d0. CBZ tests all of w0, not bit0: zero returns -1.0; nonzero reaches the current-field load.",
+      "fact_ja": "FMOV Dの即値f0はIEEE754の-1.0をd0へ設定する。CBZはbit0だけではなくw0全体を検査し、0なら-1.0を返し、非0なら現在fieldの読出しへ進む。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-03",
+      "program": "MACore.arm64",
+      "definition": "0x0009bcfc",
+      "anchors": [
+        "0009bd18",
+        "0009bd1c",
+        "0009bd20"
+      ],
+      "fact": "The nonzero path uses LDRSW on runtime offset slot001ab4e0, then loads d0 from receiver x19 plus that offset. The selected ivar declaration is _savedValue, offset32/type d/8 B; runtime object layout remains unverified.",
+      "fact_ja": "非0の枝はruntime offset slot001ab4e0をLDRSWで読み、receiver x19とそのoffsetからd0へロードする。対応する宣言は_savedValue、offset32/type d/8 B。実objectのlayoutは未検証。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-04",
+      "program": "MACore.arm64",
+      "definition": "0x0009bcfc",
+      "anchors": [
+        "0009bcfc",
+        "0009bd2c"
+      ],
+      "fact": "The complete 52 B savedValue body has no direct legacy-flag or savedLongValue read, field store, or long-to-double conversion; it returns double d0, matching method type d16@0:8. This does not exclude migration in an unexamined callee or other method.",
+      "fact_ja": "52 BのsavedValue本文全体には旧flag・savedLongValueの直接読出し、field格納、longからdoubleへの変換がない。method type d16@0:8に対応するdouble d0を返す。未読calleeや別methodの移行処理は否定しない。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-05",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e18e4",
+        "018e18f0"
+      ],
+      "fact": "The first selector stub is decodeObjectForKey: (slot0254ba38), bound through objc_msgSend. The body and stub preserve incoming receiver x0 and key x2 before this send; incoming unarchiver x3 is not a declared argument of that selector.",
+      "fact_ja": "最初のselector stubはdecodeObjectForKey:（slot0254ba38）で、objc_msgSendへbindする。本文とstubは送信前の入口receiver x0とkey x2を保持する。入口unarchiver x3はこのselectorの宣言引数ではない。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-06",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e18e4",
+        "018e191c"
+      ],
+      "fact": "The complete 60 B proxy body does not save, retain, release, branch on or otherwise explicitly use incoming unarchiver x3. Residual x3 at a call is not proof that the callee uses it.",
+      "fact_ja": "60 Bのproxy本文全体は入口unarchiver x3を保存・retain・release・分岐判定などに明示的に使わない。呼出し時にx3が残っていてもcalleeの利用を証明しない。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-07",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e18f8",
+        "018e18fc",
+        "018e1900"
+      ],
+      "fact": "The returned object is retained by objc_retainAutoreleasedReturnValue, saved as x19, then receives longValue directly; there is no caller-side nil/type/error branch in this sequence.",
+      "fact_ja": "返されたobjectをobjc_retainAutoreleasedReturnValueでretainしx19へ保存、そのobjectへ直接longValueを送る。この並びにcaller側のnil・型・error分岐はない。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-08",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e1904",
+        "018e1908",
+        "018e190c",
+        "018e1910",
+        "018e191c"
+      ],
+      "fact": "Normal cleanup saves longValue result x0 in x20, releases object x19, and returns the result unchanged in x0. Method type q32@0:8@16@24 declares signed64; no scalar conversion/mask/overflow check occurs here.",
+      "fact_ja": "通常終了ではlongValue返値x0をx20へ保存し、object x19をreleaseして、返値を変更せずx0で返す。method type q32@0:8@16@24はsigned64宣言で、この本文に数値変換・mask・overflow判定はない。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-09",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e18e4",
+        "018e191c"
+      ],
+      "fact": "The proxy body has no keyboardIndex/outputChannel comparisons, integer-decode branch, NSNumber class argument or class-restricted decoder send. Its fixed body differs from TARGET013 MACore; actual object acceptance and runtime dispatch remain unverified.",
+      "fact_ja": "proxy本文にkeyboardIndex/outputChannel比較、integer読出しへの枝、NSNumberのclass引数、class制約付きdecoder送信はない。固定本文はTARGET013のMACoreと異なる。objectの実受理とruntime dispatchは未検証。",
+      "runtime_verified": false,
+      "product_capability": false
+    },
+    {
+      "id": "H014-10",
+      "program": "Logic.arm64",
+      "definition": "0x018e18e4",
+      "anchors": [
+        "018e18e4",
+        "018e191c"
+      ],
+      "fact": "The proxy has no local conditional branch, contains/error query, retry, field update or long-to-double migration. Native missing-key/wrong-type/nil/error and exception-unwind semantics, effective coder choice, archive persistence and save/reload remain unverified.",
+      "fact_ja": "proxyにローカル条件分岐、contains/error問い合わせ、retry、field更新、longからdoubleへの移行はない。nativeの欠落キー・型違い・nil・error・例外unwind、実効coderの選択、archive保存・再読込は未検証。",
+      "runtime_verified": false,
+      "product_capability": false
+    }
+  ],
+  "static_verification": {
+    "function_count": 2,
+    "defined_bytes": 112,
+    "instruction_words_verified": 28,
+    "all_exported_bytes_match": true,
+    "all_exported_bytes_match_installed_slice_and_copy": true,
+    "markers_verified": [
+      "Acquired project lock:",
+      "Processing read-only project file:",
+      "ProgramIdentityReport: exported",
+      "XrefDecompile: done",
+      "FunctionInstructionReport: exported"
+    ],
+    "negative_checks": [
+      {
+        "program": "MACore.arm64",
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "program": "MACore.arm64",
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "program": "MACore.arm64",
+        "case": "changed_word",
+        "rejected": true
+      },
+      {
+        "program": "Logic.arm64",
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "program": "Logic.arm64",
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "program": "Logic.arm64",
+        "case": "changed_word",
+        "rejected": true
+      }
+    ],
+    "independent_static_read": {
+      "findings": [],
+      "instruction_words_verified": 28,
+      "fixed_pointer_words": 19,
+      "source_slices": 73,
+      "result": "Research/raw/ghidra/parent-consumer-facts-014.json"
+    },
+    "publication_review_status": "pending_root_review"
+  },
+  "callee_boundaries": [
+    {
+      "program": "MACore.arm64",
+      "selector": "hasSavedValue",
+      "stub": "0x00129860",
+      "status": "selector_stub_verified_body_not_read_in_TARGET014"
+    },
+    {
+      "program": "Logic.arm64",
+      "selector": "decodeObjectForKey:",
+      "stub": "0x01b27a00",
+      "status": "selector_stub_verified_body_not_read_in_TARGET014"
+    }
+  ],
+  "legacy_migration": {
+    "observed_in_selected_bodies": false,
+    "status": "unresolved_by_this_scope",
+    "other_methods_or_effective_callees_excluded": false
+  },
+  "decompiler_pitfalls": [
+    "Logic C omits the first selector key argument; ASM/stub prove decodeObjectForKey: consumes incoming x2.",
+    "Logic C uses an ID temporary for longValue; metadata and ASM show signed64 x0 returned unchanged.",
+    "savedValue C labels the hasSavedValue result bool; ASM CBZ tests all w0, so bit0 normalization is not established.",
+    "FMOV printed as a negative hexadecimal quantity is the immediate double -1.0, independently expanded from imm8 f0."
+  ],
+  "limits": [
+    "Fresh import identity is original-import metadata, not a cryptographic checksum of database annotations or proof of effective runtime dispatch.",
+    "hasSavedValue and decodeObjectForKey native bodies were not read; no claim about their internal legacy/default/class behavior.",
+    "Incoming x3 has no explicit use in the proxy body; residual register contents do not establish callee use.",
+    "Normal retained-object cleanup does not prove complete exception-unwind/ownership handling.",
+    "No legacy consumer/migration found in these two bodies; other methods or selected dynamic callees remain open.",
+    "No live Logic, AppleEvent send, save/reload/Undo/roundtrip or product capability verification."
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/parent-consumer-check-014.py",
+      "size_bytes": 25264,
+      "sha256": "347df01509b1c4bce8828ffd3a07dda9cfb793c8e93ee4c18b111e81f2ee6238"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "size_bytes": 12240,
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-consumer-execution-014.json",
+      "size_bytes": 3272,
+      "sha256": "bd20e3ee657bd159fc27949da0cd9f41ea499bedfbf56ecf6e4695f02946fab3"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-plan-013.json",
+      "size_bytes": 39327,
+      "sha256": "8427aca017ef980116fc31dae4957ee416766a3d945f9b69308df26d0665515a"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "size_bytes": 7819,
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe"
+    },
+    {
+      "path": "Research/raw/ghidra/run-parent-consumer-014.py",
+      "size_bytes": 5223,
+      "sha256": "fda41e9a4090f60fd4a26878a73679bc85e3311a02142ff2e082c2c0308f796b"
+    },
+    {
+      "path": "Research/raw/ghidra/MACore.arm64.functions.tsv",
+      "size_bytes": 894302,
+      "sha256": "85f49623a810fd76a14675936dd0a1b84344f14ce7dbd955c364dd24694dcec0"
+    },
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-MACore.c",
+      "size_bytes": 381,
+      "sha256": "cb283539a6b6ce36e7b35febef2ce77a88c13ffe8af56ba48a17b06c36f175e4"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-MACore-machinecode.txt",
+      "size_bytes": 844,
+      "sha256": "e7a5e0c78ad313b23eb230a4415efbe05ee9665f48d362504fe01dfe5bcd8fda"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-MACore.identity.json",
+      "size_bytes": 463,
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-MACore.log",
+      "size_bytes": 5282,
+      "sha256": "9184ac8016fec8caed1c0cdf2a74b0ca50e7b6fdf9b962e064d67910d50b2bb5"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-Logic.c",
+      "size_bytes": 610,
+      "sha256": "333764159b6c417e89dd585aea192c156ebc7101b0490ce65785da12f0654fe0"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-Logic-machinecode.txt",
+      "size_bytes": 960,
+      "sha256": "adda0f36753fb4e80b56cf3a2caed68c69d8222eefdd6dfd30f4c43fc50e7799"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-Logic.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-consumer-014-Logic.log",
+      "size_bytes": 5274,
+      "sha256": "dd41e38a94f6d1e510265c3f49a13be119278b04ddd3d58db439ccdfab06a539"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-consumer-facts-014.json",
+      "size_bytes": 53325,
+      "sha256": "e2c99e5bbe1d25efe7b66edd566dec4d84626ee50f578dfdeae5fa3fd7b7901a"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-consumer-notes-014.md",
+      "size_bytes": 6629,
+      "sha256": "cc0b42da626a1e213b52984982677b945e88c7eadd5c550150dc1ec580747c54"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-consumers-public-check-014.py",
+      "size_bytes": 7932,
+      "sha256": "5ebda7d2538f6c45b46a268a6488006da2e8b2b152124030eb1adf3897571269"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    }
+  ],
+  "source_fingerprint_summary": {
+    "algorithm": "SHA-256",
+    "artifact_count": 23,
+    "fingerprints": "local_evidence",
+    "from_current_local_file_bytes": true
+  },
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-parent-consumers-boundaries.tsv",
+      "size_bytes": 5096,
+      "sha256": "0d97e817d61bdbc11f710f003f67b3a66f79698dd86f09c73d4d88267832fdd5"
+    }
+  ],
+  "public_documents": [
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-014-parent-consumers.md",
+      "size_bytes": 9130,
+      "sha256": "f353e02be33dab122978171fb36d5b69fb2da4ee674b7da119f10d05da887695"
+    },
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-014-parent-consumers.en.md",
+      "size_bytes": 8807,
+      "sha256": "a9d0c368558be3e3e81aeb48bee6738c4de2b26771b062a49c4c80b49235c869"
+    }
+  ],
+  "dynamic_verification": {
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "product_capabilities_added": [],
+  "research_actions": {
+    "logic_operations": 0,
+    "new_connections": 0,
+    "appleevent_sends": 0,
+    "database_name_or_type_edits": 0
+  },
+  "publication_review": {
+    "reviewer": "Codex root",
+    "reviewed_at_utc": "2026-10-06T16:22:18.188778+00:00",
+    "body_facts_and_markdown_reviewed": true,
+    "material_findings": []
+  }
+}

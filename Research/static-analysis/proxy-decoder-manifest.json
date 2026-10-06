@@ -1,0 +1,2536 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-015"
+  ],
+  "status": "static_verification_and_publication_review_complete",
+  "captured_at_utc": "2026-10-06T16:14:27.949372+00:00",
+  "manifest_generated_at_utc": "2026-10-06T16:19:47.218599+00:00",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": 6682,
+    "architecture": "arm64"
+  },
+  "identity_manifest": "binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "appleevent-parent-decode-manifest.json",
+    "appleevent-parent-helpers-manifest.json"
+  ],
+  "prior_long_export": {
+    "entry": "0x018e18e4",
+    "size_bytes": 60,
+    "local_source": "Research/raw/ghidra/q-appleevent-parent-consumer-014-Logic-machinecode.txt",
+    "included_in_target015_job": false
+  },
+  "scope": "13 fixed definitions/880B/220words; directly used11selector220B+8native96B stubs and fixed metadata only",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock": "Research/raw/ghidra/logicctl-project.lock",
+  "shared_lock_used_with_absolute_path": true,
+  "program_identity": {
+    "schema_version": 1,
+    "program_name": "Logic.arm64",
+    "executable_path": "Logic.arm64",
+    "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "verified_binary_inputs": {
+    "Logic_installed_thin_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "Logic_arm64_slice_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "Logic_analysis_copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "arm64_file_offset": 0,
+    "arm64_size_bytes": 40710736,
+    "slice_copy_equal": true,
+    "inventory_ranges_names_verified": true,
+    "method_metadata_types_owners_verified": true
+  },
+  "execution_jobs": [
+    {
+      "name": "q-logic-proxy-decoder-015",
+      "program": "Logic.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-06T16:07:56.787310+00:00"
+    }
+  ],
+  "selected_methods": [
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "initWithDict:andCVArchive:",
+      "entry": "0x018e1770",
+      "size_bytes": 164,
+      "instruction_words": 41,
+      "body_sha256": "fa2c34e4f7f5c02c7c28ae859b117147f56e556f809bdc14dc11de6f985d84c1",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c61270",
+        "entry_index": 0,
+        "selector_ref_slot": "0x2553b08",
+        "selector": "initWithDict:andCVArchive:",
+        "type_address": "0x1fc35f3",
+        "types": "@32@0:8@16@24",
+        "imp_relative_base": "0x1c61278",
+        "imp": "0x18e1770",
+        "raw_hex": "98288f007f233600f804c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeObjectOfClasses:forKey:",
+      "entry": "0x018e1830",
+      "size_bytes": 32,
+      "instruction_words": 8,
+      "body_sha256": "33b4aa5b2b7e83c78eec4b0fe21da43c93946ee85f1788a09d8b7a31445c1f58",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c6127c",
+        "entry_index": 1,
+        "selector_ref_slot": "0x254ba48",
+        "selector": "decodeObjectOfClasses:forKey:",
+        "type_address": "0x1fc35f3",
+        "types": "@32@0:8@16@24",
+        "imp_relative_base": "0x1c61284",
+        "imp": "0x18e1830",
+        "raw_hex": "cca78e0073233600ac05c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeObjectOfClass:forKey:",
+      "entry": "0x018e1850",
+      "size_bytes": 32,
+      "instruction_words": 8,
+      "body_sha256": "3c51ab42172729854a757f63c59b819b9b975098ac70cbbb2adb79261247e376",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c61288",
+        "entry_index": 2,
+        "selector_ref_slot": "0x254ba40",
+        "selector": "decodeObjectOfClass:forKey:",
+        "type_address": "0x200de34",
+        "types": "@32@0:8#16@24",
+        "imp_relative_base": "0x1c61290",
+        "imp": "0x18e1850",
+        "raw_hex": "b8a78e00a8cb3a00c005c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeObjectForKey:",
+      "entry": "0x018e1870",
+      "size_bytes": 96,
+      "instruction_words": 24,
+      "body_sha256": "073d72df3b21f0d17ae542f50eed766a269fe1b84f43062c483584748124f22b",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c61294",
+        "entry_index": 3,
+        "selector_ref_slot": "0x254ba38",
+        "selector": "decodeObjectForKey:",
+        "type_address": "0x1fc3748",
+        "types": "@24@0:8@16",
+        "imp_relative_base": "0x1c6129c",
+        "imp": "0x18e1870",
+        "raw_hex": "a4a78e00b0243600d405c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeIntegerForKey:",
+      "entry": "0x018e1934",
+      "size_bytes": 60,
+      "instruction_words": 15,
+      "body_sha256": "a88f6899310ba23a7c3b6c627d99b2f82c9e7c4d1e2feaa01324dc7afa8318c1",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612ac",
+        "entry_index": 5,
+        "selector_ref_slot": "0x254ba28",
+        "selector": "decodeIntegerForKey:",
+        "type_address": "0x1fc38a5",
+        "types": "q24@0:8@16",
+        "imp_relative_base": "0x1c612b4",
+        "imp": "0x18e1934",
+        "raw_hex": "7ca78e00f52536008006c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeFloatForKey:",
+      "entry": "0x018e1984",
+      "size_bytes": 68,
+      "instruction_words": 17,
+      "body_sha256": "967ae29daf2ddd6c30ff9216393499e8095100641973104f619dccba6122d785",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612b8",
+        "entry_index": 6,
+        "selector_ref_slot": "0x254ba08",
+        "selector": "decodeFloatForKey:",
+        "type_address": "0x1fc43de",
+        "types": "f24@0:8@16",
+        "imp_relative_base": "0x1c612c0",
+        "imp": "0x18e1984",
+        "raw_hex": "50a78e0022313600c406c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeDoubleForKey:",
+      "entry": "0x018e19dc",
+      "size_bytes": 68,
+      "instruction_words": 17,
+      "body_sha256": "3f4f114cdbb65749ee764c43595bea0c2903b9ccf3bd29e0d7d344594b1499fb",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612c4",
+        "entry_index": 7,
+        "selector_ref_slot": "0x2582b78",
+        "selector": "decodeDoubleForKey:",
+        "type_address": "0x1fc5822",
+        "types": "d24@0:8@16",
+        "imp_relative_base": "0x1c612cc",
+        "imp": "0x18e19dc",
+        "raw_hex": "b41892005a4536001007c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeBoolForKey:",
+      "entry": "0x018e1a34",
+      "size_bytes": 60,
+      "instruction_words": 15,
+      "body_sha256": "4b5759a0447d62566ee476c9bd8810394c50933de4e541503721aecc79df33d4",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612d0",
+        "entry_index": 8,
+        "selector_ref_slot": "0x254b9f8",
+        "selector": "decodeBoolForKey:",
+        "type_address": "0x1fc364f",
+        "types": "B24@0:8@16",
+        "imp_relative_base": "0x1c612d8",
+        "imp": "0x18e1a34",
+        "raw_hex": "28a78e007b2336005c07c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeBytesForKey:returnedLength:",
+      "entry": "0x018e1a84",
+      "size_bytes": 80,
+      "instruction_words": 20,
+      "body_sha256": "42eb164eec78f8792f5e70c3d04656827df27de859bf6ee88b946fb1a04cb7f5",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612dc",
+        "entry_index": 9,
+        "selector_ref_slot": "0x254ba00",
+        "selector": "decodeBytesForKey:returnedLength:",
+        "type_address": "0x200de42",
+        "types": "r*32@0:8@16^Q24",
+        "imp_relative_base": "0x1c612e4",
+        "imp": "0x18e1a84",
+        "raw_hex": "24a78e0062cb3a00a007c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "containsValueForKey:",
+      "entry": "0x018e1ae8",
+      "size_bytes": 56,
+      "instruction_words": 14,
+      "body_sha256": "46c75d9faf1ae88addc5cf1b33b0202c1b0e133173456e561901338d3ce81308",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612e8",
+        "entry_index": 10,
+        "selector_ref_slot": "0x2548ea8",
+        "selector": "containsValueForKey:",
+        "type_address": "0x1fc364f",
+        "types": "B24@0:8@16",
+        "imp_relative_base": "0x1c612f0",
+        "imp": "0x18e1ae8",
+        "raw_hex": "c07b8e0063233600f807c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "versionForClassName:",
+      "entry": "0x018e1b20",
+      "size_bytes": 8,
+      "instruction_words": 2,
+      "body_sha256": "b70cb520da5e7e715cc320abeda1877ab7f38d5a8f7e817981695668839780e3",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c612f4",
+        "entry_index": 11,
+        "selector_ref_slot": "0x2574530",
+        "selector": "versionForClassName:",
+        "type_address": "0x1fc38a5",
+        "types": "q24@0:8@16",
+        "imp_relative_base": "0x1c612fc",
+        "imp": "0x18e1b20",
+        "raw_hex": "3c329100ad2536002408c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": ".cxx_destruct",
+      "entry": "0x018e1b28",
+      "size_bytes": 48,
+      "instruction_words": 12,
+      "body_sha256": "a3571c3523544184c2bf8d8e65d42757369be92b7d22cc172587452c015f9a93",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "instance",
+        "method_list": "0x1c61268",
+        "entry": "0x1c61300",
+        "entry_index": 12,
+        "selector_ref_slot": "0x2575428",
+        "selector": ".cxx_destruct",
+        "type_address": "0x1fc361b",
+        "types": "v16@0:8",
+        "imp_relative_base": "0x1c61308",
+        "imp": "0x18e1b28",
+        "raw_hex": "28419100172336002008c8ff"
+      }
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decoderWithDict:andCVArchive:",
+      "entry": "0x018e1b58",
+      "size_bytes": 108,
+      "instruction_words": 27,
+      "body_sha256": "1da795b84fe050490b08b319f1eb8604631673cc8cb90b9443774233c56e9a59",
+      "method_metadata": {
+        "owner": "_CLgMainStageProxyDecoder",
+        "kind": "class",
+        "method_list": "0x1bdb8f0",
+        "entry": "0x1bdb8f8",
+        "entry_index": 0,
+        "selector_ref_slot": "0x254ba58",
+        "selector": "decoderWithDict:andCVArchive:",
+        "type_address": "0x1fc35f3",
+        "types": "@32@0:8@16@24",
+        "imp_relative_base": "0x1bdb900",
+        "imp": "0x18e1b58",
+        "raw_hex": "60019700f77c3e005862d0ff"
+      }
+    }
+  ],
+  "classes": [
+    {
+      "class_address": "0x25be290",
+      "class_ro": "0x2529e78",
+      "kind": "class",
+      "name": "_CLgMainStageProxyDecoder"
+    },
+    {
+      "class_address": "0x25be330",
+      "class_ro": "0x2529de8",
+      "kind": "metaclass",
+      "name": "_CLgMainStageProxyDecoder"
+    }
+  ],
+  "superclass_import": {
+    "vm_address": "0x25be298",
+    "raw_word": "0x8010000000001598",
+    "pointer_format": 6,
+    "chain_membership_verified": true,
+    "page_index": 96,
+    "nodes_before_target": 886,
+    "kind": "bind",
+    "import_index": 5528,
+    "addend_unsigned": 0,
+    "library_ordinal": 93,
+    "library": "/usr/lib/libobjc.A.dylib",
+    "weak_import": false,
+    "import_name": "_OBJC_CLASS_$_NSObject"
+  },
+  "selected_ivars": [
+    {
+      "entry": "0x2529e38",
+      "offset_slot": "0x258f61c",
+      "offset": 8,
+      "name": "decoderDict",
+      "type": "@\"NSDictionary\"",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "1cf6580200001000de33ee01000010002771fc01000020000300000008000000"
+    },
+    {
+      "entry": "0x2529e58",
+      "offset_slot": "0x258f620",
+      "offset": 16,
+      "name": "cvArchive",
+      "type": "@\"_CLgMainStageKeyValueArchive\"",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "20f6580200001000d424ee010000100014de0002000040000300000008000000"
+    }
+  ],
+  "super_send": {
+    "class_ref_slot": "0x24273e0",
+    "class": "0x25be290",
+    "selector_slot": "0x2553320",
+    "selector": "init"
+  },
+  "selector_stubs": [
+    {
+      "stub": "0x1b27a00",
+      "size_bytes": 20,
+      "selector_slot": "0x254ba38",
+      "selector": "decodeObjectForKey:",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "21510090211c45f9303b0090103642f900021fd6"
+    },
+    {
+      "stub": "0x1b67520",
+      "size_bytes": 20,
+      "selector_slot": "0x255b900",
+      "selector": "objectForKeyedSubscript:",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a14f0090218044f930390090103642f900021fd6"
+    },
+    {
+      "stub": "0x1af8bc0",
+      "size_bytes": 20,
+      "selector_slot": "0x253fea8",
+      "selector": "_decodedObject:",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0215447f9903c00f0103642f900021fd6"
+    },
+    {
+      "stub": "0x1b4ee60",
+      "size_bytes": 20,
+      "selector_slot": "0x2555750",
+      "selector": "intValue",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215000f021a843f9f03900b0103642f900021fd6"
+    },
+    {
+      "stub": "0x1b392a0",
+      "size_bytes": 20,
+      "selector_slot": "0x2550060",
+      "selector": "floatValue",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a15000f0213040f9903a00d0103642f900021fd6"
+    },
+    {
+      "stub": "0x1b2f6c0",
+      "size_bytes": 20,
+      "selector_slot": "0x254d968",
+      "selector": "doubleValue",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e15000d021b444f9f03a0090103642f900021fd6"
+    },
+    {
+      "stub": "0x1b0ff80",
+      "size_bytes": 20,
+      "selector_slot": "0x2545b98",
+      "selector": "boolValue",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a15100d021cc45f9f03b0090103642f900021fd6"
+    },
+    {
+      "stub": "0x1b58120",
+      "size_bytes": 20,
+      "selector_slot": "0x2557c00",
+      "selector": "length",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e14f00f0210046f9903900f0103642f900021fd6"
+    },
+    {
+      "stub": "0x1b11280",
+      "size_bytes": 20,
+      "selector_slot": "0x2546058",
+      "selector": "bytes",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a15100b0212c40f9d03b00d0103642f900021fd6"
+    },
+    {
+      "stub": "0x1bca5e0",
+      "size_bytes": 20,
+      "selector_slot": "0x2574530",
+      "selector": "versionForClassName:",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "414d00d0219842f9103600b0103642f900021fd6"
+    },
+    {
+      "stub": "0x1b47d40",
+      "size_bytes": 20,
+      "selector_slot": "0x2553b08",
+      "selector": "initWithDict:andCVArchive:",
+      "dispatch_slot": "0x228b468",
+      "dispatch_bind": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "61500090218445f9303a0090103642f900021fd6"
+    }
+  ],
+  "native_import_stubs": [
+    {
+      "stub": "0x1af3664",
+      "size_bytes": 12,
+      "slot": "0x228b4c0",
+      "bind": {
+        "vm_address": "0x228b4c0",
+        "raw_word": "0x80100000000015c1",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1688,
+        "kind": "bind",
+        "import_index": 5569,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retain"
+      },
+      "raw_hex": "d03c0090106242f900021fd6"
+    },
+    {
+      "stub": "0x1af3604",
+      "size_bytes": 12,
+      "slot": "0x228b480",
+      "bind": {
+        "vm_address": "0x228b480",
+        "raw_word": "0x80100000000015b9",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1680,
+        "kind": "bind",
+        "import_index": 5561,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSendSuper2"
+      },
+      "raw_hex": "d03c0090104242f900021fd6"
+    },
+    {
+      "stub": "0x1af36dc",
+      "size_bytes": 12,
+      "slot": "0x228b510",
+      "bind": {
+        "vm_address": "0x228b510",
+        "raw_word": "0x80100000000015cb",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1698,
+        "kind": "bind",
+        "import_index": 5579,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_storeStrong"
+      },
+      "raw_hex": "d03c0090108a42f900021fd6"
+    },
+    {
+      "stub": "0x1af3658",
+      "size_bytes": 12,
+      "slot": "0x228b4b8",
+      "bind": {
+        "vm_address": "0x228b4b8",
+        "raw_word": "0x80100000000015c0",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1687,
+        "kind": "bind",
+        "import_index": 5568,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_release"
+      },
+      "raw_hex": "d03c0090105e42f900021fd6"
+    },
+    {
+      "stub": "0x1af3688",
+      "size_bytes": 12,
+      "slot": "0x228b4d8",
+      "bind": {
+        "vm_address": "0x228b4d8",
+        "raw_word": "0x80100000000015c4",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1691,
+        "kind": "bind",
+        "import_index": 5572,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retainAutoreleasedReturnValue"
+      },
+      "raw_hex": "d03c0090106e42f900021fd6"
+    },
+    {
+      "stub": "0x1af352c",
+      "size_bytes": 12,
+      "slot": "0x228b3e8",
+      "bind": {
+        "vm_address": "0x228b3e8",
+        "raw_word": "0x80100000000015a7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1661,
+        "kind": "bind",
+        "import_index": 5543,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_autoreleaseReturnValue"
+      },
+      "raw_hex": "d03c009010f641f900021fd6"
+    },
+    {
+      "stub": "0x1af3670",
+      "size_bytes": 12,
+      "slot": "0x228b4c8",
+      "bind": {
+        "vm_address": "0x228b4c8",
+        "raw_word": "0x80100000000015c2",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1689,
+        "kind": "bind",
+        "import_index": 5570,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retainAutorelease"
+      },
+      "raw_hex": "d03c0090106642f900021fd6"
+    },
+    {
+      "stub": "0x1af34d8",
+      "size_bytes": 12,
+      "slot": "0x228b3b0",
+      "bind": {
+        "vm_address": "0x228b3b0",
+        "raw_word": "0x80100000000015a0",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1654,
+        "kind": "bind",
+        "import_index": 5536,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_alloc"
+      },
+      "raw_hex": "d03c009010da41f900021fd6"
+    }
+  ],
+  "instruction_words": [
+    {
+      "address": "0x18e1770",
+      "raw_hex": "ff4301d1"
+    },
+    {
+      "address": "0x18e1774",
+      "raw_hex": "f85f01a9"
+    },
+    {
+      "address": "0x18e1778",
+      "raw_hex": "f65702a9"
+    },
+    {
+      "address": "0x18e177c",
+      "raw_hex": "f44f03a9"
+    },
+    {
+      "address": "0x18e1780",
+      "raw_hex": "fd7b04a9"
+    },
+    {
+      "address": "0x18e1784",
+      "raw_hex": "fd030191"
+    },
+    {
+      "address": "0x18e1788",
+      "raw_hex": "f40303aa"
+    },
+    {
+      "address": "0x18e178c",
+      "raw_hex": "f60302aa"
+    },
+    {
+      "address": "0x18e1790",
+      "raw_hex": "f70300aa"
+    },
+    {
+      "address": "0x18e1794",
+      "raw_hex": "e00302aa"
+    },
+    {
+      "address": "0x18e1798",
+      "raw_hex": "b3470894"
+    },
+    {
+      "address": "0x18e179c",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e17a0",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e17a4",
+      "raw_hex": "b0470894"
+    },
+    {
+      "address": "0x18e17a8",
+      "raw_hex": "f50300aa"
+    },
+    {
+      "address": "0x18e17ac",
+      "raw_hex": "285a00d0"
+    },
+    {
+      "address": "0x18e17b0",
+      "raw_hex": "08f141f9"
+    },
+    {
+      "address": "0x18e17b4",
+      "raw_hex": "f72300a9"
+    },
+    {
+      "address": "0x18e17b8",
+      "raw_hex": "886300d0"
+    },
+    {
+      "address": "0x18e17bc",
+      "raw_hex": "019141f9"
+    },
+    {
+      "address": "0x18e17c0",
+      "raw_hex": "e0030091"
+    },
+    {
+      "address": "0x18e17c4",
+      "raw_hex": "90470894"
+    },
+    {
+      "address": "0x18e17c8",
+      "raw_hex": "f70300aa"
+    },
+    {
+      "address": "0x18e17cc",
+      "raw_hex": "e00000b4"
+    },
+    {
+      "address": "0x18e17d0",
+      "raw_hex": "e0220091"
+    },
+    {
+      "address": "0x18e17d4",
+      "raw_hex": "e10316aa"
+    },
+    {
+      "address": "0x18e17d8",
+      "raw_hex": "c1470894"
+    },
+    {
+      "address": "0x18e17dc",
+      "raw_hex": "e0420091"
+    },
+    {
+      "address": "0x18e17e0",
+      "raw_hex": "e10314aa"
+    },
+    {
+      "address": "0x18e17e4",
+      "raw_hex": "be470894"
+    },
+    {
+      "address": "0x18e17e8",
+      "raw_hex": "e00315aa"
+    },
+    {
+      "address": "0x18e17ec",
+      "raw_hex": "9b470894"
+    },
+    {
+      "address": "0x18e17f0",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e17f4",
+      "raw_hex": "99470894"
+    },
+    {
+      "address": "0x18e17f8",
+      "raw_hex": "e00317aa"
+    },
+    {
+      "address": "0x18e17fc",
+      "raw_hex": "fd7b44a9"
+    },
+    {
+      "address": "0x18e1800",
+      "raw_hex": "f44f43a9"
+    },
+    {
+      "address": "0x18e1804",
+      "raw_hex": "f65742a9"
+    },
+    {
+      "address": "0x18e1808",
+      "raw_hex": "f85f41a9"
+    },
+    {
+      "address": "0x18e180c",
+      "raw_hex": "ff430191"
+    },
+    {
+      "address": "0x18e1810",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1830",
+      "raw_hex": "fd7bbfa9"
+    },
+    {
+      "address": "0x18e1834",
+      "raw_hex": "fd030091"
+    },
+    {
+      "address": "0x18e1838",
+      "raw_hex": "e20303aa"
+    },
+    {
+      "address": "0x18e183c",
+      "raw_hex": "71180994"
+    },
+    {
+      "address": "0x18e1840",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1844",
+      "raw_hex": "91470894"
+    },
+    {
+      "address": "0x18e1848",
+      "raw_hex": "fd7bc1a8"
+    },
+    {
+      "address": "0x18e184c",
+      "raw_hex": "38470814"
+    },
+    {
+      "address": "0x18e1850",
+      "raw_hex": "fd7bbfa9"
+    },
+    {
+      "address": "0x18e1854",
+      "raw_hex": "fd030091"
+    },
+    {
+      "address": "0x18e1858",
+      "raw_hex": "e20303aa"
+    },
+    {
+      "address": "0x18e185c",
+      "raw_hex": "69180994"
+    },
+    {
+      "address": "0x18e1860",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1864",
+      "raw_hex": "89470894"
+    },
+    {
+      "address": "0x18e1868",
+      "raw_hex": "fd7bc1a8"
+    },
+    {
+      "address": "0x18e186c",
+      "raw_hex": "30470814"
+    },
+    {
+      "address": "0x18e1870",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1874",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e1878",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e187c",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x18e1880",
+      "raw_hex": "000440f9"
+    },
+    {
+      "address": "0x18e1884",
+      "raw_hex": "27170a94"
+    },
+    {
+      "address": "0x18e1888",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e188c",
+      "raw_hex": "7f470894"
+    },
+    {
+      "address": "0x18e1890",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1894",
+      "raw_hex": "000100b4"
+    },
+    {
+      "address": "0x18e1898",
+      "raw_hex": "800a40f9"
+    },
+    {
+      "address": "0x18e189c",
+      "raw_hex": "e20313aa"
+    },
+    {
+      "address": "0x18e18a0",
+      "raw_hex": "c85c0894"
+    },
+    {
+      "address": "0x18e18a4",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e18a8",
+      "raw_hex": "78470894"
+    },
+    {
+      "address": "0x18e18ac",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x18e18b0",
+      "raw_hex": "02000014"
+    },
+    {
+      "address": "0x18e18b4",
+      "raw_hex": "140080d2"
+    },
+    {
+      "address": "0x18e18b8",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e18bc",
+      "raw_hex": "67470894"
+    },
+    {
+      "address": "0x18e18c0",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e18c4",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e18c8",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e18cc",
+      "raw_hex": "18470814"
+    },
+    {
+      "address": "0x18e1934",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1938",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e193c",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e1940",
+      "raw_hex": "30180994"
+    },
+    {
+      "address": "0x18e1944",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1948",
+      "raw_hex": "50470894"
+    },
+    {
+      "address": "0x18e194c",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1950",
+      "raw_hex": "44b50994"
+    },
+    {
+      "address": "0x18e1954",
+      "raw_hex": "147c4093"
+    },
+    {
+      "address": "0x18e1958",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e195c",
+      "raw_hex": "3f470894"
+    },
+    {
+      "address": "0x18e1960",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e1964",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e1968",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e196c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1984",
+      "raw_hex": "e923bd6d"
+    },
+    {
+      "address": "0x18e1988",
+      "raw_hex": "f44f01a9"
+    },
+    {
+      "address": "0x18e198c",
+      "raw_hex": "fd7b02a9"
+    },
+    {
+      "address": "0x18e1990",
+      "raw_hex": "fd830091"
+    },
+    {
+      "address": "0x18e1994",
+      "raw_hex": "1b180994"
+    },
+    {
+      "address": "0x18e1998",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e199c",
+      "raw_hex": "3b470894"
+    },
+    {
+      "address": "0x18e19a0",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e19a4",
+      "raw_hex": "3f5e0994"
+    },
+    {
+      "address": "0x18e19a8",
+      "raw_hex": "0840201e"
+    },
+    {
+      "address": "0x18e19ac",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e19b0",
+      "raw_hex": "2a470894"
+    },
+    {
+      "address": "0x18e19b4",
+      "raw_hex": "0041201e"
+    },
+    {
+      "address": "0x18e19b8",
+      "raw_hex": "fd7b42a9"
+    },
+    {
+      "address": "0x18e19bc",
+      "raw_hex": "f44f41a9"
+    },
+    {
+      "address": "0x18e19c0",
+      "raw_hex": "e923c36c"
+    },
+    {
+      "address": "0x18e19c4",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e19dc",
+      "raw_hex": "e923bd6d"
+    },
+    {
+      "address": "0x18e19e0",
+      "raw_hex": "f44f01a9"
+    },
+    {
+      "address": "0x18e19e4",
+      "raw_hex": "fd7b02a9"
+    },
+    {
+      "address": "0x18e19e8",
+      "raw_hex": "fd830091"
+    },
+    {
+      "address": "0x18e19ec",
+      "raw_hex": "05180994"
+    },
+    {
+      "address": "0x18e19f0",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e19f4",
+      "raw_hex": "25470894"
+    },
+    {
+      "address": "0x18e19f8",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e19fc",
+      "raw_hex": "31370994"
+    },
+    {
+      "address": "0x18e1a00",
+      "raw_hex": "0840601e"
+    },
+    {
+      "address": "0x18e1a04",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1a08",
+      "raw_hex": "14470894"
+    },
+    {
+      "address": "0x18e1a0c",
+      "raw_hex": "0041601e"
+    },
+    {
+      "address": "0x18e1a10",
+      "raw_hex": "fd7b42a9"
+    },
+    {
+      "address": "0x18e1a14",
+      "raw_hex": "f44f41a9"
+    },
+    {
+      "address": "0x18e1a18",
+      "raw_hex": "e923c36c"
+    },
+    {
+      "address": "0x18e1a1c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1a34",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1a38",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e1a3c",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e1a40",
+      "raw_hex": "f0170994"
+    },
+    {
+      "address": "0x18e1a44",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1a48",
+      "raw_hex": "10470894"
+    },
+    {
+      "address": "0x18e1a4c",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1a50",
+      "raw_hex": "4cb90894"
+    },
+    {
+      "address": "0x18e1a54",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x18e1a58",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1a5c",
+      "raw_hex": "ff460894"
+    },
+    {
+      "address": "0x18e1a60",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e1a64",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e1a68",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e1a6c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1a84",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1a88",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e1a8c",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e1a90",
+      "raw_hex": "f40303aa"
+    },
+    {
+      "address": "0x18e1a94",
+      "raw_hex": "db170994"
+    },
+    {
+      "address": "0x18e1a98",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1a9c",
+      "raw_hex": "fb460894"
+    },
+    {
+      "address": "0x18e1aa0",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1aa4",
+      "raw_hex": "9fd90994"
+    },
+    {
+      "address": "0x18e1aa8",
+      "raw_hex": "800200f9"
+    },
+    {
+      "address": "0x18e1aac",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1ab0",
+      "raw_hex": "f0460894"
+    },
+    {
+      "address": "0x18e1ab4",
+      "raw_hex": "f3bd0894"
+    },
+    {
+      "address": "0x18e1ab8",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x18e1abc",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1ac0",
+      "raw_hex": "e6460894"
+    },
+    {
+      "address": "0x18e1ac4",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e1ac8",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e1acc",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e1ad0",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1ae8",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1aec",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e1af0",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e1af4",
+      "raw_hex": "000440f9"
+    },
+    {
+      "address": "0x18e1af8",
+      "raw_hex": "8a160a94"
+    },
+    {
+      "address": "0x18e1afc",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x18e1b00",
+      "raw_hex": "e2460894"
+    },
+    {
+      "address": "0x18e1b04",
+      "raw_hex": "1f0000f1"
+    },
+    {
+      "address": "0x18e1b08",
+      "raw_hex": "f3079f1a"
+    },
+    {
+      "address": "0x18e1b0c",
+      "raw_hex": "d3460894"
+    },
+    {
+      "address": "0x18e1b10",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1b14",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e1b18",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e1b1c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x18e1b20",
+      "raw_hex": "000840f9"
+    },
+    {
+      "address": "0x18e1b24",
+      "raw_hex": "afa20b14"
+    },
+    {
+      "address": "0x18e1b28",
+      "raw_hex": "f44fbea9"
+    },
+    {
+      "address": "0x18e1b2c",
+      "raw_hex": "fd7b01a9"
+    },
+    {
+      "address": "0x18e1b30",
+      "raw_hex": "fd430091"
+    },
+    {
+      "address": "0x18e1b34",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1b38",
+      "raw_hex": "00400091"
+    },
+    {
+      "address": "0x18e1b3c",
+      "raw_hex": "010080d2"
+    },
+    {
+      "address": "0x18e1b40",
+      "raw_hex": "e7460894"
+    },
+    {
+      "address": "0x18e1b44",
+      "raw_hex": "60220091"
+    },
+    {
+      "address": "0x18e1b48",
+      "raw_hex": "010080d2"
+    },
+    {
+      "address": "0x18e1b4c",
+      "raw_hex": "fd7b41a9"
+    },
+    {
+      "address": "0x18e1b50",
+      "raw_hex": "f44fc2a8"
+    },
+    {
+      "address": "0x18e1b54",
+      "raw_hex": "e2460814"
+    },
+    {
+      "address": "0x18e1b58",
+      "raw_hex": "f657bda9"
+    },
+    {
+      "address": "0x18e1b5c",
+      "raw_hex": "f44f01a9"
+    },
+    {
+      "address": "0x18e1b60",
+      "raw_hex": "fd7b02a9"
+    },
+    {
+      "address": "0x18e1b64",
+      "raw_hex": "fd830091"
+    },
+    {
+      "address": "0x18e1b68",
+      "raw_hex": "f40303aa"
+    },
+    {
+      "address": "0x18e1b6c",
+      "raw_hex": "f50300aa"
+    },
+    {
+      "address": "0x18e1b70",
+      "raw_hex": "e00302aa"
+    },
+    {
+      "address": "0x18e1b74",
+      "raw_hex": "bc460894"
+    },
+    {
+      "address": "0x18e1b78",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x18e1b7c",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e1b80",
+      "raw_hex": "b9460894"
+    },
+    {
+      "address": "0x18e1b84",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x18e1b88",
+      "raw_hex": "e00315aa"
+    },
+    {
+      "address": "0x18e1b8c",
+      "raw_hex": "53460894"
+    },
+    {
+      "address": "0x18e1b90",
+      "raw_hex": "e20313aa"
+    },
+    {
+      "address": "0x18e1b94",
+      "raw_hex": "e30314aa"
+    },
+    {
+      "address": "0x18e1b98",
+      "raw_hex": "6a980994"
+    },
+    {
+      "address": "0x18e1b9c",
+      "raw_hex": "f50300aa"
+    },
+    {
+      "address": "0x18e1ba0",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x18e1ba4",
+      "raw_hex": "ad460894"
+    },
+    {
+      "address": "0x18e1ba8",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x18e1bac",
+      "raw_hex": "ab460894"
+    },
+    {
+      "address": "0x18e1bb0",
+      "raw_hex": "e00315aa"
+    },
+    {
+      "address": "0x18e1bb4",
+      "raw_hex": "fd7b42a9"
+    },
+    {
+      "address": "0x18e1bb8",
+      "raw_hex": "f44f41a9"
+    },
+    {
+      "address": "0x18e1bbc",
+      "raw_hex": "f657c3a8"
+    },
+    {
+      "address": "0x18e1bc0",
+      "raw_hex": "5b460814"
+    }
+  ],
+  "call_sites": [
+    {
+      "callsite": "0x18e1798",
+      "target": "0x1af3664",
+      "name": "_objc_retain",
+      "kind": "BL",
+      "raw_hex": "b3470894"
+    },
+    {
+      "callsite": "0x18e17a4",
+      "target": "0x1af3664",
+      "name": "_objc_retain",
+      "kind": "BL",
+      "raw_hex": "b0470894"
+    },
+    {
+      "callsite": "0x18e17c4",
+      "target": "0x1af3604",
+      "name": "_objc_msgSendSuper2",
+      "kind": "BL",
+      "raw_hex": "90470894"
+    },
+    {
+      "callsite": "0x18e17d8",
+      "target": "0x1af36dc",
+      "name": "_objc_storeStrong",
+      "kind": "BL",
+      "raw_hex": "c1470894"
+    },
+    {
+      "callsite": "0x18e17e4",
+      "target": "0x1af36dc",
+      "name": "_objc_storeStrong",
+      "kind": "BL",
+      "raw_hex": "be470894"
+    },
+    {
+      "callsite": "0x18e17ec",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "9b470894"
+    },
+    {
+      "callsite": "0x18e17f4",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "99470894"
+    },
+    {
+      "callsite": "0x18e183c",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "71180994"
+    },
+    {
+      "callsite": "0x18e1844",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "91470894"
+    },
+    {
+      "callsite": "0x18e184c",
+      "target": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "kind": "B",
+      "raw_hex": "38470814"
+    },
+    {
+      "callsite": "0x18e185c",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "69180994"
+    },
+    {
+      "callsite": "0x18e1864",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "89470894"
+    },
+    {
+      "callsite": "0x18e186c",
+      "target": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "kind": "B",
+      "raw_hex": "30470814"
+    },
+    {
+      "callsite": "0x18e1884",
+      "target": "0x1b67520",
+      "name": "objectForKeyedSubscript:",
+      "kind": "BL",
+      "raw_hex": "27170a94"
+    },
+    {
+      "callsite": "0x18e188c",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "7f470894"
+    },
+    {
+      "callsite": "0x18e18a0",
+      "target": "0x1af8bc0",
+      "name": "_decodedObject:",
+      "kind": "BL",
+      "raw_hex": "c85c0894"
+    },
+    {
+      "callsite": "0x18e18a8",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "78470894"
+    },
+    {
+      "callsite": "0x18e18bc",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "67470894"
+    },
+    {
+      "callsite": "0x18e18cc",
+      "target": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "kind": "B",
+      "raw_hex": "18470814"
+    },
+    {
+      "callsite": "0x18e1940",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "30180994"
+    },
+    {
+      "callsite": "0x18e1948",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "50470894"
+    },
+    {
+      "callsite": "0x18e1950",
+      "target": "0x1b4ee60",
+      "name": "intValue",
+      "kind": "BL",
+      "raw_hex": "44b50994"
+    },
+    {
+      "callsite": "0x18e195c",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "3f470894"
+    },
+    {
+      "callsite": "0x18e1994",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "1b180994"
+    },
+    {
+      "callsite": "0x18e199c",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "3b470894"
+    },
+    {
+      "callsite": "0x18e19a4",
+      "target": "0x1b392a0",
+      "name": "floatValue",
+      "kind": "BL",
+      "raw_hex": "3f5e0994"
+    },
+    {
+      "callsite": "0x18e19b0",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "2a470894"
+    },
+    {
+      "callsite": "0x18e19ec",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "05180994"
+    },
+    {
+      "callsite": "0x18e19f4",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "25470894"
+    },
+    {
+      "callsite": "0x18e19fc",
+      "target": "0x1b2f6c0",
+      "name": "doubleValue",
+      "kind": "BL",
+      "raw_hex": "31370994"
+    },
+    {
+      "callsite": "0x18e1a08",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "14470894"
+    },
+    {
+      "callsite": "0x18e1a40",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "f0170994"
+    },
+    {
+      "callsite": "0x18e1a48",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "10470894"
+    },
+    {
+      "callsite": "0x18e1a50",
+      "target": "0x1b0ff80",
+      "name": "boolValue",
+      "kind": "BL",
+      "raw_hex": "4cb90894"
+    },
+    {
+      "callsite": "0x18e1a5c",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "ff460894"
+    },
+    {
+      "callsite": "0x18e1a94",
+      "target": "0x1b27a00",
+      "name": "decodeObjectForKey:",
+      "kind": "BL",
+      "raw_hex": "db170994"
+    },
+    {
+      "callsite": "0x18e1a9c",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "fb460894"
+    },
+    {
+      "callsite": "0x18e1aa4",
+      "target": "0x1b58120",
+      "name": "length",
+      "kind": "BL",
+      "raw_hex": "9fd90994"
+    },
+    {
+      "callsite": "0x18e1ab0",
+      "target": "0x1af3670",
+      "name": "_objc_retainAutorelease",
+      "kind": "BL",
+      "raw_hex": "f0460894"
+    },
+    {
+      "callsite": "0x18e1ab4",
+      "target": "0x1b11280",
+      "name": "bytes",
+      "kind": "BL",
+      "raw_hex": "f3bd0894"
+    },
+    {
+      "callsite": "0x18e1ac0",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "e6460894"
+    },
+    {
+      "callsite": "0x18e1af8",
+      "target": "0x1b67520",
+      "name": "objectForKeyedSubscript:",
+      "kind": "BL",
+      "raw_hex": "8a160a94"
+    },
+    {
+      "callsite": "0x18e1b00",
+      "target": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "kind": "BL",
+      "raw_hex": "e2460894"
+    },
+    {
+      "callsite": "0x18e1b0c",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "d3460894"
+    },
+    {
+      "callsite": "0x18e1b24",
+      "target": "0x1bca5e0",
+      "name": "versionForClassName:",
+      "kind": "B",
+      "raw_hex": "afa20b14"
+    },
+    {
+      "callsite": "0x18e1b40",
+      "target": "0x1af36dc",
+      "name": "_objc_storeStrong",
+      "kind": "BL",
+      "raw_hex": "e7460894"
+    },
+    {
+      "callsite": "0x18e1b54",
+      "target": "0x1af36dc",
+      "name": "_objc_storeStrong",
+      "kind": "B",
+      "raw_hex": "e2460814"
+    },
+    {
+      "callsite": "0x18e1b74",
+      "target": "0x1af3664",
+      "name": "_objc_retain",
+      "kind": "BL",
+      "raw_hex": "bc460894"
+    },
+    {
+      "callsite": "0x18e1b80",
+      "target": "0x1af3664",
+      "name": "_objc_retain",
+      "kind": "BL",
+      "raw_hex": "b9460894"
+    },
+    {
+      "callsite": "0x18e1b8c",
+      "target": "0x1af34d8",
+      "name": "_objc_alloc",
+      "kind": "BL",
+      "raw_hex": "53460894"
+    },
+    {
+      "callsite": "0x18e1b98",
+      "target": "0x1b47d40",
+      "name": "initWithDict:andCVArchive:",
+      "kind": "BL",
+      "raw_hex": "6a980994"
+    },
+    {
+      "callsite": "0x18e1ba4",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "ad460894"
+    },
+    {
+      "callsite": "0x18e1bac",
+      "target": "0x1af3658",
+      "name": "_objc_release",
+      "kind": "BL",
+      "raw_hex": "ab460894"
+    },
+    {
+      "callsite": "0x18e1bc0",
+      "target": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "kind": "B",
+      "raw_hex": "5b460814"
+    }
+  ],
+  "used_cfstrings": [],
+  "definition_facts": [
+    {
+      "id": "P015-01",
+      "anchors": [
+        "018e1788",
+        "018e178c",
+        "018e1794",
+        "018e1798",
+        "018e17a0",
+        "018e17a4",
+        "018e17ac",
+        "018e17b4",
+        "018e17bc",
+        "018e17c4"
+      ],
+      "fact": "Initializer retains incoming dictionary x2 and archive x3, constructs objc_super with incoming receiver and proxy class, and sends superclass init.",
+      "fact_ja": "initializerは入口のdictionary x2とarchive x3を一時retainし、入口receiverとproxy classでobjc_superを作り、superclass initを送る。"
+    },
+    {
+      "id": "P015-02",
+      "anchors": [
+        "018e17c8",
+        "018e17cc",
+        "018e17d0",
+        "018e17d4",
+        "018e17d8",
+        "018e17dc",
+        "018e17e0",
+        "018e17e4",
+        "018e17ec",
+        "018e17f4",
+        "018e17f8"
+      ],
+      "fact": "Nonzero superclass result receives objc_storeStrong at offsets8/16 for dictionary/archive respectively. Zero skips both stores. Normal path releases temporary retains and returns superclass result.",
+      "fact_ja": "superclassの返値が非0の場合だけdictionary/archiveを+8/+16へobjc_storeStrongする。0の場合は両storeを飛ばす。通常終了で一時retainをreleaseし、superclassの返値を返す。"
+    },
+    {
+      "id": "P015-03",
+      "anchors": [
+        "018e1830",
+        "018e1838",
+        "018e183c",
+        "018e1844",
+        "018e184c"
+      ],
+      "fact": "Classes wrapper overwrites incoming x2 allowed-classes argument with incoming x3 key and sends decodeObjectForKey: to incoming receiver; original constraint is unused in this complete32B body.",
+      "fact_ja": "Classes wrapperは入口のallowed-classes x2をkey x3へ上書きし、同じreceiverへdecodeObjectForKey:を送る。完全32B本文で元の制限引数を使わない。"
+    },
+    {
+      "id": "P015-04",
+      "anchors": [
+        "018e1850",
+        "018e1858",
+        "018e185c",
+        "018e1864",
+        "018e186c"
+      ],
+      "fact": "Class wrapper overwrites incoming x2 class argument with incoming x3 key and sends decodeObjectForKey: to incoming receiver; original constraint is unused in this complete32B body.",
+      "fact_ja": "Class wrapperは入口のclass x2をkey x3へ上書きし、同じreceiverへdecodeObjectForKey:を送る。完全32B本文で元の制限引数を使わない。"
+    },
+    {
+      "id": "P015-05",
+      "anchors": [
+        "018e187c",
+        "018e1880",
+        "018e1884",
+        "018e188c",
+        "018e1890",
+        "018e1894",
+        "018e18b4"
+      ],
+      "fact": "Object decoder sends objectForKeyedSubscript: to decoderDict at offset8 with incoming key x2. Explicit zero dictionary result branches to zero return and skips archive send.",
+      "fact_ja": "object decoderは+8のdecoderDictへ入口key x2でobjectForKeyedSubscript:を送る。辞書返値0の明示枝は0を返しarchive sendを飛ばす。"
+    },
+    {
+      "id": "P015-06",
+      "anchors": [
+        "018e1898",
+        "018e189c",
+        "018e18a0",
+        "018e18a8",
+        "018e18ac",
+        "018e18bc",
+        "018e18c0",
+        "018e18cc"
+      ],
+      "fact": "Nonzero dictionary result becomes argument x2 of _decodedObject: sent to cvArchive at offset16. Archive result is returned after dictionary-result release; no local raw-value fallback or second missing-key archive lookup.",
+      "fact_ja": "辞書返値が非0なら+16のcvArchiveへ_decodedObject:のx2として渡す。辞書返値をreleaseしてarchive返値を返し、raw値fallbackや欠落時の追加archive検索を置かない。"
+    },
+    {
+      "id": "P015-07",
+      "anchors": [
+        "018e1940",
+        "018e1948",
+        "018e1950",
+        "018e1954",
+        "018e195c",
+        "018e1960"
+      ],
+      "fact": "Integer decoder sends decodeObjectForKey: then intValue, sign-extends32-bit w0 to64-bit x20, releases object and returns saved integer. It has no local nil/type/default branch.",
+      "fact_ja": "IntegerはdecodeObjectForKey:の後にintValueを送り、返値w0をsigned32からsigned64へ符号拡張してobjectをreleaseし返す。局所的なnil・型・default枝なし。"
+    },
+    {
+      "id": "P015-08",
+      "anchors": [
+        "018e1994",
+        "018e199c",
+        "018e19a4",
+        "018e19a8",
+        "018e19b0",
+        "018e19b4"
+      ],
+      "fact": "Float decoder sends decodeObjectForKey: then floatValue and preserves s0 through object release; no local nil/type/default branch.",
+      "fact_ja": "FloatはdecodeObjectForKey:の後にfloatValueを送り、s0をobject releaseの前後で保持する。局所的なnil・型・default枝なし。"
+    },
+    {
+      "id": "P015-09",
+      "anchors": [
+        "018e19ec",
+        "018e19f4",
+        "018e19fc",
+        "018e1a00",
+        "018e1a08",
+        "018e1a0c"
+      ],
+      "fact": "Double decoder sends decodeObjectForKey: then doubleValue and preserves d0 through object release; no local nil/type/default branch.",
+      "fact_ja": "DoubleはdecodeObjectForKey:の後にdoubleValueを送り、d0をobject releaseの前後で保持する。局所的なnil・型・default枝なし。"
+    },
+    {
+      "id": "P015-10",
+      "anchors": [
+        "018e1a40",
+        "018e1a48",
+        "018e1a50",
+        "018e1a54",
+        "018e1a5c",
+        "018e1a60"
+      ],
+      "fact": "Bool decoder sends decodeObjectForKey: then boolValue, preserves x0 through release and returns it without extra local mask/comparison; metadata result B.",
+      "fact_ja": "BoolはdecodeObjectForKey:の後にboolValueを送り、x0をreleaseの前後で保持し、追加mask・比較なしで返す。metadataの返値はB。"
+    },
+    {
+      "id": "P015-11",
+      "anchors": [
+        "018e1a90",
+        "018e1a94",
+        "018e1a9c",
+        "018e1aa4",
+        "018e1aa8"
+      ],
+      "fact": "Bytes decoder saves incoming x3 output pointer, decodes key object, sends length and unconditionally stores64-bit x0 through output pointer. No local output-pointer null guard.",
+      "fact_ja": "Bytesは入口x3をoutput pointerとして保存し、key objectをdecodeしてlengthを送り、64-bit x0をoutput pointerへ無条件格納する。局所的なnull guardなし。"
+    },
+    {
+      "id": "P015-12",
+      "anchors": [
+        "018e1aac",
+        "018e1ab0",
+        "018e1ab4",
+        "018e1ab8",
+        "018e1ac0",
+        "018e1ac4"
+      ],
+      "fact": "Bytes decoder calls objc_retainAutorelease with retained object, sends bytes to returned receiver, releases retained object and returns saved pointer; no local copy. Runtime pointer lifetime/native errors unverified.",
+      "fact_ja": "Bytesは保持objectをobjc_retainAutoreleaseへ渡し、その返値receiverへbytesを送り、保持objectをreleaseして保存pointerを返す。局所copyなし。実行時lifetime・native失敗は未確認。"
+    },
+    {
+      "id": "P015-13",
+      "anchors": [
+        "018e1af4",
+        "018e1af8",
+        "018e1b00",
+        "018e1b04",
+        "018e1b08",
+        "018e1b0c",
+        "018e1b10"
+      ],
+      "fact": "Contains only tests dictionary subscript result nonzero and returns0/1 after release. It never sends _decodedObject: or verifies archive decodability.",
+      "fact_ja": "Containsは辞書subscript返値の非0だけを判定し、release後0/1を返す。_decodedObject:を送らずarchiveでの復元可否を検査しない。"
+    },
+    {
+      "id": "P015-14",
+      "anchors": [
+        "018e1b20",
+        "018e1b24"
+      ],
+      "fact": "Version loads cvArchive offset16 and tail-sends versionForClassName: with incoming x2 class-name argument. No local default or failure branch.",
+      "fact_ja": "Versionは+16のcvArchiveを読み、入口class-name x2を保ってversionForClassName:へtail sendする。局所default・失敗枝なし。"
+    },
+    {
+      "id": "P015-15",
+      "anchors": [
+        "018e1b34",
+        "018e1b38",
+        "018e1b3c",
+        "018e1b40",
+        "018e1b44",
+        "018e1b48",
+        "018e1b54"
+      ],
+      "fact": "Destructor clears archive offset16 then dictionary offset8 with objc_storeStrong zero arguments.",
+      "fact_ja": "destructorはarchive+16、dictionary+8の順にobjc_storeStrongへ0を渡す。"
+    },
+    {
+      "id": "P015-16",
+      "anchors": [
+        "018e1b68",
+        "018e1b6c",
+        "018e1b74",
+        "018e1b80",
+        "018e1b88",
+        "018e1b8c",
+        "018e1b90",
+        "018e1b94",
+        "018e1b98",
+        "018e1ba4",
+        "018e1bac",
+        "018e1bb0",
+        "018e1bc0"
+      ],
+      "fact": "Class factory retains dictionary/archive, allocates incoming class receiver, sends initWithDict:andCVArchive: to allocation result, releases temporary retains and autoreleases initialization result.",
+      "fact_ja": "class factoryはdictionary/archiveを一時retainし、入口class receiverをallocateする。その返値へinitWithDict:andCVArchive:を送り、一時retainをreleaseしてinitialization返値をautoreleaseする。"
+    }
+  ],
+  "static_verification": {
+    "function_count": 13,
+    "defined_bytes": 880,
+    "instruction_words_verified": 220,
+    "all_exported_bytes_match": true,
+    "markers_verified": [
+      "Acquired project lock:",
+      "Processing read-only project file: /Logic.arm64",
+      "ProgramIdentityReport: exported",
+      "XrefDecompile: done",
+      "FunctionInstructionReport: exported"
+    ],
+    "checker_fixed_pointer_words": 47,
+    "checker_fixed_slices": 357,
+    "negative_checks": [
+      {
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "case": "changed_word",
+        "rejected": true
+      }
+    ],
+    "definition_facts": 16,
+    "instruction_anchors": 110,
+    "direct_call_sites": 54,
+    "independent_review": {
+      "mode": "read_only_separate_collaboration_reader",
+      "findings": [],
+      "instruction_words_verified": 220,
+      "method_rows_verified": 13,
+      "fixed_pointer_words": 47,
+      "source_slices": 357,
+      "reviewed": "exports, metadata, support, raw checker/facts/notes",
+      "final_editorial_correction": "Version note changed retaining incoming x2 to preserving incoming x2; no semantic change; local checker/source hashes refreshed after review.",
+      "public_draft_review": "pending_root_review"
+    }
+  },
+  "unqueried_candidates": [
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageKeyValueArchive",
+      "selector": "_decodedObject:",
+      "entry": "0x018e0a04",
+      "size_bytes": 2112,
+      "status": "location_verified_body_unqueried_in_TARGET015"
+    },
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageKeyValueArchive",
+      "selector": "versionForClassName:",
+      "entry": "0x018e162c",
+      "size_bytes": 168,
+      "status": "location_verified_body_unqueried_in_TARGET015"
+    }
+  ],
+  "limits": [
+    "Fresh Ghidra identity describes original-import metadata, not database annotation checksum or effective runtime dispatch.",
+    "Metadata object declarations do not prove actual dictionary/archive/value runtime classes.",
+    "No dictionary, _decodedObject:, scalar conversion, version, bytes, ObjC runtime or native callee definition queried.",
+    "Scalar/bytes absent-key zero behavior, accepted types, errors/exceptions and returned bytes lifetime unverified.",
+    "Static caller-side missing guards do not establish complete dispatched/native failure behavior.",
+    "No Logic/UI/live operation, archive contents, persistence/reload/roundtrip, Git/public/product edit or product capability."
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/q-logic-proxy-decoder-015.c",
+      "size_bytes": 7720,
+      "sha256": "abacc96010859e2ce6f734000883c7b4dd3a1b7f44b64019aef246b9523c5873"
+    },
+    {
+      "path": "Research/raw/ghidra/q-logic-proxy-decoder-015-machinecode.txt",
+      "size_bytes": 10587,
+      "sha256": "8afd4f3c047bb2a7ae6126ed0d9f22dbf4a2cf52aac8c2c23ed7c49c2ed58601"
+    },
+    {
+      "path": "Research/raw/ghidra/q-logic-proxy-decoder-015.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-logic-proxy-decoder-015.log",
+      "size_bytes": 5508,
+      "sha256": "e5833a407711ed83bc5fab44cd7b64737aadae2db9bb65ee2b04c400d8c5efbe"
+    },
+    {
+      "path": "Research/raw/ghidra/proxy-decoder-execution-015.json",
+      "size_bytes": 15396,
+      "sha256": "6bea503ba746abed1f93dc2d4064ce693b2d1d62638b0ea141f27114e097f838"
+    },
+    {
+      "path": "Research/raw/ghidra/run-proxy-decoder-015.py",
+      "size_bytes": 8729,
+      "sha256": "a258983bf6d8b8ca3e9a0971ae3219b61d886b7136352b73277a2001873d912e"
+    },
+    {
+      "path": "Research/raw/ghidra/proxy-decoder-check-015.py",
+      "size_bytes": 18199,
+      "sha256": "d71326e5fe90dd2b82c6f848f6d659afdb469d6bcc61292d8e88e794350f9235"
+    },
+    {
+      "path": "Research/raw/ghidra/proxy-decoder-notes-015.md",
+      "size_bytes": 5729,
+      "sha256": "10af80e9a332a3bf0e6a3bbc7b1d0125a59ec36f867cc4cc5c40b4ac78624bd2"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-plan-013.json",
+      "size_bytes": 39327,
+      "sha256": "8427aca017ef980116fc31dae4957ee416766a3d945f9b69308df26d0665515a"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-boundaries-012.json",
+      "size_bytes": 5964,
+      "sha256": "7a9e80e5960a23ee9444d235b44cfd154288e37af8c8c02b8c8f1a7ad6e989b0"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-fixed-012.py",
+      "size_bytes": 15067,
+      "sha256": "cc962bec789e054fcc5285a14407c0ddd9de3bfef8b1025f0660195b1e343757"
+    },
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    },
+    {
+      "path": "Research/raw/ghidra/proxy-decoder-facts-015.json",
+      "size_bytes": 174378,
+      "sha256": "c95caf2dad1e653a562e1dd6c008065585d22f2fb81acbf2750721775b6aba2f"
+    },
+    {
+      "path": "Research/raw/ghidra/build-proxy-decoder-draft-015.py",
+      "size_bytes": 9787,
+      "sha256": "15f0455bc67682d32eeacd92c11382bd400dc5790f8b0b38f269c96502bfa46d"
+    },
+    {
+      "path": "Research/raw/ghidra/proxy-decoder-draft-check-015.py",
+      "size_bytes": 5667,
+      "sha256": "f218b41d0a87495fecced1c577ce20351fb626b1c8c3774877114f4d78e6a868"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-proxy-decoder-boundaries.tsv",
+      "size_bytes": 7406,
+      "sha256": "8ae7a03ca0f7b10cf1c3270fa517c26d553fa7047257ad4f8947a9db059a29d8"
+    }
+  ],
+  "published_documents": [
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-015-proxy-decoder.md",
+      "size_bytes": 11962,
+      "sha256": "0f0b833697400b717b18cb716146aa056e66628908ebdcbf448827067d54db73"
+    },
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-015-proxy-decoder.en.md",
+      "size_bytes": 11329,
+      "sha256": "3f06495dccc25241a088cea5ffd2307822a4363c7583cd4309f9f1f11f6a9918"
+    }
+  ],
+  "dynamic_verification": {
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "product_capabilities_added": [],
+  "research_actions": {
+    "logic_operations": 0,
+    "ui_operations": 0,
+    "new_connections": 0,
+    "appleevent_sends": 0,
+    "additional_callee_body_jobs": 0,
+    "database_name_or_type_edits": 0
+  },
+  "publication_review": {
+    "reviewer": "Codex root",
+    "reviewed_at_utc": "2026-10-06T16:22:18.179481+00:00",
+    "body_facts_and_markdown_reviewed": true,
+    "material_findings": []
+  }
+}
