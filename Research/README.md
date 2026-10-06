@@ -111,6 +111,8 @@ flowchart LR
 | [EXP-MCU-025](experiments/EXP-MCU-025-same-name-tracks.md) | 同名のトラックと `--expect-name` の限界 |
 | [EXP-MCU-026](experiments/EXP-MCU-026-execution-contract-live.md) | 実行契約の実機確認：期限切れ・同じキーの再送・実行中の重複・世代の不一致 |
 | [EXP-MCU-027](experiments/EXP-MCU-027-live-smoke.md) | 実機の抜き取り試験 `live_smoke.py` の初回実行（26 件合格） |
+| [EXP-MCU-028](experiments/EXP-MCU-028-arm-and-position-live.md) | `track arm` と `state` の `position` を実機で確認。選択中のトラックの自動の録音待機が外れる副作用（一覧の「8 本」は 2 台目のため。EXP-MCU-029 で訂正） |
+| [EXP-MCU-029](experiments/EXP-MCU-029-two-units-on-one-port.md) | 同じポートに Mackie Control が 2 台あり、LCD が混ざって走査が偽の complete を返した。`surface_conflict` で断るように修正 |
 | [EXP-A3-001](experiments/EXP-A3-001-remote-port-per-launch.md) | 起動ごとに変わるRemoteのポート |
 | [EXP-UNDO-001](experiments/EXP-UNDO-001-mixer-writes-and-undo.md) | 既定設定でのUndoと名前の更新 |
 | [EXP-UNDO-002](experiments/EXP-UNDO-002-mixer-undo-enabled.md) | ミキサーUndoを有効にした場合 |
