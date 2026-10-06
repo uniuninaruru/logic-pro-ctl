@@ -55,7 +55,10 @@ NO_SELECTION = "NoTrackSelected"
 COMPLETE_REASON = "Logic sends no end-of-initial-state marker (SA-REMOTE-STATE-001 §3); complete is never inferred"
 
 ISSUE_KINDS = {"ati_rejected", "fader_rejected", "sti_rejected", "orphan_gindex", "orphan_track_id",
-               "identity_changed", "selection_mismatch", "count_mismatch", "bad_key"}
+               "identity_changed", "selection_mismatch", "count_mismatch", "bad_key", "cs_rejected"}
+# Logic Remote's own 8-slot control surface: per-slot buttons (0/1 seen in EXP-REMOTE-001/003/004) and the bank offset.
+CS_SLOT = re.compile(r"^/cs/mixer/(record|select|mute|solo)/([1-8])$")
+CS_OFFSET = "/cs/bankLeftOffset"
 
 
 def _schema_form(value):
@@ -86,6 +89,7 @@ class StateBuilder:
         self.last_sti = None
         self.last_frame = None
         self.ati_frame = None
+        self.cs = {"bank_left_offset": None, "slots": {}}   # slot "1".."8" -> {button: known}
         self.events = []
 
     # -- events -----------------------------------------------------------------------------------------
@@ -106,6 +110,10 @@ class StateBuilder:
             self.apply(frame, address, argument)
 
     def apply(self, frame, address, argument):
+        slot = CS_SLOT.match(address)
+        if slot or address == CS_OFFSET:
+            self._cs(frame, address, slot, remote_capture.expand_argument(argument)[0])
+            return
         if address not in STATE_ADDRESSES:
             return
         self.last_frame = frame
@@ -122,6 +130,23 @@ class StateBuilder:
             self.doc_open = _known(value, frame)
         else:
             self._count(frame, address, value)
+
+    # -- /cs (Logic Remote's control surface view) -------------------------------------------------------
+    def _cs(self, frame, address, slot, value):
+        """Kept apart from the mixer state: these say what Logic Remote's own 8 slots show, not which track
+        a slot is (that slot n shows mixer position bank_left_offset + n is a hypothesis, EXP-REMOTE-004)."""
+        is_int = isinstance(value, int) and not isinstance(value, bool)
+        if slot is None:
+            if not is_int or value < 0:
+                self._event(frame, address, "cs_rejected", reason="offset is not an integer >= 0")
+                return
+            self.cs["bank_left_offset"] = _known(value, frame)
+            return
+        if not is_int or value not in (0, 1):
+            self._event(frame, address, "cs_rejected", reason="button is not 0 or 1")
+            return
+        button, number = slot.groups()
+        self.cs["slots"].setdefault(number, {})[button] = _known(value, frame)
 
     # -- /ati -------------------------------------------------------------------------------------------
     def _ati(self, frame, ati):
@@ -303,6 +328,8 @@ class StateBuilder:
             "selection": self.selection,
             "counts": self.counts,
             "doc_open": self.doc_open,
+            "control_surface_view": {"bank_left_offset": self.cs["bank_left_offset"],
+                                     "slots": {n: dict(b) for n, b in sorted(self.cs["slots"].items())}},
             "coverage": {
                 "strips": len(strips),
                 "fader_fields_known": fader_known, "fader_fields_total": len(strips) * len(STRIP_FIELDS),

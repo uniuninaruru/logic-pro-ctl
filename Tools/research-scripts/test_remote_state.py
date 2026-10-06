@@ -324,6 +324,37 @@ class CsTableTests(unittest.TestCase):
         self.assertTrue(any(r["address"] == "/cs/mixer/volume/volume" for r in rows))
 
 
+class ControlSurfaceViewTests(unittest.TestCase):
+    def test_slots_and_offset_are_kept_apart_from_the_mixer_state(self):
+        b = rs.StateBuilder()
+        b.apply(1, "/cs/bankLeftOffset", 0)
+        b.apply(2, "/cs/mixer/record/3", 1)
+        b.apply(3, "/cs/mixer/select/3", 1)
+        b.apply(4, "/cs/mixer/record/3", 0)
+        view = b.snapshot()["control_surface_view"]
+        self.assertEqual(view["bank_left_offset"], {"value": 0, "frame": 1})
+        self.assertEqual(view["slots"]["3"]["record"], {"value": 0, "frame": 4})
+        self.assertEqual(view["slots"]["3"]["select"]["value"], 1)
+        self.assertNotIn("mute", view["slots"]["3"])                       # not received is absent, not 0
+        self.assertEqual(b.snapshot()["strips"], [])
+
+    def test_values_other_than_0_or_1_are_refused_and_change_nothing(self):
+        b = rs.StateBuilder()
+        b.apply(1, "/cs/mixer/mute/2", 0)
+        b.apply(2, "/cs/mixer/mute/2", 2)
+        b.apply(3, "/cs/mixer/solo/2", True)
+        b.apply(4, "/cs/bankLeftOffset", -1)
+        self.assertEqual(kinds(b), ["cs_rejected"] * 3)
+        self.assertEqual(b.snapshot()["control_surface_view"]["slots"], {"2": {"mute": {"value": 0, "frame": 1}}})
+        self.assertIsNone(b.snapshot()["control_surface_view"]["bank_left_offset"])
+
+    def test_other_cs_addresses_are_not_slots(self):
+        b = rs.StateBuilder()
+        b.apply(1, "/cs/mixer/record/9", 1)
+        b.apply(2, "/cs/mixer/sends/send13", 0)
+        self.assertEqual(b.snapshot()["control_surface_view"]["slots"], {})
+
+
 class TimelineTests(unittest.TestCase):
     FRAMES = [json_frame({"/mixerLevels": [0.1]}), json_frame({"/cs/mixer/record/3": 0}), json_frame({"/sti": {"n": "Piano"}}),
               json_frame({"/bankNavigator/trackLevels": [0.2]}), json_frame({"/cs/mixer/select/1": 1})]
