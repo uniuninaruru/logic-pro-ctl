@@ -123,7 +123,7 @@ flowchart LR
 | `usage` / `invalid_argument` | 書式・値が不正 | `--help`、番号・値・指定経路 |
 | `logic_not_running` | Logicが起動していない | Logicの起動 |
 | `surface_not_connected` | MCUの接続ができない | `status`、Logicのコントロールサーフェス設定 |
-| `surface_conflict` | Logic が `logicctl-mcu` に Mackie Control を 2 台以上つないでいる（接続時のダンプに、内容の違う画面が 2 つ以上届いた）。表示と LED が混ざり、走査が偽の complete を返すため、`status` と `debug mcu` 以外は何も読まず、何も押さない（[EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.md)） | `status` の `mcu.surface_conflict`。Logicの「コントロールサーフェス」→「設定」で余分な装置（「Mackie Control #2」など）を外し、`logicctl daemon stop` で logicd を再起動 |
+| `surface_conflict` | Logic が `logicctl-mcu` に Mackie Control を 2 台以上つないでいる（接続時のダンプに、内容の違う画面が 2 つ以上届いた）。表示と LED が混ざり、走査が偽の complete を返すため、`status` と `debug mcu` 以外は何も読まず、何も押さない（[EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.md)） | `status` の `mcu.surface_conflict`。Logicの「コントロールサーフェス」→「設定」で余分な装置（「Mackie Control #2」など）を外し、`logicctl daemon stop` で logicd を再起動。装置が 1 台でも、曲の切り替えの直後などに誤って出る可能性がある（未確認）。そのときも `daemon stop` で解ける |
 | `readback_unavailable` | 状態を確認できない | 接続が安定したあとに `status` |
 | `timeout` | 時間内に完了しなかった。**実行された可能性がある** | 状態を読み直す。同じキーは再実行されない |
 | `outcome_unknown` / `request_in_flight` | 同じキーの前回が不明 / 実行中 | 状態を読み直し、必要なら別のキー |
