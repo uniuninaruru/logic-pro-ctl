@@ -42,10 +42,11 @@ swift build -c release
 | 接続を確認 | `logicctl status` | Logicのバージョン・接続状態・対応機能 |
 | 全体の状態を見る | `logicctl state` | 再生状態・選択中のトラック・一覧 |
 | 再生 / 停止 | `logicctl transport play` / `stop` | 通常はMCU経由 |
+| サイクル / メトロノーム | `logicctl transport cycle on` / `click off` | MCUのLEDで確認。偽のLogicで試験済み、実機では未確認 |
 | トラック一覧 / 詳細 | `logicctl track list` / `get 1` | 番号は1から |
 | 選択 | `logicctl track select 1` | 自動録音待機の設定により録音待機も移動 |
 | ミュート / ソロ | `logicctl track mute 1 on` / `solo 1 off` | `on`・`off`で指定 |
-| 録音待機 | `logicctl track arm 1 on` / `off` | MCUのREC LEDで確認。実機は未確認、偽のLogicで試験済み |
+| 録音待機 | `logicctl track arm 1 on` / `off` | MCUのREC LEDで確認。実機で1回確認。選択中のトラックの自動の録音待機が外れることがある |
 | 音量 | `logicctl track volume 1 -6` | dBで指定。無音は `-inf` |
 | パン | `logicctl track pan 1 -0.5` | 左 `-1` ← 中央 `0` → 右 `1` |
 | 常駐プロセスを停止 | `logicctl daemon stop` | 次の利用で再起動 |
@@ -110,6 +111,7 @@ AppleEventの再生・停止は、既に要求どおりなら送信を省略し�
 - ソロ中は、点滅するミュートLEDから状態を断定できず `mute: null` になることがあります。
 - 選択や操作のあと、表示が戻るまで数秒待つことがあります。Undoで戻した名前は、再接続まで古い場合があります。
 - Undoのミキサー設定により変更履歴が異なり、近い操作がまとまる場合があります。戻したい値は先に記録してください。
+- Logicの「コントロールサーフェス」の設定で、同じポート（`logicctl-mcu`）に Mackie Control が2台（「Mackie Control #2」など）あると、表示が混ざって一覧が正しく取れません。`status` の `mcu.surface_conflict` が `true` になり、ほかのコマンドは `surface_conflict` で止まります。余分な装置を外してから `logicctl daemon stop` してください（[EXP-MCU-029](Research/experiments/EXP-MCU-029-two-units-on-one-port.md)）。
 - 純粋なネイティブ状態取得、Logic Remoteの独自接続、プラグイン操作は調査中です。
 
 ## 仕組みと調査を読む

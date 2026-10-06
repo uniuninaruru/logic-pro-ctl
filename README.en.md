@@ -45,12 +45,13 @@ logicctl status                       daemon, Logic version, surface connection,
 logicctl state                        transport + selected track + all tracks
 logicctl transport play|stop
 logicctl transport play|stop --backend appleevent
+logicctl transport cycle|click on|off   (LED readback; fake-Logic tests only, live behavior unverified)
 logicctl track list
 logicctl track get <n>
 logicctl track select <n>
 logicctl track mute <n> on|off
 logicctl track solo <n> on|off
-logicctl track arm <n> on|off         (REC LED readback; fake-Logic tests only, live behavior unverified)
+logicctl track arm <n> on|off         (REC LED readback; checked once on the real Logic, EXP-MCU-028)
 logicctl track volume <n> <dB|-inf> [--tolerance <dB>]   (default tolerance 0.1)
 logicctl track pan <n> <-1…1>         (Logic pan -64…+63 = value × 64)
 logicctl daemon stop
@@ -80,7 +81,7 @@ Exit status: 0 ok, 1 command failed (including failed verification),
 - `verified: true` only when the readback matched `requested`.
 - A write that is already satisfied sends nothing and says so in `message`.
 - Errors: `invalid_argument`, `usage`, `logic_not_running`,
-  `surface_not_connected`, `bank_unknown`, `no_such_track`,
+  `surface_not_connected`, `surface_conflict`, `bank_unknown`, `no_such_track`,
   `verification_failed`, `readback_unavailable`, `daemon_unavailable`.
 
 ### Native transport
@@ -153,6 +154,11 @@ Additional native errors include `unsupported_logic_version`,
   never requested, and mute is never recorded (EXP-UNDO-001, EXP-UNDO-002).
 - Track names on the MCU LCD can be stale: undoing a rename did not update
   them until logicd reconnected (EXP-UNDO-001).
+- If Logic's Control Surfaces setup has two Mackie Control units on the same
+  port (`logicctl-mcu`, e.g. "Mackie Control #2"), their displays mix and the
+  track list cannot be read correctly. `status` shows `mcu.surface_conflict: true`
+  and other commands stop with `surface_conflict`. Remove the extra unit, then
+  run `logicctl daemon stop` (EXP-MCU-029).
 
 ## Understand the system and research
 
