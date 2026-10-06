@@ -40,7 +40,7 @@ Hypothesis: **Logic drives two Mackie Control units on `logicctl-mcu`, and the s
 Confidence: high.
 Evidence: two whole-display writes with different content (both times), names matching positions 9 to 14, "Mackie Control #2" in the settings file, and no response to Bank Left.
 Counter-example: if two kinds of write continue after the second unit is removed, there is another cause.
-Next experiment: after the user removes "Mackie Control #2" in the settings (or says it may be removed), restart logicd and check for one kind of dump, `surface_conflict: false`, and a `state` of 14 strips with `bank_steps` 6.
+Next experiment: after the user removes "Mackie Control #2" in the settings (or says it may be removed), restart logicd and check for one kind of dump, `surface_conflict: false`, and a `state` of 14 strips with `bank_steps` 6. Check the dump by starting logicd with `LOGICD_TRACE=1` and seeing `python3 Tools/research-scripts/mcu_trace.py dumps ~/Library/Logs/logicctl/logicd.log --since <restart time>` report "one unit" (tonight's two dumps report "2 units suspected"; the single-unit trace of 10-02 reports "one unit").
 
 Hypothesis: Logic also remembers a device's ports by unique ID, and every logicd start adds a record for new IDs. This may have played a part in adding the second unit.
 Confidence: low.

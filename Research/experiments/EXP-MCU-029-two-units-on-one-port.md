@@ -40,7 +40,7 @@
 確信度: 高。
 根拠: 内容の違う 2 つの全面の書き込み（2 回とも）、名前が位置 9〜14 と一致、設定ファイルの「Mackie Control #2」、Bank Left の無反応。
 反例: 2 台目を外しても 2 種類の書き込みが続くなら、別の原因がある。
-次の検証実験: ユーザーが設定で「Mackie Control #2」を外したあと（あるいは外してよいと言ったあと）、logicd を再起動して、ダンプが 1 種類・`surface_conflict: false`・`state` が 14 本・`bank_steps` 6 になるかを確かめる。
+次の検証実験: ユーザーが設定で「Mackie Control #2」を外したあと（あるいは外してよいと言ったあと）、logicd を再起動して、ダンプが 1 種類・`surface_conflict: false`・`state` が 14 本・`bank_steps` 6 になるかを確かめる。ダンプの判定は `LOGICD_TRACE=1` で logicd を起動し、`python3 Tools/research-scripts/mcu_trace.py dumps ~/Library/Logs/logicctl/logicd.log --since <再起動の時刻>` が「one unit」になることで見る（今夜の 2 回のダンプは「2 units suspected」、10-02 の 1 台のトレースは「one unit」と出る）。
 
 仮説（Hypothesis）: Logic は装置のポートを固有 ID でも覚えていて、logicd が起動するたびに新しい ID の記録が増える。これが 2 台目の追加に関わったかもしれない。
 確信度: 低。
