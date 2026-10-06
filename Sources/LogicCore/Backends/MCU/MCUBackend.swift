@@ -238,8 +238,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let outcome = run(command, expectName)
         // A second unit's dump can also arrive while a command runs: its reads are then mixed, and a write's
         // evidence cannot be trusted (the press may have reached Logic).
-        guard surfaceConflictFailure() != nil else { return outcome }
-        guard command.isWrite else { return surfaceConflictFailure()! }
+        guard let conflict = surfaceConflictFailure() else { return outcome }
+        guard command.isWrite else { return conflict }
         return .failure("surface_conflict",
                         "操作の途中で、Logic が '\(Self.portName)' に 2 台目の Mackie Control の画面を送ってきました。"
                             + "押した操作は届いたかもしれませんが、結果は確かめられません。2 台目を外してから、状態を読み直してください。",
