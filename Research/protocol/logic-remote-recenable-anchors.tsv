@@ -179,3 +179,37 @@ BLINK-toggle@0x3aab5c	insn	0x003aab5c	a8130190	adrp x8, 0x261e000	FUN_003aa154 (
 BLINK-toggle@0x3aab60	insn	0x003aab60	09614439	ldrb w9, [x8, #0x118]	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
 BLINK-toggle@0x3aab64	insn	0x003aab64	29010052	eor w9, w9, #0x1	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
 BLINK-toggle@0x3aab68	insn	0x003aab68	09610439	strb w9, [x8, #0x118]	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
+K-type@0x32638c	insn	0x0032638c	08244079	ldrh w8, [x0, #0x12]	FUN_00326348: the looked-up object's type word at +0x12 is tested for 0x42 and 0x43
+K-type@0x326390	insn	0x00326390	1f090171	cmp w8, #0x42	FUN_00326348: the looked-up object's type word at +0x12 is tested for 0x42 and 0x43
+K-type@0x326394	insn	0x00326394	00030054	b.eq 0x3263f4	FUN_00326348: the looked-up object's type word at +0x12 is tested for 0x42 and 0x43
+K-type@0x326398	insn	0x00326398	1f0d0171	cmp w8, #0x43	FUN_00326348: the looked-up object's type word at +0x12 is tested for 0x42 and 0x43
+K-type@0x32639c	insn	0x0032639c	41030054	b.ne 0x326404	FUN_00326348: the looked-up object's type word at +0x12 is tested for 0x42 and 0x43
+K-neg@0x3263e8	insn	0x003263e8	a00000b5	cbnz x0, 0x3263fc	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x3263ec	insn	0x003263ec	40008012	mov w0, #-0x3	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x3263f0	insn	0x003263f0	0f000014	b 0x32642c	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x3263f4	insn	0x003263f4	096440f9	ldr x9, [x0, #0xc8]	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x3263f8	insn	0x003263f8	690000b4	cbz x9, 0x326404	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x3263fc	insn	0x003263fc	20008012	mov w0, #-0x2	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-neg@0x326400	insn	0x00326400	0b000014	b 0x32642c	the 0x43 branch ends in -3 or -2 (and 0x42 with +0xc8 set in -2)
+K-out@0x32641c	insn	0x0032641c	09150151	sub w9, w8, #0x45	types 0x45 and 0x46 give -1
+K-out@0x326420	insn	0x00326420	3f090071	cmp w9, #0x2	types 0x45 and 0x46 give -1
+K-out@0x326424	insn	0x00326424	a2000054	b.hs 0x326438	types 0x45 and 0x46 give -1
+K-out@0x326428	insn	0x00326428	00008012	mov w0, #-0x1	types 0x45 and 0x46 give -1
+K-audio@0x326438	insn	0x00326438	1f010171	cmp w8, #0x40	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x32643c	insn	0x0032643c	61000054	b.ne 0x326448	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326440	insn	0x00326440	087841f9	ldr x8, [x0, #0x2f0]	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326444	insn	0x00326444	680000b4	cbz x8, 0x326450	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326448	insn	0x00326448	00008052	mov w0, #0x0	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x32644c	insn	0x0032644c	f8ffff17	b 0x32642c	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326450	insn	0x00326450	087041f9	ldr x8, [x0, #0x2e0]	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326454	insn	0x00326454	1f0100f1	cmp x8, #0x0	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326458	insn	0x00326458	0800889a	csel x8, x0, x8, eq	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x32645c	insn	0x0032645c	08d9c539	ldrsb w8, [x8, #0x176]	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326460	insn	0x00326460	1f050071	cmp w8, #0x1	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326464	insn	0x00326464	2bffff54	b.lt 0x326448	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326468	insn	0x00326468	282201f0	adrp x8, 0x276d000	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x32646c	insn	0x0032646c	08c1f939	ldrsb w8, [x8, #0xe70]	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326470	insn	0x00326470	1f010071	cmp w8, #0x0	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326474	insn	0x00326474	28008052	mov w8, #0x1	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x326478	insn	0x00326478	00c5881a	cinc w0, w8, le	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0
+K-audio@0x32647c	insn	0x0032647c	ecffff17	b 0x32642c	only type 0x40 with +0x2f0 empty and the record byte (+0x176) >= 1 gives 1 or 2: 1 when the byte at 0x276de70 is > 0, else 2; other cases 0

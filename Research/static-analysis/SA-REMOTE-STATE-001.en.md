@@ -326,7 +326,7 @@ It sets `cachedCurrentMixerController` only while processing and clears it after
 
 ### 8.3 `r` (record-enable state) read in machine code (added 2026-10-07)
 
-The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (175 rows, including the binds of the §8.1 keys and the mixer window path below; checked against the bytes of the image and `llvm-objdump`, not Ghidra).
+The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (209 rows, including the binds of the §8.1 keys and the mixer window path below; checked against the bytes of the image and `llvm-objdump`, not Ghidra).
 
 | *s* | `r` | Anchor |
 |---|---|---|
@@ -355,6 +355,18 @@ The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the
 - `FUN_006ee498` returns 0 at once when its second argument is not 0 (`AUTO-entry`, `AUTO-zero`). So the "4" (3 on the Remote) comes only when *k* is neither 1 nor 2: a different kind from an explicit record-enable (*k* = 1, 2), which fits H2.
 - `0x261e118` is read by 28 functions (Ghidra's reference list), including the mixer's `muteStateOfStrip:` and `soloStateOfStrip:` and the Drummer mute button update. The writer is the main-thread periodic routine `FUN_003aa154`, which flips bit 0 each time it runs (`BLINK-toggle`, checked in machine code). `FUN_00aad860` sets it to 0 for the length of some work and then restores it (decompilation only). **Hypothesis: the on-screen blink phase** (confidence: medium to low; the period was not read). If so, the `r` of a *k* = 2 track is 1 or 0x80 depending on the phase at the moment `/gtFaderData` is built (it is sent only on change notifications, not on a phase flip alone; §8.1).
 
+**What _k_ is** (added 2026-10-07, checked in machine code; anchors `K-*`): `FUN_00326348` branches on the type (+0x12) of the object looked up from the strip.
+
+| Type | *k* |
+|---|---|
+| 0x40 (audio; the same value as SA-REMOTE-TRACKTYPE-001's type word) | if +0x2f0 is empty and the record byte (+0x176) is 1 or more: **1** when the byte at `0x276de70` is positive, else **2**. Otherwise 0 |
+| 0x43 (software instrument) | **−2 or −3** (negative) |
+| 0x45, 0x46 (outputs, Master) | −1 |
+
+- So *k* = 1 and 2 in the table above apply **to audio tracks only**. A software instrument's `r` is decided by `FUN_006ecc1c`'s route for a negative *k* (not read; it has places that return 1, 3, 0 and −1). The mixer window's `recordStateOfStrip:` passes 0 for a negative *k* (the R button of a software instrument is presumably decided elsewhere; not confirmed).
+- **Correction to H3**: H3 said "an explicit record-enable is *k* = 1", but *k* is negative for a software instrument such as Synth, so that reasoning does not hold. What `r` an explicit record-enable gives stays open until a reception shows it.
+- `0x276de70` is also read by `FUN_003aa154` (the periodic routine that flips the blink phase). **Hypothesis: whether recording is in progress** (it fits the screen, where an armed R stays lit while recording and blinks otherwise; confidence: low).
+
 Checked against receptions (3 receptions; the values were read with `remote_state.py replay`; for E3 the Swift reference test `theE3RecordingFollowsOneSelectionChange` gives the same):
 
 | Reception | `r` | Strips |
@@ -368,7 +380,7 @@ Checked against receptions (3 receptions; the values were read with `remote_stat
 |---|---|---|
 | H1: *s* = −1 (`r` 64) means "this track cannot be record-enabled" | Medium | 64 on the 7 audio tracks and 2 outputs in all 3 receptions. Only Trk08 and Audio were checked on screen to have no R button. The body of `FUN_006e7fd8` is not read |
 | H2: the 3 that comes through `FUN_006ee498` is "the automatic record-enable that follows the selection" | Medium to low | Only the selected track had 3, and it moved with the selection (E3). Amped Up was 3 while selected (EXP-REMOTE-003) and 0 when not selected (E3), so it is tied to the selection. Whether a track with children gets its 3 through H2's path or through the disagreeing-children path cannot be told apart |
-| H3: an explicit record-enable (pressing R, e.g. the MCU REC button) is *k* = 1 and gives `r` 1 | Low | Not seen in a reception yet. Testing it needs an experiment that record-enables a non-selected track over MCU while receiving |
+| H3: an explicit record-enable (pressing R, e.g. the MCU REC button) gives `r` 1 | Low | Not seen in a reception yet. The original reasoning (*k* = 1) does not hold for a software instrument, whose *k* is negative ("What *k* is" above). Testing it needs an experiment that record-enables a non-selected track while receiving |
 
 What it means for the product: `r` is not a Boolean. Keep it **as the raw value**, with 64 meaning "cannot", 0 "not enabled", and 1 and 3 as (candidate) different kinds of record-enable (the same treatment as `e3-record` in `logic-remote-e3-observations.tsv`).
 
