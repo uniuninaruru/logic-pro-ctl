@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-REMOTE-005",
+  "verified_at_utc": "2026-10-06T21:10:13.159983+00:00",
+  "status": "intended_explicit_rec_trial_aborted_before_operator_reported_action",
+  "original_objective": "Change only explicit REC for unselected Synth while stopped with Ballad selected",
+  "objective_achieved": false,
+  "no_action_evidence": {
+    "controller_source": "manual-actions.jsonl abort reason",
+    "controller_reason_text": "Claude reports MCU LCD/LED bank mismatch; requested arm action not performed; Remote baseline correct but cannot safely match MCU target",
+    "operator_sources": [
+      "CLDE-037",
+      "CLDE-043"
+    ],
+    "operator_claim": "No requested REC action performed; operator reports no MCU operation during reception",
+    "original_action_boolean_field": "No separate action-performed Boolean exists in the original abort marker",
+    "limit": "Controller/operator records; independent MCU MIDI send trace not obtained"
+  },
+  "profile": "Logic Pro Creator Studio12.3.1/6682;macOS27.0/26A5416b;arm64",
+  "project": "LogicCLI-Test.logicx",
+  "authorization": "Current-session human authorization for dedicated-project real experiments and computer use",
+  "capture": "Research/raw/remote-recv/20261007-012114-e1",
+  "passive_capture": "Research/raw/remote-recv/20261007-012048-e0",
+  "e0": {
+    "frames": 0,
+    "invites": 0,
+    "sends": 0,
+    "discovered_peers": 1,
+    "protocol_version": "10",
+    "host_type": "0",
+    "start_wall": "2026-10-06T16:20:51Z",
+    "finish_wall": "2026-10-06T16:20:59Z",
+    "reason": "browse_window_over",
+    "exit_code": 0
+  },
+  "capture_counts": {
+    "frames": 9296,
+    "messages": 9607,
+    "distinct_addresses": 780,
+    "events": 18603,
+    "event_types": {
+      "start": 1,
+      "browsing": 1,
+      "found_peer": 1,
+      "invite": 1,
+      "state": 2,
+      "certificate": 1,
+      "sent": 2,
+      "receive_window": 1,
+      "frame": 9296,
+      "decoded": 9296,
+      "finish": 1
+    }
+  },
+  "receive_window": {
+    "event": "receive_window",
+    "seconds": 120,
+    "t_ms": 171.9,
+    "wall": "2026-10-06T16:21:17Z"
+  },
+  "finish": {
+    "connected": true,
+    "event": "finish",
+    "frames": 9296,
+    "reason": "stop_file",
+    "t_ms": 97556.6,
+    "wall": "2026-10-06T16:22:54Z"
+  },
+  "elapsed_receive_seconds": 97.3847,
+  "time_policy": "Message t_ms from frame receive events; instruction timestamp is not an actual MIDI send timestamp; wall uses second precision",
+  "sent_by_research_peer": [
+    {
+      "address": "/protocolVersion",
+      "argument": 10
+    },
+    {
+      "address": "/jsonSupport",
+      "argument": 1
+    }
+  ],
+  "send_semantics": "Local API success; no Logic acceptance ACK established",
+  "sti": [
+    {
+      "frame": 456,
+      "receive_t_ms": 344.6,
+      "wall": "2026-10-06T16:21:17Z",
+      "format": "plist",
+      "argument_wrapper": "mazp-archive",
+      "value": {
+        "BgTrackInfoShowArpeggiatorButtonKey": true,
+        "BgTrackInfoIndexKey": 2,
+        "n": "Ballad",
+        "tn": 3,
+        "BgTrackInfoMetaInfoFlagsKey": 0,
+        "t": 2
+      }
+    },
+    {
+      "frame": 508,
+      "receive_t_ms": 370.5,
+      "wall": "2026-10-06T16:21:17Z",
+      "format": "plist",
+      "argument_wrapper": "mazp-archive",
+      "value": {
+        "BgTrackInfoShowArpeggiatorButtonKey": true,
+        "BgTrackInfoIndexKey": 2,
+        "n": "Ballad",
+        "tn": 3,
+        "BgTrackInfoMetaInfoFlagsKey": 0,
+        "t": 2
+      }
+    }
+  ],
+  "ati": {
+    "frames": [
+      477,
+      488
+    ],
+    "receive_t_ms": [
+      358,
+      362.9
+    ],
+    "strips": 14,
+    "copies_equal": true
+  },
+  "fader": {
+    "frames": [
+      483
+    ],
+    "receive_t_ms": [
+      360.6
+    ],
+    "g_entries": 14,
+    "g_fields": [
+      "vL",
+      "m",
+      "s"
+    ],
+    "t_entries": 14,
+    "t_fields": [
+      "r",
+      "ip"
+    ],
+    "synth": {
+      "track_id": 262146,
+      "gindex": 100,
+      "r": 0,
+      "ip": 0
+    },
+    "ballad": {
+      "track_id": 262147,
+      "gindex": 128,
+      "r": 3,
+      "ip": 0
+    },
+    "r_distribution": {
+      "0": 4,
+      "3": 1,
+      "64": 9
+    },
+    "all_ip_zero": true,
+    "later_messages": 0,
+    "limit": "No post-operation fader snapshot; no change inferred for unreceived state"
+  },
+  "markers": [
+    {
+      "event": "baseline",
+      "wall_utc": "2026-10-06T16:21:41.216291+00:00"
+    },
+    {
+      "event": "action_before",
+      "wall_utc": "2026-10-06T16:21:41.216291+00:00",
+      "meaning": "Instruction to Claude, not actual MIDI send timestamp",
+      "target": "Synth",
+      "operation": "track arm 2 on --expect-name Synth"
+    },
+    {
+      "event": "abort",
+      "wall_utc": "2026-10-06T16:22:54.213351+00:00",
+      "reason": "Claude reports MCU LCD/LED bank mismatch; requested arm action not performed; Remote baseline correct but cannot safely match MCU target"
+    }
+  ],
+  "post_abort_diagnosis": {
+    "source": "CLDE-038",
+    "reported": "Two Mackie Control surfaces configured; two different full LCD dumps on one port",
+    "independently_verified_here": false,
+    "time_relation": "Diagnostic restart16:23:58 and report16:27:01 occurred after16:22:54 capture finish",
+    "not_established": "This receive capture does not prove settings content or that Remote caused the MCU problem"
+  },
+  "historical_hypothesis": {
+    "proposed": "Synth explicit REC might change r0->1",
+    "tested": false,
+    "r1_or_0x80_response_established": false,
+    "static_correction": "Type0x43 software instruments use negative k(-2/-3); following path unread. The audio k1/2 path does not establish Synth behavior",
+    "source": "Research/static-analysis/SA-REMOTE-STATE-001.md section8.3;CLDE-051"
+  },
+  "retrospective_comparison": {
+    "candidate_for": "EXP-REMOTE-004",
+    "designed_matched_control": false,
+    "causal_guarantee": false,
+    "limit": "Operator-reported no-operation interval and no received state delta; inconsistent MCU feedback and no repeated matched trial"
+  },
+  "python_final_audit": {
+    "state_issues": 0,
+    "schema_violations": 0,
+    "final_selection": {
+      "selected": true,
+      "name": "Ballad",
+      "index": 2,
+      "tn": 3,
+      "t": 2,
+      "frame": 456,
+      "gindex": 128,
+      "position": 3,
+      "resolved_with_ati_frame": 477
+    },
+    "coverage": {
+      "strips": 14,
+      "fader_fields_known": 42,
+      "fader_fields_total": 42,
+      "track_fields_known": 28,
+      "track_fields_total": 28,
+      "selection_known": true,
+      "counts_known": true,
+      "note": "coverage is not completeness: a field can change after this point"
+    },
+    "complete": null,
+    "last_state_frame": 526
+  },
+  "audit_scope": {
+    "new_connection": false,
+    "logic_or_mcu_operation": false,
+    "shared_build_execution": false,
+    "independent_swift_execution": false
+  },
+  "checks": {
+    "continuous_numeric_counters": true,
+    "files_receive_decoded_counts_equal": true,
+    "metadata_bytes_tags_addresses_equal": true,
+    "decode_failures": 0,
+    "events_after_finish": 0,
+    "all_input_hashes_unchanged": true,
+    "source_files": 9317,
+    "specific_board_excerpts_unchanged": true,
+    "whole_board_claimed_immutable": false
+  },
+  "tool_update_between_audits": {
+    "path": "Tools/research-scripts/remote_state.py",
+    "earlier_audit_bytes": 26779,
+    "earlier_audit_sha256": "e9e6aa9ef78c5d252762f763f795db0e72e7f070d890a8803f7f3eff66c81193",
+    "final_audit_bytes": 31995,
+    "final_audit_sha256": "f55553eab3fe438bbf10263138b857c5e9d6b7abaa307fb190f6e34bcd5db4e8",
+    "meaning": "Collaborator added separate cs display view between audits; no received frame change; final audit uses current source; hashes equal only within each bounded audit"
+  },
+  "build_provenance": [
+    {
+      "fresh_build": true,
+      "inputs_match_before_after_build": true,
+      "inputs": [
+        {
+          "path": "Tools/remote-research-peer/main.swift",
+          "bytes": 18803,
+          "sha256": "7aec43bfbfc9925805a6e2e538941b64dfd082d5a14453b6b3edb00d33fe5725"
+        },
+        {
+          "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+          "bytes": 12143,
+          "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+        },
+        {
+          "path": "Tools/remote-research-peer/build.sh",
+          "bytes": 1705,
+          "sha256": "297c3f77918d308560655194572c56a381b97f70d68c088d2b51ce2bcf9721ec"
+        }
+      ],
+      "executable_sha256": "c31bc7c0e4572165a0b6a7d2959e3bb5f9dd4c5680afc69b2a6edc718b99ac12"
+    },
+    {
+      "fresh_build": true,
+      "inputs_match_before_after_build": true,
+      "inputs": [
+        {
+          "path": "Tools/remote-research-peer/main.swift",
+          "bytes": 18803,
+          "sha256": "7aec43bfbfc9925805a6e2e538941b64dfd082d5a14453b6b3edb00d33fe5725"
+        },
+        {
+          "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+          "bytes": 12143,
+          "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+        },
+        {
+          "path": "Tools/remote-research-peer/build.sh",
+          "bytes": 1705,
+          "sha256": "297c3f77918d308560655194572c56a381b97f70d68c088d2b51ce2bcf9721ec"
+        }
+      ],
+      "executable_sha256": "c31bc7c0e4572165a0b6a7d2959e3bb5f9dd4c5680afc69b2a6edc718b99ac12"
+    }
+  ],
+  "frame_inventory": {
+    "path": "Research/raw/review/e4-arm-aborted-005-frame-inventory.json",
+    "entries": 9296,
+    "bytes": 1468805,
+    "sha256": "c4668cb456b69b724b06807e6b5a742aa4defc410b66c7ffbe710783fd30fee7",
+    "format": "UTF-8 compact JSON array of{path,bytes,sha256}; numeric frame order; sorted keys; terminal LF"
+  },
+  "notable_frame_hashes": [
+    {
+      "bytes": 484,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/0456.bin",
+      "sha256": "55aadb0b8c26f96cfea7ab13e8dac84eb50326ca74a891c3ba76f7c85e6b9c28"
+    },
+    {
+      "bytes": 1556,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/0477.bin",
+      "sha256": "14723c7670d416c122b592ec31e61f6fc80edf28182369c6f1e3bf9efb4f856a"
+    },
+    {
+      "bytes": 1630,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/0483.bin",
+      "sha256": "c971cf0209a448b9fda189b3dbc4eeab60c8ea5b89032dd38afa580e880c808a"
+    },
+    {
+      "bytes": 1556,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/0488.bin",
+      "sha256": "14723c7670d416c122b592ec31e61f6fc80edf28182369c6f1e3bf9efb4f856a"
+    },
+    {
+      "bytes": 484,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/0508.bin",
+      "sha256": "55aadb0b8c26f96cfea7ab13e8dac84eb50326ca74a891c3ba76f7c85e6b9c28"
+    },
+    {
+      "bytes": 66,
+      "path": "Research/raw/remote-recv/20261007-012114-e1/frames/9296.bin",
+      "sha256": "19beafee933a36ac7ed490eec3d08e29e257ae0d6a428b63dac35d4e09ab3b59"
+    }
+  ],
+  "capture_file_hashes": [
+    {
+      "path": "Research/raw/remote-recv/20261007-012048-e0/build-inputs-before.json",
+      "bytes": 503,
+      "sha256": "5471078049f0508e4bd1326740b3293eae122f8229e803c716e6017eb820c574"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012048-e0/build-provenance.json",
+      "bytes": 1482,
+      "sha256": "aac970eadf0e22ab5bb15f436b76b55d395e63d234a568255ae9554f1edcc814"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012048-e0/decoded.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012048-e0/events.jsonl",
+      "bytes": 593,
+      "sha256": "a8aa928ddd8332d6feb6807bfe319ecd1eddfb6fbd25635ef9faae4bd61fbe03"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012048-e0/summary.json",
+      "bytes": 337,
+      "sha256": "3fdc584ee08dace2daf55eee895c6a01f81fe5c92165ff80b79d87a8f526c7cf"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/STOP",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/build-inputs-before.json",
+      "bytes": 503,
+      "sha256": "5471078049f0508e4bd1326740b3293eae122f8229e803c716e6017eb820c574"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/build-provenance.json",
+      "bytes": 1482,
+      "sha256": "fb283ba1130405b222f088aeb39b2ecabdc6ebf6b3ae93fefc1acea435f14165"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/decoded.jsonl",
+      "bytes": 2910037,
+      "sha256": "d4f06477da00fd670ba86d7fb26918a450fe91cd642546c8e006f9092458590c"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/events.jsonl",
+      "bytes": 2436377,
+      "sha256": "ece20713ee76c0be57b56e3c979b86920a78d031e16c89dfc1321ce0c6607542"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/manual-actions.jsonl",
+      "bytes": 9530,
+      "sha256": "7bd2a3ae7bb820d4d9733fd21634d52d9b6a15ed2c75b56931551446d157aebe"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-012114-e1/summary.json",
+      "bytes": 328,
+      "sha256": "35dd523a1eff25d18419b373b95b48ca9d496d78e57b5511cf86901512ec3597"
+    }
+  ],
+  "final_audit_tool_hashes": [
+    {
+      "path": "Tools/research-scripts/remote_capture.py",
+      "bytes": 11714,
+      "sha256": "e8561e68dbea3a26ecf85428dc69d541d93e06f5a745632ec45afdcae65ff5ec"
+    },
+    {
+      "path": "Tools/research-scripts/remote_state.py",
+      "bytes": 32250,
+      "sha256": "c06ed9c348ae298d6ffe16187a62224d59022a1e99532e29bad4626214c6071f"
+    },
+    {
+      "path": "Tools/research-scripts/state_schema_check.py",
+      "bytes": 4410,
+      "sha256": "5f0ba8e7eb1598ee374733488c7d048d3fe9acacf9571d7175b66596cf571cda"
+    },
+    {
+      "path": "Research/protocol/logic-remote-state.schema.json",
+      "bytes": 14392,
+      "sha256": "0cbd0add31d0bb1d3e63a97b885d336bc1744c54ee27dbdface1218734a4c17e"
+    },
+    {
+      "path": "Tools/remote-research-peer/main.swift",
+      "bytes": 18803,
+      "sha256": "7aec43bfbfc9925805a6e2e538941b64dfd082d5a14453b6b3edb00d33fe5725"
+    },
+    {
+      "path": "Tools/remote-research-peer/build.sh",
+      "bytes": 1705,
+      "sha256": "297c3f77918d308560655194572c56a381b97f70d68c088d2b51ce2bcf9721ec"
+    },
+    {
+      "path": "Tools/remote-research-peer/run.sh",
+      "bytes": 3721,
+      "sha256": "304db1684d4fb6faf2bc1482fc963f8f1a1ae14d2e54ce4cd92813f859ce9943"
+    },
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+      "bytes": 12143,
+      "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+    },
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteState.swift",
+      "bytes": 25318,
+      "sha256": "6c466e7a7a3a51ce65cc72ec7fe3d5b1cadb994f58775f7a4e7530c40e7b0e4c"
+    }
+  ],
+  "static_reference_hashes": [
+    {
+      "path": "Research/static-analysis/SA-REMOTE-STATE-001.md",
+      "bytes": 44730,
+      "sha256": "68ca8ab2c60dd50d8831bb4699f43272e62b94848b250a4b2b9a13c8ee349ead"
+    },
+    {
+      "path": "Research/static-analysis/SA-REMOTE-STATE-001.en.md",
+      "bytes": 40922,
+      "sha256": "2a219a6fde95e0523f8901b23f5f21e3e0f0859be55d9ae773e8c57f217d1edf"
+    }
+  ],
+  "local_review_artifacts": [
+    {
+      "path": "Research/raw/review/e4-arm-aborted-005-review.json",
+      "bytes": 25454,
+      "sha256": "6e5ea80c30b40f5bbba8d2c28fd165e38ee318c840211a7d3ed83eb51d551b55"
+    },
+    {
+      "path": "Research/raw/review/e4-arm-aborted-005-check.py",
+      "bytes": 16553,
+      "sha256": "5b332b8a10f62bfc392340ea5cb4fec72eb5060a5721d2e74011a47e7c9ae14d"
+    },
+    {
+      "path": "Research/raw/review/e4-arm-aborted-005-notes.md",
+      "bytes": 2511,
+      "sha256": "e1a25eed9bac03fb6d605b7ddca2e7a5ec305cfa419316a4b7ddf85be9f6cb5c"
+    },
+    {
+      "path": "Research/raw/review/e4-arm-aborted-005-frame-inventory.json",
+      "bytes": 1468805,
+      "sha256": "c4668cb456b69b724b06807e6b5a742aa4defc410b66c7ffbe710783fd30fee7"
+    }
+  ],
+  "coordination_records": [
+    {
+      "id": "CLDE-036",
+      "bytes": 835,
+      "sha256": "e2fde10df6bb7c9f74745648fe0a67dd00e207c775a87009ae3048732253d424"
+    },
+    {
+      "id": "CLDE-037",
+      "bytes": 1648,
+      "sha256": "e7a3560bc0a7d944b112601835abddc20c051df49c08e3460e63431fac5fbb12"
+    },
+    {
+      "id": "CLDE-038",
+      "bytes": 2193,
+      "sha256": "e7f19a8ca28ad51ce813841a26681ecf4e5bf969ff2029eda1b9c9516dfbe1ca"
+    },
+    {
+      "id": "CDEX-037",
+      "bytes": 519,
+      "sha256": "3a3247c2dd37ade3f2b9f9a18bf98569547d0fb54e5cf269e0f39b742aaa4c29"
+    },
+    {
+      "id": "CDEX-038",
+      "bytes": 825,
+      "sha256": "787e753b041d2858690e63add39ce6cf33fe0cd55514c7b2cac8714efad87d3e"
+    },
+    {
+      "id": "CDEX-039",
+      "bytes": 469,
+      "sha256": "6e80b258989c1e2c2b90437b03c4885dc523357f73a9e118fe5e071b1495f54f"
+    },
+    {
+      "id": "CDEX-040",
+      "bytes": 242,
+      "sha256": "372c151793bfc086080add7524b9004613d521f0e98d3e0a76392892eb8505ee"
+    },
+    {
+      "id": "CLDE-043",
+      "bytes": 1356,
+      "sha256": "6968f55045794974e717d58bd664f6dc2a9f25b3f4ff4d348440e2efdd280822"
+    },
+    {
+      "id": "CLDE-051",
+      "bytes": 1014,
+      "sha256": "e203b4bc9c910371deeed529571223774db31502e6af66c195627f49e6345eea"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/logic-remote-e4-abort-observations.tsv",
+      "bytes": 3304,
+      "sha256": "c1ed1e73c209d63d220c9b565efc92856663392a7fc27c6f196fa92fc1e9713a"
+    }
+  ],
+  "limits": [
+    "No new connection or Logic/MCU action during this audit",
+    "No independent MIDI send trace obtained for the abort",
+    "No explicit REC trial; predicted0->1 value remains untested",
+    "A received baseline can be unchanged while unrelated MCU feedback is inconsistent",
+    "Complete coverage is not complete state; use complete=null",
+    "Post-abort duplicate-surface diagnosis is attributed, not proven by Remote frames",
+    "Full board continues to receive append operations; only specific messages are frozen",
+    "No private host name, personal absolute path, UUID value or raw frame published",
+    "E3 cs arrival order is a separate follow-up, outside this aborted REC trial"
+  ]
+}

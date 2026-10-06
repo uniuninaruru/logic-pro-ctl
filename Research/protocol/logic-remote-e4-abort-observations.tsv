@@ -1,0 +1,18 @@
+id	scope	observed_result	frames_or_anchor	limit	evidence_kind
+e4-objective	intended operation	Explicit REC for Synth while Ballad selected; objective not reached	action_before;abort;CLDE037/043	Instruction is not execution confirmation; no explicit REC trial	plan_and_operator_record
+e4-passive	E0 discovery	One protocol10/host0 peer;0frames/0invites/0sends	16:20:51..16:20:59 UTC	Passive discovery preceding E1; not a state capture	live_capture
+e4-capture	E1 reception	9296frames/9607messages/780addresses	1..9296	One aborted connection; no all-address semantic claim	live_capture
+e4-window	receive_window	120second setting;97.3847seconds observed;stop_file exit0	171.9..97556.6ms;16:21:17..16:22:54 UTC	STOP terminated reception before timer completion	live_capture
+e4-initial-sends	research peer sends	/protocolVersion=10;/jsonSupport=1	two sent events	Local send API success; not an ACK or complete MCU action log	live_capture
+e4-sti	/sti	Ballad index2/tn3/t2 in both copies;no later STI	456@344.6ms;508@370.5ms	No received selection delta; all human actions not established	live_capture
+e4-ati	/ati	14strips;two equal copies;no later ATI	477@358.0ms;488@362.9ms	Wire list; not MCU scan completeness	live_capture
+e4-fader	/gtFaderData	Only one initial message;14g*3fields and14t*2fields	483@360.6ms	No later fader snapshot; no comparison with a performed REC action	live_capture
+e4-synth	/gtFaderData.t.r	Synth trackID262146/gindex100:r0/ip0;Ballad262147/gindex128:r3/ip0	483	Initial raw values; explicit REC response remains untested	live_capture
+e4-distribution	/gtFaderData.t	r:one3/four0/nine64;all14ip0	483	Raw enum retained; no Boolean or recording-in-progress inference	live_capture
+e4-noaction	no-action evidence	Abort reason states requested action not performed;operator reports no MCU operation	abort;CLDE037;CLDE043	No separate original action-performed Boolean field; no independent MIDI send trace	controller_and_operator_record
+e4-diagnosis	MCU feedback diagnosis	Operator reports conflicting LCD/LED targets;later reports two configured surfaces	CLDE037;CLDE038	Post-abort diagnosis separately attributed; Remote capture does not prove settings or cause	collaborator_report
+e4-r-hypothesis	historical REC prediction	r0->1 proposed before trial;1/0x80 correspondence untested	SA-REMOTE-STATE-001section8.3;CLDE051	Software-instrument negative k path is unread; audio k1/2 rationale does not establish Synth behavior	untested_hypothesis_and_static_reference
+e4-control	retrospective comparison	No later STI/fader state messages during operator-reported no-operation period	E1;EXP-REMOTE-004	Not a designed repeated matched control; no selection/r causal guarantee	retrospective_interpretation
+e4-replay	Python final audit	0decode/schema/state issues;coverage42/42g,28/28t;complete=null	all9296frames	Coverage is not completeness; no second Swift execution claimed	offline_replay
+e4-hashes	source provenance	9317inputfiles unchanged within final audit;frameinventory hash preserved	review.json;frame-inventory.json	remote_state.py changed between audits; recorded separately from received bytes	offline_audit
+e4-end	finish	Final event;files/receive/decoded counts agree;0subsequent events	finish@97556.6ms	connected=true sampled before disconnect; not an ongoing connection	live_capture

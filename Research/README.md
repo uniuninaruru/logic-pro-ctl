@@ -104,6 +104,7 @@ flowchart LR
 | [EXP-REMOTE-002](experiments/EXP-REMOTE-002-offline-state-replay.md) | 保存した受信からの状態の組み立て直し（オフライン）：未受信は null、識別子を分け、`complete` は推定しない。矛盾 0、`/sti` は `/ati` より先に届く |
 | [EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md) | 120秒の再接続で14ストリップ、同じ選択のATI `t=7` / STI `t=2`。11,459フレームを日英・観測表・manifestに整理。選択変更の比較は未完了 |
 | [EXP-REMOTE-004](experiments/EXP-REMOTE-004-selection-delta.md) | 選択をBallad→Pianoへ1回変更。STIと後続fader rの移動を11,396フレームで確認、受信後に画面で復元。関数実行ログは未取得 |
+| [EXP-REMOTE-005](experiments/EXP-REMOTE-005-aborted-explicit-arm.md) | 明示REC実験を操作前に中止。9,296フレームを再読し初期状態だけを確認。未送信は担当者の記録に基づき、rの明示録音待機の意味は未検証 |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
 | [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
 | [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |
