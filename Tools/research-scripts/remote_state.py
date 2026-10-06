@@ -414,6 +414,33 @@ def address_rows(capture: Path):
     return rows
 
 
+# Streams that arrive many times a second whether or not anything changed; left out of a timeline unless asked for.
+TIMELINE_NOISE = re.compile(r"(?i)meter|levels|gainreduction|^/logicClock|^/transport/position")
+
+
+def timeline_rows(capture: Path, start=None, end=None, include=None):
+    """Every message in arrival order with its frame and time, for reading what one operation set off and in what
+    order (PLAN-05 E3: /cs, /sti, /gtFaderData within ~60 ms). Meter-like streams are left out unless `include`
+    (a regular expression on the address) is given, which then decides alone. Values may contain track names:
+    for local analysis, not for committed tables."""
+    pattern = re.compile(include) if include else None
+    rows = []
+    for frame, address, value in _messages(capture):
+        if start is not None and frame["n"] < start:
+            continue
+        if end is not None and frame["n"] > end:
+            break
+        if pattern:
+            if not pattern.search(address):
+                continue
+        elif TIMELINE_NOISE.search(address):
+            continue
+        text = json.dumps(remote_capture.jsonable(value), ensure_ascii=False, sort_keys=True)
+        t_ms = frame["t_ms"]
+        rows.append([str(frame["n"]), "" if t_ms is None else f"{t_ms:.1f}", address, text if len(text) <= 160 else text[:157] + "..."])
+    return rows
+
+
 CS_ASSIGN_TABLE = Path(__file__).resolve().parents[2] / "Research" / "protocol" / "cs-assign-remote.tsv"
 
 
@@ -485,9 +512,12 @@ ADDRESS_HEADER = """# Every address family seen in one captured reception (EXP-R
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("command", choices=["replay", "coverage", "addresses", "cs"])
+    parser.add_argument("command", choices=["replay", "coverage", "addresses", "cs", "timeline"])
     parser.add_argument("capture")
     parser.add_argument("--at", type=int, help="replay: stop after this frame number")
+    parser.add_argument("--from", dest="start", type=int, help="timeline: first frame number")
+    parser.add_argument("--to", dest="end", type=int, help="timeline: last frame number")
+    parser.add_argument("--include", help="timeline: only addresses matching this regular expression (meters included)")
     options = parser.parse_args(argv)
     capture = Path(options.capture)
     try:
@@ -495,6 +525,10 @@ def main(argv=None) -> int:
             builder = replay(capture, options.at)
             print(json.dumps({"state": builder.snapshot(), "issues": builder.issues,
                               "events": collections.Counter(e["kind"] for e in builder.events)}, ensure_ascii=False, indent=1))
+        elif options.command == "timeline":
+            print("# frame\tt_ms\taddress\tvalue  (local analysis: values may contain track names; do not commit)")
+            for r in timeline_rows(capture, options.start, options.end, options.include):
+                print("\t".join(r))
         else:
             header, rows = {"coverage": (COVERAGE_HEADER, coverage_rows), "addresses": (ADDRESS_HEADER, address_rows),
                             "cs": (CS_HEADER, cs_rows)}[options.command]

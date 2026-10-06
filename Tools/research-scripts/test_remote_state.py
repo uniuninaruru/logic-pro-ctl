@@ -324,6 +324,23 @@ class CsTableTests(unittest.TestCase):
         self.assertTrue(any(r["address"] == "/cs/mixer/volume/volume" for r in rows))
 
 
+class TimelineTests(unittest.TestCase):
+    FRAMES = [json_frame({"/mixerLevels": [0.1]}), json_frame({"/cs/mixer/record/3": 0}), json_frame({"/sti": {"n": "Piano"}}),
+              json_frame({"/bankNavigator/trackLevels": [0.2]}), json_frame({"/cs/mixer/select/1": 1})]
+
+    def test_meters_are_left_out_and_order_and_time_are_kept(self):
+        rows = rs.timeline_rows(capture(self.FRAMES))
+        self.assertEqual([r[2] for r in rows], ["/cs/mixer/record/3", "/sti", "/cs/mixer/select/1"])
+        self.assertEqual([r[0] for r in rows], ["2", "3", "5"])
+        self.assertEqual(rows[1][1], "3.0")
+        self.assertEqual(rows[1][3], '{"n": "Piano"}')
+
+    def test_a_frame_range_and_an_include_pattern_narrow_it(self):
+        self.assertEqual([r[0] for r in rs.timeline_rows(capture(self.FRAMES), start=3, end=4)], ["3"])
+        rows = rs.timeline_rows(capture(self.FRAMES), include=r"Levels$")
+        self.assertEqual([r[2] for r in rows], ["/mixerLevels", "/bankNavigator/trackLevels"])   # include decides alone
+
+
 class TableTests(unittest.TestCase):
     def test_floats_are_listed_with_their_127ths(self):
         self.assertEqual(rs._summary([90 / 127, 90 / 127]), "0.70866 (= 90/127)")
