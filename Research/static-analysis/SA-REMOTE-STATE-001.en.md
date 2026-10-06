@@ -300,7 +300,7 @@ However, even if a value is in the sender's dictionary, **whether it is dropped 
 | 0 | `vL` (`g`) | 32-bit integer: `(int8)(+0x8b) << 24`, unless the top byte of the internal 32-bit value (+0xcc) agrees with it, in which case that value is used as it is (confirmed). **A signed 32-bit representation of the fader position** (hypothesis). Not the MCU's 14 bits; the conversion is not confirmed |
 | 13 | `s` (`g`) | signed byte at `+0x8c`. Range **not confirmed** (values other than 0 / 1 are possible) |
 | 12, 14 | `m` (`g`) | basically 0 / 1, sometimes 2 / 3: when bit 1 is set, or under particular conditions (presumed to be the effect of groups and the like). The global flag `DAT_0261e118`, when true, adds 0x80. **Meaning not confirmed** |
-| 2 | `r` (`t`) | one of 0, 1, 3, 0x40, 0x80 (from the branches in the code). The kind of record-enable (from the key name; hypothesis) |
+| 2 | `r` (`t`) | one of 0, 1, 3, 0x40, 0x80. The key is `_BgTrackFaderDataRecEnableStateKey` (record-enable state). How the value is chosen: **§8.3** (checked in machine code) |
 | 32 | `ip` (`t`) | a mask of up to 12 bits. Bit *k* is the internal flag (bit 2 of +0x3a) of channel *k* (confirmed). "Independent pan" from the key name (hypothesis) |
 
 - `changedMask == 0` includes every field (confirmed in SA-005 §3).
@@ -323,6 +323,43 @@ However, even if a value is in the sender's dictionary, **whether it is dropped 
 `handleUpdateBits:` (0x0168a450) passes each element of the `updateBitsArray` in the notification's `userInfo` to `handleUpdateBitsForElement:`.
 It sets `cachedCurrentMixerController` only while processing and clears it afterwards.
 `handleUM_TRACKSEL:` (0x0168e0ac) calls `updateActiveGInstSet:` and `updateSelectedTrackInfo`, so **a selection change rebuilds `/sti`**.
+
+### 8.3 `r` (record-enable state) read in machine code (added 2026-10-07)
+
+The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (125 rows, checked against the bytes of the image and `llvm-objdump`, not Ghidra).
+
+| *s* | `r` | Anchor |
+|---|---|---|
+| −1 | 0x40 (64) | `R-map` (`cmn w0, #0x1` → `mov w26, #0x40`) |
+| 0 | 0x80 if flag is set, otherwise 0 | `R-map` (`ldrb w8, [sp, #0x7]` → `csel`) |
+| 1 | 1 | `R-map` |
+| 2 or 3 | 3 | `R-map` (`sub w8, w0, #0x2`, `cmp w8, #0x2`, `b.hs`) |
+| anything else | 0 | `R-map` |
+
+- `r` is put in only when `changedMask` is 0 (the initial send) or has bit 2, and only when the track could be looked up from the trackID (otherwise the key is absent; `R-gate`, `R-lookup`; matches §7).
+- Inside `FUN_006ecc1c` (as far as it was read):
+  - It first calls `FUN_006e7fd8`; false gives −1 (`REC-cap`).
+  - A track with children calls itself for each child; children that disagree give 3 (`REC-children`, `REC-three`).
+  - Otherwise it looks at *k* = `FUN_00326348(song, track+0x20)` (`REC-state`). *k* = 1 gives 1. *k* = 2 gives 1 when the global byte `0x261e118` is 0; when it is set, it returns 0 and sets flag (`r` 0x80; `REC-two`). Anything else gives 3 if `FUN_006ee498(…)` is true, else 0. The path for a negative *k* is not read.
+  - `0x261e118` is the same address as the condition that adds 0x80 to `m` in §8.1.
+- The saved decompilation listed "0, 1, 3, 0x40, 0x80", but which return value becomes which was first confirmed in machine code.
+
+Checked against receptions (3 receptions; the values were read with `remote_state.py replay`; for E3 the Swift reference test `theE3RecordingFollowsOneSelectionChange` gives the same):
+
+| Reception | `r` | Strips |
+|---|---|---|
+| [EXP-REMOTE-001](../experiments/EXP-REMOTE-001-receive-initial-state.en.md) | 64 | 7 audio tracks, Stereo Out, Master (on the 2026-10-07 screen, the headers of Trk08 and Audio, the two visible, had no R button) |
+| same | 0 | 3 software instrument tracks (the selected track then was the audio track Trk08, which stayed 64) |
+| [EXP-REMOTE-003](../experiments/EXP-REMOTE-003-reconnect-selection-baseline.en.md) | 3 | the selected Amped Up (has children; `/ati` `t` 7). The rest has the same shape as EXP-REMOTE-001 |
+| PLAN-05 E3 (2026-10-07) | 3 → 0, 0 → 3 | moving the selection from Ballad to Piano moved the 3 from Ballad to Piano (in a frame after the `/sti`). On screen, the automatic record-enable (R lit red) moved the same way |
+
+| Hypothesis | Confidence | Basis and limits |
+|---|---|---|
+| H1: *s* = −1 (`r` 64) means "this track cannot be record-enabled" | Medium | 64 on the 7 audio tracks and 2 outputs in all 3 receptions. Only Trk08 and Audio were checked on screen to have no R button. The body of `FUN_006e7fd8` is not read |
+| H2: the 3 that comes through `FUN_006ee498` is "the automatic record-enable that follows the selection" | Medium to low | Only the selected track had 3, and it moved with the selection (E3). Amped Up was 3 while selected (EXP-REMOTE-003) and 0 when not selected (E3), so it is tied to the selection. Whether a track with children gets its 3 through H2's path or through the disagreeing-children path cannot be told apart |
+| H3: an explicit record-enable (pressing R, e.g. the MCU REC button) is *k* = 1 and gives `r` 1 | Low | Not seen in a reception yet. Testing it needs an experiment that record-enables a non-selected track over MCU while receiving |
+
+What it means for the product: `r` is not a Boolean. Keep it **as the raw value**, with 64 meaning "cannot", 0 "not enabled", and 1 and 3 as (candidate) different kinds of record-enable (the same treatment as `e3-record` in `logic-remote-e3-observations.tsv`).
 
 ## 9. Procedure and reproduction
 

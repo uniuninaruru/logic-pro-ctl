@@ -1,0 +1,131 @@
+# Evidence anchors for SA-REMOTE-STATE-001 §8.3 (/gtFaderData t.r, the record-enable state).
+# Image: Logic.arm64  sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998  (Logic 12.3.1 / 6682, arm64)
+# Checked against the image file (bytes, llvm-objdump text, dyld_info binds, selector strings), not Ghidra:
+#   python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-remote-recenable-anchors.tsv
+# Static only: nothing was sent to Logic.
+# id	kind	address	bytes	text	claim
+R-gate@0x168c534	insn	0x0168c534	590000b4	cbz x25, 0x168c53c	r is built when changedMask is 0 (initial send) or has bit 2
+R-gate@0x168c538	insn	0x0168c538	39071036	tbz w25, #0x2, 0x168c61c	r is built when changedMask is 0 (initial send) or has bit 2
+R-lookup@0x168c53c	insn	0x0168c53c	e80240b9	ldr w8, [x23]	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c540	insn	0x0168c540	1b7d1013	asr w27, w8, #16	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c544	insn	0x0168c544	023d4092	and x2, x8, #0xffff	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c548	insn	0x0168c548	e0031aaa	mov x0, x26	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c54c	insn	0x0168c54c	e1031baa	mov x1, x27	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c550	insn	0x0168c550	1f56ac97	bl 0x1a1dcc	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-lookup@0x168c554	insn	0x0168c554	400600b4	cbz x0, 0x168c61c	the track is looked up from the trackID (high 16 bits, low 16 bits); no track: no r key at all
+R-call@0x168c558	insn	0x0168c558	e20300aa	mov x2, x0	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-call@0x168c55c	insn	0x0168c55c	ff1f0039	strb wzr, [sp, #0x7]	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-call@0x168c560	insn	0x0168c560	e31f0091	add x3, sp, #0x7	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-call@0x168c564	insn	0x0168c564	e0031aaa	mov x0, x26	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-call@0x168c568	insn	0x0168c568	e1031baa	mov x1, x27	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-call@0x168c56c	insn	0x0168c56c	ac81c197	bl 0x6ecc1c	state = FUN_006ecc1c(song, trackID high half, track, &flag) with flag cleared first
+R-map@0x168c570	insn	0x0168c570	1a008052	mov w26, #0x0	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c574	insn	0x0168c574	1f040071	cmp w0, #0x1	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c578	insn	0x0168c578	0c010054	b.gt 0x168c598	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c57c	insn	0x0168c57c	1f040031	cmn w0, #0x1	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c580	insn	0x0168c580	60010054	b.eq 0x168c5ac	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c584	insn	0x0168c584	80010034	cbz w0, 0x168c5b4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c588	insn	0x0168c588	1f040071	cmp w0, #0x1	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c58c	insn	0x0168c58c	c1010054	b.ne 0x168c5c4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c590	insn	0x0168c590	3a008052	mov w26, #0x1	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c594	insn	0x0168c594	0c000014	b 0x168c5c4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c598	insn	0x0168c598	08080051	sub w8, w0, #0x2	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c59c	insn	0x0168c59c	1f090071	cmp w8, #0x2	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5a0	insn	0x0168c5a0	22010054	b.hs 0x168c5c4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5a4	insn	0x0168c5a4	7a008052	mov w26, #0x3	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5a8	insn	0x0168c5a8	07000014	b 0x168c5c4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5ac	insn	0x0168c5ac	1a088052	mov w26, #0x40	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5b0	insn	0x0168c5b0	05000014	b 0x168c5c4	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5b4	insn	0x0168c5b4	e81f4039	ldrb w8, [sp, #0x7]	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5b8	insn	0x0168c5b8	09108052	mov w9, #0x80	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5bc	insn	0x0168c5bc	1f010071	cmp w8, #0x0	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-map@0x168c5c0	insn	0x0168c5c0	3a119f1a	csel w26, w9, wzr, ne	r from state: -1 -> 0x40; 0 -> 0x80 if flag else 0; 1 -> 1; 2 or 3 -> 3; anything else -> 0
+R-store@0x168c5c4	insn	0x0168c5c4	e00315aa	mov x0, x21	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5c8	insn	0x0168c5c8	e20317aa	mov x2, x23	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5cc	insn	0x0168c5cc	6dc11294	bl 0x1b3cb80	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5d0	insn	0x0168c5d0	fd031daa	mov x29, x29	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5d4	insn	0x0168c5d4	2d9c1194	bl 0x1af3688	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5d8	insn	0x0168c5d8	fb0300aa	mov x27, x0	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5dc	insn	0x0168c5dc	80fb46f9	ldr x0, [x28, #0xdf0]	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5e0	insn	0x0168c5e0	e2031aaa	mov x2, x26	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5e4	insn	0x0168c5e4	1f6b1394	bl 0x1b67260	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5e8	insn	0x0168c5e8	fd031daa	mov x29, x29	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5ec	insn	0x0168c5ec	279c1194	bl 0x1af3688	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5f0	insn	0x0168c5f0	fa0300aa	mov x26, x0	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5f4	insn	0x0168c5f4	a85f00d0	adrp x8, 0x2282000	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5f8	insn	0x0168c5f8	080d42f9	ldr x8, [x8, #0x418]	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c5fc	insn	0x0168c5fc	030140f9	ldr x3, [x8]	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c600	insn	0x0168c600	e0031baa	mov x0, x27	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c604	insn	0x0168c604	e2031aaa	mov x2, x26	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+R-store@0x168c608	insn	0x0168c608	3e3b1494	bl 0x1b9b300	t[trackID][_BgTrackFaderDataRecEnableStateKey] = @(r) via getOrCreateTrackDict: / numberWithInt: / setObject:forKeyedSubscript:
+BIND-RecEnableStateKey@0x2282418	bind	0x02282418		MACore/_BgTrackFaderDataRecEnableStateKey	the key loaded at 0x168c5f4..0x168c5fc
+STUB-getOrCreateTrackDict@0x1b3cb80	insn	0x01b3cb80	a1500090	adrp x1, 0x2550000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-getOrCreateTrackDict@0x1b3cb84	insn	0x01b3cb84	214c47f9	ldr x1, [x1, #0xe98]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-getOrCreateTrackDict@0x2550e98	selref	0x02550e98		getOrCreateTrackDict:	selector reference used by the stub at 0x1b3cb80
+STUB-numberWithInt@0x1b67260	insn	0x01b67260	a14f0090	adrp x1, 0x255b000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-numberWithInt@0x1b67264	insn	0x01b67264	212844f9	ldr x1, [x1, #0x850]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-numberWithInt@0x255b850	selref	0x0255b850		numberWithInt:	selector reference used by the stub at 0x1b67260
+STUB-setObjectForKeyedSubscript@0x1b9b300	insn	0x01b9b300	614e00b0	adrp x1, 0x2568000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-setObjectForKeyedSubscript@0x1b9b304	insn	0x01b9b304	213c44f9	ldr x1, [x1, #0x878]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-setObjectForKeyedSubscript@0x2568878	selref	0x02568878		setObject:forKeyedSubscript:	selector reference used by the stub at 0x1b9b300
+REC-cap@0x6ecce0	insn	0x006ecce0	e00314aa	mov x0, x20	first test FUN_006e7fd8(song, trackID, track, ...); false -> return -1
+REC-cap@0x6ecce4	insn	0x006ecce4	e10315aa	mov x1, x21	first test FUN_006e7fd8(song, trackID, track, ...); false -> return -1
+REC-cap@0x6ecce8	insn	0x006ecce8	e20313aa	mov x2, x19	first test FUN_006e7fd8(song, trackID, track, ...); false -> return -1
+REC-cap@0x6eccec	insn	0x006eccec	bbecff97	bl 0x6e7fd8	first test FUN_006e7fd8(song, trackID, track, ...); false -> return -1
+REC-cap@0x6eccf0	insn	0x006eccf0	00130036	tbz w0, #0x0, 0x6ecf50	first test FUN_006e7fd8(song, trackID, track, ...); false -> return -1
+REC-minus1@0x6ecf50	insn	0x006ecf50	00008012	mov w0, #-0x1	the -1 return
+REC-route@0x6ece6c	insn	0x006ece6c	560000b4	cbz x22, 0x6ece74	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece70	insn	0x006ece70	df020039	strb wzr, [x22]	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece74	insn	0x006ece74	684e4039	ldrb w8, [x19, #0x13]	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece78	insn	0x006ece78	c8002837	tbnz w8, #0x5, 0x6ece90	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece7c	insn	0x006ece7c	612240b9	ldr w1, [x19, #0x20]	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece80	insn	0x006ece80	e00314aa	mov x0, x20	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece84	insn	0x006ece84	a8e3f097	bl 0x325d24	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece88	insn	0x006ece88	1f000071	cmp w0, #0x0	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-route@0x6ece8c	insn	0x006ece8c	4d070054	b.le 0x6ecf74	flag cleared; unless track+0x13 bit 5, FUN_00325d24(song, track+0x20) <= 0 goes to the per-track state below
+REC-state@0x6ecf74	insn	0x006ecf74	612240b9	ldr w1, [x19, #0x20]	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf78	insn	0x006ecf78	e00314aa	mov x0, x20	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf7c	insn	0x006ecf7c	f3e4f097	bl 0x326348	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf80	insn	0x006ecf80	80f8ff37	tbnz w0, #0x1f, 0x6ece90	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf84	insn	0x006ecf84	1f080071	cmp w0, #0x2	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf88	insn	0x006ecf88	00150054	b.eq 0x6ed228	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf8c	insn	0x006ecf8c	1f040071	cmp w0, #0x1	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf90	insn	0x006ecf90	20feff54	b.eq 0x6ecf54	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf94	insn	0x006ecf94	e00314aa	mov x0, x20	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf98	insn	0x006ecf98	01008052	mov w1, #0x0	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecf9c	insn	0x006ecf9c	020080d2	mov x2, #0x0	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfa0	insn	0x006ecfa0	e30315aa	mov x3, x21	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfa4	insn	0x006ecfa4	e40313aa	mov x4, x19	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfa8	insn	0x006ecfa8	3c050094	bl 0x6ee498	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfac	insn	0x006ecfac	68008052	mov w8, #0x3	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfb0	insn	0x006ecfb0	1f000071	cmp w0, #0x0	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfb4	insn	0x006ecfb4	00119f1a	csel w0, w8, wzr, ne	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-state@0x6ecfb8	insn	0x006ecfb8	e7ffff17	b 0x6ecf54	s = FUN_00326348(song, track+0x20): negative -> the other route; 2 -> below; 1 -> return 1; else FUN_006ee498(...) != 0 -> 3, else 0
+REC-two@0x6ed228	insn	0x006ed228	88f900b0	adrp x8, 0x261e000	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed22c	insn	0x006ed22c	08614439	ldrb w8, [x8, #0x118]	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed230	insn	0x006ed230	08010052	eor w8, w8, #0x1	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed234	insn	0x006ed234	00010012	and w0, w8, #0x1	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed238	insn	0x006ed238	f6e8ffb4	cbz x22, 0x6ecf54	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed23c	insn	0x006ed23c	c8e80737	tbnz w8, #0x0, 0x6ecf54	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed240	insn	0x006ed240	00008052	mov w0, #0x0	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed244	insn	0x006ed244	28008052	mov w8, #0x1	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed248	insn	0x006ed248	c8020039	strb w8, [x22]	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-two@0x6ed24c	insn	0x006ed24c	42ffff17	b 0x6ecf54	s == 2: global byte 0x261e118 clear -> return 1; set -> return 0 and flag = 1 (r 0x80)
+REC-children@0x6ed330	insn	0x006ed330	e00314aa	mov x0, x20	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed334	insn	0x006ed334	e10315aa	mov x1, x21	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed338	insn	0x006ed338	e20316aa	mov x2, x22	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed33c	insn	0x006ed33c	030080d2	mov x3, #0x0	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed340	insn	0x006ed340	37feff97	bl 0x6ecc1c	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed344	insn	0x006ed344	1f040031	cmn w0, #0x1	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed348	insn	0x006ed348	e9179f1a	cset w9, eq	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed34c	insn	0x006ed34c	2a011a2a	orr w10, w9, w26	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed350	insn	0x006ed350	0803801a	csel w8, w24, w0, eq	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed354	insn	0x006ed354	aa000036	tbz w10, #0x0, 0x6ed368	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed358	insn	0x006ed358	3903090a	and w25, w25, w9	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed35c	insn	0x006ed35c	3a011a0a	and w26, w9, w26	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed360	insn	0x006ed360	f80308aa	mov x24, x8	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed364	insn	0x006ed364	05000014	b 0x6ed378	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed368	insn	0x006ed368	1f03006b	cmp w24, w0	a track with children: recurse on each child; children that disagree end in return 3
+REC-children@0x6ed36c	insn	0x006ed36c	e1000054	b.ne 0x6ed388	a track with children: recurse on each child; children that disagree end in return 3
+REC-three@0x6ed388	insn	0x006ed388	60008052	mov w0, #0x3	the return 3 used by the disagreement path
+REC-three@0x6ed38c	insn	0x006ed38c	f2feff17	b 0x6ecf54	the return 3 used by the disagreement path
