@@ -29,6 +29,7 @@
 
   1 台だった 10-02 のトレース（EXP-MCU-024）では、ダンプの全面の書き込みは**同じ内容が 2 回**だった。
 - Logic のコントロールサーフェスの設定ファイルを**読むだけ**で調べると（写しを作業用の場所に取り、文字列だけを数えた）、「Control Surface: Mackie Control」「Control Surface: Mackie Control #2」「Control Surface: logicctl-research-peer」の 3 つの装置の記述があった。
+- logicd は仮想ポートの固有 ID（CoreMIDI の `kMIDIPropertyUniqueID`）を設定していないので、起動ごとに新しい ID になる。16:30 の再起動のあと、設定ファイル（Logic が 16:30Z に書き直した）には、新しい送信側・受信側の ID がそれぞれ 1 回ずつ現れ、「logicctl-mcu」の文字列は 80 個から 82 個に、ファイルは 200 バイト増えた（値そのものは記録しない）。
 - 10-04 の走査（EXP-MCU-027）は 12 本・`bank_steps: 4` で正しかった。10-04 15:57Z から 10-06 16:03Z の間、logicd は起動していない。
 - 修正後の logicd（16:30:01Z 起動）：`status` は `mcu.surface_conflict: true`。`state` と `track list` は `surface_conflict` で断られ、ボタンは何も押されなかった。
 - 生の記録：`Research/raw/mcu-two-units/`（トレース・診断・JSON）、`Research/raw/live-arm/e4-arm/`（16:21 の `state`）。Git の追跡対象外。
@@ -40,6 +41,12 @@
 根拠: 内容の違う 2 つの全面の書き込み（2 回とも）、名前が位置 9〜14 と一致、設定ファイルの「Mackie Control #2」、Bank Left の無反応。
 反例: 2 台目を外しても 2 種類の書き込みが続くなら、別の原因がある。
 次の検証実験: ユーザーが設定で「Mackie Control #2」を外したあと（あるいは外してよいと言ったあと）、logicd を再起動して、ダンプが 1 種類・`surface_conflict: false`・`state` が 14 本・`bank_steps` 6 になるかを確かめる。
+
+仮説（Hypothesis）: Logic は装置のポートを固有 ID でも覚えていて、logicd が起動するたびに新しい ID の記録が増える。これが 2 台目の追加に関わったかもしれない。
+確信度: 低。
+根拠: 再起動のたびに設定ファイルが増え、新しい ID が入る（1 回）。ただし文字列の数（82）は、このログにある logicd の起動回数（15）と合わない（調査用の道具も同じポート名を使っていた）。
+反例: 固有 ID を固定しても 2 台目が加わる。
+次の検証実験: 固有 ID を固定する版の logicd。ただし、試すとさらに装置が加わるおそれがあり、外すにはユーザーの許可が要るので、ユーザーと相談してから。
 
 仮説（Hypothesis）: 2 台目は 10-04 以降に加わった。いつ・何が加えたか（Logic の自動の装置探し、研究用ピアを登録したときの設定画面の操作など）は分からない。
 確信度: 低。

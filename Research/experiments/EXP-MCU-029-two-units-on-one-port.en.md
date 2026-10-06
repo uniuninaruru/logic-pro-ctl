@@ -29,6 +29,7 @@
 
   In the 10-02 trace with one unit (EXP-MCU-024), the dump's whole-display write came **twice with the same content**.
 - Logic's control surface settings file, **only read** (a copy was taken to a scratch location and only strings were counted), describes three devices: "Control Surface: Mackie Control", "Control Surface: Mackie Control #2" and "Control Surface: logicctl-research-peer".
+- logicd does not set its virtual ports' unique ID (CoreMIDI `kMIDIPropertyUniqueID`), so each start gets new IDs. After the 16:30 restart, the settings file (rewritten by Logic at 16:30Z) contained the new source and destination IDs once each, the string "logicctl-mcu" went from 80 to 82 occurrences, and the file grew by 200 bytes (the values themselves are not recorded).
 - The 10-04 scan (EXP-MCU-027) was right: 12 strips, `bank_steps: 4`. logicd did not run between 10-04 15:57Z and 10-06 16:03Z.
 - logicd with the fix (started 16:30:01Z): `status` has `mcu.surface_conflict: true`. `state` and `track list` were refused with `surface_conflict`, and no button was pressed.
 - Raw records: `Research/raw/mcu-two-units/` (trace, diagnosis, JSON) and `Research/raw/live-arm/e4-arm/` (the 16:21 `state`). Not tracked by Git.
@@ -40,6 +41,12 @@ Confidence: high.
 Evidence: two whole-display writes with different content (both times), names matching positions 9 to 14, "Mackie Control #2" in the settings file, and no response to Bank Left.
 Counter-example: if two kinds of write continue after the second unit is removed, there is another cause.
 Next experiment: after the user removes "Mackie Control #2" in the settings (or says it may be removed), restart logicd and check for one kind of dump, `surface_conflict: false`, and a `state` of 14 strips with `bank_steps` 6.
+
+Hypothesis: Logic also remembers a device's ports by unique ID, and every logicd start adds a record for new IDs. This may have played a part in adding the second unit.
+Confidence: low.
+Evidence: the settings file grows on each restart and takes the new IDs (seen once). But the number of strings (82) does not match the logicd starts in this log (15) (research tools used the same port name too).
+Counter-example: the second unit is added even with fixed unique IDs.
+Next experiment: a logicd that fixes the unique IDs. Trying it may add yet another unit, and removing one needs the user's permission, so only after talking to the user.
 
 Hypothesis: the second unit was added after 10-04. When, and by what (Logic's automatic device scan, an action in the settings window while registering the research peer, …), is not known.
 Confidence: low.
