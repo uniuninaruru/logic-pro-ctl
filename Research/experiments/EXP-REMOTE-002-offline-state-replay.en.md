@@ -109,7 +109,7 @@ Next experiment: change the selection while receiving (an E3 candidate; needs se
 | Item | State |
 |---|---|
 | Whether deltas (volume, mute, selection changes) build up as this contract says | Synthetic tests only; the real data holds no deltas |
-| Whether `gindex` stays the same across a reorder within one session | Unconfirmed (EXP-REMOTE-001 hypothesis 2) |
+| Whether `gindex` stays the same across a reorder within one session | Reorder unconfirmed (EXP-REMOTE-001 hypothesis 2). **Insertion** confirmed (2026-10-07, by comparing receptions): after two tracks were added between EXP-REMOTE-001 and 003, the 12 existing strips kept their `gindex` and UUID, and the `trackID` of every strip whose position shifted changed. Across reconnections without additions (003, 004, the aborted E4) all three stayed the same for all 14 strips. All within one Logic process; a Logic restart or reopening the song is unchecked |
 | How `/ati` is replaced on a song switch (renumbered `gindex`) | Unconfirmed. Rule 4 treats a different UUID as a different strip |
 | Stability (whether the same state keeps being sent with the same values) | Unconfirmed; one recording only |
 | What the values of `m`, `s`, `r`, `ip` mean | Unresolved (kept as raw values, not interpreted) |

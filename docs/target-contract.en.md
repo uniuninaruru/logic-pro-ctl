@@ -74,7 +74,7 @@ Names longer than 7 characters are cut. If, say, `Guitar L` and `Guitar R` both 
 | Track number / `id` (MCU) | a position in the mixer | a track is added, deleted or moved | `--expect-name` (when Logic updates the display) | rename: EXP-MCU-022; the rest unconfirmed |
 | Displayed name (MCU) | a short name that fits 7 characters | a rename; may be duplicated | comparison only | unit tests, real Logic |
 | `observation.session.handshake_generation` | the connection to Logic | Logic reconnects or restarts | `--expect-session` | [the execution contract](execution-contract.en.md) |
-| Logic Remote `trackID`, `gindex`, UUID | (identifiers Remote uses) | **lifetime not confirmed** | not used | static analysis only: [SA-REMOTE-STATE-001](../Research/static-analysis/SA-REMOTE-STATE-001.en.md) |
+| Logic Remote `trackID`, `gindex`, UUID | (identifiers Remote uses) | 4 receptions in one Logic process: `gindex` and UUID stay the same across added tracks; `trackID` follows the position. Reordering, a Logic restart and reopening the song are **unconfirmed** | not used | reception: the open-questions table of [EXP-REMOTE-002](../Research/experiments/EXP-REMOTE-002-offline-state-replay.en.md); static: [SA-REMOTE-STATE-001](../Research/static-analysis/SA-REMOTE-STATE-001.en.md) |
 
 A reference whose lifetime is unconfirmed is not treated as confirmed. `logicctl` makes a contract only of what it could confirm: **a position and a displayed name while connected**.
 

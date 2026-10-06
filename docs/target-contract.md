@@ -74,7 +74,7 @@ logicctl track mute 3 on --expect-name Bass --idempotency-key mute-bass-on-001
 | トラック番号 / `id`（MCU） | ミキサー上の位置 | 追加・削除・並べ替えまで | `--expect-name`（Logic が表示を更新するとき） | 名前変更：EXP-MCU-022。ほかは未確認 |
 | 表示名（MCU） | 7 文字に収まる短い名前 | 名前変更まで。重複しうる | 比較のみ | 単体試験、実機 |
 | `observation.session.handshake_generation` | Logic との接続 | Logic の再接続・再起動まで | `--expect-session` | [実行の契約](execution-contract.md) |
-| Logic Remote の `trackID`・`gindex`・UUID | （Remote が使う識別子） | **寿命は未確認** | 使っていない | 静的解析のみ：[SA-REMOTE-STATE-001](../Research/static-analysis/SA-REMOTE-STATE-001.md) |
+| Logic Remote の `trackID`・`gindex`・UUID | （Remote が使う識別子） | 同じ Logic のプロセスでの受信 4 回：トラックの追加をまたいで `gindex`・UUID は同じ、`trackID` は位置に付いて変わる。並べ替え・Logic の再起動・曲の開き直しは**未確認** | 使っていない | 受信：[EXP-REMOTE-002](../Research/experiments/EXP-REMOTE-002-offline-state-replay.md) の未解決の表。静的：[SA-REMOTE-STATE-001](../Research/static-analysis/SA-REMOTE-STATE-001.md) |
 
 寿命が確認できていない参照を、確認済みのように扱いません。`logicctl` は、確認できた範囲（**接続中の位置と表示名**）だけを契約にしています。
 
