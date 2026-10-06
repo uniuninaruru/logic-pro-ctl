@@ -48,6 +48,12 @@ Evidence: the settings file grows on each restart and takes the new IDs (seen on
 Counter-example: the second unit is added even with fixed unique IDs.
 Next experiment: a logicd that fixes the unique IDs. Trying it may add yet another unit, and removing one needs the user's permission, so only after talking to the user.
 
+Static note (checked in machine code, [anchor table](../protocol/logic-cs-autoinstall-anchors.tsv), 34 rows): Logic has a toggle for installing control surfaces automatically (`CSM_006_AutoInstall`, `FUN_00ad6130`). Its state query (mode 2) answers "on" while bit 1 of the internal byte `0x26b52cf` is 0, and a one-time initialisation sets that byte to 0. Switching it back on (mode 0) calls `FUN_00a7b48c(0)` and `FUN_00a7e3ac` (presumed to start a scan). Whether the byte is loaded from the settings file was not read.
+
+Hypothesis: with automatic installation on, Logic's device search (logicd's connections did bring queries for models 0x10, 0x11, 0x14, 0x15 and 0x17) took a logicd reply for a new device and added "Mackie Control #2".
+Confidence: low (only a candidate mechanism; the moment it was added was not seen).
+Next experiment: read the automatic installation path statically (where `FUN_00a7b48c` and `FUN_00a7e3ac` add a device).
+
 Hypothesis: the second unit was added after 10-04. When, and by what (Logic's automatic device scan, an action in the settings window while registering the research peer, …), is not known.
 Confidence: low.
 Evidence: the 10-04 scan behaved like one unit.

@@ -1,0 +1,40 @@
+# Evidence anchors for EXP-MCU-029 (static note): the control surface auto-install toggle FUN_00ad6130.
+# Image: Logic.arm64  sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998  (Logic 12.3.1 / 6682, arm64)
+# Checked against the image file (bytes and llvm-objdump text), not Ghidra:
+#   python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-cs-autoinstall-anchors.tsv
+# Static only: nothing was sent to Logic and no setting was changed.
+# id	kind	address	bytes	text	claim
+AI-name@0xad61d0	insn	0x00ad61d0	7f804071	cmp w3, #0x20, lsl #12	mode 0x20000 returns the CFString at 0x2382868 ("CSM_006_AutoInstall")
+AI-name@0xad61d4	insn	0x00ad61d4	81000054	b.ne 0xad61e4	mode 0x20000 returns the CFString at 0x2382868 ("CSM_006_AutoInstall")
+AI-name@0xad61d8	insn	0x00ad61d8	60c50090	adrp x0, 0x2382000	mode 0x20000 returns the CFString at 0x2382868 ("CSM_006_AutoInstall")
+AI-name@0xad61dc	insn	0x00ad61dc	00a02191	add x0, x0, #0x868	mode 0x20000 returns the CFString at 0x2382868 ("CSM_006_AutoInstall")
+AI-name@0xad61e0	insn	0x00ad61e0	f7ffff17	b 0xad61bc	mode 0x20000 returns the CFString at 0x2382868 ("CSM_006_AutoInstall")
+AI-state@0xad61f4	insn	0x00ad61f4	eade00f0	adrp x10, 0x26b5000	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad61f8	insn	0x00ad61f8	483d4b39	ldrb w8, [x10, #0x2cf]	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad61fc	insn	0x00ad61fc	c3000034	cbz w3, 0xad6214	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad6200	insn	0x00ad6200	7f080071	cmp w3, #0x2	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad6204	insn	0x00ad6204	a1fdff54	b.ne 0xad61b8	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad6208	insn	0x00ad6208	1f011f72	tst w8, #0x2	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad620c	insn	0x00ad620c	e0179f1a	cset w0, eq	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-state@0xad6210	insn	0x00ad6210	ebffff17	b 0xad61bc	mode 2 (state query) returns 1 when bit 1 of the byte at 0x26b52cf is clear
+AI-toggle@0xad6214	insn	0x00ad6214	29c1bf38	ldaprb w9, [x9]	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6218	insn	0x00ad6218	c9040036	tbz w9, #0x0, 0xad62b0	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad621c	insn	0x00ad621c	493d4b39	ldrb w9, [x10, #0x2cf]	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6220	insn	0x00ad6220	29011f52	eor w9, w9, #0x2	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6224	insn	0x00ad6224	493d0b39	strb w9, [x10, #0x2cf]	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6228	insn	0x00ad6228	28fa0f36	tbz w8, #0x1, 0xad616c	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad622c	insn	0x00ad622c	00008052	mov w0, #0x0	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6230	insn	0x00ad6230	9794fe97	bl 0xa7b48c	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6234	insn	0x00ad6234	5ea0fe97	bl 0xa7e3ac	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-toggle@0xad6238	insn	0x00ad6238	cdffff17	b 0xad616c	mode 0 toggles bit 1; when the bit was set before (the toggle turns it on) it calls FUN_00a7b48c(0) and FUN_00a7e3ac
+AI-init@0xad6270	insn	0x00ad6270	e8de00b0	adrp x8, 0x26b3000	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6274	insn	0x00ad6274	08a50391	add x8, x8, #0xe9	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6278	insn	0x00ad6278	1f010039	strb wzr, [x8]	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad627c	insn	0x00ad627c	c9fb8252	mov w9, #0x17de	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6280	insn	0x00ad6280	1f692938	strb wzr, [x8, x9]	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6284	insn	0x00ad6284	49fc8252	mov w9, #0x17e2	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6288	insn	0x00ad6288	1f692938	strb wzr, [x8, x9]	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad628c	insn	0x00ad628c	c93c8452	mov w9, #0x21e6	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+AI-init@0xad6290	insn	0x00ad6290	1f692938	strb wzr, [x8, x9]	the one-time guard stores 0 to four bytes, the last at 0x26b30e9 + 0x21e6 = 0x26b52cf
+CF-AutoInstall-ptr@0x2382878	data	0x02382878	6ae3d90100002000		CFString at 0x2382868: its character pointer slot (rebased to 0x1d9e36a)
+STR-AutoInstall@0x1d9e36a	data	0x01d9e36a	43534d5f3030365f4175746f496e7374616c6c		the characters "CSM_006_AutoInstall"
