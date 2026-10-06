@@ -102,4 +102,6 @@ The two saved jobs exited 0, with normal read-only and three export markers. Bot
 
 The next bounded targets are the implementations of `decodeLongForKey:inUnarchiver:` (stub `0x00128180`) and `setCreatedFromSmartMap:` (stub `0x0012ef40`), legacy flag/long-field consumers, and Logic's saved-value helper. This task stops at the checked stubs and callers without expanding those callee graphs.
 
+**Follow-up:** [SA-AE-TARGET-013](SA-AE-TARGET-013-parent-helpers.en.md) checks the fixed MACore long decoder, setter and two legacy getters. Effective dispatch, legacy-long consumers and migration into double, and the Logic-side helper remain unverified.
+
 Native coder behavior for missing keys, wrong types, and errors; graph acceptance; abstract-class raising; complete exception cleanup and ownership; initialized null-mapping values; and effective dispatch remain unverified. These static results do not establish a cache-free round trip, original mapping restoration, save/reload/Undo, stable-ID contracts, or additional product AppleEvent capabilities.

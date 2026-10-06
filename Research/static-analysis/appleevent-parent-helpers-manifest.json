@@ -1,0 +1,1035 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-013"
+  ],
+  "status": "static_verification_and_independent_review_complete",
+  "captured_at_utc": "2026-10-05T10:25:25.172966+00:00",
+  "manifest_generated_at_utc": "2026-10-05T10:32:45.989079+00:00",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": 6682,
+    "architecture": "arm64"
+  },
+  "identity_manifest": "binary-identity-12.3.1-6682.json",
+  "prior_evidence_manifests": [
+    "appleevent-parent-decode-manifest.json"
+  ],
+  "scope": "Four TARGET013 definitions/260 B/65 words only plus four selector stubs, four import stubs, two used CFStrings and three selected ivars.",
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock": "Research/raw/ghidra/logicctl-project.lock",
+  "shared_lock_used_with_absolute_path": true,
+  "program_identity": {
+    "schema_version": 1,
+    "program_name": "MACore.arm64",
+    "executable_path": "MACore.arm64",
+    "imported_executable_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "verified_binary_inputs": {
+    "MACore_universal_sha256": "76ab2a5f50b3ef120786369b5bf8b53dfc87a3b4107438e0894ab5f9b8095c52",
+    "MACore_arm64_slice_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+    "MACore_analysis_copy_sha256": "99a4a9adbf79c92046682eb821d8ef35145f4915a29b88839c4f026ae63cd076",
+    "arm64_file_offset": 2375680,
+    "arm64_size_bytes": 2248544,
+    "slice_copy_equal": true,
+    "inventory_ranges_verified": true
+  },
+  "execution_jobs": [
+    {
+      "name": "q-appleevent-parent-helpers-013",
+      "program": "MACore.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-05T10:19:42.110781+00:00"
+    }
+  ],
+  "selected_methods": [
+    {
+      "program": "MACore.arm64",
+      "owner": "NSCoder(MAOverride)",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "entry": "0x0009a9c4",
+      "size_bytes": 208,
+      "instruction_words": 52,
+      "body_sha256": "48e6715e2d9fa9cd5563de4aa76551dc5b797d70ec7de7790ef07d3e6fb3b58f",
+      "method_metadata": {
+        "method_list": "0x1330b8",
+        "flags": "0x8000000c",
+        "count": 2,
+        "entry": "0x1330c0",
+        "entry_index": 0,
+        "relative_fields": [
+          474424,
+          226936,
+          -624388
+        ],
+        "selector_ref_slot": "0x1a6df8",
+        "type_address": "0x16a73c",
+        "types": "q32@0:8@16@24",
+        "imp_relative_base": "0x1330c8",
+        "imp": "0x9a9c4",
+        "raw_hex": "383d070078760300fc78f6ff"
+      }
+    },
+    {
+      "program": "MACore.arm64",
+      "owner": "MAParameterMapping",
+      "selector": "setCreatedFromSmartMap:",
+      "entry": "0x0009bf88",
+      "size_bytes": 16,
+      "instruction_words": 4,
+      "body_sha256": "cb7dc0731577ae21040be2d27128f664054575cbaf64e5b80fac61b7b84db59c",
+      "method_metadata": {
+        "method_list": "0x1375f0",
+        "flags": "0x8000000c",
+        "count": 81,
+        "entry": "0x1379ac",
+        "entry_index": 79,
+        "relative_fields": [
+          462780,
+          199177,
+          -637484
+        ],
+        "selector_ref_slot": "0x1a8968",
+        "type_address": "0x1683b9",
+        "types": "v20@0:8B16",
+        "imp_relative_base": "0x1379b4",
+        "imp": "0x9bf88",
+        "raw_hex": "bc0f0700090a0300d445f6ff"
+      }
+    },
+    {
+      "program": "MACore.arm64",
+      "owner": "MAParameterMapping",
+      "selector": "_savedLongValue",
+      "entry": "0x0009bd60",
+      "size_bytes": 16,
+      "instruction_words": 4,
+      "body_sha256": "7db154b568cf303fbb649e756e83a2ee60c824b8e84d5e7b88bfa491ca26a024",
+      "method_metadata": {
+        "method_list": "0x1375f0",
+        "flags": "0x8000000c",
+        "count": 81,
+        "entry": "0x137808",
+        "entry_index": 44,
+        "relative_fields": [
+          470336,
+          199491,
+          -637616
+        ],
+        "selector_ref_slot": "0x1aa548",
+        "type_address": "0x16834f",
+        "types": "q16@0:8",
+        "imp_relative_base": "0x137810",
+        "imp": "0x9bd60",
+        "raw_hex": "402d0700430b03005045f6ff"
+      }
+    },
+    {
+      "program": "MACore.arm64",
+      "owner": "MAParameterMapping",
+      "selector": "_unarchivedSavedFromLong",
+      "entry": "0x0009bd70",
+      "size_bytes": 20,
+      "instruction_words": 5,
+      "body_sha256": "76d496d979e1c953a48f23cb08975bff95720ef2d9e1a8c51efe2efdc184c38b",
+      "method_metadata": {
+        "method_list": "0x1375f0",
+        "flags": "0x8000000c",
+        "count": 81,
+        "entry": "0x137814",
+        "entry_index": 45,
+        "relative_fields": [
+          470332,
+          199148,
+          -637612
+        ],
+        "selector_ref_slot": "0x1aa550",
+        "type_address": "0x168204",
+        "types": "B16@0:8",
+        "imp_relative_base": "0x13781c",
+        "imp": "0x9bd70",
+        "raw_hex": "3c2d0700ec0903005445f6ff"
+      }
+    }
+  ],
+  "category": {
+    "catlist_slot": "0x1957f8",
+    "category": "0x19daf0",
+    "name": "MAOverride",
+    "owner": {
+      "vm_address": "0x19daf8",
+      "raw_word": "0x8010000000000463",
+      "pointer_format": 6,
+      "chain_membership_verified": true,
+      "page_index": 1,
+      "nodes_before_target": 463,
+      "kind": "bind",
+      "import_index": 1123,
+      "addend_unsigned": 0,
+      "library_ordinal": 8,
+      "library": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+      "weak_import": false,
+      "import_name": "_OBJC_CLASS_$_NSCoder"
+    },
+    "method_list": "0x1330b8"
+  },
+  "parent_class": {
+    "class_address": "0x1aebb0",
+    "class_ro": "0x19e290",
+    "method_list": "0x1375f0",
+    "name": "MAParameterMapping"
+  },
+  "selected_ivars": [
+    {
+      "entry": "0x19dd18",
+      "offset_slot": "0x1ab4d8",
+      "offset": 40,
+      "name": "_unarchivedSavedFromLong",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "d8b41a0000001000aa88150000001000b8871600000020000000000001000000"
+    },
+    {
+      "entry": "0x19dd38",
+      "offset_slot": "0x1ab4dc",
+      "offset": 48,
+      "name": "_savedLongValue",
+      "type": "q",
+      "alignment": 3,
+      "size_bytes": 8,
+      "raw_hex": "dcb41a0000001000a45b15000000100042881600000020000300000008000000"
+    },
+    {
+      "entry": "0x19de98",
+      "offset_slot": "0x1ab508",
+      "offset": 73,
+      "name": "_createdFromSmartMap",
+      "type": "B",
+      "alignment": 0,
+      "size_bytes": 1,
+      "raw_hex": "08b51a0000001000847a150000001000b8871600000020000000000001000000"
+    }
+  ],
+  "used_cfstrings": [
+    {
+      "address": "0x18e7e0",
+      "text": "keyboardIndex",
+      "length": 13,
+      "flags": "0x7c8",
+      "isa": {
+        "vm_address": "0x18e7e0",
+        "raw_word": "0x802000000000045b",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 4,
+        "nodes_before_target": 638,
+        "kind": "bind",
+        "import_index": 1115,
+        "addend_unsigned": 0,
+        "library_ordinal": 22,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "5b04000000002080c807000000000000a3cf1400000020000d00000000000000"
+    },
+    {
+      "address": "0x18e800",
+      "text": "outputChannel",
+      "length": 13,
+      "flags": "0x7c8",
+      "isa": {
+        "vm_address": "0x18e800",
+        "raw_word": "0x802000000000045b",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 4,
+        "nodes_before_target": 640,
+        "kind": "bind",
+        "import_index": 1115,
+        "addend_unsigned": 0,
+        "library_ordinal": 22,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "5b04000000002080c807000000000000b1cf1400000020000d00000000000000"
+    }
+  ],
+  "NSNumber_import": {
+    "vm_address": "0x17c608",
+    "raw_word": "0x80100000000000bc",
+    "pointer_format": 6,
+    "chain_membership_verified": true,
+    "page_index": 0,
+    "nodes_before_target": 193,
+    "kind": "bind",
+    "import_index": 188,
+    "addend_unsigned": 0,
+    "library_ordinal": 8,
+    "library": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+    "weak_import": false,
+    "import_name": "_OBJC_CLASS_$_NSNumber"
+  },
+  "selector_stubs": [
+    {
+      "stub": "0x12afc0",
+      "size_bytes": 20,
+      "selector_slot": "0x1a7988",
+      "selector": "isEqualToString:",
+      "dispatch_slot": "0x17c840",
+      "dispatch_bind": {
+        "vm_address": "0x17c840",
+        "raw_word": "0x8010000000000103",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 264,
+        "kind": "bind",
+        "import_index": 259,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e10300b021c444f9900200d0102244f900021fd6"
+    },
+    {
+      "stub": "0x128160",
+      "size_bytes": 20,
+      "selector_slot": "0x1a6df0",
+      "selector": "decodeIntegerForKey:",
+      "dispatch_slot": "0x17c840",
+      "dispatch_bind": {
+        "vm_address": "0x17c840",
+        "raw_word": "0x8010000000000103",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 264,
+        "kind": "bind",
+        "import_index": 259,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e10300d021f846f9b0020090102244f900021fd6"
+    },
+    {
+      "stub": "0x1281c0",
+      "size_bytes": 20,
+      "selector_slot": "0x1a6e08",
+      "selector": "decodeObjectOfClass:forKey:",
+      "dispatch_slot": "0x17c840",
+      "dispatch_bind": {
+        "vm_address": "0x17c840",
+        "raw_word": "0x8010000000000103",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 264,
+        "kind": "bind",
+        "import_index": 259,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e10300d0210447f9b0020090102244f900021fd6"
+    },
+    {
+      "stub": "0x12b9e0",
+      "size_bytes": 20,
+      "selector_slot": "0x1a7c10",
+      "selector": "longValue",
+      "dispatch_slot": "0x17c840",
+      "dispatch_bind": {
+        "vm_address": "0x17c840",
+        "raw_word": "0x8010000000000103",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 264,
+        "kind": "bind",
+        "import_index": 259,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "e1030090210846f9900200b0102244f900021fd6"
+    }
+  ],
+  "native_import_stubs": [
+    {
+      "stub": "0x12461c",
+      "size_bytes": 12,
+      "slot": "0x17c888",
+      "bind": {
+        "vm_address": "0x17c888",
+        "raw_word": "0x801000000000010b",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 273,
+        "kind": "bind",
+        "import_index": 267,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retain"
+      },
+      "raw_hex": "d0020090104644f900021fd6"
+    },
+    {
+      "stub": "0x1245d4",
+      "size_bytes": 12,
+      "slot": "0x17c858",
+      "bind": {
+        "vm_address": "0x17c858",
+        "raw_word": "0x8010000000000105",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 267,
+        "kind": "bind",
+        "import_index": 261,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_opt_class"
+      },
+      "raw_hex": "d0020090102e44f900021fd6"
+    },
+    {
+      "stub": "0x124640",
+      "size_bytes": 12,
+      "slot": "0x17c8a0",
+      "bind": {
+        "vm_address": "0x17c8a0",
+        "raw_word": "0x801000000000010e",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 276,
+        "kind": "bind",
+        "import_index": 270,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retainAutoreleasedReturnValue"
+      },
+      "raw_hex": "d0020090105244f900021fd6"
+    },
+    {
+      "stub": "0x124610",
+      "size_bytes": 12,
+      "slot": "0x17c880",
+      "bind": {
+        "vm_address": "0x17c880",
+        "raw_word": "0x801000000000010a",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 272,
+        "kind": "bind",
+        "import_index": 266,
+        "addend_unsigned": 0,
+        "library_ordinal": 16,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_release"
+      },
+      "raw_hex": "d0020090104244f900021fd6"
+    }
+  ],
+  "instruction_words": [
+    {
+      "address": "0x9a9c4",
+      "raw_hex": "f85fbca9"
+    },
+    {
+      "address": "0x9a9c8",
+      "raw_hex": "f65701a9"
+    },
+    {
+      "address": "0x9a9cc",
+      "raw_hex": "f44f02a9"
+    },
+    {
+      "address": "0x9a9d0",
+      "raw_hex": "fd7b03a9"
+    },
+    {
+      "address": "0x9a9d4",
+      "raw_hex": "fdc30091"
+    },
+    {
+      "address": "0x9a9d8",
+      "raw_hex": "f40303aa"
+    },
+    {
+      "address": "0x9a9dc",
+      "raw_hex": "f50300aa"
+    },
+    {
+      "address": "0x9a9e0",
+      "raw_hex": "e00302aa"
+    },
+    {
+      "address": "0x9a9e4",
+      "raw_hex": "0e270294"
+    },
+    {
+      "address": "0x9a9e8",
+      "raw_hex": "f30300aa"
+    },
+    {
+      "address": "0x9a9ec",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x9a9f0",
+      "raw_hex": "0b270294"
+    },
+    {
+      "address": "0x9a9f4",
+      "raw_hex": "f40300aa"
+    },
+    {
+      "address": "0x9a9f8",
+      "raw_hex": "a2070090"
+    },
+    {
+      "address": "0x9a9fc",
+      "raw_hex": "42801f91"
+    },
+    {
+      "address": "0x9aa00",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x9aa04",
+      "raw_hex": "6f410294"
+    },
+    {
+      "address": "0x9aa08",
+      "raw_hex": "c0000037"
+    },
+    {
+      "address": "0x9aa0c",
+      "raw_hex": "a2070090"
+    },
+    {
+      "address": "0x9aa10",
+      "raw_hex": "42002091"
+    },
+    {
+      "address": "0x9aa14",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x9aa18",
+      "raw_hex": "6a410294"
+    },
+    {
+      "address": "0x9aa1c",
+      "raw_hex": "c0000034"
+    },
+    {
+      "address": "0x9aa20",
+      "raw_hex": "e00315aa"
+    },
+    {
+      "address": "0x9aa24",
+      "raw_hex": "e20313aa"
+    },
+    {
+      "address": "0x9aa28",
+      "raw_hex": "ce350294"
+    },
+    {
+      "address": "0x9aa2c",
+      "raw_hex": "f60300aa"
+    },
+    {
+      "address": "0x9aa30",
+      "raw_hex": "0f000014"
+    },
+    {
+      "address": "0x9aa34",
+      "raw_hex": "080700d0"
+    },
+    {
+      "address": "0x9aa38",
+      "raw_hex": "000543f9"
+    },
+    {
+      "address": "0x9aa3c",
+      "raw_hex": "e6260294"
+    },
+    {
+      "address": "0x9aa40",
+      "raw_hex": "e20300aa"
+    },
+    {
+      "address": "0x9aa44",
+      "raw_hex": "e00315aa"
+    },
+    {
+      "address": "0x9aa48",
+      "raw_hex": "e30313aa"
+    },
+    {
+      "address": "0x9aa4c",
+      "raw_hex": "dd350294"
+    },
+    {
+      "address": "0x9aa50",
+      "raw_hex": "fd031daa"
+    },
+    {
+      "address": "0x9aa54",
+      "raw_hex": "fb260294"
+    },
+    {
+      "address": "0x9aa58",
+      "raw_hex": "f70300aa"
+    },
+    {
+      "address": "0x9aa5c",
+      "raw_hex": "e1430294"
+    },
+    {
+      "address": "0x9aa60",
+      "raw_hex": "f60300aa"
+    },
+    {
+      "address": "0x9aa64",
+      "raw_hex": "e00317aa"
+    },
+    {
+      "address": "0x9aa68",
+      "raw_hex": "ea260294"
+    },
+    {
+      "address": "0x9aa6c",
+      "raw_hex": "e00314aa"
+    },
+    {
+      "address": "0x9aa70",
+      "raw_hex": "e8260294"
+    },
+    {
+      "address": "0x9aa74",
+      "raw_hex": "e00313aa"
+    },
+    {
+      "address": "0x9aa78",
+      "raw_hex": "e6260294"
+    },
+    {
+      "address": "0x9aa7c",
+      "raw_hex": "e00316aa"
+    },
+    {
+      "address": "0x9aa80",
+      "raw_hex": "fd7b43a9"
+    },
+    {
+      "address": "0x9aa84",
+      "raw_hex": "f44f42a9"
+    },
+    {
+      "address": "0x9aa88",
+      "raw_hex": "f65741a9"
+    },
+    {
+      "address": "0x9aa8c",
+      "raw_hex": "f85fc4a8"
+    },
+    {
+      "address": "0x9aa90",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x9bf88",
+      "raw_hex": "88080090"
+    },
+    {
+      "address": "0x9bf8c",
+      "raw_hex": "080985b9"
+    },
+    {
+      "address": "0x9bf90",
+      "raw_hex": "02682838"
+    },
+    {
+      "address": "0x9bf94",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x9bd60",
+      "raw_hex": "88080090"
+    },
+    {
+      "address": "0x9bd64",
+      "raw_hex": "08dd84b9"
+    },
+    {
+      "address": "0x9bd68",
+      "raw_hex": "006868f8"
+    },
+    {
+      "address": "0x9bd6c",
+      "raw_hex": "c0035fd6"
+    },
+    {
+      "address": "0x9bd70",
+      "raw_hex": "88080090"
+    },
+    {
+      "address": "0x9bd74",
+      "raw_hex": "08d984b9"
+    },
+    {
+      "address": "0x9bd78",
+      "raw_hex": "08686838"
+    },
+    {
+      "address": "0x9bd7c",
+      "raw_hex": "00010012"
+    },
+    {
+      "address": "0x9bd80",
+      "raw_hex": "c0035fd6"
+    }
+  ],
+  "definition_facts": [
+    {
+      "id": "H013-01",
+      "anchors": [
+        "0009a9d8",
+        "0009a9dc",
+        "0009a9e0",
+        "0009a9e4",
+        "0009a9ec",
+        "0009a9f0"
+      ],
+      "fact": "Incoming x3 is saved/retained as x20; incoming receiver x0 is saved as x21; key x2 is retained as x19. The Ghidra C signature omits x3, so assembly and ObjC metadata control ABI interpretation.",
+      "fact_ja": "入口のx3は保持・retainされ、receiverはx21、keyはx19へ保存される。Cの引数表示だけではABIを復元できない。"
+    },
+    {
+      "id": "H013-02",
+      "anchors": [
+        "0009a9f8",
+        "0009aa04",
+        "0009aa08",
+        "0009aa0c",
+        "0009aa18",
+        "0009aa1c"
+      ],
+      "fact": "Key isEqualToString:keyboardIndex tests bit0 of w0; set bit enters integer path. Otherwise isEqualToString:outputChannel tests w0 nonzero; nonzero enters the same integer path.",
+      "fact_ja": "keyboardIndex比較はw0のbit0、outputChannel比較はw0全体の非0を使い、整数枝を選ぶ。"
+    },
+    {
+      "id": "H013-03",
+      "anchors": [
+        "0009aa20",
+        "0009aa24",
+        "0009aa28",
+        "0009aa2c",
+        "0009aa30"
+      ],
+      "fact": "Integer path sends decodeIntegerForKey: to incoming receiver x21 using key x19, saves signed64 result x0 in x22 and joins common return cleanup.",
+      "fact_ja": "整数枝は保存receiverへkeyを渡してdecodeIntegerForKey:を送り、返値ワードを保存する。"
+    },
+    {
+      "id": "H013-04",
+      "anchors": [
+        "0009aa34",
+        "0009aa38",
+        "0009aa3c",
+        "0009aa40",
+        "0009aa44",
+        "0009aa48",
+        "0009aa4c"
+      ],
+      "fact": "Other-key path loads imported NSNumber, calls objc_opt_class, passes its returned class x0 as x2 to decodeObjectOfClass:forKey: on receiver x21 with key x19 in x3.",
+      "fact_ja": "その他のキーはNSNumberに対するobjc_opt_classの返値をclass引数へ渡し、保存receiverへobject decoderを送る。"
+    },
+    {
+      "id": "H013-05",
+      "anchors": [
+        "0009aa54",
+        "0009aa58",
+        "0009aa5c",
+        "0009aa60",
+        "0009aa64",
+        "0009aa68"
+      ],
+      "fact": "Object result is retained using objc_retainAutoreleasedReturnValue, sent longValue without a caller-side nil/type/result branch, x0 saved to x22, object then released. Native coder semantics and runtime selector dispatch remain unexamined.",
+      "fact_ja": "objectをretainし、追加のnil・型・error判定なしでlongValueを送り、返値を保存してobjectをreleaseする。"
+    },
+    {
+      "id": "H013-06",
+      "anchors": [
+        "0009aa6c",
+        "0009aa70",
+        "0009aa74",
+        "0009aa78",
+        "0009aa7c",
+        "0009aa90"
+      ],
+      "fact": "Normal cleanup releases retained incoming x3 and key, returns saved result x22 in x0. Incoming x3 has no use other than retain/release in the complete saved 208 B body. It is not the object-path key x3, which is overwritten from x19.",
+      "fact_ja": "通常終了で追加のincoming x3とkeyをreleaseし、保存した64 bitワードを返す。incoming x3は本文でretain/release以外に使わない。"
+    },
+    {
+      "id": "H013-07",
+      "anchors": [
+        "0009bf88",
+        "0009bf8c",
+        "0009bf90",
+        "0009bf94"
+      ],
+      "fact": "Setter reads signed runtime ivar offset slot001ab508 and directly stores low byte of w2. No mask/normalization/extra call in this 16 B body.",
+      "fact_ja": "setterはruntime offset slotを読み、w2の下位byteを直接格納する。mask・正規化・別callなし。"
+    },
+    {
+      "id": "H013-08",
+      "anchors": [
+        "0009bd60",
+        "0009bd64",
+        "0009bd68",
+        "0009bd6c"
+      ],
+      "fact": "Long getter reads signed runtime offset slot001ab4dc and loads the 64-bit field into x0; no conversion/store/call in this 16 B body.",
+      "fact_ja": "旧long getterはruntime offset slotを読み、64 bit fieldを直接返す。変換・格納・別callなし。"
+    },
+    {
+      "id": "H013-09",
+      "anchors": [
+        "0009bd70",
+        "0009bd74",
+        "0009bd78",
+        "0009bd7c",
+        "0009bd80"
+      ],
+      "fact": "Flag getter reads signed runtime offset slot001ab4d8, loads one byte, masks bit0 into w0 and returns; no field update in this 20 B body.",
+      "fact_ja": "旧形式flag getterはbyteを読み、bit0だけ返す。fieldの更新なし。"
+    },
+    {
+      "id": "H013-10",
+      "anchors": [
+        "0009a9c4",
+        "0009aa90"
+      ],
+      "fact": "Complete saved helper body has no containsValueForKey: send, native error argument/inspection, retry or scalar long-to-double conversion. Missing key/wrong type/nil/unarchiver failure and exception-unwind behavior are not established by these normal-path instructions.",
+      "fact_ja": "helper本文にcontains判定・native error検査・retry・longからdoubleへの変換はない。native失敗・例外動作は未確認。"
+    }
+  ],
+  "static_verification": {
+    "function_count": 4,
+    "defined_bytes": 260,
+    "instruction_words_verified": 65,
+    "all_exported_bytes_match": true,
+    "markers_verified": [
+      "Acquired project lock:",
+      "Processing read-only project file: /MACore.arm64",
+      "ProgramIdentityReport: exported",
+      "XrefDecompile: done",
+      "FunctionInstructionReport: exported"
+    ],
+    "checker_fixed_pointer_words": 14,
+    "checker_fixed_slices": 107,
+    "negative_checks": [
+      {
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "case": "changed_word",
+        "rejected": true
+      }
+    ],
+    "independent_review": {
+      "findings": [],
+      "instruction_words_verified": 65,
+      "fixed_pointer_words": 27,
+      "source_slices": 131,
+      "result": "Research/raw/ghidra/parent-helper-review-013.json"
+    }
+  },
+  "unqueried_candidates": [
+    {
+      "program": "Logic.arm64",
+      "owner": "_CLgMainStageProxyDecoder",
+      "selector": "decodeLongForKey:inUnarchiver:",
+      "entry": "0x018e18e4",
+      "size_bytes": 60,
+      "status": "location_verified_body_unqueried_not_confirmed_consumer"
+    },
+    {
+      "program": "MACore.arm64",
+      "owner": "MAParameterMapping",
+      "selector": "savedValue",
+      "entry": "0x0009bcfc",
+      "size_bytes": 52,
+      "status": "location_verified_body_unqueried_not_confirmed_consumer"
+    }
+  ],
+  "limits": [
+    "Fresh Ghidra import identity is original-import metadata; not a cryptographic checksum of database annotations or effective runtime dispatch.",
+    "Static NSCoder category method does not prove it wins lookup for a particular coder subclass.",
+    "No native coder/NSNumber/objc_msgSend implementation, key absence/wrong type/nil/error or full EH semantics proven.",
+    "No legacy flag/long consumer or conversion into current double observed; optional savedValue/proxy bodies remain unqueried.",
+    "No live Logic, AppleEvent send, archive content, persistence/reload/roundtrip, UI or product capability."
+  ],
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-helpers-013.c",
+      "size_bytes": 1847,
+      "sha256": "c08215f10cee91e9ae1e655608f73fb64109117dae3aceacee50ab39088e6a09"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-helpers-013-machinecode.txt",
+      "size_bytes": 3024,
+      "sha256": "8a673f278e112d9d930bf06858adbd5b851fc087038eaed2aa981d03c7b8355e"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-helpers-013.identity.json",
+      "size_bytes": 463,
+      "sha256": "09d07fa9c48ab82418eca6cce12efed0588fcaa9a679e03ede84ecbc20835c2f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-appleevent-parent-helpers-013.log",
+      "size_bytes": 5499,
+      "sha256": "13658a47656f95e22f037b52792386e29ab2ffc372ead67e595821ed4f9748b6"
+    },
+    {
+      "path": "Research/raw/ghidra/run-parent-helpers-013.py",
+      "size_bytes": 5237,
+      "sha256": "f8fffb7b8523b6b44324d9cf621a6d066048911dfd058a1506d65996f353bfca"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helpers-check-013.py",
+      "size_bytes": 12340,
+      "sha256": "83a9a67401f75023f1356fda870dbf8f0425cfd52ba877ebe1dc821215f12df1"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helpers-notes-013.md",
+      "size_bytes": 6832,
+      "sha256": "653f4654f34e14e5919f0a03c14f5e715c42d4c492109624be918893b9eaf94c"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.json",
+      "size_bytes": 53893,
+      "sha256": "c72ab2fef15491aeb85e31c8f2adacd1d07f4f7d1e356e5cc908b6775c41c231"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.md",
+      "size_bytes": 3063,
+      "sha256": "d4146148e678dcc90080b570e24203969d3bfe7270b09a235992a42f5e81aacb"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "size_bytes": 12240,
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-fixed-012.py",
+      "size_bytes": 15067,
+      "sha256": "cc962bec789e054fcc5285a14407c0ddd9de3bfef8b1025f0660195b1e343757"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helper-review-013.py",
+      "size_bytes": 10563,
+      "sha256": "e918dd382f929f40fe0aaa63f52a987455a76f1e1f703f33cf17f561d1927420"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "size_bytes": 7819,
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-plan-013.json",
+      "size_bytes": 39327,
+      "sha256": "8427aca017ef980116fc31dae4957ee416766a3d945f9b69308df26d0665515a"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helpers-facts-013.json",
+      "size_bytes": 54795,
+      "sha256": "341fd763e7c729d14f43bba1c06667b14a761da1bb776788f4d6772afaefbb9d"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helper-review-013.json",
+      "size_bytes": 62450,
+      "sha256": "42d23f737413e61af11884f3c57fcf8254abd00c5850ebbeb1c66ecc7311cf56"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-helper-review-013.md",
+      "size_bytes": 3622,
+      "sha256": "da3a43e39bd18981a5b11ce48f64433a810d48a50537aa4020c6913a11f59714"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-parent-helpers-boundaries.tsv",
+      "size_bytes": 4185,
+      "sha256": "4a2115efde0287aa35e27617191c3fb52b6edf707f9433bf67fdc85c9559d9d4"
+    }
+  ],
+  "dynamic_verification": {
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "product_capabilities_added": [],
+  "research_actions": {
+    "logic_operations": 0,
+    "new_connections": 0,
+    "appleevent_sends": 0,
+    "database_name_or_type_edits": 0
+  }
+}

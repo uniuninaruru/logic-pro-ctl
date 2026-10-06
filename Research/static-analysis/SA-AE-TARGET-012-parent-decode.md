@@ -102,4 +102,6 @@ super initializer の固定metadataは NSObject をsuperclassとして指しま�
 
 次の限定境界は `decodeLongForKey:inUnarchiver:`（stub `0x00128180`）、`setCreatedFromSmartMap:`（stub `0x0012ef40`）の実装、legacy flag / long fieldの利用先、Logic側saved-value helperです。今回はstubとcallerを読んだ範囲に留め、これらのcallee graphへ進んでいません。
 
+**追補:** [SA-AE-TARGET-013](SA-AE-TARGET-013-parent-helpers.md) で、MACore の long decoder・setter・legacy getter 二つの固定定義を照合しました。実効 dispatch、旧longの利用先とdoubleへの移行、Logic側helperは引き続き未確認です。
+
 native coderの欠落キー・型違い・error、graph受理、抽象classのraise、例外時の全cleanupとownership、空mappingの実際の初期値・実効dispatchは未検証です。cacheを使わないround trip、元mappingの復元、保存・再読込・Undo、安定IDの契約や製品AppleEvent capabilityへ、この静的結果を広げません。
