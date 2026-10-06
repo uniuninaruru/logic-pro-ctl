@@ -88,6 +88,7 @@ flowchart LR
 | [旧 long の読み方・親の3アクセサ](static-analysis/SA-AE-TARGET-013-parent-helpers.md) | NSCoder category のキー別整数 / NSNumber 読出し、追加引数の用途、setter・旧long・flag getter。4定義260 bytesを照合。実効dispatchと旧値の移行は未確認 |
 | [現在doubleとLogicのlong読出し](static-analysis/SA-AE-TARGET-014-parent-consumers.md) | savedValue の −1.0 / 現在doubleと、proxy の object → longValue。2定義112 bytesを照合。旧longの移行は未解決 |
 | [proxy decoderの辞書・scalar・bytes](static-analysis/SA-AE-TARGET-015-proxy-decoder.md) | 13定義880 bytes。辞書値からarchiveへ渡す条件、型制限引数を使わないwrapper、signed32読出し、bytes長出力。実効dispatchとnative失敗は未確認 |
+| [UIDと型別のオブジェクト復元](static-analysis/SA-AE-TARGET-016-archive-dispatch.md) | 2定義2280 bytes。UID cache・範囲検査、クラス名/subclassによる復元先、固定クラスfallback、version読出し。実効dispatchと保存往復は未確認 |
 | [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
 | [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 
@@ -101,6 +102,7 @@ flowchart LR
 | [EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md) | 研究用ピアで 1 回接続し、初回送信を受信だけ：全フレームを復号、スキーマ違反 0。`t` の意味の推測 3 つは外れ、`gindex` は作成順 |
 | [EXP-REMOTE-002](experiments/EXP-REMOTE-002-offline-state-replay.md) | 保存した受信からの状態の組み立て直し（オフライン）：未受信は null、識別子を分け、`complete` は推定しない。矛盾 0、`/sti` は `/ati` より先に届く |
 | [EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md) | 120秒の再接続で14ストリップ、同じ選択のATI `t=7` / STI `t=2`。11,459フレームを日英・観測表・manifestに整理。選択変更の比較は未完了 |
+| [EXP-REMOTE-004](experiments/EXP-REMOTE-004-selection-delta.md) | 選択をBallad→Pianoへ1回変更。STIと後続fader rの移動を11,396フレームで確認、受信後に画面で復元。関数実行ログは未取得 |
 | [EXP-MCU-020](experiments/EXP-MCU-020-banking.md) | 8本を超えるストリップの到達と表示範囲 |
 | [EXP-MCU-021](experiments/EXP-MCU-021-last-strip-db-text.md) | 最後のストリップだけ dB 表示の位置がずれる |
 | [EXP-MCU-022](experiments/EXP-MCU-022-rename-reaches-surface.md) | トラック名の変更は MCU の表示に届く |

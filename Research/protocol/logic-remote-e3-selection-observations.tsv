@@ -1,0 +1,18 @@
+id	address_or_scope	observed_result	frames_or_anchor	limit	evidence_kind	selection_change_verified
+e3s-capture	transport	11396 frames / 11823 messages / 781 addresses	1..11396	One connection and one controlled selection click	live_capture	true
+e3s-window	receive_window	120.0263 seconds	218.3..120244.6 receive t_ms	Timer setting 120 seconds; processing overhead 0.0263 seconds	live_capture	true
+e3s-sent	initial_frames	/protocolVersion=10; /jsonSupport=1	2 sent events	Local send API success; no Logic acceptance ACK established	live_capture	true
+e3s-sti-before	/sti	Ballad; index=2; tn=3; t=2	456@415.2ms;509@442.1ms	Two equal initial copies; receive event clock	live_capture	true
+e3s-sti-after	/sti	Piano name with trailing space; index=0; tn=1; t=2	5419@54669.9ms	One selection transition; index is zero-based	live_capture	true
+e3s-ati	/ati	14 strips; two equal copies; no later copy	478;489	Wire strip count; not all hidden internal tracks or a general selection rule	live_capture	true
+e3s-id	/ati identity	Piano trackID262145/gindex88; Ballad trackID262147/gindex128	478;489	TrackID and gindex remain separate; no reorder or ID-reuse experiment	live_capture	true
+e3s-r	/gtFaderData.t.r	trackID262147 3->0; trackID262145 0->3	484@431.7ms;5496@54723.2ms;5503@54727.1ms	Raw values retained; automatic-arm correlation only; no universal Boolean meaning	live_capture	true
+e3s-repeat	/gtFaderData	5496 and 5503 equal; g unchanged; only two r values differ from 484	484;5496;5503	Messages carrying changes also resend unchanged fields; changedMask not observed	live_capture	true
+e3s-ip	/gtFaderData.t.ip	All 14 entries remain 0 in all three messages	484;5496;5503	Operator saw I orange; do not equate wire ip and the UI lamp	live_capture_and_operator_note	true
+e3s-click	operator timing	Ballad->Piano one header click; no rename field	16:08:06.443477..16:08:08.465067 UTC	Before/after bracket, not an exact click timestamp or latency measurement	operator_sidecar	true
+e3s-restore	UI restoration	Ballad selected; R red/I orange; Piano and Synth R off	16:10:11.483477..16:10:17.248735 UTC;confirm16:10:35.651068	After receive end; no restoration wire capture or all-parameter guarantee	operator_sidecar	true
+e3s-nested	/sti argument	Property-list frame contains MAZP keyed-archive argument	456;509;5419	decoded.jsonl stores a data summary; audited values were reopened from raw frames	offline_raw_decode	true
+e3s-python	Python replay	0 decode/schema/state issues; coverage42/42 g and28/28 t; complete=null	1..11396	Coverage does not establish complete state; not full Swift/Python field parity	offline_replay	true
+e3s-swift	Swift reference test	Claude reported27 RemoteState tests passed; selection/r/ip fixture present	theE3RecordingFollowsOneSelectionChange	Reported execution plus source inspection; capture-dependent fixture skips without local raw	collaborator_report_and_source	true
+e3s-static	function correspondence	Selection->sti and later fader delta agree with existing static paths	SA-REMOTE-STATE-001 sections2,8	No function entry/stack trace; actual entry execution and changedMask unverified	static_correspondence_not_runtime_trace	true
+e3s-end	finish	Final event;11396 files/receive/decoded records agree;0 subsequent events	finish@120244.6ms/16:09:13Z	connected=true sampled before disconnect; not a current connection	live_capture	true

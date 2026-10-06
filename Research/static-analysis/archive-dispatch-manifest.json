@@ -1,0 +1,4443 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-AE-TARGET-016"
+  ],
+  "status": "static_verification_and_publication_review_complete",
+  "captured_at_utc": "2026-10-06T16:22:56.265343+00:00",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": "6682"
+  },
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock_used_with_absolute_path": true,
+  "program_identity": {
+    "schema_version": 1,
+    "program_name": "Logic.arm64",
+    "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "verified_binary_inputs": [
+    {
+      "program": "Logic.arm64",
+      "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "arm64_slice_offset": 0,
+      "arm64_slice_size": 40710736,
+      "copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "slice_copy_equal": true
+    }
+  ],
+  "scope": {
+    "function_count": 2,
+    "defined_bytes": 2280,
+    "instruction_words": 570,
+    "extra_callee_bodies": 0,
+    "live_operations": 0
+  },
+  "functions": [
+    {
+      "address": "0x18e0a04",
+      "size_bytes": 2112,
+      "selector": "_decodedObject:",
+      "body_sha256": "9106bd40578f542ec18fb763d04aa9aa17903c0de01a4032effe2837633b8b00"
+    },
+    {
+      "address": "0x18e162c",
+      "size_bytes": 168,
+      "selector": "versionForClassName:",
+      "body_sha256": "05781af688e462daa89069bc88134463f9bd1452aa256322debd62b43e5260d1"
+    }
+  ],
+  "methods": [
+    {
+      "owner": "_CLgMainStageKeyValueArchive",
+      "entry": "0x1c611a8",
+      "selector": "_decodedObject:",
+      "types": "@24@0:8@16",
+      "imp": "0x18e0a04",
+      "relative_imp_base": "0x1c611b0",
+      "raw_hex": "00ed8d009c25360054f8c7ff"
+    },
+    {
+      "owner": "_CLgMainStageKeyValueArchive",
+      "entry": "0x1c611d8",
+      "selector": "versionForClassName:",
+      "types": "q24@0:8@16",
+      "imp": "0x18e162c",
+      "relative_imp_base": "0x1c611e0",
+      "raw_hex": "58339100c92636004c04c8ff"
+    }
+  ],
+  "owner": {
+    "classlist_slot": "0x2421a40",
+    "class_address": "0x25be268",
+    "class_ro": "0x2529c30",
+    "name": "_CLgMainStageKeyValueArchive"
+  },
+  "ivars": [
+    {
+      "entry": "0x2529b78",
+      "offset_slot": "0x258f5f0",
+      "offset": 8,
+      "name": "_topLevel",
+      "type": "@\"NSDictionary\"",
+      "size_bytes": 8,
+      "raw_hex": "f0f558020000100070e5ea01000010002771fc01000020000300000008000000"
+    },
+    {
+      "entry": "0x2529b98",
+      "offset_slot": "0x258f5f4",
+      "offset": 16,
+      "name": "_encodedObjects",
+      "type": "@\"NSArray\"",
+      "size_bytes": 8,
+      "raw_hex": "f4f5580200001000a28ce50100001000de73fc01000020000300000008000000"
+    },
+    {
+      "entry": "0x2529bb8",
+      "offset_slot": "0x258f5f8",
+      "offset": 24,
+      "name": "_rootProperties",
+      "type": "@\"NSDictionary\"",
+      "size_bytes": 8,
+      "raw_hex": "f8f558020000100054ade501000010002771fc01000020000300000008000000"
+    },
+    {
+      "entry": "0x2529bd8",
+      "offset_slot": "0x258f5fc",
+      "offset": 32,
+      "name": "_objectsByID",
+      "type": "@\"NSMutableDictionary\"",
+      "size_bytes": 8,
+      "raw_hex": "fcf5580200001000503aea0100001000f95dfc01000020000300000008000000"
+    },
+    {
+      "entry": "0x2529bf8",
+      "offset_slot": "0x258f600",
+      "offset": 40,
+      "name": "_fileWrapper",
+      "type": "@\"NSFileWrapper\"",
+      "size_bytes": 8,
+      "raw_hex": "00f6580200001000acafe901000010000dbdff01000030000300000008000000"
+    }
+  ],
+  "internal_classes": [
+    {
+      "class_address": "0x25c17b0",
+      "class_ro": "0x25362d0",
+      "name": "_WsChannelUUID"
+    },
+    {
+      "class_address": "0x25be218",
+      "class_ro": "0x2529ae0",
+      "name": "_CLgMainStageObject"
+    }
+  ],
+  "selector_stubs": [
+    {
+      "address": "0x1b672a0",
+      "selector": "numberWithLong:",
+      "selector_slot": "0x255b860",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a14f0090213044f930390090103642f900021fd6"
+    },
+    {
+      "address": "0x1b67520",
+      "selector": "objectForKeyedSubscript:",
+      "selector_slot": "0x255b900",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a14f0090218044f930390090103642f900021fd6"
+    },
+    {
+      "address": "0x1b1f9e0",
+      "selector": "count",
+      "selector_slot": "0x2549a30",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "415100d0211845f9703b0090103642f900021fd6"
+    },
+    {
+      "address": "0x1b67480",
+      "selector": "objectAtIndexedSubscript:",
+      "selector_slot": "0x255b8d8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a14f0090216c44f930390090103642f900021fd6"
+    },
+    {
+      "address": "0x1af8bc0",
+      "selector": "_decodedObject:",
+      "selector_slot": "0x253fea8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0215447f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1b510c0",
+      "selector": "isEqual:",
+      "selector_slot": "0x2555fe8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "2150009021f447f9d03900d0103642f900021fd6"
+    },
+    {
+      "address": "0x1b660c0",
+      "selector": "null",
+      "selector_slot": "0x255b3e8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "a14f00b021f441f9303900b0103642f900021fd6"
+    },
+    {
+      "address": "0x1b9b300",
+      "selector": "setObject:forKeyedSubscript:",
+      "selector_slot": "0x2568878",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "614e00b0213c44f990370090103642f900021fd6"
+    },
+    {
+      "address": "0x1b173c0",
+      "selector": "classForClassName:",
+      "selector_slot": "0x25478a8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "81510090215444f9b03b0090103642f900021fd6"
+    },
+    {
+      "address": "0x1b51300",
+      "selector": "isEqualToString:",
+      "selector_slot": "0x2556078",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215000b0213c40f9d03900d0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8b20",
+      "selector": "_decodedArray:",
+      "selector_slot": "0x253fe80",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0214047f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8b80",
+      "selector": "_decodedDictionary:",
+      "selector_slot": "0x253fe98",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0214c47f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8be0",
+      "selector": "_decodedString:",
+      "selector_slot": "0x253feb0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0215847f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8b40",
+      "selector": "_decodedAttributedString:",
+      "selector_slot": "0x253fe88",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0214447f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8b60",
+      "selector": "_decodedColor:",
+      "selector_slot": "0x253fe90",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0214847f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1b54320",
+      "selector": "isSubclassOfClass:",
+      "selector_slot": "0x2556c80",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "015000d0214046f9b03900f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8ba0",
+      "selector": "_decodedIdentity:",
+      "selector_slot": "0x253fea0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0215047f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8ae0",
+      "selector": "_decodeChannelID:",
+      "selector_slot": "0x253fe70",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0213847f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1af8b00",
+      "selector": "_decodeDecodableObject:",
+      "selector_slot": "0x253fe78",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215200f0213c47f9903c00f0103642f900021fd6"
+    },
+    {
+      "address": "0x1b2b460",
+      "selector": "dictionary",
+      "selector_slot": "0x254c8d0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "015100b0216844f9103b0090103642f900021fd6"
+    },
+    {
+      "address": "0x1b1fa40",
+      "selector": "countByEnumeratingWithState:objects:count:",
+      "selector_slot": "0x2549a48",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "415100d0212445f9703b0090103642f900021fd6"
+    },
+    {
+      "address": "0x1b4a880",
+      "selector": "initWithProperties:",
+      "selector_slot": "0x25545d8",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "415000d021ec42f9103a00b0103642f900021fd6"
+    },
+    {
+      "address": "0x1b4ee60",
+      "selector": "intValue",
+      "selector_slot": "0x2555750",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "vm_address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1677,
+        "kind": "bind",
+        "import_index": 5559,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_msgSend"
+      },
+      "raw_hex": "215000f021a843f9f03900b0103642f900021fd6"
+    }
+  ],
+  "native_import_stubs": [
+    {
+      "address": "0x1af3664",
+      "name": "_objc_retain",
+      "slot": "0x228b4c0",
+      "bound": {
+        "vm_address": "0x228b4c0",
+        "raw_word": "0x80100000000015c1",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1688,
+        "kind": "bind",
+        "import_index": 5569,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retain"
+      },
+      "raw_hex": "d03c0090106242f900021fd6"
+    },
+    {
+      "address": "0x1aecfb0",
+      "name": "_CFGetTypeID",
+      "slot": "0x2284960",
+      "bound": {
+        "vm_address": "0x2284960",
+        "raw_word": "0x8010000000000856",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 1,
+        "nodes_before_target": 300,
+        "kind": "bind",
+        "import_index": 2134,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "_CFGetTypeID"
+      },
+      "raw_hex": "d03c009010b244f900021fd6"
+    },
+    {
+      "address": "0x1aef488",
+      "name": "__CFKeyedArchiverUIDGetTypeID",
+      "slot": "0x2284f28",
+      "bound": {
+        "vm_address": "0x2284f28",
+        "raw_word": "0x801000000000090f",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 1,
+        "nodes_before_target": 485,
+        "kind": "bind",
+        "import_index": 2319,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": true,
+        "import_name": "__CFKeyedArchiverUIDGetTypeID"
+      },
+      "raw_hex": "b03c00b0109647f900021fd6"
+    },
+    {
+      "address": "0x1aef494",
+      "name": "__CFKeyedArchiverUIDGetValue",
+      "slot": "0x2284f30",
+      "bound": {
+        "vm_address": "0x2284f30",
+        "raw_word": "0x8010000000000910",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 1,
+        "nodes_before_target": 486,
+        "kind": "bind",
+        "import_index": 2320,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": true,
+        "import_name": "__CFKeyedArchiverUIDGetValue"
+      },
+      "raw_hex": "b03c00b0109a47f900021fd6"
+    },
+    {
+      "address": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "slot": "0x228b4d8",
+      "bound": {
+        "vm_address": "0x228b4d8",
+        "raw_word": "0x80100000000015c4",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1691,
+        "kind": "bind",
+        "import_index": 5572,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_retainAutoreleasedReturnValue"
+      },
+      "raw_hex": "d03c0090106e42f900021fd6"
+    },
+    {
+      "address": "0x1af3658",
+      "name": "_objc_release",
+      "slot": "0x228b4b8",
+      "bound": {
+        "vm_address": "0x228b4b8",
+        "raw_word": "0x80100000000015c0",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1687,
+        "kind": "bind",
+        "import_index": 5568,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_release"
+      },
+      "raw_hex": "d03c0090105e42f900021fd6"
+    },
+    {
+      "address": "0x1af3628",
+      "name": "_objc_opt_new",
+      "slot": "0x228b498",
+      "bound": {
+        "vm_address": "0x228b498",
+        "raw_word": "0x80100000000015bc",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1683,
+        "kind": "bind",
+        "import_index": 5564,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_opt_new"
+      },
+      "raw_hex": "d03c0090104e42f900021fd6"
+    },
+    {
+      "address": "0x1af3610",
+      "name": "_objc_opt_class",
+      "slot": "0x228b488",
+      "bound": {
+        "vm_address": "0x228b488",
+        "raw_word": "0x80100000000015ba",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1681,
+        "kind": "bind",
+        "import_index": 5562,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_opt_class"
+      },
+      "raw_hex": "d03c0090104642f900021fd6"
+    },
+    {
+      "address": "0x1af361c",
+      "name": "_objc_opt_isKindOfClass",
+      "slot": "0x228b490",
+      "bound": {
+        "vm_address": "0x228b490",
+        "raw_word": "0x80100000000015bb",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1682,
+        "kind": "bind",
+        "import_index": 5563,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_opt_isKindOfClass"
+      },
+      "raw_hex": "d03c0090104a42f900021fd6"
+    },
+    {
+      "address": "0x1aeef90",
+      "name": "_NSStringFromClass",
+      "slot": "0x2280c08",
+      "bound": {
+        "vm_address": "0x2280c08",
+        "raw_word": "0x80100000000000ab",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 385,
+        "kind": "bind",
+        "import_index": 171,
+        "addend_unsigned": 0,
+        "library_ordinal": 1,
+        "library": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+        "weak_import": false,
+        "import_name": "_NSStringFromClass"
+      },
+      "raw_hex": "903c00d0100646f900021fd6"
+    },
+    {
+      "address": "0x1aeeeb8",
+      "name": "_NSLog",
+      "slot": "0x2280b98",
+      "bound": {
+        "vm_address": "0x2280b98",
+        "raw_word": "0x801000000000009d",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 371,
+        "kind": "bind",
+        "import_index": 157,
+        "addend_unsigned": 0,
+        "library_ordinal": 1,
+        "library": "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation",
+        "weak_import": false,
+        "import_name": "_NSLog"
+      },
+      "raw_hex": "903c00d010ce45f900021fd6"
+    },
+    {
+      "address": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "slot": "0x228b3e8",
+      "bound": {
+        "vm_address": "0x228b3e8",
+        "raw_word": "0x80100000000015a7",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1661,
+        "kind": "bind",
+        "import_index": 5543,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_autoreleaseReturnValue"
+      },
+      "raw_hex": "d03c009010f641f900021fd6"
+    },
+    {
+      "address": "0x1af3580",
+      "name": "_objc_enumerationMutation",
+      "slot": "0x228b420",
+      "bound": {
+        "vm_address": "0x228b420",
+        "raw_word": "0x80100000000015ae",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1668,
+        "kind": "bind",
+        "import_index": 5550,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_enumerationMutation"
+      },
+      "raw_hex": "d03c0090101242f900021fd6"
+    },
+    {
+      "address": "0x1af34d8",
+      "name": "_objc_alloc",
+      "slot": "0x228b3b0",
+      "bound": {
+        "vm_address": "0x228b3b0",
+        "raw_word": "0x80100000000015a0",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 2,
+        "nodes_before_target": 1654,
+        "kind": "bind",
+        "import_index": 5536,
+        "addend_unsigned": 0,
+        "library_ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak_import": false,
+        "import_name": "_objc_alloc"
+      },
+      "raw_hex": "d03c009010da41f900021fd6"
+    },
+    {
+      "address": "0x1af2e60",
+      "name": "___stack_chk_fail",
+      "slot": "0x2281610",
+      "bound": {
+        "vm_address": "0x2281610",
+        "raw_word": "0x80100000000001ec",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 0,
+        "nodes_before_target": 706,
+        "kind": "bind",
+        "import_index": 492,
+        "addend_unsigned": 0,
+        "library_ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak_import": false,
+        "import_name": "___stack_chk_fail"
+      },
+      "raw_hex": "703c00f0100a43f900021fd6"
+    }
+  ],
+  "used_cfstrings": [
+    {
+      "address": "0x241b928",
+      "text": "$null",
+      "length": 5,
+      "isa": {
+        "vm_address": "0x241b928",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 914,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000008a70e301000020000500000000000000"
+    },
+    {
+      "address": "0x23eae48",
+      "text": "$class",
+      "length": 6,
+      "isa": {
+        "vm_address": "0x23eae48",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 90,
+        "nodes_before_target": 740,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000009810e101000020000600000000000000"
+    },
+    {
+      "address": "0x241b748",
+      "text": "$classname",
+      "length": 10,
+      "isa": {
+        "vm_address": "0x241b748",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 884,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c807000000000000cd6fe301000020000a00000000000000"
+    },
+    {
+      "address": "0x241bb88",
+      "text": "Encoded object has invalid UID %ld",
+      "length": 34,
+      "isa": {
+        "vm_address": "0x241bb88",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 952,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000000c72e301000020002200000000000000"
+    },
+    {
+      "address": "0x241bbe8",
+      "text": "Warning: unrecognized meta object type.",
+      "length": 39,
+      "isa": {
+        "vm_address": "0x241bbe8",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 958,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000006b72e301000020002700000000000000"
+    },
+    {
+      "address": "0x241bb68",
+      "text": "Could not decode object with UID %ld",
+      "length": 36,
+      "isa": {
+        "vm_address": "0x241bb68",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 950,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c807000000000000e771e301000020002400000000000000"
+    },
+    {
+      "address": "0x241bbc8",
+      "text": "fileWrapper",
+      "length": 11,
+      "isa": {
+        "vm_address": "0x241bbc8",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 956,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000005f72e301000020000b00000000000000"
+    },
+    {
+      "address": "0x241bba8",
+      "text": "Corrupt class properties in MainStage document.",
+      "length": 47,
+      "isa": {
+        "vm_address": "0x241bba8",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 954,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c8070000000000002f72e301000020002f00000000000000"
+    },
+    {
+      "address": "0x241b768",
+      "text": "_classVersions",
+      "length": 14,
+      "isa": {
+        "vm_address": "0x241b768",
+        "raw_word": "0x8020000000001ce6",
+        "pointer_format": 6,
+        "chain_membership_verified": true,
+        "page_index": 102,
+        "nodes_before_target": 886,
+        "kind": "bind",
+        "import_index": 7398,
+        "addend_unsigned": 0,
+        "library_ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak_import": false,
+        "import_name": "___CFConstantStringClassReference"
+      },
+      "raw_hex": "e61c000000002080c807000000000000d86fe301000020000e00000000000000"
+    }
+  ],
+  "definition_facts": [
+    {
+      "id": "D016-01",
+      "anchors": [
+        "0x18e0a38",
+        "0x18e0a40",
+        "0x18e0a48",
+        "0x18e0a4c",
+        "0x18e0a54",
+        "0x18e0a5c",
+        "0x18e0a60",
+        "0x18e0a64",
+        "0x18e0a6c"
+      ],
+      "ja": "UID入口はGetValueのimport pointerが非0で、入力のCF type IDがUIDのtype IDと一致する枝。UIDをx21へ取得する。",
+      "en": "The UID path requires a nonzero GetValue import pointer and matching CF type IDs; the extracted UID is saved in x21."
+    },
+    {
+      "id": "D016-02",
+      "anchors": [
+        "0x18e0a74",
+        "0x18e0a7c",
+        "0x18e0a80",
+        "0x18e0a90",
+        "0x18e0a98",
+        "0x18e0a9c",
+        "0x18e0aac"
+      ],
+      "ja": "UIDをNSNumber longのキーにし、offset32の_objectsByIDを引く。非0のcache結果は再帰復元を飛ばす。",
+      "en": "UID becomes an NSNumber long key for _objectsByID at offset32. A nonzero cache hit skips recursive decoding."
+    },
+    {
+      "id": "D016-03",
+      "anchors": [
+        "0x18e0ab0",
+        "0x18e0ab4",
+        "0x18e0abc",
+        "0x18e0ac0",
+        "0x18e0ac4",
+        "0x18e0d40",
+        "0x18e0d48",
+        "0x18e0d50"
+      ],
+      "ja": "cache miss後、UIDの符号bitまたはUID>=encodedObjects.countでinvalid UIDのログと0結果へ進む。",
+      "en": "After a cache miss, a negative UID or UID >= encodedObjects.count takes the invalid-UID logging path with zero result."
+    },
+    {
+      "id": "D016-04",
+      "anchors": [
+        "0x18e0ac8",
+        "0x18e0ad0",
+        "0x18e0ad4",
+        "0x18e0ae4",
+        "0x18e0ae8",
+        "0x18e0aec",
+        "0x18e0b04",
+        "0x18e0e6c",
+        "0x18e0e74"
+      ],
+      "ja": "有効なUIDはoffset16の_encodedObjectsから要素を引き、self _decodedObject:を再帰送信。0結果は失敗ログへ、cacheへの格納には進まない。",
+      "en": "A valid UID indexes _encodedObjects at offset16 and recursively sends _decodedObject: to self. A zero result logs failure and does not populate the cache."
+    },
+    {
+      "id": "D016-05",
+      "anchors": [
+        "0x18e0b08",
+        "0x18e0b0c",
+        "0x18e0b10",
+        "0x18e0b18",
+        "0x18e0b1c",
+        "0x18e0b28",
+        "0x18e0b40"
+      ],
+      "ja": "UID0で復元結果が文字列$nullと等しいときだけ、NSNull null結果へ置き換える。",
+      "en": "Only UID0 whose decoded result equals the string $null is replaced with the result of NSNull null."
+    },
+    {
+      "id": "D016-06",
+      "anchors": [
+        "0x18e0b44",
+        "0x18e0b48",
+        "0x18e0b50",
+        "0x18e0b54",
+        "0x18e0b5c",
+        "0x18e0b6c",
+        "0x18e0b70",
+        "0x18e0b74"
+      ],
+      "ja": "成功したUID復元は必要ならNSMutableDictionary cacheを作り、復元結果をUID keyで格納する。格納は再帰から戻った後。",
+      "en": "Successful UID decoding creates a mutable dictionary cache if needed and stores the result by UID after recursion has returned."
+    },
+    {
+      "id": "D016-07",
+      "anchors": [
+        "0x18e0b80",
+        "0x18e0b84",
+        "0x18e0b90",
+        "0x18e0b94",
+        "0x18e0c3c",
+        "0x18e0c4c",
+        "0x18e0c68",
+        "0x18e0c84",
+        "0x18e0c8c",
+        "0x18e0df0",
+        "0x18e0e00",
+        "0x18e0e08"
+      ],
+      "ja": "辞書以外ではNSString/NSNumber/NSData/NSDateのisKindOfClass低bitが真なら入力を返し、それ以外は0。生のNSArrayをそのまま返す枝はない。",
+      "en": "For non-dictionaries, a true low bit of isKindOfClass for NSString, NSNumber, NSData or NSDate returns the input; otherwise zero. No direct raw-NSArray pass-through branch exists."
+    },
+    {
+      "id": "D016-08",
+      "anchors": [
+        "0x18e0b98",
+        "0x18e0b9c",
+        "0x18e0ba4",
+        "0x18e0bb4",
+        "0x18e0c98",
+        "0x18e0c9c",
+        "0x18e0ca4",
+        "0x18e0cb4",
+        "0x18e0cc4",
+        "0x18e0dd8",
+        "0x18e0de0",
+        "0x18e0de4"
+      ],
+      "ja": "辞書の$classが0なら$classnameを引く。それも0なら警告と0、非0ならその値を再帰復元した結果を返す。",
+      "en": "If dictionary $class is zero, it looks up $classname. Zero there warns and returns zero; a nonzero value is recursively decoded and returned."
+    },
+    {
+      "id": "D016-09",
+      "anchors": [
+        "0x18e0bb8",
+        "0x18e0bbc",
+        "0x18e0bc0",
+        "0x18e0bd4",
+        "0x18e0bd8",
+        "0x18e0bdc",
+        "0x18e0be0",
+        "0x18e0be8",
+        "0x18e0c24"
+      ],
+      "ja": "非0の$class値を再帰復元してclassForClassName:へ渡し、返されたClassのNSStringFromClass結果をFoundationのクラス名と比較する。",
+      "en": "A nonzero $class value is recursively decoded and passed to classForClassName:. NSStringFromClass of the returned Class is compared with Foundation class names."
+    },
+    {
+      "id": "D016-10",
+      "anchors": [
+        "0x18e0d1c",
+        "0x18e0e5c",
+        "0x18e0ef8",
+        "0x18e0f88",
+        "0x18e0fd8"
+      ],
+      "ja": "NSArray/NSMutableArray、NSDictionary/NSMutableDictionary、NSString/NSMutableString、NSAttributedString/NSMutableAttributedString、NSColorの名前比較は各専用復元selectorへ進む。",
+      "en": "Name comparisons for immutable/mutable array, dictionary, string and attributed string, plus NSColor, dispatch to the corresponding specialized decoding selectors."
+    },
+    {
+      "id": "D016-11",
+      "anchors": [
+        "0x18e0ffc",
+        "0x18e1000",
+        "0x18e100c",
+        "0x18e1040",
+        "0x18e1050",
+        "0x18e105c",
+        "0x18e1080",
+        "0x18e1084",
+        "0x18e109c",
+        "0x18e10a0",
+        "0x18e10b8",
+        "0x18e10bc",
+        "0x18e10d4",
+        "0x18e10d8",
+        "0x18e10e4"
+      ],
+      "ja": "WsIdentityのsubclass比較はw0全体、MAMapping/MAKeyboardLayer/MAGraphPointはbit0、_WsChannelUUIDはw0全体で分岐。MAChannelIDは名前比較。専用helper内部はこの2本文では未読。",
+      "en": "WsIdentity and _WsChannelUUID subclass tests branch on full w0; MAMapping, MAKeyboardLayer and MAGraphPoint test bit0. MAChannelID uses a name comparison. Specialized helper bodies are outside this two-body scope."
+    },
+    {
+      "id": "D016-12",
+      "anchors": [
+        "0x18e10f8",
+        "0x18e112c",
+        "0x18e116c",
+        "0x18e1188",
+        "0x18e11a0",
+        "0x18e11b0",
+        "0x18e11ec",
+        "0x18e11f4",
+        "0x18e11fc",
+        "0x18e1204",
+        "0x18e1208",
+        "0x18e1210"
+      ],
+      "ja": "名前/専用subclass分岐を通らない辞書は各値を再帰復元したproperties辞書を作り、offset40のfileWrapperをfileWrapperキーへ入れ、固定クラス_CLgMainStageObject initWithProperties:へ渡す。任意Classをここで直接allocしてはいない。",
+      "en": "The fallback recursively decodes each dictionary value into properties, injects fileWrapper at offset40 under the fileWrapper key, and allocates the fixed _CLgMainStageObject class with initWithProperties:, rather than directly allocating the arbitrary resolved Class."
+    },
+    {
+      "id": "D016-13",
+      "anchors": [
+        "0x18e11a0",
+        "0x18e121c",
+        "0x18e1224",
+        "0x18e1230"
+      ],
+      "ja": "fallbackの各値の復元が0ならcorrupt propertiesのログを出し、全体を0結果にする。",
+      "en": "A zero decoded property in fallback logs corrupt class properties and sets the entire result to zero."
+    },
+    {
+      "id": "D016-14",
+      "anchors": [
+        "0x18e164c",
+        "0x18e1650",
+        "0x18e1654",
+        "0x18e1658",
+        "0x18e1668",
+        "0x18e166c",
+        "0x18e1670",
+        "0x18e168c",
+        "0x18e1690",
+        "0x18e16a0",
+        "0x18e16a4",
+        "0x18e16c0"
+      ],
+      "ja": "versionはoffset24の_rootPropertiesから_classVersionsを引いて再帰復元し、その結果をincoming classNameで引く。intValueのw0を64bitへ符号拡張して返す。局所的nil/type/default枝はない。",
+      "en": "Version looks up _classVersions in _rootProperties at offset24, recursively decodes it, then looks up the incoming className. It sign-extends intValue w0 to64bits. No local nil/type/default branch exists."
+    }
+  ],
+  "instruction_words": [
+    {
+      "address": "0x18e0a04",
+      "raw_hex": "ff4305d1",
+      "instruction": "sub sp,sp,#0x150"
+    },
+    {
+      "address": "0x18e0a08",
+      "raw_hex": "fc6f0fa9",
+      "instruction": "stp x28,x27,[sp, #0xf0]"
+    },
+    {
+      "address": "0x18e0a0c",
+      "raw_hex": "fa6710a9",
+      "instruction": "stp x26,x25,[sp, #0x100]"
+    },
+    {
+      "address": "0x18e0a10",
+      "raw_hex": "f85f11a9",
+      "instruction": "stp x24,x23,[sp, #0x110]"
+    },
+    {
+      "address": "0x18e0a14",
+      "raw_hex": "f65712a9",
+      "instruction": "stp x22,x21,[sp, #0x120]"
+    },
+    {
+      "address": "0x18e0a18",
+      "raw_hex": "f44f13a9",
+      "instruction": "stp x20,x19,[sp, #0x130]"
+    },
+    {
+      "address": "0x18e0a1c",
+      "raw_hex": "fd7b14a9",
+      "instruction": "stp x29,x30,[sp, #0x140]"
+    },
+    {
+      "address": "0x18e0a20",
+      "raw_hex": "fd030591",
+      "instruction": "add x29,sp,#0x140"
+    },
+    {
+      "address": "0x18e0a24",
+      "raw_hex": "f60300aa",
+      "instruction": "mov x22,x0"
+    },
+    {
+      "address": "0x18e0a28",
+      "raw_hex": "084d00b0",
+      "instruction": "adrp x8,0x2281000"
+    },
+    {
+      "address": "0x18e0a2c",
+      "raw_hex": "080d43f9",
+      "instruction": "ldr x8,[x8, #0x618]"
+    },
+    {
+      "address": "0x18e0a30",
+      "raw_hex": "080140f9",
+      "instruction": "ldr x8,[x8]"
+    },
+    {
+      "address": "0x18e0a34",
+      "raw_hex": "a8031af8",
+      "instruction": "stur x8,[x29, #-0x60]"
+    },
+    {
+      "address": "0x18e0a38",
+      "raw_hex": "e00302aa",
+      "instruction": "mov x0,x2"
+    },
+    {
+      "address": "0x18e0a3c",
+      "raw_hex": "0a4b0894",
+      "instruction": "bl 0x01af3664"
+    },
+    {
+      "address": "0x18e0a40",
+      "raw_hex": "f30300aa",
+      "instruction": "mov x19,x0"
+    },
+    {
+      "address": "0x18e0a44",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0a48",
+      "raw_hex": "089947f9",
+      "instruction": "ldr x8,[x8, #0xf30]"
+    },
+    {
+      "address": "0x18e0a4c",
+      "raw_hex": "880900b4",
+      "instruction": "cbz x8,0x018e0b7c"
+    },
+    {
+      "address": "0x18e0a50",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0a54",
+      "raw_hex": "57310894",
+      "instruction": "bl 0x01aecfb0"
+    },
+    {
+      "address": "0x18e0a58",
+      "raw_hex": "f40300aa",
+      "instruction": "mov x20,x0"
+    },
+    {
+      "address": "0x18e0a5c",
+      "raw_hex": "8b3a0894",
+      "instruction": "bl 0x01aef488"
+    },
+    {
+      "address": "0x18e0a60",
+      "raw_hex": "9f0200eb",
+      "instruction": "cmp x20,x0"
+    },
+    {
+      "address": "0x18e0a64",
+      "raw_hex": "c1080054",
+      "instruction": "b.ne 0x018e0b7c"
+    },
+    {
+      "address": "0x18e0a68",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0a6c",
+      "raw_hex": "8a3a0894",
+      "instruction": "bl 0x01aef494"
+    },
+    {
+      "address": "0x18e0a70",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e0a74",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0a78",
+      "raw_hex": "00f946f9",
+      "instruction": "ldr x0,[x8, #0xdf0]"
+    },
+    {
+      "address": "0x18e0a7c",
+      "raw_hex": "e20315aa",
+      "instruction": "mov x2,x21"
+    },
+    {
+      "address": "0x18e0a80",
+      "raw_hex": "081a0a94",
+      "instruction": "bl 0x01b672a0"
+    },
+    {
+      "address": "0x18e0a84",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0a88",
+      "raw_hex": "004b0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0a8c",
+      "raw_hex": "f40300aa",
+      "instruction": "mov x20,x0"
+    },
+    {
+      "address": "0x18e0a90",
+      "raw_hex": "c01240f9",
+      "instruction": "ldr x0,[x22, #0x20]"
+    },
+    {
+      "address": "0x18e0a94",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e0a98",
+      "raw_hex": "e20314aa",
+      "instruction": "mov x2,x20"
+    },
+    {
+      "address": "0x18e0a9c",
+      "raw_hex": "a11a0a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e0aa0",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0aa4",
+      "raw_hex": "f94a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0aa8",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0aac",
+      "raw_hex": "401500b5",
+      "instruction": "cbnz x0,0x018e0d54"
+    },
+    {
+      "address": "0x18e0ab0",
+      "raw_hex": "9514f8b7",
+      "instruction": "tbnz x21,#0x3f,0x018e0d40"
+    },
+    {
+      "address": "0x18e0ab4",
+      "raw_hex": "c00a40f9",
+      "instruction": "ldr x0,[x22, #0x10]"
+    },
+    {
+      "address": "0x18e0ab8",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e0abc",
+      "raw_hex": "c9fb0894",
+      "instruction": "bl 0x01b1f9e0"
+    },
+    {
+      "address": "0x18e0ac0",
+      "raw_hex": "bf0200eb",
+      "instruction": "cmp x21,x0"
+    },
+    {
+      "address": "0x18e0ac4",
+      "raw_hex": "e2130054",
+      "instruction": "b.cs 0x018e0d40"
+    },
+    {
+      "address": "0x18e0ac8",
+      "raw_hex": "c00a40f9",
+      "instruction": "ldr x0,[x22, #0x10]"
+    },
+    {
+      "address": "0x18e0acc",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e0ad0",
+      "raw_hex": "e20315aa",
+      "instruction": "mov x2,x21"
+    },
+    {
+      "address": "0x18e0ad4",
+      "raw_hex": "6b1a0a94",
+      "instruction": "bl 0x01b67480"
+    },
+    {
+      "address": "0x18e0ad8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0adc",
+      "raw_hex": "eb4a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0ae0",
+      "raw_hex": "f70300aa",
+      "instruction": "mov x23,x0"
+    },
+    {
+      "address": "0x18e0ae4",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0ae8",
+      "raw_hex": "e20317aa",
+      "instruction": "mov x2,x23"
+    },
+    {
+      "address": "0x18e0aec",
+      "raw_hex": "35600894",
+      "instruction": "bl 0x01af8bc0"
+    },
+    {
+      "address": "0x18e0af0",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0af4",
+      "raw_hex": "e54a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0af8",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0afc",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e0b00",
+      "raw_hex": "d64a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0b04",
+      "raw_hex": "581b00b4",
+      "instruction": "cbz x24,0x018e0e6c"
+    },
+    {
+      "address": "0x18e0b08",
+      "raw_hex": "f50100b5",
+      "instruction": "cbnz x21,0x018e0b44"
+    },
+    {
+      "address": "0x18e0b0c",
+      "raw_hex": "c25900f0",
+      "instruction": "adrp x2,0x241b000"
+    },
+    {
+      "address": "0x18e0b10",
+      "raw_hex": "42a02491",
+      "instruction": "add x2,x2,#0x928"
+    },
+    {
+      "address": "0x18e0b14",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0b18",
+      "raw_hex": "6ac10994",
+      "instruction": "bl 0x01b510c0"
+    },
+    {
+      "address": "0x18e0b1c",
+      "raw_hex": "40010034",
+      "instruction": "cbz w0,0x018e0b44"
+    },
+    {
+      "address": "0x18e0b20",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0b24",
+      "raw_hex": "007147f9",
+      "instruction": "ldr x0,[x8, #0xee0]"
+    },
+    {
+      "address": "0x18e0b28",
+      "raw_hex": "66150a94",
+      "instruction": "bl 0x01b660c0"
+    },
+    {
+      "address": "0x18e0b2c",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0b30",
+      "raw_hex": "d64a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0b34",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e0b38",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0b3c",
+      "raw_hex": "c74a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0b40",
+      "raw_hex": "f80315aa",
+      "instruction": "mov x24,x21"
+    },
+    {
+      "address": "0x18e0b44",
+      "raw_hex": "c01240f9",
+      "instruction": "ldr x0,[x22, #0x20]"
+    },
+    {
+      "address": "0x18e0b48",
+      "raw_hex": "200100b5",
+      "instruction": "cbnz x0,0x018e0b6c"
+    },
+    {
+      "address": "0x18e0b4c",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0b50",
+      "raw_hex": "006547f9",
+      "instruction": "ldr x0,[x8, #0xec8]"
+    },
+    {
+      "address": "0x18e0b54",
+      "raw_hex": "b54a0894",
+      "instruction": "bl 0x01af3628"
+    },
+    {
+      "address": "0x18e0b58",
+      "raw_hex": "c81240f9",
+      "instruction": "ldr x8,[x22, #0x20]"
+    },
+    {
+      "address": "0x18e0b5c",
+      "raw_hex": "c01200f9",
+      "instruction": "str x0,[x22, #0x20]"
+    },
+    {
+      "address": "0x18e0b60",
+      "raw_hex": "e00308aa",
+      "instruction": "mov x0,x8"
+    },
+    {
+      "address": "0x18e0b64",
+      "raw_hex": "bd4a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0b68",
+      "raw_hex": "c01240f9",
+      "instruction": "ldr x0,[x22, #0x20]"
+    },
+    {
+      "address": "0x18e0b6c",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0b70",
+      "raw_hex": "e30314aa",
+      "instruction": "mov x3,x20"
+    },
+    {
+      "address": "0x18e0b74",
+      "raw_hex": "e3e90a94",
+      "instruction": "bl 0x01b9b300"
+    },
+    {
+      "address": "0x18e0b78",
+      "raw_hex": "77000014",
+      "instruction": "b 0x018e0d54"
+    },
+    {
+      "address": "0x18e0b7c",
+      "raw_hex": "3b4d0090",
+      "instruction": "adrp x27,0x2284000"
+    },
+    {
+      "address": "0x18e0b80",
+      "raw_hex": "604b47f9",
+      "instruction": "ldr x0,[x27, #0xe90]"
+    },
+    {
+      "address": "0x18e0b84",
+      "raw_hex": "a34a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0b88",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e0b8c",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0b90",
+      "raw_hex": "a34a0894",
+      "instruction": "bl 0x01af361c"
+    },
+    {
+      "address": "0x18e0b94",
+      "raw_hex": "20050036",
+      "instruction": "tbz w0,#0x0,0x018e0c38"
+    },
+    {
+      "address": "0x18e0b98",
+      "raw_hex": "425800d0",
+      "instruction": "adrp x2,0x23ea000"
+    },
+    {
+      "address": "0x18e0b9c",
+      "raw_hex": "42203991",
+      "instruction": "add x2,x2,#0xe48"
+    },
+    {
+      "address": "0x18e0ba0",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0ba4",
+      "raw_hex": "5f1a0a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e0ba8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0bac",
+      "raw_hex": "b74a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0bb0",
+      "raw_hex": "f40300aa",
+      "instruction": "mov x20,x0"
+    },
+    {
+      "address": "0x18e0bb4",
+      "raw_hex": "000700b4",
+      "instruction": "cbz x0,0x018e0c94"
+    },
+    {
+      "address": "0x18e0bb8",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0bbc",
+      "raw_hex": "e20314aa",
+      "instruction": "mov x2,x20"
+    },
+    {
+      "address": "0x18e0bc0",
+      "raw_hex": "00600894",
+      "instruction": "bl 0x01af8bc0"
+    },
+    {
+      "address": "0x18e0bc4",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0bc8",
+      "raw_hex": "b04a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0bcc",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0bd0",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e0bd4",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0bd8",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0bdc",
+      "raw_hex": "f9d90894",
+      "instruction": "bl 0x01b173c0"
+    },
+    {
+      "address": "0x18e0be0",
+      "raw_hex": "f70300aa",
+      "instruction": "mov x23,x0"
+    },
+    {
+      "address": "0x18e0be4",
+      "raw_hex": "f50318aa",
+      "instruction": "mov x21,x24"
+    },
+    {
+      "address": "0x18e0be8",
+      "raw_hex": "ea380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0bec",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0bf0",
+      "raw_hex": "a64a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0bf4",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e0bf8",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0bfc",
+      "raw_hex": "974a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0c00",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0c04",
+      "raw_hex": "003147f9",
+      "instruction": "ldr x0,[x8, #0xe60]"
+    },
+    {
+      "address": "0x18e0c08",
+      "raw_hex": "824a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0c0c",
+      "raw_hex": "e1380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0c10",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0c14",
+      "raw_hex": "9d4a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0c18",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0c1c",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0c20",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0c24",
+      "raw_hex": "b7c10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0c28",
+      "raw_hex": "60050034",
+      "instruction": "cbz w0,0x018e0cd4"
+    },
+    {
+      "address": "0x18e0c2c",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0c30",
+      "raw_hex": "8a4a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0c34",
+      "raw_hex": "38000014",
+      "instruction": "b 0x018e0d14"
+    },
+    {
+      "address": "0x18e0c38",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0c3c",
+      "raw_hex": "003147f9",
+      "instruction": "ldr x0,[x8, #0xe60]"
+    },
+    {
+      "address": "0x18e0c40",
+      "raw_hex": "744a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0c44",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e0c48",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0c4c",
+      "raw_hex": "744a0894",
+      "instruction": "bl 0x01af361c"
+    },
+    {
+      "address": "0x18e0c50",
+      "raw_hex": "e0010037",
+      "instruction": "tbnz w0,#0x0,0x018e0c8c"
+    },
+    {
+      "address": "0x18e0c54",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0c58",
+      "raw_hex": "00f946f9",
+      "instruction": "ldr x0,[x8, #0xdf0]"
+    },
+    {
+      "address": "0x18e0c5c",
+      "raw_hex": "6d4a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0c60",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e0c64",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0c68",
+      "raw_hex": "6d4a0894",
+      "instruction": "bl 0x01af361c"
+    },
+    {
+      "address": "0x18e0c6c",
+      "raw_hex": "00010037",
+      "instruction": "tbnz w0,#0x0,0x018e0c8c"
+    },
+    {
+      "address": "0x18e0c70",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0c74",
+      "raw_hex": "003d47f9",
+      "instruction": "ldr x0,[x8, #0xe78]"
+    },
+    {
+      "address": "0x18e0c78",
+      "raw_hex": "664a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0c7c",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e0c80",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0c84",
+      "raw_hex": "664a0894",
+      "instruction": "bl 0x01af361c"
+    },
+    {
+      "address": "0x18e0c88",
+      "raw_hex": "200b0036",
+      "instruction": "tbz w0,#0x0,0x018e0dec"
+    },
+    {
+      "address": "0x18e0c8c",
+      "raw_hex": "f80313aa",
+      "instruction": "mov x24,x19"
+    },
+    {
+      "address": "0x18e0c90",
+      "raw_hex": "35000014",
+      "instruction": "b 0x018e0d64"
+    },
+    {
+      "address": "0x18e0c94",
+      "raw_hex": "170080d2",
+      "instruction": "mov x23,#0x0"
+    },
+    {
+      "address": "0x18e0c98",
+      "raw_hex": "c25900f0",
+      "instruction": "adrp x2,0x241b000"
+    },
+    {
+      "address": "0x18e0c9c",
+      "raw_hex": "42201d91",
+      "instruction": "add x2,x2,#0x748"
+    },
+    {
+      "address": "0x18e0ca0",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0ca4",
+      "raw_hex": "1f1a0a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e0ca8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0cac",
+      "raw_hex": "774a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0cb0",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e0cb4",
+      "raw_hex": "000900b4",
+      "instruction": "cbz x0,0x018e0dd4"
+    },
+    {
+      "address": "0x18e0cb8",
+      "raw_hex": "f70315aa",
+      "instruction": "mov x23,x21"
+    },
+    {
+      "address": "0x18e0cbc",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0cc0",
+      "raw_hex": "e20315aa",
+      "instruction": "mov x2,x21"
+    },
+    {
+      "address": "0x18e0cc4",
+      "raw_hex": "bf5f0894",
+      "instruction": "bl 0x01af8bc0"
+    },
+    {
+      "address": "0x18e0cc8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0ccc",
+      "raw_hex": "6f4a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0cd0",
+      "raw_hex": "16000014",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e0cd4",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0cd8",
+      "raw_hex": "005d47f9",
+      "instruction": "ldr x0,[x8, #0xeb8]"
+    },
+    {
+      "address": "0x18e0cdc",
+      "raw_hex": "4d4a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0ce0",
+      "raw_hex": "ac380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0ce4",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0ce8",
+      "raw_hex": "684a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0cec",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e0cf0",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0cf4",
+      "raw_hex": "e20319aa",
+      "instruction": "mov x2,x25"
+    },
+    {
+      "address": "0x18e0cf8",
+      "raw_hex": "82c10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0cfc",
+      "raw_hex": "fa0300aa",
+      "instruction": "mov x26,x0"
+    },
+    {
+      "address": "0x18e0d00",
+      "raw_hex": "e00319aa",
+      "instruction": "mov x0,x25"
+    },
+    {
+      "address": "0x18e0d04",
+      "raw_hex": "554a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d08",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0d0c",
+      "raw_hex": "534a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d10",
+      "raw_hex": "9a040034",
+      "instruction": "cbz w26,0x018e0da0"
+    },
+    {
+      "address": "0x18e0d14",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0d18",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e0d1c",
+      "raw_hex": "815f0894",
+      "instruction": "bl 0x01af8b20"
+    },
+    {
+      "address": "0x18e0d20",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0d24",
+      "raw_hex": "594a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0d28",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0d2c",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0d30",
+      "raw_hex": "4a4a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d34",
+      "raw_hex": "e00314aa",
+      "instruction": "mov x0,x20"
+    },
+    {
+      "address": "0x18e0d38",
+      "raw_hex": "484a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d3c",
+      "raw_hex": "08000014",
+      "instruction": "b 0x018e0d5c"
+    },
+    {
+      "address": "0x18e0d40",
+      "raw_hex": "c05900f0",
+      "instruction": "adrp x0,0x241b000"
+    },
+    {
+      "address": "0x18e0d44",
+      "raw_hex": "00202e91",
+      "instruction": "add x0,x0,#0xb88"
+    },
+    {
+      "address": "0x18e0d48",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e0d4c",
+      "raw_hex": "f50300f9",
+      "instruction": "str x21,[sp]"
+    },
+    {
+      "address": "0x18e0d50",
+      "raw_hex": "5a380894",
+      "instruction": "bl 0x01aeeeb8"
+    },
+    {
+      "address": "0x18e0d54",
+      "raw_hex": "e00314aa",
+      "instruction": "mov x0,x20"
+    },
+    {
+      "address": "0x18e0d58",
+      "raw_hex": "404a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d5c",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0d60",
+      "raw_hex": "3e4a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0d64",
+      "raw_hex": "a8035af8",
+      "instruction": "ldur x8,[x29, #-0x60]"
+    },
+    {
+      "address": "0x18e0d68",
+      "raw_hex": "094d00b0",
+      "instruction": "adrp x9,0x2281000"
+    },
+    {
+      "address": "0x18e0d6c",
+      "raw_hex": "290d43f9",
+      "instruction": "ldr x9,[x9, #0x618]"
+    },
+    {
+      "address": "0x18e0d70",
+      "raw_hex": "290140f9",
+      "instruction": "ldr x9,[x9]"
+    },
+    {
+      "address": "0x18e0d74",
+      "raw_hex": "3f0108eb",
+      "instruction": "cmp x9,x8"
+    },
+    {
+      "address": "0x18e0d78",
+      "raw_hex": "41260054",
+      "instruction": "b.ne 0x018e1240"
+    },
+    {
+      "address": "0x18e0d7c",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0d80",
+      "raw_hex": "fd7b54a9",
+      "instruction": "ldp x29,x30,[sp, #0x140]"
+    },
+    {
+      "address": "0x18e0d84",
+      "raw_hex": "f44f53a9",
+      "instruction": "ldp x20,x19,[sp, #0x130]"
+    },
+    {
+      "address": "0x18e0d88",
+      "raw_hex": "f65752a9",
+      "instruction": "ldp x22,x21,[sp, #0x120]"
+    },
+    {
+      "address": "0x18e0d8c",
+      "raw_hex": "f85f51a9",
+      "instruction": "ldp x24,x23,[sp, #0x110]"
+    },
+    {
+      "address": "0x18e0d90",
+      "raw_hex": "fa6750a9",
+      "instruction": "ldp x26,x25,[sp, #0x100]"
+    },
+    {
+      "address": "0x18e0d94",
+      "raw_hex": "fc6f4fa9",
+      "instruction": "ldp x28,x27,[sp, #0xf0]"
+    },
+    {
+      "address": "0x18e0d98",
+      "raw_hex": "ff430591",
+      "instruction": "add sp,sp,#0x150"
+    },
+    {
+      "address": "0x18e0d9c",
+      "raw_hex": "e4490814",
+      "instruction": "b 0x01af352c"
+    },
+    {
+      "address": "0x18e0da0",
+      "raw_hex": "604b47f9",
+      "instruction": "ldr x0,[x27, #0xe90]"
+    },
+    {
+      "address": "0x18e0da4",
+      "raw_hex": "1b4a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0da8",
+      "raw_hex": "7a380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0dac",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0db0",
+      "raw_hex": "364a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0db4",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0db8",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0dbc",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0dc0",
+      "raw_hex": "50c10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0dc4",
+      "raw_hex": "80020034",
+      "instruction": "cbz w0,0x018e0e14"
+    },
+    {
+      "address": "0x18e0dc8",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0dcc",
+      "raw_hex": "234a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0dd0",
+      "raw_hex": "21000014",
+      "instruction": "b 0x018e0e54"
+    },
+    {
+      "address": "0x18e0dd4",
+      "raw_hex": "170080d2",
+      "instruction": "mov x23,#0x0"
+    },
+    {
+      "address": "0x18e0dd8",
+      "raw_hex": "c05900f0",
+      "instruction": "adrp x0,0x241b000"
+    },
+    {
+      "address": "0x18e0ddc",
+      "raw_hex": "00a02f91",
+      "instruction": "add x0,x0,#0xbe8"
+    },
+    {
+      "address": "0x18e0de0",
+      "raw_hex": "36380894",
+      "instruction": "bl 0x01aeeeb8"
+    },
+    {
+      "address": "0x18e0de4",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e0de8",
+      "raw_hex": "d3ffff17",
+      "instruction": "b 0x018e0d34"
+    },
+    {
+      "address": "0x18e0dec",
+      "raw_hex": "284d0090",
+      "instruction": "adrp x8,0x2284000"
+    },
+    {
+      "address": "0x18e0df0",
+      "raw_hex": "004147f9",
+      "instruction": "ldr x0,[x8, #0xe80]"
+    },
+    {
+      "address": "0x18e0df4",
+      "raw_hex": "074a0894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0df8",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e0dfc",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e0e00",
+      "raw_hex": "074a0894",
+      "instruction": "bl 0x01af361c"
+    },
+    {
+      "address": "0x18e0e04",
+      "raw_hex": "1f000072",
+      "instruction": "tst w0,#0x1"
+    },
+    {
+      "address": "0x18e0e08",
+      "raw_hex": "78129f9a",
+      "instruction": "csel x24,x19,xzr,ne"
+    },
+    {
+      "address": "0x18e0e0c",
+      "raw_hex": "f313939a",
+      "instruction": "csel x19,xzr,x19,ne"
+    },
+    {
+      "address": "0x18e0e10",
+      "raw_hex": "d3ffff17",
+      "instruction": "b 0x018e0d5c"
+    },
+    {
+      "address": "0x18e0e14",
+      "raw_hex": "3b4d0090",
+      "instruction": "adrp x27,0x2284000"
+    },
+    {
+      "address": "0x18e0e18",
+      "raw_hex": "606747f9",
+      "instruction": "ldr x0,[x27, #0xec8]"
+    },
+    {
+      "address": "0x18e0e1c",
+      "raw_hex": "fd490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0e20",
+      "raw_hex": "5c380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0e24",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0e28",
+      "raw_hex": "184a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0e2c",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e0e30",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0e34",
+      "raw_hex": "e20319aa",
+      "instruction": "mov x2,x25"
+    },
+    {
+      "address": "0x18e0e38",
+      "raw_hex": "32c10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0e3c",
+      "raw_hex": "fa0300aa",
+      "instruction": "mov x26,x0"
+    },
+    {
+      "address": "0x18e0e40",
+      "raw_hex": "e00319aa",
+      "instruction": "mov x0,x25"
+    },
+    {
+      "address": "0x18e0e44",
+      "raw_hex": "054a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0e48",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0e4c",
+      "raw_hex": "034a0894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0e50",
+      "raw_hex": "5a010034",
+      "instruction": "cbz w26,0x018e0e78"
+    },
+    {
+      "address": "0x18e0e54",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0e58",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e0e5c",
+      "raw_hex": "495f0894",
+      "instruction": "bl 0x01af8b80"
+    },
+    {
+      "address": "0x18e0e60",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0e64",
+      "raw_hex": "094a0894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0e68",
+      "raw_hex": "b0ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e0e6c",
+      "raw_hex": "c05900f0",
+      "instruction": "adrp x0,0x241b000"
+    },
+    {
+      "address": "0x18e0e70",
+      "raw_hex": "00a02d91",
+      "instruction": "add x0,x0,#0xb68"
+    },
+    {
+      "address": "0x18e0e74",
+      "raw_hex": "b5ffff17",
+      "instruction": "b 0x018e0d48"
+    },
+    {
+      "address": "0x18e0e78",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0e7c",
+      "raw_hex": "003147f9",
+      "instruction": "ldr x0,[x8, #0xe60]"
+    },
+    {
+      "address": "0x18e0e80",
+      "raw_hex": "e4490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0e84",
+      "raw_hex": "43380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0e88",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0e8c",
+      "raw_hex": "ff490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0e90",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0e94",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0e98",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0e9c",
+      "raw_hex": "19c10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0ea0",
+      "raw_hex": "80000034",
+      "instruction": "cbz w0,0x018e0eb0"
+    },
+    {
+      "address": "0x18e0ea4",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0ea8",
+      "raw_hex": "ec490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0eac",
+      "raw_hex": "11000014",
+      "instruction": "b 0x018e0ef0"
+    },
+    {
+      "address": "0x18e0eb0",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0eb4",
+      "raw_hex": "00d946f9",
+      "instruction": "ldr x0,[x8, #0xdb0]"
+    },
+    {
+      "address": "0x18e0eb8",
+      "raw_hex": "d6490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0ebc",
+      "raw_hex": "35380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0ec0",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0ec4",
+      "raw_hex": "f1490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0ec8",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e0ecc",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0ed0",
+      "raw_hex": "e20319aa",
+      "instruction": "mov x2,x25"
+    },
+    {
+      "address": "0x18e0ed4",
+      "raw_hex": "0bc10994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0ed8",
+      "raw_hex": "fa0300aa",
+      "instruction": "mov x26,x0"
+    },
+    {
+      "address": "0x18e0edc",
+      "raw_hex": "e00319aa",
+      "instruction": "mov x0,x25"
+    },
+    {
+      "address": "0x18e0ee0",
+      "raw_hex": "de490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0ee4",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0ee8",
+      "raw_hex": "dc490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0eec",
+      "raw_hex": "fa000034",
+      "instruction": "cbz w26,0x018e0f08"
+    },
+    {
+      "address": "0x18e0ef0",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0ef4",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e0ef8",
+      "raw_hex": "3a5f0894",
+      "instruction": "bl 0x01af8be0"
+    },
+    {
+      "address": "0x18e0efc",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0f00",
+      "raw_hex": "e2490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0f04",
+      "raw_hex": "89ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e0f08",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0f0c",
+      "raw_hex": "005946f9",
+      "instruction": "ldr x0,[x8, #0xcb0]"
+    },
+    {
+      "address": "0x18e0f10",
+      "raw_hex": "c0490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0f14",
+      "raw_hex": "1f380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0f18",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0f1c",
+      "raw_hex": "db490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0f20",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0f24",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0f28",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0f2c",
+      "raw_hex": "f5c00994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0f30",
+      "raw_hex": "80000034",
+      "instruction": "cbz w0,0x018e0f40"
+    },
+    {
+      "address": "0x18e0f34",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0f38",
+      "raw_hex": "c8490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0f3c",
+      "raw_hex": "11000014",
+      "instruction": "b 0x018e0f80"
+    },
+    {
+      "address": "0x18e0f40",
+      "raw_hex": "084d0090",
+      "instruction": "adrp x8,0x2280000"
+    },
+    {
+      "address": "0x18e0f44",
+      "raw_hex": "00cd46f9",
+      "instruction": "ldr x0,[x8, #0xd98]"
+    },
+    {
+      "address": "0x18e0f48",
+      "raw_hex": "b2490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0f4c",
+      "raw_hex": "11380894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0f50",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0f54",
+      "raw_hex": "cd490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0f58",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e0f5c",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0f60",
+      "raw_hex": "e20319aa",
+      "instruction": "mov x2,x25"
+    },
+    {
+      "address": "0x18e0f64",
+      "raw_hex": "e7c00994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0f68",
+      "raw_hex": "fa0300aa",
+      "instruction": "mov x26,x0"
+    },
+    {
+      "address": "0x18e0f6c",
+      "raw_hex": "e00319aa",
+      "instruction": "mov x0,x25"
+    },
+    {
+      "address": "0x18e0f70",
+      "raw_hex": "ba490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0f74",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0f78",
+      "raw_hex": "b8490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0f7c",
+      "raw_hex": "fa000034",
+      "instruction": "cbz w26,0x018e0f98"
+    },
+    {
+      "address": "0x18e0f80",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0f84",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e0f88",
+      "raw_hex": "ee5e0894",
+      "instruction": "bl 0x01af8b40"
+    },
+    {
+      "address": "0x18e0f8c",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0f90",
+      "raw_hex": "be490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0f94",
+      "raw_hex": "65ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e0f98",
+      "raw_hex": "284d00b0",
+      "instruction": "adrp x8,0x2285000"
+    },
+    {
+      "address": "0x18e0f9c",
+      "raw_hex": "00c546f9",
+      "instruction": "ldr x0,[x8, #0xd88]"
+    },
+    {
+      "address": "0x18e0fa0",
+      "raw_hex": "9c490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0fa4",
+      "raw_hex": "fb370894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e0fa8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0fac",
+      "raw_hex": "b7490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0fb0",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e0fb4",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e0fb8",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e0fbc",
+      "raw_hex": "d1c00994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e0fc0",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e0fc4",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e0fc8",
+      "raw_hex": "a4490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e0fcc",
+      "raw_hex": "f9000034",
+      "instruction": "cbz w25,0x018e0fe8"
+    },
+    {
+      "address": "0x18e0fd0",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e0fd4",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e0fd8",
+      "raw_hex": "e25e0894",
+      "instruction": "bl 0x01af8b60"
+    },
+    {
+      "address": "0x18e0fdc",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e0fe0",
+      "raw_hex": "aa490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e0fe4",
+      "raw_hex": "51ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e0fe8",
+      "raw_hex": "084d00f0",
+      "instruction": "adrp x8,0x2283000"
+    },
+    {
+      "address": "0x18e0fec",
+      "raw_hex": "007143f9",
+      "instruction": "ldr x0,[x8, #0x6e0]"
+    },
+    {
+      "address": "0x18e0ff0",
+      "raw_hex": "88490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e0ff4",
+      "raw_hex": "e20300aa",
+      "instruction": "mov x2,x0"
+    },
+    {
+      "address": "0x18e0ff8",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e0ffc",
+      "raw_hex": "c9cc0994",
+      "instruction": "bl 0x01b54320"
+    },
+    {
+      "address": "0x18e1000",
+      "raw_hex": "e0000034",
+      "instruction": "cbz w0,0x018e101c"
+    },
+    {
+      "address": "0x18e1004",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e1008",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e100c",
+      "raw_hex": "e55e0894",
+      "instruction": "bl 0x01af8ba0"
+    },
+    {
+      "address": "0x18e1010",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1014",
+      "raw_hex": "9d490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1018",
+      "raw_hex": "44ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e101c",
+      "raw_hex": "084d00d0",
+      "instruction": "adrp x8,0x2283000"
+    },
+    {
+      "address": "0x18e1020",
+      "raw_hex": "00f142f9",
+      "instruction": "ldr x0,[x8, #0x5e0]"
+    },
+    {
+      "address": "0x18e1024",
+      "raw_hex": "7b490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e1028",
+      "raw_hex": "da370894",
+      "instruction": "bl 0x01aeef90"
+    },
+    {
+      "address": "0x18e102c",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1030",
+      "raw_hex": "96490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1034",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e1038",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e103c",
+      "raw_hex": "e20318aa",
+      "instruction": "mov x2,x24"
+    },
+    {
+      "address": "0x18e1040",
+      "raw_hex": "b0c00994",
+      "instruction": "bl 0x01b51300"
+    },
+    {
+      "address": "0x18e1044",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e1048",
+      "raw_hex": "e00318aa",
+      "instruction": "mov x0,x24"
+    },
+    {
+      "address": "0x18e104c",
+      "raw_hex": "83490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e1050",
+      "raw_hex": "f9000034",
+      "instruction": "cbz w25,0x018e106c"
+    },
+    {
+      "address": "0x18e1054",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e1058",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e105c",
+      "raw_hex": "a15e0894",
+      "instruction": "bl 0x01af8ae0"
+    },
+    {
+      "address": "0x18e1060",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1064",
+      "raw_hex": "89490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1068",
+      "raw_hex": "30ffff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e106c",
+      "raw_hex": "084d00d0",
+      "instruction": "adrp x8,0x2283000"
+    },
+    {
+      "address": "0x18e1070",
+      "raw_hex": "001d43f9",
+      "instruction": "ldr x0,[x8, #0x638]"
+    },
+    {
+      "address": "0x18e1074",
+      "raw_hex": "67490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e1078",
+      "raw_hex": "e20300aa",
+      "instruction": "mov x2,x0"
+    },
+    {
+      "address": "0x18e107c",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e1080",
+      "raw_hex": "a8cc0994",
+      "instruction": "bl 0x01b54320"
+    },
+    {
+      "address": "0x18e1084",
+      "raw_hex": "c0020037",
+      "instruction": "tbnz w0,#0x0,0x018e10dc"
+    },
+    {
+      "address": "0x18e1088",
+      "raw_hex": "084d00d0",
+      "instruction": "adrp x8,0x2283000"
+    },
+    {
+      "address": "0x18e108c",
+      "raw_hex": "001543f9",
+      "instruction": "ldr x0,[x8, #0x628]"
+    },
+    {
+      "address": "0x18e1090",
+      "raw_hex": "60490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e1094",
+      "raw_hex": "e20300aa",
+      "instruction": "mov x2,x0"
+    },
+    {
+      "address": "0x18e1098",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e109c",
+      "raw_hex": "a1cc0994",
+      "instruction": "bl 0x01b54320"
+    },
+    {
+      "address": "0x18e10a0",
+      "raw_hex": "e0010037",
+      "instruction": "tbnz w0,#0x0,0x018e10dc"
+    },
+    {
+      "address": "0x18e10a4",
+      "raw_hex": "084d00d0",
+      "instruction": "adrp x8,0x2283000"
+    },
+    {
+      "address": "0x18e10a8",
+      "raw_hex": "000d43f9",
+      "instruction": "ldr x0,[x8, #0x618]"
+    },
+    {
+      "address": "0x18e10ac",
+      "raw_hex": "59490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e10b0",
+      "raw_hex": "e20300aa",
+      "instruction": "mov x2,x0"
+    },
+    {
+      "address": "0x18e10b4",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e10b8",
+      "raw_hex": "9acc0994",
+      "instruction": "bl 0x01b54320"
+    },
+    {
+      "address": "0x18e10bc",
+      "raw_hex": "00010037",
+      "instruction": "tbnz w0,#0x0,0x018e10dc"
+    },
+    {
+      "address": "0x18e10c0",
+      "raw_hex": "08670090",
+      "instruction": "adrp x8,0x25c1000"
+    },
+    {
+      "address": "0x18e10c4",
+      "raw_hex": "00c11e91",
+      "instruction": "add x0,x8,#0x7b0"
+    },
+    {
+      "address": "0x18e10c8",
+      "raw_hex": "52490894",
+      "instruction": "bl 0x01af3610"
+    },
+    {
+      "address": "0x18e10cc",
+      "raw_hex": "e20300aa",
+      "instruction": "mov x2,x0"
+    },
+    {
+      "address": "0x18e10d0",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e10d4",
+      "raw_hex": "93cc0994",
+      "instruction": "bl 0x01b54320"
+    },
+    {
+      "address": "0x18e10d8",
+      "raw_hex": "e0000034",
+      "instruction": "cbz w0,0x018e10f4"
+    },
+    {
+      "address": "0x18e10dc",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e10e0",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e10e4",
+      "raw_hex": "875e0894",
+      "instruction": "bl 0x01af8b00"
+    },
+    {
+      "address": "0x18e10e8",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e10ec",
+      "raw_hex": "67490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e10f0",
+      "raw_hex": "0effff17",
+      "instruction": "b 0x018e0d28"
+    },
+    {
+      "address": "0x18e10f4",
+      "raw_hex": "606747f9",
+      "instruction": "ldr x0,[x27, #0xec8]"
+    },
+    {
+      "address": "0x18e10f8",
+      "raw_hex": "da280994",
+      "instruction": "bl 0x01b2b460"
+    },
+    {
+      "address": "0x18e10fc",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1100",
+      "raw_hex": "62490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1104",
+      "raw_hex": "e00b00f9",
+      "instruction": "str x0,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e1108",
+      "raw_hex": "00e4006f",
+      "instruction": "movi v0.2D,#0x0"
+    },
+    {
+      "address": "0x18e110c",
+      "raw_hex": "e00302ad",
+      "instruction": "stp q0,q0,[sp, #0x40]"
+    },
+    {
+      "address": "0x18e1110",
+      "raw_hex": "e00301ad",
+      "instruction": "stp q0,q0,[sp, #0x20]"
+    },
+    {
+      "address": "0x18e1114",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e1118",
+      "raw_hex": "53490894",
+      "instruction": "bl 0x01af3664"
+    },
+    {
+      "address": "0x18e111c",
+      "raw_hex": "e2830091",
+      "instruction": "add x2,sp,#0x20"
+    },
+    {
+      "address": "0x18e1120",
+      "raw_hex": "e3830191",
+      "instruction": "add x3,sp,#0x60"
+    },
+    {
+      "address": "0x18e1124",
+      "raw_hex": "e00f00f9",
+      "instruction": "str x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e1128",
+      "raw_hex": "04028052",
+      "instruction": "mov w4,#0x10"
+    },
+    {
+      "address": "0x18e112c",
+      "raw_hex": "45fa0894",
+      "instruction": "bl 0x01b1fa40"
+    },
+    {
+      "address": "0x18e1130",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e1134",
+      "raw_hex": "800500b4",
+      "instruction": "cbz x0,0x018e11e4"
+    },
+    {
+      "address": "0x18e1138",
+      "raw_hex": "e81b40f9",
+      "instruction": "ldr x8,[sp, #0x30]"
+    },
+    {
+      "address": "0x18e113c",
+      "raw_hex": "1c0140f9",
+      "instruction": "ldr x28,[x8]"
+    },
+    {
+      "address": "0x18e1140",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e1144",
+      "raw_hex": "e81b40f9",
+      "instruction": "ldr x8,[sp, #0x30]"
+    },
+    {
+      "address": "0x18e1148",
+      "raw_hex": "080140f9",
+      "instruction": "ldr x8,[x8]"
+    },
+    {
+      "address": "0x18e114c",
+      "raw_hex": "1f011ceb",
+      "instruction": "cmp x8,x28"
+    },
+    {
+      "address": "0x18e1150",
+      "raw_hex": "60000054",
+      "instruction": "b.eq 0x018e115c"
+    },
+    {
+      "address": "0x18e1154",
+      "raw_hex": "e00f40f9",
+      "instruction": "ldr x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e1158",
+      "raw_hex": "0a490894",
+      "instruction": "bl 0x01af3580"
+    },
+    {
+      "address": "0x18e115c",
+      "raw_hex": "e81740f9",
+      "instruction": "ldr x8,[sp, #0x28]"
+    },
+    {
+      "address": "0x18e1160",
+      "raw_hex": "1b7978f8",
+      "instruction": "ldr x27,[x8, x24, LSL #0x3]"
+    },
+    {
+      "address": "0x18e1164",
+      "raw_hex": "e00f40f9",
+      "instruction": "ldr x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e1168",
+      "raw_hex": "e2031baa",
+      "instruction": "mov x2,x27"
+    },
+    {
+      "address": "0x18e116c",
+      "raw_hex": "ed180a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e1170",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1174",
+      "raw_hex": "45490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1178",
+      "raw_hex": "e10300aa",
+      "instruction": "mov x1,x0"
+    },
+    {
+      "address": "0x18e117c",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e1180",
+      "raw_hex": "f70301aa",
+      "instruction": "mov x23,x1"
+    },
+    {
+      "address": "0x18e1184",
+      "raw_hex": "e20301aa",
+      "instruction": "mov x2,x1"
+    },
+    {
+      "address": "0x18e1188",
+      "raw_hex": "8e5e0894",
+      "instruction": "bl 0x01af8bc0"
+    },
+    {
+      "address": "0x18e118c",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1190",
+      "raw_hex": "3e490894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1194",
+      "raw_hex": "fa0300aa",
+      "instruction": "mov x26,x0"
+    },
+    {
+      "address": "0x18e1198",
+      "raw_hex": "e00317aa",
+      "instruction": "mov x0,x23"
+    },
+    {
+      "address": "0x18e119c",
+      "raw_hex": "2f490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e11a0",
+      "raw_hex": "fa0300b4",
+      "instruction": "cbz x26,0x018e121c"
+    },
+    {
+      "address": "0x18e11a4",
+      "raw_hex": "e00b40f9",
+      "instruction": "ldr x0,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e11a8",
+      "raw_hex": "e2031aaa",
+      "instruction": "mov x2,x26"
+    },
+    {
+      "address": "0x18e11ac",
+      "raw_hex": "e3031baa",
+      "instruction": "mov x3,x27"
+    },
+    {
+      "address": "0x18e11b0",
+      "raw_hex": "54e80a94",
+      "instruction": "bl 0x01b9b300"
+    },
+    {
+      "address": "0x18e11b4",
+      "raw_hex": "e0031aaa",
+      "instruction": "mov x0,x26"
+    },
+    {
+      "address": "0x18e11b8",
+      "raw_hex": "28490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e11bc",
+      "raw_hex": "18070091",
+      "instruction": "add x24,x24,#0x1"
+    },
+    {
+      "address": "0x18e11c0",
+      "raw_hex": "3f0318eb",
+      "instruction": "cmp x25,x24"
+    },
+    {
+      "address": "0x18e11c4",
+      "raw_hex": "01fcff54",
+      "instruction": "b.ne 0x018e1144"
+    },
+    {
+      "address": "0x18e11c8",
+      "raw_hex": "e2830091",
+      "instruction": "add x2,sp,#0x20"
+    },
+    {
+      "address": "0x18e11cc",
+      "raw_hex": "e3830191",
+      "instruction": "add x3,sp,#0x60"
+    },
+    {
+      "address": "0x18e11d0",
+      "raw_hex": "e00f40f9",
+      "instruction": "ldr x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e11d4",
+      "raw_hex": "04028052",
+      "instruction": "mov w4,#0x10"
+    },
+    {
+      "address": "0x18e11d8",
+      "raw_hex": "1afa0894",
+      "instruction": "bl 0x01b1fa40"
+    },
+    {
+      "address": "0x18e11dc",
+      "raw_hex": "f90300aa",
+      "instruction": "mov x25,x0"
+    },
+    {
+      "address": "0x18e11e0",
+      "raw_hex": "00fbffb5",
+      "instruction": "cbnz x0,0x018e1140"
+    },
+    {
+      "address": "0x18e11e4",
+      "raw_hex": "e00f40f9",
+      "instruction": "ldr x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e11e8",
+      "raw_hex": "1c490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e11ec",
+      "raw_hex": "c21640f9",
+      "instruction": "ldr x2,[x22, #0x28]"
+    },
+    {
+      "address": "0x18e11f0",
+      "raw_hex": "c35900d0",
+      "instruction": "adrp x3,0x241b000"
+    },
+    {
+      "address": "0x18e11f4",
+      "raw_hex": "63202f91",
+      "instruction": "add x3,x3,#0xbc8"
+    },
+    {
+      "address": "0x18e11f8",
+      "raw_hex": "e00b40f9",
+      "instruction": "ldr x0,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e11fc",
+      "raw_hex": "41e80a94",
+      "instruction": "bl 0x01b9b300"
+    },
+    {
+      "address": "0x18e1200",
+      "raw_hex": "e86600b0",
+      "instruction": "adrp x8,0x25be000"
+    },
+    {
+      "address": "0x18e1204",
+      "raw_hex": "00610891",
+      "instruction": "add x0,x8,#0x218"
+    },
+    {
+      "address": "0x18e1208",
+      "raw_hex": "b4480894",
+      "instruction": "bl 0x01af34d8"
+    },
+    {
+      "address": "0x18e120c",
+      "raw_hex": "e20b40f9",
+      "instruction": "ldr x2,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e1210",
+      "raw_hex": "9ca50994",
+      "instruction": "bl 0x01b4a880"
+    },
+    {
+      "address": "0x18e1214",
+      "raw_hex": "f80300aa",
+      "instruction": "mov x24,x0"
+    },
+    {
+      "address": "0x18e1218",
+      "raw_hex": "07000014",
+      "instruction": "b 0x018e1234"
+    },
+    {
+      "address": "0x18e121c",
+      "raw_hex": "c05900d0",
+      "instruction": "adrp x0,0x241b000"
+    },
+    {
+      "address": "0x18e1220",
+      "raw_hex": "00a02e91",
+      "instruction": "add x0,x0,#0xba8"
+    },
+    {
+      "address": "0x18e1224",
+      "raw_hex": "25370894",
+      "instruction": "bl 0x01aeeeb8"
+    },
+    {
+      "address": "0x18e1228",
+      "raw_hex": "e00f40f9",
+      "instruction": "ldr x0,[sp, #0x18]"
+    },
+    {
+      "address": "0x18e122c",
+      "raw_hex": "0b490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e1230",
+      "raw_hex": "180080d2",
+      "instruction": "mov x24,#0x0"
+    },
+    {
+      "address": "0x18e1234",
+      "raw_hex": "e00b40f9",
+      "instruction": "ldr x0,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e1238",
+      "raw_hex": "08490894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e123c",
+      "raw_hex": "bcfeff17",
+      "instruction": "b 0x018e0d2c"
+    },
+    {
+      "address": "0x18e1240",
+      "raw_hex": "08470894",
+      "instruction": "bl 0x01af2e60"
+    },
+    {
+      "address": "0x18e162c",
+      "raw_hex": "f657bda9",
+      "instruction": "stp x22,x21,[sp, #-0x30]!"
+    },
+    {
+      "address": "0x18e1630",
+      "raw_hex": "f44f01a9",
+      "instruction": "stp x20,x19,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e1634",
+      "raw_hex": "fd7b02a9",
+      "instruction": "stp x29,x30,[sp, #0x20]"
+    },
+    {
+      "address": "0x18e1638",
+      "raw_hex": "fd830091",
+      "instruction": "add x29,sp,#0x20"
+    },
+    {
+      "address": "0x18e163c",
+      "raw_hex": "f40300aa",
+      "instruction": "mov x20,x0"
+    },
+    {
+      "address": "0x18e1640",
+      "raw_hex": "e00302aa",
+      "instruction": "mov x0,x2"
+    },
+    {
+      "address": "0x18e1644",
+      "raw_hex": "08480894",
+      "instruction": "bl 0x01af3664"
+    },
+    {
+      "address": "0x18e1648",
+      "raw_hex": "f30300aa",
+      "instruction": "mov x19,x0"
+    },
+    {
+      "address": "0x18e164c",
+      "raw_hex": "800e40f9",
+      "instruction": "ldr x0,[x20, #0x18]"
+    },
+    {
+      "address": "0x18e1650",
+      "raw_hex": "c25900d0",
+      "instruction": "adrp x2,0x241b000"
+    },
+    {
+      "address": "0x18e1654",
+      "raw_hex": "42a01d91",
+      "instruction": "add x2,x2,#0x768"
+    },
+    {
+      "address": "0x18e1658",
+      "raw_hex": "b2170a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e165c",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1660",
+      "raw_hex": "0a480894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e1664",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e1668",
+      "raw_hex": "e00314aa",
+      "instruction": "mov x0,x20"
+    },
+    {
+      "address": "0x18e166c",
+      "raw_hex": "e20315aa",
+      "instruction": "mov x2,x21"
+    },
+    {
+      "address": "0x18e1670",
+      "raw_hex": "545d0894",
+      "instruction": "bl 0x01af8bc0"
+    },
+    {
+      "address": "0x18e1674",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1678",
+      "raw_hex": "04480894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e167c",
+      "raw_hex": "f40300aa",
+      "instruction": "mov x20,x0"
+    },
+    {
+      "address": "0x18e1680",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e1684",
+      "raw_hex": "f5470894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e1688",
+      "raw_hex": "e00314aa",
+      "instruction": "mov x0,x20"
+    },
+    {
+      "address": "0x18e168c",
+      "raw_hex": "e20313aa",
+      "instruction": "mov x2,x19"
+    },
+    {
+      "address": "0x18e1690",
+      "raw_hex": "a4170a94",
+      "instruction": "bl 0x01b67520"
+    },
+    {
+      "address": "0x18e1694",
+      "raw_hex": "fd031daa",
+      "instruction": "mov x29,x29"
+    },
+    {
+      "address": "0x18e1698",
+      "raw_hex": "fc470894",
+      "instruction": "bl 0x01af3688"
+    },
+    {
+      "address": "0x18e169c",
+      "raw_hex": "f50300aa",
+      "instruction": "mov x21,x0"
+    },
+    {
+      "address": "0x18e16a0",
+      "raw_hex": "f0b50994",
+      "instruction": "bl 0x01b4ee60"
+    },
+    {
+      "address": "0x18e16a4",
+      "raw_hex": "167c4093",
+      "instruction": "sxtw x22,w0"
+    },
+    {
+      "address": "0x18e16a8",
+      "raw_hex": "e00315aa",
+      "instruction": "mov x0,x21"
+    },
+    {
+      "address": "0x18e16ac",
+      "raw_hex": "eb470894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e16b0",
+      "raw_hex": "e00314aa",
+      "instruction": "mov x0,x20"
+    },
+    {
+      "address": "0x18e16b4",
+      "raw_hex": "e9470894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e16b8",
+      "raw_hex": "e00313aa",
+      "instruction": "mov x0,x19"
+    },
+    {
+      "address": "0x18e16bc",
+      "raw_hex": "e7470894",
+      "instruction": "bl 0x01af3658"
+    },
+    {
+      "address": "0x18e16c0",
+      "raw_hex": "e00316aa",
+      "instruction": "mov x0,x22"
+    },
+    {
+      "address": "0x18e16c4",
+      "raw_hex": "fd7b42a9",
+      "instruction": "ldp x29,x30,[sp, #0x20]"
+    },
+    {
+      "address": "0x18e16c8",
+      "raw_hex": "f44f41a9",
+      "instruction": "ldp x20,x19,[sp, #0x10]"
+    },
+    {
+      "address": "0x18e16cc",
+      "raw_hex": "f657c3a8",
+      "instruction": "ldp x22,x21,[sp], #0x30"
+    },
+    {
+      "address": "0x18e16d0",
+      "raw_hex": "c0035fd6",
+      "instruction": "ret"
+    }
+  ],
+  "static_verification": {
+    "negative_checks": [
+      {
+        "case": "missing",
+        "rejected": true
+      },
+      {
+        "case": "duplicate",
+        "rejected": true
+      },
+      {
+        "case": "changed",
+        "rejected": true
+      }
+    ],
+    "fixed_pointers": 101,
+    "source_slices": 823,
+    "instruction_anchors": 129,
+    "independent_review": {
+      "schema_version": 1,
+      "checked_at_utc": "2026-10-06T16:24:42.156875+00:00",
+      "status": "pass",
+      "findings": [],
+      "scope": "Two fixed TARGET016 definitions only; no new callee/job/live/public edits",
+      "function_count": 2,
+      "defined_bytes": 2280,
+      "instruction_words_verified": 570,
+      "method_rows_verified": 2,
+      "ivar_rows_verified": 5,
+      "internal_classes_verified": 2,
+      "selector_stubs_verified": 23,
+      "native_stubs_verified": 15,
+      "cfstrings_verified": 9,
+      "source_slices_verified": 823,
+      "fixed_pointers_verified": 101,
+      "call_sites_verified": 163,
+      "semantic_facts_reviewed": 14,
+      "semantic_anchor_count": 129,
+      "critical_instructions_verified": 41,
+      "source_hashes_verified": 14,
+      "evidence_unchanged_during_review": true,
+      "negative_checks": [
+        {
+          "case": "missing",
+          "rejected_by_independent_and_isolated_original": true
+        },
+        {
+          "case": "duplicate",
+          "rejected_by_independent_and_isolated_original": true
+        },
+        {
+          "case": "changed",
+          "rejected_by_independent_and_isolated_original": true
+        }
+      ],
+      "caveats": [
+        "Selected owner metadata was revalidated directly; no claim of complete class-scan coverage or absence follows from the original skipped metadata entries.",
+        "UID cache lookup precedes invalid UID checks; cache insertion follows recursive return, with no generic pre-recursion placeholder in this body.",
+        "UID0 $null replacement compares decoded object using isEqual: and full w0; no explicit NSString class check or post-NSNull result null guard.",
+        "Fallback allocation is the fixed _CLgMainStageObject. Dedicated helper/native bodies and their allocations remain unqueried.",
+        "Native accepted types, nil/error/exception behavior, runtime dispatch, actual objects, mutation, recursion/cycles and save/reload roundtrip remain unverified."
+      ],
+      "runtime_verified": false,
+      "product_capability": false
+    }
+  },
+  "local_evidence": [
+    {
+      "path": "Research/raw/ghidra/q-archive-dispatch-016-Logic.c",
+      "size_bytes": 13830,
+      "sha256": "f1c820db3f5a53b5ecb0355cd17b1578e29c5ccaeddc25068520da7bf40d526e"
+    },
+    {
+      "path": "Research/raw/ghidra/q-archive-dispatch-016-Logic-machinecode.txt",
+      "size_bytes": 25395,
+      "sha256": "88b9d8ba2a9d1563e37f7abc1fa9b17a98884c1441d0d8e0ecdd1778e2b676ec"
+    },
+    {
+      "path": "Research/raw/ghidra/q-archive-dispatch-016-Logic.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-archive-dispatch-016-Logic.log",
+      "size_bytes": 5240,
+      "sha256": "cc36dad5bbe1b32e212ae77516aeecd40a53a4c0bd50c6569dedbebffe361fc5"
+    },
+    {
+      "path": "Research/raw/ghidra/archive-dispatch-execution-016.json",
+      "size_bytes": 1244,
+      "sha256": "bfdc0461df14fa59e472484251573d6b2a556b298483dbf36bfb1044c0d568f5"
+    },
+    {
+      "path": "Research/raw/ghidra/run-archive-dispatch-016.py",
+      "size_bytes": 5423,
+      "sha256": "9de8cd44f39999b70df850d030fec56264ad6709a23372c191963b463c9212d6"
+    },
+    {
+      "path": "Research/raw/ghidra/archive-dispatch-check-016.py",
+      "size_bytes": 15872,
+      "sha256": "376197b7d8a4a6fd674325a2348a05fab3cde8b44c5a878ecdb782b626462841"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-fixed-012.py",
+      "size_bytes": 15067,
+      "sha256": "cc962bec789e054fcc5285a14407c0ddd9de3bfef8b1025f0660195b1e343757"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-boundaries-012.json",
+      "size_bytes": 5964,
+      "sha256": "7a9e80e5960a23ee9444d235b44cfd154288e37af8c8c02b8c8f1a7ad6e989b0"
+    },
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "path": "Research/raw/ghidra/archive-dispatch-facts-016.json",
+      "size_bytes": 385457,
+      "sha256": "b809a808fcf566e9ae6c8d3901add7c1a1e5d2a79dcd7f06da8fa4b206ad61e3"
+    },
+    {
+      "path": "Research/raw/ghidra/build-archive-dispatch-public-016.py",
+      "size_bytes": 19494,
+      "sha256": "c3f0a62ed7f14a407c44533a6b2666e49f8284c9365135cf57d5f372e808acc0"
+    },
+    {
+      "path": "Research/raw/review/target016-independent.py",
+      "size_bytes": 15172,
+      "sha256": "ddd9e684b361c673052db6af88be200df04c5a1ba0792aa190505482b1a4ec73"
+    },
+    {
+      "path": "Research/raw/review/target016-independent.json",
+      "size_bytes": 3896,
+      "sha256": "8ce987c19ce05addd4cc35ce3e66034c01e351131db70eb43b6f84092dab3184"
+    },
+    {
+      "path": "Research/raw/review/target016-independent.md",
+      "size_bytes": 1249,
+      "sha256": "30bd66d91386f3e1dc250ad119a190bdd880d44bc232215fe8d9b3e3b97cd390"
+    },
+    {
+      "path": "Research/raw/review/target016-public.py",
+      "size_bytes": 2696,
+      "sha256": "c6b860e4e4cccd6654abf1fa1a438af63f31fab4d55ea8155b6b8f7d97591d45"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/appleevent-archive-dispatch-boundaries.tsv",
+      "size_bytes": 6232,
+      "sha256": "521ca8c8d08343c50183cc13b9e44161fe695808fc8f5400553ed32a03066a20"
+    }
+  ],
+  "published_documents": [
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-016-archive-dispatch.md",
+      "size_bytes": 8750,
+      "sha256": "c3237efda6300d6ac03da5bd1c81d5adf35b1e6fe5f9e6d7fa490a13ff81def8"
+    },
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-016-archive-dispatch.en.md",
+      "size_bytes": 8032,
+      "sha256": "5eae026bbbdec825ff6caaab795e940ae5349692c3d6b86d2b713a56756827bb"
+    }
+  ],
+  "limits": [
+    "Specialized helper and fallback initializer bodies outside this scope",
+    "Native errors and exceptions, cycles, cache lifetime, effective dispatch and runtime layout unverified",
+    "Static source-byte matching does not prove execution in live Logic",
+    "No save/reload roundtrip or product operation added"
+  ],
+  "dynamic_verification": {
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "publication_review": {
+    "reviewer": "Codex root",
+    "reviewed_at_utc": "2026-10-06T16:28:24.590710+00:00",
+    "material_findings": []
+  }
+}

@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-REMOTE-004",
+  "verified_at_utc": "2026-10-06T16:25:04.258515+00:00",
+  "status": "selection_delta_observed_operator_ui_restored",
+  "capture": "Research/raw/remote-recv/20261007-010710-e1",
+  "operator_sidecars": "Research/raw/live-arm/e3-select",
+  "profile": "Logic Pro Creator Studio 12.3.1 / 6682; macOS27.0 / 26A5416b; arm64",
+  "project": "LogicCLI-Test.logicx",
+  "authorization": "Human authorized dedicated-project real experiments and computer use in the current session",
+  "roles": {
+    "receiver": "Codex",
+    "ui_operator": "Claude",
+    "independent_audit": "Codex subagent; raw/Python/source only"
+  },
+  "selection_changes_during_reception": 1,
+  "selection_change_verified": true,
+  "function_entry_execution_verified": false,
+  "changed_mask_observed": false,
+  "capture_counts": {
+    "frames": 11396,
+    "messages": 11823,
+    "distinct_addresses": 781,
+    "formats": [
+      {
+        "format": "archive",
+        "compressed": true,
+        "frames": 4
+      },
+      {
+        "format": "json",
+        "compressed": false,
+        "frames": 11350
+      },
+      {
+        "format": "json",
+        "compressed": true,
+        "frames": 1
+      },
+      {
+        "format": "plist",
+        "compressed": false,
+        "frames": 32
+      },
+      {
+        "format": "plist",
+        "compressed": true,
+        "frames": 9
+      }
+    ]
+  },
+  "receive_window": {
+    "event": "receive_window",
+    "seconds": 120,
+    "t_ms": 218.3,
+    "wall": "2026-10-06T16:07:13Z"
+  },
+  "finish": {
+    "connected": true,
+    "event": "finish",
+    "frames": 11396,
+    "reason": "receive_window_over",
+    "t_ms": 120244.6,
+    "wall": "2026-10-06T16:09:13Z"
+  },
+  "elapsed_receive_seconds": 120.0263,
+  "time_policy": {
+    "public_message_t_ms": "events.jsonl frame receive event",
+    "decoded_log_t_ms": "Later decoded.jsonl serialization timestamp; retained separately, not substituted for receive time",
+    "receive_wall": "Second precision UTC; do not infer subsecond click latency",
+    "ui_click_time": "Operator before/after timestamps bracket the click; no point timestamp collected",
+    "post_click_ui_confirmation": "2026-10-06T16:09:55.983889+00:00; after receive window"
+  },
+  "sent_by_peer": [
+    {
+      "address": "/protocolVersion",
+      "argument": 10
+    },
+    {
+      "address": "/jsonSupport",
+      "argument": 1
+    }
+  ],
+  "initial_send_semantics": "Local send API success; Logic acceptance ACK not established",
+  "build_provenance": {
+    "fresh_build": true,
+    "inputs_match_before_after_build": true,
+    "inputs": [
+      {
+        "path": "Tools/remote-research-peer/main.swift",
+        "bytes": 18803,
+        "sha256": "7aec43bfbfc9925805a6e2e538941b64dfd082d5a14453b6b3edb00d33fe5725"
+      },
+      {
+        "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+        "bytes": 12143,
+        "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+      },
+      {
+        "path": "Tools/remote-research-peer/build.sh",
+        "bytes": 1705,
+        "sha256": "297c3f77918d308560655194572c56a381b97f70d68c088d2b51ce2bcf9721ec"
+      }
+    ],
+    "executable": {
+      "bytes": 256384,
+      "sha256": "c31bc7c0e4572165a0b6a7d2959e3bb5f9dd4c5680afc69b2a6edc718b99ac12"
+    },
+    "swift_version": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0"
+  },
+  "sti": [
+    {
+      "frame": 456,
+      "receive_t_ms": 415.2,
+      "receive_wall": "2026-10-06T16:07:13Z",
+      "decoded_log_t_ms": 415.3,
+      "format": "plist",
+      "argument_wrapper": "mazp-archive",
+      "name": "Ballad",
+      "index": 2,
+      "tn": 3,
+      "t": 2
+    },
+    {
+      "frame": 509,
+      "receive_t_ms": 442.1,
+      "receive_wall": "2026-10-06T16:07:13Z",
+      "decoded_log_t_ms": 442.2,
+      "format": "plist",
+      "argument_wrapper": "mazp-archive",
+      "name": "Ballad",
+      "index": 2,
+      "tn": 3,
+      "t": 2
+    },
+    {
+      "frame": 5419,
+      "receive_t_ms": 54669.9,
+      "receive_wall": "2026-10-06T16:08:07Z",
+      "decoded_log_t_ms": 54670.4,
+      "format": "plist",
+      "argument_wrapper": "mazp-archive",
+      "name": "Piano ",
+      "index": 0,
+      "tn": 1,
+      "t": 2
+    }
+  ],
+  "ati": {
+    "frames": [
+      478,
+      489
+    ],
+    "copies_equal": true,
+    "strips": 14,
+    "after_selection_copies": 0,
+    "selected_identities": [
+      {
+        "name": "Ballad",
+        "position": 3,
+        "index": 2,
+        "track_id": 262147,
+        "gindex": 128
+      },
+      {
+        "name": "Piano ",
+        "position": 1,
+        "index": 0,
+        "track_id": 262145,
+        "gindex": 88
+      }
+    ]
+  },
+  "fader": {
+    "frames": [
+      484,
+      5496,
+      5503
+    ],
+    "receive_t_ms": [
+      431.7,
+      54723.2,
+      54727.1
+    ],
+    "decoded_log_t_ms": [
+      432.2,
+      54723.7,
+      54727.6
+    ],
+    "g_entries_per_message": 14,
+    "g_fields_per_entry": [
+      "vL",
+      "m",
+      "s"
+    ],
+    "t_entries_per_message": 14,
+    "t_fields_per_entry": [
+      "r",
+      "ip"
+    ],
+    "r_delta": [
+      {
+        "track_id": 262145,
+        "field": "r",
+        "before": 0,
+        "after": 3
+      },
+      {
+        "track_id": 262147,
+        "field": "r",
+        "before": 3,
+        "after": 0
+      }
+    ],
+    "post_selection_copies_equal": true,
+    "g_unchanged": true,
+    "all_ip_zero": true
+  },
+  "operator_click_interval_utc": {
+    "before": "2026-10-06T16:08:06.443477+00:00",
+    "after": "2026-10-06T16:08:08.465067+00:00"
+  },
+  "operator_observed_after_click": {
+    "selected": "Piano",
+    "inspector": "Track: Piano",
+    "rename_field_active": false,
+    "piano_r": "red",
+    "piano_i": "orange",
+    "ballad_and_synth_r": "off"
+  },
+  "restoration": {
+    "capture_contains_restore_delta": false,
+    "operator_click_interval_utc": {
+      "before": "2026-10-06T16:10:11.483477+00:00",
+      "after": "2026-10-06T16:10:17.248735+00:00"
+    },
+    "confirmation_utc": "2026-10-06T16:10:35.651068+00:00",
+    "selected": "Ballad",
+    "rename_field_active": false,
+    "ballad_r": "red",
+    "ballad_i": "orange",
+    "piano_and_synth_r": "off",
+    "save_or_undo_performed": false,
+    "all_parameters_restoration_verified": false,
+    "evidence_kind": "operator sidecar; after receive termination"
+  },
+  "baseline_marker_policy": {
+    "initial_marker_contains_sti_data_summary": true,
+    "raw_expansion_appended_as": "baseline_expansion",
+    "received_logs_rewritten": false,
+    "action_before_is": "Operator instruction time, not actual UI click time"
+  },
+  "offline_python": {
+    "all_frames_replayed": 11396,
+    "decode_failures": 0,
+    "known_schema_violations": 0,
+    "state_issues": 0,
+    "final_coverage": {
+      "strips": 14,
+      "fader_fields_known": 42,
+      "fader_fields_total": 42,
+      "track_fields_known": 28,
+      "track_fields_total": 28,
+      "selection_known": true,
+      "counts_known": true,
+      "note": "coverage is not completeness: a field can change after this point"
+    },
+    "complete": null,
+    "regenerated_report_matches_saved": true
+  },
+  "swift_reference": {
+    "evidence_kind": "Claude reported execution; independent audit inspected source",
+    "reported_commit": "65a4341",
+    "reported_tests": 27,
+    "reported_passed": true,
+    "test": "theE3RecordingFollowsOneSelectionChange",
+    "requires_local_capture": true,
+    "independent_second_swift_execution": false,
+    "full_field_parity_verified_in_this_audit": false
+  },
+  "hypothesis": {
+    "confidence": "medium",
+    "statement": "Observed r=3 movement corresponds to visible automatic record arm in this trial",
+    "counterexample_candidates": [
+      "explicit record arm",
+      "multiple selection",
+      "stack children with different states"
+    ]
+  },
+  "static_candidates": [
+    {
+      "name": "handleUM_TRACKSEL:",
+      "address": "0x0168e0ac"
+    },
+    {
+      "name": "updateSelectedTrackInfo",
+      "address": "0x0168e754"
+    },
+    {
+      "name": "sendSelectedTrackInfo",
+      "address": "0x0168e3fc"
+    },
+    {
+      "name": "collectGInstFaderStatesForInstID:changedMask:",
+      "address": "0x0168c9e0"
+    },
+    {
+      "name": "_addGInstAndTrackFaderStatesDictForInstWithID:trackID:pSong:changedMask:",
+      "address": "0x0168c304"
+    },
+    {
+      "name": "sendCollectedGInstAndTrackFaderDataIfNeeded",
+      "address": "0x0168ccdc"
+    }
+  ],
+  "static_candidates_source": "Research/static-analysis/SA-REMOTE-STATE-001.md",
+  "checks": {
+    "all_11396_frames_decoded": true,
+    "counter_sequence_contiguous": true,
+    "frame_bytes_tags_addresses_match_recorded_metadata": true,
+    "known_schema_violations": 0,
+    "python_state_issues": 0,
+    "events_after_finish": 0,
+    "sources_unchanged": true,
+    "source_files_hashed_before_after": 11422,
+    "observations_rows": 17
+  },
+  "frame_inventory": {
+    "path": "Research/raw/review/e3-selection-004-frame-inventory.jsonl",
+    "sha256": "940382dbb62efc499f88fb5cae8476802a51c50f9ac177d4e24777f154ae40b3",
+    "aggregation": "UTF-8 JSONL; one {path,bytes,sha256} per frame in numeric order; keys sorted; compact separators; terminal LF",
+    "entries": 11396
+  },
+  "notable_frame_hashes": [
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/0456.bin",
+      "bytes": 484,
+      "sha256": "55aadb0b8c26f96cfea7ab13e8dac84eb50326ca74a891c3ba76f7c85e6b9c28"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/0478.bin",
+      "bytes": 1556,
+      "sha256": "14723c7670d416c122b592ec31e61f6fc80edf28182369c6f1e3bf9efb4f856a"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/0484.bin",
+      "bytes": 1630,
+      "sha256": "c971cf0209a448b9fda189b3dbc4eeab60c8ea5b89032dd38afa580e880c808a"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/0489.bin",
+      "bytes": 1556,
+      "sha256": "14723c7670d416c122b592ec31e61f6fc80edf28182369c6f1e3bf9efb4f856a"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/0509.bin",
+      "bytes": 484,
+      "sha256": "55aadb0b8c26f96cfea7ab13e8dac84eb50326ca74a891c3ba76f7c85e6b9c28"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/5419.bin",
+      "bytes": 477,
+      "sha256": "3f1ee20dbd474ddcde91cf3020e9922043b4599c39c24a284598497c585cc979"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/5496.bin",
+      "bytes": 1630,
+      "sha256": "2275b6e61653c4a3717f4ce31d741252a54feabd6039da8744da2a43b16137e2"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/5503.bin",
+      "bytes": 1630,
+      "sha256": "2275b6e61653c4a3717f4ce31d741252a54feabd6039da8744da2a43b16137e2"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/frames/11396.bin",
+      "bytes": 61,
+      "sha256": "5984a8044c5d9044fb1d1395aaa0f68cf9638ec6011f492c600ea73351fc0040"
+    }
+  ],
+  "local_artifacts_and_sources": [
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/build-inputs-before.json",
+      "bytes": 503,
+      "sha256": "5471078049f0508e4bd1326740b3293eae122f8229e803c716e6017eb820c574"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/build-provenance.json",
+      "bytes": 1482,
+      "sha256": "1a7feac226af20f5ba81735cbb864098e2f01112acde42b0b6f766a130b7a921"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/decoded.jsonl",
+      "bytes": 3453090,
+      "sha256": "34eff04b21f060f949a25a401a89de6f26f0940322a43de7552fdd94bab5a2b2"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/events.jsonl",
+      "bytes": 2980695,
+      "sha256": "d4479ae2085400d9be041f09e1527d568b996d278a94e29c4f4b91cfd9016ba2"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/manual-actions.jsonl",
+      "bytes": 7528,
+      "sha256": "2e96f39d30284ffd1813c6fdfe240a96ff249b200988b20c7f8ec87838e025e6"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/offline-report.json",
+      "bytes": 66273,
+      "sha256": "8779d400da6e3a24bc2a256669db436e3f9fdc29fa44abcbe6b76c086ca69d1e"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/selection-expanded-preliminary.json",
+      "bytes": 9068,
+      "sha256": "d56a3aff573e2c2364123dec680027e6e1f3d9c2195efba4f8088b5d84a9123c"
+    },
+    {
+      "path": "Research/raw/remote-recv/20261007-010710-e1/summary.json",
+      "bytes": 339,
+      "sha256": "c10e7dd168487315ddf42ad20606fd7ff0f6b00795127f478ea466093c2362e5"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/after.txt",
+      "bytes": 33,
+      "sha256": "5750805075a1ef38a2d9a25af239d5dba51f9b349ebcdcd419915971ca44202a"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/before.txt",
+      "bytes": 33,
+      "sha256": "62ad1f3199b2fc2618d74dec46e8c085de5a74d9619be2ce68cc564d9bf7a77f"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/confirm.txt",
+      "bytes": 315,
+      "sha256": "31531b526e83757e4cd3a392338649258dc8caf84f7a63200349a612bc6219ac"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/restore-after.txt",
+      "bytes": 33,
+      "sha256": "faa8b33641ba55816395853d5b5098a43a292266cc99a2107ebedbd4e42bafbe"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/restore-before.txt",
+      "bytes": 33,
+      "sha256": "f89c94e1f7d2ed500b20c95f7998226e1fd12ee14f9cc1da13c5c3a81cff3b8c"
+    },
+    {
+      "path": "Research/raw/live-arm/e3-select/restore-confirm.txt",
+      "bytes": 281,
+      "sha256": "c28c75eef0450627a097a996d35a49dab450e8d8a59d4c24dca1db11a47c49a1"
+    },
+    {
+      "path": "Research/raw/review/e3-selection-004-operator-board-extract.md",
+      "bytes": 5984,
+      "sha256": "6727ea0e549e5e34c58ceacd4b787d2375d68815cc0fa89fed2d9fb93b732bb5"
+    },
+    {
+      "path": "Tools/research-scripts/remote_capture.py",
+      "bytes": 11714,
+      "sha256": "e8561e68dbea3a26ecf85428dc69d541d93e06f5a745632ec45afdcae65ff5ec"
+    },
+    {
+      "path": "Tools/research-scripts/remote_state.py",
+      "bytes": 26779,
+      "sha256": "e9e6aa9ef78c5d252762f763f795db0e72e7f070d890a8803f7f3eff66c81193"
+    },
+    {
+      "path": "Tools/research-scripts/state_schema_check.py",
+      "bytes": 4410,
+      "sha256": "5f0ba8e7eb1598ee374733488c7d048d3fe9acacf9571d7175b66596cf571cda"
+    },
+    {
+      "path": "Research/protocol/logic-remote-state.schema.json",
+      "bytes": 14392,
+      "sha256": "0cbd0add31d0bb1d3e63a97b885d336bc1744c54ee27dbdface1218734a4c17e"
+    },
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteFrame.swift",
+      "bytes": 12143,
+      "sha256": "edb2d0ea8d5fc99bd050e8f46a54620bd965eef0ac3f322903865fa05fb84b99"
+    },
+    {
+      "path": "Sources/LogicCore/Backends/Remote/RemoteState.swift",
+      "bytes": 25318,
+      "sha256": "6c466e7a7a3a51ce65cc72ec7fe3d5b1cadb994f58775f7a4e7530c40e7b0e4c"
+    },
+    {
+      "path": "Tests/LogicCoreTests/RemoteStateTests.swift",
+      "bytes": 29759,
+      "sha256": "58901130cf3b7d5dc1a7f7d7465a58d0d424cde6b69650c2012547a3fff98a6e"
+    },
+    {
+      "path": "Research/static-analysis/SA-REMOTE-STATE-001.md",
+      "bytes": 40461,
+      "sha256": "e9c6439a1d0718e5e3387f1acb0ac09036612ae3af465dcca5f0da658c1e3d5c"
+    },
+    {
+      "path": "Research/static-analysis/SA-REMOTE-STATE-001.en.md",
+      "bytes": 37278,
+      "sha256": "cb361adc6ea87c7204510cf4563cebdd93f8e1b07ad82fb4ca0be37407740664"
+    },
+    {
+      "path": "Research/experiments/EXP-REMOTE-003-reconnect-selection-baseline.md",
+      "bytes": 8120,
+      "sha256": "b194ba9e6b9a15409ad2c5a7475f116a9f570cb8232b109564c47fb21c96b513"
+    },
+    {
+      "path": "Research/experiments/EXP-REMOTE-003-reconnect-selection-baseline.en.md",
+      "bytes": 7761,
+      "sha256": "4063921a70893d36c5ab57ae33dde5271c5c16762194cebc128016546812b4b8"
+    }
+  ],
+  "published_tables": [
+    {
+      "path": "Research/protocol/logic-remote-e3-selection-observations.tsv",
+      "bytes": 3351,
+      "sha256": "d87e82149951f7c5d38a082102da904ca79aa9a933455d9f51e58ab12cd5957d"
+    }
+  ],
+  "limits": [
+    "One controlled transition; no function-entry, stack or breakpoint trace.",
+    "Receive time, decoded output time, instruction time and UI before/after times are distinct.",
+    "UI confirmation and restoration happened after receive termination; restoration wire delta was not captured.",
+    "Raw r is retained; no universal Boolean, recording-in-progress or unique record-arm-on meaning is established.",
+    "Wire ip remained zero while the operator recorded an orange I lamp; do not equate them.",
+    "Unknown addresses, changedMask, reorder/ID reuse, save/reopen and complete-state guarantees remain unverified.",
+    "Swift test execution is attributed to Claude; this audit independently decoded/replayed Python and read Swift source.",
+    "Only curated facts and hashes are public; raw frames, host discovery name, personal absolute paths and UUID values remain local."
+  ]
+}
