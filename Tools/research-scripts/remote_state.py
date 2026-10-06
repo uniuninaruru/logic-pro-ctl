@@ -382,46 +382,66 @@ def _messages(capture):
                 yield frame, address, remote_capture.expand_argument(argument)[0]
 
 
-def coverage_rows(capture: Path):
-    schema = state_schema_check.load_schema()
+def _coverage_fields(capture: Path, schema):
+    """(address, field) -> (values, schema_check, distinct messages) for one reception, in table order."""
     by_address = collections.defaultdict(list)
     for _, address, value in _messages(capture):
         by_address[address].append(value)
-    rows = []
-
-    def row(address, field, values, checked, distinct_messages):
-        rows.append([address, field, "yes", str(len(values)), _summary(values), checked,
-                     "yes" if distinct_messages > 1 else "no", "one reception (EXP-REMOTE-001); not repeated"])
-
+    fields = collections.OrderedDict()
     for address in sorted(schema["properties"]):
         values = by_address.get(address, [])
         bad = sum(1 for v in values if state_schema_check.check_message({address: _schema_form(v)}, schema))
-        checked = f"pass {len(values) - bad}/{len(values)}" if values else "not seen"
+        checked = (len(values) - bad, len(values))
         distinct = len({json.dumps(_schema_form(v), sort_keys=True) for v in values})
+
+        def put(field, cells):
+            fields[(address, field)] = (cells, checked, distinct)
+
         if address == "/ati":
             for column in ATI_COLUMNS:
                 cells = [x for v in values for x in v[column]]
                 if column == "n":
-                    row(address, "n.name", [c["name"] for c in cells], checked, distinct)
-                    row(address, "n.gindex", [c["gindex"] for c in cells], checked, distinct)
+                    put("n.name", [c["name"] for c in cells])
+                    put("n.gindex", [c["gindex"] for c in cells])
                 elif column == "c":
                     for key in ("nc", "sc", "tnc", "tsc"):
-                        row(address, f"c.{key}", [c[key] for c in cells], checked, distinct)
+                        put(f"c.{key}", [c[key] for c in cells])
                 else:
-                    row(address, column, cells, checked, distinct)
+                    put(column, cells)
         elif address == "/gtFaderData":
-            for side, fields in (("g", STRIP_FIELDS), ("t", TRACK_FIELDS)):
-                for field in fields:
-                    cells = [entry[field] for v in values for entry in v.get(side, {}).values() if field in entry]
-                    row(address, f"{side}.{field}", cells, checked, distinct)
-        elif address == "/sti":
+            for side, names in (("g", STRIP_FIELDS), ("t", TRACK_FIELDS)):
+                for field in names:
+                    put(f"{side}.{field}", [entry[field] for v in values for entry in v.get(side, {}).values() if field in entry])
+        elif address in ("/sti", "/trackSelectionStates"):
             for key in sorted({k for v in values for k in v}):
-                row(address, key, [v[key] for v in values if key in v], checked, distinct)
-        elif address == "/trackSelectionStates":
-            for key in sorted({k for v in values for k in v}):
-                row(address, key, [v[key] for v in values if key in v], checked, distinct)
+                put(key, [v[key] for v in values if key in v])
         else:
-            row(address, "(argument)", values, checked, distinct)
+            put("(argument)", values)
+    return fields
+
+
+def coverage_rows(captures):
+    """One row per schema field over one or more receptions. Strings are counted, never listed."""
+    captures = [captures] if isinstance(captures, (str, Path)) else list(captures)
+    schema = state_schema_check.load_schema()
+    per = [_coverage_fields(Path(c), schema) for c in captures]
+    rows = []
+    for key in per[0]:
+        values = [v for fields in per for v in fields[key][0]]
+        passed = sum(fields[key][1][0] for fields in per)
+        total = sum(fields[key][1][1] for fields in per)
+        checked = f"pass {passed}/{total}" if total else "not seen"
+        changed = "yes" if any(fields[key][2] > 1 for fields in per) else "no"
+        seen = [fields[key][0] for fields in per if fields[key][0]]
+        if len(per) == 1:
+            stability = "one reception; not repeated"
+        elif not seen:
+            stability = f"seen in 0/{len(per)} receptions"
+        else:
+            forms = {json.dumps(sorted({json.dumps(_schema_form(x), sort_keys=True) for x in cells})) for cells in seen}
+            stability = f"seen in {len(seen)}/{len(per)} receptions; " + \
+                ("the same set of values in each" if len(forms) == 1 else "the set of values differs between receptions")
+        rows.append([key[0], key[1], "yes", str(len(values)), _summary(values), checked, changed, stability])
     return rows
 
 
@@ -525,10 +545,14 @@ CS_HEADER = """# /cs/ (the Logic Remote control-surface feedback) received in on
 # template\tseen\tstatic_fields\treceived_addresses\treceived_messages\tvalue_types\tsummary"""
 
 
-COVERAGE_HEADER = """# Schema addresses of logic-remote-state.schema.json against one captured reception (EXP-REMOTE-001, EXP-REMOTE-002).
-# Generated: python3 Tools/research-scripts/remote_state.py coverage <capture>. The capture itself is not committed.
+COVERAGE_HEADER = """# Schema addresses of logic-remote-state.schema.json against captured receptions of the dedicated test project:
+# EXP-REMOTE-001, EXP-REMOTE-003, EXP-REMOTE-004 (E3) and the aborted E4 run (no operation), all in one Logic process.
+# Generated: python3 Tools/research-scripts/remote_state.py coverage <capture>... The captures themselves are not committed.
 # Strings (track names, UUIDs, locale, host data) are summarised by count only; no string value is listed.
-# changed_seen: whether two messages of the address differed. stability: one reception only, so no value is known to be stable.
+# changed_seen: whether two messages of the address differed within one reception.
+# stability: in how many receptions the field was seen, and whether its set of values was the same in each. The project
+# changed between receptions (two tracks added before EXP-REMOTE-003, a selection change in EXP-REMOTE-004), so a
+# difference is not instability by itself; the same set is not proof of a stable value either.
 # address\tfield\tin_schema\tvalues_seen\tsummary\tschema_check\tchanged_seen\tstability"""
 
 ADDRESS_HEADER = """# Every address family seen in one captured reception (EXP-REMOTE-001); digits are folded into {n}. No values.
@@ -540,13 +564,15 @@ ADDRESS_HEADER = """# Every address family seen in one captured reception (EXP-R
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("command", choices=["replay", "coverage", "addresses", "cs", "timeline"])
-    parser.add_argument("capture")
+    parser.add_argument("capture", nargs="+", help="coverage takes several; the other commands take one")
     parser.add_argument("--at", type=int, help="replay: stop after this frame number")
     parser.add_argument("--from", dest="start", type=int, help="timeline: first frame number")
     parser.add_argument("--to", dest="end", type=int, help="timeline: last frame number")
     parser.add_argument("--include", help="timeline: only addresses matching this regular expression (meters included)")
     options = parser.parse_args(argv)
-    capture = Path(options.capture)
+    if options.command != "coverage" and len(options.capture) > 1:
+        parser.error(f"{options.command} takes one capture")
+    capture = Path(options.capture[0])
     try:
         if options.command == "replay":
             builder = replay(capture, options.at)
@@ -559,7 +585,7 @@ def main(argv=None) -> int:
         else:
             header, rows = {"coverage": (COVERAGE_HEADER, coverage_rows), "addresses": (ADDRESS_HEADER, address_rows),
                             "cs": (CS_HEADER, cs_rows)}[options.command]
-            rows = rows(capture)
+            rows = rows([Path(c) for c in options.capture]) if options.command == "coverage" else rows(capture)
             print(header)
             for r in rows:
                 print("\t".join(r))

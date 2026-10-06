@@ -44,7 +44,7 @@ The Python version is a research tool that the product (`Sources/`) does not dep
 
 ### The schema against the recording
 
-[`logic-remote-state-coverage.tsv`](../protocol/logic-remote-state-coverage.tsv) lists, for the 14 addresses the schema defines (`/ati` per column, `/gtFaderData` and `/sti` per field), how many arrived, a summary of the values, the schema result, and whether a change was seen. Strings (track names, UUIDs, locale and so on) are given **as a count only**; no value is listed.
+[`logic-remote-state-coverage.tsv`](../protocol/logic-remote-state-coverage.tsv) lists, for the 14 addresses the schema defines (`/ati` per column, `/gtFaderData` and `/sti` per field), how many arrived, a summary of the values, the schema result, and whether a change was seen. Strings (track names, UUIDs, locale and so on) are given **as a count only**; no value is listed. (Added 2026-10-07: the table was regenerated over four receptions (EXP-REMOTE-001, 003, 004 and the aborted E4). The `stability` column gives in how many receptions a field was seen and whether its set of values was the same in each. The song changed between receptions, so a difference does not by itself mean instability.)
 
 - All 14 addresses arrived and all passed the schema.
 - **Everything that arrived more than once had the same content** (`changed_seen` is `no` throughout). Nothing is known about how stable the values are or how they change.
