@@ -14,6 +14,8 @@
 | Repetitions | 1 |
 | Approval | The user said "全て許可" (all allowed) directly in this chat |
 
+> **Correction (2026-10-07, [EXP-MCU-029](EXP-MCU-029-two-units-on-one-port.en.md)):** during this experiment Logic had **two** Mackie Control units on the same port ("Mackie Control #2"). The song has **14 strips** (outputs and Master included), and `state`'s "8 strips, complete" was **only the 8 that the first unit shows** (the second unit shows the rest, so the bank did not move and the scan took that for the end). Read "8 strips" below that way. The arm result holds because Piano was the first strip of the first unit (`--expect-name Piano` matched the LCD name and the lit R was checked on screen). But the two units use the same REC LED numbers, so the evidence travelled on a channel shared with the second unit.
+
 ## Observations
 
 - `logicctl track arm 1 on --expect-name Piano` → `ok: true`, `verified: true`, `observed.rec_armed: true`. Piano's R on screen **blinked red** (a screenshot can catch the off phase of the blink, so three were taken).
@@ -21,7 +23,7 @@
 - **An unexpected side effect**: when Piano was armed, **the automatic record-enable of the selected track, Ballad, went off** (`track get 3` gave `rec_armed: false`). Turning Piano off did not bring it back.
 - Restoring: moving the selection to Synth and back to Ballad re-armed Ballad automatically. The final `logicctl state` matched the baseline on all 8 strips (volume, pan, mute, solo, record-enable, selection).
 - `state`'s `position` while stopped: `{"display": "  1 2 3226", "mode": "beats", "bar": 1, "beat": 2, "division": 3, "tick": 226}`, matching Logic's time display "1 2". This is the second real value (the first was `  1 3 2 29` in the EXP-MCU-024 log).
-- The list did not include the outputs and Master this time, so "a strip that cannot be armed fails verification" was not checked. No audible playback at night, so `position` while playing is unchecked.
+- The list did not include the outputs and Master this time (because of the second unit; see the correction above), so "a strip that cannot be armed fails verification" was not checked. No audible playback at night, so `position` while playing is unchecked.
 - Nothing was saved. Raw records: `Research/raw/live-arm/` (not tracked by Git).
 
 ## Hypothesis

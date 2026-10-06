@@ -47,6 +47,12 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private var preparedTransport: (pid: Int32, generation: Int, playUpdates: Int,
                                     recordUpdates: Int, state: TransportSnapshot)?
     private var lastTX = Date.distantPast
+    /// Name rows of the whole-display LCD writes (offset 0, both rows) Logic sends in its dump. One
+    /// Mackie Control unit writes the same display; a second unit on the same port (for example
+    /// "Mackie Control #2", which shows the next 8 strips) writes a different one, and the LCD buffer
+    /// then holds whichever came last (EXP-MCU-029).
+    private var fullDisplayWrites: [(at: Date, names: String)] = []
+    static let fullDisplayMinimum = 100
     private var client = MIDIClientRef()
     private var source = MIDIEndpointRef()
     private var destination = MIDIEndpointRef()
@@ -144,6 +150,9 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                 replies.append(MCU.sysexHeader + [0x14] + Array("V1.02".utf8) + [0xF7])
             case .connectionReply(MCU.model):
                 replies.append(MCU.sysexHeader + [0x03] + Self.serial + [0xF7])
+            case .lcd(0, let text) where text.count >= Self.fullDisplayMinimum:
+                fullDisplayWrites.append((Date(), String(decoding: text.prefix(56), as: UTF8.self)))
+                if fullDisplayWrites.count > 16 { fullDisplayWrites.removeFirst(fullDisplayWrites.count - 16) }
             default:
                 break
             }
@@ -222,6 +231,7 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         if case .status = command { return status() }
         if let failure = ensureConnected() { return failure }
+        if case .debugMCU = command {} else if let conflict = surfaceConflictFailure() { return conflict }
         switch command {
         case .status, .daemonStop: return status()
         case .state: return state()
@@ -258,6 +268,25 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     public var isConnected: Bool {
         guard let pid = environment.runningApp()?.pid else { return false }
         return read { $0.lcdUpdates > handshakeLCDBaseline && handshakeAt != nil && handshakePID == pid }
+    }
+
+    /// How many different name rows the latest burst of whole-display writes had (writes within 1 s of
+    /// the last one). More than 1 means more than one unit is writing to this port. Caller holds the lock.
+    private func displayUnitsInLatestDump() -> Int {
+        guard let last = fullDisplayWrites.last else { return 0 }
+        let window = 1.0 * environment.timeScale
+        return Set(fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }.map(\.names)).count
+    }
+
+    /// Two units write different names into the one LCD buffer, and bank moves that cannot happen (every
+    /// strip already shown across the units) look like the end of the list: a scan then reports a wrong,
+    /// "complete" list. Nothing that reads or targets a strip is safe, so all of it is refused.
+    private func surfaceConflictFailure() -> Outcome? {
+        let units = read { _ in displayUnitsInLatestDump() }
+        guard units > 1 else { return nil }
+        return .failure("surface_conflict",
+                        "Logic が '\(Self.portName)' に Mackie Control を \(units) 台つないでいるようです（接続時に違う内容の画面が \(units) 通届きました）。"
+                            + "表示が混ざるため、読み取りも操作もしません。Logic Proの「コントロールサーフェス」→「設定」で、このポートの余分な装置（「Mackie Control #2」など）を外してから、logicctl daemon stop で logicd を再起動してください。")
     }
 
     private func ensureConnected() -> Outcome? {
@@ -485,7 +514,9 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             // Which Logic build / macOS this was checked on; unlisted ones are unverified, not blocked.
             "compatibility": CompatibilityProfile.assess(logic: logic),
             "mcu": ["port": .string(Self.portName), "connected": .bool(connected),
-                    "handshake_at": .string(read { _ in handshakeAt }.map { ISO8601DateFormatter().string(from: $0) })],
+                    "handshake_at": .string(read { _ in handshakeAt }.map { ISO8601DateFormatter().string(from: $0) }),
+                    // More than one unit on this port: everything except status is refused (surface_conflict).
+                    "surface_conflict": .bool(read { _ in displayUnitsInLatestDump() } > 1)],
         ]
         if connected {
             result["transport"] = transportJSON()

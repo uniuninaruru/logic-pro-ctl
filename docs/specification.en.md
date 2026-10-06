@@ -28,7 +28,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 
 | Command | Input | What it returns / does |
 |---|---|---|
-| `status` | none | The daemon's PID, Logic's version, the MCU connection, supported features, and whether the environment is a verified one (`compatibility`). With a connection it also returns the play state |
+| `status` | none | The daemon's PID, Logic's version, the MCU connection, supported features, and whether the environment is a verified one (`compatibility`). With a connection it also returns the play state. `mcu.surface_conflict` `true` means two or more units on the same port, and other commands are refused with `surface_conflict` |
 | `state` | none | The play state, the playhead (`position`), the selected track and information about all strips. `position` is the MCU time display's text (`display`) and BEATS/SMPTE (`mode`); in BEATS mode it is also split into `bar`, `beat`, `division` and `tick`. `null` until the display has arrived, and again after the display mode changes until the digits are re-sent. With both the BEATS and SMPTE LEDs on, `mode` is `null` and nothing is split. Logic sends only the digits that change, so a read during an update can mix old and new digits (a reading of the display, not an atomic value). The split was checked against one stopped value on the real Logic only |
 | `transport play` | none | Requests playback |
 | `transport stop` | none | Requests stop |
@@ -123,6 +123,7 @@ Sending, reply reception and state verification are returned as separate informa
 | `usage` / `invalid_argument` | Bad syntax or value | `--help`, the number, the value, the route |
 | `logic_not_running` | Logic is not running | Start Logic |
 | `surface_not_connected` | The MCU cannot connect | `status`, Logic's control surface setup |
+| `surface_conflict` | Logic drives two or more Mackie Control units on `logicctl-mcu` (the connection dump brought two or more displays with different content). Display and LEDs get mixed and a scan returns a false complete, so nothing is read and nothing is pressed except `status` and `debug mcu` ([EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.en.md)) | `mcu.surface_conflict` in `status`. Remove the extra unit ("Mackie Control #2" or similar) in Logic's Control Surfaces > Setup, then restart logicd with `logicctl daemon stop` |
 | `readback_unavailable` | The state cannot be confirmed | `status` after the connection settles |
 | `timeout` | It did not finish in time. **It may have been executed** | Read the state again. The same key is not rerun |
 | `outcome_unknown` / `request_in_flight` | The previous run of the same key is unknown / still running | Read the state; use another key if needed |

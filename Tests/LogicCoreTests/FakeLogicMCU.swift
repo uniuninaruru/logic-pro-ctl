@@ -43,6 +43,9 @@ final class FakeLogicMCU {
     var timeModeBeats = true
     /// The next REC press makes Logic re-run the handshake (another session) with that strip disarmed.
     var reconnectOnNextRecPress = false
+    /// A second Mackie Control unit on the same port ("Mackie Control #2"): it shows the strips after
+    /// the first unit's 8 and writes its own whole display into the dump (real Logic, EXP-MCU-029).
+    var secondUnit = false
     /// The same for a mute press (the strip stays unmuted in the new session).
     var reconnectOnNextMutePress = false
 
@@ -147,10 +150,30 @@ final class FakeLogicMCU {
         led(MCU.stopNote, !playing) + led(MCU.playNote, playing) + led(MCU.recordNote, recording)
     }
 
+    /// The whole display in one write, as Logic sends it in its dump (offset 0, both rows).
+    private func fullDisplay(from first: Int) -> [UInt8] {
+        let names = (0..<MCU.strips).map { slot -> String in
+            let index = first + slot
+            return cell(index < strips.count ? strips[index].name : "")
+        }.joined()
+        let lower = (0..<MCU.strips).map { slot -> String in
+            let index = first + slot
+            guard index < strips.count, strips[index].hasPan else { return cell("") }
+            return cell(String(strips[index].pan))
+        }.joined()
+        return lcd(0, names + lower)
+    }
+
     /// Logic (re)connects: device query, then the state dump.
     func connect(withholdDump: Bool = false) {
         send(MCU.sysexHeader + [0x00, 0xF7])
         guard !withholdDump else { return }
+        send(fullDisplay(from: offset))
+        if secondUnit {
+            // Unit 2's display lands in the same buffer, then unit 1 writes again (the order seen live).
+            send(fullDisplay(from: offset + MCU.strips))
+            send(fullDisplay(from: offset))
+        }
         send(viewMessages(includeLEDs: !withholdLEDDump))
         if !withholdLEDDump && !withholdTransportLEDs { send(transportLEDs() + led(MCU.rudeSoloNote, false)) }
         if let timeDisplay { send(timecodeMessages(timeDisplay) + led(MCU.beatsNote, timeModeBeats) + led(MCU.smpteNote, !timeModeBeats)) }
