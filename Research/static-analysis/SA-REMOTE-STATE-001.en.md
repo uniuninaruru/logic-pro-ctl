@@ -326,7 +326,7 @@ It sets `cachedCurrentMixerController` only while processing and clears it after
 
 ### 8.3 `r` (record-enable state) read in machine code (added 2026-10-07)
 
-The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (171 rows, including the binds of the §8.1 keys and the mixer window path below; checked against the bytes of the image and `llvm-objdump`, not Ghidra).
+The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (175 rows, including the binds of the §8.1 keys and the mixer window path below; checked against the bytes of the image and `llvm-objdump`, not Ghidra).
 
 | *s* | `r` | Anchor |
 |---|---|---|
@@ -353,7 +353,7 @@ The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the
 | anything else (0 and so on) | 0, plus 4 if `FUN_006ee498(song, k, &identifier, 0, 0)` is true | 3 if `FUN_006ee498` is true, else 0 |
 
 - `FUN_006ee498` returns 0 at once when its second argument is not 0 (`AUTO-entry`, `AUTO-zero`). So the "4" (3 on the Remote) comes only when *k* is neither 1 nor 2: a different kind from an explicit record-enable (*k* = 1, 2), which fits H2.
-- `0x261e118` is read by 28 functions (Ghidra's reference list), including the mixer's `muteStateOfStrip:` and `soloStateOfStrip:` and the Drummer mute button update. **Hypothesis: the on-screen blink phase** (confidence: low; it is tempting to tie it to the blinking R and mute buttons, but the writer was not read). If so, the `r` of a *k* = 2 track can alternate between 1 and 0x80 with the blink.
+- `0x261e118` is read by 28 functions (Ghidra's reference list), including the mixer's `muteStateOfStrip:` and `soloStateOfStrip:` and the Drummer mute button update. The writer is the main-thread periodic routine `FUN_003aa154`, which flips bit 0 each time it runs (`BLINK-toggle`, checked in machine code). `FUN_00aad860` sets it to 0 for the length of some work and then restores it (decompilation only). **Hypothesis: the on-screen blink phase** (confidence: medium to low; the period was not read). If so, the `r` of a *k* = 2 track is 1 or 0x80 depending on the phase at the moment `/gtFaderData` is built (it is sent only on change notifications, not on a phase flip alone; §8.1).
 
 Checked against receptions (3 receptions; the values were read with `remote_state.py replay`; for E3 the Swift reference test `theE3RecordingFollowsOneSelectionChange` gives the same):
 

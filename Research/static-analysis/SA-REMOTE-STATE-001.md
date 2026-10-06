@@ -325,7 +325,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 
 ### 8.3 `r`（録音待機の状態）を機械語で読む（2026-10-07 追記）
 
-`r` のキーは `_BgTrackFaderDataRecEnableStateKey`（MACore。`dyld_info` の bind で確認）。値は、`FUN_006ecc1c(曲, trackID の上位 16 ビット, トラック, &flag)` の戻り値 *s* で決まる。根拠は [アンカー表](../protocol/logic-remote-recenable-anchors.tsv)（171 行。§8.1 のキーの bind と、下のミキサー画面の経路も含む。Ghidra ではなく、バイナリのバイト列と `llvm-objdump` で照合）。
+`r` のキーは `_BgTrackFaderDataRecEnableStateKey`（MACore。`dyld_info` の bind で確認）。値は、`FUN_006ecc1c(曲, trackID の上位 16 ビット, トラック, &flag)` の戻り値 *s* で決まる。根拠は [アンカー表](../protocol/logic-remote-recenable-anchors.tsv)（175 行。§8.1 のキーの bind と、下のミキサー画面の経路も含む。Ghidra ではなく、バイナリのバイト列と `llvm-objdump` で照合）。
 
 | *s* | `r` | アンカー |
 |---|---|---|
@@ -352,7 +352,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 | それ以外（0 など） | 0。`FUN_006ee498(曲, k, &identifier, 0, 0)` が真なら 4 を足す | `FUN_006ee498` が真なら 3、偽なら 0 |
 
 - `FUN_006ee498` は第 2 引数が 0 でないと、すぐ 0 を返す（`AUTO-entry`・`AUTO-zero`）。つまり「4」（Remote では 3）は、*k* が 1 でも 2 でもないときだけ付く。明示の録音待機（*k* = 1・2）とは別の種類、という H2 の読みと合う。
-- `0x261e118` は、ミキサーの `muteStateOfStrip:`・`soloStateOfStrip:`、Drummer のミュート・ボタンの更新など 28 個の関数が読む（Ghidra の参照の一覧）。**仮説：画面の点滅の位相**（確信度：低。R・ミュートの点滅と結び付けたくなるが、書き込む側は読んでいない）。そうなら、*k* = 2 のトラックの `r` は点滅に合わせて 1 と 0x80 を行き来しうる。
+- `0x261e118` は、ミキサーの `muteStateOfStrip:`・`soloStateOfStrip:`、Drummer のミュート・ボタンの更新など 28 個の関数が読む（Ghidra の参照の一覧）。書き込む側は、主スレッドの定期処理 `FUN_003aa154` で、呼ばれるたびに bit 0 を反転する（`BLINK-toggle`、機械語で確認）。`FUN_00aad860` は、ある処理の間だけ 0 にして元に戻す（逆コンパイルのみ）。**仮説：画面の点滅の位相**（確信度：中〜低。周期は読んでいない）。そうなら、*k* = 2 のトラックの `r` は、`/gtFaderData` を作った瞬間の位相によって 1 か 0x80 になる（`/gtFaderData` は変化の通知のときだけ送られ、位相の反転だけでは送られない。§8.1）。
 
 受信との照合（受信 3 回。値は `remote_state.py replay` で読んだ。E3 の値は Swift の参照テスト `theE3RecordingFollowsOneSelectionChange` でも同じ）:
 

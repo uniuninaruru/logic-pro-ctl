@@ -175,3 +175,7 @@ STUB-mixerRecordStateFor@0x1b606c0	insn	0x01b606c0	c14f00b0	adrp x1, 0x2559000	o
 STUB-mixerRecordStateFor@0x1b606c4	insn	0x01b606c4	21b446f9	ldr x1, [x1, #0xd68]	objc stub: loads the selector reference then jumps to objc_msgSend
 SEL-mixerRecordStateFor@0x2559d68	selref	0x02559d68		mixerRecordStateFor:	selector reference used by the stub at 0x1b606c0
 AUTO-zero@0x6ee6cc	insn	0x006ee6cc	00008052	mov w0, #0x0	FUN_006ee498 returns 0 there
+BLINK-toggle@0x3aab5c	insn	0x003aab5c	a8130190	adrp x8, 0x261e000	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
+BLINK-toggle@0x3aab60	insn	0x003aab60	09614439	ldrb w9, [x8, #0x118]	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
+BLINK-toggle@0x3aab64	insn	0x003aab64	29010052	eor w9, w9, #0x1	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
+BLINK-toggle@0x3aab68	insn	0x003aab68	09610439	strb w9, [x8, #0x118]	FUN_003aa154 (a main-thread periodic routine) flips bit 0 of the byte at 0x261e118
