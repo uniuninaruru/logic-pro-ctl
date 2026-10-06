@@ -60,11 +60,11 @@
 | `not_started` | 未着手（承認待ちを含む） |
 | `other` | 別の担当の資料に従う |
 
-現在の件数（[support-matrix.tsv](../Research/protocol/support-matrix.tsv) の行）：`live` 17、`tested` 2、`static` 4、`unconfirmed` 2、`not_started` 2、`other` 1（計 28 行）。
+現在の件数（[support-matrix.tsv](../Research/protocol/support-matrix.tsv) の行）：`live` 24、`tested` 3、`static` 1、`unconfirmed` 2、`not_started` 1、`other` 1（計 32 行。2026-10-07 時点）。
 
 **MCU 経路のコマンド 11 個**（`status`、`state`、`transport play`、`transport stop`、`track list`、`track get`、`track select`、`track mute`、`track solo`、`track volume`、`track pan`）は、
-すべて実機で確かめています（[EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)）。
-**Logic Remote の領域は、すべて静的解析だけ**です。新しい接続は、ユーザーの承認が出るまで行いません。
+すべて実機で確かめています（[EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)）。`track arm` は実機で 1 回（[EXP-MCU-028](../Research/experiments/EXP-MCU-028-arm-and-position-live.md)）、`transport cycle`・`click` は偽の相手の試験だけ（`tested`）です。Logic が同じポートに Mackie Control を 2 台つないでいると、一覧が偽の「完全」になっていたため、今は `surface_conflict` で断ります（[EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.md)）。
+**Logic Remote は、研究用ピアで受信（初回の状態と、選択の変更の差分・再接続）を実機で確かめた段階**です（[EXP-REMOTE-001](../Research/experiments/EXP-REMOTE-001-receive-initial-state.md)・[003](../Research/experiments/EXP-REMOTE-003-reconnect-selection-baseline.md)・[004](../Research/experiments/EXP-REMOTE-004-selection-delta.md)）。製品の CLI からの接続と、Remote 経由の書き込みは未着手です。
 
 この件数は「確かめた行 / この表の行」です。Logic 全体のうち何割を理解したか、という数ではありません。
 
@@ -100,7 +100,7 @@
 | 段階 | 公開できる内容 | 条件 | 現在 |
 |---|---|---|---|
 | A：基本操作 | 既存の transport／mixer の CLI | unknown、鮮度、一覧の失敗、対象参照、副作用、互換性を検証 | unknown・一覧の失敗・鮮度：`live`。対象参照：名前変更・追加・削除は `live`、**並べ替えは未確認**、同名は区別できない。副作用：§5 に記載。互換性：§3。実行契約：`live`／`tested` |
-| B：広い読み取り | 完全な名前、領域別の state、Remote の snapshot・watch | 初回・差分・0/false・再接続・曲の切替の検証 | **満たしていない**（Remote は静的解析だけ。受信実験が未着手） |
+| B：広い読み取り | 完全な名前、領域別の state、Remote の snapshot・watch | 初回・差分・0/false・再接続・曲の切替の検証 | **満たしていない**（Remote は研究用ピアで受信を確かめた段階：初回・選択の差分・再接続。曲の切替や多くの値は未確認。製品からの接続は未実装） |
 | C：制作操作 | 検証済みの send／plugin／automation／region の操作単位 | 共通の実行 gate、複数値・複数対象、誤対象の防止、保存・再読込、Undo の限界 | **満たしていない**（この対応表に載せていない） |
 | D：agent 運用 | MCP、batch、長時間 job、許可範囲内の自律操作 | schema の発見、競合・timeout・重複・部分失敗、成果物の確認 | **満たしていない**（MCP adapter は未実装） |
 
@@ -117,5 +117,6 @@
 ## 8. 限界
 
 - 検証済みの環境が 1 つだけです。別の macOS・別の Logic の版・別の CPU では、結果が違う可能性があります。
+- MCU の経路は、`logicctl-mcu` のポートに Mackie Control が **1 台**であることが前提です。2 台目があると `surface_conflict` で止まります（EXP-MCU-029）。
 - 「一度確かめた」ことは、「いつでも再現する」ことではありません。多くの実機の確認は 1〜数回の実行です（各実験記録の「再現回数」を参照）。
 - `tested`（偽の相手による試験）は、実機の挙動を保証しません。偽の相手は、確かめた実機の挙動を写したものです。

@@ -60,11 +60,11 @@ The vocabulary:
 | `not_started` | Not started (including waiting for approval) |
 | `other` | Follow another owner's document |
 
-Current counts (rows of [support-matrix.tsv](../Research/protocol/support-matrix.tsv)): `live` 17, `tested` 2, `static` 4, `unconfirmed` 2, `not_started` 2, `other` 1 (28 rows).
+Current counts (rows of [support-matrix.tsv](../Research/protocol/support-matrix.tsv)): `live` 24, `tested` 3, `static` 1, `unconfirmed` 2, `not_started` 1, `other` 1 (32 rows, as of 2026-10-07).
 
 **All 11 commands of the MCU path** (`status`, `state`, `transport play`, `transport stop`, `track list`, `track get`, `track select`, `track mute`, `track solo`, `track volume`, `track pan`)
-were checked on the real Logic ([EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)).
-**The Logic Remote areas are all static analysis only.** A new connection is not made until the user approves it.
+were checked on the real Logic ([EXP-CLI-001](../Research/experiments/EXP-CLI-001-v0.1-dod-transcript.txt)). `track arm` was checked once on the real Logic ([EXP-MCU-028](../Research/experiments/EXP-MCU-028-arm-and-position-live.en.md)); `transport cycle` and `click` are tested against the stand-in only (`tested`). When Logic drove two Mackie Control units on the same port, the list came out as a false "complete"; that is now refused with `surface_conflict` ([EXP-MCU-029](../Research/experiments/EXP-MCU-029-two-units-on-one-port.en.md)).
+**Logic Remote has reached receiving on the real Logic with the research peer** (the initial state, the deltas of a selection change, a reconnection; [EXP-REMOTE-001](../Research/experiments/EXP-REMOTE-001-receive-initial-state.en.md), [003](../Research/experiments/EXP-REMOTE-003-reconnect-selection-baseline.en.md), [004](../Research/experiments/EXP-REMOTE-004-selection-delta.en.md)). Connecting from the product CLI and writing through the Remote are not started.
 
 The counts are "rows checked / rows of this table". They are not the share of Logic that is understood.
 
@@ -100,7 +100,7 @@ The stages (the [plan](../Research/plans/agent-ready-roadmap.en.md) §10), their
 | Stage | What can be released | Condition | Now |
 |---|---|---|---|
 | A: basic operations | The existing transport / mixer CLI | unknown, freshness, list failure, target reference, side effects and compatibility checked | unknown, list failure, freshness: `live`. Target reference: rename, add and delete are `live`, **reordering is unconfirmed**, same names cannot be told apart. Side effects: §5. Compatibility: §3. Execution contract: `live` / `tested` |
-| B: broad reads | Full names, per-area state, Remote snapshot / watch | initial, deltas, 0/false, reconnect and song switch checked | **Not met** (Remote is static analysis only; no receive experiment) |
+| B: broad reads | Full names, per-area state, Remote snapshot / watch | initial, deltas, 0/false, reconnect and song switch checked | **Not met** (Remote has reached receiving with the research peer: initial state, a selection delta, reconnection. Song switches and most values are unchecked; no connection from the product yet) |
 | C: production operations | Verified send / plug-in / automation / region operations, one by one | the shared execution gate, several values and targets, no wrong-target writes, save and reload, limits of Undo | **Not met** (not in this table) |
 | D: agent operation | MCP, batch, long jobs, autonomy inside permitted scope | schema discovery, conflict / timeout / duplicate / partial failure, artifact checks | **Not met** (no MCP adapter yet) |
 
@@ -117,5 +117,6 @@ The stages (the [plan](../Research/plans/agent-ready-roadmap.en.md) §10), their
 ## 8. Limits
 
 - Only one environment has been verified. Another macOS, another Logic version or another CPU may behave differently.
+- The MCU path assumes **one** Mackie Control unit on the `logicctl-mcu` port. With a second one it stops with `surface_conflict` (EXP-MCU-029).
 - "Checked once" is not "reproduces every time". Most live checks are one or a few runs (see the "Repetitions" of each experiment record).
 - `tested` (tests with a stand-in counterpart) does not guarantee the real behaviour. The stand-in copies behaviour that was checked on the real Logic.
