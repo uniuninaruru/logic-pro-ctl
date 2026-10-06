@@ -46,6 +46,32 @@ Each of the three `/gtFaderData` messages contained 14 `g` entries with three fi
 
 Only the two initial `/ati` messages arrived; none was resent after the selection change. This is an observation of this 120-second recording, not a universal rule for every selection operation.
 
+## 1.1. Receive order does not establish simultaneous agreement of every view
+
+The `/sti`, `/gtFaderData` and `/cs/mixer/*` notifications related to this selection change arrived in separate frames. The `/cs` numbers denote Remote's eight slots. `/cs/bankLeftOffset` was 0 here (frames 6, 7 and 5435), but this does not establish a universal mapping from slot number to track position. The 0/1 `record` values are also a separate wire representation from `r` values 0/3.
+
+| Frame | Receive `t_ms` | Message | Received value |
+|---:|---:|---|---|
+| 5417 | 54667.7 | `/cs/mixer/record/3` | 0 |
+| 5418 | 54668.9 | `/cs/mixer/select/3` | 1 |
+| 5419 | 54669.9 | `/sti` | Piano, index=0, tn=1 |
+| 5436 | 54691.4 | `/cs/mixer/record/1` | 1 |
+| 5437 | 54692.2 | `/cs/mixer/select/1` | 0 |
+| 5441 | 54695.9 | `/cs/mixer/record/3` | 0 |
+| 5442 | 54697.0 | `/cs/mixer/select/3` | 1 |
+| 5467 | 54708.9 | `/cs/mixer/record/1` | 1 |
+| 5468 | 54709.3 | `/cs/mixer/select/1` | 0 |
+| 5496 / 5503 | 54723.2 / 54727.1 | `/gtFaderData` | Ballad r=0; Piano r=3 |
+| 5507 | 54730.1 | `/cs/mixer/select/1` | 1 |
+| 5509 | 54731.0 | `/cs/mixer/select/3` | 0 |
+| 5514 | 54733.4 | `/cs/mixer/select/8` | 0; last of the select=0 notifications for slots 2–8 in frames 5508–5514 |
+
+The first `record/3=0` (5417) preceded `select/1=1` (5507) by **62.4 ms** and the last selection notification for slots 1–8 (5514) by **65.7 ms**. These are receive intervals within one capture, not click latency or an upper bound for later operations.
+
+At an intermediate point, Piano's `/sti` had arrived while the most recent slot 3 select was still 1 and slot 1 had record=1/select=0. Slot 1 select=1 and slot 3 select=0 also arrived separately. Preserve each representation and its source frame; one notification alone is insufficient evidence that every view has finished updating. This receive order does not establish that Logic's UI selected multiple tracks or that the state builder has a defect.
+
+Hypothesis (confidence: low): **Waiting for a 100–200 ms quiet interval in the relevant state notifications might reduce use of intermediate combinations.** This single observation does not guarantee agreement after that wait or justify `complete=true`. This is distinct from waiting for silence at all addresses; relevant addresses, receive clock, pending state and unknown values would need to be defined and tested before adopting such a rule.
+
 ## 2. Click records and restoration
 
 | Operation or observation | UTC | Evidence and scope |
@@ -90,5 +116,7 @@ Although the selected track's I was orange in the UI, `ip` stayed 0. Therefore, 
 All 11,396 frames were replayed in numeric order with contiguous counters 1–11,396. Frame files, receive events, decoded events and `decoded.jsonl` agreed on count and counter. Byte lengths, initial tags and addresses also matched recorded metadata. Known-schema violations and Python state issues were both zero, and regenerating `offline-report.json` from preserved frames gave the same report. This does not establish the semantics of all 781 addresses.
 
 Each frame's SHA-256 was written to a local inventory in numeric order; hashes of all 11,422 input files were unchanged before and after the audit. Four operator messages were also preserved in a local extract. The [manifest](remote-e3-selection-manifest.json) records the inventory hash, selected frame hashes, receive logs, operator sidecars, message extract and source hashes. Public artifacts contain no private host discovery name, personal absolute path, actual UUID value or raw frame.
+
+The additional audit for §1.1 reopened 25 preserved frames and checked their values against the receive clock. All 32 input fingerprints were unchanged before and after it. The original full-frame audit and its source hashes are retained; the current sources, frames and message extract for this addition are recorded separately in the manifest's `selection_arrival_followup`.
 
 The only sends were one `/protocolVersion=10` and one `/jsonSupport=1`. These succeeded at the local send API; no Logic acceptance ACK is established. Summary `connected=true` was sampled during termination before disconnect and does not prove an ongoing connection. No events follow `finish`.
