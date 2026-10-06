@@ -37,7 +37,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 | `track select <n>` | an integer ≥ 1 | Requests the selection |
 | `track mute <n> on\|off` | number and state | Requests mute |
 | `track solo <n> on\|off` | number and state | Requests solo |
-| `track arm <n> on\|off` | number and state | Requests record-enable (checked by the REC LED; a strip that cannot be armed, such as an output or Master, fails verification). **Tested against the fake Logic only; not yet checked on the real Logic** |
+| `track arm <n> on\|off` | number and state | Requests record-enable (checked by the REC LED; a strip that cannot be armed, such as an output or Master, fails verification). Checked once on the real Logic (EXP-MCU-028). **It can drop the automatic record-enable of the selected track, and `verified` does not check that other tracks' record-enable is unchanged** |
 | `track volume <n> <dB>` | a number of 6.0 or less, or `-inf` | Requests the volume |
 | `track pan <n> <value>` | `-1` to `1` | Requests the pan, left to right |
 | `daemon stop` | none | Ends the resident process. It starts again automatically on the next use |

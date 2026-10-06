@@ -35,7 +35,7 @@ flowchart LR
 | `track select <n>` | 1以上の整数 | 選択を要求 |
 | `track mute <n> on\|off` | 番号と状態 | ミュートを要求 |
 | `track solo <n> on\|off` | 番号と状態 | ソロを要求 |
-| `track arm <n> on\|off` | 番号と状態 | 録音待機を要求（REC の LED で確認。出力・Master など待機できないストリップは確認に失敗する。**偽の Logic でのみ試験済みで、実機では未確認**） |
+| `track arm <n> on\|off` | 番号と状態 | 録音待機を要求（REC の LED で確認。出力・Master など待機できないストリップは確認に失敗する）。実機で 1 回確認（EXP-MCU-028）。**選択中のトラックの自動の録音待機が外れることがあり、`verified` は他のトラックの録音待機が変わっていないことまでは確かめない** |
 | `track volume <n> <dB>` | 6.0以下の数、または `-inf` | 音量を要求 |
 | `track pan <n> <値>` | `-1`〜`1` | 左〜右のパンを要求 |
 | `daemon stop` | なし | 常駐プロセスを終了。次の利用で自動起動 |
