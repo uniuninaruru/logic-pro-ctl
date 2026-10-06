@@ -314,14 +314,18 @@ public final class MCUBackend: LogicBackend, TransportReadback {
 
     // MARK: - Independent transport readback (no transport MIDI writes)
 
+    /// Nil while more than one unit writes to the port (surface_conflict): the transport LEDs of two units have not
+    /// been checked to agree, so they are not evidence either.
     private func transportSnapshotLocked(_ state: MCUSurface, pid: Int32) -> TransportSnapshot? {
-        guard handshakePID == pid, handshakeAt != nil, state.lcdUpdates > handshakeLCDBaseline else { return nil }
+        guard handshakePID == pid, handshakeAt != nil, state.lcdUpdates > handshakeLCDBaseline,
+              displayUnitsInLatestDump() <= 1 else { return nil }
         return state.transportSnapshot(sincePlayUpdate: transportBaseline.play,
                                        sinceRecordUpdate: transportBaseline.record)
     }
 
     public func prepareTransportReadback() -> Outcome? {
         if let failure = ensureConnected() { return failure }
+        if let conflict = surfaceConflictFailure() { return conflict }
         guard let pid = environment.runningApp()?.pid else {
             return .failure("logic_not_running", "Logic Proを起動してください。")
         }

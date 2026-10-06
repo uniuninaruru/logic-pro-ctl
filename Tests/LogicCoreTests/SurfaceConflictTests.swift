@@ -43,6 +43,24 @@ private func twoUnits(tracks: Int = 12) -> (FakeLogicMCU, MCUBackend) {
     #expect(!sim.strips[1].rec && !sim.playing)
 }
 
+// The transport readback other routes use (AppleEvent play/stop) goes through these, not through execute.
+@Test func theTransportReadbackIsRefusedToo() {
+    let (sim, backend) = twoUnits()
+    let prepared = withExtendedLifetime(sim) { backend.prepareTransportReadback() }
+    #expect(prepared?.error == "surface_conflict")
+    #expect(backend.transportSnapshot() == nil)
+    #expect(backend.waitForTransport(playing: true, recording: nil, timeout: 0.05) == nil)
+    #expect(sim.presses.isEmpty)
+}
+
+@Test func theTransportReadbackWorksWithOneUnit() {
+    let sim = FakeLogicMCU.project(tracks: 4)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    #expect(backend.prepareTransportReadback() == nil)
+    #expect(backend.transportSnapshot() == TransportSnapshot(playing: false, recording: false))
+}
+
 @Test func theRawDebugToolStillWorksForDiagnosis() {
     let (sim, backend) = twoUnits()      // the fake must outlive every send (the transmit hook is unowned)
     let outcome = withExtendedLifetime(sim) { backend.execute(.debugMCU(messages: [[0x90, 0x68, 0x7F], [0x90, 0x68, 0x00]])) }
