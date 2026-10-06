@@ -518,3 +518,55 @@ func theEXP001ReferenceRecordingRebuildsLikeTheResearchTool() throws {
     #expect(b.events.filter { $0.kind == .atiDuplicate }.count == 1)
 }
 #endif
+
+#if canImport(Testing)
+// MARK: - PLAN-05 E3 recording (one manual selection change Ballad → Piano), when present (Research/raw is not tracked)
+
+private let e3SelectionFrames: URL? = {
+    let frames = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        .appendingPathComponent("Research/raw/remote-recv/20261007-010710-e1/frames")
+    var isDirectory = ObjCBool(false)
+    guard FileManager.default.fileExists(atPath: frames.path, isDirectory: &isDirectory), isDirectory.boolValue else { return nil }
+    return frames
+}()
+
+@Test(.enabled(if: e3SelectionFrames != nil, "E3 recording 20261007-010710-e1 is absent"))
+func theE3RecordingFollowsOneSelectionChange() throws {
+    let files = try FileManager.default.contentsOfDirectory(at: e3SelectionFrames!, includingPropertiesForKeys: nil)
+        .filter { $0.pathExtension == "bin" }
+        .sorted { (Int($0.deletingPathExtension().lastPathComponent) ?? 0) < (Int($1.deletingPathExtension().lastPathComponent) ?? 0) }
+    var b = RemoteStateBuilder()
+    var before: RemoteStateSnapshot?
+    var selectionChangeFrame: Int?
+    for file in files {
+        let number = Int(file.deletingPathExtension().lastPathComponent)!
+        guard case .success(let frame) = RemoteFrameParser.decode(try Data(contentsOf: file)) else { Issue.record("\(file.lastPathComponent)"); continue }
+        let previous = b.snapshot()
+        b.apply(frame: number, frame)
+        if before == nil, previous.selection?.position == 3, b.snapshot().selection?.position == 1 {
+            before = previous
+            selectionChangeFrame = number
+        }
+    }
+    let after = b.snapshot()
+    func track(_ snap: RemoteStateSnapshot, _ name: String) -> RemoteTrackValues? {
+        snap.strips.first { $0.name.trimmingCharacters(in: .whitespaces) == name }?.track
+    }
+
+    #expect(b.issues.isEmpty)
+    #expect(after.strips.count == 14)
+    #expect(after.complete == nil)
+    // The /sti inside the property-list frame is a nested MAZP keyed archive; both selections were opened.
+    #expect(b.events.filter { $0.kind == .stiApplied }.count == 2)
+    let beforeSnap = try #require(before)
+    #expect(beforeSnap.selection?.name == "Ballad")
+    #expect(after.selection?.name?.trimmingCharacters(in: .whitespaces) == "Piano")
+    // The automatic record arm follows the selection: r 3 moves from Ballad to Piano after the /sti change.
+    #expect(track(beforeSnap, "Ballad")?.r?.value == 3 && track(beforeSnap, "Piano")?.r?.value == 0)
+    #expect(track(after, "Ballad")?.r?.value == 0 && track(after, "Piano")?.r?.value == 3)
+    let change = try #require(selectionChangeFrame)
+    #expect((track(after, "Piano")?.r?.frame ?? 0) > change)
+    // ip stays 0 on every strip, although the screen showed the I button lit on the armed track.
+    #expect(after.strips.allSatisfy { $0.track.ip?.value == 0 })
+}
+#endif
