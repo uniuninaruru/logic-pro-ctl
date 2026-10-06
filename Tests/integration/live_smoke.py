@@ -90,6 +90,10 @@ class Smoke:
         if not status.get("ok") or not mcu.get("connected"):
             print("REFUSED: logicd is not connected to Logic's control surface (is Logic running with the test project open?)")
             return 2
+        if mcu.get("surface_conflict"):
+            print("REFUSED: Logic drives more than one Mackie Control unit on logicctl-mcu (surface_conflict, EXP-MCU-029). "
+                  "Remove the extra unit in Control Surfaces > Setup and restart logicd with `logicctl daemon stop`.")
+            return 2
         tracks = self.tracks()
         names = [t["name"] for t in tracks]
         if names != self.expected:
