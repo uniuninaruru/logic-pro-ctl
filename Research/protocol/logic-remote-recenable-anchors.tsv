@@ -1,4 +1,4 @@
-# Evidence anchors for SA-REMOTE-STATE-001 §8.3 (/gtFaderData t.r, the record-enable state).
+# Evidence anchors for SA-REMOTE-STATE-001 §8.1 and §8.3 (/gtFaderData keys; t.r, the record-enable state).
 # Image: Logic.arm64  sha256=2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998  (Logic 12.3.1 / 6682, arm64)
 # Checked against the image file (bytes, llvm-objdump text, dyld_info binds, selector strings), not Ghidra:
 #   python3 Tools/research-scripts/binary_anchors.py check Research/protocol/logic-remote-recenable-anchors.tsv
@@ -129,3 +129,9 @@ REC-children@0x6ed368	insn	0x006ed368	1f03006b	cmp w24, w0	a track with children
 REC-children@0x6ed36c	insn	0x006ed36c	e1000054	b.ne 0x6ed388	a track with children: recurse on each child; children that disagree end in return 3
 REC-three@0x6ed388	insn	0x006ed388	60008052	mov w0, #0x3	the return 3 used by the disagreement path
 REC-three@0x6ed38c	insn	0x006ed38c	f2feff17	b 0x6ecf54	the return 3 used by the disagreement path
+IP-key@0x168c8e4	insn	0x0168c8e4	a85f00d0	adrp x8, 0x2282000	the ip entry loads its key from the slot 0x2282470
+IP-key@0x168c8e8	insn	0x0168c8e8	083942f9	ldr x8, [x8, #0x470]	the ip entry loads its key from the slot 0x2282470
+BIND-VolumeLevelLongKey@0x2282308	bind	0x02282308		MACore/_BgGInstFaderDataVolumeLevelLongKey	the key the builder uses for vL
+BIND-SoloStateKey@0x22822f8	bind	0x022822f8		MACore/_BgGInstFaderDataSoloStateKey	the key the builder uses for s
+BIND-MuteStateKey@0x22822f0	bind	0x022822f0		MACore/_BgGInstFaderDataMuteStateKey	the key the builder uses for m
+BIND-IndependentPanKey@0x2282470	bind	0x02282470		MACore/_BgTrackInfoIndependentPanKey	the key the builder uses for ip

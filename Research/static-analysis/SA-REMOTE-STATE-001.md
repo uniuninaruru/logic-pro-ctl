@@ -300,7 +300,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 | 13 | `s`（`g`） | 符号付き 1 バイト。`+0x8c`。値域は**未確認**（0 / 1 以外がありうる） |
 | 12, 14 | `m`（`g`） | 0 / 1 を基本に、2 / 3 になることがある。ビット 1 が立つ、または特定の条件（グループなどの影響と推測）で 2 / 3。さらにグローバルフラグ `DAT_0261e118` が真だと 0x80 を足す。**意味は未確認** |
 | 2 | `r`（`t`） | 0, 1, 3, 0x40, 0x80 のいずれか。キーは `_BgTrackFaderDataRecEnableStateKey`（録音待機の状態）。値の決まり方は **§8.3**（機械語で確認） |
-| 32 | `ip`（`t`） | 最大 12 ビットのマスク。ビット *k* は、*k* 番目のチャンネルの内部フラグ（+0x3a の bit 2）（確認）。キー名より「独立パン」（仮説） |
+| 32 | `ip`（`t`） | 最大 12 ビットのマスク。ビット *k* は、*k* 番目のチャンネルの内部フラグ（+0x3a の bit 2）（確認）。キーは `_BgTrackInfoIndependentPanKey`（bind で確認、[アンカー表](../protocol/logic-remote-recenable-anchors.tsv)）なので「独立パン」の印（仮説）。画面の I（入力モニタリング）とは別物：E3 では録音待機のトラックの I が点いていても、全トラックで 0 だった |
 
 - `changedMask == 0` は全項目を含む（SA-005 §3 の確認）。
 - 差分の入口 `handleUpdateBitsForElement:` は、`updateBitsValue` が `0x100007005` のビット（0, 2, 12, 13, 14, 32）のどれかを含み、
@@ -325,7 +325,7 @@ Ghidra が `FUN_01bXXXXX` と呼ぶ小さな関数は、Objective-C のメッセ
 
 ### 8.3 `r`（録音待機の状態）を機械語で読む（2026-10-07 追記）
 
-`r` のキーは `_BgTrackFaderDataRecEnableStateKey`（MACore。`dyld_info` の bind で確認）。値は、`FUN_006ecc1c(曲, trackID の上位 16 ビット, トラック, &flag)` の戻り値 *s* で決まる。根拠は [アンカー表](../protocol/logic-remote-recenable-anchors.tsv)（125 行。Ghidra ではなく、バイナリのバイト列と `llvm-objdump` で照合）。
+`r` のキーは `_BgTrackFaderDataRecEnableStateKey`（MACore。`dyld_info` の bind で確認）。値は、`FUN_006ecc1c(曲, trackID の上位 16 ビット, トラック, &flag)` の戻り値 *s* で決まる。根拠は [アンカー表](../protocol/logic-remote-recenable-anchors.tsv)（131 行。§8.1 のキーの bind も含む。Ghidra ではなく、バイナリのバイト列と `llvm-objdump` で照合）。
 
 | *s* | `r` | アンカー |
 |---|---|---|

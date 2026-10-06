@@ -301,7 +301,7 @@ However, even if a value is in the sender's dictionary, **whether it is dropped 
 | 13 | `s` (`g`) | signed byte at `+0x8c`. Range **not confirmed** (values other than 0 / 1 are possible) |
 | 12, 14 | `m` (`g`) | basically 0 / 1, sometimes 2 / 3: when bit 1 is set, or under particular conditions (presumed to be the effect of groups and the like). The global flag `DAT_0261e118`, when true, adds 0x80. **Meaning not confirmed** |
 | 2 | `r` (`t`) | one of 0, 1, 3, 0x40, 0x80. The key is `_BgTrackFaderDataRecEnableStateKey` (record-enable state). How the value is chosen: **§8.3** (checked in machine code) |
-| 32 | `ip` (`t`) | a mask of up to 12 bits. Bit *k* is the internal flag (bit 2 of +0x3a) of channel *k* (confirmed). "Independent pan" from the key name (hypothesis) |
+| 32 | `ip` (`t`) | a mask of up to 12 bits. Bit *k* is the internal flag (bit 2 of +0x3a) of channel *k* (confirmed). The key is `_BgTrackInfoIndependentPanKey` (checked with the bind, [anchor table](../protocol/logic-remote-recenable-anchors.tsv)), so a mark of "independent pan" (hypothesis). Not the I (input monitoring) button on screen: in E3 it was 0 on every track although the armed track's I was lit |
 
 - `changedMask == 0` includes every field (confirmed in SA-005 §3).
 - The delta entry `handleUpdateBitsForElement:` calls `collectGInstFaderStatesForInstID:changedMask:` when `updateBitsValue` contains any of the bits of `0x100007005` (0, 2, 12, 13, 14, 32)
@@ -326,7 +326,7 @@ It sets `cachedCurrentMixerController` only while processing and clears it after
 
 ### 8.3 `r` (record-enable state) read in machine code (added 2026-10-07)
 
-The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (125 rows, checked against the bytes of the image and `llvm-objdump`, not Ghidra).
+The key of `r` is `_BgTrackFaderDataRecEnableStateKey` (MACore; checked with the `dyld_info` bind). The value is decided by the return value *s* of `FUN_006ecc1c(song, high 16 bits of the trackID, track, &flag)`. Evidence: the [anchor table](../protocol/logic-remote-recenable-anchors.tsv) (131 rows, including the binds of the §8.1 keys; checked against the bytes of the image and `llvm-objdump`, not Ghidra).
 
 | *s* | `r` | Anchor |
 |---|---|---|
