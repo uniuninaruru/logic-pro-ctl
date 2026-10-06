@@ -62,7 +62,7 @@ flowchart LR
 | [SA-REMOTE-FRAME-001](static-analysis/SA-REMOTE-FRAME-001.md) | Logic Remote のフレーム：タグ・圧縮（MAZP）・形式の選び方・型と順序 |
 | [SA-REMOTE-STATE-001](static-analysis/SA-REMOTE-STATE-001.md) | Logic の状態送信：初回送信の順序、`/ati`・`/sti`・`/gtFaderData`、差分、曲の切り替えと接続 |
 | [SA-REMOTE-TRACKTYPE-001](static-analysis/SA-REMOTE-TRACKTYPE-001.md) | `/ati` の `t`（トラックの種類。判定の 8 規則）と `c`（色の 4 バイトは R, G, B, A）。命令・定数の照合表付き。受信値の確認範囲は実験記録に分けて記載 |
-| [SA-REMOTE-KEYCOMMAND-001](static-analysis/SA-REMOTE-KEYCOMMAND-001.md) | `/keyCommand/actionNum` の番号（16 ビットに切り詰めた 0〜4950）は台帳の `command_id`。Logic が前面なら共通のディスパッチャーへ `source` 2 で渡る（背面の経路の先は未読）。結果は待たず返事も無い（静的のみ。送信はしていない） |
+| [SA-REMOTE-KEYCOMMAND-001](static-analysis/SA-REMOTE-KEYCOMMAND-001.md) | `/keyCommand/actionNum` の番号（16 ビットに切り詰めた 0〜4950）は台帳の `command_id`。前面でも背面でも、共通のディスパッチャーへ `source` 2 で渡る。結果は待たず返事も無い（静的のみ。送信はしていない） |
 | [SA-COMMAND-CATALOG-001](static-analysis/SA-COMMAND-CATALOG-001.md) | 登録コマンド 2353 件の台帳と、Remote のコマンド一覧（実行はしていない） |
 | [SA-IDENTITY-001](static-analysis/SA-IDENTITY-001-binary-inputs.md) | 元Universal/thinファイル・arm64 slice・解析copy・Ghidra import metadataの識別と照合 |
 | [AppleEvent登録](static-analysis/appleevent-registration.md) | handler・型・戻り値・モード分岐 |

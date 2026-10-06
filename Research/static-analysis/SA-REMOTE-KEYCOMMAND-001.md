@@ -7,7 +7,7 @@
 | 状態 | **静的解析のみ**。Logic には何も送っていない。Ghidra の新しいジョブも使っていない（保存済みの逆コンパイル結果と、バイナリファイルの `llvm-objdump`） |
 | 日付 | 2026-10-05 |
 | 対象 | Logic 12.3.1 (6682)、arm64 の `Logic.arm64`（SHA-256 `2f141e1a…0998`） |
-| 根拠 | [アンカー表](../protocol/logic-remote-keycommand-anchors.tsv)（80 行、バイナリから照合）、`Research/raw/ghidra/q-p7-route.c`（Git の追跡対象外） |
+| 根拠 | [アンカー表](../protocol/logic-remote-keycommand-anchors.tsv)（113 行、バイナリから照合）、`Research/raw/ghidra/q-p7-route.c`（Git の追跡対象外） |
 | 関連 | [SA-COMMAND-CATALOG-001](SA-COMMAND-CATALOG-001.md)（台帳）・[SA-004](SA-004-command-and-engine-boundaries.md)（共通のディスパッチャー）・[operation-catalog.tsv](../protocol/operation-catalog.tsv) |
 
 ## 1. 結論
@@ -15,7 +15,7 @@
 | 項目 | 結論 | 区分 | 確信度 |
 |---|---|---|---|
 | 番号の意味 | `/keyCommand/actionNum` の引数（整数）は、**16 ビットに切り詰めた値**が、Logic が前面のとき、共通のコマンド・ディスパッチャー `FUN_008663d4` の `befehl` に渡る。つまり [operation-catalog.tsv](../protocol/operation-catalog.tsv) の `command_id` と同じ番号 | 静的事実（命令） | 高 |
-| 通る経路 | **Logic が前面のとき**は、メニュー・ツールバー・Accessibility と同じディスパッチャー。**背面のとき**は `NSApp doLogicAction:` を経由し、その先が同じディスパッチャーに届くかは未読（§5） | 静的事実（前面）／未確認（背面） | 高（前面） |
+| 通る経路 | 前面でも背面でも、メニュー・ツールバー・Accessibility と**同じディスパッチャー**に、`source` 2 で届く。背面のときは `CLgApplication doLogicAction:` → `FUN_0086625c` を経由する（辞書 `keyLogicAction*` に詰め直してから、同じ引数で呼ぶ） | 静的事実（命令。2026-10-07 に背面の経路も読んだ） | 高 |
 | 範囲 | 番号は**符号付き 16 ビット**として取り出され（`ldrsh`）、ディスパッチャーは**符号なし**で 4950（0x1356）と比べる（`b.hi`）。有効なのは、切り詰めた後の **0 ≤ 番号 ≤ 4950** だけで、負の値も拒まれる。送った整数そのものではない：たとえば 65539（0x10003）は 3（Play）になる | 静的事実 | 高 |
 | 特別扱い | **754（Save）だけ**、保存パネル（`NSSavePanel`）がモーダルで開いているときは実行しない。ただし、この確認は**切り詰める前の 32 ビットの値**で比べる（`cmp w22, #0x2f2`）。66290（0x102F2）を送ると確認を通り抜け、切り詰めた後の 754（Save）として実行されうる | 静的事実（命令の組み合わせからの読み。送って確かめてはいない） | 高 |
 | 返事 | ルーターは実行を**キューに積むだけ**で、結果を待たず、Remote への応答も送らない。成功したかどうかは、状態を読み直すしか分からない | 静的事実（この分岐の範囲） | 高 |
@@ -34,12 +34,14 @@ flowchart TD
     F --> G["FUN_008663d4(番号 16bit, x21, 0, source 2, 0)"]
     E -->|背面| H["activateIgnoringOtherApps → 0.1 秒後<br/>ブロック 0x11e5680"]
     H --> I["FUN_00864f34 → NSApp doLogicAction: をメインスレッドで（待たない）"]
+    I --> I2["CLgApplication doLogicAction: → FUN_0086625c<br/>辞書から取り出して FUN_008663d4(番号 sxth, 曲, NO, source 2, 0)"]
+    I2 --> J
     G --> J{"0 ≤ 番号 ≤ 4950（符号なし比較）かつ 表の枠がある"}
     J -->|はい| K["コマンド表 DAT_026883b0[番号] のハンドラー"]
 ```
 
 - **前面のとき**（アンカー `KC-enqueue`、`BLK-active`）：番号と `x21` を捕捉したブロックを、メインのランループに積む。ブロックは番号を符号付き 16 ビットで読み、`FUN_008663d4(番号, x21, 0, 2, 0)` を呼ぶ。第 4 引数（`source`）は **2**。SA-004 は「`source` 2 は Notes のリンク」と書いていたが、**Remote の `actionNum` も 2 を使う**。
-- **背面のとき**（`BLK-inactive`、`DEF-perform`）：Logic を前面に出し、0.1 秒後に `FUN_00864f34(番号, x21, 0, 0, 0, 0)` を呼ぶ。これは値を 7 個詰めた辞書を作り、`NSApp` が `doLogicAction:` に応答すれば、それを**メインスレッドで、待たずに**実行させる。`doLogicAction:` の本体は読んでいない。
+- **背面のとき**（`BLK-inactive`、`DEF-perform`）：Logic を前面に出し、0.1 秒後に `FUN_00864f34(番号, x21, 0, 0, 0, 0)` を呼ぶ。これは値を 7 個詰めた辞書（`keyLogicActionNum`・`SongID`・`IgnoreFeatureAvailability`・`KeyUp`・`TrackID`・`DontLearn`・`CalledFromControlSurface`）を作り、`NSApp` が `doLogicAction:` に応答すれば、それを**メインスレッドで、待たずに**実行させる。`NSApp` のクラス `CLgApplication` の `doLogicAction:` は 2 命令で、`FUN_0086625c` へ飛ぶ。`FUN_0086625c` は辞書から値を取り出し、`FUN_008663d4(番号を sxth で 16 ビット符号拡張, 曲（+0x85c が 1 の有効な曲だけ）, IgnoreFeatureAvailability, KeyUp なら 4 そうでなければ 2, TrackID)` を呼ぶ。`actionNum` の背面の経路では、`IgnoreFeatureAvailability` は常に NO、`KeyUp`・`TrackID`・`DontLearn`・`CalledFromControlSurface` は 0 なので、**前面と同じく `source` 2** になる（アンカー `BG-*`）。
 - **ディスパッチャー**（`DISP-range`）：`cmp w22, #0x1356` と `b.hi`（符号なしの比較）で、4950 を超える番号と、符号拡張された負の番号を外し、`DAT_026883b0[番号]` が空なら何もしない（SA-004 の「`befehl < 0x1357`」と一致）。
 
 `x21` が何を指すか（ディスパッチャーの第 2 引数。SA-004 では song）は、この分岐の中では辿っていない。
@@ -62,7 +64,7 @@ flowchart TD
 
 | 項目 | 状態 |
 |---|---|
-| `doLogicAction:`（背面のときの経路）の本体と、最終的に同じディスパッチャーに届くか | 未読 |
+| `doLogicAction:`（背面のときの経路）の本体と、最終的に同じディスパッチャーに届くか | **解決**（2026-10-07）：`CLgApplication doLogicAction:` → `FUN_0086625c` → `FUN_008663d4`（`source` 2）。`RemoteCommandSupport` にも同名の `doLogicAction:`（引数は short、Notes のリンク用）があるが、`NSApp` が受けるのは `CLgApplication` 側 |
 | `x21` が何を指すか | この分岐の中では未確認 |
 | ディスパッチャーの奥（`FUN_00865cec`）での、コマンドごとの実行可否の検査 | SA-004 の範囲。コマンドごとには未解析 |
 | 実際に送ったときの振る舞い | 未確認（送信は承認が要る） |
