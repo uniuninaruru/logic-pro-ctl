@@ -23,6 +23,12 @@ final class FakeLogicMCU {
     var selected = 0
     var playing = false
     var recording = false
+    var cycle = false
+    var click = true
+    /// Logic leaves the Cycle/Click LEDs out of its dump (nothing known about them).
+    var withholdGlobalLEDs = false
+    /// Logic does not react to the Cycle/Click buttons (no change, no LED).
+    var ignoreGlobalButtons = false
     weak var backend: MCUBackend?
 
     // Fault injection ---------------------------------------------------
@@ -176,6 +182,7 @@ final class FakeLogicMCU {
         }
         send(viewMessages(includeLEDs: !withholdLEDDump))
         if !withholdLEDDump && !withholdTransportLEDs { send(transportLEDs() + led(MCU.rudeSoloNote, false)) }
+        if !withholdLEDDump && !withholdGlobalLEDs { send(led(MCU.cycleNote, cycle) + led(MCU.clickNote, click)) }
         if let timeDisplay { send(timecodeMessages(timeDisplay) + led(MCU.beatsNote, timeModeBeats) + led(MCU.smpteNote, !timeModeBeats)) }
     }
 
@@ -249,6 +256,14 @@ final class FakeLogicMCU {
             playing = false
             recording = false
             send(transportLEDs())
+        case MCU.cycleNote:
+            guard !ignoreGlobalButtons else { return }
+            cycle.toggle()
+            send(led(MCU.cycleNote, cycle))
+        case MCU.clickNote:
+            guard !ignoreGlobalButtons else { return }
+            click.toggle()
+            send(led(MCU.clickNote, click))
         case 0x00..<0x08:
             let index = offset + Int(note)
             guard index < strips.count, strips[index].armable else { return }   // no change, no answer

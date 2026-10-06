@@ -10,6 +10,8 @@ public enum CLIParser {
           status                         daemon・Logic・コントロールサーフェスの接続状態
           state                          再生状態と全トラック
           transport play|stop            再生・停止
+          transport cycle on|off         サイクル（MCU の Cycle ボタン。LED で確認）
+          transport click on|off         メトロノームのクリック（MCU の Click ボタン。LED で確認）
           track list                     チャンネルストリップの一覧
           track get <n>                  指定したストリップの状態
           track select <n>               選択
@@ -125,6 +127,9 @@ public enum CLIParser {
         case ("transport", "play"), ("transport", "stop"):
             try need(2, "transport play|stop")
             return try request("transport.\(words[1])")
+        case ("transport", "cycle"), ("transport", "click"):
+            try need(3, "transport \(words[1]) on|off")
+            return try request("transport.\(words[1])", args: ["state": words[2]])
         case ("track", "list"):
             try need(2, "track list")
             return try request("track.list")

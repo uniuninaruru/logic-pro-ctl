@@ -7,6 +7,7 @@ MCU 読み取り	track list（全ストリップの走査）	mcu	live	EXP-CLI-00
 MCU 読み取り	track get	mcu	live	EXP-CLI-001; EXP-MCU-021	フェーダーに触れて dB を読む（読み取りに副作用がある）
 MCU 読み取り	state	mcu	live	EXP-CLI-001	track list と同じ走査
 MCU 書き込み	transport play / stop	mcu	live	EXP-CLI-001	再生・録音の状態が不明なら何も送らない
+MCU 書き込み	transport cycle / click	mcu	tested	Tests/LogicCoreTests/TransportLatchTests.swift; EXP-MCU-029（LED の読み取りのみ）	Cycle 0x56・Click 0x59 を押して LED で確認。実機では両方の LED が「オン」のときを 1 回読んだだけで、ボタンはまだ押していない（同じポートに 2 台目があるため保留）
 MCU 書き込み	track mute	mcu	live	EXP-CLI-001; EXP-MCU-022〜025	ソロ中は mute LED が点滅するため状態は null になる
 MCU 書き込み	track solo	mcu	live	EXP-CLI-001	
 MCU 書き込み	track arm（録音待機）	mcu	live	EXP-MCU-028; Tests/LogicCoreTests/TrackArmTests.swift	実機 1 回（ソフトウェア音源の on/off と no-op）。選択中のトラックの自動の録音待機が外れることがある。出力・Master での失敗は実機で未確認

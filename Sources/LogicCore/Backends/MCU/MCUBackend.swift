@@ -237,6 +237,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         case .state: return state()
         case .transportPlay: return transport(play: true)
         case .transportStop: return transport(play: false)
+        case .transportCycle(let on): return latch(MCU.cycleNote, on: on, field: "cycle", label: "サイクル")
+        case .transportClick(let on): return latch(MCU.clickNote, on: on, field: "click", label: "メトロノームのクリック")
         case .trackList:
             let scan = scanTracks()
             return Outcome(ok: scan.complete, result: .array(scan.tracks), error: scan.error, message: scan.message,
@@ -781,6 +783,30 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         send(MCU.press(play ? MCU.playNote : MCU.stopNote))
         let ok = wait(1.0) { $0.led(MCU.playNote) == play }
         return .write(matched: ok, requested: requested, observed: transportJSON())
+    }
+
+    /// A global button that toggles and whose LED shows the state (Cycle, Click). Only a reported LED is
+    /// evidence: without one nothing is sent, because a toggle from an unknown state may go either way.
+    /// One press at most; the LED read and the connection it belongs to are taken together.
+    private func latch(_ note: UInt8, on: Bool, field: String, label: String) -> Outcome {
+        let requested: JSONValue = [field: .bool(on)]
+        guard wait(1.0, until: { $0.ledIfKnown(note) != nil }) else {
+            return .failure("readback_unavailable",
+                            "\(label)の状態（LED）をLogicから受信していません。状態が不明なため、何も送信していません。",
+                            requested: requested)
+        }
+        let (state, session) = read { s in (s.led(note), handshakeGeneration) }
+        if state == on {
+            return .write(matched: true, requested: requested, observed: [field: .bool(on)],
+                          message: "既に要求どおりの状態です。送信していません。")
+        }
+        send(MCU.press(note))
+        wait(1.0) { $0.led(note) == on }
+        let (generation, led) = read { s in (handshakeGeneration, s.ledIfKnown(note)) }
+        guard generation == session else { return sessionChangedOutcome() }
+        let matched = led == on
+        return .write(matched: matched, requested: requested, observed: [field: .bool(led)],
+                      message: matched ? nil : "\(label)の LED が要求どおりになりませんでした。")
     }
 
     private func select(_ strip: Int) -> Outcome {

@@ -6,6 +6,9 @@ public enum LogicCommand: Equatable {
     case state
     case transportPlay
     case transportStop
+    /// Cycle mode and the metronome click: global MCU buttons (Cycle 0x56, Click 0x59) that toggle, checked by their LEDs.
+    case transportCycle(on: Bool)
+    case transportClick(on: Bool)
     case trackList
     case trackGet(track: Int)
     case trackSelect(track: Int)
@@ -24,7 +27,8 @@ public enum LogicCommand: Equatable {
     /// Commands that change Logic. Only these are journaled and accept an idempotency key.
     public var isWrite: Bool {
         switch self {
-        case .transportPlay, .transportStop, .trackSelect, .trackMute, .trackSolo, .trackArm, .trackVolume, .trackPan, .debugMCU:
+        case .transportPlay, .transportStop, .transportCycle, .transportClick, .trackSelect, .trackMute, .trackSolo, .trackArm,
+             .trackVolume, .trackPan, .debugMCU:
             return true
         case .status, .state, .trackList, .trackGet, .daemonStop:
             return false
@@ -37,7 +41,7 @@ public enum LogicCommand: Equatable {
         case .trackGet(let t), .trackSelect(let t), .trackMute(let t, _), .trackSolo(let t, _), .trackArm(let t, _),
              .trackVolume(let t, _, _), .trackPan(let t, _):
             return t
-        case .status, .state, .transportPlay, .transportStop, .trackList, .daemonStop, .debugMCU:
+        case .status, .state, .transportPlay, .transportStop, .transportCycle, .transportClick, .trackList, .daemonStop, .debugMCU:
             return nil
         }
     }
@@ -63,6 +67,8 @@ public enum LogicCommand: Equatable {
         case .state: return "state"
         case .transportPlay: return "transport.play"
         case .transportStop: return "transport.stop"
+        case .transportCycle: return "transport.cycle"
+        case .transportClick: return "transport.click"
         case .trackList: return "track.list"
         case .trackGet: return "track.get"
         case .trackSelect: return "track.select"
@@ -116,6 +122,8 @@ extension LogicCommand {
         case "state": self = .state
         case "transport.play": self = .transportPlay
         case "transport.stop": self = .transportStop
+        case "transport.cycle": self = .transportCycle(on: try onOff())
+        case "transport.click": self = .transportClick(on: try onOff())
         case "track.list": self = .trackList
         case "track.get": self = .trackGet(track: try track())
         case "track.select": self = .trackSelect(track: try track())

@@ -305,13 +305,14 @@ private func error(_ result: ExecutionResult) -> String? { result.routed.outcome
 }
 
 @Test func isWriteAgreesWithTheWireNames() {
-    let commands: [LogicCommand] = [.status, .state, .transportPlay, .transportStop, .trackList, .trackGet(track: 1),
+    let commands: [LogicCommand] = [.status, .state, .transportPlay, .transportStop, .transportCycle(on: true),
+        .transportClick(on: false), .trackList, .trackGet(track: 1),
         .trackSelect(track: 1), .trackMute(track: 1, on: true), .trackSolo(track: 1, on: true),
         .trackVolume(track: 1, db: 0, tolerance: 0.1), .trackPan(track: 1, pan: 0), .daemonStop, .debugMCU(messages: [[0x90]])]
     for command in commands {
         #expect(command.isWrite == LogicCommand.isWrite(named: command.name), "\(command.name)")
     }
-    #expect(commands.filter(\.isWrite).count == 8)
+    #expect(commands.filter(\.isWrite).count == 10)
 }
 
 @Test func theNewRequestFieldsRoundTripAndOldRequestsStillDecode() throws {

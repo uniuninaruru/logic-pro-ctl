@@ -18,6 +18,9 @@ public enum MCU {
     public static let playNote: UInt8 = 0x5E
     public static let recordNote: UInt8 = 0x5F
     public static let rudeSoloNote: UInt8 = 0x73
+    /// Global buttons whose LED shows the state. Logic reported both in its dump (EXP-MCU-024 log, EXP-MCU-029 read).
+    public static let cycleNote: UInt8 = 0x56
+    public static let clickNote: UInt8 = 0x59
     /// Time display mode LEDs. Logic lit BEATS and not SMPTE in the logs of EXP-MCU-009/024.
     public static let smpteNote: UInt8 = 0x71
     public static let beatsNote: UInt8 = 0x72
