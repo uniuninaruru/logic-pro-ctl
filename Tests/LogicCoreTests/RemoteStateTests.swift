@@ -570,3 +570,58 @@ func theE3RecordingFollowsOneSelectionChange() throws {
     #expect(after.strips.allSatisfy { $0.track.ip?.value == 0 })
 }
 #endif
+
+#if canImport(Testing)
+// MARK: - Record-enable `r` on the other real receptions, when present (Research/raw is not tracked)
+
+private func referenceFrames(_ run: String) -> URL? {
+    let frames = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        .appendingPathComponent("Research/raw/remote-recv/\(run)/frames")
+    var isDirectory = ObjCBool(false)
+    guard FileManager.default.fileExists(atPath: frames.path, isDirectory: &isDirectory), isDirectory.boolValue else { return nil }
+    return frames
+}
+
+private func replayReference(_ frames: URL) throws -> RemoteStateBuilder {
+    let files = try FileManager.default.contentsOfDirectory(at: frames, includingPropertiesForKeys: nil)
+        .filter { $0.pathExtension == "bin" }
+        .sorted { (Int($0.deletingPathExtension().lastPathComponent) ?? 0) < (Int($1.deletingPathExtension().lastPathComponent) ?? 0) }
+    var b = RemoteStateBuilder()
+    for file in files {
+        guard case .success(let frame) = RemoteFrameParser.decode(try Data(contentsOf: file)) else { Issue.record("\(file.lastPathComponent)"); continue }
+        b.apply(frame: Int(file.deletingPathExtension().lastPathComponent)!, frame)
+    }
+    return b
+}
+
+private func rByName(_ snap: RemoteStateSnapshot) -> [String: Int?] {
+    Dictionary(snap.strips.map { ($0.name.trimmingCharacters(in: .whitespaces), $0.track.r?.value) }, uniquingKeysWith: { a, _ in a })
+}
+
+// EXP-REMOTE-003: Amped Up (a track with children) selected.
+@Test(.enabled(if: referenceFrames("20261005-134359-e1") != nil, "EXP-REMOTE-003 recording is absent"))
+func theEXP003RecordingGivesTheSelectedTrackR3AndAudioAndOutputs64() throws {
+    let b = try replayReference(referenceFrames("20261005-134359-e1")!)
+    let snap = b.snapshot()
+    let r = rByName(snap)
+    #expect(b.issues.isEmpty)
+    #expect(snap.selection?.name?.trimmingCharacters(in: .whitespaces) == "Amped Up")
+    #expect(r["Amped Up"] == 3)
+    #expect(r["Piano"] == 0 && r["Ballad"] == 0)
+    #expect(["Trk08", "Audio", "Stereo Out", "Master"].allSatisfy { r[$0] == 64 })
+}
+
+// The aborted E4 run (no operation for its whole window): a no-change control for E3.
+@Test(.enabled(if: referenceFrames("20261007-012114-e1") != nil, "aborted E4 recording is absent"))
+func theAbortedE4RecordingChangesNothingAfterTheInitialState() throws {
+    let b = try replayReference(referenceFrames("20261007-012114-e1")!)
+    let snap = b.snapshot()
+    let r = rByName(snap)
+    #expect(b.issues.isEmpty)
+    #expect(snap.strips.count == 14)
+    #expect(b.events.filter { $0.kind == .faderApplied }.count == 1)
+    #expect(b.events.filter { $0.kind == .stiApplied }.count == 1)
+    #expect(snap.selection?.name == "Ballad")
+    #expect(r["Ballad"] == 3 && r["Piano"] == 0 && r["Synth"] == 0)
+}
+#endif
