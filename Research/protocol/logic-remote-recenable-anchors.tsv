@@ -135,3 +135,43 @@ BIND-VolumeLevelLongKey@0x2282308	bind	0x02282308		MACore/_BgGInstFaderDataVolum
 BIND-SoloStateKey@0x22822f8	bind	0x022822f8		MACore/_BgGInstFaderDataSoloStateKey	the key the builder uses for s
 BIND-MuteStateKey@0x22822f0	bind	0x022822f0		MACore/_BgGInstFaderDataMuteStateKey	the key the builder uses for m
 BIND-IndependentPanKey@0x2282470	bind	0x02282470		MACore/_BgTrackInfoIndependentPanKey	the key the builder uses for ip
+MIX-k@0x18ff398	insn	0x018ff398	f70300aa	mov x23, x0	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff39c	insn	0x018ff39c	e10315aa	mov x1, x21	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3a0	insn	0x018ff3a0	ea9ba897	bl 0x326348	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3a4	insn	0x018ff3a4	e10300aa	mov x1, x0	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3a8	insn	0x018ff3a8	0101f837	tbnz w1, #0x1f, 0x18ff3c8	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3ac	insn	0x018ff3ac	3f080071	cmp w1, #0x2	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3b0	insn	0x018ff3b0	60020054	b.eq 0x18ff3fc	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3b4	insn	0x018ff3b4	3f040071	cmp w1, #0x1	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3b8	insn	0x018ff3b8	e00317aa	mov x0, x23	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3bc	insn	0x018ff3bc	e1020054	b.ne 0x18ff418	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3c0	insn	0x018ff3c0	36008052	mov w22, #0x1	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-k@0x18ff3c4	insn	0x018ff3c4	16000014	b 0x18ff41c	MAMixerModelAdapter recordStateOfStrip: k = FUN_00326348(song, identifier); negative -> 0; 2 -> below; 1 -> 1; else 0
+MIX-two@0x18ff3fc	insn	0x018ff3fc	e86800f0	adrp x8, 0x261e000	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff400	insn	0x018ff400	08614439	ldrb w8, [x8, #0x118]	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff404	insn	0x018ff404	1f010071	cmp w8, #0x0	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff408	insn	0x018ff408	48008052	mov w8, #0x2	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff40c	insn	0x018ff40c	1615881a	cinc w22, w8, eq	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff410	insn	0x018ff410	e00317aa	mov x0, x23	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff414	insn	0x018ff414	02000014	b 0x18ff41c	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-two@0x18ff418	insn	0x018ff418	16008052	mov w22, #0x0	k == 2: 3 when the byte at 0x261e118 is 0, else 2
+MIX-auto@0x18ff41c	insn	0x018ff41c	f50f00b9	str w21, [sp, #0xc]	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff420	insn	0x018ff420	e2330091	add x2, sp, #0xc	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff424	insn	0x018ff424	03008052	mov w3, #0x0	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff428	insn	0x018ff428	040080d2	mov x4, #0x0	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff42c	insn	0x018ff42c	1bbcb797	bl 0x6ee498	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff430	insn	0x018ff430	c8021e32	orr w8, w22, #0x4	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff434	insn	0x018ff434	1f000071	cmp w0, #0x0	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff438	insn	0x018ff438	0211961a	csel w2, w8, w22, ne	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-auto@0x18ff43c	insn	0x018ff43c	e4ffff17	b 0x18ff3cc	then FUN_006ee498(song, k, &identifier, 0, 0) != 0 adds 4; the value goes to mixerRecordStateFor:
+MIX-send@0x18ff3c8	insn	0x018ff3c8	02008052	mov w2, #0x0	the state is passed to the stub at 0x1b606c0 (mixerRecordStateFor:)
+MIX-send@0x18ff3cc	insn	0x018ff3cc	e00314aa	mov x0, x20	the state is passed to the stub at 0x1b606c0 (mixerRecordStateFor:)
+MIX-send@0x18ff3d0	insn	0x018ff3d0	bc840994	bl 0x1b606c0	the state is passed to the stub at 0x1b606c0 (mixerRecordStateFor:)
+AUTO-entry@0x6ee4a8	insn	0x006ee4a8	480004aa	orr x8, x2, x4	FUN_006ee498: a non-zero second argument (k from the mixer adapter) goes straight to 0x6ee6cc
+AUTO-entry@0x6ee4ac	insn	0x006ee4ac	1f0100f1	cmp x8, #0x0	FUN_006ee498: a non-zero second argument (k from the mixer adapter) goes straight to 0x6ee6cc
+AUTO-entry@0x6ee4b0	insn	0x006ee4b0	e8079f1a	cset w8, ne	FUN_006ee498: a non-zero second argument (k from the mixer adapter) goes straight to 0x6ee6cc
+AUTO-entry@0x6ee4b4	insn	0x006ee4b4	c1100035	cbnz w1, 0x6ee6cc	FUN_006ee498: a non-zero second argument (k from the mixer adapter) goes straight to 0x6ee6cc
+STUB-mixerRecordStateFor@0x1b606c0	insn	0x01b606c0	c14f00b0	adrp x1, 0x2559000	objc stub: loads the selector reference then jumps to objc_msgSend
+STUB-mixerRecordStateFor@0x1b606c4	insn	0x01b606c4	21b446f9	ldr x1, [x1, #0xd68]	objc stub: loads the selector reference then jumps to objc_msgSend
+SEL-mixerRecordStateFor@0x2559d68	selref	0x02559d68		mixerRecordStateFor:	selector reference used by the stub at 0x1b606c0
+AUTO-zero@0x6ee6cc	insn	0x006ee6cc	00008052	mov w0, #0x0	FUN_006ee498 returns 0 there
