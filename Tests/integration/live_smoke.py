@@ -6,10 +6,11 @@ Usage:
 
 This is NOT part of the automated tests: it needs Logic Pro running with LogicCLI-Test.logicx open, the
 virtual MCU surface connected, and it changes (and restores) mute, solo, volume and pan of a few tracks.
-It refuses to run on anything that does not look like the test project: the track names must be exactly
-the expected ones (override with --expected-names only for another dedicated project). Nothing is
+It refuses to run on anything that does not look like the test project: the set of track names must be
+exactly the expected one, each name once (any order: every check finds its track by name; override with
+--expected-names only for another dedicated project). It also refuses on surface_conflict. Nothing is
 written before that check passes. Every write is undone in a `finally` block; the final state is
-compared with the initial one and any difference is reported (record-arm cannot be set from the CLI).
+compared with the initial one and any difference is reported (this check does not touch record-arm).
 
 The transcript (every command and its JSON) goes to --out (default Research/raw/live-smoke/, not tracked by Git).
 Exit status: 0 all checks passed, 1 a check failed, 2 refused to run (not the test project / not connected).
@@ -29,7 +30,10 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-EXPECTED_NAMES = ["Piano", "Audio", "Bass", "Synth", "Trk05", "Trk06", "Trk07", "Trk08", "Trk09", "Trk10", "St Out", "Master"]
+# The dedicated project as the MCU shows it (6-character names). Order is not checked: a reorder moves positions,
+# and every check below looks its track up by name. (12 strips until 2026-10-05; 14 since Ballad and Amped Up.)
+EXPECTED_NAMES = ["Piano", "Synth", "Ballad", "Trk08", "Audio", "AmpdUp", "Bass", "Trk10", "Trk07", "Trk06", "Trk05", "Trk09",
+                  "St Out", "Master"]
 SOCKET = os.path.expanduser(os.environ.get("LOGICCTL_SOCKET") or "~/Library/Application Support/logicctl/logicd.sock")
 
 
@@ -96,9 +100,10 @@ class Smoke:
             return 2
         tracks = self.tracks()
         names = [t["name"] for t in tracks]
-        if names != self.expected:
+        if sorted(names) != sorted(self.expected) or len(set(names)) != len(names):
             print(f"REFUSED: the track names do not match the dedicated test project.\n  expected {self.expected}\n  found    {names}")
             return 2
+        self.pos = {t["name"]: t["id"] for t in tracks}
         self.initial = self.snapshot(tracks)
         selected = [t["id"] for t in tracks if t.get("selected")]
         self.initial_selected = selected[0] if selected else None
@@ -113,17 +118,20 @@ class Smoke:
         status = self.cli("status")
         self.check("status reports a compatibility block", "compatibility" in (status.get("result") or {}))
         tracks = self.tracks()
-        self.check("track list is complete with 12 strips", len(tracks) == 12)
+        self.check(f"track list is complete with {len(self.expected)} strips", len(tracks) == len(self.expected))
         self.check("every strip says its id is a mixer position",
                    all(t.get("identity", {}).get("scope") == "mixer_position" for t in tracks))
         self.check("names are unique in a complete scan", all(t.get("identity", {}).get("name_unique") is True for t in tracks))
-        got = self.cli("track", "get", "3", "--expect-name", "Bass")
+        bass = str(self.pos["Bass"])
+        got = self.cli("track", "get", bass, "--expect-name", "Bass")
         self.check("track get with the right expected name succeeds", got.get("ok") is True)
-        bad = self.cli("track", "get", "3", "--expect-name", "Piano")
+        bad = self.cli("track", "get", bass, "--expect-name", "Piano")
         self.check("track get with a wrong expected name is refused", bad.get("error") == "target_mismatch" and "result" not in bad)
-        self.check("track 13 does not exist", self.cli("track", "get", "13").get("error") == "no_such_track")
+        beyond = str(len(self.expected) + 1)
+        self.check(f"track {beyond} does not exist", self.cli("track", "get", beyond).get("error") == "no_such_track")
 
-    def toggle(self, kind: str, track: int, name: str):
+    def toggle(self, kind: str, name: str):
+        track = self.pos[name]
         key = self.key(f"{kind}{track}")
         on = self.cli("track", kind, str(track), "on", "--expect-name", name, "--idempotency-key", key + "-on")
         self.check(f"{kind} {track} on is verified", on.get("ok") and on.get("verified") and (on.get("observed") or {}).get(kind) is True,
@@ -135,37 +143,39 @@ class Smoke:
 
     def values(self):
         for db in (-6.0, 0.0):
-            reply = self.cli("track", "volume", "4", str(db), "--expect-name", "Synth", "--idempotency-key", self.key(f"vol{db}"))
+            reply = self.cli("track", "volume", str(self.pos["Synth"]), str(db), "--expect-name", "Synth", "--idempotency-key", self.key(f"vol{db}"))
             observed = (reply.get("observed") or {}).get("volume_db")
-            self.check(f"volume 4 {db} dB is verified", reply.get("ok") and reply.get("verified") and observed is not None and abs(observed - db) <= 0.11,
+            self.check(f"volume Synth {db} dB is verified", reply.get("ok") and reply.get("verified") and observed is not None and abs(observed - db) <= 0.11,
                        json.dumps(reply, ensure_ascii=False)[:200])
         for pan in (-0.25, 0.0):
-            reply = self.cli("track", "pan", "5", str(pan), "--expect-name", "Trk05", "--idempotency-key", self.key(f"pan{pan}"))
-            self.check(f"pan 5 {pan} is verified", reply.get("ok") and reply.get("verified"), json.dumps(reply, ensure_ascii=False)[:200])
+            reply = self.cli("track", "pan", str(self.pos["Trk05"]), str(pan), "--expect-name", "Trk05", "--idempotency-key", self.key(f"pan{pan}"))
+            self.check(f"pan Trk05 {pan} is verified", reply.get("ok") and reply.get("verified"), json.dumps(reply, ensure_ascii=False)[:200])
 
     def contracts(self):
         key = self.key("conflict")
-        self.cli("track", "mute", "6", "on", "--expect-name", "Trk06", "--idempotency-key", key)
-        other = self.cli("track", "mute", "6", "off", "--expect-name", "Trk06", "--idempotency-key", key)
+        trk06, trk07, trk09 = (str(self.pos[n]) for n in ("Trk06", "Trk07", "Trk09"))
+        self.cli("track", "mute", trk06, "on", "--expect-name", "Trk06", "--idempotency-key", key)
+        other = self.cli("track", "mute", trk06, "off", "--expect-name", "Trk06", "--idempotency-key", key)
         self.check("the same key with different content is refused", other.get("error") == "idempotency_key_conflict")
-        self.cli("track", "mute", "6", "off", "--expect-name", "Trk06", "--idempotency-key", self.key("conflict-undo"))
+        self.cli("track", "mute", trk06, "off", "--expect-name", "Trk06", "--idempotency-key", self.key("conflict-undo"))
 
-        stale = self.cli("track", "mute", "7", "on", "--expect-session", "999999", "--idempotency-key", self.key("stale"))
+        stale = self.cli("track", "mute", trk07, "on", "--expect-name", "Trk07", "--expect-session", "999999", "--idempotency-key", self.key("stale"))
         self.check("a stale --expect-session is refused", stale.get("error") == "precondition_failed")
-        self.check("...and nothing was sent", next((t for t in self.tracks() if t["id"] == 7), {}).get("mute") is False)
+        self.check("...and nothing was sent", next((t for t in self.tracks() if t["id"] == int(trk07)), {}).get("mute") is False)
 
-        wait = self.cli("track", "volume", "9", "-3", "--expect-name", "Trk09", "--idempotency-key", self.key("late"), "--deadline-ms", "20")
+        wait = self.cli("track", "volume", trk09, "-3", "--expect-name", "Trk09", "--idempotency-key", self.key("late"), "--deadline-ms", "20")
         self.check("a 20 ms deadline gives timeout / unknown", wait.get("error") == "timeout" and (wait.get("execution") or {}).get("state") == "unknown")
         time.sleep(6)
-        after = self.cli("track", "volume", "9", "-3", "--expect-name", "Trk09", "--idempotency-key", self.key("late"))
+        after = self.cli("track", "volume", trk09, "-3", "--expect-name", "Trk09", "--idempotency-key", self.key("late"))
         self.check("the same key afterwards is replayed, not rerun", (after.get("execution") or {}).get("state") == "replayed" and after.get("verified") is True)
-        self.cli("track", "volume", "9", "0", "--expect-name", "Trk09", "--idempotency-key", self.key("late-undo"))
+        self.cli("track", "volume", trk09, "0", "--expect-name", "Trk09", "--idempotency-key", self.key("late-undo"))
 
     def slot(self):
         self.cli("track", "get", "1")  # park the bank at the start so the next write has to move it
         replies: dict[str, dict] = {}
         key = self.key("slot")
-        request = {"command": "track.volume", "args": {"track": "10", "db": "-3", "expect_name": "Trk10"}, "idempotency_key": key}
+        trk10 = str(self.pos["Trk10"])
+        request = {"command": "track.volume", "args": {"track": trk10, "db": "-3", "expect_name": "Trk10"}, "idempotency_key": key}
         first = threading.Thread(target=lambda: replies.__setitem__("first", self.raw(request)))
         first.start()
         time.sleep(0.4)
@@ -177,7 +187,7 @@ class Smoke:
         self.check("status answers while a long write runs", status.get("ok") and status_seconds < 1.0, f"{status_seconds:.2f}s")
         self.check("a duplicate while the write is running is refused at once", duplicate.get("error") == "request_in_flight", str(duplicate.get("error")))
         self.check("the first write still completes and is verified", replies["first"].get("ok") and replies["first"].get("verified"))
-        self.cli("track", "volume", "10", "0", "--expect-name", "Trk10", "--idempotency-key", self.key("slot-undo"))
+        self.cli("track", "volume", trk10, "0", "--expect-name", "Trk10", "--idempotency-key", self.key("slot-undo"))
 
     # -- restore and compare ---------------------------------------------
     def restore(self):
@@ -225,7 +235,7 @@ def main() -> int:
         return refused
     try:
         print("Reads:"); smoke.reads()
-        print("Writes (mute, solo):"); smoke.toggle("mute", 3, "Bass"); smoke.toggle("solo", 2, "Audio")
+        print("Writes (mute, solo):"); smoke.toggle("mute", "Bass"); smoke.toggle("solo", "Audio")
         print("Writes (volume, pan):"); smoke.values()
         print("Contracts:"); smoke.contracts()
         print("Execution slot:"); smoke.slot()
