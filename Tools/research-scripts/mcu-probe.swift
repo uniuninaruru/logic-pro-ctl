@@ -10,6 +10,7 @@
 // Lines written to fifo-path (hex bytes, e.g. "90 5E 7F") are sent to Logic.
 // Lines starting with '#' are logged as experiment markers.
 // MCU_AUTO=1 answers Logic's Mackie Control handshake automatically.
+// MIDI_PORT=<name> uses another port name (e.g. a generic controller for Controller Assignments).
 // Output: one line per message,
 //   <ISO8601 ms> dir=RX|TX bytes=<hex> [decode]
 // RX = Logic → probe, TX = probe → Logic. Research only; no product code.
@@ -79,7 +80,8 @@ func split(_ bytes: [UInt8]) -> [[UInt8]] {
 var client = MIDIClientRef()
 var source = MIDIEndpointRef()
 var dest = MIDIEndpointRef()
-let name = "logicctl-mcu" as CFString
+let portName = ProcessInfo.processInfo.environment["MIDI_PORT"] ?? "logicctl-mcu"
+let name = portName as CFString
 
 var status = MIDIClientCreateWithBlock("mcu-probe" as CFString, &client) { _ in }
 guard status == noErr else { log("error MIDIClientCreate \(status)"); exit(1) }
@@ -97,7 +99,7 @@ status = MIDIDestinationCreateWithBlock(client, name, &dest) { list, _ in
     }
 }
 guard status == noErr else { log("error MIDIDestinationCreate \(status)"); exit(1) }
-log("ready source=logicctl-mcu destination=logicctl-mcu")
+log("ready source=\(portName) destination=\(portName)")
 
 func send(_ bytes: [UInt8]) {
     var list = MIDIPacketList()
