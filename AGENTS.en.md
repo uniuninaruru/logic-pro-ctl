@@ -21,3 +21,20 @@ history; these are the ones that bite.
 - `Research/raw/` is gitignored; commit curated results only.
 - Logic 12.x bundle ID is `com.apple.mobilelogic` and the app name may carry an
   edition suffix ("Logic Pro Creator Studio"). Never hardcode either.
+
+## Keep work and token use bounded
+
+- Read changes and new messages after the first read. Narrow searches to relevant
+  files and lines. Save large logs, JSON and hash inventories to files; return
+  findings, counts and failures in the conversation.
+- Run affected tests for ordinary code changes. Batch a full suite once for
+  changes to shared contracts or dependencies, or at a publication milestone.
+  Documentation-only changes need diff, link and evidence checks, not builds or
+  full test suites.
+- Share and reuse tests, analysis and reviews for unchanged sources and conditions.
+  Repeat when changes, failures or unresolved concerns justify it. Matching hashes
+  of previously checked binaries and evidence do not require unrelated full
+  reanalysis. Verify the evidence needed for each new claim.
+- Delegate concrete independent tasks with only the context, file ownership and
+  short result they need. Avoid full-history forks and multiple reviews for routine
+  edits; prioritize independent reproduction of important bugs.
