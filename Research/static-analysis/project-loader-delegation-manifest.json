@@ -1,0 +1,461 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-PROJECT-FILE-002"
+  ],
+  "status": "completed_static_evidence_publication",
+  "captured_at_utc": "2026-10-07T04:05:47.840780+00:00",
+  "app_profile": {
+    "bundle_id": "com.apple.mobilelogic",
+    "version": "12.3.1",
+    "build": "6682"
+  },
+  "canonical_narrative": "Research/static-analysis/SA-PROJECT-FILE-002-loader-delegation.en.md",
+  "summary_ja": "Research/static-analysis/SA-PROJECT-FILE-002-loader-delegation.md",
+  "boundary_table": "Research/protocol/logicx-loader-delegation-boundaries.tsv",
+  "scope": {
+    "function_count": 3,
+    "defined_bytes": 364,
+    "instruction_words": 91,
+    "fact_count": 6,
+    "extra_callee_bodies": 0,
+    "live_operations": 0,
+    "description": "Exactly3 definitions/364B/91 words; one completed root read-only job; only selected method metadata and necessary selector/import bindings; no additional callee bodies."
+  },
+  "program_identity": {
+    "schema_version": 1,
+    "program_name": "Logic.arm64",
+    "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "verified_binary_inputs": {
+    "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "analysis_copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "size_bytes": 40710736,
+    "equal": true
+  },
+  "execution_jobs": [
+    {
+      "name": "q-project-loader-callees-023-Logic",
+      "program": "Logic.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-07T03:58:54.361736+00:00"
+    }
+  ],
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock_evidence": "Completed023 root job log records the absolute shared project lock and read-only processing. Publication did not start another job.",
+  "functions": [
+    {
+      "address": "0x8c2fc0",
+      "inventory_name": "DfDocument::checkDocumentVersion:currentRunningVersion:",
+      "kind": "class",
+      "defined_bytes": 76,
+      "words": 19,
+      "body_ranges": [
+        {
+          "start": "0x8c2fc0",
+          "exclusive_end": "0x8c300c",
+          "bytes": 76
+        }
+      ],
+      "body_span_bytes": 76,
+      "gap_bytes": 0,
+      "full_body_bytes_sha256": "d35d688075768c37c85dd691b3726555a363101b01e4bb2a76dd7aa1fa638dfd",
+      "full_span_has_no_other_inventory_entry": true,
+      "mapped_text": true,
+      "owner": "DfDocument",
+      "selector": "checkDocumentVersion:currentRunningVersion:",
+      "types": "i24@0:8i16i20"
+    },
+    {
+      "address": "0xb58764",
+      "inventory_name": "CLgSongDocument::setDocumentFileDataFromURL:usedAutoSave:error:",
+      "kind": "instance",
+      "defined_bytes": 116,
+      "words": 29,
+      "body_ranges": [
+        {
+          "start": "0xb58764",
+          "exclusive_end": "0xb587d8",
+          "bytes": 116
+        }
+      ],
+      "body_span_bytes": 116,
+      "gap_bytes": 0,
+      "full_body_bytes_sha256": "b7a26b3bc834395444e310f1825b5e3921cc7a2be524c231e93289b2372041e9",
+      "full_span_has_no_other_inventory_entry": true,
+      "mapped_text": true,
+      "owner": "CLgSongDocument",
+      "selector": "setDocumentFileDataFromURL:usedAutoSave:error:",
+      "types": "B40@0:8@16^B24^@32"
+    },
+    {
+      "address": "0x15ea7b8",
+      "inventory_name": "FUN_015ea7b8",
+      "kind": "function",
+      "defined_bytes": 172,
+      "words": 43,
+      "body_ranges": [
+        {
+          "start": "0x15ea7b8",
+          "exclusive_end": "0x15ea864",
+          "bytes": 172
+        }
+      ],
+      "body_span_bytes": 172,
+      "gap_bytes": 0,
+      "full_body_bytes_sha256": "cd078106cc229847bbd1122798987adfceabf9627b6e9c5dcfd68eace8ac5f64",
+      "full_span_has_no_other_inventory_entry": true,
+      "mapped_text": true
+    }
+  ],
+  "body_hash_contract": "SHA-256 of explicit body ranges concatenated in ascending address order; all three023 bodies are contiguous and have no gaps.",
+  "selected_method_rows": [
+    {
+      "owner": "DfDocument",
+      "kind": "class",
+      "raw_hex": "e8109700687d3f00f8cccefe",
+      "entry": "0x1bd62c0",
+      "selector": "checkDocumentVersion:currentRunningVersion:",
+      "types": "i24@0:8i16i20",
+      "imp": "0x8c2fc0",
+      "relative_imp_base": "0x1bd62c8"
+    },
+    {
+      "owner": "CLgSongDocument",
+      "kind": "instance",
+      "raw_hex": "5c2a97005f7f3e00e85ff6fe",
+      "entry": "0x1bf2774",
+      "selector": "setDocumentFileDataFromURL:usedAutoSave:error:",
+      "types": "B40@0:8@16^B24^@32",
+      "imp": "0xb58764",
+      "relative_imp_base": "0x1bf277c"
+    }
+  ],
+  "selector_stubs": [
+    {
+      "address": "0x1bbffe0",
+      "selector": "unilibDocManager",
+      "selector_slot": "0x2571bb0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "814d00d021d845f970360090103642f900021fd6"
+    },
+    {
+      "address": "0x1b8d860",
+      "selector": "setDocumentFileDataFromURL:usedAutoSave:error:",
+      "selector_slot": "0x25651d0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "c14e009021e840f9f03700d0103642f900021fd6"
+    },
+    {
+      "address": "0x1b6b0e0",
+      "selector": "path",
+      "selector_slot": "0x255c7f0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "814f00b021f843f910390090103642f900021fd6"
+    },
+    {
+      "address": "0x1b373a0",
+      "selector": "fileURLWithPath:",
+      "selector_slot": "0x254f8a0",
+      "dispatch_slot": "0x228b468",
+      "dispatch_import": {
+        "address": "0x228b468",
+        "raw_word": "0x80100000000015b7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "c1500090215044f9b03a0090103642f900021fd6"
+    }
+  ],
+  "native_import_stubs": [
+    {
+      "address": "0x1af3664",
+      "name": "_objc_retain",
+      "slot": "0x228b4c0",
+      "import_binding": {
+        "address": "0x228b4c0",
+        "raw_word": "0x80100000000015c1",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_retain",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c0090106242f900021fd6"
+    },
+    {
+      "address": "0x1af3688",
+      "name": "_objc_retainAutoreleasedReturnValue",
+      "slot": "0x228b4d8",
+      "import_binding": {
+        "address": "0x228b4d8",
+        "raw_word": "0x80100000000015c4",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_retainAutoreleasedReturnValue",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c0090106e42f900021fd6"
+    },
+    {
+      "address": "0x1af3658",
+      "name": "_objc_release",
+      "slot": "0x228b4b8",
+      "import_binding": {
+        "address": "0x228b4b8",
+        "raw_word": "0x80100000000015c0",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_release",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c0090105e42f900021fd6"
+    },
+    {
+      "address": "0x1af352c",
+      "name": "_objc_autoreleaseReturnValue",
+      "slot": "0x228b3e8",
+      "import_binding": {
+        "address": "0x228b3e8",
+        "raw_word": "0x80100000000015a7",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_autoreleaseReturnValue",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "raw_hex": "d03c009010f641f900021fd6"
+    }
+  ],
+  "necessary_class_bindings": [
+    {
+      "slot": "0x2284f10",
+      "bound": {
+        "address": "0x2284f10",
+        "raw_word": "0x801000000000090c",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_OBJC_CLASS_$_NSURL",
+        "ordinal": 36,
+        "library": "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation",
+        "weak": false,
+        "addend": 0
+      }
+    }
+  ],
+  "completed_static_checks": {
+    "exported_union_matches_source_and_copy": true,
+    "negative_checks": [
+      {
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "case": "changed_word",
+        "rejected": true
+      }
+    ],
+    "source_hashes_before_equal_after": true,
+    "recorded_input_files": 16
+  },
+  "checker": {
+    "path": "Research/raw/ghidra/project-loader-callees-check-023.py",
+    "mode": "Bounded offline byte/metadata/argument-return review; AST-reuses only Image and adrp definitions. Does not execute utility top-level workflow or frozen019 checker.",
+    "semantic_examples": "Instruction-derived signed32 arithmetic examples, not native execution."
+  },
+  "primary_raw_evidence": [
+    {
+      "path": "Research/raw/ghidra/project-loader-callees-facts-023.json",
+      "role": "completed023 static facts and verification",
+      "size_bytes": 39252,
+      "sha256": "fb88eccb41ed63e3228e9c208307648114fd9f33be09c74cdefa528d1b63f352"
+    },
+    {
+      "path": "Research/raw/ghidra/project-loader-callees-notes-023.md",
+      "role": "completed023 findings and limits",
+      "size_bytes": 3984,
+      "sha256": "4b19454c83513539e4b71ffd39e65b63106f04d08335fde1dc8734b5fc7b85eb"
+    }
+  ],
+  "input_provenance": [
+    {
+      "path": "Research/raw/ghidra/project-loader-callees-check-023.py",
+      "size_bytes": 21192,
+      "sha256": "c7cc85004399e96075b92abb9b6e63f9d0adadfa370f0f808f7150569c89e575"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "size_bytes": 12240,
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "size_bytes": 7819,
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe"
+    },
+    {
+      "path": "Research/raw/ghidra/project-loader-callees-execution-023.json",
+      "size_bytes": 1454,
+      "sha256": "0c3ca400e142929c59b52b9b33935b5495bab49d4b22c1a615729b995ad192fc"
+    },
+    {
+      "path": "Research/raw/ghidra/run-project-loader-callees-023.py",
+      "size_bytes": 5603,
+      "sha256": "5a1a63563681927e4ca295a54671631f8ca7cf6182eb627d3322b89272788440"
+    },
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-loader-callees-023-Logic.c",
+      "size_bytes": 2153,
+      "sha256": "313a31d9dd6e436b79dd81860da19ecbb84ee71081af3168a7113d73c2b155f1"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-loader-callees-023-Logic-machinecode.txt",
+      "size_bytes": 4081,
+      "sha256": "42584eddd06d06b8d52f021f54ede6034ffdd14fe0fd589f4b4f4412570b8c53"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-loader-callees-023-Logic.log",
+      "size_bytes": 5302,
+      "sha256": "ec8060720d868ba0bee46f6e5040b5accdf6a8eac8a9ad8dbed15857479d7aef"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-loader-callees-023-Logic.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "source": "installed Logic.framework/Versions/A/Logic",
+      "role": "installed_binary",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998"
+    },
+    {
+      "source": "analysis copy / Logic.arm64",
+      "role": "analysis_copy",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998"
+    }
+  ],
+  "provenance_contract": "One normalized list replaces identical before/after input lists. Repository paths are relative; binary inputs use portable source labels. Raw files remain local under ignored Research/raw.",
+  "unread_direct_helpers": [
+    {
+      "address": "0x15e9a6c",
+      "inventory_name": "FUN_015e9a6c",
+      "inventory_size": 1824,
+      "body_read": false
+    }
+  ],
+  "unread_boundaries": [
+    "unilibDocManager getter internals, runtime receiver class and effective delegate implementation",
+    "native ProjectData parser/header/schema and delegate usedAutoSave/error output contract",
+    "resolver015e9a6c path selection, originalx1 flag writes and originalx2 variant meaning",
+    "version return0/1/2 semantic enum and document version encoding",
+    "native NSURL creation failure/exception and complete ownership behavior"
+  ],
+  "limits": [
+    "Signed32 normalization and threshold arithmetic wrap32 bits; numeric result is not an interpreted version status.",
+    "Return0/1/2 meanings, manager class/effective dispatch/delegate/native parser and resolver015e9a6c remain unverified.",
+    "The wrapper forwards output pointers without initializing/writing their pointees; it does not resolve019 usedAutoSave output reliability.",
+    "Helper uses actual resolver return, not the original getter path; initial pathnil still reaches unread resolver.",
+    "Saved Ghidra import identity and inventory guards do not prove unchanged database annotations.",
+    "No runtime URL, saved-package acceptance, header/schema parsing, full nil/exception/ownership behavior, save/reload/Undo or product capability proof.",
+    "No frozen019 rerun, new Ghidra job, Logic/AppleEvent/GUI/Git/build or child-agent operation."
+  ],
+  "runtime_verified": false,
+  "product_capability": false
+}
