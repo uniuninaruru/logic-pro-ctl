@@ -187,6 +187,13 @@ final class FakeLogicMCU {
     func sendTwoUnitDisplays() {
         send(fullDisplay(from: offset))
         send(fullDisplay(from: offset + MCU.strips))
+        send(fullDisplay(from: offset))                   // unit 1 again, as both live dumps did
+    }
+
+    /// One unit's banner over the whole display, then its names, without a handshake (live, 2026-10-07).
+    func sendBannerThenNames() {
+        send(lcd(0, "Logic Pro -".padding(toLength: 112, withPad: " ", startingAt: 0)))
+        send(fullDisplay(from: offset))
     }
 
     /// Logic (re)connects: device query, then the state dump.

@@ -305,8 +305,17 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private func displayUnitsInLatestDump() -> Int {
         guard let last = fullDisplayWrites.last else { return 0 }
         let window = 1.0 * environment.timeScale
-        let burst = fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }
-        return burst.contains { $0.contradicted } ? max(2, Set(burst.map(\.names)).count) : 1
+        let burst = fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }.map(\.names)
+        // Two units take turns: A, B, then A again (both live dumps). One unit can write a banner ("Logic Pro -")
+        // and then its names without a handshake, which is a change, not a second unit (live, 2026-10-07 05:17Z).
+        var seen: [String] = []
+        var returned = false
+        // Logic's own banner row is not a unit's strip names (seen as "Logic Pro -" on 12.3.1).
+        for row in burst where row != seen.last && !row.hasPrefix("Logic Pro") {
+            if seen.contains(row) { returned = true }
+            seen.append(row)
+        }
+        return returned ? max(2, Set(burst).count) : 1
     }
 
     /// A blinking LED counts as on: on now, or reported on within one blink window. Off only after it has stayed off

@@ -108,7 +108,13 @@ def main(argv=None):
     for group in groups:
         rows = list(dict.fromkeys(row for _, row, _ in group))
         contradicting = sum(1 for *_, c in group if c)
-        units = max(2, len(rows)) if contradicting else 1
+        order, returned = [], False
+        for _, row, _ in group:
+            if (order and row == order[-1]) or row.startswith("Logic Pro"):
+                continue
+            returned = returned or row in order
+            order.append(row)
+        units = max(2, len(rows)) if returned else 1      # A, B, A: two units take turns; a banner then names is one
         worst = max(worst, units)
         verdict = "one unit" if units == 1 else f"{units} units suspected"
         print(f"{group[0][0].isoformat()}Z\t{len(group)}\t{len(rows)}\t{contradicting}\t{verdict}")

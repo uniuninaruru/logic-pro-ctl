@@ -131,4 +131,12 @@ private func twoUnits(tracks: Int = 12) -> (FakeLogicMCU, MCUBackend) {
     #expect(!list.ok)
     #expect(list.error == "surface_conflict")
 }
+@Test func aBannerThenNamesFromOneUnitIsNotAConflict() {
+    let sim = FakeLogicMCU.project(tracks: 12)
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    sim.sendBannerThenNames()                         // right after the dump, as at 06:05:18-19Z
+    #expect(backend.execute(.status).result?["mcu"]?["surface_conflict"] == .bool(false))
+    #expect(backend.execute(.trackList).ok)
+}
 #endif
