@@ -35,3 +35,4 @@ history; these are the ones that bite.
 - Batch small edits directly. Delegate concrete independent work with minimal
   context; omit full-history forks, multiple routine reviews and unchanged-status
   reports. Prioritize independent reproduction of important bugs.
+- Use compact English, IDs and structured data internally; explain to the user in Japanese. New research notes may use canonical English evidence with a short Japanese summary.

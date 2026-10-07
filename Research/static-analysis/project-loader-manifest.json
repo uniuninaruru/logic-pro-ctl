@@ -1,0 +1,311 @@
+{
+  "schema_version": 1,
+  "analysis_ids": [
+    "SA-PROJECT-FILE-001"
+  ],
+  "status": "completed_static_evidence_publication",
+  "captured_at_utc": "2026-10-06T21:35:49.136526+00:00",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": "6682",
+    "provenance": "Research/static-analysis/binary-identity-12.3.1-6682.json"
+  },
+  "canonical_narrative": "Research/static-analysis/SA-PROJECT-FILE-001-logicx-loader.en.md",
+  "summary_ja": "Research/static-analysis/SA-PROJECT-FILE-001-logicx-loader.md",
+  "boundary_table": "Research/protocol/logicx-loader-boundaries.tsv",
+  "scope": {
+    "function_count": 2,
+    "defined_bytes": 2276,
+    "instruction_words": 569,
+    "extra_callee_bodies": 0,
+    "fact_count": 12,
+    "live_operations": 0,
+    "description": "Exactly 2 definitions/2276 B/569 words; one completed root read-only job; minimal metadata/ivar/selector/import/constant support; no additional callee bodies."
+  },
+  "program_identity": {
+    "schema_version": 1,
+    "program_name": "Logic.arm64",
+    "imported_executable_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "executable_format": "Mac OS X Mach-O",
+    "image_base": "00000000",
+    "language_id": "AARCH64:LE:64:AppleSilicon",
+    "compiler_spec_id": "swift",
+    "ghidra_version": "12.1.4",
+    "expected_name_and_hash_match": true
+  },
+  "verified_binary_inputs": {
+    "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "analysis_copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "size_bytes": 40710736,
+    "equal": true,
+    "source": "Completed019 check; publication also matched the recorded22 input-file digests."
+  },
+  "execution_jobs": [
+    {
+      "name": "q-project-load-019-Logic",
+      "program": "Logic.arm64",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-06T21:28:49.220588+00:00"
+    }
+  ],
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "shared_lock_evidence": "Completed job recorded Acquired project lock and Processing read-only project file; no Ghidra job was started for publication.",
+  "functions": [
+    {
+      "address": "0x8c3610",
+      "owner": "DfDocument",
+      "selector": "checkSongVersionForSongAtURL:",
+      "kind": "class",
+      "types": "i24@0:8@16",
+      "defined_bytes": 780,
+      "words": 195,
+      "body_ranges": [
+        {
+          "start": "0x8c3610",
+          "exclusive_end": "0x8c38c4",
+          "bytes": 692
+        },
+        {
+          "start": "0x8c38e0",
+          "exclusive_end": "0x8c3938",
+          "bytes": 88
+        }
+      ],
+      "full_body_bytes_sha256": "f46632ef7ccb2f2bfae991156ddea7d21187e987d36e315b36b3f6231558f896",
+      "body_span_bytes": 808,
+      "gap_bytes": 28,
+      "full_span_has_no_other_inventory_entry": true,
+      "mapped_text": true
+    },
+    {
+      "address": "0xb5f3b0",
+      "owner": "CLgSongDocument",
+      "selector": "_readLogicXProjectFromURL:error:",
+      "kind": "instance",
+      "types": "B32@0:8@16^@24",
+      "defined_bytes": 1496,
+      "words": 374,
+      "body_ranges": [
+        {
+          "start": "0xb5f3b0",
+          "exclusive_end": "0xb5f988",
+          "bytes": 1496
+        }
+      ],
+      "full_body_bytes_sha256": "968641f1f206ea2c455878c7af2839f99f65046368c87dc65b285558481ab765",
+      "body_span_bytes": 1496,
+      "gap_bytes": 0,
+      "full_span_has_no_other_inventory_entry": true,
+      "mapped_text": true
+    }
+  ],
+  "body_hash_contract": "SHA-256 of the explicit exported function-body ranges concatenated in ascending address order; excludes gaps. Version body780B spans808B with gap28B. This is not a contiguous-prefix or full-span digest.",
+  "completed_static_checks": {
+    "exported_union_matches_source_and_copy": true,
+    "negative_checks": [
+      {
+        "case": "missing_word",
+        "rejected": true
+      },
+      {
+        "case": "duplicate_word",
+        "rejected": true
+      },
+      {
+        "case": "changed_word",
+        "rejected": true
+      }
+    ],
+    "source_hashes_before_equal_after": true,
+    "recorded_input_files": 22,
+    "root_guard_scope": "Original runner checked no other inventory entry within start+defined-size prefix, not the full body span or DB annotations. This checker independently checks no other start inside full808B version span and verifies explicit exported union only. Neither check proves current database annotations."
+  },
+  "publication_checks": {
+    "recorded22_input_digests_match": true,
+    "frozen_checker_rerun": false,
+    "scope": "Read existing evidence, verify file digests, publish four assigned files; no new Ghidra/build/live/Git operation."
+  },
+  "primary_raw_evidence": [
+    {
+      "path": "Research/raw/ghidra/project-load-facts-019.json",
+      "role": "completed static facts and instruction/provenance support",
+      "size_bytes": 360544,
+      "sha256": "21588300f57a6d126f7bd62d9b7f736c766a05cdfbfb2a7a91fe6b0eddf889f3"
+    },
+    {
+      "path": "Research/raw/ghidra/project-load-notes-019.md",
+      "role": "completed bilingual findings and limitations",
+      "size_bytes": 11248,
+      "sha256": "c3c70ec27c249a351092756e9ed1a4bb17f8e1271cc7df2d749dc36e9199cff2"
+    }
+  ],
+  "input_provenance": [
+    {
+      "path": "Research/raw/ghidra/project-load-check-019.py",
+      "size_bytes": 29491,
+      "sha256": "0385f8fa25ac52b85cfc0f81f726ccacaa33f3c9edab6a89c318dd0d2b20dea7"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "size_bytes": 12240,
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "size_bytes": 7819,
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe"
+    },
+    {
+      "path": "Research/raw/ghidra/project-load-execution-019.json",
+      "size_bytes": 1235,
+      "sha256": "22aa6af896d06467ce7ba3217de992897e0767eb4c39382668e04da11665b060"
+    },
+    {
+      "path": "Research/raw/ghidra/run-project-load-019.py",
+      "size_bytes": 5414,
+      "sha256": "e250fa44f2afa54a85737a9ade3f79119b9db9bf9d93ebc39c62f23506c388a3"
+    },
+    {
+      "path": "Research/raw/ghidra/Logic.arm64.functions.tsv",
+      "size_bytes": 11784200,
+      "sha256": "d65acd92aab5adffd277038ae2087f81253527457a924d348c397a9950919331"
+    },
+    {
+      "path": "Research/raw/ghidra/logic-cfstrings.tsv",
+      "size_bytes": 2215969,
+      "sha256": "95ee609a015a7e0cc32dc49e228ddb2798c24a116cc1e380904dc92831009f39"
+    },
+    {
+      "path": "Research/raw/review/file-format-candidates-021.json",
+      "size_bytes": 29045,
+      "sha256": "3f4d80249d81d42839b2586bf10ab9e3b001a3ef36fdbefee845a2e424e41fc7"
+    },
+    {
+      "path": "Research/raw/review/file-format-candidates-021.md",
+      "size_bytes": 2614,
+      "sha256": "b13dbea7d47e8763405e6561c94273f376f571b65f163e94274ab394789ef336"
+    },
+    {
+      "path": "Research/raw/review/file-format-candidates-021-correction.json",
+      "size_bytes": 1743,
+      "sha256": "c626a129128825c6b759453b4082efb072d2c1197403407776587c837ac06311"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-load-019-Logic.c",
+      "size_bytes": 9485,
+      "sha256": "42e4b9df2d1ab8389e938809a5e694ad532f517351fab76fd7c04e79d25b3983"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-load-019-Logic-machinecode.txt",
+      "size_bytes": 27876,
+      "sha256": "d4e2305256b76fcf66840acbb8738232e6a050475296296da9f815b1a554180d"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-load-019-Logic.log",
+      "size_bytes": 5216,
+      "sha256": "a9ad3c95e263e5585c70b5e228e490e81647223d0615991899b8c55028012e63"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-load-019-Logic.identity.json",
+      "size_bytes": 461,
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "size_bytes": 1981,
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597"
+    },
+    {
+      "path": "Tools/ghidra/ProgramIdentityReport.java",
+      "size_bytes": 3123,
+      "sha256": "d1230474c88bbd291bf0d4b32976dd15786bb94afeedb03e2d84fc5e1cecdebd"
+    },
+    {
+      "path": "Tools/ghidra/XrefDecompile.java",
+      "size_bytes": 5102,
+      "sha256": "f14f135ba9f772ac9b42934cfba7bd9ba7c13f43dba077b77df97c7d21abd77c"
+    },
+    {
+      "path": "Tools/ghidra/FunctionInstructionReport.java",
+      "size_bytes": 3163,
+      "sha256": "fa0d5febfc5f9e262f5c855960a4c6f8a3994ea5a8b86c47f2bcd1b0ae2da8f9"
+    },
+    {
+      "source": "MacOSX27.0.sdk / Foundation.framework/Headers/FoundationErrors.h",
+      "role": "local_sdk",
+      "size_bytes": 16229,
+      "sha256": "7cba0767f88db82b32c21f08a680aa9a01919b6d65baaae5fa29c65cbafa2e5e"
+    },
+    {
+      "source": "MacOSX27.0.sdk / Foundation.framework/Headers/NSData.h",
+      "role": "local_sdk",
+      "size_bytes": 59356,
+      "sha256": "e9bfad99df9b90f3dc6a9c8e425d2e68c5d6b01c01bdc0126500eccab7f88769"
+    },
+    {
+      "source": "installed Logic.framework/Versions/A/Logic",
+      "role": "installed_binary",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998"
+    },
+    {
+      "source": "analysis copy / Logic.arm64",
+      "role": "analysis_copy",
+      "size_bytes": 40710736,
+      "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998"
+    }
+  ],
+  "provenance_contract": "One normalized input list replaces identical before/after lists from019. Repository paths are relative; binary and SDK inputs have portable source labels. Raw evidence is retained locally under ignored Research/raw, not published with this manifest.",
+  "prior021_correction": {
+    "path": "Research/raw/review/file-format-candidates-021-correction.json",
+    "scope": "Prior021 780B contiguous-prefix hash is not full version body identity. Original audit remains preserved; explicit correction and these full-union facts are primary.",
+    "prior_files_preserved": true
+  },
+  "unread_boundaries": [
+    "ProjectInformation URL/getter/setter/copy and migration internals",
+    "URL choice helper015ea7b8",
+    "native data loader00b58764 / setDocumentFileDataFromURL:usedAutoSave:error: and native ProjectData parser",
+    "version comparator008c2fc0 / checkDocumentVersion:currentRunningVersion: and return3/4 enum meanings",
+    "setDisplayFileData: internals"
+  ],
+  "sdk_numeric_mapping_only": {
+    "259": "NSFileReadCorruptFileError",
+    "3072": "NSUserCancelledError",
+    "NSData_read_options1": "NSDataReadingMappedIfSafe",
+    "scope": "Local SDK names only; no runtime error causality, acceptance or mapping behavior verified."
+  },
+  "limits": [
+    "Version780B is ranges008c3610..008c38c3 and008c38e0..008c3937, span808B/gap28B; gap was not exported/read as body.",
+    "Alternatives-directory return4 is a classifier branch, not parsed native ProjectData or current-format version acceptance.",
+    "No native magic/header/schema parsing is established by either body. Lowercase projectData archive and native uppercase ProjectData remain separate boundaries.",
+    "ProjectInformation URL methods, URL choice helper015ea7b8, native data loader00b58764, comparator008c2fc0 and display setter internals were not expanded.",
+    "Dynamic dispatch/runtime classes/native nil, failure, exception and complete ownership behavior are unverified.",
+    "Load wrapper includes potential backup moves, migration, tmp removal and metadata write; these were not executed.",
+    "SDK names only map259/3072/options1; they do not prove error causality or actual mapping/read behavior.",
+    "Saved test-project contents may differ from current unsaved live state; no private values emitted.",
+    "No live Logic/AppleEvent/GUI/Git/build/new job/roundtrip/save-reload/Undo or product capability verification."
+  ],
+  "runtime_verified": false,
+  "product_capability": false,
+  "saved_package_applicability": {
+    "evidence": {
+      "path": "Research/raw/review/project-file-layout-022.json",
+      "size_bytes": 871,
+      "sha256": "769348f5a80c16a74b0cd3346bdb4b96c456f3a11168a3a68904459e4d3ddb64"
+    },
+    "saved_package_only": true,
+    "alternatives_directory": true,
+    "lowercase_projectData": false,
+    "native_ProjectData_file_count": 3,
+    "main_relative_path": "Alternatives/000/ProjectData",
+    "main_size_bytes": 641814,
+    "common_observed_prefix": "2347c0abd109030004000000",
+    "scope": "Separate saved-package filename/size/prefix observation only; no added function body or fact ID, header semantics, parser acceptance, selected runtime URL or unsaved live state claim.",
+    "runtime_verified": false,
+    "live_state_verified": false,
+    "product_capability": false
+  }
+}
