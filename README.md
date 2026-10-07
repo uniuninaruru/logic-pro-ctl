@@ -42,7 +42,7 @@ swift build -c release
 | 接続を確認 | `logicctl status` | Logicのバージョン・接続状態・対応機能 |
 | 全体の状態を見る | `logicctl state` | 再生状態・選択中のトラック・一覧 |
 | 再生 / 停止 | `logicctl transport play` / `stop` | 通常はMCU経由 |
-| サイクル / メトロノーム | `logicctl transport cycle on` / `click off` | MCUのLEDで確認。偽のLogicで試験済み、実機では未確認 |
+| サイクル / メトロノーム | `logicctl transport cycle on` / `click off` | MCUのLEDで確認。実機でon/offを確認 |
 | トラック一覧 / 詳細 | `logicctl track list` / `get 1` | 番号は1から |
 | 選択 | `logicctl track select 1` | 自動録音待機の設定により録音待機も移動 |
 | ミュート / ソロ | `logicctl track mute 1 on` / `solo 1 off` | `on`・`off`で指定 |

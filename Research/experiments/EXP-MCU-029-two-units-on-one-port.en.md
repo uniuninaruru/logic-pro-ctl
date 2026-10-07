@@ -71,3 +71,5 @@ Next experiment: none (the settings file keeps no history). Watch whether it com
 ## Resolution (2026-10-07 13:01 JST)
 
 The user answered "Claude may remove it" directly in chat. After copying the two settings files to `Research/raw/cs-backup-20261007T035749Z/` (with SHA-256, not tracked by Git), **only Mackie Control #2** was deleted in Control Surfaces Setup (the original Mackie Control and the research peer were kept). After restarting logicd with tracing (04:02:03Z), the dump had one display (`mcu_trace.py`: one unit, 0 contradictions), `status` gave `surface_conflict: false`, and `state` returned **14 strips, complete, `bank_steps` 6** (1=Piano … 14=Master, Ballad selected), as the first hypothesis and the next experiment predicted.
+
+After the fix, the pending `transport cycle|click on|off` was checked on the real Logic (stopped, no sound): cycle off → (a second off verified without sending) → on, and click off → on, all `verified: true`. With off, the on-screen cycle and metronome buttons went dark, and lit again with on. Raw record: `Research/raw/mcu-cycle-click/live-cycle-click.jsonl`.

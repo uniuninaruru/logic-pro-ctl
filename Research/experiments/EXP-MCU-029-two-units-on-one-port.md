@@ -71,3 +71,5 @@
 ## 解決（2026-10-07 13:01 JST）
 
 ユーザーがチャットで直接「Claude が外してよい」と答えたので、設定ファイル 2 つの写しを `Research/raw/cs-backup-20261007T035749Z/`（SHA-256 付き、Git の対象外）に取ってから、「コントロールサーフェス設定」で **Mackie Control #2 だけ**を削除した（元の Mackie Control と研究用ピアは残した）。logicd をトレース付きで再起動（04:02:03Z）すると、ダンプは 1 種類（`mcu_trace.py`：one unit、矛盾 0）、`status` は `surface_conflict: false`、`state` は **14 本・complete・`bank_steps` 6**（1=Piano … 14=Master、選択は Ballad）。仮説 1 と、次の検証実験の予測どおり。
+
+解決のあと、保留していた `transport cycle|click on|off` を実機で確かめた（停止中、音なし）：cycle off→（もう一度 off は送らずに確認）→on、click off→on がすべて `verified: true`。off のとき画面のサイクルとメトロノームのボタンが消灯し、on で点灯した。生の記録：`Research/raw/mcu-cycle-click/live-cycle-click.jsonl`。

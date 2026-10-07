@@ -32,7 +32,7 @@ A read command has no write to verify, so even when it succeeds it returns `veri
 | `state` | none | The play state, the playhead (`position`), the selected track and information about all strips. `position` is the MCU time display's text (`display`) and BEATS/SMPTE (`mode`); in BEATS mode it is also split into `bar`, `beat`, `division` and `tick`. `null` until the display has arrived, and again after the display mode changes until the digits are re-sent. With both the BEATS and SMPTE LEDs on, `mode` is `null` and nothing is split. Logic sends only the digits that change, so a read during an update can mix old and new digits (a reading of the display, not an atomic value). The split was checked against one stopped value on the real Logic only |
 | `transport play` | none | Requests playback |
 | `transport stop` | none | Requests stop |
-| `transport cycle on\|off` | state | Requests cycle mode (the MCU Cycle button, checked by its LED; nothing is sent while the LED has not been reported; pressed once at most). **Not checked on the real Logic** (the "on" LED was read once; the button has not been pressed there yet) |
+| `transport cycle on\|off` | state | Requests cycle mode (the MCU Cycle button, checked by its LED; nothing is sent while the LED has not been reported; pressed once at most). Checked on the real Logic for on and off (2026-10-07, stopped; matches the on-screen buttons; EXP-MCU-029) |
 | `transport click on\|off` | state | Requests the metronome click (the MCU Click button; checked and limited like `transport cycle`) |
 | `track list` | none | An array of all channel strips |
 | `track get <n>` | an integer ≥ 1 | Name, volume, pan, mute, solo, selection and record-arm |

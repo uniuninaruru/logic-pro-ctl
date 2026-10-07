@@ -45,7 +45,7 @@ logicctl status                       daemon, Logic version, surface connection,
 logicctl state                        transport + selected track + all tracks
 logicctl transport play|stop
 logicctl transport play|stop --backend appleevent
-logicctl transport cycle|click on|off   (LED readback; fake-Logic tests only, live behavior unverified)
+logicctl transport cycle|click on|off   (LED readback; on/off checked on the real Logic)
 logicctl track list
 logicctl track get <n>
 logicctl track select <n>

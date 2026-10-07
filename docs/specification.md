@@ -30,7 +30,7 @@ flowchart LR
 | `state` | なし | 再生状態、再生位置（`position`）、選択中のトラック、全ストリップの情報。`position` は MCU の時刻表示の文字列（`display`）と BEATS/SMPTE（`mode`）で、BEATS のときは `bar`・`beat`・`division`・`tick` に分ける。表示がまだ届いていなければ `null`。表示モードが変わったときも、数字が届き直すまで `null`。BEATS と SMPTE の LED が両方点いていれば `mode` は `null` で、分けない。Logic は変わった桁だけを送るので、更新の途中に読むと新旧の桁が混ざりうる（表示の読み取りであり、一度に確定した値ではない）。分け方は、実機の停止中の 1 つの値でだけ確かめた |
 | `transport play` | なし | 再生を要求 |
 | `transport stop` | なし | 停止を要求 |
-| `transport cycle on\|off` | 状態 | サイクルを要求（MCU の Cycle ボタン。LED で確認。LED が届いていなければ何も送らない。押すのは 1 回だけ）。**実機では未確認**（「オン」の LED を 1 回読んだだけ。ボタンはまだ押していない） |
+| `transport cycle on\|off` | 状態 | サイクルを要求（MCU の Cycle ボタン。LED で確認。LED が届いていなければ何も送らない。押すのは 1 回だけ）。実機で on/off の両方を確認（2026-10-07、停止中。画面のボタンとも一致。EXP-MCU-029） |
 | `transport click on\|off` | 状態 | メトロノームのクリックを要求（MCU の Click ボタン。確かめ方と未確認の点は `transport cycle` と同じ） |
 | `track list` | なし | 全チャンネルストリップの配列 |
 | `track get <n>` | 1以上の整数 | 名前・音量・パン・ミュート・ソロ・選択・録音待機 |
