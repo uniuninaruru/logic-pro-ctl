@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "research_id": "SA-GUI-CREATE-002",
+  "recorded_utc": "2026-10-07T09:47:08+00:00",
+  "binary_identity": {
+    "profile": "Research/static-analysis/binary-identity-12.4-6707.json",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "version": "12.4",
+    "build": "6707"
+  },
+  "observation": {
+    "path": "Research/raw/gui/20261007-gui1/menu-empty-lane.json",
+    "sha256": "f63d4a30432d311fa563d82530b2d2b01658398c11af6c7a3fd1637da202ecae",
+    "bytes": 2694,
+    "operator": "Claude",
+    "board_message": "CLDE077",
+    "context": {
+      "project": "LogicCLI-Test",
+      "logic": "12.3.1 (6682)",
+      "transport": "stopped",
+      "observed_utc": "2026-10-07T06:14Z-06:16Z",
+      "method": "right-click, screenshot+zoom, Escape (no item invoked)",
+      "hit_zone": "Tracks area, empty part of Synth lane (bar ~2-3)",
+      "region_type": null,
+      "selection_before": "track 2 Synth",
+      "selection_after": "track 2 Synth",
+      "repeat": 2,
+      "context_name": "empty-lane"
+    },
+    "version_label_independently_verified": false,
+    "items_invoked": false
+  },
+  "localization_source": {
+    "path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Resources/ja.lproj/Localizable.strings",
+    "sha256": "cf95b0c737f8463956c2ff2756c5a393e7dec1429e89aab9a85a92db10010091",
+    "bytes": 2019532,
+    "table": "Localizable",
+    "encoding": "UTF-16LE with BOM"
+  },
+  "registrations": [
+    {
+      "command_id": 151,
+      "registration_entry": "0x025e7140",
+      "registration_bytes": "970000000000000030bf3b02000020000000000000000000d40a6900000030000300000000000000",
+      "name_cfstring": "0x023bbf30",
+      "registered_name": "Create Pattern Region/Cell",
+      "handler": "0x00690ad4",
+      "stored_argument": 3,
+      "title_cfstring": "0x02364a10",
+      "exact_title_key": "Create Pattern Region",
+      "observed_menu_label": "パターンリージョンを作成",
+      "observed_enabled": true,
+      "resource_line": 15612,
+      "other_mode_branch_constants": {
+        "input_x2": 3,
+        "w21": 32,
+        "w22": 1
+      },
+      "registration_verified_static": true,
+      "handler_title_reference_verified_static": true,
+      "gui_dispatch_verified": false,
+      "runtime_effect_verified": false,
+      "stored_arg_passed_as_x2_verified": false,
+      "menu_title_callback_binding_verified_static": true
+    },
+    {
+      "command_id": 150,
+      "registration_entry": "0x025e7168",
+      "registration_bytes": "960000000000000050bf3b02000020000000000000000000d40a6900000030000200000000000000",
+      "name_cfstring": "0x023bbf50",
+      "registered_name": "Create Session Player Region/Cell",
+      "handler": "0x00690ad4",
+      "stored_argument": 2,
+      "title_cfstring": "0x023649f0",
+      "exact_title_key": "Create Session Player Region",
+      "observed_menu_label": "Session Playerリージョンを作成",
+      "observed_enabled": true,
+      "resource_line": 15616,
+      "other_mode_branch_constants": {
+        "input_x2": 2,
+        "w21": 16,
+        "w22": 0
+      },
+      "registration_verified_static": true,
+      "handler_title_reference_verified_static": true,
+      "gui_dispatch_verified": false,
+      "runtime_effect_verified": false,
+      "stored_arg_passed_as_x2_verified": false,
+      "menu_title_callback_binding_verified_static": true
+    }
+  ],
+  "handler": {
+    "start": "0x00690ad4",
+    "next_lc_function_start": "0x0069102c",
+    "bytes": 1368,
+    "instruction_words": 342,
+    "body_sha256": "8c021011177d598a68b5f55faf8b62496505916c0909ae253438540f358d94f5",
+    "disassembly": {
+      "path": "Research/raw/review/gui-create-handler-030-disassembly.txt",
+      "sha256": "cdc002578a1292dce29e380fab9eaa0c0bec2b8c4318c12287be33cff670c21d",
+      "bytes": 17168
+    },
+    "all_disassembly_words_match_snapshot": true,
+    "creation_helper": "0x00675134",
+    "other_mode_constant_forwarding": [
+      "0x00690edc",
+      "0x00690ee0"
+    ],
+    "helper_effects_verified": false
+  },
+  "fixup_validation": {
+    "tool": "xcrun dyld_info -fixups",
+    "output_sha256": "24b11eceee749f27d6e7230d77f25161cff89dd00018dc247d98dcb786dd256c",
+    "rows": [
+      {
+        "slot": "0x02364A00",
+        "kind": "rebase",
+        "target": "0x01D89625",
+        "line": "__DATA_CONST    __cfstring       0x02364A00         rebase  0x01D89625"
+      },
+      {
+        "slot": "0x02364A20",
+        "kind": "rebase",
+        "target": "0x01D89642",
+        "line": "__DATA_CONST    __cfstring       0x02364A20         rebase  0x01D89642"
+      },
+      {
+        "slot": "0x023BBF40",
+        "kind": "rebase",
+        "target": "0x01DC98BA",
+        "line": "__DATA_CONST    __cfstring       0x023BBF40         rebase  0x01DC98BA"
+      },
+      {
+        "slot": "0x023BBF60",
+        "kind": "rebase",
+        "target": "0x01DC98D5",
+        "line": "__DATA_CONST    __cfstring       0x023BBF60         rebase  0x01DC98D5"
+      },
+      {
+        "slot": "0x025E7148",
+        "kind": "rebase",
+        "target": "0x023BBF30",
+        "line": "__DATA          __data           0x025E7148         rebase  0x023BBF30"
+      },
+      {
+        "slot": "0x025E7158",
+        "kind": "rebase",
+        "target": "0x00690AD4",
+        "line": "__DATA          __data           0x025E7158         rebase  0x00690AD4"
+      },
+      {
+        "slot": "0x025E7170",
+        "kind": "rebase",
+        "target": "0x023BBF50",
+        "line": "__DATA          __data           0x025E7170         rebase  0x023BBF50"
+      },
+      {
+        "slot": "0x025E7180",
+        "kind": "rebase",
+        "target": "0x00690AD4",
+        "line": "__DATA          __data           0x025E7180         rebase  0x00690AD4"
+      }
+    ]
+  },
+  "anchors": {
+    "path": "Research/protocol/gui-create-12.4-anchors.tsv",
+    "sha256": "e7c364f0342e5ef30061e0b207a77f88bb0fcf7b70fd5beac902ebc39ae29655",
+    "bytes": 4940
+  },
+  "checks": {
+    "byte_anchors_passed": 47,
+    "byte_anchors_total": 47,
+    "instruction_anchors": 42,
+    "current_ghidra_import": false,
+    "gui_dispatch_verified": false,
+    "creation_observed": false,
+    "historical_image_rejected_before_anchor_checks": true
+  },
+  "limits": [
+    "Saved GUI labels have inherited12.3.1/6682 metadata; the producing/running image was not independently identified.",
+    "The exact Region titles are statically bound to callback00690ad4 with selectors3/2; the GUI gesture-to-constructor and menu dispatch invocation are unobserved.",
+    "Registered argument2/3 numerically agrees with input-x2 branch selectors; the current dispatcher ABI was not independently traced.",
+    "Constants0x10/0x20 and w22 are observed register values, not a proved region-type enum or effect.",
+    "Old12.3.1 registration, handler and Ghidra results remain separate.",
+    "The shared creation helper was not executed or decompiled."
+  ],
+  "menu_record_initialization": {
+    "containing_lc_interval": {
+      "start": "0x0101ef34",
+      "next": "0x01021a8c",
+      "bytes": 11096
+    },
+    "bounded_window": {
+      "start": "0x01020bd0",
+      "bytes": 328,
+      "instruction_words": 82,
+      "file": "Research/raw/review/gui-menu-window-030.txt"
+    },
+    "constructor": {
+      "start": "0x0026c624",
+      "next": "0x0026c684",
+      "bytes": 96,
+      "instruction_words": 24,
+      "body_sha256": "17465c78ce9865b176f8918856f3cfb7dc0882816dd753b6e9e1d011e1599f1f",
+      "file": "Research/raw/review/gui-menu-record-init-030.txt",
+      "fields": {
+        "tag16_offset": "0x8",
+        "tag_value": 10,
+        "callback_offset": "0x10",
+        "title_pair_offsets": [
+          "0x18",
+          "0x20"
+        ],
+        "selector_offset": "0x28"
+      },
+      "retain_import": {
+        "tool": "llvm-objdump --macho --indirect-symbols",
+        "matched_lines": [
+          "0x0000000001afbd58  5612 _objc_retain"
+        ],
+        "stdout_sha256": "668d712b618dd35d8c0451fa7563073b6dfa8d23536c655be13b3d1b0f436e14"
+      }
+    },
+    "static_title_callback_pairs": [
+      {
+        "title": "Create Pattern Region",
+        "title_cfstring": "0x02364a10",
+        "callback": "0x00690ad4",
+        "selector": 3,
+        "call_site": "0x01020c7c"
+      },
+      {
+        "title": "Create Session Player Region",
+        "title_cfstring": "0x023649f0",
+        "callback": "0x00690ad4",
+        "selector": 2,
+        "call_site": "0x01020c9c"
+      }
+    ],
+    "title_callback_binding_verified_static": true,
+    "gui_gesture_to_constructor_verified": false,
+    "callback_invocation_abi_verified": false
+  },
+  "inputs_reviewed": [
+    {
+      "path": "Research/raw/review/gui-registration-030.json",
+      "sha256": "0fc4de0802de3a54782264b4fe4da6d482708c5a3dccd6929d4c3f58e5c417ac"
+    },
+    {
+      "path": "Research/raw/review/gui-title-refs-030.json",
+      "sha256": "19bc2fd50ee6c00a1917a98734292ef0290bd4d630c7e625eb14d38f5574c7b3"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# Image: Logic12.4-6707.arm64  sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Current-version byte anchors; GUI dispatch/effects remain unverified.
+GC030-I01	insn	0x00690c34	f50302aa	mov x21, x2	Preserve input x2 in x21.
+GC030-I02	insn	0x00690ce4	bf0e00f1	cmp x21, #0x3	Label branch compares preserved selector input with 3.
+GC030-I03	insn	0x00690ce8	200a0054	b.eq 0x690e2c	Selector3 on the w19==4 path branches to Pattern label construction.
+GC030-I04	insn	0x00690cec	bf0a00f1	cmp x21, #0x2	Label branch compares preserved selector input with 2.
+GC030-I05	insn	0x00690cf0	e0070054	b.eq 0x690dec	Selector2 on the w19==4 path branches to Session Player label construction.
+GC030-I06	insn	0x00690dec	a8e60090	adrp x8, 0x2364000	ADRP page for exact Session Player Region title CFString.
+GC030-I07	insn	0x00690df0	08c12791	add x8, x8, #0x9f0	Complete address0x023649f0 in x8.
+GC030-I08	insn	0x00690e3c	a2e60090	adrp x2, 0x2364000	ADRP page for exact Pattern Region title CFString.
+GC030-I09	insn	0x00690e40	42402891	add x2, x2, #0xa10	Complete address0x02364a10 in x2.
+GC030-I10	insn	0x00690d84	bf0e00f1	cmp x21, #0x3	Other-mode path compares selector input with3.
+GC030-I11	insn	0x00690d88	e0080054	b.eq 0x690ea4	Selector3 branches to mode constants.
+GC030-I12	insn	0x00690d8c	bf0a00f1	cmp x21, #0x2	Other-mode path compares selector input with2.
+GC030-I13	insn	0x00690d94	16008052	mov w22, #0x0	Selector2 sets w22=0.
+GC030-I14	insn	0x00690d98	15028052	mov w21, #0x10	Selector2 sets w21=0x10.
+GC030-I15	insn	0x00690ea4	36008052	mov w22, #0x1	Selector3 sets w22=1.
+GC030-I16	insn	0x00690ea8	15048052	mov w21, #0x20	Selector3 sets w21=0x20.
+GC030-I17	insn	0x00690edc	e20315aa	mov x2, x21	Pass selected constant in x2.
+GC030-I18	insn	0x00690ee0	9590ff97	bl 0x675134	Call current helper0x00675134; effects not runtime verified.
+GC030-D01	data	0x025e7140	970000000000000030bf3b02000020000000000000000000d40a6900000030000300000000000000		Static40-byte registration for Pattern151
+GC030-D02	data	0x025e7168	960000000000000050bf3b02000020000000000000000000d40a6900000030000200000000000000		Static40-byte registration for Session150
+GC030-D03	data	0x023649f0	f21c000000002080c8070000000000002596d801000020001c00000000000000		CFString object for exact Session Player Region title
+GC030-D04	data	0x02364a10	f21c000000002080c8070000000000004296d801000020001500000000000000		CFString object for exact Pattern Region title
+GC030-M01	insn	0x01020c44	93b3ff90	adrp x19, 0x690000	Materialize current callback page.
+GC030-M02	insn	0x01020c48	73522b91	add x19, x19, #0xad4	Complete shared callback0x00690ad4 in x19.
+GC030-M03	insn	0x01020c60	289a0090	adrp x8, 0x2364000	Materialize Pattern title page.
+GC030-M04	insn	0x01020c64	08412891	add x8, x8, #0xa10	Complete exact Pattern Region titleCF0x02364a10.
+GC030-M05	insn	0x01020c68	a8ff38a9	stp x8, xzr, [x29, #-0x78]	Save Pattern title pair at frame-0x78.
+GC030-M06	insn	0x01020c6c	80c20091	add x0, x20, #0x30	Pattern record destination is common base+0x30.
+GC030-M07	insn	0x01020c70	a2e301d1	sub x2, x29, #0x78	Pass Pattern title pair in x2.
+GC030-M08	insn	0x01020c74	e10313aa	mov x1, x19	Pass shared callback in x1.
+GC030-M09	insn	0x01020c78	63008052	mov w3, #0x3	Pass Pattern selector3 in w3.
+GC030-M10	insn	0x01020c7c	6a2ec997	bl 0x26c624	Construct Pattern record through0x0026c624.
+GC030-M11	insn	0x01020c80	289a0090	adrp x8, 0x2364000	Materialize Session Player title page.
+GC030-M12	insn	0x01020c84	08c12791	add x8, x8, #0x9f0	Complete exact Session Player Region titleCF0x023649f0.
+GC030-M13	insn	0x01020c88	a8ff37a9	stp x8, xzr, [x29, #-0x88]	Save Session title pair at frame-0x88.
+GC030-M14	insn	0x01020c8c	80820191	add x0, x20, #0x60	Session record destination is common base+0x60.
+GC030-M15	insn	0x01020c90	a22302d1	sub x2, x29, #0x88	Pass Session title pair in x2.
+GC030-M16	insn	0x01020c94	e10313aa	mov x1, x19	Pass shared callback in x1.
+GC030-M17	insn	0x01020c98	43008052	mov w3, #0x2	Pass Session selector2 in w3.
+GC030-M18	insn	0x01020c9c	622ec997	bl 0x26c624	Construct Session record through0x0026c624.
+GC030-M19	insn	0x0026c634	f30303aa	mov x19, x3	Preserve constructor selector input x3.
+GC030-M20	insn	0x0026c640	48018052	mov w8, #0xa	Constructor sets tag value10.
+GC030-M21	insn	0x0026c644	08100079	strh w8, [x0, #0x8]	Store16-bit tag10 at record+8.
+GC030-M22	insn	0x0026c654	010800f9	str x1, [x0, #0x10]	Store callback input x1 at record+0x10.
+GC030-M23	insn	0x0026c660	a00e00f9	str x0, [x21, #0x18]	Store first retained title-pair value at record+0x18.
+GC030-M24	insn	0x0026c66c	a04e02a9	stp x0, x19, [x21, #0x20]	Store second title-pair value at+0x20 and preserved selector at+0x28.
+GC030-D05	data	0x0026c624	f657bda9f44f01a9fd7b02a9fd830091f30303aaf40302aaf50300aa4801805208100079680601d008012d91080000f9010800f9400040f9bf3d6294a00e00f9800640f9bc3d6294a04e02a9e00315aafd7b42a9f44f41a9f657c3a8c0035fd6		Complete current96-byte record-initializer LC interval.

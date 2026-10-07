@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "record_kind": "installed_binary_identity",
+  "recorded_utc": "2026-10-07T09:01:35+00:00",
+  "scope": "Read-only installed Logic.framework arm64 identity; separate from preserved12.3.1 analysis.",
+  "metadata": [
+    {
+      "path": "/Applications/Logic Pro Creator Studio.app/Contents/Info.plist",
+      "sha256": "5b9570f935907d8c2ebe3bfb4866e2b8763f74c8bc4928fc92bcfc245642021b",
+      "bytes": 13067,
+      "bundle_id": "com.apple.mobilelogic",
+      "version": "12.4",
+      "build": "6707"
+    },
+    {
+      "path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Resources/Info.plist",
+      "sha256": "7a53fa99c6bf99bc59f98afebe728909eee082b3f0512f71b22a6e8c27b4f4d5",
+      "bytes": 914,
+      "bundle_id": "com.apple.music.apps.Logic",
+      "version": "12.4",
+      "build": "6707"
+    }
+  ],
+  "installed_binary": {
+    "path": "/Applications/Logic Pro Creator Studio.app/Contents/Frameworks/Logic.framework/Versions/A/Logic",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "bytes": 40761248,
+    "format": "thin",
+    "architecture": "arm64",
+    "cpu_type": 16777228,
+    "cpu_subtype": 0,
+    "uuid": "6ce11532-8efb-3132-8c3d-d49ebef5ce34",
+    "slice_offset": 0,
+    "slice_bytes": 40761248
+  },
+  "historical_analysis": {
+    "profile": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+    "version": "12.3.1",
+    "build": "6682",
+    "selected_slice_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "preserved_copy": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64"
+  },
+  "match_historical_analysis": false,
+  "ghidra_current_program": null,
+  "limits": [
+    "Metadata and on-disk bytes identify installed files, not the version that produced earlier GUI captures or the image currently loaded by a running process.",
+    "No function address, instruction or behavior is carried across versions by this record.",
+    "The existing Ghidra program remains bound to its original import hash."
+  ],
+  "analysis_copy": {
+    "path": "/Users/nagataharuto/logicpro cli/Research/raw/binaries/Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "bytes": 40761248,
+    "ghidra_imported": false
+  }
+}

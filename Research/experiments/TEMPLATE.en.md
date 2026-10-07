@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Date | |
-| Logic version | 12.3.1 (6682) |
+| Logic version | Record from running Logic; do not copy the catalog version |
 | macOS version | |
 | Logic Remote version | n/a |
 | Test project | LogicCLI-Test.logicx |
