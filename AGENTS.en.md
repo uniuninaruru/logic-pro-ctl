@@ -22,6 +22,25 @@ history; these are the ones that bite.
 - Logic 12.x bundle ID is `com.apple.mobilelogic` and the app name may carry an
   edition suffix ("Logic Pro Creator Studio"). Never hardcode either.
 
+## Highest research priority: GUI to internal route
+
+- Pick a visible operation; record target, conditions and before/after changes,
+  then map it to command IDs, actions, selectors and functions. Decompile only
+  functions relevant to that operation.
+- For right-click menus, record cursor hit zone, target type, region type and
+  selection before/after. Capture labels, enabled states and observed order;
+  never identify an operation or feature by a fixed menu index.
+- Prioritize generic MIDI key-command/parameter assignments and feedback,
+  Apple Loops, Session Players and Pattern Regions. Candidate IDs or function
+  names alone do not prove applicability or effects.
+- Claude leads GUI/live observations; Codex matches observations to internal
+  routes. Give each other concrete next tasks; share file ownership, GUI/build/
+  shared-Ghidra use, results, usage limits and handoffs. Adjust roles to the
+  latest human instructions and each other's situation.
+- When GUI is unavailable, analyze existing observations or do independent
+  offline work. Mark unobserved operations pending; do not replace observation
+  with indiscriminate expansion of candidate function bodies.
+
 ## Keep work and token use bounded
 
 - Read changes only. Use `python3 Tools/research-scripts/board_new.py --reader codex`
