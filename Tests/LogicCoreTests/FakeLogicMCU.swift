@@ -55,6 +55,9 @@ final class FakeLogicMCU {
     /// Real Logic blinks an armed track's REC LED (EXP-REMOTE-006): an on report is followed by an off one, so the
     /// last reported value can be off while the track is armed.
     var blinkRec = false
+    /// Real Logic sent no "off" when a blinking track was disarmed (the LED stayed at its last value until the view
+    /// was sent again).
+    var silentDisarm = false
     /// The same for a mute press (the strip stays unmuted in the new session).
     var reconnectOnNextMutePress = false
 
@@ -290,6 +293,7 @@ final class FakeLogicMCU {
                 return
             }
             strips[index].rec.toggle()
+            if silentDisarm && !strips[index].rec { return }
             send(led(note, strips[index].rec))
             if blinkRec && strips[index].rec { send(led(note, false)) }   // caught in the off phase
         case 0x10..<0x18:

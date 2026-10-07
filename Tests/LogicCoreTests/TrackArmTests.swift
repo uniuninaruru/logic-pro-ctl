@@ -166,4 +166,18 @@ private func connected(tracks count: Int = 4) -> (FakeLogicMCU, MCUBackend) {
     sim.blinkTick()
     #expect(backend.execute(.trackGet(track: 2)).result?["rec_armed"] == .bool(true))
 }
+@Test func aDisarmThatLeavesTheLEDOnIsCheckedByMovingTheViewAwayAndBack() {
+    let sim = FakeLogicMCU.project(tracks: 12)          // more than 8 strips, so Channel Right can move
+    let backend = makeBackend(for: sim)
+    sim.connect()
+    sim.blinkRec = true
+    sim.silentDisarm = true
+    #expect(backend.execute(.trackArm(track: 2, on: true)).verified)
+    sim.blinkTick()
+    let off = backend.execute(.trackArm(track: 2, on: false))
+    #expect(off.ok && off.verified)
+    #expect(off.observed?["rec_armed"] == .bool(false))
+    #expect(!sim.strips[1].rec)
+    #expect(recPresses(sim) == 2)
+}
 #endif

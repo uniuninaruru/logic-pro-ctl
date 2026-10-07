@@ -979,6 +979,17 @@ public final class MCUBackend: LogicBackend, TransportReadback {
             }
             testHook?("afterWait")
             guard generation == session else { return sessionChangedOutcome() }
+            if !on && !onLate && (led == true || updates == before) {
+                // The blinking stopped but Logic sent no "off" (live, EXP-REMOTE-006 follow-up): the LED value is stale.
+                // A move away and back makes Logic resend every LED of the view.
+                if navigate(MCU.channelRightNote) { _ = navigate(MCU.channelLeftNote) }
+                else if navigate(MCU.channelLeftNote) { _ = navigate(MCU.channelRightNote) }
+                pause(Self.blinkWindow + 0.3)
+                let (refreshedGeneration, refreshed) = read { _ in (handshakeGeneration, blinkingLEDLocked(note)) }
+                guard refreshedGeneration == session else { return sessionChangedOutcome() }
+                state = refreshed
+                break
+            }
             if updates == before { state = start; break }          // no answer at all: nothing to go on
             state = on ? (onAfter ? true : (led == false ? false : nil)) : (onLate ? true : (led == false ? false : nil))
             if state == nil || state == on || start != nil { break }

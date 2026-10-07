@@ -33,3 +33,9 @@
 
 - `track arm` の確認を、点滅を前提にした：始めの状態を 1 回の点滅の窓（1.6 秒）で決め、押したあとは窓の中で「点」の報告が 1 回でもあれば録音待機、窓のあいだ「点」が無く消えていれば解除。`track get`／`state` の `rec_armed` も、窓の中で点いていれば true（偽の Logic の試験 `aBlinkingRecLEDCountsAsArmed` など）。実機での再確認は、上の解除の問題を確かめてから。
 - Remote で録音待機を読むときは、`r` の 1 と 128 を同じ「明示の録音待機」とみなす。3 は選択に付いてくる自動の録音待機、64 は録音待機できないトラック。
+
+## 追試（2026-10-07 13:17〜13:25 JST、MCU だけ、受信なし）
+
+- 点滅対応の版で `track arm 2 on` は `verified: true`。続く `off` は、**解除は効いていたが Logic が REC LED の「消」を送らなかった**（点滅の最後の値「点」のまま止まった。画面では Synth の R は消え、Ballad の自動の録音待機は戻っていた）。E4 の復元で「解除できない」と見えたのは、この LED の取り残しと、別の押下が重なったため。
+- 対策：解除のあと点滅が止まっていて「消」が届かないときは、チャンネルを 1 つ動かして戻し（Logic がビューの LED を送り直す）、点滅の窓で読み直す。この版で `on`→`off`→`off`（2 回目は送らずに確認）がすべて `verified: true`、画面とも一致。試験 `aDisarmThatLeavesTheLEDOnIsCheckedByMovingTheViewAwayAndBack`。
+- 記録：`Research/raw/live-arm/disarm-check/`。

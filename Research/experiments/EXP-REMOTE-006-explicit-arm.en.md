@@ -33,3 +33,9 @@ Next experiment: arm → disarm a non-selected track twice with the MCU only (pr
 
 - `track arm` now assumes blinking: the starting state is settled over one blink window (1.6 s); after the press, one "on" report within the window means armed, and no "on" for the whole window with the LED off means disarmed. `rec_armed` in `track get` / `state` is true when the LED was on within the window (fake-Logic tests such as `aBlinkingRecLEDCountsAsArmed`). The live recheck waits until the disarm problem above is understood.
 - When reading record-enable through the Remote, take `r` 1 and 128 as the same "explicit record-enable"; 3 is the automatic record-enable that follows the selection, 64 a track that cannot be armed.
+
+## Follow-up (2026-10-07 13:17 to 13:25 JST, MCU only, no reception)
+
+- With the blink-aware build, `track arm 2 on` gave `verified: true`. The following `off` **did disarm, but Logic sent no "off" for the REC LED** (it stopped at the blink's last value, "on"; on screen Synth's R was off and Ballad's automatic record-enable was back). What looked like "cannot disarm" while restoring E4 was this stale LED, plus another press on top of it.
+- Fix: when the blinking has stopped after a disarm and no "off" arrived, move one channel away and back (Logic resends the view's LEDs) and read again over the blink window. With this build `on` → `off` → `off` (the second verified without sending) were all `verified: true`, matching the screen. Test: `aDisarmThatLeavesTheLEDOnIsCheckedByMovingTheViewAwayAndBack`.
+- Records: `Research/raw/live-arm/disarm-check/`.

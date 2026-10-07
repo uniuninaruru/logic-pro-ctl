@@ -10,7 +10,7 @@ MCU 書き込み	transport play / stop	mcu	live	EXP-CLI-001	再生・録音の�
 MCU 書き込み	transport cycle / click	mcu	live	Tests/LogicCoreTests/TransportLatchTests.swift; EXP-MCU-029	Cycle 0x56・Click 0x59 を押して LED で確認。実機 2026-10-07（停止中・音なし）：on→off→on を両方 verified、同じ off の 2 回目は送らずに確認。画面のサイクル・メトロノームのボタンも off で消灯・on で点灯
 MCU 書き込み	track mute	mcu	live	EXP-CLI-001; EXP-MCU-022〜025	ソロ中は mute LED が点滅するため状態は null になる
 MCU 書き込み	track solo	mcu	live	EXP-CLI-001	
-MCU 書き込み	track arm（録音待機）	mcu	live	EXP-MCU-028; Tests/LogicCoreTests/TrackArmTests.swift	実機 1 回（ソフトウェア音源の on/off と no-op）。選択中のトラックの自動の録音待機が外れることがある。出力・Master での失敗は実機で未確認
+MCU 書き込み	track arm（録音待機）	mcu	live	EXP-MCU-028; Tests/LogicCoreTests/TrackArmTests.swift	実機（EXP-MCU-028、EXP-REMOTE-006 の追試）：ソフトウェア音源の on/off と no-op。REC LED の点滅と、解除のあとの LED の取り残しに対応（点滅の窓 1.6 秒、ビューの送り直し）。選択中のトラックの自動の録音待機が外れることがある。出力・Master での失敗は実機で未確認
 MCU 書き込み	track volume	mcu	live	EXP-CLI-001; EXP-MCU-021	許容差 0.1 dB。最後のストリップの dB 表示位置のずれを補正済み
 MCU 書き込み	track pan	mcu	live	EXP-CLI-001	Logic の -64〜63 に丸める
 MCU 書き込み	track select	mcu	live	EXP-CLI-001	自動録音待機が有効だと、録音待機も選択に伴って動く
