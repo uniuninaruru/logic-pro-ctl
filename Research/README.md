@@ -9,7 +9,9 @@
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。
 [22件の作業一覧](plans/agent-ready-backlog.tsv)には依存関係と合格条件もあります。
-Logic Remote への最初の接続（PLAN-05）は、[承認用の計画書](plans/PLAN-05-approval-brief.md)の範囲で 2026-10-05 に承認され、初回状態を受信しました（[EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md)）。追加承認された[E3-1](plans/PLAN-05-E3-manual-selection.md)の1回の再接続も終了しています（[EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md)）。初回状態の照合はできましたが、時間内に選択変更を観測できず、操作との比較は未完了です。再試行は追加接続への回答待ちです。
+Logic Remote の初回受信は [EXP-REMOTE-001](experiments/EXP-REMOTE-001-receive-initial-state.md)、再接続の基準状態は [EXP-REMOTE-003](experiments/EXP-REMOTE-003-reconnect-selection-baseline.md)、その後の **選択変更1回の `/sti`・`/gtFaderData` 差分は [EXP-REMOTE-004](experiments/EXP-REMOTE-004-selection-delta.md)** に記録しています。各表示の通知は別々に届き、今回の8枠の選択更新の末尾までは65.7 msでした。これは1回の受信間隔で、全状態の完了保証ではありません。明示的な録音待機の比較は、操作前に中止した [EXP-REMOTE-005](experiments/EXP-REMOTE-005-aborted-explicit-arm.md) に未実施の範囲を記録しています。
+
+2026-10-07 に専用プロジェクトでの実機実験と computer use は包括的に許可されました。以前の追加接続の回答待ちは解消しています。現在の主な実機確認の残りは、同じポートにある2台の MCU を整理した状態での読み戻し、明示的な録音待機、曲の切替、識別子の寿命です。研究用ピアの受信確認と、製品からの Remote 接続・書き込みは区別します。
 
 ## 最初に読む3つ
 
@@ -90,6 +92,7 @@ flowchart LR
 | [proxy decoderの辞書・scalar・bytes](static-analysis/SA-AE-TARGET-015-proxy-decoder.md) | 13定義880 bytes。辞書値からarchiveへ渡す条件、型制限引数を使わないwrapper、signed32読出し、bytes長出力。実効dispatchとnative失敗は未確認 |
 | [UIDと型別のオブジェクト復元](static-analysis/SA-AE-TARGET-016-archive-dispatch.md) | 2定義2280 bytes。UID cache・範囲検査、クラス名/subclassによる復元先、固定クラスfallback、version読出し。実効dispatchと保存往復は未確認 |
 | [ファイルの入口と復元先クラス](static-analysis/SA-AE-TARGET-017-archive-containers.md) | 5定義1736 bytes。plist/plistZ・固定version、Class名alias、解決したClassの生成、KVC/root読出し。実機の受理と保存往復は未確認 |
+| [配列・文字列・識別子の復元](static-analysis/SA-AE-TARGET-018-archive-helpers.md) | 8定義1996 bytes。番号付き配列/辞書、UTF8、固定の属性・色、NSNull時のUUID生成、Channel IDの整数幅、固定objectのcopy。実ファイルの受理と保存往復は未確認 |
 | [rate の採用と失敗の意味](static-analysis/SA-AE-TIME-003-rate-adoption.md) | 判定前の保存、virtual 採用試行、token の返値、UI buffer・位置 map 更新。単純な bool getter ではない |
 | [XML の空スロット判定と警告](static-analysis/SA-AE-XML-003-empty-slot-alert.md) | 先頭の空きも含む pointer 判定、MACore の設定参照、XML 追加とモーダル警告の別条件 |
 
