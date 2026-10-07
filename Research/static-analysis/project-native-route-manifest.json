@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "analysis_id": "SA-PROJECT-FILE-003",
+  "status": "bounded_static_facts_checked",
+  "observed_utc": "2026-10-07T04:21:02.988830+00:00",
+  "canonical_narrative": "SA-PROJECT-FILE-003-native-route.en.md",
+  "summary_ja": "SA-PROJECT-FILE-003-native-route.md",
+  "boundary_table": "../protocol/logicx-native-route-boundaries.tsv",
+  "binary_identity": "binary-identity-12.3.1-6682.json",
+  "app_profile": {
+    "version": "12.3.1",
+    "build": "6682"
+  },
+  "program_identity": {
+    "program": "Logic.arm64",
+    "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "language": "AARCH64:LE:64:AppleSilicon",
+    "image_base": "00000000"
+  },
+  "ghidra_flags": [
+    "-noanalysis",
+    "-readOnly"
+  ],
+  "lock_protocol": "Tools/ghidra/with-project-lock.py; absolute shared lock; identity guard. No new job during semantic curation.",
+  "scope": {
+    "definitions": 3,
+    "defined_bytes": 4388,
+    "exported_instruction_words_verified": 1097,
+    "facts": 13,
+    "semantic_scope": "Selected reader gates and path control flow; unread helper bodies and other reader branches remain boundaries."
+  },
+  "functions": [
+    {
+      "entry": "0xbc45fc",
+      "defined_bytes": 8,
+      "body_ranges": [
+        [
+          "0xbc45fc",
+          "0xbc4604"
+        ]
+      ],
+      "body_sha256": "5103ba3de080c52a046485f800433848701faa49ab8f60241a80987ca249d7ac",
+      "words": 2
+    },
+    {
+      "entry": "0xbcbf60",
+      "defined_bytes": 2556,
+      "body_ranges": [
+        [
+          "0xbcbf60",
+          "0xbcc95c"
+        ]
+      ],
+      "body_sha256": "8d1e223e4b3792ebc3656060a0dff162d947fe68270b558929fe005561f54383",
+      "words": 639
+    },
+    {
+      "entry": "0x15e9a6c",
+      "defined_bytes": 1824,
+      "body_ranges": [
+        [
+          "0x15e9a6c",
+          "0x15ea18c"
+        ]
+      ],
+      "body_sha256": "e1bea7da22ea6b8bd69e684d60eb675a6e60577b817ef71bafee13582ca1ef67",
+      "words": 456
+    }
+  ],
+  "selected_method_rows": [
+    {
+      "owner": "CLgUnilibDocManager",
+      "class": "0x25b9d58",
+      "ro": "0x248ee30",
+      "kind": "instance",
+      "method": {
+        "entry": "0x1bf5ea8",
+        "selector": "setDocumentFileDataFromURL:usedAutoSave:error:",
+        "types": "B40@0:8@16^B24^@32",
+        "imp": "0xbc45fc",
+        "relative_imp_base": "0x1bf5eb0",
+        "raw_hex": "28f396002b483e004ce7fcfe"
+      }
+    },
+    {
+      "owner": "CLgDocManager",
+      "class": "0x25b9ad8",
+      "ro": "0x248eff8",
+      "kind": "instance",
+      "method": {
+        "entry": "0x1be5c24",
+        "selector": "setDocumentFileDataFromURL:usedAutoSave:error:",
+        "types": "B40@0:8@16^B24^@32",
+        "imp": "0xbcbf60",
+        "relative_imp_base": "0x1be5c2c",
+        "raw_hex": "acf59700af4a3f003463fefe"
+      }
+    }
+  ],
+  "metadata_checks": {
+    "native_selector_stubs": 5,
+    "path_selector_stubs": 6,
+    "path_CF_objects": 10,
+    "path_imports": 3,
+    "SDK_declarations": 4,
+    "path_critical_anchors": 88
+  },
+  "input_provenance": [
+    {
+      "path": "Research/raw/ghidra/project-native-route-bytecheck-024.py",
+      "sha256": "3467d195978fe6e1d1f9f25eb1b7d0182c755c02da620cf06f8986e3fa2506b1"
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    {
+      "path": "Research/raw/ghidra/project-native-route-execution-024.json",
+      "sha256": "1ac441a08b42a4b33b0876715c1bf437a1ba86e75e9a0537527680a4584b3ee0"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-native-route-024-Logic.c",
+      "sha256": "737bc5f5bdc05477273eff0f6846fe99ee020022efc0134b39f62a525485ac28"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-native-route-024-Logic.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-native-route-024-Logic-machinecode.txt",
+      "sha256": "cb241f4f5d82e63051e211e5c83b7c3129a62cf8ac7c9f3477010213eda31a21"
+    },
+    {
+      "path": "Research/raw/ghidra/q-project-native-route-024-Logic.log",
+      "sha256": "0d36cb2520fc1815b8f211e5ad4ffdf70e7de8018aea468359473f3da1e55029"
+    }
+  ],
+  "primary_raw_evidence": [
+    {
+      "path": "Research/raw/ghidra/project-native-route-byteproof-024.json",
+      "size_bytes": 2358,
+      "sha256": "f28aacb631dfa68e2ece80f592c88787ada0370ac2830aade4da123bd211d478"
+    },
+    {
+      "path": "Research/raw/ghidra/project-native-semantics-check-024.py",
+      "size_bytes": 7139,
+      "sha256": "6df3569aa8e362e54d9c120b8eb19e9f988c5c035cb6cfc51c0a8fc2d6361a62"
+    },
+    {
+      "path": "Research/raw/ghidra/project-native-semantics-024.json",
+      "size_bytes": 10914,
+      "sha256": "75a5098be339071df276e20e7bf3fadf094fda02413fb186608b0834105ed688"
+    },
+    {
+      "path": "Research/raw/ghidra/project-path-bindings-check-024.py",
+      "size_bytes": 2907,
+      "sha256": "6d9264c1336a45eab5588975026a62a5bc9de6797341ad6b54ba97ac1a0206e7"
+    },
+    {
+      "path": "Research/raw/ghidra/project-path-bindings-024.json",
+      "size_bytes": 11086,
+      "sha256": "d0e82847dafb169f1ca90a19c5312f83ca8f08d2519af917c7cb5ec74c878799"
+    },
+    {
+      "path": "Research/raw/ghidra/project-path-semantics-024.json",
+      "size_bytes": 23675,
+      "sha256": "a96e2cddb1f0b018ef75d4df5b76ffd97010fa17a6c5585ce8c67623c4320a16"
+    },
+    {
+      "path": "Research/raw/ghidra/project-path-semantics-024.md",
+      "size_bytes": 3205,
+      "sha256": "20fbb870a22e9331ac0c9e48103b4c0697e6e9197de1c23ce38bd55f425f0d55"
+    },
+    {
+      "path": "Research/raw/ghidra/project-native-sdk-024.json",
+      "size_bytes": 842,
+      "sha256": "6e0e1773436e8e47ec15bd729f41c2444838f2682c207b8906e5350cb3777828"
+    },
+    {
+      "path": "Research/raw/review/project-native-header-024.json",
+      "size_bytes": 440,
+      "sha256": "daca181fd67c4c3ef0cebc31be534ca65be9122bd4bbd795995e743feacd5024"
+    },
+    {
+      "path": "Research/raw/ghidra/project-native-publication-024.py",
+      "size_bytes": 6352,
+      "sha256": "456bf0b2356f2b5080377f5c26e570ca28ec24b03b8deaa51d9a279d67bb223e"
+    }
+  ],
+  "saved_package": {
+    "saved_only": true,
+    "relative_path": "Alternatives/000/ProjectData",
+    "bytes": 641814,
+    "sha256": "99e722bad78269d74c2e249a3af8f8570eac8e51de341ac87c2807482babd39a",
+    "prefix32": "2347c0abd10903000400000001000800feca090000000000676e6f530800ffff",
+    "le32_at0": "0xabc04723",
+    "le64_at6": "0x1000000040003",
+    "same_saved022": true,
+    "live_state_verified": false,
+    "snapshot_written_at_utc": "2026-10-07T04:12:55.938331+00:00"
+  },
+  "unread_helpers": [
+    "01584ae8",
+    "00d41ab0 converter",
+    "015ea320 variant",
+    "013517d0 payload",
+    "unilibDocManager getter/effective receiver",
+    "pathForVariant:baseURL:acceptMissing: body",
+    "009eaafc localization receiver",
+    "00579e1c state helper"
+  ],
+  "limits": [
+    "All1097 words checked; bounded semantic facts, not complete schema.",
+    "Original saved bytes are separate from selected converted bytes and live/unsaved state.",
+    "No native reader/path call, Logic/GUI action, build or live acceptance/roundtrip experiment.",
+    "Static path helper may reach a modal and state writes; no pure path API contract.",
+    "Effective dispatch, runtime failure/ownership, modal return enum, file schema and product capability unverified."
+  ],
+  "runtime_verified": false,
+  "product_capability": false
+}
