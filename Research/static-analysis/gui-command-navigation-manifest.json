@@ -1,0 +1,430 @@
+{
+  "id": "SA-GUI-COMMAND-001",
+  "scope": "Existing command-payload adapter and Key Commands navigation helper; static only",
+  "binary_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+  "defined_bytes": 720,
+  "instruction_words": 180,
+  "functions": [
+    "0x0086625c",
+    "0x0086668c"
+  ],
+  "caller_sites_checked": 9,
+  "caller_kinds": {
+    "bl": 6,
+    "b_tail": 3
+  },
+  "source_hashes": {
+    "decompile": {
+      "path": "Research/raw/ghidra/q-context-menu-027-Logic.c",
+      "sha256": "2d94db11fb1c6af0d25cac4c24299b11374cf042d7aafa203d06887d79d1cc68"
+    },
+    "instructions": {
+      "path": "Research/raw/ghidra/q-context-menu-027-Logic-machinecode.txt",
+      "sha256": "e6350b17211c709eeb310b5d1cdd4072f507aaa8fd449daf454a6d80f576efd0"
+    },
+    "identity": {
+      "path": "Research/raw/ghidra/q-context-menu-027-Logic.identity.json",
+      "sha256": "df18ccf0d787b19bf09f99242ed864dcf0b304264ddcc38ee8076b4c0cbfcd4f"
+    },
+    "references": {
+      "path": "Research/raw/ghidra/q-context-menu-027-Logic-refs.txt",
+      "sha256": "2a05c134f38f3eaacb5c0df9459317a938b77649117eb18b452c1a27aef641a1"
+    },
+    "execution_log": {
+      "path": "Research/raw/ghidra/q-context-menu-027-Logic.log",
+      "sha256": "8fa8b4d1d642b139b7988105a030c51483e682a8fce40f28243eb1ebf27be323"
+    }
+  },
+  "byteproof_sha256": "4d4dac913da97bdb12deb8511b9fdfac2885accfe59da031c011373246642fd5",
+  "semantic_review_sha256": "6b4e55f60e02d889c8f3455ac6cf709372d804ab0abce072d0a5ba41d2340910",
+  "facts": [
+    {
+      "id": "CM027-F1",
+      "function": "0086625c",
+      "status": "VerifiedStaticInstruction",
+      "text": "Seven payload key names come from exported C symbols. DontLearn.boolValue nonzero brackets normal-path dispatch with uint32 increments/decrements at 0x0275f9c8; counter purpose unproven.",
+      "refs": [
+        {
+          "address": "0x00866288",
+          "instructions_line": 20
+        },
+        {
+          "address": "0x00866298",
+          "instructions_line": 24
+        },
+        {
+          "address": "0x0086637c",
+          "instructions_line": 95
+        },
+        {
+          "address": "0x0086638c",
+          "instructions_line": 99
+        }
+      ]
+    },
+    {
+      "id": "CM027-F2",
+      "function": "0086625c",
+      "status": "VerifiedStaticInstruction",
+      "text": "SongID longValue is passed as x0 to 0x019a0a90; returned x0 is retained as context only when nonnull and byte +0x85c equals 1, otherwise context is zero.",
+      "refs": [
+        {
+          "address": "0x0086630c",
+          "instructions_line": 61
+        },
+        {
+          "address": "0x00866310",
+          "instructions_line": 62
+        },
+        {
+          "address": "0x00866314",
+          "instructions_line": 64
+        },
+        {
+          "address": "0x00866318",
+          "instructions_line": 65
+        },
+        {
+          "address": "0x0086631c",
+          "instructions_line": 66
+        },
+        {
+          "address": "0x00866324",
+          "instructions_line": 68
+        },
+        {
+          "address": "0x00866328",
+          "instructions_line": 69
+        }
+      ]
+    },
+    {
+      "id": "CM027-F3",
+      "function": "0086625c",
+      "status": "VerifiedStaticInstruction",
+      "text": "Command low16=796/761 reads CalledFromControlSurface.boolValue, whose return is overwritten before dispatch. 0x008663d4 gets signed16 command, resolver context, ignore-feature scalar, KeyUp mode 4/2 and low32 TrackID.",
+      "refs": [
+        {
+          "address": "0x008662d0",
+          "instructions_line": 42
+        },
+        {
+          "address": "0x008662d8",
+          "instructions_line": 44
+        },
+        {
+          "address": "0x008662f0",
+          "instructions_line": 51
+        },
+        {
+          "address": "0x008662fc",
+          "instructions_line": 55
+        },
+        {
+          "address": "0x00866364",
+          "instructions_line": 88
+        },
+        {
+          "address": "0x00866368",
+          "instructions_line": 89
+        },
+        {
+          "address": "0x0086636c",
+          "instructions_line": 90
+        },
+        {
+          "address": "0x00866370",
+          "instructions_line": 91
+        },
+        {
+          "address": "0x00866374",
+          "instructions_line": 92
+        },
+        {
+          "address": "0x00866378",
+          "instructions_line": 93
+        }
+      ]
+    },
+    {
+      "id": "CM027-F4",
+      "function": "0086668c",
+      "status": "VerifiedStaticInstruction",
+      "text": "FeatureAvailable receives cache and 0x27; zero return exits. Nonnull entry calls show on receiver address 0x025b9b50, then showAll:(0). Null entry reaches 0x005881b8 with message address 0x0236ad08; wording comes from the C symbol, predicate meaning/helper return unknown.",
+      "refs": [
+        {
+          "address": "0x008666b0",
+          "instructions_line": 116
+        },
+        {
+          "address": "0x008666b4",
+          "instructions_line": 118
+        },
+        {
+          "address": "0x008666b8",
+          "instructions_line": 119
+        },
+        {
+          "address": "0x008666bc",
+          "instructions_line": 121
+        },
+        {
+          "address": "0x008666cc",
+          "instructions_line": 125
+        },
+        {
+          "address": "0x008666dc",
+          "instructions_line": 130
+        },
+        {
+          "address": "0x008666f8",
+          "instructions_line": 139
+        },
+        {
+          "address": "0x0086670c",
+          "instructions_line": 144
+        }
+      ]
+    },
+    {
+      "id": "CM027-F5",
+      "function": "0086668c",
+      "status": "VerifiedStaticInstruction",
+      "text": "After 0x008630b4, scans 28 descriptors at 0x02685688 (stride 0x30, total 0x540); descriptor +0x28 is passed to FeatureAvailable, entry count at +8, entry pointer at +0. Entries stride 0x28 and input x19 is compared by pointer identity.",
+      "refs": [
+        {
+          "address": "0x00866734",
+          "instructions_line": 155
+        },
+        {
+          "address": "0x00866748",
+          "instructions_line": 161
+        },
+        {
+          "address": "0x00866754",
+          "instructions_line": 164
+        },
+        {
+          "address": "0x00866758",
+          "instructions_line": 165
+        },
+        {
+          "address": "0x00866764",
+          "instructions_line": 168
+        },
+        {
+          "address": "0x00866774",
+          "instructions_line": 173
+        },
+        {
+          "address": "0x00866778",
+          "instructions_line": 174
+        },
+        {
+          "address": "0x00866780",
+          "instructions_line": 177
+        },
+        {
+          "address": "0x0086678c",
+          "instructions_line": 180
+        },
+        {
+          "address": "0x008667ac",
+          "instructions_line": 189
+        },
+        {
+          "address": "0x008667b8",
+          "instructions_line": 192
+        }
+      ]
+    },
+    {
+      "id": "CM027-F6",
+      "function": "0086668c",
+      "status": "VerifiedStaticInstruction",
+      "text": "Matching entry +0x18/+0x20 fields and zero reach 0x0169bb34. Return x0 is moved to x21, then passed as FeatureAvailable argument x1; bit0 of returned w0 gates success. Owner +0xc0 then +0x920 supplies cache receiver when present, otherwise GetFeatureAvailabilityCache. Predicate effects unknown.",
+      "refs": [
+        {
+          "address": "0x008666ec",
+          "instructions_line": 136
+        },
+        {
+          "address": "0x00866740",
+          "instructions_line": 159
+        },
+        {
+          "address": "0x0086679c",
+          "instructions_line": 184
+        },
+        {
+          "address": "0x008667a4",
+          "instructions_line": 187
+        },
+        {
+          "address": "0x008667c0",
+          "instructions_line": 194
+        },
+        {
+          "address": "0x008667c4",
+          "instructions_line": 195
+        },
+        {
+          "address": "0x008667c8",
+          "instructions_line": 196
+        },
+        {
+          "address": "0x008667cc",
+          "instructions_line": 198
+        },
+        {
+          "address": "0x008667d0",
+          "instructions_line": 199
+        }
+      ]
+    },
+    {
+      "id": "CM027-F7",
+      "function": "0086668c",
+      "status": "VerifiedStaticInstruction",
+      "text": "Success tail-transfers signed16 group/entry indices in w2/w3 to scrollToBefGruppe:befehl:; exhausted search uses group=-1, entry=0. Return is propagated from target; universal ulong/constant-one return unproven.",
+      "refs": [
+        {
+          "address": "0x008667e0",
+          "instructions_line": 204
+        },
+        {
+          "address": "0x008667e4",
+          "instructions_line": 205
+        },
+        {
+          "address": "0x008667ec",
+          "instructions_line": 207
+        },
+        {
+          "address": "0x008667f0",
+          "instructions_line": 208
+        },
+        {
+          "address": "0x00866810",
+          "instructions_line": 216
+        }
+      ]
+    }
+  ],
+  "callsites": [
+    {
+      "at": "0x0169ec20",
+      "caller_symbol": "FUN_0169e950",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x00573014",
+      "caller_symbol": "ContextMenuCreator::_popupMenuItemCall:",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x017d1894",
+      "caller_symbol": "CLgAppManager::allowSendingAction:to:from:",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x012b431c",
+      "caller_symbol": "GroupSettingsViewController::menuAction:",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x00bc9280",
+      "caller_symbol": "CLgDocManager::doScreensetsMenuCall:",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x00bc938c",
+      "caller_symbol": "CLgDocManager::doScreensetsMenuCall:",
+      "kind": "bl",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x00866660",
+      "caller_symbol": "FUN_008663d4",
+      "kind": "b",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x0097d114",
+      "caller_symbol": "ControllerAssignmentsController::click_assignKeyCommandShow:",
+      "kind": "b",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    },
+    {
+      "at": "0x0086fb98",
+      "caller_symbol": "FUN_0086fa64",
+      "kind": "b",
+      "target": "0x0086668c",
+      "status": "VerifiedExistingSiteEncoding; caller body/runtime unexamined"
+    }
+  ],
+  "decompiler_abi_mistakes": [
+    {
+      "function": "0086625c",
+      "mistake": "boolValue/intValue/longValue scalars rendered as ID; actual scalar tests and command/track width conversions visible."
+    },
+    {
+      "function": "0086625c",
+      "mistake": "0x019a0a90 input/returned pointer assignment omitted; C appears to dereference original numeric SongID, unlike actual returned-pointer use."
+    },
+    {
+      "function": "0086668c",
+      "mistake": "GetFeatureAvailabilityCache return and FeatureAvailable inputs/results lost; decompiler conditions use input/old pointer instead of freshly returned w0."
+    },
+    {
+      "function": "0086668c",
+      "mistake": "0x0169bb34 return discarded in C; actual x0 flows to x21 then FeatureAvailable argument x1."
+    },
+    {
+      "function": "0086668c",
+      "mistake": "ulong/constant-one return misleading; tail-scroll propagates target return and null-entry message helper return is not established."
+    }
+  ],
+  "limits": [
+    "Saved Ghidra identity is import metadata; no fresh Ghidra database or annotation-state query.",
+    "Installed/current-copy byte identity does not establish feature predicate meaning, GUI runtime, right-click route, effective dispatch or product capability.",
+    "Export symbols identify method names; fresh selector/class metadata was not independently queried.",
+    "Input is an entry pointer; catalog label matches do not prove menu routing, command applicability or MIDI assignment class/source."
+  ],
+  "runtime_verified": false,
+  "product_capability": false,
+  "fresh_source_binding": {
+    "installed_size_bytes": 40710736,
+    "installed_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "arm64_slice_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "analysis_copy_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "saved_imported_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "checks": {
+      "installed_matches_recorded_baseline": true,
+      "installed_arm64_matches_saved_import": true,
+      "analysis_copy_matches_saved_import": true,
+      "installed_arm64_equals_analysis_copy": true,
+      "identity026_matches_identity027": true,
+      "execution026_installed_hash_matches_fresh": true,
+      "execution027_installed_hash_matches_fresh": true,
+      "execution026_copy_hash_matches_fresh": true,
+      "execution027_copy_hash_matches_fresh": true,
+      "saved_identity_path_matches_copy": true,
+      "saved_identity_expected_match": true
+    }
+  },
+  "byteproof_observed_utc": "2026-10-07T05:03:02.792806+00:00"
+}
