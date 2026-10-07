@@ -47,9 +47,10 @@ private func conflictAEApp() -> LogicAppInfo {
     sim.connect()
     let sender = ConflictAEFakeSender()
     sender.onSend = {
-        // Two different complete LCD dumps in the same session: do not rely on a
-        // new handshake to invalidate readback. These have the live dump length.
-        for name in ["FIRST", "SECOND"] {
+        // A row returns after another complete LCD dump in the same burst:
+        // two units alternate even without a new handshake. A one-way row
+        // change can be one unit's startup banner followed by track names.
+        for name in ["FIRST", "SECOND", "FIRST"] {
             let row = Array(name.padding(toLength: 56, withPad: " ", startingAt: 0).utf8)
             readback.ingest(MCU.sysexHeader + [0x12, 0] + row + Array(repeating: 0x20, count: 55) + [0xF7])
         }
