@@ -52,6 +52,11 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     /// "Mackie Control #2", which shows the next 8 strips) writes a different one, and the LCD buffer
     /// then holds whichever came last (EXP-MCU-029).
     private var fullDisplayWrites: [(at: Date, names: String, contradicted: Bool)] = []
+    /// When each LED was last reported on, and since when it has been off. An explicitly armed track's REC LED
+    /// blinks (on/off about every 0.73 s, EXP-REMOTE-006), so one reading can be the off phase.
+    private var ledOnAt = [Date?](repeating: nil, count: 128)
+    private var ledOffSince = [Date?](repeating: nil, count: 128)
+    static let blinkWindow: TimeInterval = 1.6
     private var client = MIDIClientRef()
     private var source = MIDIEndpointRef()
     private var destination = MIDIEndpointRef()
@@ -141,9 +146,15 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         }
         if fullDisplayWrites.count > 16 { fullDisplayWrites.removeFirst(fullDisplayWrites.count - 16) }
         for (index, event) in events.enumerated() {
+            if case .led(let note, let velocity) = event {
+                let n = Int(note & 0x7F)
+                if velocity != 0 { ledOnAt[n] = Date(); ledOffSince[n] = nil } else if ledOffSince[n] == nil { ledOffSince[n] = Date() }
+            }
             switch event {
             case .deviceQuery(MCU.model):
                 replies.append(MCU.sysexHeader + [0x01] + Self.serial + [0x01, 0x02, 0x03, 0x04, 0xF7])
+                ledOnAt = [Date?](repeating: nil, count: 128)
+                ledOffSince = [Date?](repeating: nil, count: 128)
                 handshakeAt = Date()
                 handshakePID = environment.runningApp()?.pid
                 handshakeGeneration += 1
@@ -296,6 +307,17 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         let window = 1.0 * environment.timeScale
         let burst = fullDisplayWrites.filter { last.at.timeIntervalSince($0.at) <= window }
         return burst.contains { $0.contradicted } ? max(2, Set(burst.map(\.names)).count) : 1
+    }
+
+    /// A blinking LED counts as on: on now, or reported on within one blink window. Off only after it has stayed off
+    /// for a whole window; nil before that, or when never reported in this session. Caller holds the lock.
+    private func blinkingLEDLocked(_ note: UInt8) -> Bool? {
+        guard surface.ledIfKnown(note) != nil else { return nil }
+        if surface.led(note) { return true }
+        let n = Int(note & 0x7F), window = Self.blinkWindow * environment.timeScale, now = Date()
+        if let on = ledOnAt[n], now.timeIntervalSince(on) <= window { return true }
+        if let off = ledOffSince[n], now.timeIntervalSince(off) >= window { return false }
+        return nil
     }
 
     /// Two units write different names into the one LCD buffer, and bank moves that cannot happen (every
@@ -735,7 +757,8 @@ public final class MCUBackend: LogicBackend, TransportReadback {
                 "identity": ["scope": "mixer_position", "stable_across_reorder": .bool(false), "name_unique": .null],
                 "solo": flag("solo", MCU.soloNote(strip)),
                 "selected": flag("selected", MCU.selectNote(strip)),
-                "rec_armed": flag("rec_armed", MCU.recNote(strip)),
+                // The REC LED blinks while armed: an on-report within one blink window counts (EXP-REMOTE-006).
+                "rec_armed": blinkingLEDLocked(MCU.recNote(strip)) == true ? .bool(true) : flag("rec_armed", MCU.recNote(strip)),
                 "pan": pan.map { .number(Double($0) / 64) } ?? .null,
                 "pan_raw": .int(pan),
             ]
@@ -925,9 +948,17 @@ public final class MCUBackend: LogicBackend, TransportReadback {
     private func arm(_ strip: Int, on: Bool) -> Outcome {
         let requested: JSONValue = ["track": .int(trackID(strip)), "rec_armed": .bool(on)]
         let note = MCU.recNote(strip)
+        let n = Int(note)
         func observed(_ state: Bool?) -> JSONValue { ["track": .int(trackID(strip)), "rec_armed": .bool(state)] }
-        // Only a reported LED proves "already in that state"; an unreported one is not "off".
-        if read({ $0.ledIfKnown(note) == on }) {
+        // An armed track's REC LED blinks (EXP-REMOTE-006): settle the starting state over one blink window.
+        var start: Bool? = read { _ in blinkingLEDLocked(note) }
+        if start == nil && read({ $0.ledIfKnown(note) != nil }) {
+            for _ in 0..<20 where start == nil {
+                pause(Self.blinkWindow / 16)
+                start = read { _ in blinkingLEDLocked(note) }
+            }
+        }
+        if start == on {
             return .write(matched: true, requested: requested, observed: observed(on),
                           message: "既に要求どおりの状態です。送信していません。")
         }
@@ -936,14 +967,21 @@ public final class MCUBackend: LogicBackend, TransportReadback {
         // The button toggles. With an unknown starting state the first press may go the wrong way: one more try.
         for attempt in 0..<2 {
             if attempt > 0, let changed = stillSession(session, before: "repress") { return changed }
-            let before = read { $0.ledUpdates[Int(note)] }
+            let before = read { $0.ledUpdates[n] }
+            let pressedAt = Date()
             send(MCU.press(note))
-            wait(0.8) { $0.ledUpdates[Int(note)] > before }
-            // The evidence and the session it belongs to, read together.
-            let (generation, led, updates) = read { s in (handshakeGeneration, s.ledIfKnown(note), s.ledUpdates[Int(note)]) }
+            // Logic answers within ~0.1 s, but a newly armed track's first blink-on came 0.86 s after the press.
+            pause(Self.blinkWindow + 0.3)
+            let (generation, updates, onAfter, onLate, led) = read { s -> (Int, Int, Bool, Bool, Bool?) in
+                let lastOn = ledOnAt[n] ?? .distantPast
+                return (handshakeGeneration, s.ledUpdates[n], lastOn > pressedAt,
+                        lastOn > pressedAt.addingTimeInterval(0.3 * environment.timeScale), s.ledIfKnown(note))
+            }
+            testHook?("afterWait")
             guard generation == session else { return sessionChangedOutcome() }
-            state = led
-            if state == nil || state == on || updates == before { break }
+            if updates == before { state = start; break }          // no answer at all: nothing to go on
+            state = on ? (onAfter ? true : (led == false ? false : nil)) : (onLate ? true : (led == false ? false : nil))
+            if state == nil || state == on || start != nil { break }
         }
         let matched = state == on
         return .write(matched: matched, requested: requested, observed: observed(state),

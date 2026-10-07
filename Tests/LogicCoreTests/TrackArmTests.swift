@@ -140,4 +140,30 @@ private func connected(tracks count: Int = 4) -> (FakeLogicMCU, MCUBackend) {
     let guarded = try CLIParser.parse(["track", "arm", "3", "off", "--expect-name", "T03"])
     #expect(guarded.args[LogicCommand.expectNameKey] == "T03")
 }
+// Real Logic blinks the REC LED of an armed track (EXP-REMOTE-006). A reading in the off phase is not "disarmed".
+@Test func aBlinkingRecLEDCountsAsArmed() {
+    let (sim, backend) = connected()
+    sim.blinkRec = true
+    let on = backend.execute(.trackArm(track: 2, on: true))
+    #expect(on.ok && on.verified)
+    #expect(sim.strips[1].rec)
+    #expect(recPresses(sim) == 1)                      // no second press that would disarm it again
+    sim.blinkTick()
+    let again = backend.execute(.trackArm(track: 2, on: true))
+    #expect(again.ok && again.verified)
+    #expect(recPresses(sim) == 1)                      // armed and blinking: nothing sent
+    sim.blinkTick()
+    let off = backend.execute(.trackArm(track: 2, on: false))
+    #expect(off.ok && off.verified)
+    #expect(!sim.strips[1].rec)
+    #expect(recPresses(sim) == 2)
+}
+
+@Test func aBlinkingArmedTrackReadsAsArmed() {
+    let (sim, backend) = connected()
+    sim.blinkRec = true
+    _ = backend.execute(.trackArm(track: 2, on: true))
+    sim.blinkTick()
+    #expect(backend.execute(.trackGet(track: 2)).result?["rec_armed"] == .bool(true))
+}
 #endif

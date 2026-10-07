@@ -52,6 +52,9 @@ final class FakeLogicMCU {
     /// A second Mackie Control unit on the same port ("Mackie Control #2"): it shows the strips after
     /// the first unit's 8 and writes its own whole display into the dump (real Logic, EXP-MCU-029).
     var secondUnit = false
+    /// Real Logic blinks an armed track's REC LED (EXP-REMOTE-006): an on report is followed by an off one, so the
+    /// last reported value can be off while the track is armed.
+    var blinkRec = false
     /// The same for a mute press (the strip stays unmuted in the new session).
     var reconnectOnNextMutePress = false
 
@@ -170,6 +173,13 @@ final class FakeLogicMCU {
         return lcd(0, names + lower)
     }
 
+    /// One blink cycle of every armed strip in view (Logic keeps blinking as long as a track stays armed).
+    func blinkTick() {
+        for slot in 0..<MCU.strips where strip(at: slot)?.rec == true {
+            send(led(MCU.recNote(slot), true) + led(MCU.recNote(slot), false))
+        }
+    }
+
     /// A second unit's dump without a handshake in between: unit 1's whole display, then the next 8 strips'.
     func sendTwoUnitDisplays() {
         send(fullDisplay(from: offset))
@@ -281,6 +291,7 @@ final class FakeLogicMCU {
             }
             strips[index].rec.toggle()
             send(led(note, strips[index].rec))
+            if blinkRec && strips[index].rec { send(led(note, false)) }   // caught in the off phase
         case 0x10..<0x18:
             let index = offset + Int(note - 0x10)
             guard index < strips.count else { return }
