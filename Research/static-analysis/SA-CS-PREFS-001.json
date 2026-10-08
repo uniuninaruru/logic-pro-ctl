@@ -288,7 +288,8 @@
     "open_eq_windows": 0,
     "parameter_candidates": 0,
     "plugin_instance_identity_verified": false,
-    "actual_value_provider_established": false
+    "actual_value_provider_established": false,
+    "qualification": "Historical initial discovery; see EQ-AX-002 for later native Controls attributes. Final guarded selector and target-bound MIDI readback remain pending."
   },
   "official_sources": [
     {
@@ -334,9 +335,17 @@
     },
     {
       "path": "Tools/research-scripts/logic-plugin-inspect.swift",
-      "sha256": "676b9bed7daa108905d2b2c576f6a27cafaa14421bca3b133ef48592788b31a7",
-      "size_bytes": 4065,
-      "availability": "public_repo"
+      "sha256": "4302e8d831d39f2f6c9c7f32176eef09a231d55e71fc3c0a8c7e1b0ab68ca656",
+      "size_bytes": 14296,
+      "availability": "public_repo",
+      "previous_versions": [
+        {
+          "sha256": "676b9bed7daa108905d2b2c576f6a27cafaa14421bca3b133ef48592788b31a7",
+          "size_bytes": 4065,
+          "git_revision": "06b8faca19097fc70e376dc3578489cc323831a9",
+          "qualification": "Version used for original CS-PREFS-001 initial discovery."
+        }
+      ]
     },
     {
       "path": "Research/static-analysis/SA-MIDI-ROUTE-001.json",
@@ -350,7 +359,8 @@
       "sha256": "17bc90b6baef73b09b7862e4a97361aa2008aef4cc611e46881356a7ff3e95f2",
       "size_bytes": 5490,
       "availability": "public_repo",
-      "qualification": "Baseline live log; this note independently qualifies byte interpretations and unknown mismatch cause."
+      "qualification": "Historical baseline log pinned before subsequent owner corrections; this note independently qualifies byte interpretations and unknown mismatch cause.",
+      "git_revision": "06b8faca19097fc70e376dc3578489cc323831a9"
     },
     {
       "path": "Research/raw/cs-diff/codex-readonly-parser-results.json",
@@ -394,5 +404,13 @@
       "size_bytes": 316820,
       "availability": "local_ignored"
     }
-  ]
+  ],
+  "readback_followup": {
+    "id": "EQ-AX-002",
+    "note": "Research/notes/channel-eq-ax-context-002.en.md",
+    "data": "Research/notes/channel-eq-ax-context-002.json",
+    "controls_native_description_observed": "0.0 dB",
+    "final_guarded_selector_live_positive": "pending",
+    "target_bound_midi_readback_verified": false
+  }
 }

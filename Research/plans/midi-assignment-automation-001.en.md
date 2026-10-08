@@ -1,6 +1,6 @@
 # MIDI assignment automation: first verified Channel EQ operation
 
-日本語概要: 最初の完成目標を「Channel EQの値を指定し、割り当て・送信・実際の値まで確認する」に絞る。設定のコピーの取得と比較は実装済み。GUI Learnの自動化、GUIによる復元、プラグイン変更時の識別、値の読み戻しはこれから実証する。
+日本語概要: 最初の完成目標を「Channel EQの値を指定し、割り当て・送信・実際の値まで確認する」に絞る。設定のコピーの取得と比較は実装済み。Controls表示からMaster Gainの0.0 dBをAPIで取得した。GUI Learn・復元の自動化、プラグイン変更時の識別、MIDI操作前後の同一対象読み戻しはこれから実証する。
 
 Priority accepted from the human on 2026-10-08. Follow [AGENTS](../../AGENTS.en.md). Test project only; one condition per experiment; preserve unknown-cause state rather than blindly normalizing it. Controller settings are changed inside Logic. Direct CS-file writes are excluded.
 
@@ -12,10 +12,10 @@ Priority accepted from the human on 2026-10-08. Follow [AGENTS](../../AGENTS.en.
 | GUI Learn | [CA002](../experiments/EXP-CA-002-variable-cc-and-pickup.en.md): operator created variable CC assignments; official Learn sequence documented | Automate one new named parameter assignment; inspect the resulting Expert row and input port; stop Learn; remove only that new row |
 | Restoration | s0b→s2 RDAF multiset restored after GUI deletion of one KC row | Re-create a removed owned row through GUI; verify fields and effect, then return the initial owned state; never overwrite prefs |
 | Plug-in identity | Current getter/target models and GUI labels are clues | Bind document, track, slot, plug-in identity, parameter label/unit/range; reject ambiguity and revalidate after replacement, reorder or document change |
-| EQ value | [CA002](../experiments/EXP-CA-002-variable-cc-and-pickup.en.md): CC23 samples +24.0 / −24.0 / +0.2 dB, GUI readout | Establish an automation-readable actual value, tied to the same instance; several values and at least two test tracks; preserve initial value |
+| EQ value | [CA002](../experiments/EXP-CA-002-variable-cc-and-pickup.en.md): CC23 samples +24.0 / −24.0 / +0.2 dB, GUI readout | [EQ-AX-002](../notes/channel-eq-ax-context-002.en.md): Controls static label and native 0.0 dB captured; final guarded selector live pass and same-instance MIDI before/after remain pending; several values and two tracks |
 | Execution | [MCP adapter](../../docs/mcp.md) delegates existing commands to the CLI/logicd core | Add a generic-parameter operation only after target, mapping and readback are proved; reuse shared validation/result handling |
 
-Claude owns GUI/live observations and Learn/restore. Codex owns copied-file interpretation, internal-route mapping and read-only AX discovery. Coordinate GUI/MIDI ownership on the local board before mutation. `Tools/research-scripts/logic-plugin-inspect.swift --pid <observed PID>` reads parameter attribute candidates only; a window index/tree path is **not stable instance identity**. Initial discovery found the test project but no open EQ window, so no automated value provider is established yet.
+Claude owns GUI/live observations and Learn/restore. Codex owns copied-file interpretation, internal-route mapping and read-only AX discovery. RDCO owns an independent target/value feasibility review. Coordinate GUI/MIDI ownership on the local board before mutation. `Tools/research-scripts/logic-plugin-inspect.swift --pid <observed PID> [--window-title <observed title>] [--parameter-label <observed label>]` reads parameter attribute candidates only; a window index/tree path is **not stable instance identity**. Initial discovery found the test project but no open EQ window. [AX follow-up](../notes/channel-eq-ax-context-002.en.md) records RDCO's unavailable trust, a local malformed tree independently reproduced in C, and a positive Controls capture of Master Gain 0.0 dB. Later the Mac locked; no CC was sent. Final guarded selector and target-bound before/after readback remain pending; unlock, inspect state and establish a baseline before arming the send plan.
 
 ## Target and assignment record to prove
 
@@ -58,4 +58,4 @@ The first completed demo must:
 6. Restore reversible owned changes through Logic and record before/after evidence.
 7. Expose the verified operation through logicd and a thin MCP/CLI adapter using the same execution contract.
 
-GUI automation, generic plug-in readback and the new product operation are pending. Broad new tool menus or expanded CI are not prerequisites for this milestone.
+Controls attribute capture is established; GUI automation, final guarded-selector validation, generic target-bound readback and the new product operation are pending. Broad new tool menus or expanded CI are not prerequisites for this milestone.

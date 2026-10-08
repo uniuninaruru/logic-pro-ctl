@@ -10,6 +10,7 @@
 [既存解析との接続図と現行版の関数照合](static-analysis/SA-MIDI-ROUTE-001.en.md)に、MCU・Remote・キーコマンド・AppleEvent・リージョンとの関係をまとめました。
 [最初の完成目標と合格条件](plans/midi-assignment-automation-001.en.md)は、Channel EQの対象特定→MIDI操作→実際の値の読み戻しです。
 [設定コピーの限定読み取りと差分](static-analysis/SA-CS-PREFS-001.en.md)を実装し、21件の対象テストが通りました。設定ファイルの長さに不整合があるコピーは通常モードで拒否します。GUIでの割り当て自動化・復元、プラグイン変更時の識別、EQの自動読み戻しは未完了です。
+[EQのAPI値読み取り](notes/channel-eq-ax-context-002.en.md)では、Controls表示のMaster Gainから **0.0 dB** を取得しました。権限不足・不正なウィンドウ情報・画面ロックを区別し、読み取れない状態は拒否します。最終行指定処理の実機確認、MIDI操作前後の比較、対象実体の識別は未完了です。
 [固定メッセージのパン操作](experiments/EXP-CA-001-generic-cc-fixed-message.md)に加え、[可変CCによるパン・音量・Channel EQの実機結果](experiments/EXP-CA-002-variable-cc-and-pickup.md)を起点にします。数値変換・対象の結び付け・読み戻しを対応付けることが次の作業です。
 [値モード・倍率・ピックアップの追加確認](experiments/EXP-CA-003-value-mode-pickup-ab.md)では固定CCの回転と可変CCのスケール、同一入力でのオン/オフ、現在値をまたぐ入力を確認しました。[現行キーコマンド一覧](experiments/EXP-KC-001-key-command-inventory.md)も2,176件・27グループを取得済みです。
 [MIDIからキーコマンドを実行する試験](experiments/EXP-KC-002-midi-to-key-command-loop-browser.md)では、CC24でループブラウザを開閉し、割り当ての削除後に反応しないことまで確認しました。

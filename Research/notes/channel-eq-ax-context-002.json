@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "id": "EQ-AX-002",
+  "owner": "CDEX",
+  "recorded_utc": "2026-10-08T09:33:24Z",
+  "status": "native_controls_value_observed_final_selector_live_pending",
+  "summary_ja": "ControlsのMaster Gain行からAXValueDescription 0.0 dBを取得。最終行指定処理の実機確認・MIDI前後比較・対象実体の識別は未完了。画面ロック後は送信せず。",
+  "installed_logic": {
+    "version": "12.4",
+    "build": "6707",
+    "source": "Claude CA004 and RDCO report",
+    "independently_remeasured_this_note": false
+  },
+  "reported_target": {
+    "document": "LogicCLI-Test.logicx",
+    "track": "Synth",
+    "slot": "Audio FX 1",
+    "plugin": "Channel EQ",
+    "parameter": "Master Gain",
+    "source": "Claude GUI and RDCO report",
+    "instance_identity_verified": false
+  },
+  "contexts": {
+    "rdco": {
+      "accessibility_trusted": false,
+      "source": "RDCO EQ-READ-001 report",
+      "native_value_obtained": false
+    },
+    "codex_initial": {
+      "accessibility_trusted": true,
+      "ax_windows_count": 2,
+      "returned_role": "AXApplication",
+      "returned_title": "Logic Pro",
+      "equals_application": true,
+      "independent_c_reproduction": true,
+      "cause": "unknown"
+    },
+    "codex_later": {
+      "screen_locked": true,
+      "observed_at_utc": "2026-10-08T09:30:02Z",
+      "front_application": "loginwindow"
+    }
+  },
+  "controls_observation": {
+    "source": "Research/raw/review/eq-readback-context-check-005.json",
+    "mode_source": "Claude CLDE092",
+    "test_project_guard_passed": true,
+    "plugin_window": {
+      "discovery_only": true,
+      "index": 0,
+      "plugin_label_observed": true,
+      "title": "Synth "
+    },
+    "plugin_body_label": {
+      "description": "",
+      "path": [
+        8
+      ],
+      "role": "AXStaticText",
+      "title": "",
+      "value": "Channel EQ",
+      "window_index": 0
+    },
+    "label": {
+      "description": "",
+      "path": [
+        9,
+        0,
+        32,
+        0,
+        0
+      ],
+      "title": "",
+      "value": "Master  Gain:",
+      "window_index": 0
+    },
+    "control": {
+      "attribute_result_codes": {
+        "AXDescription": -25212,
+        "AXIdentifier": -25212,
+        "AXMaxValue": 0,
+        "AXMinValue": 0,
+        "AXTitle": -25212,
+        "AXValue": 0,
+        "AXValueDescription": 0
+      },
+      "AXMaxValue": 480,
+      "AXMinValue": 0,
+      "AXValue": 240,
+      "AXValueDescription": "0.0 dB",
+      "path": [
+        9,
+        0,
+        32,
+        0,
+        1,
+        0
+      ],
+      "role": "AXSlider",
+      "window_index": 0
+    },
+    "row_relationship": "common_parent_path_prefix_only",
+    "parent_role_in_saved_capture": null,
+    "physical_value": {
+      "description": "0.0 dB",
+      "numeric_display": 0.0,
+      "unit": "dB",
+      "precision": "rounded_display_description_only"
+    },
+    "raw_domain": {
+      "value": 240,
+      "min": 0,
+      "max": 480,
+      "conversion_proven": false,
+      "writability_proven": false
+    },
+    "final_selector_executed_in_this_capture": false
+  },
+  "reader": {
+    "tool": "Tools/research-scripts/logic-plugin-inspect.swift",
+    "read_only": true,
+    "new_options": [
+      "--window-title",
+      "--parameter-label"
+    ],
+    "required_conditions": [
+      "trusted_client",
+      "usable_ax_window_objects",
+      "one_test_document_window",
+      "exact_channel_eq_body_static_text",
+      "one_normalized_parameter_label",
+      "nonwindow_AXGroup_parent",
+      "no_competing_row_labels",
+      "one_control_with_value_description",
+      "complete_traversal"
+    ],
+    "stable_identity_claimed": false,
+    "final_positive_live_validation": "pending"
+  },
+  "live_negative_validation": {
+    "source": "Research/raw/review/eq-readback-context-check-011.json",
+    "mode": "Editor",
+    "selection": {
+      "matching_labels": 0,
+      "requested_label": "Master Gain",
+      "state": "label_not_found"
+    },
+    "truncated": false
+  },
+  "final_locked_validation": {
+    "source": "Research/raw/review/eq-readback-context-check-013.json",
+    "exit_code": 1,
+    "error": "ax_window_tree_unusable",
+    "verified": false,
+    "plugin_instance_identity_verified": false,
+    "stderr_empty": true
+  },
+  "root_mutations": {
+    "claude_activation_for_idle_status": true,
+    "logic_activation": true,
+    "view_menu_opened_once": true,
+    "controls_selection_executed": false,
+    "numeric_value_writes": 0,
+    "midi_sends": 0,
+    "permissions_or_preferences_modified": false,
+    "state_on_stop": "locked; View menu may remain open or dismiss on unlock"
+  },
+  "calibration_qualification": {
+    "source": "Claude CA004 GUI samples; not Codex MIDI readback",
+    "model": "-24 + 48 * v / 127",
+    "CC48_predicted_db": -5.858267716535433,
+    "CC47_predicted_db": -6.2362204724409445,
+    "exact_minus6_model_cc": 47.625,
+    "all_values_modes_parameters_proven": false,
+    "ignored_first_CC64_cause": "undetermined; earlier crossing arithmetic corrected by owner"
+  },
+  "verification": {
+    "native_attribute_capture": "observed",
+    "final_guarded_named_selector_positive": "pending",
+    "midi_before_after": "not_performed",
+    "document_track_slot_instance_parameter_binding": "pending",
+    "verified": false
+  },
+  "next": [
+    "After unlock inspect document/window/menu and coordinate GUI ownership.",
+    "Open Controls and live-validate final named-row baseline before arming any send.",
+    "Coordinate one CC127 and post-read, then one CC48 and post-read, separately; capture restoration.",
+    "Validate two tracks and replacement/ambiguity rejection before a verified product endpoint."
+  ],
+  "official_sources": [
+    {
+      "url": "https://support.apple.com/en-az/guide/logicpro/lgcpbc21a1fd/10.7/mac/11.0",
+      "guide_version": "10.7",
+      "claim": "Editor/Controls View alternatives",
+      "installed_version_guarantee": false
+    },
+    {
+      "url": "https://support.apple.com/guide/logicpro/expert-view-value-parameters-ctls71c308ee/12.3/mac/15.6",
+      "guide_version": "12.3",
+      "claim": "assignment value modes and ranges; no AX identity guarantee"
+    }
+  ],
+  "source_manifest": [
+    {
+      "path": "Tools/research-scripts/logic-plugin-inspect.swift",
+      "sha256": "4302e8d831d39f2f6c9c7f32176eef09a231d55e71fc3c0a8c7e1b0ab68ca656",
+      "size_bytes": 14296,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/experiments/EXP-CA-004-channel-eq-gain-calibration.en.md",
+      "sha256": "e40ede1a3a256782224f8ac81d30715aeb77c6f55e22c26e4d8775e5f9b9e360",
+      "size_bytes": 5806,
+      "availability": "public_repo",
+      "git_revision": "3ad02a9d6f9ee05ba4ea753da82338dc55b5e7e2"
+    },
+    {
+      "path": "Research/raw/review/eq-readback-context-check-002.json",
+      "sha256": "481a893936cb5b18fa022854d3847029fe0d2c089544f93d742198901cea736d",
+      "size_bytes": 467,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/logic-ax-c-reproducer-001.c",
+      "sha256": "0999c449d22b9a94e0196e96e034f7a217870d4e79d983ecf8071704a8a7e4cf",
+      "size_bytes": 1230,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/logic-ax-c-reproducer-001.txt",
+      "sha256": "7308d6412545296c2626090cc98bd0fbbf2f649f9e0c628392d045c74524fac6",
+      "size_bytes": 176,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/eq-readback-context-check-005.json",
+      "sha256": "4e2b85efa41bfed9bf6be398d0ce3c418e35735455d9fe7d801a1ce6ace2b5e5",
+      "size_bytes": 27862,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/eq-readback-context-check-006.json",
+      "sha256": "fce5c26b4f60006085758f1f371ede6716c14c39fe1462924615387a3af2c9af",
+      "size_bytes": 10081,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/eq-readback-context-check-011.json",
+      "sha256": "b91ea073c6164011ccef374950fa0c55ccb747b76ccea3a6e071dceb33492379",
+      "size_bytes": 10316,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/eq-readback-context-check-013.json",
+      "sha256": "4333a8421ebf2bce5aff6d61e9f603710f8d230b96282461726944f3f1dd88f4",
+      "size_bytes": 508,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/logic-session-lock-002.json",
+      "sha256": "a06a9fe7d4b7c49246147e6f3c86ce7693bfc80c6d29a8cb64c6ecf883fca19c",
+      "size_bytes": 98,
+      "availability": "local_ignored"
+    }
+  ]
+}
