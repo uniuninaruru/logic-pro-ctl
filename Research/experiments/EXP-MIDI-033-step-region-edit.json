@@ -1,0 +1,2188 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-MIDI-033",
+  "operation": "Insert eight notes into an existing native MIDI region through Logic Step Input and a generic CoreMIDI virtual source",
+  "recorded_utc": "2026-10-07T16:26:59.984640+00:00",
+  "status": "final native SMF verified: paced pass succeeds;0 ms and20 ms gaps fail sequential intent;50 ms gap succeeds at captured120/119/80 BPM",
+  "japanese_summary": "停止中の既存MIDIリージョンに、ステップ入力を使って仮想MIDI入力8音を追加できた。先行するGUI入力2音とは区別し、ネイティブ書き出しで音高・順序・間隔・音長を確認した。入力源の作成後にMIDI入力をOFF→ONにした条件で成功したが、原因と一般性は未検証。",
+  "environment": {
+    "logic_version": "12.4",
+    "logic_build": "6707",
+    "macos": "27.0",
+    "test_project": "LogicCLI-Test.logicx",
+    "project_evidence": "Exact dedicated test AXDocument URL guards in run-gap20.json/run-gap50.json/run-gap50-tempo80-verified.json plus Step Input window title",
+    "logic_remote_used": false,
+    "current_framework_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "identity_model": "Research/static-analysis/binary-identity-12.4-6707.json",
+    "binary_identity_scope": "current on-disk/copy identity; not a loaded-process image hash; reused existing identity proof"
+  },
+  "target": {
+    "track_index_display": 31,
+    "track_label": "Studio Grand",
+    "native_region_name": "Studio Grand",
+    "region_created_start_bar": 21,
+    "region_after_rearmed_end_bar": 24,
+    "bar_grid": {
+      "ppq": 480,
+      "time_signature": [
+        4,
+        4
+      ],
+      "bar21_tick": 38400
+    },
+    "target_scope": "GUI-prepared research region in dedicated test project; not arbitrary headless region addressing",
+    "mcu_mixer_position": 13,
+    "target_evidence": "rearmed-after-notes-ax.txt: track31 Studio Grand; original selection/arm readbacks in EXP-MIDI-032"
+  },
+  "initial_gui_pilots": {
+    "source": "step-key-two.mid native export",
+    "count": 2,
+    "notes": [
+      {
+        "pitch": 60,
+        "velocity": 80,
+        "start_beats": "80",
+        "duration_beats": "119/240",
+        "start_tick": 38400,
+        "end_tick": 38638,
+        "channel": 0,
+        "track_index": 0,
+        "duration_ticks": 238
+      },
+      {
+        "pitch": 62,
+        "velocity": 80,
+        "start_beats": "161/2",
+        "duration_beats": "95/96",
+        "start_tick": 38640,
+        "end_tick": 39115,
+        "channel": 0,
+        "track_index": 0,
+        "duration_ticks": 475
+      }
+    ],
+    "input_kind": "Native System Events keyboard events: keycode0 (A -> C), then keycode20 (3 -> quarter step) and keycode1 (S -> D); not GUI note clicks",
+    "input_provenance": "live operator correction; event-script source not read during offline curation",
+    "quarter_selection_note": "Operator reports quarter-note AXPress returned0 but did not change length; keyboard3 subsequently changed length before D pilot"
+  },
+  "paced_pass": {
+    "name": "rearmed",
+    "ready_utc": "2026-10-07T16:03:16.236Z",
+    "started_utc": "2026-10-07T16:04:06.390Z",
+    "finished_utc": "2026-10-07T16:04:10.391Z",
+    "source_name": "logicctl-note-input",
+    "source_ref": 33493101,
+    "source_created_before_midi_in_off_on": {
+      "value": true,
+      "provenance": "live operator report; toggle script not read or executed during offline curation"
+    },
+    "midi_input_checkbox_after": {
+      "value": 1,
+      "source": "rearmed-after-notes-ax.txt:26"
+    },
+    "source_path": {
+      "api": "MIDISourceCreate + MIDIReceived",
+      "virtual_destination_created": false,
+      "port_connections_created": false,
+      "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+      "mach_timebase_numer": 125,
+      "mach_timebase_denom": 3
+    },
+    "sender": {
+      "scheduler": "strict DispatchSourceTimer, zero leeway, shared base",
+      "planned_onset_spacing_seconds": 0.5,
+      "planned_note_duration_seconds": 0.375,
+      "bpm": 120,
+      "note_ons": 8,
+      "note_offs": 8,
+      "all_tx_os_status_zero": true,
+      "exit_code": 0,
+      "sender_verified_flag": false
+    },
+    "readback": {
+      "native_export_path": "Research/raw/gui/midi-step-input-033/step-rearmed.mid",
+      "sha256": "629d7b4f46beb2b3875f131e07225de22ea8fae468f2f937bec08865a436d871",
+      "size_bytes": 186,
+      "midi_type": 0,
+      "tracks": 1,
+      "ppq": 480,
+      "notes": [
+        {
+          "pitch": 60,
+          "velocity": 80,
+          "start_beats": "80",
+          "duration_beats": "119/240",
+          "start_tick": 38400,
+          "end_tick": 38638,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 238
+        },
+        {
+          "pitch": 62,
+          "velocity": 80,
+          "start_beats": "161/2",
+          "duration_beats": "95/96",
+          "start_tick": 38640,
+          "end_tick": 39115,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "start_beats": "163/2",
+          "duration_beats": "95/96",
+          "start_tick": 39120,
+          "end_tick": 39595,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "start_beats": "165/2",
+          "duration_beats": "95/96",
+          "start_tick": 39600,
+          "end_tick": 40075,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "start_beats": "167/2",
+          "duration_beats": "95/96",
+          "start_tick": 40080,
+          "end_tick": 40555,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 67,
+          "velocity": 90,
+          "start_beats": "169/2",
+          "duration_beats": "95/96",
+          "start_tick": 40560,
+          "end_tick": 41035,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "start_beats": "171/2",
+          "duration_beats": "95/96",
+          "start_tick": 41040,
+          "end_tick": 41515,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "start_beats": "173/2",
+          "duration_beats": "95/96",
+          "start_tick": 41520,
+          "end_tick": 41995,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "start_beats": "175/2",
+          "duration_beats": "95/96",
+          "start_tick": 42000,
+          "end_tick": 42475,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        },
+        {
+          "pitch": 55,
+          "velocity": 90,
+          "start_beats": "177/2",
+          "duration_beats": "95/96",
+          "start_tick": 42480,
+          "end_tick": 42955,
+          "channel": 0,
+          "track_index": 0,
+          "duration_ticks": 475
+        }
+      ],
+      "track_records": [
+        {
+          "track_index": 0,
+          "final_tick": 44160,
+          "note_starts": 10,
+          "note_ends": 10,
+          "meta_types": [
+            32,
+            3,
+            4,
+            88,
+            89,
+            84,
+            81,
+            47
+          ],
+          "sysex_count": 0
+        }
+      ],
+      "native_export_readback_verified": true,
+      "independent_byte_parser_matches_saved_parser": true,
+      "source_hash_matches_saved_parser": true,
+      "verification_scope": "native SMF bytes: 2 pilots preserved and 8 exact MIDI notes; native export provenance supplied by live operator"
+    },
+    "eight_midi_notes": {
+      "count": 8,
+      "pitches": [
+        60,
+        62,
+        64,
+        67,
+        64,
+        62,
+        60,
+        55
+      ],
+      "channel": 0,
+      "velocity": 90,
+      "start_ticks": [
+        39120,
+        39600,
+        40080,
+        40560,
+        41040,
+        41520,
+        42000,
+        42480
+      ],
+      "duration_ticks": 475,
+      "grid_interval_ticks": 480,
+      "exact_note_checks_passed": true
+    },
+    "transport": {
+      "live_operator_reports_stopped": true,
+      "fresh_successful_pass_status_available": false,
+      "earlier_snapshots": [
+        {
+          "source": "Research/raw/gui/midi-step-input-033/status-region-created.json",
+          "observed_at": "2026-10-07T15:49:13Z",
+          "transport": {
+            "playing": false,
+            "recording": false
+          },
+          "reply_verified": false,
+          "scope": "earlier setup/failed first input attempt; not the successful rearmed pass"
+        },
+        {
+          "source": "Research/raw/gui/midi-step-input-033/status-before.json",
+          "observed_at": "2026-10-07T15:52:10Z",
+          "transport": {
+            "playing": false,
+            "recording": false
+          },
+          "reply_verified": false,
+          "scope": "earlier setup/failed first input attempt; not the successful rearmed pass"
+        },
+        {
+          "source": "Research/raw/gui/midi-step-input-033/status-during.json",
+          "observed_at": "2026-10-07T15:52:11Z",
+          "transport": {
+            "playing": false,
+            "recording": false
+          },
+          "reply_verified": false,
+          "scope": "earlier setup/failed first input attempt; not the successful rearmed pass"
+        },
+        {
+          "source": "Research/raw/gui/midi-step-input-033/status-after.json",
+          "observed_at": "2026-10-07T15:52:14Z",
+          "transport": {
+            "playing": false,
+            "recording": false
+          },
+          "reply_verified": false,
+          "scope": "earlier setup/failed first input attempt; not the successful rearmed pass"
+        }
+      ],
+      "scope": "earlier snapshots prove stopped only at their own times; successful pass currently has operator provenance"
+    },
+    "timing_scope": "Step Input positions/durations are grid values; paced packet spacing and physical held-note length are not the output-duration authority"
+  },
+  "earlier_non_success": {
+    "operator_reports_no_inserted_notes": true,
+    "conditions": "MIDI In already ON before creation of a new virtual source; focus/preparation conditions also changed",
+    "sender_logs": [
+      "note-tx.jsonl",
+      "note-tx-focus.jsonl",
+      "note-tx-unblocked.jsonl",
+      "note-tx-active.jsonl"
+    ],
+    "export_before_after_identical": true,
+    "export_sha256": "cb6e0c468986c90f53ca7199e262a2e05d5c83794c695a41fdd82ac512fed6dd",
+    "export_limitation": "14-byte MThd-only files with zero tracks; not a valid populated Type-0 SMF and not complete region-content proof"
+  },
+  "hypotheses": [
+    {
+      "hypothesis": "Toggling MIDI In after a source exists refreshes/enables this source for Step Input",
+      "confidence": "medium for this observed sequence, low for general mechanism",
+      "basis": "earlier source-after-ON attempts did not insert; source-before-OFF-to-ON pass inserted eight notes",
+      "counterexample_and_limits": "focus/region preparation also changed; no one-variable internal enumeration proof; not a universal source-creation requirement",
+      "next_validation": "repeat source-before/source-after toggle with fixed region/focus and independent native export"
+    },
+    {
+      "hypothesis": "An approximately99% gate could explain the exported lengths",
+      "confidence": "medium numerical fit, low for UI gate setting/implementation",
+      "basis": "240*0.99=237.6 and480*0.99=475.2 agree with exported238/475ticks after rounding",
+      "limits": "No saved readback or operator observation proves a99% setting; exact rounding rule and other percentages untested",
+      "next_validation": "vary one visible gate setting with fixed step size and native export"
+    },
+    {
+      "hypothesis": "Very rapid pairs were processed as one Step Input group",
+      "confidence": "high for exported coincidence, low for the receiver mechanism",
+      "basis": "16 transmitted events within about0.51ms and8exported notes sharing42960onset",
+      "limits": "No callback/handler trace or universal timing threshold established",
+      "next_validation": "short-gap search while preserving prior event multisets"
+    }
+  ],
+  "current_static_candidates": [
+    {
+      "id": 922,
+      "name": "1/4 Note",
+      "handler": "0x7a15f4",
+      "argument": 3,
+      "evidence_scope": "exact current static entry and fixup chain bytes verified; handler behavior/runtime command dispatch not proven"
+    },
+    {
+      "id": 72,
+      "name": "Toggle MIDI In (Step Record)",
+      "handler": "0xf318c4",
+      "argument": 0,
+      "evidence_scope": "exact current static entry and fixup chain bytes verified; GUI checkbox action does not prove runtime command-ID dispatch"
+    },
+    {
+      "id": 1208,
+      "name": "Show/Hide Step Input Keyboard",
+      "handler": "0xf57da0",
+      "argument": 36,
+      "evidence_scope": "current constructor constant/store association byte-verified; no complete constructor CFG/runtime-registration proof"
+    }
+  ],
+  "timestamp_contract_reference": "Research/raw/gui/midi-controller-032/timestamp-semantics.md",
+  "smf_input_used": false,
+  "native_export_purpose": "readback only",
+  "production_cli_midi_or_region_edit_feature_verified": false,
+  "arbitrary_headless_region_editing_verified": false,
+  "limits": [
+    "One region, channel0, velocity90 and one eight-note sequence; chords/overlap/sustain/CC/pitch bend/other channels untested.",
+    "GUI region creation, selection, Step Input preparation and export were involved; not a fully headless CLI editing workflow.",
+    "Native SMF readback verifies saved note content; offline curator did not observe GUI or execute MIDI.",
+    "Source enumeration cause remains a hypothesis; candidate IDs/names/current bytes do not prove live handler effects.",
+    "No receiver latency, future-timestamp batch buffering, tempo-map or realtime scheduling claim.",
+    "032 strict scheduling C remains deferred/unobserved; this separate033 Step Input experiment is not that trial.",
+    "Executed probe binary identity and source snapshot were not independently bound during this curation."
+  ],
+  "sources": [
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-settings-before.png",
+      "size_bytes": 190949,
+      "sha256": "157608bf1180e15b2824a67ae8d7486c659f45ff3cbc2264e53f5eaaef070f78"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-settings-baseline.txt",
+      "size_bytes": 4910,
+      "sha256": "038004f63b94b5536ab555e3063ab3735c0f2d2c3196da1df0f07723572bca3f"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-pre-key.txt",
+      "size_bytes": 4910,
+      "sha256": "c7202658bcf76159b7281a1083f35b0531670b0933fdfbde2b167871db950605"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-pre-length-key.txt",
+      "size_bytes": 4910,
+      "sha256": "a69184639b8882222d996808f29bd5d0f5f0a152a36350f2d423394eedf9450b"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/region-created-ax.txt",
+      "size_bytes": 11419,
+      "sha256": "54a88203110221d2417134db9b8d093d60b77c215e5dc2540f57550ad790d8f4"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/status-region-created.json",
+      "size_bytes": 1493,
+      "sha256": "04a800440b5b208c6f0bb43213dfb9fbdd25527f6701854d820e7e2811546869"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/status-before.json",
+      "size_bytes": 1493,
+      "sha256": "ffee5d18fb0d71a2f1d6618cb63cc1c47a024a4884debc1d62db781a6e905480"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/status-during.json",
+      "size_bytes": 1493,
+      "sha256": "c79612e0bb203b28e8e9d3d42aeefa9c392713c39d50c0507e6cdb23e9da28f7"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/status-after.json",
+      "size_bytes": 1493,
+      "sha256": "e5e285df80627e0ebc1dac7e98ad1247f74f749ba99092b5931650e7c3886377"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx.jsonl",
+      "size_bytes": 10109,
+      "sha256": "3fe31c4b1b31b3b7d41cd847c0581b634d58ba56585de0300a64b2517009dd86"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-focus.jsonl",
+      "size_bytes": 10017,
+      "sha256": "b2b976d80bb20f4378cf73fde84156871e32f7ad113a463d51b3a946d1dd6151"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-unblocked.jsonl",
+      "size_bytes": 10073,
+      "sha256": "d9dfe9dcd692cdb9c21fcafc937df9231fe841afb9c92f0e73b34c1015cd3bd1"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-active.jsonl",
+      "size_bytes": 10045,
+      "sha256": "d3fab0378d010dbb654646c99941dcfd69ae4cef598e48eda6bcbed3ebbf47e7"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-rearmed.jsonl",
+      "size_bytes": 10050,
+      "sha256": "27a8cdb0c02dab281fd8c7a7537d9085d74385157293a81e03c498435887e694"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-fast.jsonl",
+      "size_bytes": 1038,
+      "sha256": "870d22c24f1fbd934697892aa1c7df6788f9d272ba38da798b6548ece3ffc474"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/after-notes-ax.txt",
+      "size_bytes": 10612,
+      "sha256": "d995c790dc1468fec5782862f68906edef68a01c52630e0092a828c93f037341"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/key-after-notes-ax.txt",
+      "size_bytes": 10905,
+      "sha256": "a021de3eeae4694d7422c36da769e3465af529664c5282605aa0229d8bab43f0"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/rearmed-after-notes-ax.txt",
+      "size_bytes": 13758,
+      "sha256": "df5f6c5f0ccfdf3030e30aa13a1c025e4cb7768b92d94918f7a1160674ead4b9"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-before.mid",
+      "size_bytes": 14,
+      "sha256": "cb6e0c468986c90f53ca7199e262a2e05d5c83794c695a41fdd82ac512fed6dd"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-after.mid",
+      "size_bytes": 14,
+      "sha256": "cb6e0c468986c90f53ca7199e262a2e05d5c83794c695a41fdd82ac512fed6dd"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-key-one.mid",
+      "size_bytes": 105,
+      "sha256": "6750731f5ee084cb59b2ed841e699b6e988e1e104fabcb53d151bd8a8c721d61"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-key-two.mid",
+      "size_bytes": 114,
+      "sha256": "8f73c690c07a9a7709e660ae51fa4dd8111ddf5d4029c6d0f1c178001b05c0a7"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-rearmed.mid",
+      "size_bytes": 186,
+      "sha256": "629d7b4f46beb2b3875f131e07225de22ea8fae468f2f937bec08865a436d871"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/key-one-readback.json",
+      "size_bytes": 660,
+      "sha256": "778abceb2d739f5085833d45cb5e85da7edb587ad017de5b2cd250611d45c896"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/key-two-readback.json",
+      "size_bytes": 872,
+      "sha256": "1500e32c05403eb8e9565b36456c8518f92a1bad78883294a5f2d455d13b765e"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/rearmed-readback.json",
+      "size_bytes": 2570,
+      "sha256": "86e038e6666dc1b84b1fc2260b66bbcbacfd37a6bf40cdd68b5b16d08eca305d"
+    },
+    {
+      "path": "Research/raw/review/current-step-input-033.json",
+      "size_bytes": 15252,
+      "sha256": "493d69aa12e4cfa36b616c839802a75b4e2e3d71373031333617408506e58272"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "size_bytes": 2335,
+      "sha256": "fb221dd9e89e4eaef50f41947b4af68c7014237d879d4c0bd866980bcd942a84"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/timestamp-semantics.md",
+      "size_bytes": 3491,
+      "sha256": "e0f840948554ca59ba7e88ea0894d83f963aa7c805dd0387d17a1908cc1b9f4a"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-fast2.jsonl",
+      "size_bytes": 9948,
+      "sha256": "a530230640b1aeefff00086ca0c45b441fa4af3f9d61068fac85162e7f7b1199"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-fast2-before.txt",
+      "size_bytes": 921,
+      "sha256": "921710f986f4b4e862afac524e9fb054560ad965ffe45a8bbe29bf1e99bf10a3"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-fast2-after.json",
+      "size_bytes": 1337,
+      "sha256": "213426774cc91ec1209f945119098fdfd5dc7926757de7dbf2f1ef94aa739d77"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-fast.mid",
+      "size_bytes": 237,
+      "sha256": "8a708324e328ca1848b582f9560fdc2d6c50892d59faec1913d36f0cfb53784c"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/fast-readback-independent.json",
+      "size_bytes": 17990,
+      "sha256": "f03b41c91d1d7eba5849e52abbf8c252db33d0e208c7bc3ba48096bd667039f0"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-gap20.mid",
+      "size_bytes": 300,
+      "sha256": "134ba37a73c4fdb8f5e7475210337e1bb84ca2161d89790bde3119b95d5347d0"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/run-gap20.json",
+      "size_bytes": 5300,
+      "sha256": "6311711ef9de42c12ffc764e7456433a2331bfca371412144c8f2a84a5dec093"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-gap20.jsonl",
+      "size_bytes": 9924,
+      "sha256": "b3a904ea50c815e4a4592ae6a38d83a8d3b31f579ce381bf7b3022b10c14f3bc"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap20-before.txt",
+      "size_bytes": 1337,
+      "sha256": "d77f2143604035072a9216ce2fc6f6f4a85a3f88075e9abb5dc28b5c88be185b"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap20-after.json",
+      "size_bytes": 1747,
+      "sha256": "181cbe5d84f14c1adacbdcc70378dafbfa6c306721c0d64b6239960a2fc42392"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-gap50.mid",
+      "size_bytes": 372,
+      "sha256": "4620ea7713fabd5f5b0165a33bc99d666f709c685d8623e1712561a5da86ec6d"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/run-gap50.json",
+      "size_bytes": 6649,
+      "sha256": "1011709a7e0a8137d6a3ce9abd28370dd2a670bbc0f19d8b3f55dd7f470d6a6d"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-gap50.jsonl",
+      "size_bytes": 9889,
+      "sha256": "7162347d6992d3088f6b00f12a683c77597667a5ef7e541150fb8c085832dd0d"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-before.txt",
+      "size_bytes": 1747,
+      "sha256": "c452202fed489a91b4fadf0d84f08ab950733784a0f6695904c92babc5996f06"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-after.json",
+      "size_bytes": 2151,
+      "sha256": "80b60f0f8b509ba3b87981c1aefa9c5bc83a5f9f244a240ac758413f0694332e"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-gap50-bpm80.mid",
+      "size_bytes": 444,
+      "sha256": "f8ef0d781cce9a40fd5f01c4a41c5492b615b7973369bc6ff28fd4bb1469ef67"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/run-gap50-bpm80.json",
+      "size_bytes": 7989,
+      "sha256": "c36aef22ff3a7e51a65c61262a7c7c60e23c6924dd1006814a0f6e7dfd0f21d9"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-gap50-bpm80.jsonl",
+      "size_bytes": 9969,
+      "sha256": "fd32a389afa3a4d6fda4fd250d5b877020225b682566b409c23e4b75ad13da59"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-bpm80-before.txt",
+      "size_bytes": 2151,
+      "sha256": "932dba56a3006f618c41f81c0e5b191ccac8bef2990e449736d0350883c08d79"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-bpm80-after.json",
+      "size_bytes": 2555,
+      "sha256": "4c2821c4b8d1c0d447dedeb3c1da7c5c0cc91bd138d13618a64fbea66fe4001f"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-gap50-tempo80-verified.mid",
+      "size_bytes": 516,
+      "sha256": "86a31505552705a8b9228e934a8dfadaeaa7eb5fc660db526f45e38fc28e6d14"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/run-gap50-tempo80-verified.json",
+      "size_bytes": 9327,
+      "sha256": "e78eb50b9e349c6733f41a43d2a7333df9c4ec0b242fe48cbeaeefff6bd95c79"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/note-tx-gap50-tempo80-verified.jsonl",
+      "size_bytes": 9932,
+      "sha256": "122b373247a160c2d638d3e2b0f08884548b3e86e9834a5f3d19f6c96ff809bd"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-tempo80-verified-before.txt",
+      "size_bytes": 2554,
+      "sha256": "5300dbba7770052f963945324e394f38aa681c16b819f657815beb86fd5ce027"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-tempo80-verified-after.json",
+      "size_bytes": 2958,
+      "sha256": "c0f92720bd58cd0f77cac02c119528505d1ef9e73f8348022d4d94c173ef86db"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo80-set.json",
+      "size_bytes": 170,
+      "sha256": "fb2827e6dc96cd93cb9c30ecb0c01d8a1fd0c8b1f21bbf04b40d6a683881afa3"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo80-native.json",
+      "size_bytes": 27,
+      "sha256": "dad70e57caa2a834d1969e326b1e842ccda49952b5d65c6e41e8feb3c1bd3bee"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo80-native3.json",
+      "size_bytes": 191,
+      "sha256": "ec829926ae2a3a849a7638b9f350b8042c80f51ab4929e929506c485aaa72572"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo80-settled.json",
+      "size_bytes": 377,
+      "sha256": "dbbd956969f11abc0cf41fcf8442cbaf68b5a2564fde1d957165dfd5cb3d39fc"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo80-before-independent.txt",
+      "size_bytes": 583,
+      "sha256": "a1171080dea0918c1cd1e7fc474cbbc1e9e1bd5741378e9c3b3a6fa02fe6eaae"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/tempo120-final-restored.json",
+      "size_bytes": 378,
+      "sha256": "3ac233f7d0f974ec21ad1dad1158e27b02315efb6d8b760d8463068acc6f1d91"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-restoration.json",
+      "size_bytes": 279,
+      "sha256": "dd56893e2b6703855493074e7f8f16bbf203e49d7abf11011dc176020ff1e7a0"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/step-settings-restored.png",
+      "size_bytes": 190791,
+      "sha256": "6a2d1a83922f2bbb0b0b7912c6e87acaefc09ffe801e24b296fe3bf2a3711ab1"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/restore-synth-native.txt",
+      "size_bytes": 672,
+      "sha256": "7cf6a17f0693755324f4405b8d94a189da56415e6f6d63be81a04d2057f6d3c7"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/transport-restored.txt",
+      "size_bytes": 584,
+      "sha256": "47409b419204fc3b0651fe6a4c705c98844117ab943e710e11b6caa7ae67b6e8"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/restore-selected.json",
+      "size_bytes": 571,
+      "sha256": "1933e6212fa58ced07a64ae19553955fe5bfe351adc36adfa071e316390e7f50"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/state-before-restore.json",
+      "size_bytes": 3146,
+      "sha256": "aa6bdb2758f856e555bee8678925c61ea167f5238707085d9f9a742aeeb67b7f"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/save-final.json",
+      "size_bytes": 611,
+      "sha256": "15da396922b94d4f641e74388f31b4466389412a1f3ec0684f223b6c857bd5ae"
+    },
+    {
+      "path": "Research/raw/gui/midi-step-input-033/probe-source-executed.swift",
+      "size_bytes": 18760,
+      "sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d"
+    },
+    {
+      "path": "Research/raw/review/note-probe-step-gap-default50-help.json",
+      "size_bytes": 534,
+      "sha256": "502491bcc8a5a1384205a4be72eae643e845f465921aea96e28fe83db0594759"
+    },
+    {
+      "path": "Research/raw/review/official-guide-step-keycommands-033.json",
+      "size_bytes": 1713,
+      "sha256": "b33b845699a21b3e8b1e6d4782dc55a12339aceff6cd9f59c9be95a12cd9eb8a"
+    }
+  ],
+  "fast_setup_timeout": {
+    "status": "gate_timeout_before_any_note_transmission",
+    "source_log": "Research/raw/gui/midi-step-input-033/note-tx-fast.jsonl",
+    "mode": "step",
+    "sender_scheduler": "back-to-back note pairs; 0.25s delivery grace",
+    "note_tx_count": 0,
+    "exit_code": 2,
+    "native_readback_verified": false,
+    "scope": "Setup attempt only: zero transmitted notes; not a completed fast-input trial"
+  },
+  "fast_pass": {
+    "name": "fast2 back-to-back",
+    "status": "native_note_addition_verified_but_sequential_quarter_step_intent_failed",
+    "source_log": "Research/raw/gui/midi-step-input-033/note-tx-fast2.jsonl",
+    "independent_readback": "Research/raw/gui/midi-step-input-033/fast-readback-independent.json",
+    "mode": "step",
+    "sender_scheduler": "back-to-back note pairs; 0.25s delivery grace",
+    "note_tx_count": 16,
+    "exit_code": 0,
+    "readback": {
+      "midi_type": 0,
+      "tracks": 1,
+      "ppq": 480,
+      "sha256": "8a708324e328ca1848b582f9560fdc2d6c50892d59faec1913d36f0cfb53784c",
+      "size_bytes": 237,
+      "track_records": [
+        {
+          "track_index": 0,
+          "final_tick": 44160,
+          "meta_types": [
+            32,
+            3,
+            4,
+            88,
+            89,
+            84,
+            81,
+            47
+          ]
+        }
+      ],
+      "native_note_count": 18,
+      "prior10_note_event_multiset_preserved": true
+    },
+    "added_notes": [
+      {
+        "pitch": 55,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 60,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 60,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 62,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 62,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 64,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 64,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      },
+      {
+        "pitch": 67,
+        "velocity": 90,
+        "channel": 0,
+        "start_tick": 42960,
+        "end_tick": 43435,
+        "duration_ticks": 475,
+        "track_index": 0
+      }
+    ],
+    "checks": {
+      "note_count": 18,
+      "added_note_count": 8,
+      "added_pitch_multiset_matches_source": true,
+      "added_channel0_velocity90": true,
+      "added_duration_ticks475": true,
+      "all_added_start_tick": 42960,
+      "expected_sequential_starts": [
+        42960,
+        43440,
+        43920,
+        44400,
+        44880,
+        45360,
+        45840,
+        46320
+      ],
+      "sequential_quarter_step_intent_passed": false,
+      "no_unmatched_note_events": true
+    },
+    "pairing_scope": "FIFO pairing used for same-pitch duplicate notes; all duplicates have identical start/end/velocity here so the note-value multiset is unambiguous. This is not a general overlap-to-note-identity algorithm. Preservation checks compare timestamp/status/data/channel event multisets, not a single-active-note-per-pitch map. SMF same-onset pitch order cannot recover sender sequence.",
+    "transport": {
+      "before_source": "Research/raw/gui/midi-step-input-033/ax-fast-state-fast2-before.txt",
+      "after_source": "Research/raw/gui/midi-step-input-033/ax-fast-state-fast2-after.json",
+      "play_controls": 0,
+      "record_control": 0,
+      "midi_in": 1,
+      "note_count_before": 10,
+      "note_count_after": 18,
+      "project_url_verified": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+      "scope": "AX snapshots before/after, not continuous transport proof"
+    },
+    "scope": "All eight additions are coincident at42960 with duration475/ch0/vel90; correct pitch multiset does not verify sequential note order"
+  },
+  "short_gap_trial": {
+    "status": "finalized:50 ms gap passes exact sequence at captured120,119,and80 BPM",
+    "universal_minimum_gap_established": false,
+    "maximum_throughput_established": false,
+    "tempo_map_verified": false,
+    "setup_gui_completion_time_measured": false
+  },
+  "gap_trials": [
+    {
+      "name": "gap20",
+      "status": "native addition verified; sequential grid FAILED",
+      "native_export": {
+        "midi_type": 0,
+        "tracks": 1,
+        "ppq": 480,
+        "sha256": "134ba37a73c4fdb8f5e7475210337e1bb84ca2161d89790bde3119b95d5347d0",
+        "size_bytes": 300,
+        "track_records": [
+          {
+            "track_index": 0,
+            "final_tick": 46080,
+            "meta_types": [
+              32,
+              3,
+              4,
+              88,
+              89,
+              84,
+              81,
+              47
+            ]
+          }
+        ]
+      },
+      "native_note_count": 26,
+      "baseline": {
+        "path": "Research/raw/gui/midi-step-input-033/step-fast.mid",
+        "sha256": "8a708324e328ca1848b582f9560fdc2d6c50892d59faec1913d36f0cfb53784c",
+        "note_count": 18,
+        "all_prior_note_event_multiset_preserved": true
+      },
+      "added_notes": [
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 43440,
+          "end_tick": 43915,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 43440,
+          "end_tick": 43915,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 43920,
+          "end_tick": 44395,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 67,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 43920,
+          "end_tick": 44395,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 44400,
+          "end_tick": 44875,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 44880,
+          "end_tick": 45355,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 44880,
+          "end_tick": 45355,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 55,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 45360,
+          "end_tick": 45835,
+          "duration_ticks": 475,
+          "track_index": 0
+        }
+      ],
+      "expected_note_starts": [
+        {
+          "pitch": 60,
+          "start_tick": 43440
+        },
+        {
+          "pitch": 62,
+          "start_tick": 43920
+        },
+        {
+          "pitch": 64,
+          "start_tick": 44400
+        },
+        {
+          "pitch": 67,
+          "start_tick": 44880
+        },
+        {
+          "pitch": 64,
+          "start_tick": 45360
+        },
+        {
+          "pitch": 62,
+          "start_tick": 45840
+        },
+        {
+          "pitch": 60,
+          "start_tick": 46320
+        },
+        {
+          "pitch": 55,
+          "start_tick": 46800
+        }
+      ],
+      "checks": {
+        "balanced_note_events": true,
+        "added_count": 8,
+        "pitch_multiset": true,
+        "channel0_velocity90": true,
+        "duration_ticks475": true,
+        "exact_sequential_grid": false
+      },
+      "source_snapshot": {
+        "utc": "2026-10-07T16:16:42.440364+00:00",
+        "source_path": "/Users/nagataharuto/logicpro cli/Tools/research-scripts/midi-note-probe.swift",
+        "source_sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d",
+        "gap_ms": 20.0,
+        "before_note_count": 18,
+        "transport_write_commands": [],
+        "exit_code": 0
+      },
+      "source_snapshot_scope": "Snapshot recorded by live run, not independently bound to the executed probe binary",
+      "sender": {
+        "ready": {
+          "beat_seconds": null,
+          "bpm": null,
+          "bpm_scope": "realtime mode only",
+          "channel": 0,
+          "destination_created": false,
+          "duration_beats": null,
+          "event": "ready",
+          "gate": "fresh file existence",
+          "gate_timeout_seconds": 60,
+          "mach_timebase_denom": 3,
+          "mach_timebase_numer": 125,
+          "mode": "step",
+          "note_duration_control": "Logic Step Input Note Length",
+          "note_duration_seconds": null,
+          "notes": [
+            60,
+            62,
+            64,
+            67,
+            64,
+            62,
+            60,
+            55
+          ],
+          "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+          "planned_tx_span_seconds": 0.14,
+          "port_connections_created": false,
+          "scheduler": "immediate note pairs; strict timer gap; final 0.25s delivery grace",
+          "source_name": "logicctl-note-input",
+          "source_ref": 33493110,
+          "step_gap_ms": 20,
+          "total_seconds": 0.39,
+          "utc": "2026-10-07T16:16:42.852Z",
+          "velocity": 90,
+          "verified": false,
+          "wait_file": "/Users/nagataharuto/logicpro cli/Research/raw/gui/midi-step-input-033/start-gap20.gate"
+        },
+        "finished": {
+          "client_dispose_status": 0,
+          "elapsed_seconds": 0.392591042,
+          "endpoint_dispose_status": 0,
+          "event": "finished",
+          "exit_code": 0,
+          "note_off_successes": 8,
+          "note_on_successes": 8,
+          "reason": "completed",
+          "tx_span_seconds": 0.14174608333333336,
+          "unconfirmed_cleanup_notes": [],
+          "utc": "2026-10-07T16:16:45.350Z",
+          "verified": false
+        },
+        "tx_count": 16,
+        "all_tx_status_zero": true,
+        "verified_flags": false
+      },
+      "transport": {
+        "before": {
+          "utc": "2026-10-07T16:16:44Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 18,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 23,
+            "AXSlider:beat": 3,
+            "AXSlider:テンポ": 120,
+            "midi_step_input": 1
+          }
+        },
+        "after": {
+          "utc": "2026-10-07T16:16:45Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 26,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 24,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 120,
+            "midi_step_input": 1
+          }
+        },
+        "scope": "AX snapshots before/after, not continuous transport proof"
+      },
+      "evidence_paths": [
+        "Research/raw/gui/midi-step-input-033/step-gap20.mid",
+        "Research/raw/gui/midi-step-input-033/run-gap20.json",
+        "Research/raw/gui/midi-step-input-033/note-tx-gap20.jsonl",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap20-before.txt",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap20-after.json"
+      ]
+    },
+    {
+      "name": "gap50",
+      "status": "native addition verified; sequence grid passed",
+      "native_export": {
+        "midi_type": 0,
+        "tracks": 1,
+        "ppq": 480,
+        "sha256": "4620ea7713fabd5f5b0165a33bc99d666f709c685d8623e1712561a5da86ec6d",
+        "size_bytes": 372,
+        "track_records": [
+          {
+            "track_index": 0,
+            "final_tick": 49920,
+            "meta_types": [
+              32,
+              3,
+              4,
+              88,
+              89,
+              84,
+              81,
+              47
+            ]
+          }
+        ]
+      },
+      "native_note_count": 34,
+      "baseline": {
+        "path": "Research/raw/gui/midi-step-input-033/step-gap20.mid",
+        "sha256": "134ba37a73c4fdb8f5e7475210337e1bb84ca2161d89790bde3119b95d5347d0",
+        "note_count": 26,
+        "all_prior_note_event_multiset_preserved": true
+      },
+      "added_notes": [
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 45840,
+          "end_tick": 46315,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 46320,
+          "end_tick": 46795,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 46800,
+          "end_tick": 47275,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 67,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 47280,
+          "end_tick": 47755,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 47760,
+          "end_tick": 48235,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 48240,
+          "end_tick": 48715,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 48720,
+          "end_tick": 49195,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 55,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 49200,
+          "end_tick": 49675,
+          "duration_ticks": 475,
+          "track_index": 0
+        }
+      ],
+      "expected_note_starts": [
+        {
+          "pitch": 60,
+          "start_tick": 45840
+        },
+        {
+          "pitch": 62,
+          "start_tick": 46320
+        },
+        {
+          "pitch": 64,
+          "start_tick": 46800
+        },
+        {
+          "pitch": 67,
+          "start_tick": 47280
+        },
+        {
+          "pitch": 64,
+          "start_tick": 47760
+        },
+        {
+          "pitch": 62,
+          "start_tick": 48240
+        },
+        {
+          "pitch": 60,
+          "start_tick": 48720
+        },
+        {
+          "pitch": 55,
+          "start_tick": 49200
+        }
+      ],
+      "checks": {
+        "balanced_note_events": true,
+        "added_count": 8,
+        "pitch_multiset": true,
+        "channel0_velocity90": true,
+        "duration_ticks475": true,
+        "exact_sequential_grid": true
+      },
+      "source_snapshot": {
+        "utc": "2026-10-07T16:17:23.208290+00:00",
+        "source_path": "/Users/nagataharuto/logicpro cli/Tools/research-scripts/midi-note-probe.swift",
+        "source_sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d",
+        "gap_ms": 50.0,
+        "before_note_count": 26,
+        "transport_write_commands": [],
+        "exit_code": 0
+      },
+      "source_snapshot_scope": "Snapshot recorded by live run, not independently bound to the executed probe binary",
+      "sender": {
+        "ready": {
+          "beat_seconds": null,
+          "bpm": null,
+          "bpm_scope": "realtime mode only",
+          "channel": 0,
+          "destination_created": false,
+          "duration_beats": null,
+          "event": "ready",
+          "gate": "fresh file existence",
+          "gate_timeout_seconds": 60,
+          "mach_timebase_denom": 3,
+          "mach_timebase_numer": 125,
+          "mode": "step",
+          "note_duration_control": "Logic Step Input Note Length",
+          "note_duration_seconds": null,
+          "notes": [
+            60,
+            62,
+            64,
+            67,
+            64,
+            62,
+            60,
+            55
+          ],
+          "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+          "planned_tx_span_seconds": 0.35,
+          "port_connections_created": false,
+          "scheduler": "immediate note pairs; strict timer gap; final 0.25s delivery grace",
+          "source_name": "logicctl-note-input",
+          "source_ref": 33493113,
+          "step_gap_ms": 50,
+          "total_seconds": 0.6,
+          "utc": "2026-10-07T16:17:23.628Z",
+          "velocity": 90,
+          "verified": false,
+          "wait_file": "/Users/nagataharuto/logicpro cli/Research/raw/gui/midi-step-input-033/start-gap50.gate"
+        },
+        "finished": {
+          "client_dispose_status": 0,
+          "elapsed_seconds": 0.604113875,
+          "endpoint_dispose_status": 0,
+          "event": "finished",
+          "exit_code": 0,
+          "note_off_successes": 8,
+          "note_on_successes": 8,
+          "reason": "completed",
+          "tx_span_seconds": 0.3531599166666667,
+          "unconfirmed_cleanup_notes": [],
+          "utc": "2026-10-07T16:17:26.238Z",
+          "verified": false
+        },
+        "tx_count": 16,
+        "all_tx_status_zero": true,
+        "verified_flags": false
+      },
+      "transport": {
+        "before": {
+          "utc": "2026-10-07T16:17:25Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 26,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 24,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 120,
+            "midi_step_input": 1
+          }
+        },
+        "after": {
+          "utc": "2026-10-07T16:17:26Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 34,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 26,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 120,
+            "midi_step_input": 1
+          }
+        },
+        "scope": "AX snapshots before/after, not continuous transport proof"
+      },
+      "evidence_paths": [
+        "Research/raw/gui/midi-step-input-033/step-gap50.mid",
+        "Research/raw/gui/midi-step-input-033/run-gap50.json",
+        "Research/raw/gui/midi-step-input-033/note-tx-gap50.jsonl",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-before.txt",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-after.json"
+      ]
+    },
+    {
+      "name": "gap50-bpm80",
+      "status": "native addition verified; sequence grid passed",
+      "native_export": {
+        "midi_type": 0,
+        "tracks": 1,
+        "ppq": 480,
+        "sha256": "f8ef0d781cce9a40fd5f01c4a41c5492b615b7973369bc6ff28fd4bb1469ef67",
+        "size_bytes": 444,
+        "track_records": [
+          {
+            "track_index": 0,
+            "final_tick": 53760,
+            "meta_types": [
+              32,
+              3,
+              4,
+              88,
+              89,
+              84,
+              81,
+              47
+            ],
+            "meta_events": [
+              {
+                "tick": 38400,
+                "type": 32,
+                "hex": "00"
+              },
+              {
+                "tick": 38400,
+                "type": 3,
+                "hex": "53747564696f204772616e64"
+              },
+              {
+                "tick": 38400,
+                "type": 4,
+                "hex": "53747564696f204772616e64"
+              },
+              {
+                "tick": 38400,
+                "type": 88,
+                "hex": "04021808"
+              },
+              {
+                "tick": 38400,
+                "type": 89,
+                "hex": "0000"
+              },
+              {
+                "tick": 38400,
+                "type": 84,
+                "hex": "2100000000"
+              },
+              {
+                "tick": 38400,
+                "type": 81,
+                "hex": "07a120"
+              },
+              {
+                "tick": 53760,
+                "type": 47,
+                "hex": ""
+              }
+            ]
+          }
+        ]
+      },
+      "native_note_count": 42,
+      "baseline": {
+        "path": "Research/raw/gui/midi-step-input-033/step-gap50.mid",
+        "sha256": "4620ea7713fabd5f5b0165a33bc99d666f709c685d8623e1712561a5da86ec6d",
+        "note_count": 34,
+        "all_prior_note_event_multiset_preserved": true
+      },
+      "added_notes": [
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 49680,
+          "end_tick": 50155,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 50160,
+          "end_tick": 50635,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 50640,
+          "end_tick": 51115,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 67,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 51120,
+          "end_tick": 51595,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 51600,
+          "end_tick": 52075,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 52080,
+          "end_tick": 52555,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 52560,
+          "end_tick": 53035,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 55,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 53040,
+          "end_tick": 53515,
+          "duration_ticks": 475,
+          "track_index": 0
+        }
+      ],
+      "expected_note_starts": [
+        {
+          "pitch": 60,
+          "start_tick": 49680
+        },
+        {
+          "pitch": 62,
+          "start_tick": 50160
+        },
+        {
+          "pitch": 64,
+          "start_tick": 50640
+        },
+        {
+          "pitch": 67,
+          "start_tick": 51120
+        },
+        {
+          "pitch": 64,
+          "start_tick": 51600
+        },
+        {
+          "pitch": 62,
+          "start_tick": 52080
+        },
+        {
+          "pitch": 60,
+          "start_tick": 52560
+        },
+        {
+          "pitch": 55,
+          "start_tick": 53040
+        }
+      ],
+      "checks": {
+        "balanced_note_events": true,
+        "added_count": 8,
+        "pitch_multiset": true,
+        "channel0_velocity90": true,
+        "duration_ticks475": true,
+        "exact_sequential_grid": true
+      },
+      "source_snapshot": {
+        "utc": "2026-10-07T16:21:25.851380+00:00",
+        "source_path": "/Users/nagataharuto/logicpro cli/Tools/research-scripts/midi-note-probe.swift",
+        "source_sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d",
+        "gap_ms": 50.0,
+        "before_note_count": 34,
+        "transport_write_commands": [],
+        "exit_code": 0
+      },
+      "source_snapshot_scope": "Snapshot recorded by live run, not independently bound to the executed probe binary",
+      "sender": {
+        "ready": {
+          "beat_seconds": null,
+          "bpm": null,
+          "bpm_scope": "realtime mode only",
+          "channel": 0,
+          "destination_created": false,
+          "duration_beats": null,
+          "event": "ready",
+          "gate": "fresh file existence",
+          "gate_timeout_seconds": 60,
+          "mach_timebase_denom": 3,
+          "mach_timebase_numer": 125,
+          "mode": "step",
+          "note_duration_control": "Logic Step Input Note Length",
+          "note_duration_seconds": null,
+          "notes": [
+            60,
+            62,
+            64,
+            67,
+            64,
+            62,
+            60,
+            55
+          ],
+          "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+          "planned_tx_span_seconds": 0.35,
+          "port_connections_created": false,
+          "scheduler": "immediate note pairs; strict timer gap; final 0.25s delivery grace",
+          "source_name": "logicctl-note-input",
+          "source_ref": 33493116,
+          "step_gap_ms": 50,
+          "total_seconds": 0.6,
+          "utc": "2026-10-07T16:21:26.261Z",
+          "velocity": 90,
+          "verified": false,
+          "wait_file": "/Users/nagataharuto/logicpro cli/Research/raw/gui/midi-step-input-033/start-gap50-bpm80.gate"
+        },
+        "finished": {
+          "client_dispose_status": 0,
+          "elapsed_seconds": 0.604271292,
+          "endpoint_dispose_status": 0,
+          "event": "finished",
+          "exit_code": 0,
+          "note_off_successes": 8,
+          "note_on_successes": 8,
+          "reason": "completed",
+          "tx_span_seconds": 0.3531825,
+          "unconfirmed_cleanup_notes": [],
+          "utc": "2026-10-07T16:21:29.121Z",
+          "verified": false
+        },
+        "tx_count": 16,
+        "all_tx_status_zero": true,
+        "verified_flags": false
+      },
+      "transport": {
+        "before": {
+          "utc": "2026-10-07T16:21:28Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 34,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 26,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 119,
+            "midi_step_input": 1
+          }
+        },
+        "after": {
+          "utc": "2026-10-07T16:21:29Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 42,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 28,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 119,
+            "midi_step_input": 1
+          }
+        },
+        "scope": "AX snapshots before/after, not continuous transport proof"
+      },
+      "evidence_paths": [
+        "Research/raw/gui/midi-step-input-033/step-gap50-bpm80.mid",
+        "Research/raw/gui/midi-step-input-033/run-gap50-bpm80.json",
+        "Research/raw/gui/midi-step-input-033/note-tx-gap50-bpm80.jsonl",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-bpm80-before.txt",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-bpm80-after.json"
+      ]
+    },
+    {
+      "name": "gap50-tempo80-verified",
+      "status": "native addition verified; sequence grid passed",
+      "native_export": {
+        "midi_type": 0,
+        "tracks": 1,
+        "ppq": 480,
+        "sha256": "86a31505552705a8b9228e934a8dfadaeaa7eb5fc660db526f45e38fc28e6d14",
+        "size_bytes": 516,
+        "track_records": [
+          {
+            "track_index": 0,
+            "final_tick": 57600,
+            "meta_types": [
+              32,
+              3,
+              4,
+              88,
+              89,
+              84,
+              81,
+              47
+            ],
+            "meta_events": [
+              {
+                "tick": 38400,
+                "type": 32,
+                "hex": "00"
+              },
+              {
+                "tick": 38400,
+                "type": 3,
+                "hex": "53747564696f204772616e64"
+              },
+              {
+                "tick": 38400,
+                "type": 4,
+                "hex": "53747564696f204772616e64"
+              },
+              {
+                "tick": 38400,
+                "type": 88,
+                "hex": "04021808"
+              },
+              {
+                "tick": 38400,
+                "type": 89,
+                "hex": "0000"
+              },
+              {
+                "tick": 38400,
+                "type": 84,
+                "hex": "2100000000"
+              },
+              {
+                "tick": 38400,
+                "type": 81,
+                "hex": "0b71b0"
+              },
+              {
+                "tick": 57600,
+                "type": 47,
+                "hex": ""
+              }
+            ]
+          }
+        ]
+      },
+      "native_note_count": 50,
+      "baseline": {
+        "path": "Research/raw/gui/midi-step-input-033/step-gap50-bpm80.mid",
+        "sha256": "f8ef0d781cce9a40fd5f01c4a41c5492b615b7973369bc6ff28fd4bb1469ef67",
+        "note_count": 42,
+        "all_prior_note_event_multiset_preserved": true
+      },
+      "added_notes": [
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 53520,
+          "end_tick": 53995,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 54000,
+          "end_tick": 54475,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 54480,
+          "end_tick": 54955,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 67,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 54960,
+          "end_tick": 55435,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 64,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 55440,
+          "end_tick": 55915,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 62,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 55920,
+          "end_tick": 56395,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 60,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 56400,
+          "end_tick": 56875,
+          "duration_ticks": 475,
+          "track_index": 0
+        },
+        {
+          "pitch": 55,
+          "velocity": 90,
+          "channel": 0,
+          "start_tick": 56880,
+          "end_tick": 57355,
+          "duration_ticks": 475,
+          "track_index": 0
+        }
+      ],
+      "expected_note_starts": [
+        {
+          "pitch": 60,
+          "start_tick": 53520
+        },
+        {
+          "pitch": 62,
+          "start_tick": 54000
+        },
+        {
+          "pitch": 64,
+          "start_tick": 54480
+        },
+        {
+          "pitch": 67,
+          "start_tick": 54960
+        },
+        {
+          "pitch": 64,
+          "start_tick": 55440
+        },
+        {
+          "pitch": 62,
+          "start_tick": 55920
+        },
+        {
+          "pitch": 60,
+          "start_tick": 56400
+        },
+        {
+          "pitch": 55,
+          "start_tick": 56880
+        }
+      ],
+      "checks": {
+        "balanced_note_events": true,
+        "added_count": 8,
+        "pitch_multiset": true,
+        "channel0_velocity90": true,
+        "duration_ticks475": true,
+        "exact_sequential_grid": true
+      },
+      "source_snapshot": {
+        "utc": "2026-10-07T16:24:25.173899+00:00",
+        "source_path": "/Users/nagataharuto/logicpro cli/Tools/research-scripts/midi-note-probe.swift",
+        "source_sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d",
+        "gap_ms": 50.0,
+        "before_note_count": 42,
+        "transport_write_commands": [],
+        "exit_code": 0
+      },
+      "source_snapshot_scope": "Snapshot recorded by live run, not independently bound to the executed probe binary",
+      "sender": {
+        "ready": {
+          "beat_seconds": null,
+          "bpm": null,
+          "bpm_scope": "realtime mode only",
+          "channel": 0,
+          "destination_created": false,
+          "duration_beats": null,
+          "event": "ready",
+          "gate": "fresh file existence",
+          "gate_timeout_seconds": 60,
+          "mach_timebase_denom": 3,
+          "mach_timebase_numer": 125,
+          "mode": "step",
+          "note_duration_control": "Logic Step Input Note Length",
+          "note_duration_seconds": null,
+          "notes": [
+            60,
+            62,
+            64,
+            67,
+            64,
+            62,
+            60,
+            55
+          ],
+          "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+          "planned_tx_span_seconds": 0.35,
+          "port_connections_created": false,
+          "scheduler": "immediate note pairs; strict timer gap; final 0.25s delivery grace",
+          "source_name": "logicctl-note-input",
+          "source_ref": 33493119,
+          "step_gap_ms": 50,
+          "total_seconds": 0.6,
+          "utc": "2026-10-07T16:24:25.578Z",
+          "velocity": 90,
+          "verified": false,
+          "wait_file": "/Users/nagataharuto/logicpro cli/Research/raw/gui/midi-step-input-033/start-gap50-tempo80-verified.gate"
+        },
+        "finished": {
+          "client_dispose_status": 0,
+          "elapsed_seconds": 0.603305542,
+          "endpoint_dispose_status": 0,
+          "event": "finished",
+          "exit_code": 0,
+          "note_off_successes": 8,
+          "note_on_successes": 8,
+          "reason": "completed",
+          "tx_span_seconds": 0.35228691666666667,
+          "unconfirmed_cleanup_notes": [],
+          "utc": "2026-10-07T16:24:28.286Z",
+          "verified": false
+        },
+        "tx_count": 16,
+        "all_tx_status_zero": true,
+        "verified_flags": false
+      },
+      "transport": {
+        "before": {
+          "utc": "2026-10-07T16:24:27Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 3,
+          "note_count": 42,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 28,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 80,
+            "midi_step_input": 1
+          }
+        },
+        "after": {
+          "utc": "2026-10-07T16:24:28Z",
+          "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+          "frontmost": "Logic Pro",
+          "window_count": 2,
+          "note_count": 50,
+          "controls": {
+            "AXButton:再生": 0,
+            "AXCheckBox:カウントイン": 1,
+            "AXCheckBox:サイクル": 0,
+            "AXCheckBox:メトロノームクリック": 1,
+            "AXCheckBox:再生": 0,
+            "AXCheckBox:録音": 0,
+            "AXSlider:bar": 30,
+            "AXSlider:beat": 4,
+            "AXSlider:テンポ": 80,
+            "midi_step_input": 1
+          }
+        },
+        "scope": "AX snapshots before/after, not continuous transport proof"
+      },
+      "evidence_paths": [
+        "Research/raw/gui/midi-step-input-033/step-gap50-tempo80-verified.mid",
+        "Research/raw/gui/midi-step-input-033/run-gap50-tempo80-verified.json",
+        "Research/raw/gui/midi-step-input-033/note-tx-gap50-tempo80-verified.jsonl",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-tempo80-verified-before.txt",
+        "Research/raw/gui/midi-step-input-033/ax-fast-state-gap50-tempo80-verified-after.json"
+      ]
+    }
+  ],
+  "event_pairing_scope": "FIFO pairing is used for duplicate same-pitch notes; identical timing makes fast-batch value counts unambiguous. Baseline preservation uses timestamp/status/data/track event multisets, not a single-active-note map. Same-onset SMF order does not recover source sequence.",
+  "final_native_readback": {
+    "path": "Research/raw/gui/midi-step-input-033/step-gap50-tempo80-verified.mid",
+    "sha256": "86a31505552705a8b9228e934a8dfadaeaa7eb5fc660db526f45e38fc28e6d14",
+    "native_note_count": 50,
+    "composition": {
+      "native_key_pilots": 2,
+      "paced_notes": 8,
+      "back_to_back_coincident_notes": 8,
+      "gap20_grouped_notes": 8,
+      "gap50_120_notes": 8,
+      "gap50_actual119_notes": 8,
+      "gap50_verified80_notes": 8
+    },
+    "all_prior42_note_event_multiset_preserved": true,
+    "new_eight_exact_quarter_sequence": true,
+    "final_track_tick": 57600,
+    "tempo_us_per_quarter": 750000
+  },
+  "tempo_attempts": {
+    "requested80_failed_direct_AX": {
+      "ax_status": 0,
+      "before": 120,
+      "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+      "readback": 119,
+      "requested": 80,
+      "utc": "2026-10-07T16:18:23Z"
+    },
+    "named_bpm80_run_actual_AX_tempo119": true,
+    "actual119_run_export_tempo_us_per_quarter": 500000,
+    "verified80_setup": {
+      "before": 120,
+      "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+      "method": "bounded AX slider increments with readback",
+      "readback": 80,
+      "requested": 80,
+      "utc": "2026-10-07T16:24:24Z"
+    },
+    "verified80_independent_before": {
+      "source": "Research/raw/gui/midi-step-input-033/tempo80-before-independent.txt",
+      "format": "AX text, notJSON",
+      "observed_tempo": 80,
+      "playing_control": 0,
+      "recording_control": 0
+    },
+    "final_restored120": {
+      "before": 80,
+      "document": "file:///Users/nagataharuto/Music/Logic/LogicCLI-Test.logicx/",
+      "method": "bounded AX slider increments with readback",
+      "readback": 120,
+      "requested": 120,
+      "utc": "2026-10-07T16:24:55Z"
+    },
+    "scope": "Actual run pre/postAX tempo controls define input condition; filename intent and transient readback do not. Export tempo metadata is separately recorded."
+  },
+  "restoration": {
+    "tempo": {
+      "readback": 120,
+      "source": "Research/raw/gui/midi-step-input-033/tempo120-final-restored.json"
+    },
+    "midi_step_input": {
+      "readback": 0,
+      "source": "Research/raw/gui/midi-step-input-033/step-restoration.json"
+    },
+    "step_length": "eighth note: native key4; step-settings-restored.png visually confirms eighth and mf",
+    "step_window_closed": true,
+    "selected_track": {
+      "label": "Synth ",
+      "evidence": "Research/raw/gui/midi-step-input-033/restore-synth-native.txt",
+      "method": "native GUI click; sidebar name readback"
+    },
+    "rec_arm_restoration_verified": false,
+    "playhead": "30|4|3|1; original 1|3|4|1 was not restored",
+    "test_project_saved": {
+      "source": "Research/raw/gui/midi-step-input-033/save-final.json",
+      "project_data_sha256": "e470e5ddae4bef4dc9c974c12a4e3b751e3f1f9b52bdab09647cbeb48eef71f8",
+      "size_bytes": 631133
+    },
+    "generic_midi_source_absent": true,
+    "existing_mcu_source_present": true
+  },
+  "mcu_feedback_after_trials": {
+    "scope": "collateral observation; cause unisolated",
+    "cached_track_labels": [
+      "Pan",
+      "-"
+    ],
+    "exact_expected_name_restore_write": "not_applied / target_mismatch, no MIDI sent",
+    "source": "Research/raw/gui/midi-step-input-033/restore-selected.json",
+    "state_source": "Research/raw/gui/midi-step-input-033/state-before-restore.json",
+    "selection_restored_via": "native GUI readback",
+    "hypothesis": "MIDI endpoint/input route or MCU feedback lifecycle interaction; mechanism unverified"
+  },
+  "probe_source_snapshots": {
+    "executed_gap_trials": {
+      "path": "Research/raw/gui/midi-step-input-033/probe-source-executed.swift",
+      "sha256": "11f4777d51542e22156b753324f22dfbf7b6a978e6de587fe783b20f3e84159d",
+      "scope": "source file hash before/after runs; not loaded binary image identity"
+    },
+    "published_tool": {
+      "path": "Tools/research-scripts/midi-note-probe.swift",
+      "sha256": "ec69bfbace1968fa2be7dd841f29cc47e8c5f424af38f40315d45b5e44dd8e5d",
+      "default_step_gap_ms": 50,
+      "changes_after_live_trials": "default0 to50 plus documented preparation; help compile only"
+    }
+  },
+  "official_workflow_references": {
+    "guide_latest_version_shown": "12.3",
+    "installed_observed_version": "12.4 / 6707",
+    "scope": "Documentation references consulted after these trials; required before future operations. Not current-version runtime proof.",
+    "pages": [
+      {
+        "title": "Use step input recording",
+        "url": "https://support.apple.com/guide/logicpro/use-step-input-recording-techniques-lgcpb19a8406/mac",
+        "documented_workflow": "Prepare editor region/insertion position; choose length/velocity; enter notes. Rest and Step Forward key commands extend step input.",
+        "live_only": "Virtual source setup sequence, safe gap and actual exported tick values."
+      },
+      {
+        "title": "Copy and print key commands",
+        "url": "https://support.apple.com/guide/logicpro/copy-and-print-key-commands-lgcpeabb4c40/mac",
+        "documented_workflow": "Key Commands window Action menu copies command list to clipboard.",
+        "experiment_status": "Not executed here; future inventory must parse actual fields and preserve clipboard locally."
+      },
+      {
+        "title": "Assign key commands",
+        "url": "https://support.apple.com/guide/logicpro/assign-key-commands-lgcp41ff6979/mac",
+        "documented_workflow": "Keyboard assignment and MIDI Learn New Assignment routes.",
+        "experiment_status": "No general current-version key-command invocation established here."
+      }
+    ],
+    "next_shared_task": {
+      "claude": "Current12.4 inventory and bounded reversible GUI/native-key/MIDI-assignment tests after controller-assignment retest.",
+      "codex": "Map observed operations to current IDs/functions; preserve historical/current distinctions and production guards."
+    },
+    "checked_date_utc": "2026-10-08"
+  }
+}

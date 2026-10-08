@@ -24,6 +24,10 @@ history; these are the ones that bite.
 
 ## Highest research priority: GUI to internal route
 
+- Before GUI or feature operations, consult Apple's official Logic Pro User
+  Guide or Control Surfaces Support Guide. Record the page URL, applicable guide
+  version and prerequisites; distinguish documented behavior, live observations
+  and reverse-engineering hypotheses. Verify installed-version differences.
 - Pick a visible operation; record target, conditions and before/after changes,
   then map it to command IDs, actions, selectors and functions. Decompile only
   functions relevant to that operation.

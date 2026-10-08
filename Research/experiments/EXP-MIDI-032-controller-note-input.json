@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "id": "EXP-MIDI-032",
+  "record_kind": "observed_controller_note_input_experiment",
+  "curated_utc": "2026-10-07T15:49:19.072015+00:00",
+  "status": "A_B_final_evidence_C_deferred",
+  "summary_ja": "汎用CoreMIDI仮想入力から8音の音高・順序・チャンネル・ベロシティは記録できた。Bでは実際の送信時刻との相対誤差は1ms未満だったが、予定した音長・間隔は送信側で大きくずれた。Cは未実施。製品CLI機能や小節同期の実証ではない。",
+  "profile": {
+    "logic_status_version": "12.4",
+    "logic_status_build": "6707",
+    "host_macos_reported": "27.0",
+    "identity_model_path": "Research/static-analysis/binary-identity-12.4-6707.json",
+    "installed_framework_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "identity_scope": "On-disk framework identity, not an independent hash of the image loaded by the recorded process.",
+    "test_project": "LogicCLI-Test.logicx",
+    "test_project_provenance": "Live operator/repository experiment constraint; offline curation did not inspect GUI/project document.",
+    "logic_remote": "not used"
+  },
+  "operation": {
+    "name": "record eight note messages from generic CoreMIDI virtual source",
+    "route": [
+      "Existing MCU select/arm on target13 StdGrn",
+      "MIDISourceCreate virtual source logicctl-note-input",
+      "MIDIReceived note-on/off input while Logic records",
+      "Existing MCU record/stop plus independent transport status",
+      "Native Logic export for readback only"
+    ],
+    "input_is_smf": false,
+    "readback_is_native_export_smf": true,
+    "export_provenance": "Live operator-supplied native-export provenance; readback files audited offline. Export-b.txt alone is not proof of completed export.",
+    "destination_created": false,
+    "port_connections_created": false,
+    "track_identity": {
+      "mixer_position": 13,
+      "mcu_label": "StdGrn",
+      "selected_verified": true,
+      "arm_verified_already_armed_no_press": true
+    },
+    "requested_note_fields": {
+      "pitches_in_order": [
+        60,
+        62,
+        64,
+        67,
+        64,
+        62,
+        60,
+        55
+      ],
+      "channel_zero_based": 0,
+      "note_on_velocity": 90,
+      "note_on_offsets_seconds": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5
+      ],
+      "note_duration_seconds": 0.375
+    },
+    "normalization": {
+      "bpm": 120,
+      "ticks_per_second": 960,
+      "tempo_evidence_paths": [
+        "Research/raw/gui/midi-controller-032/current-ready-ax.txt",
+        "Research/raw/gui/midi-controller-032/b-ready-ax.txt",
+        "Research/raw/gui/midi-controller-032/b-ready-ax2.txt"
+      ],
+      "scope": "Observed fixed120 BPM; not a tempo-map scheduling test."
+    },
+    "repetitions": "One observed A and one observed B; different timestamp/logging conditions, not a clean one-variable causal isolation."
+  },
+  "transport_evidence": {
+    "A": {
+      "record_button_command": "debug.mcu",
+      "record_button_bytes": [
+        "90 5F 7F",
+        "90 5F 00"
+      ],
+      "record_command_verified": false,
+      "start_independent_readback": {
+        "playing": true,
+        "recording": true
+      },
+      "start_readback_path": "Research/raw/gui/midi-controller-032/recording-readback.json",
+      "stop_command_verified_for_requested_playing_false": true,
+      "stop_reply_observed": {
+        "playing": false,
+        "recording": true
+      },
+      "settled_post_stop_transport": {
+        "playing": false,
+        "recording": false
+      },
+      "settled_post_stop_path": "Research/raw/gui/midi-controller-032/state-after-record.json"
+    },
+    "B": {
+      "record_button_command": "debug.mcu",
+      "record_button_bytes": [
+        "90 5F 7F",
+        "90 5F 00"
+      ],
+      "record_command_verified": false,
+      "start_independent_readback": {
+        "playing": true,
+        "recording": true
+      },
+      "start_readback_path": "Research/raw/gui/midi-controller-032/recording-readback-b.json",
+      "stop_command_verified_for_requested_playing_false": true,
+      "stop_reply_observed": {
+        "playing": false,
+        "recording": true
+      },
+      "settled_post_stop_transport": {
+        "playing": false,
+        "recording": false
+      },
+      "settled_post_stop_path": "Research/raw/gui/midi-controller-032/state-after-record-b-status.json"
+    }
+  },
+  "trials": {
+    "A": {
+      "status": "exact_note_fields_verified_timing_confounded",
+      "utc_start": "2026-10-07T15:15:16.326Z",
+      "packet_timestamp_mode": "0 (not equivalent to now for MIDIReceived)",
+      "exact_pitch_order_channel_velocity": true,
+      "balanced_positive_duration_notes": 8,
+      "native_export_type": 0,
+      "native_export_tracks": 1,
+      "ppq": 480,
+      "packet_to_export_timing_verified": false,
+      "relative_log_proxy_onset_error_max_ms": 17.972749666667198,
+      "duration_log_proxy_error_max_ms": 194.6696673333331,
+      "largest_duration_outlier": {
+        "zero_based_note_index": 5,
+        "pitch": 62,
+        "recorded_duration_ticks": 190,
+        "post_call_log_predicted_duration_ticks": 376.88288063999977
+      },
+      "absolute_first_onset_tick_aligned_away": 22573,
+      "limitations": [
+        "Invalid zero source timestamps and post-MIDIReceived TX logs confound timing attribution.",
+        "No isolated Logic timing defect established."
+      ],
+      "comparison_path": "Research/raw/gui/midi-controller-032/readback-comparison.json"
+    },
+    "B": {
+      "status": "exact_note_fields_verified_actual_packet_relative_timing_close_planned_timing_failed",
+      "utc_start": "2026-10-07T15:36:54.952Z",
+      "packet_timestamp_mode": "mach_absolute_time sampled before MIDIReceived",
+      "mach_timebase": {
+        "numer": 125,
+        "denom": 3
+      },
+      "exact_pitch_order_channel_velocity": true,
+      "balanced_positive_duration_notes": 8,
+      "native_export_type": 0,
+      "native_export_tracks": 1,
+      "ppq": 480,
+      "relative_packet_export_onset_error_max_ms": 0.9038749999997245,
+      "packet_export_duration_error_max_ms": 0.7458333333339933,
+      "receiver_latency_measured": false,
+      "absolute_first_onset_tick_aligned_away": 10195,
+      "planned_duration_ms": 375,
+      "planned_onset_spacing_ms": 500,
+      "sender_duration_deviation_max_ms": 147.6369166666669,
+      "sender_first_aligned_onset_drift_max_ms": 122.12904166666627,
+      "sender_final_off_gate_baseline_offset_error_ms": 186.46883333333352,
+      "midi_received_call_duration_max_ms": 0.034584,
+      "planned_timing_verified": false,
+      "timing_threshold_predeclared": null,
+      "comparison_path": "Research/raw/gui/midi-controller-032/readback-comparison-b.json",
+      "limitations": [
+        "Sub1ms is first-aligned timestamp/export mismatch, not end-to-end latency or planned timing fidelity.",
+        "Dispatch scheduling base was not logged; gate-offset error includes startup overhead.",
+        "Duration deviations are alignment-independent; the cause of sender deviation is unproven."
+      ]
+    },
+    "C": {
+      "status": "deferred_not_run",
+      "live_trial_pending": false,
+      "strict_zero_leeway_sender_refinement_live_validated": false,
+      "evidence_paths": [],
+      "reason": "Latest user scope prioritizes command-driven region editing with stopped transport; no C trial is claimed."
+    }
+  },
+  "apple_timestamp_semantics": {
+    "source_note_path": "Research/raw/gui/midi-controller-032/timestamp-semantics.md",
+    "received_zero_means_now": false,
+    "virtual_source_responsible_for_proper_timestamps": true,
+    "host_ticks_are_not_assumed_nanoseconds": true,
+    "conversion": "deltaTicks = deltaNs * denom / numer; add to a host-clock anchor, or use AudioConvertNanosToHostTime.",
+    "future_MIDIReceived_core_scheduling_guaranteed": false,
+    "guarantee_scope": "Apple explicitly describes future delivery for MIDISend to destinations; source-side future-batch handling by Logic remains untested.",
+    "primary_links": [
+      "https://developer.apple.com/documentation/coremidi/midireceived(_:_:)",
+      "https://developer.apple.com/documentation/coremidi/miditimestamp",
+      "https://developer.apple.com/documentation/coremidi/midisend(_:_:_:)",
+      "https://developer.apple.com/documentation/apple-silicon/addressing-architectural-differences-in-your-macos-code"
+    ]
+  },
+  "assessment": {
+    "recorded_note_fields_verified": true,
+    "native_recording_route_observed": true,
+    "absolute_bar_sync_verified": false,
+    "fixed_planned_timing_verified": false,
+    "tempo_map_support_verified": false,
+    "production_cli_midi_capability_claimed": false,
+    "scope": "Research observation through a probe and existing MCU controls; not a shipped CLI MIDI-input or region-editing feature."
+  },
+  "hypotheses": [
+    {
+      "claim": "Proper source timestamps explain why B matches actual transmission timing better than A.",
+      "classification": "Hypothesis",
+      "confidence": "medium",
+      "basis": "Apple API contract and A/B relative readback differences.",
+      "counterexample_or_limit": "Timestamp correction and logging changed together; no one-variable causation proof."
+    },
+    {
+      "claim": "Sender scheduling before MIDIReceived is the main location of B planned-timing deviation.",
+      "classification": "Hypothesis",
+      "confidence": "high for location, low for cause",
+      "basis": "Packet timestamps already deviate and the longest API call is0.034584ms.",
+      "counterexample_or_limit": "Unlogged dispatch base and startup/log overhead limit attribution; scheduler/thermal/UI causes not isolated."
+    }
+  ],
+  "next_scope": "Command-driven native region editing/MIDI Step Input with stopped transport is a separate pending operation; no capability or result is asserted here.",
+  "probe_source_snapshot_identities": [
+    {
+      "trial": "A",
+      "path": "Tools/research-scripts/midi-note-probe.swift",
+      "recorded_source_snapshot_sha256": "636aabcf3fcc0509a13c21ca1b66572e40add63f4762ca7c6db90ead7ddfbeb3",
+      "recorded_size_bytes": 12961,
+      "source_of_identity": "raw readback comparison inputs",
+      "executed_binary_hash_verified": false,
+      "current_source_read_or_rehashed": false
+    },
+    {
+      "trial": "B",
+      "path": "Tools/research-scripts/midi-note-probe.swift",
+      "recorded_source_snapshot_sha256": "598e359043a663a1d5588ac4980510d889a08ddf900c71235f09b242199f0530",
+      "recorded_size_bytes": 14468,
+      "source_of_identity": "raw readback comparison inputs",
+      "executed_binary_hash_verified": false,
+      "current_source_read_or_rehashed": false
+    }
+  ],
+  "raw_source_provenance": [
+    {
+      "path": "Research/raw/gui/midi-controller-032/note-tx.jsonl",
+      "size_bytes": 5142,
+      "sha256": "79455858228428bab6d5979fe8290c20f73680105db49f02401587fc0127e7c5"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/note-tx-b.jsonl",
+      "size_bytes": 9988,
+      "sha256": "0acc4c6e0b9adbc76bfeb8c4b393bad3f1e6073046cef77f43a77e264a04c658"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/recorded-notes.mid",
+      "size_bytes": 171,
+      "sha256": "c3a524be53d2ead2234baaa8fac5dfbdd170599015f7f25715241f55086a51a2"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/recorded-notes-b.mid",
+      "size_bytes": 170,
+      "sha256": "648812be5537dda196f213c8a13d92a6b7c726736f752decf2a81d7213f5fc17"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/readback-comparison.json",
+      "size_bytes": 11117,
+      "sha256": "564c7aadeb380ee23693768b1822c44cd90e12c679dea07e793a65006385659f"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/readback-comparison-b.json",
+      "size_bytes": 18501,
+      "sha256": "c4cb8db315ec97b0d1d6b8fd722fa2de8f4d18fc652e00d0e6e12cadaa16c4a6"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/readback-report.md",
+      "size_bytes": 1337,
+      "sha256": "20ed9d02f9f374005d5e2feb9bd5b80ece4e8346add1432fe78cea6a87318384"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/readback-report-b.md",
+      "size_bytes": 1200,
+      "sha256": "081581b48379390a79897f788d9985177a7695902346a275a72cc80a4a2f5e51"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/timestamp-semantics.md",
+      "size_bytes": 3491,
+      "sha256": "e0f840948554ca59ba7e88ea0894d83f963aa7c805dd0387d17a1908cc1b9f4a"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/cli-status-before.json",
+      "size_bytes": 1493,
+      "sha256": "12f7525e967a009fc13d8e2ca2ba4de58b2f3a6a90e7299ae704207ba38d262e"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/select-target.json",
+      "size_bytes": 473,
+      "sha256": "210e03faded9a73349ce5b03ba4c2955b691eadcbb7c487d477954c7fc08199e"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/arm-target.json",
+      "size_bytes": 459,
+      "sha256": "bcb230d07122a60ffd27cd07a95607fd17a2434dfc9129516287932f3daae35e"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/record-command.json",
+      "size_bytes": 478,
+      "sha256": "bf68bc7dea7c788460f2ade171c6b8b22901d024aff2087e2f4730f35e22d715"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/record-command-b.json",
+      "size_bytes": 478,
+      "sha256": "3f169671e922a881b658ec5a40f9eae918bca0b11e2e79c795c2bda4fc1736b0"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/recording-readback.json",
+      "size_bytes": 1491,
+      "sha256": "2bf1a46fa088f5db3b31adf57b7f53ea46ea43e2e5296ff57586749bc7d1f45a"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/recording-readback-b.json",
+      "size_bytes": 1491,
+      "sha256": "2ffe570a8b8eadc1a48fa6e987afde44f5a020eac45db91395193a12ebbb829b"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/stop-command.json",
+      "size_bytes": 283,
+      "sha256": "9e530ab8d5fcce6a300885c0643f1e29502a1139b08b5f278d69f503167d395a"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/stop-command-b.json",
+      "size_bytes": 283,
+      "sha256": "74314ba60fd66bea36e3eb8eef7ba394c7743836586c6786a07950a3634104fe"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/state-after-record.json",
+      "size_bytes": 5238,
+      "sha256": "94e7647645e7b829a8e0af8764632274b84e7c4a0bb1911ee48f89c9ad2ab01e"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/state-after-record-b-status.json",
+      "size_bytes": 1493,
+      "sha256": "13bf2e5c32ac8b3174d871161dea2e6b3dc9b967f73a7584da86a103524f933d"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/export.txt",
+      "size_bytes": 67,
+      "sha256": "062ac7c024a1f269a24b024a001b8db37bcfad0ee02e0fcdf81fad16cae4eec6"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/export-b.txt",
+      "size_bytes": 43,
+      "sha256": "38aba00edeb350210bdd98dc76ee84998c56ca13ad9cde73ad54c3830dd49df6"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/setup.txt",
+      "size_bytes": 171,
+      "sha256": "cc1a0ff1315c9fad6cb00969a05b963e97f82ff4c0accba22b4e14a2df18a39d"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/b-ready-ax.txt",
+      "size_bytes": 589,
+      "sha256": "ace1e400b958d369332c1487391a85d201fb447effc0e3f685926d996bca17a0"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/b-ready-ax2.txt",
+      "size_bytes": 535,
+      "sha256": "f4a65d335d7f70f7c1b25f090bc579a95fa06cf91f9b825b691a450821dab860"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/current-ready-ax.txt",
+      "size_bytes": 584,
+      "sha256": "ab9315f8f6fb2ed5f819e8e5ecdaf7dd0aa8271a96bc616b070957a44da7ba3a"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/restore-selected.json",
+      "size_bytes": 494,
+      "sha256": "7fe59eb645c4732302c4110a02b076f0d188ca45a7580ff67190fab4ff8b9117"
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/restore-status.json",
+      "size_bytes": 1493,
+      "sha256": "33b6e2fbac8d40cf1e97070844eba266e79387be7ebe377094d683d481d11cb7"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "size_bytes": 2335,
+      "sha256": "fb221dd9e89e4eaef50f41947b4af68c7014237d879d4c0bd866980bcd942a84"
+    },
+    {
+      "path": "Research/experiments/TEMPLATE.md",
+      "size_bytes": 689,
+      "sha256": "d1782c7b064789071c942ed65b8c6e2ce305b0eb82808735fe0fabe48863e4f1"
+    }
+  ],
+  "readback_input_hash_checks": [
+    {
+      "path": "Research/raw/gui/midi-controller-032/recorded-notes.mid",
+      "comparison_record_sha256": "c3a524be53d2ead2234baaa8fac5dfbdd170599015f7f25715241f55086a51a2",
+      "current_sha256": "c3a524be53d2ead2234baaa8fac5dfbdd170599015f7f25715241f55086a51a2",
+      "match": true
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/note-tx.jsonl",
+      "comparison_record_sha256": "79455858228428bab6d5979fe8290c20f73680105db49f02401587fc0127e7c5",
+      "current_sha256": "79455858228428bab6d5979fe8290c20f73680105db49f02401587fc0127e7c5",
+      "match": true
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/note-tx-b.jsonl",
+      "comparison_record_sha256": "0acc4c6e0b9adbc76bfeb8c4b393bad3f1e6073046cef77f43a77e264a04c658",
+      "current_sha256": "0acc4c6e0b9adbc76bfeb8c4b393bad3f1e6073046cef77f43a77e264a04c658",
+      "match": true
+    },
+    {
+      "path": "Research/raw/gui/midi-controller-032/recorded-notes-b.mid",
+      "comparison_record_sha256": "648812be5537dda196f213c8a13d92a6b7c726736f752decf2a81d7213f5fc17",
+      "current_sha256": "648812be5537dda196f213c8a13d92a6b7c726736f752decf2a81d7213f5fc17",
+      "match": true
+    }
+  ],
+  "verification_scope": "Existing reports/fields and immutable raw-file hashes checked; no new GUI/MIDI/source/build/Git/board work, no optional statistics artifacts.",
+  "limitations": [
+    "Only this eight-note sequence on channel0 at velocity90 and one selected software-instrument target was tested.",
+    "No chords, overlap, sustain, multiple channels, CC/pitch-bend or throughput capability established.",
+    "Native exports are readback only, not the note-input route.",
+    "Absolute first onsets were aligned away; start-bar synchronization and absolute recording latency not measured.",
+    "Fixed120 BPM conversion does not validate a tempo map.",
+    "Current installed source identity is separated from historical12.3.1 addresses and from unverified executed probe-binary identity.",
+    "C strict scheduling remains unobserved and deferred."
+  ],
+  "curation_validation": {
+    "local_markdown_links_checked": [
+      "EXP-MIDI-032-controller-note-input.json",
+      "../static-analysis/binary-identity-12.4-6707.json",
+      "../raw/gui/midi-controller-032/recording-readback.json",
+      "../raw/gui/midi-controller-032/recording-readback-b.json",
+      "../raw/gui/midi-controller-032/state-after-record.json",
+      "../raw/gui/midi-controller-032/state-after-record-b-status.json",
+      "../raw/gui/midi-controller-032/readback-report.md",
+      "../raw/gui/midi-controller-032/readback-comparison.json",
+      "../raw/gui/midi-controller-032/readback-report-b.md",
+      "../raw/gui/midi-controller-032/readback-comparison-b.json",
+      "../raw/gui/midi-controller-032/timestamp-semantics.md",
+      "EXP-MIDI-032-controller-note-input.json",
+      "../raw/gui/midi-controller-032/note-tx.jsonl",
+      "../raw/gui/midi-controller-032/recorded-notes.mid",
+      "../raw/gui/midi-controller-032/note-tx-b.jsonl",
+      "../raw/gui/midi-controller-032/recorded-notes-b.mid"
+    ],
+    "immutable_raw_hash_checks_passed": 4,
+    "new_files_only": true,
+    "optional_stats_artifacts_created": false
+  }
+}
