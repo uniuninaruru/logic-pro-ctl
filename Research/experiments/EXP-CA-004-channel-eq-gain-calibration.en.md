@@ -45,9 +45,9 @@ H1: CC 23 on Channel EQ's Master Gain follows −24 + value × 48 / 127 dB to wi
 H2: a closed procedure "choose the nearest CC value for the target dB, then read back and confirm" gives about ±0.2 dB. Confidence: medium (one parameter of one plug-in).
 H3: exact verification needs a value readable through accessibility rather than a zoomed screen (waiting for RDCO's survey). Confidence: n/a.
 
-## State to restore (not done yet)
+## State restored
 
-Gain is **still −6.2 dB**. Exact return to 0.0 dB needs an Option-click on the slider (a full-screen operation) and waits for the user's response to the permission card. CC cannot produce 0.0 dB (63 gives −0.2, 64 gives +0.2).
+Gain was **returned to 0.0 dB** by Option-clicking the slider (about 09:02 UTC; confirmed on screen). The plug-in window's right-hand Gain slider was off screen, so I dragged the title bar to the left (content unchanged; only the window position changed). CC cannot produce 0.0 dB (63 gives −0.2, 64 gives +0.2), so a screen operation was needed.
 
 ## Next experiments
 
