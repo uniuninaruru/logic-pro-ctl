@@ -21,7 +21,7 @@
 
 ## Observation
 
-- O1: the Action menu has 15 items (Presets, Import, Import to selection, Merge, Save, Save as, Save customized as, Copy to Clipboard, Show all / Hide all, Jump to selection, Reset all / selected / unused).
+- O1: the Action menu has 14 items (Presets, Import, Import to selection, Merge, Save, Save as, Save customized as, Copy to Clipboard, Show all / Hide all, Jump to selection, Reset all / selected / unused).
 - O2: the copied text is not UTF-8 but Japanese Shift_JIS-family bytes (80,541 bytes, 2,231 lines). Read as CP932, the command-name column has 0 garbled characters.
 - O3: format: a header row (Command, Key, Touch Bar), then "- group name" rows and tab-separated rows of 4 fields (empty, command name, key, Touch Bar).
 - O4: 27 groups, **2,176** commands. 811 have key text and 50 have a Touch Bar entry. 6 names occur twice. Counts per group: Global 671, Main-window tracks and editors 290, Main-window tracks 247, Score editor 139, Various windows 110, Step Sequencer 91, Mixer 85, Views with a time ruler 80, Various editors 67, Audio File editor 55, MIDI Environment 50, Step Input Keyboard 49, Sampler 36, Smart Tempo editor 32, Tools menu 29, Views with automation 22, Project Audio 20, Live Loops grid 18, Drum Machine Designer 16, Step Editor 16, Windows showing audio files 13, Piano Roll 12, Event editor 9, Global control surface commands 7, Smart Control 6, Library 4, Control Surface install window 2.
