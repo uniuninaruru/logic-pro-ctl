@@ -17,7 +17,7 @@
 ## What Apple's official guide says (ja-jp; the guide's version selector stops at 12.3)
 
 - Easy-view registration (ctls71c31855): choose a parameter, learn with the registration command under "Logic Pro > Control Surfaces", and move the controller.
-- "MIDI input" parameters (ctls71c30fbf): a message with `Lo7` is a 7-bit value; one without it is value 0.
+- "MIDI input" parameters (ctls71c30fbf): a message with `Lo7` is a 7-bit value. For a message without it, the received value is 0 in the Japanese page and 1 in the English page (**they disagree**; checked by Codex; see [EXP-CA-003](EXP-CA-003-value-mode-pickup-ab.en.md)).
 - "Value" parameters (ctls71c308ee): the default mode for faders and knobs is Scale (the received range is scaled to the target's range).
 - General settings (lgcp1fe673ef): in Pickup mode the value does not change until the controller reaches the current value. The guide uses control surfaces as its example.
 
@@ -29,7 +29,7 @@
 - O4 (plug-in, CC 23): Channel EQ Master Gain (range −24…+24 dB) went to +24.0, −24.0, +0.2 dB for values 127, 0, 64 (linear). Confirmed on screen (MCU cannot read it).
 - O5 (follows the selected track): on three tracks (Piano, Ballad, Synth), only the selected track's pan moved.
 - O6 (Pickup on): right after switching the target, values that did not reach its current value were ignored: 4 times (80 on Ballad, 80 on Synth twice, 100 on Ballad). On Synth (current value equivalent to 100) the order was 80 → ignored, 100 (equal to the current value) → no change, 80 → applied (+16). On Piano, where the controller's last value (64) equalled the target's value (64), the first 100 applied immediately.
-- O7 (comparison with Pickup off): on Ballad (current value 64) with the controller's last value at 80, sending 100 was ignored (on). After turning Pickup off in Settings, the same situation with 110 applied +46. Pickup was turned back on afterwards.
+- O7 (comparison with Pickup off): on Ballad (current value 64) with the controller's last value at 80, sending 100 was ignored (on). After turning Pickup off in Settings, the same situation with 110 applied +46 (the values were 100 and 110, so this is not the same stimulus; the same-stimulus comparison is O3 of [EXP-CA-003](EXP-CA-003-value-mode-pickup-ab.en.md)). Pickup was turned back on afterwards.
 - O8 (feedback): while pan, volume and the plug-in parameter changed, Logic sent 0 MIDI messages back to `logicctl-cc` (only device-query sysex arrived). 58 messages were sent.
 - Raw data (not in Git): `Research/raw/midi-learn/probe6.log`. Screen checks are in the conversation record with operation times.
 
