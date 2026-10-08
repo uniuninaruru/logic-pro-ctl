@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "record_id": "SA-CS-PREFS-001",
+  "recorded_utc": "2026-10-08T08:31:29.178272+00:00",
+  "summary_ja": "コントローラー設定のコピーを読み取る限定パーサーと差分比較。不整合コピーは通常モードで拒否。GUI割り当て・送信・値検証を分離し、直接設定書き込みは行わない。",
+  "installed_logic": {
+    "version": "12.4",
+    "build": "6707",
+    "source": "EXP-CS-001"
+  },
+  "scope": {
+    "read_only": true,
+    "explicit_copied_snapshots": true,
+    "snapshot_valid_scope": "observed_flat_structure_only",
+    "live_prefs_write": false,
+    "restore_api": false,
+    "assignment_semantics_confirmed": false
+  },
+  "framing": {
+    "evidence": "copied_byte_observation",
+    "form_magic": "MROF",
+    "form_type": "FCSS",
+    "declared_length_offset": 4,
+    "declared_length_encoding": "u32le",
+    "expected_declared_length": "file_size-8",
+    "records_start": 12,
+    "record_header_size": 8,
+    "padding_observed": false,
+    "span_convention": "zero-based byte offsets, end exclusive"
+  },
+  "snapshots": [
+    {
+      "id": "s0",
+      "sha256": "645943a2c0344e0b858d7d9d2df6c6fc7e12ccc3498856c006a3597bc9512ca6",
+      "size": 316620,
+      "declared_body_length": 316612,
+      "actual_body_length": 316612,
+      "rdaf_count": 2992,
+      "flat_record_count": 3036,
+      "strict_structure_valid": true,
+      "broad_fixed_offset_message_matches": 157,
+      "narrow_shape_candidate_count": 0,
+      "assignment_semantics_confirmed": false
+    },
+    {
+      "id": "s0b",
+      "sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+      "size": 316820,
+      "declared_body_length": 316812,
+      "actual_body_length": 316812,
+      "rdaf_count": 2992,
+      "flat_record_count": 3036,
+      "strict_structure_valid": true,
+      "broad_fixed_offset_message_matches": 157,
+      "narrow_shape_candidate_count": 4,
+      "assignment_semantics_confirmed": false
+    },
+    {
+      "id": "s1_1",
+      "sha256": "c5bc3e5087dc5a45cad63652796fe58d87cf3372d76ea89ccb84179c45a04bed",
+      "size": 316941,
+      "declared_body_length": 4,
+      "actual_body_length": 316933,
+      "rdaf_count": 2993,
+      "flat_record_count": 3037,
+      "strict_structure_valid": false,
+      "broad_fixed_offset_message_matches": 158,
+      "narrow_shape_candidate_count": 5,
+      "assignment_semantics_confirmed": false
+    },
+    {
+      "id": "s2",
+      "sha256": "1d9e9177d2e31242a69b97d75988ea925cc8961d025464e2a66b4d847b015959",
+      "size": 316820,
+      "declared_body_length": 316812,
+      "actual_body_length": 316812,
+      "rdaf_count": 2992,
+      "flat_record_count": 3036,
+      "strict_structure_valid": true,
+      "broad_fixed_offset_message_matches": 157,
+      "narrow_shape_candidate_count": 4,
+      "assignment_semantics_confirmed": false
+    }
+  ],
+  "rdaf_multiset_diffs": {
+    "s0->s0b": {
+      "added": 5,
+      "removed": 5,
+      "unchanged": 2987
+    },
+    "s0b->s1_1": {
+      "added": 2,
+      "removed": 1,
+      "unchanged": 2991
+    },
+    "s1_1->s2": {
+      "added": 1,
+      "removed": 2,
+      "unchanged": 2991
+    },
+    "s0b->s2": {
+      "added": 0,
+      "removed": 0,
+      "unchanged": 2992
+    }
+  },
+  "registration_associated_delta": {
+    "snapshot_valid": false,
+    "kc_candidate": {
+      "record_offset": 14714,
+      "payload_length": 113,
+      "payload_sha256": "41f74ee59e166992b3eb404856354554019d14022ec206ceece1810c6fdce51f",
+      "raw_u32le_2": 9,
+      "raw_u32le_6": 748,
+      "message_payload_48": "b019f5",
+      "raw_payload_42_46": "00000000",
+      "command_id_candidate": 748,
+      "command_catalog_version": "12.3.1",
+      "current_command_dispatch_verified": false
+    },
+    "existing_payload_change": {
+      "before_offset": 14714,
+      "after_offset": 14835,
+      "length": 119,
+      "changed_payload_offsets": [
+        1
+      ],
+      "before_byte": 153,
+      "after_byte": 25,
+      "before_sha256": "661e5fd962b916933cc0f54ffd3c4e39c7070aefff8ab419252f50436c79b276",
+      "after_sha256": "b01118717a0e202f98980b283fcc7090e8366e2474488c8c29538b0911114944",
+      "semantic_meaning": "unknown"
+    }
+  },
+  "s0b_parameter_candidates": [
+    {
+      "record_offset": 14714,
+      "payload_length": 119,
+      "payload_sha256": "661e5fd962b916933cc0f54ffd3c4e39c7070aefff8ab419252f50436c79b276",
+      "raw_u32le_2": 5,
+      "raw_u32le_6": 1075843072,
+      "message_payload_48": "b017f5",
+      "raw_payload_42_46": "f2000000",
+      "gui_associated_cc": 23,
+      "interpretation": "hypothesis",
+      "target_identity_confirmed": false
+    },
+    {
+      "record_offset": 14841,
+      "payload_length": 88,
+      "payload_sha256": "db8bf23437a6aeedcc5cb9e4560173c31ce34e49ac731bd504a80b7a14bed13f",
+      "raw_u32le_2": 5,
+      "raw_u32le_6": 462848,
+      "message_payload_48": "b016f5",
+      "raw_payload_42_46": "2a00005a",
+      "gui_associated_cc": 22,
+      "interpretation": "hypothesis",
+      "target_identity_confirmed": false
+    },
+    {
+      "record_offset": 14937,
+      "payload_length": 76,
+      "payload_sha256": "81d2f1700495748f3a15228007685ff0a211b7e626bfa3fc67ccb10417f61ac1",
+      "raw_u32le_2": 5,
+      "raw_u32le_6": 659456,
+      "message_payload_48": "b015f5",
+      "raw_payload_42_46": "64000000",
+      "gui_associated_cc": 21,
+      "interpretation": "hypothesis",
+      "target_identity_confirmed": false
+    },
+    {
+      "record_offset": 15021,
+      "payload_length": 76,
+      "payload_sha256": "943f82401c435f10f8fc9d2da5462d099d0568009ba3ac7cacafb44c56e1d314",
+      "raw_u32le_2": 5,
+      "raw_u32le_6": 659456,
+      "message_payload_48": "b01440",
+      "raw_payload_42_46": "01000000",
+      "gui_associated_cc": 20,
+      "interpretation": "hypothesis",
+      "target_identity_confirmed": false
+    }
+  ],
+  "memory_getter_connection": {
+    "source": "Research/static-analysis/SA-MIDI-ROUTE-001.json",
+    "serialization_to_memory_binding_verified": false,
+    "getters": [
+      {
+        "selector": "assignmentClass",
+        "semantics": {
+          "selector": "assignmentClass",
+          "field_offset": "0x3a",
+          "expression": "32-bit word at returned Assign+0x3a; current numeric class meanings not established"
+        },
+        "runtime_consumer_verified": false
+      },
+      {
+        "selector": "befehl",
+        "semantics": {
+          "selector": "befehl",
+          "field_offset": "0x3e",
+          "expression": "signed16 at returned Assign+0x3e; command dispatch not established"
+        },
+        "runtime_consumer_verified": false
+      },
+      {
+        "selector": "valueMode",
+        "semantics": {
+          "selector": "valueMode",
+          "field_offset": "0x4b",
+          "expression": "u8 at returned Assign+0x4b & 7; numeric mode enum meanings not established"
+        },
+        "runtime_consumer_verified": false
+      },
+      {
+        "selector": "multiply",
+        "semantics": {
+          "selector": "multiply",
+          "field_offset": "0x4c",
+          "expression": "signed16 at returned Assign+0x4c, convert to double, multiply by 0.01, return float"
+        },
+        "runtime_consumer_verified": false
+      },
+      {
+        "selector": "valueChangeHasLo7",
+        "semantics": {
+          "selector": "valueChangeHasLo7",
+          "field_offsets": [
+            "0x80",
+            "0x88"
+          ],
+          "expression": "scan stored byte span for internal marker0xF5; not a wire MIDI status or proof of input matching"
+        },
+        "runtime_consumer_verified": false
+      },
+      {
+        "selector": "valueChangeHasHi7",
+        "semantics": {
+          "selector": "valueChangeHasHi7",
+          "field_offsets": [
+            "0x80",
+            "0x88"
+          ],
+          "expression": "scan stored byte span for internal marker0xF4; not a wire MIDI status or proof of input matching"
+        },
+        "runtime_consumer_verified": false
+      }
+    ],
+    "f4_f5": "Internal pattern markers, not wire MIDI statuses"
+  },
+  "reader": {
+    "path": "Tools/research-scripts/cs_assignments.py",
+    "commands": [
+      "list COPIED.bin",
+      "diff BEFORE.bin AFTER.bin"
+    ],
+    "forensic_flag": "--allow-length-mismatch",
+    "forensic_snapshot_valid": false,
+    "bounds": {
+      "file_bytes": 16777216,
+      "payload_bytes": 1048576,
+      "flat_records": 10000
+    },
+    "candidate_scope": "Observed mode2 family5/9 prefix + bounded UTF8/NUL + complete suffix; roles unproved",
+    "omitted_fields": [
+      "names",
+      "opaque_identifiers",
+      "raw_payloads"
+    ]
+  },
+  "validation": {
+    "targeted_synthetic_tests": 21,
+    "result": "pass",
+    "command": "python3 -m unittest discover -s Tests/research -p test_cs_assignments.py",
+    "real_cli": {
+      "s0b_list": "pass",
+      "s1_1_strict": "exit2, empty stdout",
+      "s1_1_forensic": "snapshot_valid=false"
+    },
+    "independent_framing_walk_imports_parser": false
+  },
+  "readback_discovery": {
+    "tool": "Tools/research-scripts/logic-plugin-inspect.swift",
+    "read_only": true,
+    "observed_pid": 8167,
+    "test_project_window_present": true,
+    "open_eq_windows": 0,
+    "parameter_candidates": 0,
+    "plugin_instance_identity_verified": false,
+    "actual_value_provider_established": false
+  },
+  "official_sources": [
+    {
+      "url": "https://support.apple.com/guide/logicpro/assign-and-delete-controllers-in-easy-view-ctls71c31855/12.3/mac/15.6",
+      "guide_version": "12.3",
+      "supports": "Learn sequence, input-message learning"
+    },
+    {
+      "url": "https://support.apple.com/guide/logicpro/controller-assignments-expert-view-ctls71c3162b/12.3/mac/15.6",
+      "guide_version": "12.3",
+      "supports": "Detailed assignment controls"
+    },
+    {
+      "url": "https://support.apple.com/ja-jp/guide/logicpro/ctls718ddead/mac",
+      "supports": "CS settings file location; does not establish only-on-quit writes"
+    },
+    {
+      "url": "https://support.apple.com/ja-jp/guide/logicpro/lgcp53689108/mac",
+      "supports": "General settings saved on quit; change settings inside Logic"
+    }
+  ],
+  "limits": [
+    "Invalid s1_1 cause unknown; concurrent write is a hypothesis.",
+    "A structurally valid copy is not semantic validation.",
+    "RDAF multiset restoration does not prove complete settings restoration.",
+    "CC message bytes occur in many records; they are not target identity.",
+    "Serialized fields are distinct from in-memory getter offsets and widths.",
+    "No GUI Learn automation, GUI restore, replacement-target proof or automated EQ value verification implemented by this reader."
+  ],
+  "next_plan": "Research/plans/midi-assignment-automation-001.en.md",
+  "source_manifest": [
+    {
+      "path": "Tools/research-scripts/cs_assignments.py",
+      "sha256": "a9b5f4c4c9a2c7d08898f4b7cfb2c41cc5095009be988a77bebfae9bc9a7cf03",
+      "size_bytes": 14629,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Tests/research/test_cs_assignments.py",
+      "sha256": "59c134441a11f376a21dfbf487fb344ab0375c85dd3e7eb3fc5e2795b0ea4c4b",
+      "size_bytes": 12061,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Tools/research-scripts/logic-plugin-inspect.swift",
+      "sha256": "676b9bed7daa108905d2b2c576f6a27cafaa14421bca3b133ef48592788b31a7",
+      "size_bytes": 4065,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.json",
+      "sha256": "03430d65621315acee3b1231aea1254709aee85fb74f854aeb4269496fee5bc1",
+      "size_bytes": 70850,
+      "availability": "public_repo",
+      "git_revision": "d4416d9a939ad3b4f15c674fc6d97c7ff7b4dab3"
+    },
+    {
+      "path": "Research/experiments/EXP-CS-001-prefs-file-live-diff.en.md",
+      "sha256": "17bc90b6baef73b09b7862e4a97361aa2008aef4cc611e46881356a7ff3e95f2",
+      "size_bytes": 5490,
+      "availability": "public_repo",
+      "qualification": "Baseline live log; this note independently qualifies byte interpretations and unknown mismatch cause."
+    },
+    {
+      "path": "Research/raw/cs-diff/codex-readonly-parser-results.json",
+      "sha256": "a51eecb036ca68c79f89746d03e9d75e4095f0338e536dd4beee785b9abe497d",
+      "size_bytes": 29938,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/codex-independent-framing-001.json",
+      "sha256": "6c35540ce9bf487f67c1301b0e47e8a69260d14f18f20668f4ec79705a22fcfd",
+      "size_bytes": 209107,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/channel-eq-ax-discovery-001.json",
+      "sha256": "055caa3a01cd043201a23787eabc7e22e021d347d45e2c1fdbfefd2039644898",
+      "size_bytes": 235,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/s0.bin",
+      "sha256": "645943a2c0344e0b858d7d9d2df6c6fc7e12ccc3498856c006a3597bc9512ca6",
+      "size_bytes": 316620,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/s0b.bin",
+      "sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+      "size_bytes": 316820,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/s1_1.bin",
+      "sha256": "c5bc3e5087dc5a45cad63652796fe58d87cf3372d76ea89ccb84179c45a04bed",
+      "size_bytes": 316941,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/s2.bin",
+      "sha256": "1d9e9177d2e31242a69b97d75988ea925cc8961d025464e2a66b4d847b015959",
+      "size_bytes": 316820,
+      "availability": "local_ignored"
+    }
+  ]
+}

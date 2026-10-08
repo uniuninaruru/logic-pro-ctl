@@ -33,6 +33,14 @@ history; these are the ones that bite.
   command, target and region evidence; use the bounded map in
   `Research/static-analysis/SA-MIDI-ROUTE-001.en.md`. Retain GUI-led discovery for
   Apple Loops, Session Players and Pattern Regions as follow-on work.
+- First milestone: Channel EQ parameter identification → MIDI operation → actual
+  value readback. Prioritize GUI Learn automation, read-only assignment inventory
+  and GUI restoration, and target identity after plug-in replacement. Never write
+  `com.apple.logic.pro.cs` directly; reject inconsistent snapshots by default.
+- Record MIDI delivery, assignment confirmation and value verification separately.
+  Keep `verified` tied to the observed requested effect. Never auto-retry toggle
+  key commands. MCP remains a thin adapter to the shared daemon execution core;
+  no second state or execution manager.
 - Pick a visible operation; record target, conditions and before/after changes,
   then map it to command IDs, actions, selectors and functions. Decompile only
   functions relevant to that operation.
@@ -46,6 +54,10 @@ history; these are the ones that bite.
   routes. Give each other concrete next tasks; share file ownership, GUI/build/
   shared-Ghidra use, results, usage limits and handoffs. Adjust roles to the
   latest human instructions and each other's situation.
+- RDCO (ChatGPT via Remote Desktop Commander) is an authorized separate
+  collaborator. Onboard through the local board; coordinate bounded ownership
+  before shared-resource use. Initial lane: read-only Channel EQ target/value
+  inspection with Claude, not automatic GUI/MIDI ownership.
 - When GUI is unavailable, analyze existing observations or do independent
   offline work. Mark unobserved operations pending; do not replace observation
   with indiscriminate expansion of candidate function bodies.
