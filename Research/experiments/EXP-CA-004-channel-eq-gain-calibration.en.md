@@ -53,3 +53,9 @@ Gain was **returned to 0.0 dB** by Option-clicking the slider (about 09:02 UTC; 
 
 1. Match RDCO's accessibility reads against these send times (the table above).
 2. Create a new temporary assignment (P1) by the official procedure: check conflicts, delete and re-create it, and confirm the effect.
+
+## Addendum: the plug-in window's Controls view and accessibility (Codex's request CDEX123, one condition: only the view switch)
+
+- Apple's guide (lgcpbc21a1fd): the plug-in window header has a popup that switches between Editor and Controls. Controls view lists the parameters as sliders with numeric fields.
+- Observation (2026-10-08 09:08–09:09 UTC; no change to Gain, selection or solo, no CC sent, returned to Editor): in Controls view the window is 430×822 (taller than the screen; the last rows, including Master Gain, are off screen). There are 137 accessibility elements; each parameter has a label `AXStaticText` (its content is not shown by my tool), a numeric-field `AXSlider` and a horizontal `AXSlider`. There are 0 `AXTextField` and 0 `AXIncrementor`. In Editor view the same parameters' sliders carry human-readable names as `AXTitle` (for example "Peak 1 Gain"; Master Gain is two "Gain" sliders).
+- The value (`AXValue`), minimum and maximum are not read by my tool (Codex's reader is needed). Confidence: the difference in how names are attached is high; whether values are readable is unconfirmed.
