@@ -2586,8 +2586,8 @@
     },
     "reference_note": {
       "path": "Research/notes/logic-pro-mcp-reference-001.en.md",
-      "size_bytes": 8742,
-      "sha256": "ef3b28439ae7351d68d481b6387ab7198875d02da6f1d5c22d1dd6faaddfc369",
+      "size_bytes": 11245,
+      "sha256": "70aed3fa3f235c44e2556fa96caf219f6e3bce896e3d8c9b59473dbe8ab62a5d",
       "availability": "public_repo"
     },
     "midi_map": {
@@ -2643,6 +2643,123 @@
       "size_bytes": 1861,
       "sha256": "c236b27bdda26f8d499847b221a5f017032a4ff0cfb9737e371fd2a1a9d52308",
       "availability": "local_ignored"
+    },
+    "mcp_package": {
+      "path": "Package.swift",
+      "sha256": "cf6b6577fc497de25401bc1e92ec2cf8435c68011e837640fcbaaba9098e1707",
+      "size_bytes": 842,
+      "availability": "public_repo"
+    },
+    "mcp_handler": {
+      "path": "Sources/LogicMCP/MCPServer.swift",
+      "sha256": "5f1ada4daa895e30ff96924889d3e2e7c933045055a69b10f537766abe057537",
+      "size_bytes": 19218,
+      "availability": "public_repo"
+    },
+    "mcp_executor": {
+      "path": "Sources/LogicMCP/CLIExecutor.swift",
+      "sha256": "ad1c38699ac89916eeb96f850b6887bcfcdad4ceadbb263528d931d0d4d49a50",
+      "size_bytes": 8489,
+      "availability": "public_repo"
+    },
+    "mcp_stdio": {
+      "path": "Sources/LogicMCPCLI/main.swift",
+      "sha256": "de00dcd88e737f433a38f6aa20eb0f6245c8ed0ad559a9cb13a3b719cadb851c",
+      "size_bytes": 2811,
+      "availability": "public_repo"
+    },
+    "mcp_handler_tests": {
+      "path": "Tests/LogicMCPTests/MCPServerTests.swift",
+      "sha256": "ee667973f12a9c9eb1a42a5c7734c3083fe0d45eedab5bca74b469414f438988",
+      "size_bytes": 13630,
+      "availability": "public_repo"
+    },
+    "mcp_executor_tests": {
+      "path": "Tests/LogicMCPTests/CLIExecutorTests.swift",
+      "sha256": "8269c52e0071277165ef8a00508efc78aa2cf1fd0ec70989d1fd96ab70edc513",
+      "size_bytes": 7568,
+      "availability": "public_repo"
+    },
+    "mcp_wire_tests": {
+      "path": "Tests/integration/test_mcp_stdio.py",
+      "sha256": "27ec5ed70b3a088d0463183457ec89a79c5eb186c5428d2ca9b17129b4077ee3",
+      "size_bytes": 7636,
+      "availability": "public_repo"
+    },
+    "mcp_setup": {
+      "path": "docs/mcp.md",
+      "sha256": "907ccfd8610a6bc5e81f3504badcfd054ec5e9810ad59dbbf54f06934fddfe50",
+      "size_bytes": 5756,
+      "availability": "public_repo"
+    },
+    "mcp_affected_log": {
+      "path": "Research/raw/review/mcp-adapter-001-affected-tests.log",
+      "sha256": "9b7d6bc38bf2bfaa1830920f6fe3b90b165db4a95abf603e12edc5391edd59ed",
+      "size_bytes": 5860,
+      "availability": "local_ignored"
+    },
+    "mcp_full_log": {
+      "path": "Research/raw/review/mcp-adapter-001-full-tests.log",
+      "sha256": "4cd74e1e0a7b5864058e44e65703ea8d9238d5c25fd5958165394e383dced1c9",
+      "size_bytes": 34081,
+      "availability": "local_ignored"
+    },
+    "mcp_wire_log": {
+      "path": "Research/raw/review/mcp-adapter-001-wire-tests.log",
+      "sha256": "90bb0436b21ffdd78350d06836c4a9a1caecb6ea551218fef84283d0da5edf0f",
+      "size_bytes": 103,
+      "availability": "local_ignored"
+    },
+    "mcp_release_build_log": {
+      "path": "Research/raw/review/mcp-adapter-001-release-build.log",
+      "sha256": "bb16846c02001991606e65f57376e72a1c0c700e6a5aa483483f10d1a4ed3f51",
+      "size_bytes": 625,
+      "availability": "local_ignored"
+    },
+    "mcp_release_wire_log": {
+      "path": "Research/raw/review/mcp-adapter-001-release-wire-tests.log",
+      "sha256": "3797ed0b768cf93c5ac5f45481b07ea4c1afc9a5ca2b7757406807f918730b3b",
+      "size_bytes": 103,
+      "availability": "local_ignored"
     }
+  },
+  "updated_utc": "2026-10-08T08:04:58.376996+00:00",
+  "product_adoption": {
+    "executable": "logicmcp",
+    "protocol_version": "2025-11-25",
+    "transport": "stdio",
+    "design_reference": "compact action groups plus readable state resources",
+    "upstream_code_copied": false,
+    "external_code_executed": false,
+    "tools": [
+      "logic_read",
+      "logic_transport",
+      "logic_track",
+      "logic_mixer"
+    ],
+    "existing_commands_exposed": 14,
+    "resources": [
+      "logicctl://status",
+      "logicctl://state",
+      "logicctl://tracks"
+    ],
+    "resource_template": "logicctl://tracks/{track}",
+    "execution_boundary": "existing logicctl subprocess, explicit arguments, existing capability gates/readback",
+    "automatic_retry": false,
+    "automatic_backend_fallback": false,
+    "outcome_unknown_field": "execution.state",
+    "verification": {
+      "new_swift_tests": 20,
+      "new_wire_tests": 5,
+      "existing_swift_tests": 193,
+      "passed": true,
+      "live_Logic_mcp_trial": false,
+      "client_application_trial": false,
+      "release_build_passed": true,
+      "release_wire_tests": 5,
+      "release_wire_passed": true
+    },
+    "public_generic_midi_region_tools": false,
+    "comparison": "upstream wider MCP surface; logicctl narrower verified CLI contract and current research map"
   }
 }

@@ -9,6 +9,10 @@ CLI (`logicctl`) and daemon (`logicd`) for controlling Logic Pro on macOS
 from AI agents. Every command prints one JSON object on stdout; every write
 reads Logic's state back and says whether it matched.
 
+`logicmcp` exposes the existing 14 commands through four MCP tools, three state
+resources and a per-track resource template. It retains the CLI's readback,
+target checks and execution contract. [MCP setup and scope](docs/mcp.md).
+
 ```
 agent → logicctl → Unix socket → logicd → backend → Logic Pro
                                           ├─ MCU over virtual MIDI   (v0.1, working)

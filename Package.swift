@@ -7,11 +7,15 @@ let package = Package(
     products: [
         .executable(name: "logicctl", targets: ["logicctl"]),
         .executable(name: "logicd", targets: ["logicd"]),
+        .executable(name: "logicmcp", targets: ["LogicMCPCLI"]),
     ],
     targets: [
         .target(name: "LogicCore"),
+        .target(name: "LogicMCP", dependencies: ["LogicCore"]),
         .executableTarget(name: "logicctl", dependencies: ["LogicCore"]),
         .executableTarget(name: "logicd", dependencies: ["LogicCore"]),
+        .executableTarget(name: "LogicMCPCLI", dependencies: ["LogicMCP"]),
         .testTarget(name: "LogicCoreTests", dependencies: ["LogicCore"]),
+        .testTarget(name: "LogicMCPTests", dependencies: ["LogicMCP", "LogicCore"]),
     ]
 )

@@ -4,7 +4,7 @@
 
 **The useful connections are a compact dispatcher/state API, current GUI element discovery, explicit delivery-versus-effect results, and timed MIDI experiments.** These can complement logicctl's verified MCU/assignment/Step paths. This is a code review of pinned snapshots, not a live validation or installation of an external server.
 
-日本語要約：元リポジトリと公開フォーク30件を比較し、独自コード差分のある5件を重点的に確認。小数の操作窓口と状態取得の設計、GUIの対象検索、読み戻し、予約MIDI送信は参考になる。MIDIノート送信・時間を合わせた録音・ネイティブリージョン編集は区別する。外部コードは実行せず、既存の実機結果と照合して導入候補を選ぶ。
+日本語要約：元リポジトリと公開フォーク30件を比較し、独自コード差分のある5件を重点的に確認。少数の操作窓口と状態取得の設計、GUIの対象検索、読み戻し、予約MIDI送信は参考になる。MIDIノート送信・時間を合わせた録音・ネイティブリージョン編集は区別する。外部コードは実行せず、既存の実機結果と照合して導入候補を選ぶ。
 
 ## Snapshot and review scope
 
@@ -48,3 +48,36 @@ Older fork bases and independently incorporated upstream fixes can overlap. Thes
 5. **Future GUI operations:** use Track Stacks, instrument and region candidates to choose one official-guide-led experiment at a time. They can extend the command/target map after actual readback.
 
 No external installation, build, test suite or Logic operation was performed for this review. Source analysis cannot establish latency, recording accuracy, Japanese UI compatibility or universal parameter access. Curated evidence links this review to the ongoing controller/command work while preserving those boundaries.
+
+## Adopted: compact MCP entry over existing commands
+
+After this review, logicctl gained an independently written `logicmcp` stdio
+adapter using the 2025-11-25 MCP protocol. The design adoption is compact action
+groups plus state resources; no upstream source code was copied or executed.
+See [setup and supported scope](../../docs/mcp.md).
+
+Four tools expose 14 existing CLI operations: reads, transport, track switches
+and mixer values. Three fixed state resources and one track resource template
+reuse CLI reads. The adapter preserves requested/observed values, `verified`,
+observation freshness and the execution contract. Missing daemon capabilities
+still reject protected operations before delivery; uncertain failures do not
+trigger retries or fallback through another backend.
+
+Offline validation passed 20 new Swift tests and five real MCP → CLI → fake-daemon
+wire tests, including an interactive handshake before stdin closes. All 193
+existing Swift tests passed. An interactive check caught Foundation pipe reads
+waiting for a full buffer; the executable now uses a bounded single POSIX read.
+These tests validate the adapter and contract preservation, not a new live Logic
+feature or a full client-application interoperability trial.
+
+| Comparison at this adoption milestone | Reviewed logic-pro-mcp | logicctl |
+|---|---|---|
+| MCP interface | Existing Swift SDK server, eight dispatcher groups, seven resource surfaces | New four-group stdio adapter, three resources plus a track template; narrower scope |
+| Operation breadth | Includes note/CC sends, key commands, GUI/OSC/AppleScript routes; implementation and verification vary | Existing transport/track/mixer commands exposed; research MIDI/region operations not yet public tools |
+| Effect reporting | Inspected channels range from explicit unverified delivery to requested-value echoes | CLI readback, target/session guards, execution uncertainty retained at the MCP boundary |
+| Current controller/internal research | No inspected proof of learned-MIDI → current numeric internal dispatch | Current assignment and key-command observations plus bounded function/getter links; dispatcher rebinding remains pending |
+
+The reviewed upstream is ahead in interface breadth and existing MCP product
+surface. Our current strength is a narrower operation contract with explicit
+readback and research evidence. This comparison does not rank measured latency,
+all GUI features or arbitrary plug-in access, which were not tested here.
