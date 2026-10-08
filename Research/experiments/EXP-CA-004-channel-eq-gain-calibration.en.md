@@ -35,7 +35,7 @@
 
 - O1: the 7 points of #2–#8 matched the prediction (the display has 0.1 dB steps). For #7 and #8 the prediction was written from the formula before sending.
 - O2: **exactly −6.0 dB cannot be produced by one 7-bit CC.** The step is about 0.378 dB; the nearest are 48 (−5.9 dB) and 47 (−6.2 dB).
-- O3: #1, 64, was ignored (the display stayed 0.0 dB). The last value previously sent to this target was 64 and the target's value is 0.0 dB (63.5 in CC terms). The next 127 was applied (64 → 127 crosses 63.5). This agrees with the conclusion of [EXP-CA-003](EXP-CA-003-value-mode-pickup-ab.en.md) that Pickup synchronizes by crossing.
+- O3: #1, 64, was ignored (the display stayed 0.0 dB). The last value previously sent to this assignment was also 64 and the target's value is 0.0 dB (63.5 in CC terms). The next 127 was applied. **The reason for the ignore is undetermined:** (a) Pickup (64 does not equal the target's 63.5, and 64 → 127 does not cross 63.5 because both are above it, so "crossing" does not explain it), or (b) Logic discarded a repeat of the same value as no change. Either explains it; the two were not separated. The earlier wording "64 → 127 crosses 63.5" was arithmetically wrong and is withdrawn.
 - O4 (verification stages): (1) MIDI sent: 8 messages in `probe8.log` (confirmed). (2) Assignment in Logic: row CC 23 confirmed on screen (not re-read this time). (3) Value after the change: confirmed **by the screen display only** (not as an accessibility value).
 - Raw data (not in Git): `Research/raw/midi-learn/probe8.log`. Screen readings are in the conversation record with operation times.
 
