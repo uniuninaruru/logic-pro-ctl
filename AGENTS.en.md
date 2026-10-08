@@ -28,6 +28,11 @@ history; these are the ones that bite.
   Guide or Control Surfaces Support Guide. Record the page URL, applicable guide
   version and prerequisites; distinguish documented behavior, live observations
   and reverse-engineering hypotheses. Verify installed-version differences.
+- Current focus (2026-10-08): generic MIDI controller parameter and key-command
+  assignments. Connect observed effects to the existing Assign, MCU, Remote,
+  command, target and region evidence; use the bounded map in
+  `Research/static-analysis/SA-MIDI-ROUTE-001.en.md`. Retain GUI-led discovery for
+  Apple Loops, Session Players and Pattern Regions as follow-on work.
 - Pick a visible operation; record target, conditions and before/after changes,
   then map it to command IDs, actions, selectors and functions. Decompile only
   functions relevant to that operation.

@@ -2,7 +2,10 @@
 
 [日本語](agent-ready-roadmap.md) · [English](agent-ready-roadmap.en.md) · [調査ガイド](../README.md) · [作業一覧](agent-ready-backlog.tsv)
 
-**最優先は、Logic Remoteの接続・状態取得、共通コマンドの辞書化、その先のミキサー・プラグイン・編集モデルです。**
+**現在の優先順位（2026-10-08）は、汎用MIDIコントローラーのパラメーター・キーコマンド割り当てです。**
+[SA-MIDI-ROUTE-001](../static-analysis/SA-MIDI-ROUTE-001.en.md)を使い、現行版のGUI・実機結果をAssign・MCU・Remote・コマンド・対象・リージョンの根拠へつなぎます。Claudeは実機観測とキーコマンド調査、Codexは対応する現行版の関数追跡を担当します。可変CCによるパン・音量・Channel EQの結果は[EXP-CA-002](../experiments/EXP-CA-002-variable-cc-and-pickup.md)に記録済みで、受信処理・正確な値変換・対象解決が次の静的解析対象です。以下の当初の作業順よりもこの方針を優先し、既存の作業一覧と完成条件は保持します。
+
+計画作成時の優先順位は、Logic Remoteの接続・状態取得、共通コマンドの辞書化、その先のミキサー・プラグイン・編集モデルでした。
 Ghidra解析と、エージェントが安心して使えるAPIの整備を並行して進めます。
 
 | この計画の基準 | 内容 |

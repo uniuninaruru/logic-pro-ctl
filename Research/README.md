@@ -6,6 +6,10 @@
 **静的解析で見つけた処理**と、**専用プロジェクトで実際に動いた操作**を区別して記録します。
 各記録の冒頭から英語版にも移動できます。
 
+**現在の重点（2026-10-08）はMIDIコントローラーの割り当てです。**
+[既存解析との接続図と現行版の関数照合](static-analysis/SA-MIDI-ROUTE-001.en.md)に、MCU・Remote・キーコマンド・AppleEvent・リージョンとの関係をまとめました。
+[固定メッセージのパン操作](experiments/EXP-CA-001-generic-cc-fixed-message.md)に加え、[可変CCによるパン・音量・Channel EQの実機結果](experiments/EXP-CA-002-variable-cc-and-pickup.md)を起点にします。数値変換・対象の結び付け・読み戻しを対応付けることが次の作業です。
+
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。
 [22件の作業一覧](plans/agent-ready-backlog.tsv)には依存関係と合格条件もあります。

@@ -2,7 +2,10 @@
 
 [日本語](agent-ready-roadmap.md) · [English](agent-ready-roadmap.en.md) · [Research guide](../README.md) · [Backlog](agent-ready-backlog.tsv)
 
-**The priorities are Logic Remote connectivity and state retrieval, a shared command catalog, and then the mixer, plug-in, and editing models.**
+**Current priority override (2026-10-08): generic MIDI controller parameter and key-command assignments.**
+Use [SA-MIDI-ROUTE-001](../static-analysis/SA-MIDI-ROUTE-001.en.md) to connect current GUI/live effects to Assign, MCU, Remote, command, target and region evidence. Claude leads live observations and key-command discovery; Codex follows the corresponding current-version functions. Variable CC pan/volume/Channel EQ effects are recorded in [EXP-CA-002](../experiments/EXP-CA-002-variable-cc-and-pickup.en.md); input consumption, exact conversion and target resolution remain static targets. This overrides the original work order below, while retaining its backlog and completion criteria.
+
+Original priorities when this plan was created: Logic Remote connectivity and state retrieval, a shared command catalog, and then the mixer, plug-in, and editing models.
 We will pursue Ghidra analysis alongside APIs that agents can use reliably.
 
 | Baseline for this plan | Details |

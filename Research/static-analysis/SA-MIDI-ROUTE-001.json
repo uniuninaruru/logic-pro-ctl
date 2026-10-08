@@ -1,0 +1,2065 @@
+{
+  "schema_version": 1,
+  "record_id": "SA-MIDI-ROUTE-001",
+  "recorded_utc": "2026-10-08T02:08:35.842910+00:00",
+  "summary_ja": "汎用MIDI割り当てを主軸に既存解析を接続。現行版の6 getterと可変CCによるパン・音量・EQの観測を対応付け、未追跡の受信・値変換・対象・実行を明示する。",
+  "scope": {
+    "static": "Copied binaries, selected ObjC metadata/getter/stub bytes only",
+    "live": "Reuse recorded Claude CA001/CA002 and MIDI033; no new live action in this record",
+    "product_capability_added": false
+  },
+  "profiles": [
+    {
+      "version": "12.3.1",
+      "build": "6682",
+      "binary_sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+      "binary_bytes": 40710736,
+      "classlist_slot": "0x241e298",
+      "class_address": "0x25af7e0",
+      "class_ro_address": "0x2465b48",
+      "class_name": "WrappedAssign",
+      "method_list_address": "0x1c60910",
+      "method_list_flags": "0x8000000c",
+      "method_count": 124,
+      "class_pointer": {
+        "address": "0x241e298",
+        "raw_word": "0x100000025af7e0",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x25af7e0",
+        "high8": 0
+      },
+      "data_pointer": {
+        "address": "0x25af800",
+        "raw_word": "0x10000002465b48",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x2465b48",
+        "high8": 0
+      },
+      "name_pointer": {
+        "address": "0x2465b60",
+        "raw_word": "0x10000001fb1e78",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1fb1e78",
+        "high8": 0
+      },
+      "methods_pointer": {
+        "address": "0x2465b68",
+        "raw_word": "0x10000001c60910",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1c60910",
+        "high8": 0
+      },
+      "getter_base_call": {
+        "stub": "0x1b0c500",
+        "stub_bytes": 20,
+        "stub_hex": "c1510090217c46f9f03b00f0103642f900021fd6",
+        "stub_sha256": "185edc085c37700181448e0a2d306e83eb98d53bf48136333badf344ae4f8455",
+        "selector": "assign",
+        "selector_pointer": {
+          "address": "0x2544cf8",
+          "raw_word": "0x10000001ebc8a8",
+          "format": 6,
+          "chain_membership": true,
+          "kind": "rebase",
+          "target": "0x1ebc8a8",
+          "high8": 0
+        },
+        "dispatch_import": {
+          "address": "0x228b468",
+          "raw_word": "0x80100000000015b7",
+          "format": 6,
+          "chain_membership": true,
+          "kind": "bind",
+          "name": "_objc_msgSend",
+          "ordinal": 93,
+          "library": "/usr/lib/libobjc.A.dylib",
+          "weak": false,
+          "addend": 0
+        },
+        "runtime_receiver_dispatch_verified": false
+      }
+    },
+    {
+      "version": "12.4",
+      "build": "6707",
+      "binary_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+      "binary_bytes": 40761248,
+      "classlist_slot": "0x242a3e8",
+      "class_address": "0x25bba18",
+      "class_ro_address": "0x2471c10",
+      "class_name": "WrappedAssign",
+      "method_list_address": "0x1c69150",
+      "method_list_flags": "0x8000000c",
+      "method_count": 124,
+      "class_pointer": {
+        "address": "0x242a3e8",
+        "raw_word": "0x100000025bba18",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x25bba18",
+        "high8": 0
+      },
+      "data_pointer": {
+        "address": "0x25bba38",
+        "raw_word": "0x10000002471c10",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x2471c10",
+        "high8": 0
+      },
+      "name_pointer": {
+        "address": "0x2471c28",
+        "raw_word": "0x10000001fbac35",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1fbac35",
+        "high8": 0
+      },
+      "methods_pointer": {
+        "address": "0x2471c30",
+        "raw_word": "0x10000001c69150",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1c69150",
+        "high8": 0
+      },
+      "getter_base_call": {
+        "stub": "0x1b14bc0",
+        "stub_bytes": 20,
+        "stub_hex": "e1510090210c47f9103c00f0106642f900021fd6",
+        "stub_sha256": "f05c2d144b815f4e7dcc36e1a45a2594bd9ecdd3fb681f9a0b3bd0d9c7933ece",
+        "selector": "assign",
+        "selector_pointer": {
+          "address": "0x2550e18",
+          "raw_word": "0x10000001ec548b",
+          "format": 6,
+          "chain_membership": true,
+          "kind": "rebase",
+          "target": "0x1ec548b",
+          "high8": 0
+        },
+        "dispatch_import": {
+          "address": "0x22974c8",
+          "raw_word": "0x80100000000015c2",
+          "format": 6,
+          "chain_membership": true,
+          "kind": "bind",
+          "name": "_objc_msgSend",
+          "ordinal": 93,
+          "library": "/usr/lib/libobjc.A.dylib",
+          "weak": false,
+          "addend": 0
+        },
+        "runtime_receiver_dispatch_verified": false
+      }
+    }
+  ],
+  "getters": [
+    {
+      "selector": "assignmentClass",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "assignmentClass",
+        "field_offset": "0x3a",
+        "expression": "32-bit word at returned Assign+0x3a; current numeric class meanings not established"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "assignmentClass",
+          "metadata": {
+            "entry": "0x1c60b88",
+            "selector": "assignmentClass",
+            "types": "I16@0:8",
+            "imp": "0x697d24",
+            "relative_imp_base": "0x1c60b90"
+          },
+          "method_entry_hex": "b0418e00944636009471a3fe",
+          "selector_pointer": {
+            "address": "0x2544d38",
+            "raw_word": "0x10000001e76624",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1e76624",
+            "high8": 0
+          },
+          "entry": "0x697d24",
+          "exclusive_next_start": "0x697d3c",
+          "interval_bytes": 24,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "86f7691b52d2245f13173d2f2b0606354bd5a1002ba390a22eb497e94a42accd",
+          "body_hex": "fd7bbfa9fd030091f5d1519400a043b8fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x697d24",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x697d28",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x697d2c",
+              "raw_hex": "f5d15194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x697d30",
+              "raw_hex": "00a043b8",
+              "text": "ldur w0, [x0, #0x3a]"
+            },
+            {
+              "address": "0x697d34",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x697d38",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "assignmentClass",
+          "metadata": {
+            "entry": "0x1c693c8",
+            "selector": "assignmentClass",
+            "types": "I16@0:8",
+            "imp": "0x69a1a4",
+            "relative_imp_base": "0x1c693d0"
+          },
+          "method_entry_hex": "907a8e00544c3600d40da3fe",
+          "selector_pointer": {
+            "address": "0x2550e58",
+            "raw_word": "0x10000001e7f199",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1e7f199",
+            "high8": 0
+          },
+          "entry": "0x69a1a4",
+          "exclusive_next_start": "0x69a1bc",
+          "interval_bytes": 24,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "bcad8ced235d2be6474c13605727536b5b7d1ebb717a4cc09f9dcc59a0d40f9b",
+          "body_hex": "fd7bbfa9fd03009185ea519400a043b8fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69a1a4",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x69a1a8",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69a1ac",
+              "raw_hex": "85ea5194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x69a1b0",
+              "raw_hex": "00a043b8",
+              "text": "ldur w0, [x0, #0x3a]"
+            },
+            {
+              "address": "0x69a1b4",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a1b8",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "assignmentClass",
+        "old_entry": "0x697d24",
+        "current_entry": "0x69a1a4",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 5
+      }
+    },
+    {
+      "selector": "befehl",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "befehl",
+        "field_offset": "0x3e",
+        "expression": "signed16 at returned Assign+0x3e; command dispatch not established"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "befehl",
+          "metadata": {
+            "entry": "0x1c60a38",
+            "selector": "befehl",
+            "types": "s16@0:8",
+            "imp": "0x6970f8",
+            "relative_imp_base": "0x1c60a40"
+          },
+          "method_entry_hex": "f04d8e00f7473600b866a3fe",
+          "selector_pointer": {
+            "address": "0x2545828",
+            "raw_word": "0x10000001ec0db4",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1ec0db4",
+            "high8": 0
+          },
+          "entry": "0x6970f8",
+          "exclusive_next_start": "0x697110",
+          "interval_bytes": 24,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "3aaf4f52ffdb42cbadde080bcaa3b1dd05546b79d344f107753273d3fff7897f",
+          "body_hex": "fd7bbfa9fd03009100d55194007cc079fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x6970f8",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x6970fc",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x697100",
+              "raw_hex": "00d55194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x697104",
+              "raw_hex": "007cc079",
+              "text": "ldrsh w0, [x0, #0x3e]"
+            },
+            {
+              "address": "0x697108",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69710c",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "befehl",
+          "metadata": {
+            "entry": "0x1c69278",
+            "selector": "befehl",
+            "types": "s16@0:8",
+            "imp": "0x699554",
+            "relative_imp_base": "0x1c69280"
+          },
+          "method_entry_hex": "d0868e00b74d3600d402a3fe",
+          "selector_pointer": {
+            "address": "0x2551948",
+            "raw_word": "0x10000001ec9997",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1ec9997",
+            "high8": 0
+          },
+          "entry": "0x699554",
+          "exclusive_next_start": "0x69956c",
+          "interval_bytes": 24,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "5420fa8c19f2d00ec4d3ab3f48a384a7fea401b6350a44dd7098853f31ea8f98",
+          "body_hex": "fd7bbfa9fd03009199ed5194007cc079fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x699554",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x699558",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69955c",
+              "raw_hex": "99ed5194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x699560",
+              "raw_hex": "007cc079",
+              "text": "ldrsh w0, [x0, #0x3e]"
+            },
+            {
+              "address": "0x699564",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x699568",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "befehl",
+        "old_entry": "0x6970f8",
+        "current_entry": "0x699554",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 5
+      }
+    },
+    {
+      "selector": "valueMode",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "valueMode",
+        "field_offset": "0x4b",
+        "expression": "u8 at returned Assign+0x4b & 7; numeric mode enum meanings not established"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "valueMode",
+          "metadata": {
+            "entry": "0x1c60c30",
+            "selector": "valueMode",
+            "types": "C16@0:8",
+            "imp": "0x698180",
+            "relative_imp_base": "0x1c60c38"
+          },
+          "method_entry_hex": "90379100dd3636004875a3fe",
+          "selector_pointer": {
+            "address": "0x25743c0",
+            "raw_word": "0x10000001f93645",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f93645",
+            "high8": 0
+          },
+          "entry": "0x698180",
+          "exclusive_next_start": "0x69819c",
+          "interval_bytes": 28,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "2f865fdb7f34c3638fbf1efe8e87af281bfd116272a2df9395cebc94e3fb994a",
+          "body_hex": "fd7bbfa9fd030091ded05194082c413900090012fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x698180",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x698184",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x698188",
+              "raw_hex": "ded05194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x69818c",
+              "raw_hex": "082c4139",
+              "text": "ldrb w8, [x0, #0x4b]"
+            },
+            {
+              "address": "0x698190",
+              "raw_hex": "00090012",
+              "text": "and w0, w8, #0x7"
+            },
+            {
+              "address": "0x698194",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x698198",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "valueMode",
+          "metadata": {
+            "entry": "0x1c69470",
+            "selector": "valueMode",
+            "types": "C16@0:8",
+            "imp": "0x69a600",
+            "relative_imp_base": "0x1c69478"
+          },
+          "method_entry_hex": "b0709100863c36008811a3fe",
+          "selector_pointer": {
+            "address": "0x2580520",
+            "raw_word": "0x10000001f9c315",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f9c315",
+            "high8": 0
+          },
+          "entry": "0x69a600",
+          "exclusive_next_start": "0x69a61c",
+          "interval_bytes": 28,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "8417f27e4dcdbd69930f91482e079edb4e00684a005492f39d32b8e72f106052",
+          "body_hex": "fd7bbfa9fd0300916ee95194082c413900090012fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69a600",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x69a604",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69a608",
+              "raw_hex": "6ee95194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x69a60c",
+              "raw_hex": "082c4139",
+              "text": "ldrb w8, [x0, #0x4b]"
+            },
+            {
+              "address": "0x69a610",
+              "raw_hex": "00090012",
+              "text": "and w0, w8, #0x7"
+            },
+            {
+              "address": "0x69a614",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a618",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "valueMode",
+        "old_entry": "0x698180",
+        "current_entry": "0x69a600",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 6
+      }
+    },
+    {
+      "selector": "multiply",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "multiply",
+        "field_offset": "0x4c",
+        "expression": "signed16 at returned Assign+0x4c, convert to double, multiply by 0.01, return float"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "multiply",
+          "metadata": {
+            "entry": "0x1c60c48",
+            "selector": "multiply",
+            "types": "f16@0:8",
+            "imp": "0x698270",
+            "relative_imp_base": "0x1c60c50"
+          },
+          "method_entry_hex": "909b8f00253736002076a3fe",
+          "selector_pointer": {
+            "address": "0x255a7d8",
+            "raw_word": "0x10000001f2bc63",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f2bc63",
+            "high8": 0
+          },
+          "entry": "0x698270",
+          "exclusive_next_start": "0x6982b0",
+          "interval_bytes": 64,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "ab9ab65d3cdbaafb7a5a0e132865167dbc4a487fc9891a56a877e5bcf1cced20",
+          "body_hex": "fd7bbfa9fd030091a2d051940098407d00a4100f00a4200f00d8615e688f82d2c8f5a8f2285ccff288f0e7f20101679e0008611e0040621efd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x698270",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x698274",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x698278",
+              "raw_hex": "a2d05194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x69827c",
+              "raw_hex": "0098407d",
+              "text": "ldr h0, [x0, #0x4c]"
+            },
+            {
+              "address": "0x698280",
+              "raw_hex": "00a4100f",
+              "text": "sshll.4s v0, v0, #0x0"
+            },
+            {
+              "address": "0x698284",
+              "raw_hex": "00a4200f",
+              "text": "sshll.2d v0, v0, #0x0"
+            },
+            {
+              "address": "0x698288",
+              "raw_hex": "00d8615e",
+              "text": "scvtf d0, d0"
+            },
+            {
+              "address": "0x69828c",
+              "raw_hex": "688f82d2",
+              "text": "mov x8, #0x147b"
+            },
+            {
+              "address": "0x698290",
+              "raw_hex": "c8f5a8f2",
+              "text": "movk x8, #0x47ae, lsl #16"
+            },
+            {
+              "address": "0x698294",
+              "raw_hex": "285ccff2",
+              "text": "movk x8, #0x7ae1, lsl #32"
+            },
+            {
+              "address": "0x698298",
+              "raw_hex": "88f0e7f2",
+              "text": "movk x8, #0x3f84, lsl #48"
+            },
+            {
+              "address": "0x69829c",
+              "raw_hex": "0101679e",
+              "text": "fmov d1, x8"
+            },
+            {
+              "address": "0x6982a0",
+              "raw_hex": "0008611e",
+              "text": "fmul d0, d0, d1"
+            },
+            {
+              "address": "0x6982a4",
+              "raw_hex": "0040621e",
+              "text": "fcvt s0, d0"
+            },
+            {
+              "address": "0x6982a8",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x6982ac",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "multiply",
+          "metadata": {
+            "entry": "0x1c69488",
+            "selector": "multiply",
+            "types": "f16@0:8",
+            "imp": "0x69a6f0",
+            "relative_imp_base": "0x1c69490"
+          },
+          "method_entry_hex": "90d48f00ce3c36006012a3fe",
+          "selector_pointer": {
+            "address": "0x2566918",
+            "raw_word": "0x10000001f348c7",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f348c7",
+            "high8": 0
+          },
+          "entry": "0x69a6f0",
+          "exclusive_next_start": "0x69a730",
+          "interval_bytes": 64,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "bb0f8b2d056aa6e21450729ea162ea6acc9077266f11660bd511a810a6f65b4c",
+          "body_hex": "fd7bbfa9fd03009132e951940098407d00a4100f00a4200f00d8615e688f82d2c8f5a8f2285ccff288f0e7f20101679e0008611e0040621efd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69a6f0",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x69a6f4",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69a6f8",
+              "raw_hex": "32e95194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x69a6fc",
+              "raw_hex": "0098407d",
+              "text": "ldr h0, [x0, #0x4c]"
+            },
+            {
+              "address": "0x69a700",
+              "raw_hex": "00a4100f",
+              "text": "sshll.4s v0, v0, #0x0"
+            },
+            {
+              "address": "0x69a704",
+              "raw_hex": "00a4200f",
+              "text": "sshll.2d v0, v0, #0x0"
+            },
+            {
+              "address": "0x69a708",
+              "raw_hex": "00d8615e",
+              "text": "scvtf d0, d0"
+            },
+            {
+              "address": "0x69a70c",
+              "raw_hex": "688f82d2",
+              "text": "mov x8, #0x147b"
+            },
+            {
+              "address": "0x69a710",
+              "raw_hex": "c8f5a8f2",
+              "text": "movk x8, #0x47ae, lsl #16"
+            },
+            {
+              "address": "0x69a714",
+              "raw_hex": "285ccff2",
+              "text": "movk x8, #0x7ae1, lsl #32"
+            },
+            {
+              "address": "0x69a718",
+              "raw_hex": "88f0e7f2",
+              "text": "movk x8, #0x3f84, lsl #48"
+            },
+            {
+              "address": "0x69a71c",
+              "raw_hex": "0101679e",
+              "text": "fmov d1, x8"
+            },
+            {
+              "address": "0x69a720",
+              "raw_hex": "0008611e",
+              "text": "fmul d0, d0, d1"
+            },
+            {
+              "address": "0x69a724",
+              "raw_hex": "0040621e",
+              "text": "fcvt s0, d0"
+            },
+            {
+              "address": "0x69a728",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a72c",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "multiply",
+        "old_entry": "0x698270",
+        "current_entry": "0x69a6f0",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 15
+      }
+    },
+    {
+      "selector": "valueChangeHasLo7",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "valueChangeHasLo7",
+        "field_offsets": [
+          "0x80",
+          "0x88"
+        ],
+        "expression": "scan stored byte span for internal marker0xF5; not a wire MIDI status or proof of input matching"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "valueChangeHasLo7",
+          "metadata": {
+            "entry": "0x1c60be8",
+            "selector": "valueChangeHasLo7",
+            "types": "B16@0:8",
+            "imp": "0x697fe0",
+            "relative_imp_base": "0x1c60bf0"
+          },
+          "method_entry_hex": "b89d91005b2a3600f073a3fe",
+          "selector_pointer": {
+            "address": "0x257a9a0",
+            "raw_word": "0x10000001f934ce",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f934ce",
+            "high8": 0
+          },
+          "entry": "0x697fe0",
+          "exclusive_next_start": "0x69802c",
+          "interval_bytes": 76,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "a419253e7f5acf06c71473ac77f7ce903724d34aee3d231d6fd60f52b6f1aea1",
+          "body_hex": "fd7bbfa9fd03009146d15194092048a93f0108eb243940fa8100005400008052fd7bc1a8c0035fd6290500912af15f385fd50371e0179f1a241148fa2905009161ffff54fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x697fe0",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x697fe4",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x697fe8",
+              "raw_hex": "46d15194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x697fec",
+              "raw_hex": "092048a9",
+              "text": "ldp x9, x8, [x0, #0x80]"
+            },
+            {
+              "address": "0x697ff0",
+              "raw_hex": "3f0108eb",
+              "text": "cmp x9, x8"
+            },
+            {
+              "address": "0x697ff4",
+              "raw_hex": "243940fa",
+              "text": "ccmp x9, #0x0, #0x4, lo"
+            },
+            {
+              "address": "0x697ff8",
+              "raw_hex": "81000054",
+              "text": "b.ne 0x698008"
+            },
+            {
+              "address": "0x697ffc",
+              "raw_hex": "00008052",
+              "text": "mov w0, #0x0"
+            },
+            {
+              "address": "0x698000",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x698004",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            },
+            {
+              "address": "0x698008",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69800c",
+              "raw_hex": "2af15f38",
+              "text": "ldurb w10, [x9, #-0x1]"
+            },
+            {
+              "address": "0x698010",
+              "raw_hex": "5fd50371",
+              "text": "cmp w10, #0xf5"
+            },
+            {
+              "address": "0x698014",
+              "raw_hex": "e0179f1a",
+              "text": "cset w0, eq"
+            },
+            {
+              "address": "0x698018",
+              "raw_hex": "241148fa",
+              "text": "ccmp x9, x8, #0x4, ne"
+            },
+            {
+              "address": "0x69801c",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x698020",
+              "raw_hex": "61ffff54",
+              "text": "b.ne 0x69800c"
+            },
+            {
+              "address": "0x698024",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x698028",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "valueChangeHasLo7",
+          "metadata": {
+            "entry": "0x1c69428",
+            "selector": "valueChangeHasLo7",
+            "types": "B16@0:8",
+            "imp": "0x69a460",
+            "relative_imp_base": "0x1c69430"
+          },
+          "method_entry_hex": "d8d69100d82f36003010a3fe",
+          "selector_pointer": {
+            "address": "0x2586b00",
+            "raw_word": "0x10000001f9c19e",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f9c19e",
+            "high8": 0
+          },
+          "entry": "0x69a460",
+          "exclusive_next_start": "0x69a4ac",
+          "interval_bytes": 76,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "d90f047235014696fae09163278f7107225bfa86fd10d3fbeee806244a67f048",
+          "body_hex": "fd7bbfa9fd030091d6e95194092048a93f0108eb243940fa8100005400008052fd7bc1a8c0035fd6290500912af15f385fd50371e0179f1a241148fa2905009161ffff54fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69a460",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x69a464",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69a468",
+              "raw_hex": "d6e95194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x69a46c",
+              "raw_hex": "092048a9",
+              "text": "ldp x9, x8, [x0, #0x80]"
+            },
+            {
+              "address": "0x69a470",
+              "raw_hex": "3f0108eb",
+              "text": "cmp x9, x8"
+            },
+            {
+              "address": "0x69a474",
+              "raw_hex": "243940fa",
+              "text": "ccmp x9, #0x0, #0x4, lo"
+            },
+            {
+              "address": "0x69a478",
+              "raw_hex": "81000054",
+              "text": "b.ne 0x69a488"
+            },
+            {
+              "address": "0x69a47c",
+              "raw_hex": "00008052",
+              "text": "mov w0, #0x0"
+            },
+            {
+              "address": "0x69a480",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a484",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            },
+            {
+              "address": "0x69a488",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69a48c",
+              "raw_hex": "2af15f38",
+              "text": "ldurb w10, [x9, #-0x1]"
+            },
+            {
+              "address": "0x69a490",
+              "raw_hex": "5fd50371",
+              "text": "cmp w10, #0xf5"
+            },
+            {
+              "address": "0x69a494",
+              "raw_hex": "e0179f1a",
+              "text": "cset w0, eq"
+            },
+            {
+              "address": "0x69a498",
+              "raw_hex": "241148fa",
+              "text": "ccmp x9, x8, #0x4, ne"
+            },
+            {
+              "address": "0x69a49c",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69a4a0",
+              "raw_hex": "61ffff54",
+              "text": "b.ne 0x69a48c"
+            },
+            {
+              "address": "0x69a4a4",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a4a8",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "valueChangeHasLo7",
+        "old_entry": "0x697fe0",
+        "current_entry": "0x69a460",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 18
+      }
+    },
+    {
+      "selector": "valueChangeHasHi7",
+      "evidence": "static_bytes_and_metadata",
+      "semantics": {
+        "selector": "valueChangeHasHi7",
+        "field_offsets": [
+          "0x80",
+          "0x88"
+        ],
+        "expression": "scan stored byte span for internal marker0xF4; not a wire MIDI status or proof of input matching"
+      },
+      "runtime_consumer_verified": false,
+      "implementations": [
+        {
+          "profile": "12.3.1/6682",
+          "selector": "valueChangeHasHi7",
+          "metadata": {
+            "entry": "0x1c60bf4",
+            "selector": "valueChangeHasHi7",
+            "types": "B16@0:8",
+            "imp": "0x69802c",
+            "relative_imp_base": "0x1c60bfc"
+          },
+          "method_entry_hex": "343791004f2a36003074a3fe",
+          "selector_pointer": {
+            "address": "0x2574328",
+            "raw_word": "0x10000001f934bc",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f934bc",
+            "high8": 0
+          },
+          "entry": "0x69802c",
+          "exclusive_next_start": "0x698078",
+          "interval_bytes": 76,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "5ffd85c910f9d1eb39c3b8a2df840541a1de7a48bd35372e586fc0d100435693",
+          "body_hex": "fd7bbfa9fd03009133d15194092048a93f0108eb243940fa8100005400008052fd7bc1a8c0035fd6290500912af15f385fd10371e0179f1a241148fa2905009161ffff54fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69802c",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x698030",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x698034",
+              "raw_hex": "33d15194",
+              "text": "bl 0x1b0c500"
+            },
+            {
+              "address": "0x698038",
+              "raw_hex": "092048a9",
+              "text": "ldp x9, x8, [x0, #0x80]"
+            },
+            {
+              "address": "0x69803c",
+              "raw_hex": "3f0108eb",
+              "text": "cmp x9, x8"
+            },
+            {
+              "address": "0x698040",
+              "raw_hex": "243940fa",
+              "text": "ccmp x9, #0x0, #0x4, lo"
+            },
+            {
+              "address": "0x698044",
+              "raw_hex": "81000054",
+              "text": "b.ne 0x698054"
+            },
+            {
+              "address": "0x698048",
+              "raw_hex": "00008052",
+              "text": "mov w0, #0x0"
+            },
+            {
+              "address": "0x69804c",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x698050",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            },
+            {
+              "address": "0x698054",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x698058",
+              "raw_hex": "2af15f38",
+              "text": "ldurb w10, [x9, #-0x1]"
+            },
+            {
+              "address": "0x69805c",
+              "raw_hex": "5fd10371",
+              "text": "cmp w10, #0xf4"
+            },
+            {
+              "address": "0x698060",
+              "raw_hex": "e0179f1a",
+              "text": "cset w0, eq"
+            },
+            {
+              "address": "0x698064",
+              "raw_hex": "241148fa",
+              "text": "ccmp x9, x8, #0x4, ne"
+            },
+            {
+              "address": "0x698068",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69806c",
+              "raw_hex": "61ffff54",
+              "text": "b.ne 0x698058"
+            },
+            {
+              "address": "0x698070",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x698074",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        },
+        {
+          "profile": "12.4/6707",
+          "selector": "valueChangeHasHi7",
+          "metadata": {
+            "entry": "0x1c69434",
+            "selector": "valueChangeHasHi7",
+            "types": "B16@0:8",
+            "imp": "0x69a4ac",
+            "relative_imp_base": "0x1c6943c"
+          },
+          "method_entry_hex": "54709100cc2f36007010a3fe",
+          "selector_pointer": {
+            "address": "0x2580488",
+            "raw_word": "0x10000001f9c18c",
+            "format": 6,
+            "chain_membership": true,
+            "kind": "rebase",
+            "target": "0x1f9c18c",
+            "high8": 0
+          },
+          "entry": "0x69a4ac",
+          "exclusive_next_start": "0x69a4f8",
+          "interval_bytes": 76,
+          "boundary_scope": "LC_FUNCTION_STARTS interval, not full CFG proof",
+          "body_sha256": "48d4483264184ad5c370c1bf26cbb693a6d2d5fd92a2874e895f1c8c2bee3a76",
+          "body_hex": "fd7bbfa9fd030091c3e95194092048a93f0108eb243940fa8100005400008052fd7bc1a8c0035fd6290500912af15f385fd10371e0179f1a241148fa2905009161ffff54fd7bc1a8c0035fd6",
+          "instructions": [
+            {
+              "address": "0x69a4ac",
+              "raw_hex": "fd7bbfa9",
+              "text": "stp x29, x30, [sp, #-0x10]!"
+            },
+            {
+              "address": "0x69a4b0",
+              "raw_hex": "fd030091",
+              "text": "mov x29, sp"
+            },
+            {
+              "address": "0x69a4b4",
+              "raw_hex": "c3e95194",
+              "text": "bl 0x1b14bc0"
+            },
+            {
+              "address": "0x69a4b8",
+              "raw_hex": "092048a9",
+              "text": "ldp x9, x8, [x0, #0x80]"
+            },
+            {
+              "address": "0x69a4bc",
+              "raw_hex": "3f0108eb",
+              "text": "cmp x9, x8"
+            },
+            {
+              "address": "0x69a4c0",
+              "raw_hex": "243940fa",
+              "text": "ccmp x9, #0x0, #0x4, lo"
+            },
+            {
+              "address": "0x69a4c4",
+              "raw_hex": "81000054",
+              "text": "b.ne 0x69a4d4"
+            },
+            {
+              "address": "0x69a4c8",
+              "raw_hex": "00008052",
+              "text": "mov w0, #0x0"
+            },
+            {
+              "address": "0x69a4cc",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a4d0",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            },
+            {
+              "address": "0x69a4d4",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69a4d8",
+              "raw_hex": "2af15f38",
+              "text": "ldurb w10, [x9, #-0x1]"
+            },
+            {
+              "address": "0x69a4dc",
+              "raw_hex": "5fd10371",
+              "text": "cmp w10, #0xf4"
+            },
+            {
+              "address": "0x69a4e0",
+              "raw_hex": "e0179f1a",
+              "text": "cset w0, eq"
+            },
+            {
+              "address": "0x69a4e4",
+              "raw_hex": "241148fa",
+              "text": "ccmp x9, x8, #0x4, ne"
+            },
+            {
+              "address": "0x69a4e8",
+              "raw_hex": "29050091",
+              "text": "add x9, x9, #0x1"
+            },
+            {
+              "address": "0x69a4ec",
+              "raw_hex": "61ffff54",
+              "text": "b.ne 0x69a4d8"
+            },
+            {
+              "address": "0x69a4f0",
+              "raw_hex": "fd7bc1a8",
+              "text": "ldp x29, x30, [sp], #0x10"
+            },
+            {
+              "address": "0x69a4f4",
+              "raw_hex": "c0035fd6",
+              "text": "ret"
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "selector": "valueChangeHasHi7",
+        "old_entry": "0x69802c",
+        "current_entry": "0x69a4ac",
+        "all_non_BL_words_equal": true,
+        "non_BL_word_count": 18
+      }
+    }
+  ],
+  "verification": {
+    "getter_bytes": 584,
+    "stub_bytes": 40,
+    "total_bytes": 624,
+    "instruction_words": 156,
+    "binary_hashes_checked_before_and_after": true,
+    "full_cfg_verified": false,
+    "runtime_receiver_dispatch_verified": false,
+    "matching_executor_verified": false,
+    "sources": [
+      "getter_proof",
+      "getter_reproducer"
+    ]
+  },
+  "route_mappings": [
+    {
+      "id": "R1",
+      "route": "Generic MIDI parameter assignment",
+      "evidence_scope": "current live effect; current getter storage proof; consumer untraced",
+      "sources": [
+        "fixed_cc",
+        "variable_cc",
+        "getter_proof",
+        "assign_model"
+      ],
+      "missing_edges": [
+        "input matcher and decoder",
+        "actual value mode and Multiply",
+        "parameter executor and exact units",
+        "target lifetime",
+        "feedback mechanism"
+      ]
+    },
+    {
+      "id": "R2",
+      "route": "Generic MIDI key-command assignment",
+      "evidence_scope": "historical kind9/command representation; current live execution pending",
+      "sources": [
+        "assign_model",
+        "command_boundary",
+        "command_catalog"
+      ],
+      "missing_edges": [
+        "current named MIDI assignment/action",
+        "current command-handler binding",
+        "focus/selection preconditions"
+      ]
+    },
+    {
+      "id": "R3",
+      "route": "Logic Remote key-command/actionNum",
+      "evidence_scope": "historical static shared command dispatch",
+      "sources": [
+        "remote_command",
+        "command_boundary"
+      ],
+      "missing_edges": [
+        "current actionNum consumer/handler",
+        "product connection and execution verification"
+      ]
+    },
+    {
+      "id": "R4",
+      "route": "MCU operations and readback",
+      "evidence_scope": "existing product operations; current pan/volume observation readback",
+      "sources": [
+        "product_mcu",
+        "fixed_cc",
+        "variable_cc"
+      ],
+      "missing_edges": [
+        "arbitrary plug-in feedback",
+        "target identity beyond surface/bank context"
+      ]
+    },
+    {
+      "id": "R5",
+      "route": "Private AppleEvent commands",
+      "evidence_scope": "historical shared command path; product guard permits only play/stop3/5 on12.3.1/6682",
+      "sources": [
+        "ae_dispatch",
+        "product_ae"
+      ],
+      "missing_edges": [
+        "current-version command support",
+        "native readback"
+      ]
+    },
+    {
+      "id": "R6",
+      "route": "Generic MIDI musical recording",
+      "evidence_scope": "current bounded note recording route separate from controller assignments",
+      "sources": [
+        "step_data"
+      ],
+      "missing_edges": [
+        "accurate real-time scheduling contract",
+        "native note editing without editor state"
+      ]
+    },
+    {
+      "id": "R7",
+      "route": "Generic MIDI Step input",
+      "evidence_scope": "current eight-note native-region observations; static current IDs72/922/1208",
+      "sources": [
+        "step_live",
+        "step_entries"
+      ],
+      "missing_edges": [
+        "runtime execution by numeric ID",
+        "headless preparation",
+        "arbitrary stream speed and target identity"
+      ]
+    },
+    {
+      "id": "R8",
+      "route": "Remote fader event to engine queue",
+      "evidence_scope": "historical event/engine boundary; generic Assign to queue is a hypothesis",
+      "sources": [
+        "command_boundary"
+      ],
+      "missing_edges": [
+        "current engine consumer",
+        "generic assignment to engine edge"
+      ]
+    }
+  ],
+  "typed_edges": [
+    {
+      "id": "E1",
+      "from": "MCU/Remote/TouchOSC templates",
+      "to": "serialized Assign model",
+      "status": "static_historical",
+      "profile": "12.3.1/6682",
+      "sources": [
+        "assign_model"
+      ]
+    },
+    {
+      "id": "E2",
+      "from": "WrappedAssign selected getters",
+      "to": "Assign fields +0x3a/+0x3e/+0x4b/+0x4c/+0x80/+0x88",
+      "status": "static_current_and_historical",
+      "profiles": [
+        "12.3.1/6682",
+        "12.4/6707"
+      ],
+      "sources": [
+        "getter_proof"
+      ]
+    },
+    {
+      "id": "E3",
+      "from": "learned fixed/Lo7 generic CC rows",
+      "to": "pan/volume/Channel EQ value effects",
+      "status": "observed_current",
+      "profile": "12.4/6707",
+      "sources": [
+        "fixed_cc",
+        "variable_cc"
+      ],
+      "internal_chain_proven": false
+    },
+    {
+      "id": "E4",
+      "from": "current generic input matcher/value decoder",
+      "to": "current assignment conversion/Pickup/target executor",
+      "status": "untraced",
+      "profile": "12.4/6707",
+      "sources": [
+        "getter_proof",
+        "variable_cc"
+      ]
+    },
+    {
+      "id": "E5",
+      "from": "Assign kind9 command field",
+      "to": "historical common command ID space",
+      "status": "static_historical",
+      "profile": "12.3.1/6682",
+      "sources": [
+        "assign_model",
+        "command_boundary"
+      ]
+    },
+    {
+      "id": "E6",
+      "from": "GUI/Remote/private AppleEvent command routes",
+      "to": "shared dispatcher0x8663d4",
+      "status": "static_historical",
+      "profile": "12.3.1/6682",
+      "sources": [
+        "command_boundary",
+        "remote_command",
+        "ae_dispatch"
+      ]
+    },
+    {
+      "id": "E7",
+      "from": "generic Assign parameter consumer",
+      "to": "engine queue suggested by historical Remote fader route",
+      "status": "hypothesis",
+      "confidence": "low",
+      "sources": [
+        "command_boundary"
+      ]
+    },
+    {
+      "id": "E8",
+      "from": "editor preparation plus generic note events",
+      "to": "native Step-recorded MIDI region",
+      "status": "observed_current",
+      "profile": "12.4/6707",
+      "sources": [
+        "step_live"
+      ],
+      "same_as_controller_assignment_dispatch": false
+    },
+    {
+      "id": "E9",
+      "from": "prior AE target/schema/time models",
+      "to": "current generic assignment target/units",
+      "status": "comparison_candidate",
+      "sources": [
+        "ae_target",
+        "ae_schema",
+        "ae_time"
+      ]
+    }
+  ],
+  "historical_assignment_candidates": {
+    "profile": "12.3.1/6682",
+    "parameter_kind": 5,
+    "command_kind": 9,
+    "current_numeric_meanings_verified": false,
+    "channel_strip_parameter_candidates": {
+      "volume": 7,
+      "pan": 10,
+      "select": 259,
+      "record_enable": 260
+    },
+    "mute_solo_variants": {
+      "Remote_TouchOSC": {
+        "mute": 9,
+        "solo": 3
+      },
+      "MCU": {
+        "mute": 128,
+        "solo": 129
+      }
+    },
+    "sources": [
+      "assign_model"
+    ]
+  },
+  "current_live": {
+    "profile": "12.4/6707",
+    "fixed_message": {
+      "source": "fixed_cc",
+      "message_hex": "b01440",
+      "exact_events_with_pan_increment": 8,
+      "increment": 1,
+      "nonmatching_hex": "b01441",
+      "nonmatching_events": 1,
+      "nonmatching_effect": "unchanged",
+      "readback": [
+        "GUI",
+        "MCU"
+      ],
+      "actual_mode_multiply_captured": false
+    },
+    "variable_assignments": [
+      {
+        "cc": 21,
+        "message": "B0 15 Lo7",
+        "target": "selected-track pan",
+        "inputs": [
+          0,
+          127,
+          64,
+          90,
+          100
+        ],
+        "readbacks": [
+          -64,
+          63,
+          0,
+          26,
+          36
+        ],
+        "units": "pan steps",
+        "readback_method": "MCU",
+        "mapping_scope": "observed points fit input-64"
+      },
+      {
+        "cc": 22,
+        "message": "B0 16 Lo7",
+        "target": "selected-track volume",
+        "inputs": [
+          127,
+          0,
+          64,
+          100,
+          32,
+          90
+        ],
+        "readbacks": [
+          6.0,
+          "-inf",
+          -6.0,
+          1.8,
+          -18.0,
+          0.0
+        ],
+        "units": "dB",
+        "readback_method": "MCU",
+        "mapping_scope": "sampled fader taper; full curve not derived"
+      },
+      {
+        "cc": 23,
+        "message": "B0 17 Lo7",
+        "target": "Channel EQ Master Gain",
+        "inputs": [
+          127,
+          0,
+          64
+        ],
+        "readbacks": [
+          24.0,
+          -24.0,
+          0.2
+        ],
+        "units": "dB",
+        "readback_method": "GUI",
+        "mapping_scope": "sampled linear-range behavior; exact rounding untraced"
+      }
+    ],
+    "variable_source": "variable_cc",
+    "learn_input_values": [
+      64,
+      70,
+      76,
+      82
+    ],
+    "learning_gap_seconds": 0.4,
+    "actual_mode_multiply_captured": false,
+    "selected_track_pan_tested": [
+      "Piano",
+      "Ballad",
+      "Synth"
+    ],
+    "pickup": {
+      "on": "unsynchronized input ignored; equality synchronized, next value applied",
+      "off": "unsynchronized input applied in reported comparison",
+      "comparison_inputs": {
+        "on": 100,
+        "off": 110
+      },
+      "identical_stimulus_A_B": false,
+      "crossing_without_equality_tested": false,
+      "consumer_untraced": true
+    },
+    "feedback": {
+      "control_value_messages_observed_on_logicctl_cc": 0,
+      "device_query_sysex_excluded": true,
+      "mechanism_verified": false,
+      "universal_absence_claim": false
+    },
+    "reported_cleanup": "Synth selected; pan/volume0; EQ0dB; Pickup on; test rows retained; live/probe slot belongs to Claude"
+  },
+  "current_step_static_links": [
+    {
+      "command_id": 922,
+      "name": "1/4 Note",
+      "handler": "0x7a15f4",
+      "argument": 3,
+      "evidence": "Exact static40B record and actual chained-fixup membership, reused source proof",
+      "runtime_id_execution_verified": false,
+      "sources": [
+        "current_step_entries",
+        "step_input"
+      ]
+    },
+    {
+      "command_id": 72,
+      "name": "Toggle MIDI In (Step Record)",
+      "handler": "0xf318c4",
+      "argument": 0,
+      "evidence": "Exact static40B record and actual chained-fixup membership, reused source proof",
+      "runtime_id_execution_verified": false,
+      "sources": [
+        "current_step_entries",
+        "step_input"
+      ]
+    },
+    {
+      "command_id": 1208,
+      "name": "Show/Hide Step Input Keyboard",
+      "handler": "0xf57da0",
+      "argument": 36,
+      "evidence": "Exact constructor constant/store association; no complete CFG/runtime registration proof",
+      "runtime_id_execution_verified": false,
+      "sources": [
+        "current_step_entries",
+        "step_input"
+      ]
+    }
+  ],
+  "official_sources": [
+    {
+      "id": "G1",
+      "url": "https://support.apple.com/guide/logicpro/controller-assignments-overview-ctls71c31487/mac",
+      "claim": "Easy Learn covers channel-strip/plug-in parameters; Expert adds assignment classes.",
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G2",
+      "url": "https://support.apple.com/guide/logicpro/expert-view-midi-input-parameters-ctls71c30fbf/mac",
+      "locale": "en",
+      "no_lo7_hi7_documented_input_value": 1,
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G3",
+      "url": "https://support.apple.com/ja-jp/guide/logicpro/ctls71c30fbf/mac",
+      "locale": "ja-jp",
+      "no_lo7_hi7_documented_input_value": 0,
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G4",
+      "url": "https://support.apple.com/guide/logicpro/expert-view-value-parameters-ctls71c308ee/mac",
+      "claim": "Value modes and Multiply are documented; no numeric enum mapping derived.",
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G5",
+      "url": "https://support.apple.com/guide/logicpro/general-settings-lgcp1fe673ef/mac",
+      "claim": "Pickup requires the controller to reach the current parameter value.",
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G6",
+      "url": "https://support.apple.com/guide/logicpro/assign-key-commands-lgcp41ff6979/mac",
+      "claim": "MIDI messages can be assigned to key commands.",
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    },
+    {
+      "id": "G7",
+      "url": "https://support.apple.com/guide/logicpro/copy-and-print-key-commands-lgcpeabb4c40/mac",
+      "claim": "Current key-command inventory can be copied to clipboard.",
+      "guide_version": "12.3",
+      "source_kind": "official_documentation",
+      "runtime_verified": false
+    }
+  ],
+  "documentation_discrepancy": {
+    "english_assumed_value": 1,
+    "japanese_assumed_value": 0,
+    "sources": [
+      "G2",
+      "G3"
+    ],
+    "current_runtime_conversion_verified": false,
+    "inference": "English1 is consistent with CA001 unit steps; actual Mode/Multiply and consumer remain unknown."
+  },
+  "next_work": [
+    {
+      "owner": "Claude",
+      "unit": "current key-command inventory; actual Mode/Multiply and target for fixed and variable rows",
+      "requires": "GUI/live slot and guide prerequisites",
+      "done_when": "named settings and before/after readback; clipboard/reversible state restored"
+    },
+    {
+      "owner": "Codex",
+      "unit": "current setters/parser/matcher and Pickup consumer",
+      "requires": "independent current metadata/xrefs plus bytes",
+      "done_when": "pattern to value/conversion/synchronization predicate proven"
+    },
+    {
+      "owner": "both",
+      "unit": "one MIDI-assigned key command to current handler",
+      "done_when": "observed named action, assignment and exact current record/handler agree"
+    },
+    {
+      "owner": "Codex",
+      "unit": "target binding, units and readback contract",
+      "done_when": "current target lifetime/availability, value units and reliable readback established"
+    }
+  ],
+  "historical_setter_index_leads": [
+    {
+      "selector": "setValueChange:",
+      "entry": "0x697edc"
+    },
+    {
+      "selector": "setValueMode:",
+      "entry": "0x69819c"
+    },
+    {
+      "selector": "setMultiply:",
+      "entry": "0x6982b0"
+    }
+  ],
+  "limits": [
+    "On-disk analysis copies, not loaded process identity or runtime method dispatch.",
+    "Getter field access does not prove assignment consumer, default learned values, setter effects, numerical mode meanings, or pan +1 cause.",
+    "No preference write, live GUI/MIDI action or Ghidra project access.",
+    "Lo7/Hi7 markers F5/F4 are internal pattern markers, not wire MIDI status bytes.",
+    "New getters do not prove current class5/9 meaning, enum labels, actual learned mode/multiply, setters or persistence.",
+    "Current Step IDs are static record/constructor associations, not numeric-ID runtime execution.",
+    "Prior route reviewer raw artifacts are dated snapshots; use this source_manifest for current document hashes.",
+    "No product generic assignment/parameter/key-command/headless Step capability added; existing backend guards retain scope."
+  ],
+  "source_manifest": {
+    "getter_proof": {
+      "path": "Research/raw/review/midi-first-current-getters-001.json",
+      "sha256": "87133bf46bb98b0889dc7ab3bf45b6b962abc14a33fe3d77bf2663422db1e451",
+      "size_bytes": 42559,
+      "availability": "local_ignored"
+    },
+    "getter_reproducer": {
+      "path": "Research/raw/review/midi-first-current-getters-001.py",
+      "sha256": "893e70db4045b8eb34b5bc7df1e3b178ad9196a04b5673ed6c3dcad72a42562d",
+      "size_bytes": 9034,
+      "availability": "local_ignored"
+    },
+    "route_review": {
+      "path": "Research/raw/review/midi-first-route-links-001.json",
+      "sha256": "3200b0ec1811f3d03158e29c2b2266068a447829862e6aa3e86efc23b3e17b76",
+      "size_bytes": 32755,
+      "availability": "local_ignored"
+    },
+    "assignment_review": {
+      "path": "Research/raw/review/midi-first-assignment-model-001.json",
+      "sha256": "3e8417613b108523916ef5cbb3ba09e6e7153e91ec6cc680ba63f8c3a6dcf497",
+      "size_bytes": 9930,
+      "availability": "local_ignored"
+    },
+    "assign_model": {
+      "path": "Research/static-analysis/SA-002-control-surface-assign-model.en.md",
+      "sha256": "8c6670f7849bfa1e6acbb0fbc52fbd7322fecfd375066f06b4252ba9f7d32e9b",
+      "size_bytes": 5315,
+      "availability": "public_repo"
+    },
+    "command_boundary": {
+      "path": "Research/static-analysis/SA-004-command-and-engine-boundaries.en.md",
+      "sha256": "2795088a2151ca3e640c2c2d6d0753a3ea4882e3fbbcdc68dc4562824ae6f157",
+      "size_bytes": 5835,
+      "availability": "public_repo"
+    },
+    "remote_command": {
+      "path": "Research/static-analysis/SA-REMOTE-KEYCOMMAND-001.en.md",
+      "sha256": "bc9194d026be13dd7755643e0647a879930699eeed3070b39c0c06575e9eeeba",
+      "size_bytes": 8637,
+      "availability": "public_repo"
+    },
+    "ae_dispatch": {
+      "path": "Research/static-analysis/appleevent-command-dispatch.en.md",
+      "sha256": "5e04db3a476ae8a2dc53b7154a3c4ec611263225ff43f14c8bd754a136aa7fc7",
+      "size_bytes": 8876,
+      "availability": "public_repo"
+    },
+    "ae_target": {
+      "path": "Research/static-analysis/SA-AE-TARGET-003-target-resolution.en.md",
+      "sha256": "7460a3f363e5bc7a4ff5f598874e29de7e6cd13f06f6e4dab1cc2ac323312e96",
+      "size_bytes": 14202,
+      "availability": "public_repo"
+    },
+    "ae_schema": {
+      "path": "Research/static-analysis/SA-AE-XML-002-channel-node-schema.en.md",
+      "sha256": "873b4a6e2d10eb0c2de423e5a4302fc99cbeff691f33bb692d9b6440e5e9a487",
+      "size_bytes": 12012,
+      "availability": "public_repo"
+    },
+    "ae_time": {
+      "path": "Research/static-analysis/SA-AE-TIME-001-position-conversion.en.md",
+      "sha256": "2f12cbcb4227d65e34c3dcc110b56342156676e04ffac0cfa14a6dd185329dad",
+      "size_bytes": 10700,
+      "availability": "public_repo"
+    },
+    "fixed_cc": {
+      "path": "Research/experiments/EXP-CA-001-generic-cc-fixed-message.en.md",
+      "sha256": "4b4c421e8ebf508fa21e79924124bd52e49720dbe0fa89d992d026274698b0f6",
+      "size_bytes": 5920,
+      "availability": "public_repo"
+    },
+    "fixed_cc_ja": {
+      "path": "Research/experiments/EXP-CA-001-generic-cc-fixed-message.md",
+      "sha256": "7cf08c72da95229eaac9a7dca2e30792d640107cb104c50c7b73dadc9afc7bb7",
+      "size_bytes": 7034,
+      "availability": "public_repo"
+    },
+    "variable_cc": {
+      "path": "Research/experiments/EXP-CA-002-variable-cc-and-pickup.en.md",
+      "sha256": "8b9bd5fc5c683c9ff6e0c0f59fd17b5728cf8df2e962358d02608b12d840c560",
+      "size_bytes": 5259,
+      "availability": "public_repo"
+    },
+    "variable_cc_ja": {
+      "path": "Research/experiments/EXP-CA-002-variable-cc-and-pickup.md",
+      "sha256": "4583587072bb426fbdab8ebf80591189199cc793155b142dcf228f94a5b7c8db",
+      "size_bytes": 6354,
+      "availability": "public_repo"
+    },
+    "step_live": {
+      "path": "Research/experiments/EXP-MIDI-033-step-region-edit.en.md",
+      "sha256": "29266b9e9590ee208fd8de258e891843133008d8cc748d5a963a22188b815bca",
+      "size_bytes": 20072,
+      "availability": "public_repo"
+    },
+    "step_data": {
+      "path": "Research/experiments/EXP-MIDI-033-step-region-edit.json",
+      "sha256": "0813dfb1774d0bd7a1a9413cceea57c66c0e4d6bb15d12e63ba172d5f9135eb7",
+      "size_bytes": 73499,
+      "availability": "public_repo"
+    },
+    "step_entries": {
+      "path": "Research/raw/review/current-step-input-033.json",
+      "sha256": "493d69aa12e4cfa36b616c839802a75b4e2e3d71373031333617408506e58272",
+      "size_bytes": 15252,
+      "availability": "local_ignored"
+    },
+    "product_ae": {
+      "path": "Sources/LogicCore/Backends/AppleEvent/AppleEventTransportBackend.swift",
+      "sha256": "56a372264d248e875968c8ef92a1f8efca8050f564c5d7f7c48e6715b0d9a071",
+      "size_bytes": 12510,
+      "availability": "public_repo"
+    },
+    "product_mcu": {
+      "path": "Sources/LogicCore/Backends/MCU/MCUBackend.swift",
+      "sha256": "8a06e03a12694b69f7b832c6aed5fa100a651c28664e690a416810c9d57174e4",
+      "size_bytes": 58916,
+      "availability": "public_repo"
+    },
+    "product_router": {
+      "path": "Sources/LogicCore/Commands/CommandRouter.swift",
+      "sha256": "24e070e38825b8c2e3e18f250af7f0211af598d342f76cff066b3f4c88a6932b",
+      "size_bytes": 3118,
+      "availability": "public_repo"
+    },
+    "command_catalog": {
+      "path": "Research/protocol/operation-catalog.tsv",
+      "sha256": "5f62dd06f66313a7a9835712d92d3e6d669e25eb5ce8e99091b0fefb2567eaa7",
+      "size_bytes": 304867,
+      "availability": "public_repo"
+    },
+    "note": {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.en.md",
+      "sha256": "a5e2a37a246b245ec440672c60a6dd3e2aeb1987111f021004b07991fa54fd25",
+      "size_bytes": 13329,
+      "availability": "public_repo"
+    },
+    "Research/raw/review/midi-first-current-getters-001.py": {
+      "path": "Research/raw/review/midi-first-current-getters-001.py",
+      "sha256": "893e70db4045b8eb34b5bc7df1e3b178ad9196a04b5673ed6c3dcad72a42562d",
+      "size_bytes": 9034,
+      "availability": "local_ignored"
+    },
+    "Research/raw/ghidra/parent-decode-next-review-013.py": {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8",
+      "size_bytes": 12240,
+      "availability": "local_ignored"
+    },
+    "Tools/research-scripts/binary_anchors.py": {
+      "path": "Tools/research-scripts/binary_anchors.py",
+      "sha256": "fc6490ae288b5846a845199ae3111ac55250335bb760cdd7b92b709683388679",
+      "size_bytes": 11874,
+      "availability": "public_repo"
+    },
+    "Research/static-analysis/binary-identity-12.3.1-6682.json": {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe",
+      "size_bytes": 7819,
+      "availability": "public_repo"
+    },
+    "Research/static-analysis/binary-identity-12.4-6707.json": {
+      "path": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "sha256": "fb221dd9e89e4eaef50f41947b4af68c7014237d879d4c0bd866980bcd942a84",
+      "size_bytes": 2335,
+      "availability": "public_repo"
+    }
+  }
+}

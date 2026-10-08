@@ -11,7 +11,7 @@
 | Test project | LogicCLI-Test.logicx (stopped, not saved) |
 | Initial state | Synth selected, pan +2. Settings > Control Surfaces > General: Pickup mode **on**, Bypass all in background off. The virtual MIDI port `logicctl-cc` was created after Logic started |
 | One operation | Send the **exact** learned message `B0 14 40` to the assigned row (no zone, class Channel Strip, selected track, Pan); then other values and a burst, one condition at a time |
-| Expected change | Per Apple's guide, a message with neither Lo7 nor Hi7 is received as value 0; it should act only on an exact match and not on nearby values |
+| Expected change | The original Japanese-guide expectation was incoming value 0 without Lo7/Hi7. The English guide says 1; see the source discrepancy below. Exact-message versus nearby-value behavior is tested independently |
 | Repetitions | Exact match 8 times (3 single, one burst of 5), non-matching 1 time (this run). The invalid run of the day before had 2 exact and 10 non-matching |
 
 ## What Apple's official guide says (ja-jp; the guide's version selector stops at 12.3, there is no 12.4 page yet)
@@ -20,6 +20,8 @@
 - "Value" parameters (ctls71c308ee): modes are Direct / Toggle / Scale / Relative / Rotate / X-OR; faders and knobs default to Scale, encoders to Relative.
 - Expert view (ctls71c3162b): rows under "no zone" are always active, whatever zone is active.
 - General settings (lgcp1fe673ef): Pickup mode keeps the value unchanged until the controller reaches the current value.
+
+Source clarification, checked 2026-10-08: the [Japanese MIDI Input page](https://support.apple.com/ja-jp/guide/logicpro/ctls71c30fbf/mac) says incoming value **0** without either placeholder; the [English page](https://support.apple.com/guide/logicpro/expert-view-midi-input-parameters-ctls71c30fbf/mac) says **1**. Both are guide 12.3. The earlier citation accurately reflected the Japanese page, but the two localizations disagree. English value 1 is consistent with O1–O3; it does not establish the runtime conversion or the row's actual Mode/Multiply. The original live observations remain unchanged.
 
 ## Observation
 
@@ -37,7 +39,7 @@
 
 H1: the row is a **fixed-message trigger**; each `B0 14 40` advances pan by one step (a relative one-step action). Other CC 20 values do not match, so they do nothing.
 Confidence: "only the exact message acts" is high. "+1 per message as a relative step" is medium (why the sign and step are 1 is not confirmed).
-Basis: O1–O3, O4, Apple's statement (no Lo7 means value 0).
+Basis: O1–O3 and O4. The English guide's placeholder-free input value 1 is consistent with a unit step; the Japanese guide says 0. Actual Mode/Multiply and the internal consumer must still be established.
 Counterexample: none yet. The mode field is not shown on screen, so Direct vs Relative is not confirmed.
 H2: editing the value-change message to `B0 14 Lo7` makes it work as a knob, and with Pickup mode on it would not move until the controller nears the current value (a prediction from Apple's text). Confidence: low (untested).
 H3: the "Pan" and "-" strip names seen on the MCU LCD the day before may be a transient display right after this assignment acted. Not reproduced this time. Confidence: low.
@@ -46,5 +48,5 @@ The earlier note (CLDE079) "learned but inactive" was wrong: it was a row that a
 
 ## Next experiments
 
-1. Edit the value-change message to `B0 14 Lo7` (needs real key input), or learn again while sending several values, then send 66, 80 and 100. Comparing Pickup on/off is a settings change, so ask the user first.
-2. Ask the user whether to delete this test row or keep it (created only for testing).
+1. The variable-value and Pickup follow-up is recorded in [EXP-CA-002](EXP-CA-002-variable-cc-and-pickup.en.md). Capture actual Mode/Multiply next; compare identical input values for Pickup on/off, and distinguish reaching from crossing the current value.
+2. Keep the test rows while the shared investigation uses them, then coordinate reversible cleanup and record the restored state. The user's broad test-project authorization already covers reversible settings and experimental assignments.
