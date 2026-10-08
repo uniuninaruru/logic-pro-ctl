@@ -48,5 +48,5 @@ The earlier note (CLDE079) "learned but inactive" was wrong: it was a row that a
 
 ## Next experiments
 
-1. The variable-value and Pickup follow-up is recorded in [EXP-CA-002](EXP-CA-002-variable-cc-and-pickup.en.md). Capture actual Mode/Multiply next; compare identical input values for Pickup on/off, and distinguish reaching from crossing the current value.
+1. Variable-value results are in [EXP-CA-002](EXP-CA-002-variable-cc-and-pickup.en.md). [EXP-CA-003](EXP-CA-003-value-mode-pickup-ab.en.md) subsequently captured Rotate ×1.00 for this fixed row, Scale ×1.00 for variable rows, wrapping, matched Pickup on/off and crossing. O1–O7 above remain the original observations; later measurements narrow their interpretation. Trace the input consumer and next test one MIDI-assigned key command.
 2. Keep the test rows while the shared investigation uses them, then coordinate reversible cleanup and record the restored state. The user's broad test-project authorization already covers reversible settings and experimental assignments.

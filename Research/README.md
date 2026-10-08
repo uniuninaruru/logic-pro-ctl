@@ -9,6 +9,8 @@
 **現在の重点（2026-10-08）はMIDIコントローラーの割り当てです。**
 [既存解析との接続図と現行版の関数照合](static-analysis/SA-MIDI-ROUTE-001.en.md)に、MCU・Remote・キーコマンド・AppleEvent・リージョンとの関係をまとめました。
 [固定メッセージのパン操作](experiments/EXP-CA-001-generic-cc-fixed-message.md)に加え、[可変CCによるパン・音量・Channel EQの実機結果](experiments/EXP-CA-002-variable-cc-and-pickup.md)を起点にします。数値変換・対象の結び付け・読み戻しを対応付けることが次の作業です。
+[値モード・倍率・ピックアップの追加確認](experiments/EXP-CA-003-value-mode-pickup-ab.md)では固定CCの回転と可変CCのスケール、同一入力でのオン/オフ、現在値をまたぐ入力を確認しました。[現行キーコマンド一覧](experiments/EXP-KC-001-key-command-inventory.md)も2,176件・27グループを取得済みです。
+[MIDIからキーコマンドを実行する試験](experiments/EXP-KC-002-midi-to-key-command-loop-browser.md)では、CC24でループブラウザを開閉し、割り当ての削除後に反応しないことまで確認しました。
 
 全体解析からエージェント利用までの優先順位・Ghidra起点・実験・完成条件は、
 [調査・開発計画](plans/agent-ready-roadmap.md)にまとめています。

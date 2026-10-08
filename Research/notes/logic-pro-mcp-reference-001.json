@@ -1,0 +1,2648 @@
+{
+  "schema_version": 1,
+  "record_id": "logic-pro-mcp-reference-001",
+  "recorded_utc": "2026-10-08T02:23:33.644277+00:00",
+  "requested_reference": "https://github.com/koltyj/logic-pro-mcp",
+  "scope": {
+    "upstream": "Pinned source audit only",
+    "forks": "30 direct public default branches;5 divergent code forks inspected",
+    "excluded": [
+      "all descendant/non-default branches",
+      "installation",
+      "external code execution/build/test",
+      "new live Logic action",
+      "product code reuse"
+    ]
+  },
+  "upstream": {
+    "full_name": "koltyj/logic-pro-mcp",
+    "url": "https://github.com/koltyj/logic-pro-mcp",
+    "default_branch": "main",
+    "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+    "pushed_at": "2026-09-05T09:02:42Z",
+    "forks_count_api": 30,
+    "metadata_query_url": "https://api.github.com/repos/koltyj/logic-pro-mcp",
+    "metadata_query_utc": "2026-10-08T02:14:25.291625+00:00",
+    "branch_query_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/branches/main",
+    "branch_query_utc": "2026-10-08T02:14:25.578088+00:00"
+  },
+  "license": {
+    "spdx": "MIT",
+    "notice_file": "LICENSE",
+    "product_code_copied": false
+  },
+  "enumeration": {
+    "query_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/forks?per_page=100&sort=newest",
+    "query_utc": "2026-10-08T02:14:25.924094+00:00",
+    "per_page": 100,
+    "returned_count": 30,
+    "all_reported_forks_fit_one_page": true,
+    "direct_public_scope": "GET /repos/koltyj/logic-pro-mcp/forks result; not a recursive second-degree fork inventory or inaccessible private forks."
+  },
+  "fork_counts": {
+    "direct_public_forks_listed": 30,
+    "reported_upstream_count": 30,
+    "count_matches_listing": true,
+    "default_branch_status_counts": {
+      "identical": 8,
+      "behind": 16,
+      "ahead": 1,
+      "diverged": 5
+    },
+    "substantive_code_forks_reviewed": 5,
+    "ahead_docs_only_forks": 1,
+    "classification_method": "Compare pinned current upstream main to each default branch; for5 code forks, verify branch heads and separately compare common merge-base to fork head. This removes missed upstream commits from the added-feature assessment.",
+    "rebase_or_rename_limit": "guitargnarr includes a URL-repoint commit but preceding chord/sequence/AX changes are substantive. No extra Logic capability assigned merely for renamed URLs, fork counts or ahead commit counts."
+  },
+  "forks": [
+    {
+      "full_name": "mgbvox/logic-pro-mcp",
+      "url": "https://github.com/mgbvox/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-10-04T02:38:00Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...mgbvox:main",
+      "comparison_query_utc": "2026-10-08T02:14:26.830928+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "garretthagen21/logic-pro-mcp",
+      "url": "https://github.com/garretthagen21/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-10-01T20:29:05Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...garretthagen21:main",
+      "comparison_query_utc": "2026-10-08T02:14:26.833406+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "Terobyte/logic-pro-mcp",
+      "url": "https://github.com/Terobyte/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-22T11:35:41Z",
+      "status": "ahead",
+      "ahead_by": 3,
+      "behind_by": 0,
+      "total_commits": 3,
+      "head_sha": "f8127c333cb9ab5baa72fcda3000c7ada404862b",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...Terobyte:main",
+      "comparison_query_utc": "2026-10-08T02:14:26.835686+00:00",
+      "changed_file_count_vs_current_upstream": 1,
+      "head_sha_method": "compare_last_ahead_commit"
+    },
+    {
+      "full_name": "leonoexit/logic-pro-mcp",
+      "url": "https://github.com/leonoexit/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-05T09:02:42Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...leonoexit:main",
+      "comparison_query_utc": "2026-10-08T02:14:26.837744+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "Goerf/logic-pro-mcp",
+      "url": "https://github.com/Goerf/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-19T12:21:30Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...Goerf:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.299879+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "lceLCE/logic-pro-mcp",
+      "url": "https://github.com/lceLCE/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-05T09:02:42Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...lceLCE:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.304191+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "iibaranov-IG/logic-pro-mcp",
+      "url": "https://github.com/iibaranov-IG/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-15T04:07:53Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...iibaranov-IG:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.337565+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "npulsar-droid/logic-pro-mcp",
+      "url": "https://github.com/npulsar-droid/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-11T09:32:05Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...npulsar-droid:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.434523+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "davepeckjr/logic-pro-mcp",
+      "url": "https://github.com/davepeckjr/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-08T01:55:43Z",
+      "status": "identical",
+      "ahead_by": 0,
+      "behind_by": 0,
+      "total_commits": 0,
+      "head_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "merge_base_sha": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...davepeckjr:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.762989+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "samancha/logic-pro-mcp",
+      "url": "https://github.com/samancha/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-04T21:08:09Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 2,
+      "total_commits": 0,
+      "head_sha": "0ad4208ab85a178d0e34f23c8481de4408c264bf",
+      "merge_base_sha": "0ad4208ab85a178d0e34f23c8481de4408c264bf",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...samancha:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.766028+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "wordsmith189/logic-pro-mcp",
+      "url": "https://github.com/wordsmith189/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-08-24T03:49:16Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 12,
+      "total_commits": 0,
+      "head_sha": "58204a2990a716e1b8ec68d075f838dc98a377a9",
+      "merge_base_sha": "58204a2990a716e1b8ec68d075f838dc98a377a9",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...wordsmith189:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.768918+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "jovincroninwilesmith/logic-pro-mcp",
+      "url": "https://github.com/jovincroninwilesmith/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-08-06T13:31:14Z",
+      "status": "diverged",
+      "ahead_by": 2,
+      "behind_by": 13,
+      "total_commits": 2,
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...jovincroninwilesmith:main",
+      "comparison_query_utc": "2026-10-08T02:14:27.855880+00:00",
+      "branch_query": {
+        "url": "https://api.github.com/repos/jovincroninwilesmith/logic-pro-mcp/branches/main",
+        "query_utc": "2026-10-08T02:15:26.483025+00:00"
+      },
+      "changed_file_count_vs_current_upstream": 5,
+      "head_sha_method": "branches_api",
+      "own_delta": {
+        "url": "https://api.github.com/repos/jovincroninwilesmith/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+        "query_utc": "2026-10-08T02:15:26.765042+00:00",
+        "ahead_by": 2,
+        "behind_by": 0,
+        "changed_paths": [
+          "Sources/LogicProMCP/Accessibility/AXLogicProElements.swift",
+          "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+          "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "docs/CAPABILITIES.md"
+        ],
+        "commits": [
+          {
+            "sha": "e31a19ce8fbccbe9a38ec66a264b57919ace1a81",
+            "message": "Fix AX locators and write channels for current Logic Pro layout",
+            "date": "2026-08-06T13:11:19Z"
+          },
+          {
+            "sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+            "message": "Add docs/CAPABILITIES.md — what works, what's broken, what's needed",
+            "date": "2026-08-06T13:31:12Z"
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "alken01/logic-pro-mcp",
+      "url": "https://github.com/alken01/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-03T03:03:32Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...alken01:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.186923+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "prepfinders/logic-pro-mcp",
+      "url": "https://github.com/prepfinders/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-03T03:03:32Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...prepfinders:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.287571+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "mvanhorn/logic-pro-mcp",
+      "url": "https://github.com/mvanhorn/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-07-02T03:24:27Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...mvanhorn:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.287805+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "jacobeen3006/logic-pro-mcp",
+      "url": "https://github.com/jacobeen3006/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-03T03:03:32Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...jacobeen3006:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.498105+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "wkhatch/logic-pro-mcp",
+      "url": "https://github.com/wkhatch/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-03T03:03:32Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...wkhatch:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.703813+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "jaanvahk/logic-pro-mcp",
+      "url": "https://github.com/jaanvahk/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-12T18:24:13Z",
+      "status": "diverged",
+      "ahead_by": 12,
+      "behind_by": 13,
+      "total_commits": 12,
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...jaanvahk:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.711682+00:00",
+      "branch_query": {
+        "url": "https://api.github.com/repos/jaanvahk/logic-pro-mcp/branches/main",
+        "query_utc": "2026-10-08T02:15:26.484295+00:00"
+      },
+      "changed_file_count_vs_current_upstream": 18,
+      "head_sha_method": "branches_api",
+      "own_delta": {
+        "url": "https://api.github.com/repos/jaanvahk/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...69b8f918811031361895d7f3edbcb1b58377a536",
+        "query_utc": "2026-10-08T02:15:26.753504+00:00",
+        "ahead_by": 12,
+        "behind_by": 0,
+        "changed_paths": [
+          "CLAUDE.md",
+          "Sources/LogicProMCP/Accessibility/AXHelpers.swift",
+          "Sources/LogicProMCP/Accessibility/AXLogicProElements.swift",
+          "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "Sources/LogicProMCP/Channels/AppleScriptChannel.swift",
+          "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+          "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "Sources/LogicProMCP/Dispatchers/EditDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/MixerDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/NavigateDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/SystemDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/TransportDispatcher.swift",
+          "Sources/LogicProMCP/Server/LogicProServer.swift",
+          "TODO.txt"
+        ],
+        "commits": [
+          {
+            "sha": "eb4e5c5ca33203454ef19b2356f096f40016b11d",
+            "message": "Fix deprecated MCP SDK .text() calls",
+            "date": "2026-06-09T18:55:45Z"
+          },
+          {
+            "sha": "0370cf1719ecec04d4d20632c52e8e8375617f9b",
+            "message": "Fix transport routing, auto-focus, and send_chord",
+            "date": "2026-06-10T07:23:39Z"
+          },
+          {
+            "sha": "4d50524a538a2fc2304cc7dce9deacba227f51a6",
+            "message": "Fix track selection, rename, and AX tree navigation",
+            "date": "2026-06-10T10:30:54Z"
+          },
+          {
+            "sha": "5e7cef6c4a5a185d25231478122e17a4c4a8da97",
+            "message": "Add delete_range, track.count, create+rename, and auto-activate",
+            "date": "2026-06-10T18:17:39Z"
+          },
+          {
+            "sha": "66ac3f6c0dbc0745d45223c295c97238a113df05",
+            "message": "Add record_pattern command with auto-quantize; fix edit.quantize keycode",
+            "date": "2026-06-11T07:47:54Z"
+          },
+          {
+            "sha": "baaaec012052e6994fb86c25814bed0edc987b5e",
+            "message": "Fix record_pattern: beat-accurate timing, reliable arm, Piano Roll guard",
+            "date": "2026-06-12T08:04:40Z"
+          },
+          {
+            "sha": "577ee9bb3ea60e0bdd767e5cc2b78e7cb8cc7410",
+            "message": "Add CLAUDE.md with architecture, build instructions, and timing notes",
+            "date": "2026-06-12T08:18:36Z"
+          },
+          {
+            "sha": "10c279403d8f3d64c83b52108ef058596baf4823",
+            "message": "Add shuffle style to record_pattern",
+            "date": "2026-06-12T08:35:30Z"
+          },
+          {
+            "sha": "3956e5ded1f4971bba93a7e65d5f61bcb51250df",
+            "message": "Add TODO.txt with Piano Roll quantize and pitch-select items",
+            "date": "2026-06-12T08:38:03Z"
+          },
+          {
+            "sha": "431da0f0847d8f615c7a55648f600e570123d4d7",
+            "message": "Add track.set_instrument via Library column browser navigation",
+            "date": "2026-06-12T18:23:10Z"
+          },
+          {
+            "sha": "35319217d9d4ab95544a6cfc620028c3442628cb",
+            "message": "Update TODO: add Library search field limitation note",
+            "date": "2026-06-12T18:23:26Z"
+          },
+          {
+            "sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+            "message": "Update CLAUDE.md: document set_instrument, Library AX path, and known limitation",
+            "date": "2026-06-12T18:24:11Z"
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "feralmycelium/logic-pro-mcp",
+      "url": "https://github.com/feralmycelium/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-06-01T14:01:30Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...feralmycelium:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.811515+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "joel-fuentes-git/logic-pro-mcp",
+      "url": "https://github.com/joel-fuentes-git/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...joel-fuentes-git:main",
+      "comparison_query_utc": "2026-10-08T02:14:28.899610+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "patpatmedia/logic-pro-mcp",
+      "url": "https://github.com/patpatmedia/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-07-27T09:02:41Z",
+      "status": "diverged",
+      "ahead_by": 4,
+      "behind_by": 13,
+      "total_commits": 4,
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...patpatmedia:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.221579+00:00",
+      "branch_query": {
+        "url": "https://api.github.com/repos/patpatmedia/logic-pro-mcp/branches/main",
+        "query_utc": "2026-10-08T02:15:26.484487+00:00"
+      },
+      "changed_file_count_vs_current_upstream": 21,
+      "head_sha_method": "branches_api",
+      "own_delta": {
+        "url": "https://api.github.com/repos/patpatmedia/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+        "query_utc": "2026-10-08T02:15:26.761000+00:00",
+        "ahead_by": 4,
+        "behind_by": 0,
+        "changed_paths": [
+          ".gitignore",
+          "README.md",
+          "Sources/LogicProMCP/Accessibility/AXHelpers.swift",
+          "Sources/LogicProMCP/Accessibility/AXLogicProElements.swift",
+          "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+          "Sources/LogicProMCP/Accessibility/BlockingDialog.swift",
+          "Sources/LogicProMCP/Accessibility/UIInput.swift",
+          "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+          "Sources/LogicProMCP/Dispatchers/NavigateDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/SystemDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+          "Sources/LogicProMCP/Resources/ResourceHandlers.swift",
+          "Sources/LogicProMCP/Server/LogicProServer.swift",
+          "Sources/LogicProMCP/State/StateCache.swift",
+          "Sources/LogicProMCP/State/StateModels.swift",
+          "Sources/LogicProMCP/State/StatePoller.swift",
+          "Sources/LogicProMCP/State/StateRefresh.swift",
+          "Sources/LogicProMCP/Utilities/JSONHelper.swift",
+          "Tests/LogicProMCPTests/JSONHelperTests.swift"
+        ],
+        "commits": [
+          {
+            "sha": "5c545666d19daf6021c61f261370757f0135fa42",
+            "message": "feat: reliable Track Stacks via HID-level input + safety gate",
+            "date": "2026-05-26T10:02:53Z"
+          },
+          {
+            "sha": "2b68ac81a7510839694aae818a4f6fef729a2234",
+            "message": "docs: document fork changes at top of README",
+            "date": "2026-05-26T10:08:07Z"
+          },
+          {
+            "sha": "84c00ca8fdaa56a9cabf711f35416cfc63e9ff21",
+            "message": "fix: verify every mutating command against Logic's real state",
+            "date": "2026-07-27T08:35:49Z"
+          },
+          {
+            "sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+            "message": "fix: repair transport reads and harden against live Logic 12.3 behaviour",
+            "date": "2026-07-27T09:02:40Z"
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "infinitimeless/logic-pro-mcp",
+      "url": "https://github.com/infinitimeless/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...infinitimeless:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.224616+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "Bombest-Audio/logic-pro-mcp",
+      "url": "https://github.com/Bombest-Audio/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...Bombest-Audio:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.336823+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "harryrub/logic-pro-mcp",
+      "url": "https://github.com/harryrub/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-10-04T14:04:17Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...harryrub:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.458010+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "wonderstone/logic-pro-mcp",
+      "url": "https://github.com/wonderstone/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-08-10T21:42:18Z",
+      "status": "diverged",
+      "ahead_by": 11,
+      "behind_by": 13,
+      "total_commits": 11,
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...wonderstone:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.730213+00:00",
+      "branch_query": {
+        "url": "https://api.github.com/repos/wonderstone/logic-pro-mcp/branches/main",
+        "query_utc": "2026-10-08T02:15:26.484650+00:00"
+      },
+      "changed_file_count_vs_current_upstream": 60,
+      "head_sha_method": "branches_api",
+      "own_delta": {
+        "url": "https://api.github.com/repos/wonderstone/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...01ce6271efc80d4941af65b929c752697629a39b",
+        "query_utc": "2026-10-08T02:15:26.743718+00:00",
+        "ahead_by": 11,
+        "behind_by": 0,
+        "changed_paths": [
+          ".github/agents/architect.agent.md",
+          ".github/agents/implementer.agent.md",
+          ".github/copilot-instructions.md",
+          ".github/instructions/project-context.instructions.md",
+          ".github/workflows/ci.yml",
+          ".gitignore",
+          "README.md",
+          "ROADMAP.md",
+          "Scripts/closeout_truth_audit.py",
+          "Scripts/init_discussion_packet.py",
+          "Scripts/validate_agent_framework.py",
+          "Sources/LogicProMCP/Accessibility/AXDocumentProjectIdentity.swift",
+          "Sources/LogicProMCP/Accessibility/AXHelpers.swift",
+          "Sources/LogicProMCP/Accessibility/AXLogicProElements.swift",
+          "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+          "Sources/LogicProMCP/Channels/ACEAudioDeltaAdoptionChannel.swift",
+          "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "Sources/LogicProMCP/Channels/AppleScriptChannel.swift",
+          "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+          "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+          "Sources/LogicProMCP/Dispatchers/EditDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/MixerDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/NavigateDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/SystemDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+          "Sources/LogicProMCP/Dispatchers/TransportDispatcher.swift",
+          "Sources/LogicProMCP/OSC/OSCClient.swift",
+          "Sources/LogicProMCP/Resources/ResourceHandlers.swift",
+          "Sources/LogicProMCP/Resources/ResourceProvider.swift",
+          "Sources/LogicProMCP/Server/CommandRegistry.swift",
+          "Sources/LogicProMCP/Server/LogicProServer.swift",
+          "Sources/LogicProMCP/Server/ServerConfig.swift",
+          "Sources/LogicProMCP/State/ACEAudioDeltaAdoptionModels.swift",
+          "Sources/LogicProMCP/State/ACEAudioPlacementModels.swift",
+          "Sources/LogicProMCP/State/OperationTagIdentity.swift",
+          "Sources/LogicProMCP/State/StateCache.swift",
+          "Sources/LogicProMCP/State/StateModels.swift",
+          "Sources/LogicProMCP/State/StatePoller.swift",
+          "Sources/LogicProMCP/Utilities/JSONHelper.swift",
+          "Sources/LogicProMCP/Utilities/ProcessUtils.swift",
+          "Tests/LogicProMCPTests/ACEAudioDeltaAdoptionTests.swift",
+          "Tests/LogicProMCPTests/ACEAudioPlacementTests.swift",
+          "Tests/LogicProMCPTests/AXDocumentIdentityTests.swift",
+          "Tests/LogicProMCPTests/OSCTransportTests.swift",
+          "Tests/LogicProMCPTests/PlaceholderTests.swift",
+          "Tests/LogicProMCPTests/StateAuthorityTests.swift",
+          "Tests/LogicProMCPTests/SwiftHardeningTests.swift",
+          "docs/DOC_FIRST_EXECUTION_GUIDELINES.md",
+          "docs/runbooks/multi-cli-discussion-loop.md",
+          "docs/runbooks/receipt-anchored-closeout.md",
+          "session_state.md",
+          "templates/closeout_receipt.template.md",
+          "templates/discussion_packet.template.md",
+          "templates/execution_contract.template.md",
+          "templates/execution_progress_receipt.template.md",
+          "templates/handoff_packet.template.md"
+        ],
+        "commits": [
+          {
+            "sha": "12f6dfd7379946b2c969f3488e48c0c8cb639b42",
+            "message": "docs: adopt workspace shared defaults",
+            "date": "2026-04-16T02:34:30Z"
+          },
+          {
+            "sha": "6065918fb863cbef0807c99c3e4cd7c21bacd991",
+            "message": "feat: add silent bounce command",
+            "date": "2026-04-16T02:42:20Z"
+          },
+          {
+            "sha": "95d98a951441e3eb8fc2bec6796507fa8f9974c2",
+            "message": "chore: ignore local vscode settings",
+            "date": "2026-04-16T02:44:02Z"
+          },
+          {
+            "sha": "4e6907c04cb276afcbcf84e9653a0232c223fc57",
+            "message": "fix: restore live Logic Pro track state reading",
+            "date": "2026-04-19T00:29:51Z"
+          },
+          {
+            "sha": "263eb95a2a93eb878490cb4edfec8a323156ebf0",
+            "message": "phase-8: add logic selection and context resources",
+            "date": "2026-04-19T01:05:18Z"
+          },
+          {
+            "sha": "5179b07c09a13133222d6db57cb045051666cda3",
+            "message": "phase-8: add truthful logic editor bridge surface",
+            "date": "2026-04-19T02:25:56Z"
+          },
+          {
+            "sha": "67ba176df47b8d4af873a4e757d24311b3dcf090",
+            "message": "improve project and transport state parsing",
+            "date": "2026-04-23T03:06:48Z"
+          },
+          {
+            "sha": "e709a43993ed48a24f28e7d1349fdfd68eccb191",
+            "message": "docs: normalize workspace-relative references",
+            "date": "2026-04-23T03:46:36Z"
+          },
+          {
+            "sha": "5abf5293dddc26b938f46d86a28c2737a88e6f9a",
+            "message": "docs: clarify external protocol location",
+            "date": "2026-04-23T05:45:53Z"
+          },
+          {
+            "sha": "36baf7613bc85b01e95bb60320a87f0b24923c9b",
+            "message": "docs: point triggers to canonical protocol",
+            "date": "2026-04-23T06:23:16Z"
+          },
+          {
+            "sha": "01ce6271efc80d4941af65b929c752697629a39b",
+            "message": "feat: add staged ACE audio placement workflow",
+            "date": "2026-08-10T21:42:07Z"
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "audiohacking/logic-pro-mcp",
+      "url": "https://github.com/audiohacking/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...audiohacking:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.776469+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "synthgang/logic-pro-mcp",
+      "url": "https://github.com/synthgang/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...synthgang:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.870825+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "amonforstmann/logic-pro-mcp",
+      "url": "https://github.com/amonforstmann/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-03-16T12:42:35Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...amonforstmann:main",
+      "comparison_query_utc": "2026-10-08T02:14:29.969583+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "iflow-mcp/koltyj-logic-pro-mcp",
+      "url": "https://github.com/iflow-mcp/koltyj-logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-02-16T12:59:26Z",
+      "status": "behind",
+      "ahead_by": 0,
+      "behind_by": 13,
+      "total_commits": 0,
+      "head_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...iflow-mcp:main",
+      "comparison_query_utc": "2026-10-08T02:14:30.248144+00:00",
+      "changed_file_count_vs_current_upstream": 0,
+      "head_sha_method": "compare_merge_base"
+    },
+    {
+      "full_name": "guitargnarr/logic-pro-mcp",
+      "url": "https://github.com/guitargnarr/logic-pro-mcp",
+      "default_branch": "main",
+      "pushed_at": "2026-09-10T15:04:39Z",
+      "status": "diverged",
+      "ahead_by": 7,
+      "behind_by": 13,
+      "total_commits": 7,
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "merge_base_sha": "e71abdc8257d9a787d9192407aec7529b8e7c4a7",
+      "comparison_url": "https://api.github.com/repos/koltyj/logic-pro-mcp/compare/bdc105e7defd3622b1869e2dcd0dfd5159e1409c...guitargnarr:main",
+      "comparison_query_utc": "2026-10-08T02:14:30.279987+00:00",
+      "branch_query": {
+        "url": "https://api.github.com/repos/guitargnarr/logic-pro-mcp/branches/main",
+        "query_utc": "2026-10-08T02:15:27.275496+00:00"
+      },
+      "changed_file_count_vs_current_upstream": 15,
+      "head_sha_method": "branches_api",
+      "own_delta": {
+        "url": "https://api.github.com/repos/guitargnarr/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+        "query_utc": "2026-10-08T02:15:27.572098+00:00",
+        "ahead_by": 7,
+        "behind_by": 0,
+        "changed_paths": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/release.yml",
+          ".gitignore",
+          "README.md",
+          "Scripts/install.sh",
+          "Sources/LogicProMCP/Accessibility/AXHelpers.swift",
+          "Sources/LogicProMCP/Accessibility/AXLogicProElements.swift",
+          "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+          "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+          "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+          "Sources/LogicProMCP/OSC/OSCClient.swift",
+          "Sources/LogicProMCP/Utilities/OnceFlag.swift",
+          "manifest.json"
+        ],
+        "commits": [
+          {
+            "sha": "92f2810491d258c664db8ffee387973a56388ca3",
+            "message": "fix(ax): Update AX tree parsing for Logic Pro 12",
+            "date": "2026-02-24T11:54:37Z"
+          },
+          {
+            "sha": "5af0d09b4577812696cd5532e1f26c8c0b5e94f9",
+            "message": "feat(midi): Implement send_chord and send_sequence for server-side timed MIDI playback",
+            "date": "2026-02-24T12:41:32Z"
+          },
+          {
+            "sha": "766ef3ad739a686b2ae5dc55f8c02a9fb7388d9f",
+            "message": "fix(midi): Make send_sequence fire-and-forget to prevent MCP timeout",
+            "date": "2026-02-24T14:34:44Z"
+          },
+          {
+            "sha": "a0bc530b0582ef25c8b1685f3160fb75dfbeead6",
+            "message": "fix(channels): update CGEventChannel implementation",
+            "date": "2026-03-23T00:50:44Z"
+          },
+          {
+            "sha": "c94fdbbc47935829ea7771d276500537a46aca47",
+            "message": "chore: apply portfolio .gitignore template, clean tracked artifacts",
+            "date": "2026-03-25T11:59:58Z"
+          },
+          {
+            "sha": "2701fff3995da96aa811720e7fceca58d422359d",
+            "message": "chore: opt into Node.js 24 for GitHub Actions (June 2026 deprecation)",
+            "date": "2026-04-07T03:58:33Z"
+          },
+          {
+            "sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+            "message": "chore(repo): repoint install/repo/homepage URLs to guitargnarr",
+            "date": "2026-07-04T01:12:27Z"
+          }
+        ]
+      }
+    }
+  ],
+  "inspected_forks": [
+    {
+      "full_name": "jaanvahk/logic-pro-mcp",
+      "default_branch": "main",
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "pushed_at": "2026-06-12T18:24:13Z",
+      "upstream_comparison": {
+        "ahead": 12,
+        "behind": 13,
+        "status": "diverged"
+      },
+      "own_delta_url": "https://api.github.com/repos/jaanvahk/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...69b8f918811031361895d7f3edbcb1b58377a536",
+      "own_changed_file_count": 18,
+      "classification": "Substantive divergent MIDI/GUI operations; not a rename/rebase-only fork.",
+      "substantive_operations_or_changes": [
+        "Implements midi.send_chord; adds logic_midi record_pattern straight/shuffle drum patterns using an internal Swift schedule rather than one MCP call per hit.",
+        "Adds track delete_range, count/create+rename, Library set_instrument, track selection/AX fixes and Logic autoactivation."
+      ],
+      "limitations": [
+        "record_pattern assumes4/4 and supplied tempo, uses fixed95ms record-start offset, ignores many route outcomes, and returns recorded:true without native MIDI-region or captured-note readback.",
+        "Its preparation opens Piano Roll, Select All/Delete existing notes, closes it, then records; this is a material side effect, not a harmless standalone generator.",
+        "Track selection and patch picking report action success without verifying selected/applied final state; arm reads baseline but not post-press desired state.",
+        "Generic MIDI sending is distinct from Controller Assignments/learned key commands; no internal command-ID dispatcher proof here."
+      ],
+      "sources": [
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+          "line_start": 188,
+          "line_end": 354,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift#L188"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "line_start": 79,
+          "line_end": 118,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L79"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+          "line_start": 94,
+          "line_end": 111,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift#L94"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+          "line_start": 195,
+          "line_end": 244,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift#L195"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 217,
+          "line_end": 228,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L217"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 277,
+          "line_end": 314,
+          "url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L277"
+        }
+      ],
+      "relevance_priority": 1,
+      "runtime_verified_by_this_review": false
+    },
+    {
+      "full_name": "guitargnarr/logic-pro-mcp",
+      "default_branch": "main",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "pushed_at": "2026-09-10T15:04:39Z",
+      "upstream_comparison": {
+        "ahead": 7,
+        "behind": 13,
+        "status": "diverged"
+      },
+      "own_delta_url": "https://api.github.com/repos/guitargnarr/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "own_changed_file_count": 15,
+      "classification": "Substantive chord/sequence changes plus later repository URL rename; not rename-only.",
+      "substantive_operations_or_changes": [
+        "Implements chord output and adds server-side send_sequence note/chord/rest/CC/program-change events, running in a background Task to avoid MCP timeout.",
+        "Adds Logic12 AX tree parsing fixes and transport state polling; preserves fixed CGEvent shortcut routes."
+      ],
+      "limitations": [
+        "send_sequence acknowledges scheduling before completion; no native note/region postcondition is checked.",
+        "Sequence scheduler waits through note/chord duration before later absolute-time events; overlapping events can start late (source inference; not measured).",
+        "Dispatcher/channel mismatches remain: midi.send_program_change/send_pitch_bend/send_aftertouch vs midi.program_change/pitch_bend/aftertouch; mmc.* vs transport.*; SysEx data vs bytes; virtual-port case advertised but absent.",
+        "CGEvent sent:true confirms posting, not Logic effect; play/stop both map Space; several shortcuts are approximate/custom-binding-dependent.",
+        "Incoming MIDI stream and separate AX cache polling do not establish assignment feedback or operation-level verification."
+      ],
+      "sources": [
+        {
+          "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "line_start": 79,
+          "line_end": 194,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L79"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+          "line_start": 141,
+          "line_end": 215,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift#L141"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "line_start": 215,
+          "line_end": 266,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L215"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "line_start": 38,
+          "line_end": 152,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CGEventChannel.swift#L38"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+          "line_start": 175,
+          "line_end": 206,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/ChannelRouter.swift#L175"
+        },
+        {
+          "path": "Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+          "line_start": 43,
+          "line_end": 56,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L43"
+        },
+        {
+          "path": "Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+          "line_start": 145,
+          "line_end": 159,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L145"
+        },
+        {
+          "path": "Sources/LogicProMCP/State/StatePoller.swift",
+          "line_start": 81,
+          "line_end": 109,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/State/StatePoller.swift#L81"
+        },
+        {
+          "path": "README.md",
+          "line_start": 76,
+          "line_end": 111,
+          "url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/README.md#L76"
+        }
+      ],
+      "relevance_priority": 2,
+      "runtime_verified_by_this_review": false
+    },
+    {
+      "full_name": "patpatmedia/logic-pro-mcp",
+      "default_branch": "main",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "pushed_at": "2026-07-27T09:02:41Z",
+      "upstream_comparison": {
+        "ahead": 4,
+        "behind": 13,
+        "status": "diverged"
+      },
+      "own_delta_url": "https://api.github.com/repos/patpatmedia/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "own_changed_file_count": 21,
+      "classification": "Substantive GUI mutation/readback hardening and added Track Stack/reorder operations.",
+      "substantive_operations_or_changes": [
+        "Global HID selection clicks with selection readback, additive track selection and create_stack with exact requested-selection gate before Command-Shift-D.",
+        "Adds upward-only track reorder verified by resulting name order; menu-based creation with enabled-state/sheet checks; count/zoom/rename/transport/tempo readback and immediate track-cache refresh.",
+        "Adds modal dialog/sheet blockers and null unreadable header sliders; README reports live Logic12.3 observations, not current12.4 compatibility proof."
+      ],
+      "limitations": [
+        "create_stack validates selection and type sheet before dispatch but returns created_stack after confirmation without proving final stack/type/children.",
+        "setTrackToggle only presses AX; setMixerValue sets AXValue then returns requested value. Therefore docs saying every mutation is verified exceed these inspected implementations.",
+        "HID routes require foreground/UI layout/permissions; English/German type-title fragments and visible track ordering are version/locale conditions.",
+        "No generic MIDI learn/assignment or internal command-ID invocation added in inspected own changes."
+      ],
+      "sources": [
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 271,
+          "line_end": 306,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L271"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 436,
+          "line_end": 510,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L436"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 602,
+          "line_end": 694,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L602"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 726,
+          "line_end": 742,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L726"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 948,
+          "line_end": 965,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L948"
+        },
+        {
+          "path": "Sources/LogicProMCP/State/StateRefresh.swift",
+          "line_start": 1,
+          "line_end": 19,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/State/StateRefresh.swift#L1"
+        },
+        {
+          "path": "README.md",
+          "line_start": 3,
+          "line_end": 75,
+          "url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/README.md#L3"
+        }
+      ],
+      "relevance_priority": 1,
+      "runtime_verified_by_this_review": false
+    },
+    {
+      "full_name": "wonderstone/logic-pro-mcp",
+      "default_branch": "main",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "pushed_at": "2026-08-10T21:42:18Z",
+      "upstream_comparison": {
+        "ahead": 11,
+        "behind": 13,
+        "status": "diverged"
+      },
+      "own_delta_url": "https://api.github.com/repos/wonderstone/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...01ce6271efc80d4941af65b929c752697629a39b",
+      "own_changed_file_count": 60,
+      "classification": "Substantive state authority/explicit verification design and guarded audio/MIDI bridge workflow.",
+      "substantive_operations_or_changes": [
+        "Adds command registry linking advertised commands to routed/local/guarded surfaces; fixes CoreMIDI operation aliases and input-range validation.",
+        "Adds silent_bounce; selection/project resources and MIDI bridges; import_midi_bridge can dispatch with explicit unverified outcome; export/replace bridges return manual_required under missing automation/readback/rollback.",
+        "Adds staged ACE audio placement/adoption workflow with preview/authorization/project/source digest identity and fresh project/track/region readback paths."
+      ],
+      "limitations": [
+        "MIDI note/chord/CC channel success still reports sending without captured-note/assignment effect verification.",
+        "SMF import bridge is a separate path from generic controller assignments and our native Step Input route; selected-region replacement is explicitly disabled.",
+        "Fresh readback/identity receipt code is an architecture reference; this review does not prove live availability, hidden internal APIs or universal automatic rollback.",
+        "No common command-ID dispatcher or generic learned-key consumer established by inspected files."
+      ],
+      "sources": [
+        {
+          "path": "Sources/LogicProMCP/Server/CommandRegistry.swift",
+          "line_start": 1,
+          "line_end": 104,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Server/CommandRegistry.swift#L1"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "line_start": 67,
+          "line_end": 98,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L67"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+          "line_start": 131,
+          "line_end": 162,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L131"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+          "line_start": 79,
+          "line_end": 168,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift#L79"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+          "line_start": 453,
+          "line_end": 693,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift#L453"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+          "line_start": 388,
+          "line_end": 422,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift#L388"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+          "line_start": 906,
+          "line_end": 922,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift#L906"
+        },
+        {
+          "path": "Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+          "line_start": 1624,
+          "line_end": 1757,
+          "url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift#L1624"
+        }
+      ],
+      "relevance_priority": 1,
+      "runtime_verified_by_this_review": false
+    },
+    {
+      "full_name": "jovincroninwilesmith/logic-pro-mcp",
+      "default_branch": "main",
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "pushed_at": "2026-08-06T13:31:14Z",
+      "upstream_comparison": {
+        "ahead": 2,
+        "behind": 13,
+        "status": "diverged"
+      },
+      "own_delta_url": "https://api.github.com/repos/jovincroninwilesmith/logic-pro-mcp/compare/e71abdc8257d9a787d9192407aec7529b8e7c4a7...a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "own_changed_file_count": 5,
+      "classification": "Substantive current-layout AX corrections and realistic capability documentation; not new generic MIDI operations.",
+      "substantive_operations_or_changes": [
+        "Changes locators/value readers to AXDescription, Control Bar AXGroup, AXCheckBox transport toggles, AXSlider tempo/bar/beat and Tracks header AXLayoutItem.",
+        "Adds coarse/fine integer tempo adjustment, foreground activation + global HID keyboard posting and corrected marker shortcut.",
+        "CAPABILITIES.md separates author-reported working reads/tempo/create/save from broken/unimplemented rename/goto-bar/markers and untested mixer."
+      ],
+      "limitations": [
+        "Document author reports2026-08-06 current build without a concrete Logic version/build; not our12.4 verification.",
+        "Track rename/goto-bar text-entry fixes are described as external working scripts, explicitly not yet implemented in server.",
+        "Channel success may still mean AX action/event acknowledgement; no generic assignment/key-command-ID execution/readback addition."
+      ],
+      "sources": [
+        {
+          "path": "docs/CAPABILITIES.md",
+          "line_start": 3,
+          "line_end": 40,
+          "url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/docs/CAPABILITIES.md#L3"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+          "line_start": 153,
+          "line_end": 182,
+          "url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/AccessibilityChannel.swift#L153"
+        },
+        {
+          "path": "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+          "line_start": 36,
+          "line_end": 41,
+          "url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/CGEventChannel.swift#L36"
+        },
+        {
+          "path": "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+          "line_start": 123,
+          "line_end": 141,
+          "url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Accessibility/AXValueExtractors.swift#L123"
+        }
+      ],
+      "relevance_priority": 3,
+      "runtime_verified_by_this_review": false
+    }
+  ],
+  "docs_only_fork": {
+    "full_name": "Terobyte/logic-pro-mcp",
+    "head_sha": "f8127c333cb9ab5baa72fcda3000c7ada404862b",
+    "pushed_at": "2026-09-22T11:35:41Z",
+    "ahead_by": 3,
+    "behind_by": 0,
+    "only_changed_file": "IMPROVEMENTS.md",
+    "classification": "Bug/improvement proposals only; no shipped Logic operation implementation changes.",
+    "source": {
+      "path": "IMPROVEMENTS.md",
+      "line_start": 1,
+      "line_end": 80,
+      "url": "https://github.com/Terobyte/logic-pro-mcp/blob/f8127c333cb9ab5baa72fcda3000c7ada404862b/IMPROVEMENTS.md#L1"
+    }
+  },
+  "fork_inspected_sources": [
+    {
+      "fork": "jovincroninwilesmith/logic-pro-mcp",
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "path": "docs/CAPABILITIES.md",
+      "raw_url": "https://raw.githubusercontent.com/jovincroninwilesmith/logic-pro-mcp/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/docs/CAPABILITIES.md",
+      "blob_url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/docs/CAPABILITIES.md",
+      "query_utc": "2026-10-08T02:16:15.714593+00:00",
+      "bytes": 4095,
+      "sha256": "0614f5a844596a1a6e4bb1d6292462774d8a834d650d82f85d4fc5b343d2d6b0",
+      "line_count": 51,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 3,
+          "end": 40
+        }
+      ]
+    },
+    {
+      "fork": "jovincroninwilesmith/logic-pro-mcp",
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/jovincroninwilesmith/logic-pro-mcp/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "blob_url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "query_utc": "2026-10-08T02:16:15.715970+00:00",
+      "bytes": 16095,
+      "sha256": "9f27a64589f722f17857d8fe9a32b94e9385d0c048b169838b307353d5008af5",
+      "line_count": 391,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 153,
+          "end": 182
+        }
+      ]
+    },
+    {
+      "fork": "jovincroninwilesmith/logic-pro-mcp",
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "path": "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/jovincroninwilesmith/logic-pro-mcp/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "blob_url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "query_utc": "2026-10-08T02:16:15.717107+00:00",
+      "bytes": 7197,
+      "sha256": "1224d1b502a1f766b80bd5aeed4eee2fe74f0deee941c56d5b8010d6d2dddcfe",
+      "line_count": 170,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 36,
+          "end": 41
+        }
+      ]
+    },
+    {
+      "fork": "jovincroninwilesmith/logic-pro-mcp",
+      "head_sha": "a841503c6f55b8e8ebf2d4259996fceed5c23e4d",
+      "path": "Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+      "raw_url": "https://raw.githubusercontent.com/jovincroninwilesmith/logic-pro-mcp/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+      "blob_url": "https://github.com/jovincroninwilesmith/logic-pro-mcp/blob/a841503c6f55b8e8ebf2d4259996fceed5c23e4d/Sources/LogicProMCP/Accessibility/AXValueExtractors.swift",
+      "query_utc": "2026-10-08T02:16:15.717472+00:00",
+      "bytes": 9456,
+      "sha256": "158b7783a03c0c474928d93d36897818b1f0d2672275fde9815ab3ac91a56cd7",
+      "line_count": 217,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 123,
+          "end": 141
+        }
+      ]
+    },
+    {
+      "fork": "jaanvahk/logic-pro-mcp",
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "raw_url": "https://raw.githubusercontent.com/jaanvahk/logic-pro-mcp/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "blob_url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "query_utc": "2026-10-08T02:16:15.717552+00:00",
+      "bytes": 17697,
+      "sha256": "b4337a37e7c54c8f6d715bc0fcf600b826d9448dbcd52364a7acc91f2de7dd88",
+      "line_count": 355,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 188,
+          "end": 354
+        }
+      ]
+    },
+    {
+      "fork": "jaanvahk/logic-pro-mcp",
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/jaanvahk/logic-pro-mcp/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "blob_url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "query_utc": "2026-10-08T02:16:16.036192+00:00",
+      "bytes": 7700,
+      "sha256": "e8234f62aee504618826f81d35d09348daad458f4d67744b06b605f8d99e4fe5",
+      "line_count": 176,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 79,
+          "end": 118
+        }
+      ]
+    },
+    {
+      "fork": "jaanvahk/logic-pro-mcp",
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "path": "Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+      "raw_url": "https://raw.githubusercontent.com/jaanvahk/logic-pro-mcp/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+      "blob_url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Dispatchers/TrackDispatcher.swift",
+      "query_utc": "2026-10-08T02:16:16.041570+00:00",
+      "bytes": 12627,
+      "sha256": "1c9e650d7373b99d7ba2bedcfec547044925a4bdc54467d922eadb7a8ae21264",
+      "line_count": 246,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 94,
+          "end": 111
+        },
+        {
+          "start": 195,
+          "end": 244
+        }
+      ]
+    },
+    {
+      "fork": "jaanvahk/logic-pro-mcp",
+      "head_sha": "69b8f918811031361895d7f3edbcb1b58377a536",
+      "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/jaanvahk/logic-pro-mcp/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "blob_url": "https://github.com/jaanvahk/logic-pro-mcp/blob/69b8f918811031361895d7f3edbcb1b58377a536/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "query_utc": "2026-10-08T02:16:16.043669+00:00",
+      "bytes": 22780,
+      "sha256": "0ef74bc2fff80e6b4a060d4b6c357907125a753049d8e98ad2b0a0582abd2672",
+      "line_count": 532,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 217,
+          "end": 228
+        },
+        {
+          "start": 277,
+          "end": 314
+        }
+      ]
+    },
+    {
+      "fork": "patpatmedia/logic-pro-mcp",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "path": "README.md",
+      "raw_url": "https://raw.githubusercontent.com/patpatmedia/logic-pro-mcp/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/README.md",
+      "blob_url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/README.md",
+      "query_utc": "2026-10-08T02:16:16.050173+00:00",
+      "bytes": 13072,
+      "sha256": "7efcc2720d859172496a74a792aed73044ef6d9c7f1647bd34b3336106996ada",
+      "line_count": 280,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 3,
+          "end": 75
+        }
+      ]
+    },
+    {
+      "fork": "patpatmedia/logic-pro-mcp",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "path": "Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/patpatmedia/logic-pro-mcp/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "blob_url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "query_utc": "2026-10-08T02:16:16.184885+00:00",
+      "bytes": 49064,
+      "sha256": "8b27433eca5357587456de53cb65a7817c0e86ae68f41240c5011be7ed83d498",
+      "line_count": 1044,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 271,
+          "end": 306
+        },
+        {
+          "start": 436,
+          "end": 510
+        },
+        {
+          "start": 602,
+          "end": 694
+        },
+        {
+          "start": 726,
+          "end": 742
+        },
+        {
+          "start": 948,
+          "end": 965
+        }
+      ]
+    },
+    {
+      "fork": "patpatmedia/logic-pro-mcp",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "path": "Sources/LogicProMCP/State/StateRefresh.swift",
+      "raw_url": "https://raw.githubusercontent.com/patpatmedia/logic-pro-mcp/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/State/StateRefresh.swift",
+      "blob_url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/State/StateRefresh.swift",
+      "query_utc": "2026-10-08T02:16:16.299424+00:00",
+      "bytes": 1010,
+      "sha256": "685e32473e60190ad8e97008d6931e05ac010dfaf56017452314a0afd6895c24",
+      "line_count": 19,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 1,
+          "end": 19
+        }
+      ]
+    },
+    {
+      "fork": "patpatmedia/logic-pro-mcp",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "path": "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "raw_url": "https://raw.githubusercontent.com/patpatmedia/logic-pro-mcp/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "blob_url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "query_utc": "2026-10-08T02:16:16.305536+00:00",
+      "bytes": 11485,
+      "sha256": "e690d7d3aeb861760563793907a0934ff6d6df83a5727f6897f128e7cd97b135",
+      "line_count": 250,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": []
+    },
+    {
+      "fork": "patpatmedia/logic-pro-mcp",
+      "head_sha": "4e60e04b5a6009e9cdaccd35fcd266998676c5f8",
+      "path": "Sources/LogicProMCP/Accessibility/UIInput.swift",
+      "raw_url": "https://raw.githubusercontent.com/patpatmedia/logic-pro-mcp/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Accessibility/UIInput.swift",
+      "blob_url": "https://github.com/patpatmedia/logic-pro-mcp/blob/4e60e04b5a6009e9cdaccd35fcd266998676c5f8/Sources/LogicProMCP/Accessibility/UIInput.swift",
+      "query_utc": "2026-10-08T02:16:16.308251+00:00",
+      "bytes": 6925,
+      "sha256": "6c1e4286e34f58c0662942db2b1e73b4d75299c39908236094451d46bba4ac17",
+      "line_count": 167,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": []
+    },
+    {
+      "fork": "wonderstone/logic-pro-mcp",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "path": "Sources/LogicProMCP/Server/CommandRegistry.swift",
+      "raw_url": "https://raw.githubusercontent.com/wonderstone/logic-pro-mcp/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Server/CommandRegistry.swift",
+      "blob_url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Server/CommandRegistry.swift",
+      "query_utc": "2026-10-08T02:16:16.451891+00:00",
+      "bytes": 15648,
+      "sha256": "39a9339fc4bfcea2c5ee14c7688bc24de34e1ccdee85e50e34049e16de016eac",
+      "line_count": 165,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 1,
+          "end": 104
+        }
+      ]
+    },
+    {
+      "fork": "wonderstone/logic-pro-mcp",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "raw_url": "https://raw.githubusercontent.com/wonderstone/logic-pro-mcp/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "blob_url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "query_utc": "2026-10-08T02:16:16.561299+00:00",
+      "bytes": 11038,
+      "sha256": "44dd7225e0a1448cf4d356156818e28d04cd36d23b3c6108f50ab37c75ad3acc",
+      "line_count": 211,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": []
+    },
+    {
+      "fork": "wonderstone/logic-pro-mcp",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/wonderstone/logic-pro-mcp/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "blob_url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "query_utc": "2026-10-08T02:16:16.593570+00:00",
+      "bytes": 8692,
+      "sha256": "4e2a7653578aa56b596c2ba2adb09beae3170213322f5c002cd0837e478618db",
+      "line_count": 189,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 67,
+          "end": 98
+        },
+        {
+          "start": 131,
+          "end": 162
+        }
+      ]
+    },
+    {
+      "fork": "wonderstone/logic-pro-mcp",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "path": "Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+      "raw_url": "https://raw.githubusercontent.com/wonderstone/logic-pro-mcp/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+      "blob_url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ProjectDispatcher.swift",
+      "query_utc": "2026-10-08T02:16:16.612728+00:00",
+      "bytes": 43518,
+      "sha256": "09097a61b801f59a4da59db92bcf60411256893fd1055211ec259e2dbb846ba0",
+      "line_count": 988,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 79,
+          "end": 168
+        },
+        {
+          "start": 453,
+          "end": 693
+        }
+      ]
+    },
+    {
+      "fork": "wonderstone/logic-pro-mcp",
+      "head_sha": "01ce6271efc80d4941af65b929c752697629a39b",
+      "path": "Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+      "raw_url": "https://raw.githubusercontent.com/wonderstone/logic-pro-mcp/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+      "blob_url": "https://github.com/wonderstone/logic-pro-mcp/blob/01ce6271efc80d4941af65b929c752697629a39b/Sources/LogicProMCP/Dispatchers/ACEAudioPlacementCoordinator.swift",
+      "query_utc": "2026-10-08T02:16:16.618636+00:00",
+      "bytes": 142324,
+      "sha256": "e0dd579a945dcab8d097bd14aab199c7d4aaacc50347912e940c9335188a00ce",
+      "line_count": 2977,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 388,
+          "end": 422
+        },
+        {
+          "start": 906,
+          "end": 922
+        },
+        {
+          "start": 1624,
+          "end": 1757
+        }
+      ]
+    },
+    {
+      "fork": "Terobyte/logic-pro-mcp",
+      "head_sha": "f8127c333cb9ab5baa72fcda3000c7ada404862b",
+      "path": "IMPROVEMENTS.md",
+      "raw_url": "https://raw.githubusercontent.com/Terobyte/logic-pro-mcp/f8127c333cb9ab5baa72fcda3000c7ada404862b/IMPROVEMENTS.md",
+      "blob_url": "https://github.com/Terobyte/logic-pro-mcp/blob/f8127c333cb9ab5baa72fcda3000c7ada404862b/IMPROVEMENTS.md",
+      "query_utc": "2026-10-08T02:17:38.730423+00:00",
+      "bytes": 8268,
+      "sha256": "55b59b4389fa0dc6e0ff774125b24616a87c0d2b7718ff33e924ee54a33e0b07",
+      "line_count": 83,
+      "inspection_scope": "Pinned-source retrieval plus targeted keyword/bounded function reading; not runtime validation.",
+      "inspected_evidence_ranges": []
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "query_utc": "2026-10-08T02:20:59.543181+00:00",
+      "bytes": 10146,
+      "sha256": "58b659c5c9d600efd4378f68764d4af3120f20dba8a8e10ceb0fde1a39a417b5",
+      "line_count": 225,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 141,
+          "end": 215
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "query_utc": "2026-10-08T02:20:59.544391+00:00",
+      "bytes": 12886,
+      "sha256": "6ffdf4c24c58cb37e1a8bd8e272444b9d17b8e6e5d4c57135c7ca950caccf5b0",
+      "line_count": 280,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 79,
+          "end": 194
+        },
+        {
+          "start": 215,
+          "end": 266
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "query_utc": "2026-10-08T02:20:59.545592+00:00",
+      "bytes": 6406,
+      "sha256": "3240a7e53ffc33840d10e9b559b742d7bf82e66be358366a90619fb71ec8f4f4",
+      "line_count": 154,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 38,
+          "end": 152
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "query_utc": "2026-10-08T02:20:59.545783+00:00",
+      "bytes": 10073,
+      "sha256": "d362bd01651c4b6587de1b70d7006225a9cecc13a05ddc50951c4bf9e2f84cc2",
+      "line_count": 224,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 175,
+          "end": 206
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+      "query_utc": "2026-10-08T02:20:59.547512+00:00",
+      "bytes": 7003,
+      "sha256": "fe50e01c5c74bc0d6aeb7555be321094ea49721f0109fb6d2489b331b44a163e",
+      "line_count": 191,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 43,
+          "end": 56
+        },
+        {
+          "start": 145,
+          "end": 159
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "Sources/LogicProMCP/State/StatePoller.swift",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/State/StatePoller.swift",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/Sources/LogicProMCP/State/StatePoller.swift",
+      "query_utc": "2026-10-08T02:20:59.773891+00:00",
+      "bytes": 5133,
+      "sha256": "6c9c89eca0e8efbeede9eb9d0dced05e72aac2b71942fcdeef05fc07c3467312",
+      "line_count": 146,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 81,
+          "end": 109
+        }
+      ]
+    },
+    {
+      "fork": "guitargnarr/logic-pro-mcp",
+      "head_sha": "ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3",
+      "path": "README.md",
+      "raw_url": "https://raw.githubusercontent.com/guitargnarr/logic-pro-mcp/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/README.md",
+      "blob_url": "https://github.com/guitargnarr/logic-pro-mcp/blob/ae4d4e46c7ff9a68326e685f5cd312a290fb7ed3/README.md",
+      "query_utc": "2026-10-08T02:20:59.780792+00:00",
+      "bytes": 7453,
+      "sha256": "ae72d560cf0deba244fd833f0ddd6bf4ce0a853beb2354110300725314dfa2bd",
+      "line_count": 206,
+      "inspection_scope": "Already bounded-inspected by team agent; parent retrieved identical pinned source solely for hash binding; no code executed.",
+      "inspected_evidence_ranges": [
+        {
+          "start": 76,
+          "end": 111
+        }
+      ]
+    }
+  ],
+  "upstream_findings": [
+    {
+      "id": "midi_delivery_is_not_region_editing",
+      "status": "Verified source mechanism; Logic effect unverified",
+      "detail": "send_note sends note-on, sleeps a caller-supplied duration in milliseconds, sends note-off, and returns unverified. send_cc only sends a channel message. No arm/selected-region/MIDI Input/Step Input setup or note export/readback is in these paths. Sending alone is not a recording or region-editing operation.",
+      "evidence": [
+        "c01",
+        "c02",
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "id": "proper_timestamp_missing",
+      "status": "Concrete adoption blocker for MIDI source timing",
+      "detail": "MIDIPacketListAdd is called with timestamp 0, followed by MIDIReceived. Use proper current Mach host timestamps, with pre/post-call logs, before borrowing the sender; zero is not now for MIDIReceived.",
+      "evidence": [
+        "c05"
+      ],
+      "local_primary_contract_context": {
+        "path": "Research/experiments/EXP-MIDI-032-controller-note-input.en.md",
+        "line_start": 47,
+        "line_end": 51,
+        "sha256": "428d6e3a1096044ab7667fdd75f4e128dc301bbdf3f45d8fcf008297faa9fc9b",
+        "apple_api_url": "https://developer.apple.com/documentation/coremidi/midireceived%28_%3A_%3A%29"
+      }
+    },
+    {
+      "id": "broadcast_and_any_accept",
+      "status": "Verified source behavior; duplicate Logic effect is a hypothesis",
+      "detail": "Each message is sent to the main virtual source and every additional source. Bool becomes true if any source accepts it, even if others reject. If Logic subscribes to several created sources, duplicate effects are possible; no selected output-source target or receiver acknowledgment exists.",
+      "evidence": [
+        "c06",
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "id": "mmc_present_without_ack",
+      "status": "Verified builder/send code; actual Logic execution unverified",
+      "detail": "MMC command SysEx is implemented: play02, stop01, record-strobe06, record-exit07, pause09, forward04, rewind05 and SMPTE locate44. Default deviceID is7f. Delivery returns unverified; no reply matcher or fresh state comparison is in the path. Public mmc_locate correctly rejects bar-based conversion without tempo/time-signature context.",
+      "evidence": [
+        "c09",
+        "c10",
+        "c11",
+        "c12",
+        "c13"
+      ]
+    },
+    {
+      "id": "router_acceptance_stops_fallback",
+      "status": "Verified routing policy",
+      "detail": "Transport is MIDI then keyboard/AppleScript; note/CC routes are CoreMIDI only; continuous mixer and tempo are OSC then AX. Router stops on success or unverified, and only falls back after errors/unavailable health. Consequently an accepted MMC send with no Logic effect never reaches keyboard fallback. Avoid automatic retry after unverified delivery because the first mutation may already have happened.",
+      "evidence": [
+        "c14",
+        "c15",
+        "c16"
+      ]
+    },
+    {
+      "id": "mixer_parameter_contract_mismatch",
+      "status": "Concrete public-path defect",
+      "detail": "MixerDispatcher passes index for volume/pan and index/send_index for send. OSCChannel requires track and send. These public requests fail OSC validation and fall through to AX, so the advertised OSC-primary mixer path is not exercised through these dispatcher calls.",
+      "evidence": [
+        "c17",
+        "c18",
+        "c19"
+      ]
+    },
+    {
+      "id": "osc_send_is_not_logic_registration",
+      "status": "Verified UDP mechanism; Logic address/schema compatibility unverified",
+      "detail": "Hardcoded 127.0.0.1 send7001/receive7000; messages use /track/N/volume, /track/N/pan, /track/N/send/S/level, /tempo. README requires manual Logic control-surface setup, but inspected source contains no registration, discovery, handshake or schema negotiation for these addresses. Do not equate UDP readiness with a working Logic surface.",
+      "evidence": [
+        "c20",
+        "c21",
+        "c22"
+      ],
+      "comparison_to_local_historical_evidence": "Existing SA-002/table evidence uses /cs/mixer/volume/pan and /1/pan, not a universal /track/N/pan route; current applicability requires a documented registered peer or bridge."
+    },
+    {
+      "id": "osc_mutation_false_success",
+      "status": "Concrete verification gap",
+      "detail": "OSCClient resumes after Network contentProcessed succeeds; OSCChannel returns success immediately. Health is UDP client readiness/listener presence, not Logic reachability. Public dispatchers return text/isError and do not compare fresh values. Tempo requests reach this path and can report success without a recorded Logic change.",
+      "evidence": [
+        "c23",
+        "c24",
+        "c25"
+      ]
+    },
+    {
+      "id": "shortcut_focus_and_hardcoded_map",
+      "status": "Verified source guard; default-command correctness unverified",
+      "detail": "CGEvent activates Logic and waits up to500ms for frontmost; goto-position rechecks after100ms. It posts to the PID and returns unverified. This contradicts README no-focus claim. Operation map assumes fixed shortcuts, labels multiple entries approximate, uses Space for both play/stop/pause, and quantize uses keyCode44, the same as goto-position; no focused-window/control or key-command-set verification is present.",
+      "evidence": [
+        "c26",
+        "c27",
+        "c28",
+        "c29"
+      ]
+    },
+    {
+      "id": "feedback_not_connected_to_state",
+      "status": "Verified bounded source search result",
+      "detail": "MIDIEngine.inboundMessages and OSCServer.messages are declared/yielded but have no consumers anywhere in inspected Sources. No MMC acknowledgment correlation was found. StatePoller updates cache from periodic AX reads, while the reviewed mutation dispatchers return channel results without requesting a before/after comparison.",
+      "evidence": [
+        "c30",
+        "c31",
+        "c32",
+        "c33",
+        "c34"
+      ],
+      "search_terms": [
+        "inboundMessages",
+        "for await",
+        ".messages"
+      ],
+      "search_scope": "Sources/LogicProMCP, pinned local snapshot"
+    },
+    {
+      "id": "feedback_parser_adoption_risks",
+      "status": "Concrete source limitations; memory-safety risk not runtime tested",
+      "detail": "parse takes MIDIPacketList by value and walks MIDIPacketNext across a copy, so multi-packet/variable-size packet lists require pointer-based traversal of original callback storage. parseBytes claims running status and SysEx spanning, but drops data without status and emits incomplete SysEx without carrying state; do not borrow it as robust feedback parsing.",
+      "evidence": [
+        "c35",
+        "c36",
+        "c37"
+      ]
+    },
+    {
+      "id": "test_claim_scope",
+      "status": "Test source inspected only; no tests run",
+      "detail": "CoreMIDI tests create virtual ports and assert unverified/API acceptance, port enumeration, malformed input errors, stopped-engine errors and partial fanout acceptance. They do not launch Logic, verify MMC state, compare recorded/step-entered notes, or validate OSC registration. README submillisecond latency is not established by these tests.",
+      "evidence": [
+        "c38",
+        "c39",
+        "c40",
+        "c41"
+      ]
+    },
+    {
+      "id": "partial_start_cleanup",
+      "status": "Concrete cleanup gap for adaptation",
+      "detail": "MIDIEngine.start can throw after creating a client or source, while stop exits early unless isRunning is true; that flag is set only after destination creation. An initialization failure can leave created resources undisposed. No persistent active-note set/global shutdown release is present in this engine; channel cancellation attempts note-offs for its scoped note/chord.",
+      "evidence": [
+        "c42",
+        "c43",
+        "c44"
+      ]
+    }
+  ],
+  "upstream_sources": [
+    {
+      "path": "README.md",
+      "bytes": 7438,
+      "sha256": "7bb910c67baf783aa4fe925e98cc4e80ecc19558090c1afdf9ff3759ea083f61",
+      "id": "s01",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/README.md"
+    },
+    {
+      "path": "Sources/LogicProMCP/Channels/Channel.swift",
+      "bytes": 1920,
+      "sha256": "dcc67cd6c3038f557c2e3a2d15949a63f6b0a5c16b8c867315b1461ccf6babf4",
+      "id": "s02",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/Channel.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Channels/ChannelRouter.swift",
+      "bytes": 10156,
+      "sha256": "ef9bb57ea33d548bc6f1a9cb8126aa9f9a79b30be139dc1423aeb9f9e8dec937",
+      "id": "s03",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/ChannelRouter.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Channels/CoreMIDIChannel.swift",
+      "bytes": 13838,
+      "sha256": "79a189d4ec1c78d337927d15b90ab52308ae1504077f56820a919e33fb9c3145",
+      "id": "s04",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Channels/OSCChannel.swift",
+      "bytes": 6194,
+      "sha256": "288fbe45398d132552098303f0f7b4eaa6bcc759a8834c13c606cbe5e12af493",
+      "id": "s05",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/OSCChannel.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Channels/CGEventChannel.swift",
+      "bytes": 10535,
+      "sha256": "87da349654c3d9c8bd0a1b43fff6d9e19e23751e2c2d81b75ebeffc724734710",
+      "id": "s06",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CGEventChannel.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/MIDI/MIDIEngine.swift",
+      "bytes": 11371,
+      "sha256": "38ed73214eb97445338def973bf4e7a5640b82d2518b9af3e74932f995574877",
+      "id": "s07",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/MIDI/MMCCommands.swift",
+      "bytes": 2179,
+      "sha256": "3cfa2aab1a2adcc4924331beb5c4498ff0e88ab0f3f495de923bfd0eb16cfca2",
+      "id": "s08",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MMCCommands.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/MIDI/MIDIFeedback.swift",
+      "bytes": 4785,
+      "sha256": "79fe759e0dab4e1fb046dd454b407c40311692a3aa737cdaf2bdc9ae2d1cd0be",
+      "id": "s09",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIFeedback.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/OSC/OSCClient.swift",
+      "bytes": 4201,
+      "sha256": "4c27ce50750edbebc49e9edbf64bb5588cf8fbebffb7fec63ea58d63d8f783bb",
+      "id": "s10",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCClient.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/OSC/OSCServer.swift",
+      "bytes": 2598,
+      "sha256": "2616ed8c679ae8e8ff88cbfa767c9c611bc3c46bbe502bfd1a581733122a3e35",
+      "id": "s11",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCServer.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift",
+      "bytes": 11950,
+      "sha256": "2566e9ba4e8ddb7a4c6d4229ae0417994f87d063c54dd7c9ac3df6517c752322",
+      "id": "s12",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Dispatchers/TransportDispatcher.swift",
+      "bytes": 7271,
+      "sha256": "477227e75ea290e676d3eeea307e69de7b974ee19067646a8c1292b1184834b2",
+      "id": "s13",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/TransportDispatcher.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Dispatchers/MixerDispatcher.swift",
+      "bytes": 6740,
+      "sha256": "bdc339526ea94700b36f502652c9d42d4932ae847a22c74331c70ce2e2f2926c",
+      "id": "s14",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/MixerDispatcher.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Utilities/InputValidation.swift",
+      "bytes": 5422,
+      "sha256": "e6f1c7e92e7e34063f1e188d7484e7f000dcd830915af8172df2f7a557d09994",
+      "id": "s15",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Utilities/InputValidation.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/State/StatePoller.swift",
+      "bytes": 8640,
+      "sha256": "4675238476dc13ba36a42e308fe7ad8ea7b9024a8bf959b97504641d77645b4f",
+      "id": "s16",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/State/StatePoller.swift"
+    },
+    {
+      "path": "Sources/LogicProMCP/Server/ServerConfig.swift",
+      "bytes": 1992,
+      "sha256": "eddfcd802014712e69242f28801fb14087387b8a5d04959ebfc6d26e970575f1",
+      "id": "s17",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Server/ServerConfig.swift"
+    },
+    {
+      "path": "Tests/LogicProMCPTests/CoreMIDIChannelTests.swift",
+      "bytes": 6366,
+      "sha256": "3fbd707545015af58a4fc146375385ef471b953a8dd87e4443e968074f313328",
+      "id": "s18",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/CoreMIDIChannelTests.swift"
+    },
+    {
+      "path": "Tests/LogicProMCPTests/PlaceholderTests.swift",
+      "bytes": 934,
+      "sha256": "b82e9d8812f1dee2625b3327b2285b26842d6ba468c4055a699e64adb488e8bd",
+      "id": "s19",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/PlaceholderTests.swift"
+    }
+  ],
+  "upstream_citations": [
+    {
+      "id": "c01",
+      "source_id": "s04",
+      "line_start": 65,
+      "line_end": 84,
+      "snippet_sha256": "319f0fb58039ea13fd9ab9524d4cbe46d5c48e9f1d3662d13be7b008e1af2167",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L65-L84"
+    },
+    {
+      "id": "c02",
+      "source_id": "s04",
+      "line_start": 156,
+      "line_end": 165,
+      "snippet_sha256": "bf28c073b356aaf9f5a0439c673faffb2fe79f45c876b62a410582dcee6666ac",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L156-L165"
+    },
+    {
+      "id": "c03",
+      "source_id": "s12",
+      "line_start": 46,
+      "line_end": 76,
+      "snippet_sha256": "691bfe24314c9c72d89e27f2a3cdc0c2dfb0714e136dac983aaa14074fa7e5cc",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift#L46-L76"
+    },
+    {
+      "id": "c04",
+      "source_id": "s01",
+      "line_start": 165,
+      "line_end": 165,
+      "snippet_sha256": "b3b30fae0a38b4e3e49c919408e4afb491980798a3007a6f2ade99d7c0cbac9e",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/README.md#L165-L165"
+    },
+    {
+      "id": "c05",
+      "source_id": "s07",
+      "line_start": 238,
+      "line_end": 258,
+      "snippet_sha256": "2713cd9644b12d40f988de5319c420323ac45fbb526da87653fbd3bb6d52f169",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L238-L258"
+    },
+    {
+      "id": "c06",
+      "source_id": "s07",
+      "line_start": 251,
+      "line_end": 265,
+      "snippet_sha256": "cba6e40677445bad093ccf5cbaa327e669458ad2e5250c6fcc749a236e371cfa",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L251-L265"
+    },
+    {
+      "id": "c07",
+      "source_id": "s07",
+      "line_start": 114,
+      "line_end": 145,
+      "snippet_sha256": "2919d7ff62203bf94926eadc610fc64e00973cf38c1e7b974f621bcafc10705d",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L114-L145"
+    },
+    {
+      "id": "c08",
+      "source_id": "s18",
+      "line_start": 121,
+      "line_end": 141,
+      "snippet_sha256": "282259c472ffeff7c0eeec0cc8c83cce5ba3673f20835e58bf1a246e0632446e",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/CoreMIDIChannelTests.swift#L121-L141"
+    },
+    {
+      "id": "c09",
+      "source_id": "s08",
+      "line_start": 6,
+      "line_end": 68,
+      "snippet_sha256": "36bf1e6a40b353706336b51162287f4d47b972d08eabade737592020c3e5540a",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MMCCommands.swift#L6-L68"
+    },
+    {
+      "id": "c10",
+      "source_id": "s04",
+      "line_start": 26,
+      "line_end": 61,
+      "snippet_sha256": "f164fe822334f42264e158445c3b0d38b63673693e2469d8144857da9ded8d1b",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L26-L61"
+    },
+    {
+      "id": "c11",
+      "source_id": "s04",
+      "line_start": 257,
+      "line_end": 260,
+      "snippet_sha256": "358a0ec8e0e69326bbbdf03ac3c6a168716fc3a148ac10fa86ba7122a4b75d94",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L257-L260"
+    },
+    {
+      "id": "c12",
+      "source_id": "s12",
+      "line_start": 235,
+      "line_end": 244,
+      "snippet_sha256": "ba8f5919534098842edbea6c6fbc4e19e98b90abb3892ee115b529036c1ccdc3",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/MIDIDispatcher.swift#L235-L244"
+    },
+    {
+      "id": "c13",
+      "source_id": "s17",
+      "line_start": 18,
+      "line_end": 19,
+      "snippet_sha256": "23a608df99e83addc2a12b3849db440758589b97c6d4ed87ac45450d1b7dc5b5",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Server/ServerConfig.swift#L18-L19"
+    },
+    {
+      "id": "c14",
+      "source_id": "s03",
+      "line_start": 14,
+      "line_end": 25,
+      "snippet_sha256": "809c7b99583fba081bc79ef00d3b193d8b5c953964f0df880d0b5acad61961a1",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/ChannelRouter.swift#L14-L25"
+    },
+    {
+      "id": "c15",
+      "source_id": "s03",
+      "line_start": 46,
+      "line_end": 78,
+      "snippet_sha256": "51aec28f749071adba0b5b01ece00ded336de8ff838279e4ee0297afe49979c9",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/ChannelRouter.swift#L46-L78"
+    },
+    {
+      "id": "c16",
+      "source_id": "s03",
+      "line_start": 187,
+      "line_end": 211,
+      "snippet_sha256": "ebfc14ef7de675132a132053773e9a3949d5b4f81281ed379c880634ca73aa0a",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/ChannelRouter.swift#L187-L211"
+    },
+    {
+      "id": "c17",
+      "source_id": "s14",
+      "line_start": 46,
+      "line_end": 70,
+      "snippet_sha256": "cb63037cf96a5bb0bb339d9bc5f00d955a7dc93f3801ea3123881858e6ce80f0",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/MixerDispatcher.swift#L46-L70"
+    },
+    {
+      "id": "c18",
+      "source_id": "s05",
+      "line_start": 30,
+      "line_end": 44,
+      "snippet_sha256": "67233bc2ae3f234aae4c6fc60d3edfe1357ede1f9258c1cbb046c109bbfda3e0",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/OSCChannel.swift#L30-L44"
+    },
+    {
+      "id": "c19",
+      "source_id": "s05",
+      "line_start": 62,
+      "line_end": 68,
+      "snippet_sha256": "c86a1e2c8ca6c436c43d219a70d07e959a25846e8609d7b509669b34dbd6b936",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/OSCChannel.swift#L62-L68"
+    },
+    {
+      "id": "c20",
+      "source_id": "s17",
+      "line_start": 10,
+      "line_end": 13,
+      "snippet_sha256": "90b2d03bf404c158642b3334b924e8792e4579cec38719be6d942201e000f1e0",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Server/ServerConfig.swift#L10-L13"
+    },
+    {
+      "id": "c21",
+      "source_id": "s05",
+      "line_start": 30,
+      "line_end": 78,
+      "snippet_sha256": "0766b997da05a081596827eddd905e6af784aaa3a866cf7f2fa4dc573de027d3",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/OSCChannel.swift#L30-L78"
+    },
+    {
+      "id": "c22",
+      "source_id": "s01",
+      "line_start": 168,
+      "line_end": 168,
+      "snippet_sha256": "f95c14f9706437f90c5d67eba8d991a6a60a4dd8356e82ce4f6faf7f52686b38",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/README.md#L168-L168"
+    },
+    {
+      "id": "c23",
+      "source_id": "s10",
+      "line_start": 59,
+      "line_end": 78,
+      "snippet_sha256": "6df71b492a64d4e9ba4c2a8fbe3bf3ea7cab9c86417bf6f1305e40ba3c8dfb0c",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCClient.swift#L59-L78"
+    },
+    {
+      "id": "c24",
+      "source_id": "s05",
+      "line_start": 126,
+      "line_end": 146,
+      "snippet_sha256": "b5ce1538e1cbd9709e011e1967416b49c8b2221a942fb255007fa1191ac3e9aa",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/OSCChannel.swift#L126-L146"
+    },
+    {
+      "id": "c25",
+      "source_id": "s13",
+      "line_start": 77,
+      "line_end": 94,
+      "snippet_sha256": "0401627e0a694fd9df189d969b861c2ef5d5620399c3726b20097a1333157396",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Dispatchers/TransportDispatcher.swift#L77-L94"
+    },
+    {
+      "id": "c26",
+      "source_id": "s06",
+      "line_start": 42,
+      "line_end": 93,
+      "snippet_sha256": "ede6145b9a6f9c278242bf26bc74ffd517fd97941f0607408bf7ae5ea66e2a6b",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CGEventChannel.swift#L42-L93"
+    },
+    {
+      "id": "c27",
+      "source_id": "s06",
+      "line_start": 112,
+      "line_end": 154,
+      "snippet_sha256": "a77d47eccd19420f5f41a07fc0d64f108b3e2ec27cb78e3adac791a3b9959f1d",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CGEventChannel.swift#L112-L154"
+    },
+    {
+      "id": "c28",
+      "source_id": "s06",
+      "line_start": 169,
+      "line_end": 218,
+      "snippet_sha256": "e722f6028f1eefd6a74c266439f99a7cbd0ab115899abc6adaf7980bc8c85fe3",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CGEventChannel.swift#L169-L218"
+    },
+    {
+      "id": "c29",
+      "source_id": "s01",
+      "line_start": 139,
+      "line_end": 139,
+      "snippet_sha256": "a1882c816087b7ec8399a9c3a0be808f701eba35be4ed5aa1a0b1966b7035f8b",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/README.md#L139-L139"
+    },
+    {
+      "id": "c30",
+      "source_id": "s07",
+      "line_start": 15,
+      "line_end": 22,
+      "snippet_sha256": "a721cbebb166d865b8eadc28ddc742f16cfc45ecb8072c20cdf4a326c7499711",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L15-L22"
+    },
+    {
+      "id": "c31",
+      "source_id": "s11",
+      "line_start": 9,
+      "line_end": 17,
+      "snippet_sha256": "c8fe59891d3cbdcf1d13b33410a6d523c43b73b086a171c092f2b14ed1a9d585",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCServer.swift#L9-L17"
+    },
+    {
+      "id": "c32",
+      "source_id": "s11",
+      "line_start": 62,
+      "line_end": 70,
+      "snippet_sha256": "b3de3c53cd4ffe9b5eaa05f70f7602e4d78e6e20e496d40ffaec33c77440af2d",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCServer.swift#L62-L70"
+    },
+    {
+      "id": "c33",
+      "source_id": "s16",
+      "line_start": 41,
+      "line_end": 50,
+      "snippet_sha256": "13f470f74de0075200cd8a6f0b4bc3ae1ea4d7bd30c9671ceaea8ce841747cfa",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/State/StatePoller.swift#L41-L50"
+    },
+    {
+      "id": "c34",
+      "source_id": "s16",
+      "line_start": 100,
+      "line_end": 114,
+      "snippet_sha256": "6d9a0ed11b7e8aa44939f2f29db0ed2f5d6d63b619f71fe4e500cfb6b3dc6e6c",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/State/StatePoller.swift#L100-L114"
+    },
+    {
+      "id": "c35",
+      "source_id": "s09",
+      "line_start": 19,
+      "line_end": 35,
+      "snippet_sha256": "b049075ffba3b92a9ae3a9884b1776625611c272f0f956d4bb4c196b02a1426a",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIFeedback.swift#L19-L35"
+    },
+    {
+      "id": "c36",
+      "source_id": "s09",
+      "line_start": 38,
+      "line_end": 66,
+      "snippet_sha256": "08d14d84fe14491f156c62f5333e84a4d06b18365c04c39ba099d1fc1c24cca9",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIFeedback.swift#L38-L66"
+    },
+    {
+      "id": "c37",
+      "source_id": "s07",
+      "line_start": 56,
+      "line_end": 58,
+      "snippet_sha256": "560abcb32bb4b9f5c2e86ca49736d89f2bbb548d294de195e370bdb606fa5332",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L56-L58"
+    },
+    {
+      "id": "c38",
+      "source_id": "s18",
+      "line_start": 6,
+      "line_end": 45,
+      "snippet_sha256": "4c2b5f00bae3f96bdf7e62e60cc31995ee78cb04de4afccfd8ae1682562c9abf",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/CoreMIDIChannelTests.swift#L6-L45"
+    },
+    {
+      "id": "c39",
+      "source_id": "s18",
+      "line_start": 64,
+      "line_end": 85,
+      "snippet_sha256": "b2100db846d7c0bd9cd9cc0b2662b7fe04db4f499312b238ff0f9289eae886fa",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/CoreMIDIChannelTests.swift#L64-L85"
+    },
+    {
+      "id": "c40",
+      "source_id": "s18",
+      "line_start": 113,
+      "line_end": 141,
+      "snippet_sha256": "a11f6f461e18511f393a8bada716976d232610f580698cb4ea4fbd8eb1835ff1",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Tests/LogicProMCPTests/CoreMIDIChannelTests.swift#L113-L141"
+    },
+    {
+      "id": "c41",
+      "source_id": "s01",
+      "line_start": 135,
+      "line_end": 141,
+      "snippet_sha256": "ee40f3b117b5eb0e54888b4bee0db72cebed57d2dc796762b6e7ce726ce92d86",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/README.md#L135-L141"
+    },
+    {
+      "id": "c42",
+      "source_id": "s07",
+      "line_start": 32,
+      "line_end": 70,
+      "snippet_sha256": "848a7f5ac7491260d9c358614ad16972280589acd7dbde0168e88f22ffe8931f",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L32-L70"
+    },
+    {
+      "id": "c43",
+      "source_id": "s04",
+      "line_start": 75,
+      "line_end": 82,
+      "snippet_sha256": "5788aff37c2421da8dd683f8c18717a9cacc0190ad792645874febf91c72f487",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L75-L82"
+    },
+    {
+      "id": "c44",
+      "source_id": "s04",
+      "line_start": 127,
+      "line_end": 152,
+      "snippet_sha256": "9387bfde9cb31b45d938ad8c871052c9c930f35c9faec590ebbbcb0a69a3a27b",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/CoreMIDIChannel.swift#L127-L152"
+    },
+    {
+      "id": "c45",
+      "source_id": "s15",
+      "line_start": 77,
+      "line_end": 81,
+      "snippet_sha256": "5610ed51fae11755add6a557bb0e7ded4bd34ad362f1c32d5e788acc8920d649",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Utilities/InputValidation.swift#L77-L81"
+    },
+    {
+      "id": "c46",
+      "source_id": "s02",
+      "line_start": 4,
+      "line_end": 19,
+      "snippet_sha256": "c48d6a74d0e52d4b585d573f2c76fc969a55b7e9bb6fc5f1641543361a11c328",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/Channel.swift#L4-L19"
+    },
+    {
+      "id": "c47",
+      "source_id": "s03",
+      "line_start": 175,
+      "line_end": 214,
+      "snippet_sha256": "fbde10a6a7490428b1a4e1072cb5a5d8c93feb8f0e3df066e57ca4ee902d40a9",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/Channels/ChannelRouter.swift#L175-L214"
+    },
+    {
+      "id": "c48",
+      "source_id": "s07",
+      "line_start": 46,
+      "line_end": 58,
+      "snippet_sha256": "ed85a36e97a4df8dd68649b46b8575611ff0efce4fd539aa966e801d255e80a6",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/MIDI/MIDIEngine.swift#L46-L58"
+    },
+    {
+      "id": "c49",
+      "source_id": "s10",
+      "line_start": 59,
+      "line_end": 76,
+      "snippet_sha256": "4fefde62c3cdd25d0ae0b3c914e7ec282a6dc45cab2e51b874816d04bfc4ee13",
+      "url": "https://github.com/koltyj/logic-pro-mcp/blob/bdc105e7defd3622b1869e2dcd0dfd5159e1409c/Sources/LogicProMCP/OSC/OSCClient.swift#L59-L76"
+    }
+  ],
+  "root_findings": [
+    {
+      "id": "API01",
+      "claim": "Eight dispatcher tools and six state resources plus one track resource template; useful grouping, resource response text still needs freshness",
+      "status": "source_design",
+      "sources": [
+        "resource_api"
+      ],
+      "adoption": "Thin MCP adapter over current command router, no claims of zero response token cost"
+    },
+    {
+      "id": "AX01",
+      "claim": "setMixerValue ignores setter Boolean and returns requested value without reread",
+      "status": "source_mechanism",
+      "sources": [
+        "ax_write",
+        "ax_helper"
+      ],
+      "lines": {
+        "ax_write": [
+          307,
+          323
+        ],
+        "ax_helper": [
+          21,
+          27
+        ]
+      },
+      "adoption": "Check API result and actual target value before verified:true"
+    },
+    {
+      "id": "GUI01",
+      "claim": "Role/description/tree and detected Logic PID locators are implemented; no current-JA live validation by this review",
+      "status": "source_mechanism",
+      "sources": [
+        "process"
+      ],
+      "adoption": "Compare locators to current GUI; retain version/language/visibility/target context"
+    },
+    {
+      "id": "STATE01",
+      "claim": "Adaptive polling/cache is implemented; cache use does not itself prove post-write effect or stable target identity",
+      "status": "source_design",
+      "sources": [
+        "poller"
+      ],
+      "adoption": "Observation timestamp, target/project association and requested-versus-observed results"
+    }
+  ],
+  "adoption_candidates": [
+    {
+      "candidate": "InputValidation channel/notes/range helpers and explicit unverified result",
+      "evidence": [
+        "c45",
+        "c03",
+        "c46"
+      ],
+      "required_changes": "Preserve zero-based internal channel conversion and structured accepted/verified separation; attach actual Logic readback before reporting verified."
+    },
+    {
+      "candidate": "Pure MMC SysEx builders and strict SMPTE/bar separation",
+      "evidence": [
+        "c09",
+        "c12"
+      ],
+      "required_changes": "Current Logic MMC receive prerequisites, explicit device/port binding, proper timestamps and fresh transport/position readback."
+    },
+    {
+      "candidate": "Channel routing and error/unverified separation",
+      "evidence": [
+        "c47"
+      ],
+      "required_changes": "Use explicit capability/precondition checks; fix dispatcher parameter contracts; do not retry an already-sent unverified mutation blindly."
+    },
+    {
+      "candidate": "Generic note/CC virtual-source mechanism",
+      "evidence": [
+        "c48",
+        "c01",
+        "c02"
+      ],
+      "required_changes": "Prefer our already-tested proper-timestamp source, single-source targeting, bounded active-note cleanup, and Step Input preparation/export readback; do not copy timestamp0/fanout."
+    },
+    {
+      "candidate": "OSC codec/UDP plumbing only",
+      "evidence": [
+        "c49"
+      ],
+      "required_changes": "Establish actual Logic control-surface registration/address schema, consume feedback and report unverified until parameter readback matches."
+    }
+  ],
+  "adoption_priority": [
+    "small dispatcher/state layer over validated logicctl operations",
+    "version/locale/visibility-specific GUI target/readback and blocked-dialog patterns",
+    "learned MIDI key-command to current internal ID/handler",
+    "timed note experiment formats with host-time/BPM/native note verification",
+    "one reversible guide-led new GUI operation"
+  ],
+  "connections": {
+    "generic_parameter_assignments": "Current CA001-003 observed effects and six current getters in SA-MIDI-ROUTE-001",
+    "generic_key_command": "KC002 proves one named learnedCC24 action, numerical internal dispatch untraced",
+    "native_midi_region": "MIDI033 Step input proves selected note placements; fork timed recording is a distinct route",
+    "mcu_remote_ae": "Retain tested MCU readback, historical Assign/command bridges and guarded product capabilities"
+  },
+  "verification": {
+    "upstream_head": "bdc105e7defd3622b1869e2dcd0dfd5159e1409c",
+    "upstream_selected_sources_matching_git_objects": 19,
+    "upstream_line_snippet_hashes_checked": 49,
+    "fork_api_source_hashes_recorded": 26,
+    "fork_files_runtime_verified": false,
+    "upstream_runtime_verified": false
+  },
+  "limitations": [
+    "Mutable branch heads may move during observation; shortlisted fork files will be read by pinned commit SHA.",
+    "Comparison stats describe commits reachable from fork branch vs current upstream main; commits alone do not prove substantive Logic feature changes.",
+    "Repository code capabilities will be static findings, not runtime verification.",
+    "Default branches only; non-default topic branches, second-degree forks and private/inaccessible forks not inventoried.",
+    "Mutable repository push dates can reflect other branches and need not equal default-head committer date.",
+    "Current upstream comparison patches can include omitted upstream commits; substantive claims use fork-own merge-base comparison instead.",
+    "Generic CC sending alone does not prove Logic Controller Assignments activation/value mode/targeting/feedback; fixed CGEvent shortcut maps do not prove command IDs.",
+    "Five inspected code forks have older divergent bases; equivalent upstream improvements may already exist.",
+    "README latency and context-cost figures were not benchmarked or verified.",
+    "No inspected code proves current generic learned-key to numeric internal command dispatch."
+  ],
+  "source_manifest": {
+    "upstream_audit": {
+      "path": "Research/raw/review/logic-pro-mcp-channel-audit-001.json",
+      "size_bytes": 19596,
+      "sha256": "214be901ab96ea363283dbb43190c107b314cb8067bcc0f3dd24639d01e9720c",
+      "availability": "local_ignored"
+    },
+    "fork_review": {
+      "path": "Research/raw/review/logic-pro-mcp-forks-001.json",
+      "size_bytes": 89847,
+      "sha256": "b597d93b882438e54ce1fc9f89aebc5624039e78078700df5fbeb672d191e443",
+      "availability": "local_ignored"
+    },
+    "reference_note": {
+      "path": "Research/notes/logic-pro-mcp-reference-001.en.md",
+      "size_bytes": 8742,
+      "sha256": "ef3b28439ae7351d68d481b6387ab7198875d02da6f1d5c22d1dd6faaddfc369",
+      "availability": "public_repo"
+    },
+    "midi_map": {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.en.md",
+      "size_bytes": 15395,
+      "sha256": "de3f966ea58160a634d2402c7b26c2e2db4188ddb1d1ea0d419392cb19a5bcbc",
+      "availability": "public_repo"
+    },
+    "kc_live": {
+      "path": "Research/experiments/EXP-KC-002-midi-to-key-command-loop-browser.en.md",
+      "size_bytes": 4197,
+      "sha256": "e17c5055cab38a7c25c1f6cd27fad689355394dcb1dc1c06176540812ea6297b",
+      "availability": "public_repo"
+    },
+    "step_live": {
+      "path": "Research/experiments/EXP-MIDI-033-step-region-edit.en.md",
+      "size_bytes": 20072,
+      "sha256": "29266b9e9590ee208fd8de258e891843133008d8cc748d5a963a22188b815bca",
+      "availability": "public_repo"
+    },
+    "license": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/LICENSE",
+      "size_bytes": 1070,
+      "sha256": "7a5fe45ee41e8cf889848ee77d61cd19fb5bada04c5c8ceac0d5c7640c26654a",
+      "availability": "local_ignored"
+    },
+    "ax_write": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/Sources/LogicProMCP/Channels/AccessibilityChannel.swift",
+      "size_bytes": 15059,
+      "sha256": "1e3a2557327ba0ac5e993b119993bd1ecaa8f64ed37ca671c77da7577245b26e",
+      "availability": "local_ignored"
+    },
+    "ax_helper": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/Sources/LogicProMCP/Accessibility/AXHelpers.swift",
+      "size_bytes": 6294,
+      "sha256": "6b212bac118f57e37a32993e4ad4439e0558239e2fee8671f4f3fb70b2ed3210",
+      "availability": "local_ignored"
+    },
+    "resource_api": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/Sources/LogicProMCP/Resources/ResourceProvider.swift",
+      "size_bytes": 1902,
+      "sha256": "82ac8fa9b15521a6f82e36f55e71bee3349847c3750bb692cebf60459f885dea",
+      "availability": "local_ignored"
+    },
+    "poller": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/Sources/LogicProMCP/State/StatePoller.swift",
+      "size_bytes": 8640,
+      "sha256": "4675238476dc13ba36a42e308fe7ad8ea7b9024a8bf959b97504641d77645b4f",
+      "availability": "local_ignored"
+    },
+    "process": {
+      "path": "Research/raw/references/logic-pro-mcp-upstream-20261008/Sources/LogicProMCP/Utilities/ProcessUtils.swift",
+      "size_bytes": 1861,
+      "sha256": "c236b27bdda26f8d499847b221a5f017032a4ff0cfb9737e371fd2a1a9d52308",
+      "availability": "local_ignored"
+    }
+  }
+}
