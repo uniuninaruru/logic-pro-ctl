@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-FIELDS-007",
+  "recorded_utc": "2026-10-20T20:45:35.485866+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "bounded_offline_serialized_list_mapping",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "list_decoder": {
+    "entry": "0x15dc284",
+    "size_bytes": 536,
+    "start_temp_offset": "0x66",
+    "start_payload_offset": "0x2e",
+    "tag_bytes": 1,
+    "length_encoding": "MSB-first base128 continuation groups, high bit means another byte",
+    "match_policy": "first matching tag, zero tag terminates",
+    "accessor": "0x15dc49c",
+    "copy_import": {
+      "stub": "0x1afbb54",
+      "raw_hex": "903c00d010e244f900021fd6",
+      "binding": {
+        "address": "0x228d9c0",
+        "raw_word": "0x8010000000000262",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_memcpy",
+        "ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "helper": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "helper_sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8"
+    },
+    "length_minimum_nonzero": {
+      "6": 32,
+      "13": 16
+    },
+    "minimum_is_not_cap": true,
+    "live_begin_offsets": {
+      "6": "0xf8",
+      "13": "0x1a0"
+    }
+  },
+  "fixed_field_helper": {
+    "entry": "0x15dbff0",
+    "size_bytes": 660,
+    "controller_encoding_word_offset": "0x4e",
+    "copied_row_word": 0,
+    "copied_rows_path": "high_byte < 0xff -> clear controller pointer+0x30 and byte+0x218 -> class5/selector1000 skips pinned-context branch -> return without callees",
+    "no_direct_store_to_offsets": [
+      "0x3a",
+      "0x3e",
+      "0x40"
+    ],
+    "general_side_effects_audited": false
+  },
+  "copied_snapshot": {
+    "sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+    "rows": [
+      {
+        "record_offset": 14714,
+        "controller_raw_word": 0,
+        "tag6": {
+          "payload_offset": 68,
+          "length": 32
+        },
+        "tag13": null,
+        "selector_raw": "0x1000"
+      },
+      {
+        "record_offset": 14841,
+        "controller_raw_word": 0,
+        "tag6": null,
+        "tag13": null,
+        "selector_raw": "0x1000"
+      },
+      {
+        "record_offset": 14937,
+        "controller_raw_word": 0,
+        "tag6": null,
+        "tag13": null,
+        "selector_raw": "0x1000"
+      },
+      {
+        "record_offset": 15021,
+        "controller_raw_word": 0,
+        "tag6": null,
+        "tag13": null,
+        "selector_raw": "0x1000"
+      }
+    ],
+    "current_assignment_confirmed": false,
+    "value_verified": false
+  },
+  "restricted_replay": {
+    "cases": 672,
+    "cases_by_source": {
+      "synthetic": 608,
+      "copied": 64
+    },
+    "mismatches": 0,
+    "instruction_sites_visited": 28,
+    "limits": [
+      "Restricted LLVM instruction-text replay only, no native target execution.",
+      "Only well-formed terminated tails; lengths <=16384 and no integer overflow.",
+      "Stops before allocation/copy and does not model allocator, context or full constructor.",
+      "Reference independently folds MSB-first seven-bit groups. Native malformed-input safety is not established."
+    ]
+  },
+  "intervals": [
+    {
+      "label": "serialized_list_to_assignment",
+      "entry": "0x15dc284",
+      "exclusive_end": "0x15dc49c",
+      "size_bytes": 536,
+      "body_sha256": "6848dd45249c0cebcf5b7cbfdae02de679a3453386c59acf7cbefb23a73de965"
+    },
+    {
+      "label": "fixed_field_normalizer",
+      "entry": "0x15dbff0",
+      "exclusive_end": "0x15dc284",
+      "size_bytes": 660,
+      "body_sha256": "6a9384e99111dd4090e0f4ad795b479cebc5212babd70e5f90e185c971280830"
+    }
+  ],
+  "anchors": {
+    "path": "Research/protocol/assignment-fields-12.4-anchors.tsv",
+    "count": 79,
+    "sha256": "5729484aa00fe6e3d44915d227f12ca152c734e43eaa75f5acb1b9314f0ac474"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/curate.py",
+      "sha256": "d693f733b803413b116d40a90945ef983d961179359e667e7938043731a97b1f",
+      "size_bytes": 4625
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/inspect_fields.py",
+      "sha256": "19002ef6264fb9751d60345c4bf690088cd8a317591227d6ae50a9a75f3350e9",
+      "size_bytes": 2758
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/fields-proof.json",
+      "sha256": "309c8115cd62e71468f1391bb4355dfa4b3423912a87ac44563411efbbae295a",
+      "size_bytes": 44537
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/inspect_import.py",
+      "sha256": "0489fdf627d9033694e5614cabdff0c23fef0be3cb768f7df59273502036ee33",
+      "size_bytes": 1311
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/memcpy-binding.json",
+      "sha256": "104f5303487a09955a0e9fa66014f19776ffa021914064d4a0c7d063c9db725a",
+      "size_bytes": 497
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/replay_list_scan.py",
+      "sha256": "9808140737ba2a6cd31be07b6710fd7dbb793cfd1b34a1a7368724450ac9b9d5",
+      "size_bytes": 6221
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-fields-007/list-scan-replay.json",
+      "sha256": "1d99a8161052f97fd72cb283bca95b7e2c9d41d65964f595e4cfbc5f9ed62368",
+      "size_bytes": 1398
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/serialization-proof.json",
+      "sha256": "de43507a5a34fe163c56e1451c99cc6316e082e6b9067629ea20dc373ebf452b",
+      "size_bytes": 87527
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/copied-rows.json",
+      "sha256": "df1cbc84416cfec992a5a0c98c5fccda8dd013b8ef5f1bc95b57a58984631c2b",
+      "size_bytes": 5533
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/consumer/consumer-proof.json",
+      "sha256": "04be063d579cb4c6e458eb087fe2659ff64e77c74a467690a46028099b871709",
+      "size_bytes": 79395
+    },
+    {
+      "path": "Research/notes/cs-reader-endian-gate-001.en.md",
+      "sha256": "7e91d906cf4a9a486a58ecd0017efac25f38bfa62ec10a4358d3e19428d1b8eb",
+      "size_bytes": 4521
+    }
+  ],
+  "limits": [
+    "No live preferences, Logic, GUI, native engine, or settings writes.",
+    "The copied-row normalizer path is bounded; other controller/pinned paths may call context helpers.",
+    "No general malformed-input validation, allocator proof, live target identity, or value readback.",
+    "Constructor allocation/exception paths and transitive allocator internals are not replayed."
+  ]
+}

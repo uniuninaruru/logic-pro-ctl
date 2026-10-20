@@ -1,0 +1,81 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline bounded serialized-list witnesses; no runtime effect assertion
+AV001	insn	0x15dc2ac	286c4638	ldrb w8, [x1, #0x66]!	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV002	insn	0x15dc2b0	c8000035	cbnz w8, 0x15dc2c8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV003	insn	0x15dc2b4	61000014	b 0x15dc438	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV004	insn	0x15dc2b8	880208aa	orr x8, x20, x8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV005	insn	0x15dc2bc	6102088b	add x1, x19, x8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV006	insn	0x15dc2c0	28004039	ldrb w8, [x1]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV007	insn	0x15dc2c4	a80b0034	cbz w8, 0x15dc438	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV008	insn	0x15dc2c8	33080091	add x19, x1, #0x2	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV009	insn	0x15dc2cc	34044039	ldrb w20, [x1, #0x1]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV010	insn	0x15dc2d0	5f00286b	cmp w2, w8, uxtb	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV011	insn	0x15dc2d4	40010054	b.eq 0x15dc2fc	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV012	insn	0x15dc2d8	080080d2	mov x8, #0x0	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV013	insn	0x15dc2dc	f4fe3f36	tbz w20, #0x7, 0x15dc2b8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV014	insn	0x15dc2e0	891a4092	and x9, x20, #0x7f	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV015	insn	0x15dc2e4	280108aa	orr x8, x9, x8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV016	insn	0x15dc2e8	08e179d3	lsl x8, x8, #7	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV017	insn	0x15dc2ec	6916c038	ldrsb w9, [x19], #0x1	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV018	insn	0x15dc2f0	341d4092	and x20, x9, #0xff	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV019	insn	0x15dc2f4	69ffff37	tbnz w9, #0x1f, 0x15dc2e0	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV020	insn	0x15dc2f8	f0ffff17	b 0x15dc2b8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV021	insn	0x15dc2fc	170080d2	mov x23, #0x0	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV022	insn	0x15dc300	f4003836	tbz w20, #0x7, 0x15dc31c	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV023	insn	0x15dc304	881a4092	and x8, x20, #0x7f	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV024	insn	0x15dc308	080117aa	orr x8, x8, x23	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV025	insn	0x15dc30c	17e179d3	lsl x23, x8, #7	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV026	insn	0x15dc310	6816c038	ldrsb w8, [x19], #0x1	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV027	insn	0x15dc314	141d4092	and x20, x8, #0xff	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV028	insn	0x15dc318	68ffff37	tbnz w8, #0x1f, 0x15dc304	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV029	insn	0x15dc31c	5f040071	cmp w2, #0x1	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV030	insn	0x15dc320	c1000054	b.ne 0x15dc338	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV031	insn	0x15dc324	092048a9	ldp x9, x8, [x0, #0x80]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV032	insn	0x15dc328	1f0109eb	cmp x8, x9	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV033	insn	0x15dc32c	f5079f1a	cset w21, ne	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV034	insn	0x15dc330	21008052	mov w1, #0x1	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV035	insn	0x15dc334	03000014	b 0x15dc340	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV036	insn	0x15dc338	e10302aa	mov x1, x2	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV037	insn	0x15dc33c	15008052	mov w21, #0x0	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV038	insn	0x15dc340	820217aa	orr x2, x20, x23	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV039	insn	0x15dc344	f60300aa	mov x22, x0	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV040	insn	0x15dc348	55000094	bl 0x15dc49c	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV041	insn	0x15dc34c	800000b4	cbz x0, 0x15dc35c	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV042	insn	0x15dc350	820217aa	orr x2, x20, x23	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV043	insn	0x15dc354	e10313aa	mov x1, x19	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV044	insn	0x15dc358	ff7d1494	bl 0x1afbb54	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV045	insn	0x15dc360	c8a243b8	ldur w8, [x22, #0x3a]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV046	insn	0x15dc364	1f150071	cmp w8, #0x5	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV047	insn	0x15dc368	c1040054	b.ne 0x15dc400	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV048	insn	0x15dc36c	087c4079	ldrh w8, [x0, #0x3e]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV049	insn	0x15dc370	080d1412	and w8, w8, #0xf000	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV050	insn	0x15dc374	1f2d4071	cmp w8, #0xb, lsl #12	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV051	insn	0x15dc378	41040054	b.ne 0x15dc400	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV052	insn	0x15dc000	08e044b8	ldur w8, [x0, #0x4e]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV053	insn	0x15dc004	097d58d3	ubfx x9, x8, #24, #8	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV054	insn	0x15dc008	3ffd0371	cmp w9, #0xff	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV055	insn	0x15dc00c	e3020054	b.lo 0x15dc068	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV056	insn	0x15dc010	08087837	tbnz w8, #0xf, 0x15dc110	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV057	insn	0x15dc014	13394092	and x19, x8, #0x7fff	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV058	insn	0x15dc054	141800f9	str x20, [x0, #0x30]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV059	insn	0x15dc058	9f0600f1	cmp x20, #0x1	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV060	insn	0x15dc05c	0b0c0054	b.lt 0x15dc1dc	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV061	insn	0x15dc060	88aa4339	ldrb w8, [x20, #0xea]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV062	insn	0x15dc064	2e000014	b 0x15dc11c	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV063	insn	0x15dc068	1f1800f9	str xzr, [x0, #0x30]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV064	insn	0x15dc06c	1f600839	strb wzr, [x0, #0x218]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV065	insn	0x15dc070	08a043b8	ldur w8, [x0, #0x3a]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV066	insn	0x15dc074	1f150071	cmp w8, #0x5	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV067	insn	0x15dc078	a10a0054	b.ne 0x15dc1cc	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV068	insn	0x15dc07c	087c4079	ldrh w8, [x0, #0x3e]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV069	insn	0x15dc080	080d1412	and w8, w8, #0xf000	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV070	insn	0x15dc084	1f2d4071	cmp w8, #0xb, lsl #12	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV071	insn	0x15dc088	210a0054	b.ne 0x15dc1cc	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV072	insn	0x15dc1cc	fd7b42a9	ldp x29, x30, [sp, #0x20]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV073	insn	0x15dc1d0	f44f41a9	ldp x20, x19, [sp, #0x10]	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV074	insn	0x15dc1d4	ffc30091	add sp, sp, #0x30	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV075	insn	0x15dc1d8	c0035fd6	ret	ASSIGN-FIELDS-007 list scan/copy or copied-row controller normalization
+AV076	data	0x1afbb54	903c00d010e244f900021fd6		Exact memcpy stub bytes
+AV077	bind	0x228d9c0		libSystem/_memcpy	Chained-fixup import used by matched-list copy
+AV078	data	0x1d44340	2000000000000000		Existing accessor minimum nonzero length for list 6
+AV079	data	0x1d44378	1000000000000000		Existing accessor minimum nonzero length for list 13

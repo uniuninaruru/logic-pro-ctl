@@ -15,6 +15,7 @@
 - [PICKUP-GLOBAL-004: setting action and disable flag](notes/pickup-global-004.en.md) — exact metadata/import binding and compound predicate; static evidence only.
 - [PICKUP-BAND-005: integer tolerance and reset excerpts](notes/pickup-band-005.en.md) — exact crossing branch, bounded numeric replay and loader reset.
 - [ASSIGN-FAMILY-006: copied probes and serialization prefix](notes/assignment-family-006.en.md) — read-only parser probes, constructor-stage mapping and conditional parameter families.
+- [ASSIGN-FIELDS-007: variable tags into live assignment lists](notes/assignment-fields-007.en.md) — bounded loader mapping, copied-row controller path and 672 restricted scan replays.
 [最初の完成目標と合格条件](plans/midi-assignment-automation-001.en.md)は、Channel EQの対象特定→MIDI操作→実際の値の読み戻しです。
 [設定コピーの限定読み取りと差分](static-analysis/SA-CS-PREFS-001.en.md)を実装し、21件の対象テストが通りました。設定ファイルの長さに不整合があるコピーは通常モードで拒否します。GUIでの割り当て自動化・復元、プラグイン変更時の識別、EQの自動読み戻しは未完了です。
 [EQのAPI値読み取り](notes/channel-eq-ax-context-002.en.md)では、Controls表示のMaster Gainから **0.0 dB** を取得しました。権限不足・不正なウィンドウ情報・画面ロックを区別し、読み取れない状態は拒否します。最終行指定処理の実機確認、MIDI操作前後の比較、対象実体の識別は未完了です。
