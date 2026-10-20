@@ -1,0 +1,32 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction anchors only (Claude, REA/Ghidra 12.1.4 session + llvm-objdump); no runtime claim. See Research/notes/event-extension-finder-001.en.md
+EF001	insn	0x19c22e4	140040f9	ldr x20, [x0]	finder FUN_019c22cc: head word = first 8 bytes of the record
+EF002	insn	0x19c22f0	9f0208eb	cmp x20, x8	head compared with 0x3ffffffeffffffff
+EF003	insn	0x19c22f4	6c130054	b.gt 0x19c2560	greater (signed) -> NULL
+EF004	insn	0x19c2338	28696838	ldrb w8, [x9, x8]	head span from the byte table at 0x1d61ae0, by bits 4-7
+EF005	insn	0x19c2344	bf8200f1	cmp x21, #0x20	type-2 head (bits 4-7 = 2, bit 63 clear) takes the link test
+EF006	insn	0x19c2364	3f010aeb	cmp x9, x10	unit after the head span: top byte & 0xbf == 0xbd is a link
+EF007	insn	0x19c2378	c82640f9	ldr x8, [x22, #0x48]	link: global singleton at 0x2783048
+EF008	insn	0x19c23ec	130140f9	ldr x19, [x8]	link: base = chain taken from that table entry (low 32 bits of the link unit index it)
+EF009	insn	0x19c23fc	13400091	add x19, x0, #0x10	no link: base = record + 0x10
+EF010	insn	0x19c2400	680240f9	ldr x8, [x19]	base unit must have bit 63 ...
+EF011	insn	0x19c2404	e80af8b6	tbz x8, #0x3f, 0x19c2560	... else NULL
+EF012	insn	0x19c2408	c3080034	cbz w3, 0x19c2520	w3 == 0 -> scan from the base without skipping
+EF013	insn	0x19c2458	1f0d0071	cmp w8, #0x3	bits 4-7 = 7 head with byte +0xc in 0x3b..0x3d ...
+EF014	insn	0x19c245c	22060054	b.hs 0x19c2520	... else scan; in range -> NULL
+EF015	insn	0x19c2470	43000094	bl 0x19c257c	w3 != 0: head span n from FUN_019c257c
+EF016	insn	0x19c2474	00020034	cbz w0, 0x19c24b4	n == 0 -> NULL (except the 0x60 / w2 bit 0 case)
+EF017	insn	0x19c24a8	1f090071	cmp w8, #0x2	n >= 2 -> skip loop
+EF018	insn	0x19c2510	73420091	add x19, x19, #0x10	skip loop advances one 16-byte unit ...
+EF019	insn	0x19c2518	1f090071	cmp w8, #0x2	... n - 1 times, so scanning starts at record + 16*n
+EF020	insn	0x19c2528	c801f8b6	tbz x8, #0x3f, 0x19c2560	scan ends (NULL) at the first unit without bit 63
+EF021	insn	0x19c252c	09fd78d3	lsr x9, x8, #56	key from the unit's top byte
+EF022	insn	0x19c2534	29791912	and w9, w9, #0xffffffbf	bit 6 cleared (0xb8 and 0xf8 both give 0xb8)
+EF023	insn	0x19c2544	08294011	add w8, w8, #0xa, lsl #12	top byte 0xa0: key = 0xa000 + (signed byte 6) with bit 6 cleared
+EF024	insn	0x19c254c	1f01016b	cmp w8, w1	key compared with the requested type w1
+EF025	insn	0x19c2550	a0000054	b.eq 0x19c2564	match -> return the unit pointer itself
+EF026	insn	0x19c2554	00400091	add x0, x0, #0x10	next unit (+0x10)
+EF027	insn	0x19c2690	3f4900f1	cmp x9, #0x12	span helper FUN_019c257c: (head & 0x80000000000000ff) == 0x12 -> 2
+EF028	insn	0x19c2698	3f9100f1	cmp x9, #0x24	0x24 -> 5
+EF029	insn	0x19c26a0	3fc900f1	cmp x9, #0x32	0x32 -> 2
+EF030	insn	0x19c26c8	29412b91	add x9, x9, #0xad0	else byte table at 0x1d61ad0 by bits 4-7
