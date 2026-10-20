@@ -41,7 +41,7 @@ The serializer `FUN_0085d538` (3,136 bytes) has three callers: the file writer `
 | W4 | The file writer skips assignments of class 5 whose selector mode is 0xb000 (pinned to a track). Such assignments are not in this file; where they are stored was not traced | CR052, CR053 | Observation (branch); the storage elsewhere is unknown |
 | W5 | Before serializing, the writer stores a controller word into the live assignment at +0x4e: 0 when the controller pointer at +0x30 is null, otherwise 0xff000000 plus the controller's index in a global list (0xfeffffff when it is not found) | CR054 | Observation (stores); Inference (meaning of the word) |
 
-For our parser this means the list region can be walked as id/length/bytes records until the zero byte, and list 13 (the pin) should not appear in rows of this file.
+For our parser this means the list region can be walked as id/length/bytes records until the zero byte. Rows of pinned class-5 assignments are expected to be absent (W4), but the serializer writes any non-empty list whatever its content, so W4 does not forbid list 13 in other rows (another class or mode, or a stale list); the parser should not reject it on this basis.
 
 ## Proof limits
 
