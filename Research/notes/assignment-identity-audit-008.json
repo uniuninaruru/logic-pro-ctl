@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-IDENTITY-008",
-  "recorded_utc": "2026-10-20T20:48:24.059669+00:00",
+  "recorded_utc": "2026-10-20T21:12:52.119110+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -107,13 +107,13 @@
     },
     {
       "path": "Research/notes/assignment-identity-callbacks-001.en.md",
-      "sha256": "cbfd74f10556fb4a944c23fd7bc40e7bed57b473fbdf5fe3dcf120515b1d7fd6",
-      "size_bytes": 11015
+      "sha256": "f3bbaf404d901d7355358b2abf38f1a22912a482012d5706e7d67c0ef80b8f67",
+      "size_bytes": 11545
     },
     {
       "path": "Research/protocol/assignment-identity-12.4-anchors.tsv",
-      "sha256": "d83a014b09fb0b163d8b339bac8d91dc6598d007e74e78c155dee6784b13426e",
-      "size_bytes": 7267
+      "sha256": "a57f1c61f72e957410e6656523861e178e2404a7b64de422bac675e31e9ad250",
+      "size_bytes": 7299
     },
     {
       "path": "Research/notes/assignment-fields-007.json",

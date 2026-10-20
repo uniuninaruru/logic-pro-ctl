@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-BACKEND-011",
-  "recorded_utc": "2026-10-20T21:11:12.699381+00:00",
+  "recorded_utc": "2026-10-20T21:12:52.203180+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -177,7 +177,7 @@
     },
     {
       "path": "Research/notes/assignment-identity-audit-008.json",
-      "sha256": "f9450d02c8e9cfccb3c6fa0bd699668620fe7bd93d336e75096ea32c0e20cd68",
+      "sha256": "65689aaf27b699a71ee1d4b04ae87a608a367ff5c876048a9bebf130cb5b0bd6",
       "size_bytes": 5144
     },
     {

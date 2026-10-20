@@ -55,7 +55,7 @@ AI052	insn	0x15e01fc	230300b4	cbz x3, 0x15e0260	resolver UUID block entry
 AI053	insn	0x15e0220	081840f9	ldr x8, [x0, #0x30]	UUID block reads its capture +0x30
 AI054	insn	0x15e0224	60400091	add x0, x3, #0x10	element +0x10
 AI055	insn	0x15e0228	01410091	add x1, x8, #0x10	capture +0x10
-AI056	insn	0x15dfacc	e95303a9	stp x9, x20, [sp, #0x30]	descriptor block capture +0x30 = x20
+AI056	insn	0x15dfacc	e95303a9	stp x9, x20, [sp, #0x30]	descriptor block capture +0x38 = x20 (second slot of STP at SP+0x30)
 AI057	insn	0x15df9cc	a80302d1	sub x8, x29, #0x80	x8 (the +0x1a0 begin loaded at AI012) is overwritten before the UUID block captures are stored
 AI058	insn	0x15dfa20	e95309a9	stp x9, x20, [sp, #0x90]	UUID block capture +0x30 = x20 = first +0xf8 entry (so the compared key is entry +0x10)
 AI059	insn	0x15e6c84	a1018052	mov w1, #0xd	FUN_015e6c70: list id 0xd (+0x1a0)

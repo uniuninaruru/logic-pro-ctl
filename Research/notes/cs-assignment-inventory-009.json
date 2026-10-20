@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "CS-INVENTORY-009",
-  "recorded_utc": "2026-10-20T20:52:53.920600+00:00",
+  "recorded_utc": "2026-10-20T21:12:52.154655+00:00",
   "kind": "copied_snapshot_inventory_tooling",
   "input_sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
   "snapshot_valid": true,
@@ -55,7 +55,7 @@
     },
     {
       "path": "Research/notes/assignment-identity-audit-008.json",
-      "sha256": "f9450d02c8e9cfccb3c6fa0bd699668620fe7bd93d336e75096ea32c0e20cd68",
+      "sha256": "65689aaf27b699a71ee1d4b04ae87a608a367ff5c876048a9bebf130cb5b0bd6",
       "size_bytes": 5144
     }
   ],

@@ -22,12 +22,12 @@
 
 | # | Finding | Anchors | Status |
 |---|---|---|---|
-| I1 | `FUN_015de134` (5,504 bytes, one caller) reads a 32-bit parameter code from the assignment (+0x40) and splits it: code & 0xffffc000 == 0x4000 (family A), code >> 8 == 0x24 (family B), code & 0xffffe000 == 0x2000 below 0x23xx (family C), otherwise a jump table over codes 3–0x306. It contains no indirect call | AI001–AI010 | Observation |
+| I1 | `FUN_015de134` (5,504 bytes, one caller) reads a 32-bit parameter code from the assignment (+0x40) and splits it: code & 0xffffc000 == 0x4000 (family A), code >> 8 == 0x24 (family B), then code & 0xffffe000 == 0x2000 (family-C envelope). Within that envelope, code >> 8 below 0x23 branches to 0x15de4d8; the remaining high branch calls 0x15dfc90 after the earlier family-B exclusion. Other paths include a jump table over codes 3–0x306. It contains no indirect call | AI001–AI010; [ASSIGN-FAMILY-006](assignment-family-006.en.md) | Observation |
 | I2 | Codex decoded the stored codes of the test rows: Channel EQ Master Gain 0x4020 (family A), volume 7 and pan 0x0a (jump table) | Board CDEX153 | Observation (Codex) |
 | I3 | Family A calls the resolver `FUN_015df8a8` with the ordinal argument fixed at −1, and only when the assignment's +0xf8 list is not empty | AI004, AI005 | Observation |
 | I4 | The resolver takes a track-like object (type byte +0x69 must be 0x11) and picks its container through the context (+0x788 → list at +0x150 indexed from the object's +0x335 → list at +0x50 indexed by its +0x320), then walks the container with an enumerator that calls a block for each element | AI014, AI017 | Observation (structure); Inference (what the container is) |
 | I5 | **Corrected.** When the ordinal is negative and the +0x1a0 list is not empty, the first block compares each element's UUID (element +0x10) with the UUID stored at +0x10 of the first +0xf8 entry. The +0x1a0 bytes are not passed to the block: the register that held its begin pointer is overwritten before the block captures are stored, and the capture at +0x30 is the +0xf8 entry. A non-empty +0x1a0 therefore only selects this path. If no element matches, a second enumeration mode is tried; there is no fall-back to I6 | AI011, AI012, AI052–AI058 | Observation (operands). The earlier reading "key = +0x1a0" (CLDE105) was wrong |
-| I6 | Otherwise the ordinal is taken from the first +0xf8 entry (+0xc), and the second block selects the N-th element whose three 32-bit words at +0xb4/+0xb8/+0xbc equal the entry's words at +0/+4/+8 | AI015–AI017, AI019–AI022 | Observation |
+| I6 | With negative incoming W3 and empty/null +0x1a0, the ordinal is taken from the first +0xf8 entry (+0xc). A nonnegative incoming W3 instead preserves the caller's ordinal. The second block's entry capture is +0x38; it selects the N-th element whose three 32-bit words at +0xb4/+0xb8/+0xbc equal the entry's words at +0/+4/+8. Family A supplies W3 = -1 | AI015–AI017, AI019–AI022, AI056; [independent audit](assignment-identity-audit-008.en.md) | Observation |
 
 ### Learn side (where the stored identity comes from)
 
@@ -59,7 +59,7 @@ Read as a four-character code, the first word is `EMAG`. Hypothesis (low): an Em
 
 ## Proof limits
 
-- Register flow was read at operand level only; Codex has not audited I5 (corrected) or I7–I15 yet.
+- Register flow was read at operand level. Codex independently audited corrected I5 and the narrowed I6 in [ASSIGN-IDENTITY-008](assignment-identity-audit-008.en.md); that audit does not cover I7–I15.
 - The triggers of `FUN_0088016c` and of `FUN_017ee3ac` are inferred from names and callers, not from a proven end-to-end path. How the GUI and the session bind the selected-track mode still needs the live gate.
 - I15 relies on the field mapping of the decoder (Codex, CDEX157: it decodes into a temporary buffer and constructs the assignment from it), so the offsets are the decoder's, not proven memory offsets.
 
