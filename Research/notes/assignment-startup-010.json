@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-STARTUP-010",
-  "recorded_utc": "2026-10-20T21:12:52.179989+00:00",
+  "recorded_utc": "2026-10-20T21:44:28.580161+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -144,12 +144,12 @@
     },
     {
       "path": "Research/notes/assignment-fields-007.json",
-      "sha256": "6868aa488439850d14dbc0ea2f18525265ea4cbac1e128ee0e171b8caba439b6",
+      "sha256": "d3c27dafa542552a1f766217224026f1e901b4bb416a390547f4361f73609450",
       "size_bytes": 6741
     },
     {
       "path": "Research/notes/cs-assignment-inventory-009.json",
-      "sha256": "7a8e23c07e2e8a53e3c12092cd1a3757d09f781ed3ebc101dda454805e89d7ad",
+      "sha256": "485f491aaf2a79016aa618f8e1e2413b7f34bd10638daf91fcaee71c77992bb3",
       "size_bytes": 2776
     }
   ],

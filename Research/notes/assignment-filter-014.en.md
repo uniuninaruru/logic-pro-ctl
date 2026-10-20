@@ -61,3 +61,5 @@ A restricted interpreter starts **after the opaque finder**, at 0x1a139d8, with 
 **107/107 byte/text anchors** hold; JSON, source hashes and local links were checked. No native engine or live process was used. Product code, parser and CI were unchanged.
 
 The remaining question is where an accepted record changes an actual parameter, including how the timer-buffer branch from 013 reaches its consumer. That work must retain the distinction between a routing token, a plug-in UUID and a current same-instance proof. No new assignment or value verification is established by this filter.
+
+Follow-up: [EVENT-EXT-001](event-extension-finder-001.en.md) traces the finder. The saved instructions at **0x19c2520–0x19c2564** independently confirm that a B8 request accepts B8/F8 units and returns the matching unit address. Root reviewed those two claims; the other base/head-span branches are not independently audited in 014. The restricted replay still starts after the finder.

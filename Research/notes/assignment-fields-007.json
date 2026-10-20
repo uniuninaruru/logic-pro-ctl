@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-FIELDS-007",
-  "recorded_utc": "2026-10-20T20:45:35.485866+00:00",
+  "recorded_utc": "2026-10-20T21:44:28.580161+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -186,8 +186,8 @@
     },
     {
       "path": "Research/notes/cs-reader-endian-gate-001.en.md",
-      "sha256": "7e91d906cf4a9a486a58ecd0017efac25f38bfa62ec10a4358d3e19428d1b8eb",
-      "size_bytes": 4521
+      "sha256": "0f1e1e0f42377d9b2fc17dbcbf3fa40d7cd6a855803fdbacf34a2e80d27ee194",
+      "size_bytes": 7487
     }
   ],
   "limits": [

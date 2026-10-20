@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-RECORD-012",
-  "recorded_utc": "2026-10-20T21:20:33.536471+00:00",
+  "recorded_utc": "2026-10-20T21:44:28.580161+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -147,7 +147,7 @@
     },
     {
       "path": "Research/notes/assignment-backend-011.json",
-      "sha256": "adb2563b973230ed86dfa46241017d3980f0b23281eba6732b509768acd116df",
+      "sha256": "b929ef80d3aa12f8d7df22c769a251af3884b109c8bd80aad8785494b6c0dcd6",
       "size_bytes": 7164
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-HANDLER-013",
-  "recorded_utc": "2026-10-20T21:27:46.537899+00:00",
+  "recorded_utc": "2026-10-20T21:44:28.580161+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -215,7 +215,7 @@
     },
     {
       "path": "Research/notes/assignment-record-012.json",
-      "sha256": "1cd509f096d2fdc95fc02a4bb66dbf5c4036381f5aa3858989dc882e6b191d4e",
+      "sha256": "7d2f6cee90a4cd6fee81b366c6bcf9215edba022adce040e777ae31dce9ba32f",
       "size_bytes": 6172
     },
     {

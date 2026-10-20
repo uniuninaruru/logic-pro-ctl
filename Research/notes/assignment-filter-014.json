@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-FILTER-014",
-  "recorded_utc": "2026-10-20T21:34:05.220113+00:00",
+  "recorded_utc": "2026-10-20T21:44:28.580161+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -23,7 +23,7 @@
     "size_bytes": 1064,
     "record_argument": "X2 saved asX20",
     "selected_prefix_precondition": "Primary tag with first qword bit63 clear; replay starts after opaque finder",
-    "finder_call": "0x1a139d4 ->19c22cc(record,0xb8,0,1), opaque",
+    "finder_call": "0x1a139d4 ->19c22cc(record,0xb8,0,1), not executed by restricted replay",
     "comparison_precondition": "Returned extension non-null AND (header &0xbf08000000000000)==0xb808000000000000 AND (header &0xff00000000000000)!=0xa000000000000000",
     "comparison": "0x1a13a08..0x1a13a14 compares u32[extension+8] with u32[candidate+0x30]",
     "mismatch": "0x1a13cc4 sets W8=1;0x1a13cc8 W0=W8&1; returns",
@@ -37,6 +37,11 @@
     "conditional_marker": "0x594d4c..0x594d54 ORs byte record+0x16 with8, setting extension header bit51",
     "conditions_not_semantically_named": true,
     "all_records_marked": false
+  },
+  "follow_up": {
+    "note": "Research/notes/event-extension-finder-001.en.md",
+    "independent_root_review": "19c2520..19c2564 matching key and pointer return only; requestB8 accepts B8/F8 and returns matching unit address",
+    "other_finder_branches_independently_audited": false
   },
   "restricted_replay": {
     "cases": 8196,
@@ -82,8 +87,8 @@
   "source_manifest": [
     {
       "path": "Research/raw/rea/codex-assignment-consumer-014/curate.py",
-      "sha256": "f3da5005b3de58b9b2e9cd364a83de9df7eacdd5cbf6de6a5ad38b3103823357",
-      "size_bytes": 4720
+      "sha256": "e37a2b4f0a7615d83b629a9ca7d0c26020b19806a864e4a692c5f99b22baf738",
+      "size_bytes": 5124
     },
     {
       "path": "Research/raw/rea/codex-assignment-consumer-014/inspect_consumer.py",
@@ -112,13 +117,23 @@
     },
     {
       "path": "Research/notes/assignment-handler-013.json",
-      "sha256": "813875d5cbd2d0d185f244e9f6eeeedb5c60a336adedea7e89c954e2db9fe072",
+      "sha256": "e9082ebd12e44369c8e51d15c5a47d9c2ed59bbb9550de253cb0043176388d34",
       "size_bytes": 8460
     },
     {
       "path": "Research/notes/assignment-record-012.json",
-      "sha256": "1cd509f096d2fdc95fc02a4bb66dbf5c4036381f5aa3858989dc882e6b191d4e",
+      "sha256": "7d2f6cee90a4cd6fee81b366c6bcf9215edba022adce040e777ae31dce9ba32f",
       "size_bytes": 6172
+    },
+    {
+      "path": "Research/notes/event-extension-finder-001.en.md",
+      "sha256": "23be6c1f0e83ffa775d775bf2183c6b7f5e24f0d3a3c7236f24c547277ee41b0",
+      "size_bytes": 4217
+    },
+    {
+      "path": "Research/protocol/event-extension-12.4-anchors.tsv",
+      "sha256": "a74750faecaeb4583fc379c1c2a65406bb4710f9defba5521cc33068b98b3e17",
+      "size_bytes": 2902
     }
   ],
   "limits": [
