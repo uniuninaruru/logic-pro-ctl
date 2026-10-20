@@ -2,7 +2,7 @@
 
 [Research guide](../README.md) · [Instruction anchors](../protocol/pickup-consumer-12.4-anchors.tsv) · Live records: [CA002](../experiments/EXP-CA-002-variable-cc-and-pickup.en.md), [CA003](../experiments/EXP-CA-003-value-mode-pickup-ab.en.md), [CA004](../experiments/EXP-CA-004-channel-eq-gain-calibration.en.md)
 
-日本語要約：汎用のコントローラ割り当てで、ピックアップモードが効く処理を Logic 12.4 の複製から静的に特定した。値を適用する 1 つの関数の中で、①直前と同じ値は捨てる、②「スケール」モードかつ設定がオンのときだけピックアップを調べる、③割り当てごとの状態ビット（値が有効・拾った）を持つ、④現在値の周り「範囲の 2%（整数に切り捨て。0〜127 なら 2）」の帯に、直前か今回のコントローラの値が入れば拾う、という形に見える。この読みは、CA002〜CA004 の実機の結果をすべて説明する。ただし逆コンパイルからの推論で、実行時の確認ではない。
+日本語要約：汎用のコントローラ割り当てで、ピックアップモードが効く処理を Logic 12.4 の複製から静的に特定した。値を適用する 1 つの関数の中で、①直前と同じ値は捨てる、②「スケール」モードかつ設定がオンのときだけピックアップを調べる、③割り当てごとの状態ビット（値が有効・拾った）を持つ、④対象の現在値が、直前の値と今回の値の間（両側に「範囲の 2% を整数に切り捨てた幅」を足した範囲）に入れば拾う、という形に見える。この読みは、CA002〜CA004 の実機の結果をすべて説明する。ただし逆コンパイルからの推論で、実行時の確認ではない。
 
 ## Scope and identity
 
@@ -23,17 +23,17 @@
 | F2 | In the scaled path a new value equal to the value already stored on the assignment is skipped | Skip message reference PU002 | Inference |
 | F3 | The Pickup check runs only when the value mode is 2 (Scale), a numeric operand read from the assignment is not 0x82/0x83 (its meaning is not mapped yet), and a helper (`FUN_015e0f58`, 200 bytes, one caller) returns true. Codex's byte audit ([PICKUP-GLOBAL-004](pickup-global-004.en.md)) shows the helper is a compound applicability check: it first returns false when the global Pickup setting is off (byte 0x26c0b9b bit 5 is a **disable** bit written by `PrefsCSView::change_csPickupMode:`), then tests further per-assignment conditions | Value-mode byte read PU003; Evidence `ev_a2a9418a…`, `ev_aa8c61d3…`; PICKUP-GLOBAL-004 | Observation (bytes, per Codex audit); the remaining per-assignment conditions are not interpreted here |
 | F4 | Each assignment keeps state bits in its flags byte (+0x39): bit 4 "controller value valid", bit 3 "picked up". The first message after a reset only sets bit 4 and is not applied | Set bit 4 PU005, set bit 3 PU011 | Observation (writes); Inference (meaning) |
-| F5 | The tolerance is 0.02 times the value range, converted to an integer by truncation toward zero (Codex's audit, CDEX150: 2 for a 0–127 range; 0 for ranges below 50). The assignment is picked up when the target's current value lies within that band around the previous or the new controller value, which covers both reaching and crossing | 0.02 constant built at PU007–PU010 | Observation (constant); Inference (operands, band test) |
-| F6 | A timer clears bit 3 inside the same function. Among the 78 single-byte stores to +0x39 found by a whole-copy pattern scan, only two clear bits 3 and 4 together: in `FUN_00ab573c` (a control-surface refresh path that also references channel-change and offscreen-refresh names) and in `FUN_00aba7d4` (called from `ControllerAssignmentsController::syncSelection:`). Wider stores, copies or other base registers can also change this byte, so this is **not** a complete list of writers | PU001, PU012, PU013 | Observation (these writes); Inference (triggers) |
+| F5 | Let P be the previously stored value, N the new controller value, V the target's current value and T the tolerance. T is 0.02 times a descriptor range (upper minus lower), converted to float, multiplied and truncated toward zero; for a delta of 127 that gives 2. The assignment is picked up when min(P, N) − T ≤ V ≤ max(P, N) + T, i.e. when V lies between the previous and the new value, widened by T on both sides (exact operands per Codex's audit, CDEX151). Which runtime range feeds the descriptor is not proved | 0.02 constant built at PU007–PU010; band operands in Codex's PICKUP-BAND-005 | Observation (constant, compare structure per audit); Inference (runtime range and units) |
+| F6 | A timer clears bit 3 inside the same function. Among the 78 single-byte stores to +0x39 found by a whole-copy pattern scan, only two clear bits 3 and 4 together: in `FUN_00ab573c` (a control-surface refresh path that also references channel-change and offscreen-refresh names) and in `FUN_00aba7d4` (called from `ControllerAssignmentsController::syncSelection:`). Both clear the bits only after a 16-bit field of the object matches a 16-bit selector passed by the caller (Codex's audit); that field's meaning is not known. Wider stores, copies or other base registers can also change this byte, so this is **not** a complete list of writers | PU001, PU012, PU013 | Observation (these writes); Inference (triggers) |
 
 ## Consistency with the live records
 
 | Live sample | Reading under F2–F5 |
 |---|---|
-| CA003: Ballad (value 64) after the controller was last at 100, then 80 → ignored | 100 and 80 are both outside the band around 64 |
-| CA003: then 64 → applied (no visible change) | The new value is inside the band, so it is picked up |
+| CA003: Ballad (value 64) after the controller was last at 100, then 80 → ignored | 64 is not between 80 and 100 (±2) |
+| CA003: then 64 → applied (no visible change) | 64 is between 80 and 64 (±2), so it is picked up |
 | CA003: Piano's first 100 applied at once | The previous controller value 64 equals Piano's 64 |
-| CA003: 100 → 30 across 64 applied | The band from 30 to 100 contains 64 (crossing) |
+| CA003: 100 → 30 across 64 applied | 64 is between 30 and 100 (crossing) |
 | CA003: Pickup off → all applied | The helper of F3 returns false |
 | CA004 #1: a repeated 64 ignored | F2: same value as stored, skipped (not Pickup) |
 
