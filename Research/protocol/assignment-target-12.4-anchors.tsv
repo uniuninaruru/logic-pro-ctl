@@ -1,0 +1,36 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction/data anchors only; no runtime/identity capability claim.
+AT001	insn	0x6993c4	007cc079	ldrsh w0, [x0, #0x3e]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT002	insn	0x699400	087c4079	ldrh w8, [x0, #0x3e]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT003	insn	0x699404	002d4092	and x0, x8, #0xfff	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT004	insn	0x699b54	087c4079	ldrh w8, [x0, #0x3e]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT005	insn	0x699b58	007d0c53	lsr w0, w8, #12	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT006	insn	0x6994f8	b2ed5194	bl 0x1b14bc0	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT007	insn	0x6994fc	aa0e3d94	bl 0x15dcfa4	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT008	insn	0x699500	003c4093	sxth x0, w0	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT009	insn	0x15dcfdc	14c1bfb8	ldapr w20, [x8]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT010	insn	0x15dcfe4	1f01146b	cmp w8, w20	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT011	insn	0x15dcfec	600241f9	ldr x0, [x19, #0x200]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT012	insn	0x15dd06c	600202b9	str w0, [x19, #0x200]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT013	insn	0x15dd078	740a02b9	str w20, [x19, #0x208]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT014	insn	0x15dd090	08a043b8	ldur w8, [x0, #0x3a]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT015	insn	0x15dd094	1f150071	cmp w8, #0x5	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT016	insn	0x15dd0ec	132d4092	and x19, x8, #0xfff	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT017	insn	0x15dd0f0	087d0c53	lsr w8, w8, #12	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT018	insn	0x15dd168	08295aa9	ldp x8, x10, [x8, #0x1a0]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT019	insn	0x15dd184	7712ff97	bl 0x15a1b60	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT020	insn	0x69b988	01008252	mov w1, #0x1000	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT021	insn	0x69ba54	e1ff8912	mov w1, #-0x5000	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT022	insn	0x69ba24	080d1412	and w8, w8, #0xf000	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT023	insn	0x69ba28	1f2d4071	cmp w8, #0xb, lsl #12	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT024	insn	0x15e6d88	777e0079	strh w23, [x19, #0x3e]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT025	insn	0x15e6d8c	7f0a02b9	str wzr, [x19, #0x208]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT026	insn	0x15e6e80	170140f9	ldr x23, [x8]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT027	insn	0x15e6e94	767e0079	strh w22, [x19, #0x3e]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT028	insn	0x15e6f0c	e002c03d	ldr q0, [x23]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT029	insn	0x15e6f10	0000803d	str q0, [x0]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT030	insn	0x15dc4b4	08038052	mov w8, #0x18	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT031	insn	0x15dc4b8	3800a89b	umaddl x24, w1, w8, x0	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT032	insn	0x15dc4dc	1981899a	csel x25, x8, x9, hi	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT033	insn	0x15dc4e8	13a346a9	ldp x19, x8, [x24, #0x68]	Current assignment target field/branch anchor; see ASSIGN-TARGET-001
+AT034	data	0x1d44378	1000000000000000		Field13 minimum nonzero size-rule value16, not maximum

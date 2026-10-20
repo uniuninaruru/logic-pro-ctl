@@ -93,3 +93,5 @@ For production, the eventual operation contract needs assignment/input identity,
 This note adds no product command. Generic Learn, arbitrary parameter writes, generic MIDI key-command dispatch and headless Step preparation are not exposed by it. Existing MCU operations and the guarded AppleEvent backend retain their tested scope.
 
 External implementation comparison: [logic-pro-mcp and fork review](../notes/logic-pro-mcp-reference-001.en.md) identifies reusable API/state/readback patterns and separates timed MIDI recording from native region editing. No external code was run.
+
+Current target follow-up: [ASSIGN-TARGET-001](../notes/assignment-target-001.en.md) binds 12.4 track-mode fields, resultingTrackNumber, pinned16-byte storage and its resolver consumer. It retains class/context qualification, fallback and cache-tag limits; generic MIDI input-to-plug-in execution and persistent instance identity remain unproved.

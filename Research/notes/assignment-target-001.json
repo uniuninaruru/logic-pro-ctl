@@ -1,0 +1,882 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-TARGET-001",
+  "owner": "CDEX",
+  "scope": {
+    "version": "12.4",
+    "build": "6707",
+    "architecture": "arm64",
+    "binary_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "address_kind": "unslid_image_virtual_address",
+    "method_count": 124,
+    "getter_intervals": 6,
+    "getter_bytes": 152,
+    "consumer_intervals": 8,
+    "consumer_bytes": 2020,
+    "table_bytes": 8,
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "class_metadata": {
+    "classlist_slot": "0x242a3e8",
+    "class_address": "0x25bba18",
+    "class_ro_address": "0x2471c10",
+    "method_list_address": "0x1c69150",
+    "method_list_flags": "0x8000000c",
+    "method_count": 124
+  },
+  "getters": [
+    {
+      "selector": "trackObj",
+      "types": "s16@0:8",
+      "imp": "0x6993b8",
+      "exclusive_next_start": "0x6993d0",
+      "interval_bytes": 24,
+      "body_sha256": "9758a8f66c79728cc678851c0d094332fc1c65d66ffd892b1e2931c6fc9012f9",
+      "field_observation": {
+        "assign_field_offset": "0x3e",
+        "expression": "signed16 load, ldrsh w0, from returned Assign+0x3e",
+        "instruction": "ldrsh w0, [x0, #0x3e]"
+      }
+    },
+    {
+      "selector": "trackNo",
+      "types": "q16@0:8",
+      "imp": "0x6993f4",
+      "exclusive_next_start": "0x699410",
+      "interval_bytes": 28,
+      "body_sha256": "940b9befe71171d0e6bcace133e37992a29af7a2fa10f7b76463b60c0f8495be",
+      "field_observation": {
+        "assign_field_offset": "0x3e",
+        "expression": "unsigned16 load from returned Assign+0x3e, masked with 0xfff",
+        "instruction": "and x0, x8, #0xfff"
+      }
+    },
+    {
+      "selector": "audioTrackParam",
+      "types": "i16@0:8",
+      "imp": "0x699470",
+      "exclusive_next_start": "0x699488",
+      "interval_bytes": 24,
+      "body_sha256": "65d4aa7d918486d5ec1ec8c1dc695cf4d86bf38b1816120695c7b78858ca301c",
+      "field_observation": {
+        "assign_field_offset": "0x40",
+        "expression": "32-bit load from returned Assign+0x40; ObjC return encoding i",
+        "instruction": "ldr w0, [x0, #0x40]"
+      }
+    },
+    {
+      "selector": "trackParam",
+      "types": "i16@0:8",
+      "imp": "0x6994b0",
+      "exclusive_next_start": "0x6994c8",
+      "interval_bytes": 24,
+      "body_sha256": "fc6e1e2b42dffabc0a0a84deaf4b3e3cb1599c47fc4d3799bd4df02e97b39992",
+      "field_observation": {
+        "assign_field_offset": "0x40",
+        "expression": "32-bit load from returned Assign+0x40; ObjC return encoding i",
+        "instruction": "ldr w0, [x0, #0x40]"
+      }
+    },
+    {
+      "selector": "parameterName",
+      "types": "@16@0:8",
+      "imp": "0x699a04",
+      "exclusive_next_start": "0x699a1c",
+      "interval_bytes": 24,
+      "body_sha256": "f9728ab1e7588d9204d77753414ab5fc2746ac3c2fab55b48b2573c107d38a96",
+      "field_observation": {
+        "assign_field_offset": null,
+        "expression": "returned Assign passed in x0, zero in w1, tail branch to 0x15e88ec; helper uninspected",
+        "instruction": "b 0x15e88ec"
+      }
+    },
+    {
+      "selector": "trackType",
+      "types": "C16@0:8",
+      "imp": "0x699b48",
+      "exclusive_next_start": "0x699b64",
+      "interval_bytes": 28,
+      "body_sha256": "ed9ab33424ebca1effab0aa854c831395f3daa8b0a9d61fa08231809152cd5ce",
+      "field_observation": {
+        "assign_field_offset": "0x3e",
+        "expression": "unsigned16 load from returned Assign+0x3e, shifted right 12",
+        "instruction": "lsr w0, w8, #12"
+      }
+    }
+  ],
+  "functions": [
+    {
+      "label": "resultingTrackNumber",
+      "entry": "0x6994f0",
+      "exclusive_end": "0x69950c",
+      "size_bytes": 28,
+      "body_sha256": "a0487e3fb34468a344a68edfa707523e082b7157892d5d2fd6c6ce522d38b108",
+      "direct_branches": [
+        {
+          "site": "0x6994f8",
+          "kind": "bl",
+          "target": "0x1b14bc0"
+        },
+        {
+          "site": "0x6994fc",
+          "kind": "bl",
+          "target": "0x15dcfa4"
+        }
+      ]
+    },
+    {
+      "label": "resulting_track_wrapper",
+      "entry": "0x15dcfa4",
+      "exclusive_end": "0x15dd08c",
+      "size_bytes": 232,
+      "body_sha256": "ee6b72b666efda0567532bb51ff92eb58d1351edda216d810d326cbbbd17a1fa",
+      "direct_branches": [
+        {
+          "site": "0x15dcfb4",
+          "kind": "bl",
+          "target": "0x18f34ac"
+        },
+        {
+          "site": "0x15dcfd0",
+          "kind": "b",
+          "target": "0x15dd010"
+        },
+        {
+          "site": "0x15dcff0",
+          "kind": "b",
+          "target": "0x15dd038"
+        },
+        {
+          "site": "0x15dd008",
+          "kind": "b",
+          "target": "0x15dd044"
+        },
+        {
+          "site": "0x15dd034",
+          "kind": "bl",
+          "target": "0x15dd08c"
+        },
+        {
+          "site": "0x15dd03c",
+          "kind": "b",
+          "target": "0x15dd07c"
+        },
+        {
+          "site": "0x15dd068",
+          "kind": "bl",
+          "target": "0x15dd08c"
+        }
+      ]
+    },
+    {
+      "label": "resulting_track_worker",
+      "entry": "0x15dd08c",
+      "exclusive_end": "0x15dd274",
+      "size_bytes": 488,
+      "body_sha256": "38772e41447e2579427ff402ea83442c3518368b5c2274e32eb402a0585dcec1",
+      "direct_branches": [
+        {
+          "site": "0x15dd0d4",
+          "kind": "b",
+          "target": "0x15dd0c0"
+        },
+        {
+          "site": "0x15dd130",
+          "kind": "bl",
+          "target": "0x765f00"
+        },
+        {
+          "site": "0x15dd13c",
+          "kind": "b",
+          "target": "0x15dd23c"
+        },
+        {
+          "site": "0x15dd184",
+          "kind": "bl",
+          "target": "0x15a1b60"
+        },
+        {
+          "site": "0x15dd188",
+          "kind": "b",
+          "target": "0x15dd25c"
+        },
+        {
+          "site": "0x15dd198",
+          "kind": "bl",
+          "target": "0x15dd5b8"
+        },
+        {
+          "site": "0x15dd19c",
+          "kind": "b",
+          "target": "0x15dd25c"
+        },
+        {
+          "site": "0x15dd1bc",
+          "kind": "b",
+          "target": "0x15dd254"
+        },
+        {
+          "site": "0x15dd1d4",
+          "kind": "bl",
+          "target": "0x15a0290"
+        },
+        {
+          "site": "0x15dd1e4",
+          "kind": "bl",
+          "target": "0x15dd274"
+        },
+        {
+          "site": "0x15dd200",
+          "kind": "bl",
+          "target": "0x15a1f04"
+        },
+        {
+          "site": "0x15dd204",
+          "kind": "b",
+          "target": "0x15dd25c"
+        },
+        {
+          "site": "0x15dd214",
+          "kind": "b",
+          "target": "0x15dd254"
+        },
+        {
+          "site": "0x15dd224",
+          "kind": "b",
+          "target": "0x15dd254"
+        },
+        {
+          "site": "0x15dd234",
+          "kind": "b",
+          "target": "0x15dd254"
+        },
+        {
+          "site": "0x15dd244",
+          "kind": "b",
+          "target": "0x15dd254"
+        },
+        {
+          "site": "0x15dd258",
+          "kind": "bl",
+          "target": "0x765f00"
+        },
+        {
+          "site": "0x15dd270",
+          "kind": "b",
+          "target": "0x15dd0c0"
+        }
+      ]
+    },
+    {
+      "label": "setTrackTypeSelectedTrack",
+      "entry": "0x69b978",
+      "exclusive_end": "0x69b9dc",
+      "size_bytes": 100,
+      "body_sha256": "b8dca147e4687c3b74ffd7130d36f0bb7f4d5ad6434540eb6df10f3638ec93e3",
+      "direct_branches": [
+        {
+          "site": "0x69b984",
+          "kind": "bl",
+          "target": "0x1b14bc0"
+        },
+        {
+          "site": "0x69b98c",
+          "kind": "bl",
+          "target": "0x15e6d44"
+        },
+        {
+          "site": "0x69b998",
+          "kind": "bl",
+          "target": "0x1b30500"
+        },
+        {
+          "site": "0x69b9a0",
+          "kind": "bl",
+          "target": "0x1afbd7c"
+        },
+        {
+          "site": "0x69b9b4",
+          "kind": "bl",
+          "target": "0x1b77ae0"
+        },
+        {
+          "site": "0x69b9c4",
+          "kind": "b",
+          "target": "0x1afbd4c"
+        },
+        {
+          "site": "0x69b9d0",
+          "kind": "bl",
+          "target": "0x1afbd4c"
+        },
+        {
+          "site": "0x69b9d8",
+          "kind": "bl",
+          "target": "0x1af7b94"
+        }
+      ]
+    },
+    {
+      "label": "setTrackTypePinnedToTrack",
+      "entry": "0x69ba44",
+      "exclusive_end": "0x69baa8",
+      "size_bytes": 100,
+      "body_sha256": "b59de08041c36af771f69ded103c43a331ad11025f32099bd56f4f94fa1fb821",
+      "direct_branches": [
+        {
+          "site": "0x69ba50",
+          "kind": "bl",
+          "target": "0x1b14bc0"
+        },
+        {
+          "site": "0x69ba58",
+          "kind": "bl",
+          "target": "0x15e6d44"
+        },
+        {
+          "site": "0x69ba64",
+          "kind": "bl",
+          "target": "0x1b30500"
+        },
+        {
+          "site": "0x69ba6c",
+          "kind": "bl",
+          "target": "0x1afbd7c"
+        },
+        {
+          "site": "0x69ba80",
+          "kind": "bl",
+          "target": "0x1b77ae0"
+        },
+        {
+          "site": "0x69ba90",
+          "kind": "b",
+          "target": "0x1afbd4c"
+        },
+        {
+          "site": "0x69ba9c",
+          "kind": "bl",
+          "target": "0x1afbd4c"
+        },
+        {
+          "site": "0x69baa4",
+          "kind": "bl",
+          "target": "0x1af7b94"
+        }
+      ]
+    },
+    {
+      "label": "isPinnedToTrack",
+      "entry": "0x69ba08",
+      "exclusive_end": "0x69ba44",
+      "size_bytes": 60,
+      "body_sha256": "350b28d6f14a056b75a7b95b1c27ad85ec1d2712023dfe1a6950ea015a8b1db3",
+      "direct_branches": [
+        {
+          "site": "0x69ba10",
+          "kind": "bl",
+          "target": "0x1b14bc0"
+        }
+      ]
+    },
+    {
+      "label": "set_track_type_helper",
+      "entry": "0x15e6d44",
+      "exclusive_end": "0x15e6f58",
+      "size_bytes": 532,
+      "body_sha256": "4f2c189d1a2cec09397ece0f97ba4e22bd0ae8f1db7d2b014d846e9186ba265f",
+      "direct_branches": [
+        {
+          "site": "0x15e6d74",
+          "kind": "b",
+          "target": "0x15e6d7c"
+        },
+        {
+          "site": "0x15e6d84",
+          "kind": "bl",
+          "target": "0x15dcfa4"
+        },
+        {
+          "site": "0x15e6e14",
+          "kind": "bl",
+          "target": "0x1bf3f0"
+        },
+        {
+          "site": "0x15e6e88",
+          "kind": "b",
+          "target": "0x15e6e94"
+        },
+        {
+          "site": "0x15e6eb4",
+          "kind": "b",
+          "target": "0x15dc49c"
+        },
+        {
+          "site": "0x15e6f04",
+          "kind": "bl",
+          "target": "0x15dc49c"
+        },
+        {
+          "site": "0x15e6f54",
+          "kind": "b",
+          "target": "0x1bf630"
+        }
+      ]
+    },
+    {
+      "label": "assign_extended_field_accessor",
+      "entry": "0x15dc49c",
+      "exclusive_end": "0x15dc67c",
+      "size_bytes": 480,
+      "body_sha256": "2328d767f67353a01be286af5deedb5860492345b96586c0b483eaf4744c2889",
+      "direct_branches": [
+        {
+          "site": "0x15dc4e0",
+          "kind": "b",
+          "target": "0x15dc4e8"
+        },
+        {
+          "site": "0x15dc538",
+          "kind": "bl",
+          "target": "0x1afb434"
+        },
+        {
+          "site": "0x15dc54c",
+          "kind": "bl",
+          "target": "0x1afb668"
+        },
+        {
+          "site": "0x15dc560",
+          "kind": "bl",
+          "target": "0x1afbb54"
+        },
+        {
+          "site": "0x15dc578",
+          "kind": "bl",
+          "target": "0x1afb3c8"
+        },
+        {
+          "site": "0x15dc580",
+          "kind": "b",
+          "target": "0x15dc5b4"
+        },
+        {
+          "site": "0x15dc594",
+          "kind": "b",
+          "target": "0x15dc5b4"
+        },
+        {
+          "site": "0x15dc5a8",
+          "kind": "bl",
+          "target": "0x1afb668"
+        },
+        {
+          "site": "0x15dc634",
+          "kind": "bl",
+          "target": "0x1bf3f0"
+        },
+        {
+          "site": "0x15dc658",
+          "kind": "b",
+          "target": "0x15dc660"
+        },
+        {
+          "site": "0x15dc678",
+          "kind": "bl",
+          "target": "0x18f640"
+        }
+      ]
+    }
+  ],
+  "derived_fields": {
+    "packed_track_field": "Assign+0x3e",
+    "class5_low12": "unsigned16 &0xfff; public index base/namespace unknown",
+    "class5_high4": "unsigned16 >>12",
+    "selected_mode": {
+      "setter": "0x69b978",
+      "value": "0x1000",
+      "helper": "0x15e6d44",
+      "stored_low16": true,
+      "runtime_verified": false
+    },
+    "pinned_mode": {
+      "setter": "0x69ba44",
+      "value_signed": -20480,
+      "stored_low16": "0xb000",
+      "predicate": "class5 && (uint16(Assign+0x3e)&0xf000)==0xb000",
+      "predicate_checks_payload_or_resolution": false
+    },
+    "parameter_field": "Assign+0x40 int32, namespace unknown"
+  },
+  "resolution": {
+    "named_method": "0x6994f0",
+    "wrapper": "0x15dcfa4",
+    "worker": "0x15dd08c",
+    "required_context": "non-null; global provenance unknown",
+    "class_gate": 5,
+    "worker_input_packed_field": "Assign+0x3e",
+    "worker_mode11_lookup": "0x15a1b60",
+    "named_method_return": "signed16 via SXTH x0,w0; packed64 higher metadata discarded"
+  },
+  "cache": {
+    "counter_address": "0x25f39c4",
+    "result_fields": [
+      "Assign+0x200",
+      "Assign+0x204"
+    ],
+    "tag_field": "Assign+0x208",
+    "meaning": "equality tag; generation/advance policy unknown",
+    "setter_writes_tag_zero": true,
+    "zero_guarantees_invalidation": false,
+    "bypass_gate": "bit0 of uninspected helper0x18f34ac"
+  },
+  "pin_payload": {
+    "field_index": 13,
+    "stride": 24,
+    "begin_offset": "0x1a0",
+    "end_offset": "0x1a8",
+    "capacity_offset": "0x1b0",
+    "size_rule_table_address": "0x1d44378",
+    "size_rule_table_hex": "1000000000000000",
+    "size_rule_table_sha256": "5eb6da0e0e522104c6d50b0748e6893762f7f2c00a7163a46ccbb535bfd61a0d",
+    "minimum_nonzero_length": 16,
+    "accessor": "0x15dc49c",
+    "source": "selected context-entry prefix",
+    "copy_bytes": 16,
+    "allocation_request": [
+      13,
+      16
+    ],
+    "computed_length_for_request": 16,
+    "worker_range": [
+      "Assign+0x1a0",
+      "Assign+0x1a8"
+    ],
+    "lookup_helper": "0x15a1b60",
+    "storage_to_consumer_edge_proven": true,
+    "uuid_or_persistence_proven": false,
+    "plugin_instance_identity_proven": false
+  },
+  "failure_and_side_effects": {
+    "pin_first_entry_fallback": "old-result mask failure/out-of-range/null indexed pointer may choose first context entry",
+    "rollback": "missing context or no usable fallback can restore old packed+0x3e",
+    "null_copy_pointer": "caller does not roll back at its null check; reachability under audited requested-size path unknown",
+    "accessor_changes": [
+      "begin/end/capacity resize",
+      "possible allocation/copy/free",
+      "conditional context+0xe4/+0x96 mutation and helper0x1bf3f0"
+    ],
+    "accessor_is_pure_getter": false,
+    "clear_request": "field13 request0 can shrink end to begin while retaining capacity",
+    "unchanged_length": "can return without context mutations"
+  },
+  "instruction_anchors": [
+    {
+      "address": "0x6993c4",
+      "raw_hex": "007cc079",
+      "text": "ldrsh w0, [x0, #0x3e]"
+    },
+    {
+      "address": "0x699400",
+      "raw_hex": "087c4079",
+      "text": "ldrh w8, [x0, #0x3e]"
+    },
+    {
+      "address": "0x699404",
+      "raw_hex": "002d4092",
+      "text": "and x0, x8, #0xfff"
+    },
+    {
+      "address": "0x699b54",
+      "raw_hex": "087c4079",
+      "text": "ldrh w8, [x0, #0x3e]"
+    },
+    {
+      "address": "0x699b58",
+      "raw_hex": "007d0c53",
+      "text": "lsr w0, w8, #12"
+    },
+    {
+      "address": "0x6994f8",
+      "raw_hex": "b2ed5194",
+      "text": "bl 0x1b14bc0"
+    },
+    {
+      "address": "0x6994fc",
+      "raw_hex": "aa0e3d94",
+      "text": "bl 0x15dcfa4"
+    },
+    {
+      "address": "0x699500",
+      "raw_hex": "003c4093",
+      "text": "sxth x0, w0"
+    },
+    {
+      "address": "0x15dcfdc",
+      "raw_hex": "14c1bfb8",
+      "text": "ldapr w20, [x8]"
+    },
+    {
+      "address": "0x15dcfe4",
+      "raw_hex": "1f01146b",
+      "text": "cmp w8, w20"
+    },
+    {
+      "address": "0x15dcfec",
+      "raw_hex": "600241f9",
+      "text": "ldr x0, [x19, #0x200]"
+    },
+    {
+      "address": "0x15dd06c",
+      "raw_hex": "600202b9",
+      "text": "str w0, [x19, #0x200]"
+    },
+    {
+      "address": "0x15dd078",
+      "raw_hex": "740a02b9",
+      "text": "str w20, [x19, #0x208]"
+    },
+    {
+      "address": "0x15dd090",
+      "raw_hex": "08a043b8",
+      "text": "ldur w8, [x0, #0x3a]"
+    },
+    {
+      "address": "0x15dd094",
+      "raw_hex": "1f150071",
+      "text": "cmp w8, #0x5"
+    },
+    {
+      "address": "0x15dd0ec",
+      "raw_hex": "132d4092",
+      "text": "and x19, x8, #0xfff"
+    },
+    {
+      "address": "0x15dd0f0",
+      "raw_hex": "087d0c53",
+      "text": "lsr w8, w8, #12"
+    },
+    {
+      "address": "0x15dd168",
+      "raw_hex": "08295aa9",
+      "text": "ldp x8, x10, [x8, #0x1a0]"
+    },
+    {
+      "address": "0x15dd184",
+      "raw_hex": "7712ff97",
+      "text": "bl 0x15a1b60"
+    },
+    {
+      "address": "0x69b988",
+      "raw_hex": "01008252",
+      "text": "mov w1, #0x1000"
+    },
+    {
+      "address": "0x69ba54",
+      "raw_hex": "e1ff8912",
+      "text": "mov w1, #-0x5000"
+    },
+    {
+      "address": "0x69ba24",
+      "raw_hex": "080d1412",
+      "text": "and w8, w8, #0xf000"
+    },
+    {
+      "address": "0x69ba28",
+      "raw_hex": "1f2d4071",
+      "text": "cmp w8, #0xb, lsl #12"
+    },
+    {
+      "address": "0x15e6d88",
+      "raw_hex": "777e0079",
+      "text": "strh w23, [x19, #0x3e]"
+    },
+    {
+      "address": "0x15e6d8c",
+      "raw_hex": "7f0a02b9",
+      "text": "str wzr, [x19, #0x208]"
+    },
+    {
+      "address": "0x15e6e80",
+      "raw_hex": "170140f9",
+      "text": "ldr x23, [x8]"
+    },
+    {
+      "address": "0x15e6e94",
+      "raw_hex": "767e0079",
+      "text": "strh w22, [x19, #0x3e]"
+    },
+    {
+      "address": "0x15e6f0c",
+      "raw_hex": "e002c03d",
+      "text": "ldr q0, [x23]"
+    },
+    {
+      "address": "0x15e6f10",
+      "raw_hex": "0000803d",
+      "text": "str q0, [x0]"
+    },
+    {
+      "address": "0x15dc4b4",
+      "raw_hex": "08038052",
+      "text": "mov w8, #0x18"
+    },
+    {
+      "address": "0x15dc4b8",
+      "raw_hex": "3800a89b",
+      "text": "umaddl x24, w1, w8, x0"
+    },
+    {
+      "address": "0x15dc4dc",
+      "raw_hex": "1981899a",
+      "text": "csel x25, x8, x9, hi"
+    },
+    {
+      "address": "0x15dc4e8",
+      "raw_hex": "13a346a9",
+      "text": "ldp x19, x8, [x24, #0x68]"
+    }
+  ],
+  "data_anchor": {
+    "field_index": 13,
+    "stride": 24,
+    "begin_offset": "0x1a0",
+    "end_offset": "0x1a8",
+    "capacity_offset": "0x1b0",
+    "size_rule_table_address": "0x1d44378",
+    "size_rule_table_hex": "1000000000000000",
+    "size_rule_table_sha256": "5eb6da0e0e522104c6d50b0748e6893762f7f2c00a7163a46ccbb535bfd61a0d",
+    "minimum_nonzero_length": 16
+  },
+  "historical_comparison": {
+    "version": "12.3.1/6682",
+    "backend_lookup": "XML parent/child type+ordinal -> linked entry+0x120",
+    "plugin_xml_id": "child+0xbc formatted separately; not backend-lookup input",
+    "generic_assignment_backend_edge_proven": false,
+    "r2_fallback": "0x01a15c7c can choose first entry",
+    "current_addresses_reused_from_old_profile": false
+  },
+  "next_frontier": {
+    "parameterKind": {
+      "entry": "0x699dac",
+      "bytes": 308
+    },
+    "parameterPath": {
+      "entry": "0x699b64",
+      "bytes": 584
+    },
+    "pinned_lookup": "0x15a1b60",
+    "execution_owner": "Claude retained REA session; request CDEX138",
+    "goal": "bind concrete plugin slot/backend/parameter and reject stale/replaced target",
+    "status": "pending"
+  },
+  "independent_review": {
+    "checks": "byte ranges/direct branches, mode and payload arithmetic, cache/fallback limits",
+    "correction_applied": "size-rule16 is minimum nonzero, not maximum",
+    "not_claimed": [
+      "current running binary identity",
+      "stable UUID",
+      "plug-in instance lifetime",
+      "MIDI write or readback",
+      "verified product operation"
+    ]
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/fields/getter-proofs.json",
+      "sha256": "d80c9d4c8d3b3ef81ac44886ee2d952d12e1fe07d994680be7500618be5156c3",
+      "size_bytes": 25949,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/fields/method-inventory.json",
+      "sha256": "bd4c553f7a92d3541ae48279570deb15d2530841bde15336a9238a94fc311f81",
+      "size_bytes": 30887,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/fields/inspect_fields.py",
+      "sha256": "686f8ad0f329f7ca71882ced14018f4cac2fe2701641579e37ed00ce1a0f0f39",
+      "size_bytes": 8628,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/consumer/consumer-proof.json",
+      "sha256": "04be063d579cb4c6e458eb087fe2659ff64e77c74a467690a46028099b871709",
+      "size_bytes": 79395,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/consumer/consumer-machinecode.txt",
+      "sha256": "cbf5a931f7e3980a05bc20d8bca29e589c61f35964bd068d8e27d64d1d37ee4c",
+      "size_bytes": 18486,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/consumer/inspect_consumer.py",
+      "sha256": "6226da193442044e1f1d8596023534468c85d9ab7cb2d6f45576cc5da8191e10",
+      "size_bytes": 4520,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.json",
+      "sha256": "03430d65621315acee3b1231aea1254709aee85fb74f854aeb4269496fee5bc1",
+      "size_bytes": 70850,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.en.md",
+      "sha256": "d7328cf84a27081ce1cb09fe783fd0b9fbc62ac51c59a32bd1972845d7ca8dd4",
+      "size_bytes": 15742,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-AE-TARGET-003-target-resolution.en.md",
+      "sha256": "7460a3f363e5bc7a4ff5f598874e29de7e6cd13f06f6e4dab1cc2ac323312e96",
+      "size_bytes": 14202,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-AE-XML-002-channel-node-schema.en.md",
+      "sha256": "873b4a6e2d10eb0c2de423e5a4302fc99cbeff691f33bb692d9b6440e5e9a487",
+      "size_bytes": 12012,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "sha256": "fb221dd9e89e4eaef50f41947b4af68c7014237d879d4c0bd866980bcd942a84",
+      "size_bytes": 2335,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/raw/review/rea-macho-12.4-20261021.json",
+      "sha256": "5da4b5431c2ea0bcef847a8070affc48f871127604759efa95ae4a772e270e0a",
+      "size_bytes": 987896,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/protocol/assignment-target-12.4-anchors.tsv",
+      "sha256": "cfde7be9db20b6a7f188d7514463c09035850b0a58afa03c880f9dc7f9abbfe6",
+      "size_bytes": 4140,
+      "availability": "public_repo"
+    }
+  ],
+  "recorded_utc": "2026-10-20T16:01:01+00:00",
+  "validation": {
+    "kind": "offline_static_only",
+    "anchor_check": {
+      "total": 34,
+      "passed": 34,
+      "exit_code": 0,
+      "stdout": "34 of 34 anchors hold",
+      "command": "python3 Tools/research-scripts/binary_anchors.py check Research/protocol/assignment-target-12.4-anchors.tsv --image Research/raw/binaries/Logic12.4-6707.arm64 --require-tools"
+    },
+    "wrong_build_guard": {
+      "profile": "12.3.1/6682",
+      "exit_code": 2,
+      "result": "rejected_before_anchor_validation: image SHA-256 mismatch"
+    },
+    "live_effect_verified": false
+  }
+}
