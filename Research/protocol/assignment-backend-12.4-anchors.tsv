@@ -1,0 +1,221 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Scoped forwarding and arithmetic; no live parameter effect proof
+AB001	insn	0x5972d8	ff8301d1	sub sp, sp, #0x60	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB002	insn	0x5972dc	fa6701a9	stp x26, x25, [sp, #0x10]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB003	insn	0x5972e0	f85f02a9	stp x24, x23, [sp, #0x20]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB004	insn	0x5972e4	f65703a9	stp x22, x21, [sp, #0x30]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB005	insn	0x5972e8	f44f04a9	stp x20, x19, [sp, #0x40]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB006	insn	0x5972ec	fd7b05a9	stp x29, x30, [sp, #0x50]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB007	insn	0x5972f0	fd430191	add x29, sp, #0x50	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB008	insn	0x5972f4	a80e01b0	adrp x8, 0x276c000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB009	insn	0x5972f8	082141f9	ldr x8, [x8, #0x240]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB010	insn	0x5972fc	680600b4	cbz x8, 0x5973c8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB011	insn	0x597300	f40300aa	mov x20, x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB012	insn	0x597304	080140f9	ldr x8, [x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB013	insn	0x597308	15fddfc8	ldar x21, [x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB014	insn	0x59730c	1f040071	cmp w0, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB015	insn	0x597310	cb050054	b.lt 0x5973c8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB016	insn	0x597314	b50500b4	cbz x21, 0x5973c8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB017	insn	0x597318	f30302aa	mov x19, x2	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB018	insn	0x59731c	e40100b5	cbnz x4, 0x597358	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB019	insn	0x597320	e00315aa	mov x0, x21	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB020	insn	0x597324	f60301aa	mov x22, x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB021	insn	0x597328	010080d2	mov x1, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB022	insn	0x59732c	f80306aa	mov x24, x6	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB023	insn	0x597330	f90307aa	mov x25, x7	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB024	insn	0x597334	f70303aa	mov x23, x3	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB025	insn	0x597338	fa0305aa	mov x26, x5	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB026	insn	0x59733c	3f36f097	bl 0x1a4c38	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB027	insn	0x597340	e5031aaa	mov x5, x26	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB028	insn	0x597344	e30317aa	mov x3, x23	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB029	insn	0x597348	e70319aa	mov x7, x25	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB030	insn	0x59734c	e60318aa	mov x6, x24	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB031	insn	0x597350	e10316aa	mov x1, x22	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB032	insn	0x597354	04bc6092	and x4, x0, #0xffffffff0000ffff	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB033	insn	0x597358	a8ffdfd2	mov x8, #0xfffd00000000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB034	insn	0x59735c	e8fffff2	movk x8, #0xffff, lsl #48	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB035	insn	0x597360	8800088b	add x8, x4, x8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB036	insn	0x597364	bf000071	cmp w5, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB037	insn	0x597368	0801849a	csel x8, x8, x4, eq	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB038	insn	0x59736c	430100b4	cbz x3, 0x597394	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB039	insn	0x597370	690840f9	ldr x9, [x3, #0x10]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB040	insn	0x597374	3f0102f1	cmp x9, #0x80	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB041	insn	0x597378	8b000054	b.lt 0x597388	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB042	insn	0x59737c	0ae0af52	mov w10, #0x7f000000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB043	insn	0x597380	4909c99a	udiv x9, x10, x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB044	insn	0x597384	02000014	b 0x59738c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB045	insn	0x597388	0920a052	mov w9, #0x1000000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB046	insn	0x59738c	337d139b	mul x19, x9, x19	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB047	insn	0x597390	277d071b	mul w7, w9, w7	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB048	insn	0x597394	7f0000f1	cmp x3, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB049	insn	0x597398	e9179f1a	cset w9, eq	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB050	insn	0x59739c	22501453	ubfx w2, w1, #20, #1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB051	insn	0x5973a0	234c1053	ubfx w3, w1, #16, #4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB052	insn	0x5973a4	e70700b9	str w7, [sp, #0x4]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB053	insn	0x5973a8	e6030039	strb w6, [sp]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB054	insn	0x5973ac	243c0012	and w4, w1, #0xffff	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB055	insn	0x5973b0	e00315aa	mov x0, x21	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB056	insn	0x5973b4	e10314aa	mov x1, x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB057	insn	0x5973b8	e50313aa	mov x5, x19	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB058	insn	0x5973bc	e60308aa	mov x6, x8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB059	insn	0x5973c0	e70309aa	mov x7, x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB060	insn	0x5973c4	33f5ff97	bl 0x594890	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB061	insn	0x5973c8	fd7b45a9	ldp x29, x30, [sp, #0x50]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB062	insn	0x5973cc	f44f44a9	ldp x20, x19, [sp, #0x40]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB063	insn	0x5973d0	f65743a9	ldp x22, x21, [sp, #0x30]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB064	insn	0x5973d4	f85f42a9	ldp x24, x23, [sp, #0x20]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB065	insn	0x5973d8	fa6741a9	ldp x26, x25, [sp, #0x10]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB066	insn	0x5973dc	ff830191	add sp, sp, #0x60	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB067	insn	0x5973e0	c0035fd6	ret	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB068	insn	0x5948b0	3f040071	cmp w1, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB069	insn	0x5948b4	0b0f0054	b.lt 0x594a94	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB070	insn	0x5948b8	f30300aa	mov x19, x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB071	insn	0x5948bc	b61740b9	ldr w22, [x29, #0x14]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB072	insn	0x5948c0	b7434039	ldrb w23, [x29, #0x10]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB073	insn	0x5948c4	68050190	adrp x8, 0x2640000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB074	insn	0x5948c8	08610591	add x8, x8, #0x158	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB075	insn	0x5948cc	08c1bf38	ldaprb w8, [x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB076	insn	0x5948d0	48270036	tbz w8, #0x0, 0x594db8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB077	insn	0x5948d4	b30200b4	cbz x19, 0x594928	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB078	insn	0x5948d8	28040012	and w8, w1, #0x3	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB079	insn	0x594984	83090034	cbz w3, 0x594ab4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB080	insn	0x594988	8aa74139	ldrb w10, [x28, #0x69]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB081	insn	0x59498c	5f450071	cmp w10, #0x11	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB082	insn	0x594990	fc0700f9	str x28, [sp, #0x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB083	insn	0x594994	01050054	b.ne 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB084	insn	0x594998	8ad7cc39	ldrsb w10, [x28, #0x335]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB085	insn	0x59499c	5f310071	cmp w10, #0xc	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB086	insn	0x5949a0	ac040054	b.gt 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB087	insn	0x5949a4	0b048052	mov w11, #0x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB088	insn	0x5949a8	0c0a8052	mov w12, #0x50	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB089	insn	0x5949ac	5f250071	cmp w10, #0x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB090	insn	0x5949b0	8bc18b1a	csel w11, w12, w11, gt	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB091	insn	0x5949b4	6ce48852	mov w12, #0x4723	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB092	insn	0x5949b8	0c78b572	movk w12, #0xabc0, lsl #16	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB093	insn	0x5949bc	1f010c6b	cmp w8, w12	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB094	insn	0x5949c0	a0000054	b.eq 0x5949d4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB095	insn	0x5949c4	6ce28852	mov w12, #0x4713	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB096	insn	0x5949c8	0c78b572	movk w12, #0xabc0, lsl #16	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB097	insn	0x5949cc	1f010c6b	cmp w8, w12	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB098	insn	0x5949d0	21030054	b.ne 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB099	insn	0x5949d4	68090a0b	add w8, w11, w10, lsl #2	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB100	insn	0x5949d8	e802f837	tbnz w8, #0x1f, 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB101	insn	0x5949dc	087d0253	lsr w8, w8, #2	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB102	insn	0x5949e0	292955a9	ldp x9, x10, [x9, #0x150]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB103	insn	0x5949e4	4a0109cb	sub x10, x10, x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB104	insn	0x5949e8	1f0d8aeb	cmp x8, x10, asr #3	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB105	insn	0x5949ec	42020054	b.hs 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB106	insn	0x5949f0	297968f8	ldr x9, [x9, x8, lsl #3]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB107	insn	0x5949f4	090200b4	cbz x9, 0x594a34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB108	insn	0x5949f8	f40317aa	mov x20, x23	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB109	insn	0x5949fc	88438679	ldrsh x8, [x28, #0x320]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB110	insn	0x594a00	292945a9	ldp x9, x10, [x9, #0x50]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB111	insn	0x594a04	4a0109cb	sub x10, x10, x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB112	insn	0x594a08	1f0d8aeb	cmp x8, x10, asr #3	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB113	insn	0x594a0c	62010054	b.hs 0x594a38	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB114	insn	0x594a10	f70316aa	mov x23, x22	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB115	insn	0x594a14	f50302aa	mov x21, x2	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB116	insn	0x594a18	fa0304aa	mov x26, x4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB117	insn	0x594a1c	f80301aa	mov x24, x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB118	insn	0x594a20	fb0307aa	mov x27, x7	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB119	insn	0x594a24	f90305aa	mov x25, x5	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB120	insn	0x594a28	fc0306aa	mov x28, x6	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB121	insn	0x594a2c	207968f8	ldr x0, [x9, x8, lsl #3]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB122	insn	0x594a30	0a000014	b 0x594a58	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB123	insn	0x594a34	f40317aa	mov x20, x23	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB124	insn	0x594a38	f70316aa	mov x23, x22	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB125	insn	0x594a3c	f50302aa	mov x21, x2	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB126	insn	0x594a40	fa0304aa	mov x26, x4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB127	insn	0x594a44	f80301aa	mov x24, x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB128	insn	0x594a48	fb0307aa	mov x27, x7	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB129	insn	0x594a4c	f90305aa	mov x25, x5	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB130	insn	0x594a50	fc0306aa	mov x28, x6	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB131	insn	0x594a54	000080d2	mov x0, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB132	insn	0x594a58	61040051	sub w1, w3, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB133	insn	0x594a5c	02008052	mov w2, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB134	insn	0x594a60	f60303aa	mov x22, x3	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB135	insn	0x594a64	74a8f597	bl 0x2fec34	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB136	insn	0x594a68	e30316aa	mov x3, x22	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB137	insn	0x594a6c	e6031caa	mov x6, x28	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB138	insn	0x594a70	e50319aa	mov x5, x25	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB139	insn	0x594a74	e7031baa	mov x7, x27	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB140	insn	0x594a78	e10318aa	mov x1, x24	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB141	insn	0x594a7c	e4031aaa	mov x4, x26	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB142	insn	0x594a80	e20315aa	mov x2, x21	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB143	insn	0x594a84	f60317aa	mov x22, x23	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB144	insn	0x594a88	f70314aa	mov x23, x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB145	insn	0x594a8c	fc0740f9	ldr x28, [sp, #0x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB146	insn	0x594a90	e0030036	tbz w0, #0x0, 0x594b0c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB147	insn	0x594a94	fd7b46a9	ldp x29, x30, [sp, #0x60]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB148	insn	0xab33f8	1f150071	cmp w8, #0x5	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB149	insn	0xab33fc	81430054	b.ne 0xab3c6c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB150	insn	0xab3400	c8e500b0	adrp x8, 0x276c000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB151	insn	0xab3404	082141f9	ldr x8, [x8, #0x240]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB152	insn	0xab3408	284300b4	cbz x8, 0xab3c6c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB153	insn	0xab340c	080140f9	ldr x8, [x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB154	insn	0xab3410	19fddfc8	ldar x25, [x8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB155	insn	0xab3414	d94200b4	cbz x25, 0xab3c6c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB156	insn	0xab3418	e00314aa	mov x0, x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB157	insn	0xab341c	e2a62c94	bl 0x15dcfa4	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB158	insn	0xab3420	f80300aa	mov x24, x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB159	insn	0xab3424	083f0013	sxth w8, w24	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB160	insn	0xab3428	1f050071	cmp w8, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB161	insn	0xab342c	0b420054	b.lt 0xab3c6c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB162	insn	0xab3430	e00314aa	mov x0, x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB163	insn	0xab3434	010080d2	mov x1, #0x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB164	insn	0xab3438	d3aa2c94	bl 0x15ddf84	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB165	insn	0xab343c	fc0300aa	mov x28, x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB166	insn	0xab3440	1f300471	cmp w0, #0x10c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB167	insn	0xab3444	c1230054	b.ne 0xab38bc	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB168	insn	0xab3a30	fa031c2a	mov w26, w28	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB169	insn	0xab3a34	e1c30291	add x1, sp, #0xb0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB170	insn	0xab3a38	e0008452	mov w0, #0x2007	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB171	insn	0xab3a3c	4000a072	movk w0, #0x2, lsl #16	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB172	insn	0xab3a40	e20318aa	mov x2, x24	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB173	insn	0xab3a44	e3031aaa	mov x3, x26	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB174	insn	0xab3a48	e40314aa	mov x4, x20	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB175	insn	0xab3a4c	3491eb97	bl 0x597f1c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB176	insn	0xab3a50	15ff60d3	lsr x21, x24, #32	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB177	insn	0xab4554	fba341a9	ldp x27, x8, [sp, #0x18]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB178	insn	0xab4558	1f011beb	cmp x8, x27	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB179	insn	0xab455c	80b8ff54	b.eq 0xab3c6c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB180	insn	0xab4560	9f0f1072	tst w28, #0xf0000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB181	insn	0xab4564	c0020054	b.eq 0xab45bc	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB182	insn	0xab4568	e3c30291	add x3, sp, #0xb0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB183	insn	0xab456c	e00315aa	mov x0, x21	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB184	insn	0xab4570	e1031aaa	mov x1, x26	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB185	insn	0xab4574	e21340f9	ldr x2, [sp, #0x20]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB186	insn	0xab4578	e40317aa	mov x4, x23	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB187	insn	0xab457c	25008052	mov w5, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB188	insn	0xab4580	26008052	mov w6, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB189	insn	0xab4584	e7031baa	mov x7, x27	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB190	insn	0xab4588	548beb97	bl 0x5972d8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB191	insn	0x15de1b0	08a043b8	ldur w8, [x0, #0x3a]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB192	insn	0x15de1b4	1f150071	cmp w8, #0x5	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB193	insn	0x15de1b8	21030054	b.ne 0x15de21c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB194	insn	0x15de1bc	e21e00b4	cbz x2, 0x15de598	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB195	insn	0x15de1c0	68461212	and w8, w19, #0xffffc000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB196	insn	0x15de1c4	1f114071	cmp w8, #0x4, lsl #12	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB197	insn	0x15de1c8	c1040054	b.ne 0x15de260	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB198	insn	0x15de1cc	09a84fa9	ldp x9, x10, [x0, #0xf8]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB199	insn	0x15de1d0	88218052	mov w8, #0x10c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB200	insn	0x15de1d4	5f0109eb	cmp x10, x9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB201	insn	0x15de1d8	e0fcff54	b.eq 0x15de174	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB202	insn	0x15de1dc	c9fcffb4	cbz x9, 0x15de174	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB203	insn	0x15de1e0	f30300aa	mov x19, x0	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB204	insn	0x15de1e4	03008012	mov w3, #-0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB205	insn	0x15de1e8	b0050094	bl 0x15df8a8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB206	insn	0x15de1ec	c01c00b4	cbz x0, 0x15de584	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB207	insn	0x15de1f0	684240b9	ldr w8, [x19, #0x40]	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB208	insn	0x15de1f4	08114051	sub w8, w8, #0x4, lsl #12	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB209	insn	0x15de1f8	3f000072	tst w1, #0x1	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB210	insn	0x15de1fc	0902a052	mov w9, #0x100000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB211	insn	0x15de200	29119f1a	csel w9, w9, wzr, ne	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB212	insn	0x15de204	2afc50d3	lsr x10, x1, #16	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB213	insn	0x15de208	4a3d1012	and w10, w10, #0xffff0000	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB214	insn	0x15de20c	4a414011	add w10, w10, #0x10, lsl #12	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB215	insn	0x15de210	4901092a	orr w9, w10, w9	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB216	insn	0x15de214	2801082a	orr w8, w9, w8	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB217	insn	0x15de218	d7ffff17	b 0x15de174	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB218	insn	0x15de584	88218052	mov w8, #0x10c	ASSIGN-BACKEND-011 encoded target/value dispatch witness
+AB219	insn	0x15de588	fbfeff17	b 0x15de174	ASSIGN-BACKEND-011 encoded target/value dispatch witness

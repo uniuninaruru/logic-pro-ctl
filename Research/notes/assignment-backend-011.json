@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-BACKEND-011",
+  "recorded_utc": "2026-10-20T21:11:12.699381+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "static_encoded_target_and_value_forwarding",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "producer": {
+    "entry": "0x15de134",
+    "family_A_condition": "(code &0xffffc000)==0x4000",
+    "resolver": "0x15df8a8",
+    "on_null_resolver": "return0x10c; consumer compares0x10c at0xab3440",
+    "encode": "(code-0x4000) | ((slot+1)<<16) | ((section&1)<<20), uint32",
+    "resolver_X1": "(slot<<32)|section, prior audit008",
+    "nonoverlap_domain": "slot0..14, section0/1, code0x4000..0x7fff; not a proven Logic slot limit"
+  },
+  "consumer": {
+    "owner": "0xab3184",
+    "target_wrapper": "0x15dcfa4",
+    "parameter_wrapper": "0x15ddf84",
+    "resolved_parameter_register": "X28 at0xab343c",
+    "dispatch_site": "0xab4588 ->0x5972d8",
+    "equal_requested_current_skip": "0xab4554..55c",
+    "post_lookup_argument": "W26 fromW28 at0xab3a30; field may be adjusted by other branches not audited here"
+  },
+  "forwarder": {
+    "entry": "0x5972d8",
+    "bytes": 268,
+    "backend_call": "0x5973c4 ->0x594890",
+    "input_packed_code": "X1",
+    "decoded_fields": {
+      "backend_W2": "bit20",
+      "backend_W3": "bits16..19 (slot+1 in bounded familyA domain)",
+      "backend_W4": "low16 parameter index"
+    },
+    "value_scaling": {
+      "descriptor_null": "new X19 and companionW7 unchanged",
+      "descriptor_nonnull": "H=i64[descriptor+0x10]; S=0x1000000 if H<128 else floor(0x7f000000/u64(H)); X19*=S mod2^64, W7*=S mod2^32",
+      "physical_units_confirmed": false
+    },
+    "backend_entry": "0x594890",
+    "backend_zero_based_slot_argument": "0x594a58 subtracts1 fromW3, passed to opaque helper0x2fec34",
+    "downstream_parameter_write_confirmed": false
+  },
+  "restricted_replay": {
+    "cases": 13440,
+    "mismatches": 0,
+    "visited_instruction_sites": 27,
+    "limits": [
+      "Restricted instruction-text arithmetic replay starting0x597358, stopping before backend call0x594890.",
+      "Context acquisition, target lookup, encoding producer and any downstream write are not executed.",
+      "Slot0..14, section0/1, parameter index0..3fff, nonnegative values0..127; no slot-limit inference.",
+      "Fourteen-bit input parameter range follows the inspected family-A mask.",
+      "Wrapping integer arithmetic is modelled but physical parameter units are not inferred."
+    ]
+  },
+  "examples": [
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": null,
+      "value": 64,
+      "factor": 1,
+      "forwarded_integer": 64
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 0,
+      "value": 64,
+      "factor": 16777216,
+      "forwarded_integer": 1073741824
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 49,
+      "value": 64,
+      "factor": 16777216,
+      "forwarded_integer": 1073741824
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 127,
+      "value": 64,
+      "factor": 16777216,
+      "forwarded_integer": 1073741824
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 128,
+      "value": 64,
+      "factor": 16646144,
+      "forwarded_integer": 1065353216
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 255,
+      "value": 64,
+      "factor": 8355711,
+      "forwarded_integer": 534765504
+    },
+    {
+      "encoded": "0x10020",
+      "descriptor_upper": 16384,
+      "value": 64,
+      "factor": 130048,
+      "forwarded_integer": 8323072
+    }
+  ],
+  "saved_interval_bytes": 2000,
+  "caller_excerpt_bytes": 288,
+  "intervals": [
+    {
+      "label": "track_value_dispatch",
+      "entry": "0x5972d8",
+      "exclusive_end": "0x5973e4",
+      "size_bytes": 268,
+      "body_sha256": "0666cdfe6705ef519c34ce57700c4c479a78b758cf2990f0ed683f73cdb08d68"
+    },
+    {
+      "label": "track_value_related_dispatch",
+      "entry": "0x5971e0",
+      "exclusive_end": "0x5972d8",
+      "size_bytes": 248,
+      "body_sha256": "2236adf8db06d052b9d1aeeb47c1ba531477006e616d4c5183f6ea7793cc641f"
+    },
+    {
+      "label": "parameter_backend_dispatch",
+      "entry": "0x594890",
+      "exclusive_end": "0x594e5c",
+      "size_bytes": 1484,
+      "body_sha256": "639da2eddf23af6280f444c2bb6b954be69cdf39441496613b68ab6ea50ba24d"
+    }
+  ],
+  "anchor_table": {
+    "path": "Research/protocol/assignment-backend-12.4-anchors.tsv",
+    "count": 219,
+    "sha256": "ce257e772ce2c138f9d9f04a1d08599d1cd52ff489c8c21bf94a976fa31c47a3"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/curate.py",
+      "sha256": "c9a533a634c81e46f5bad7a9dbdec9ca32137560e79d5812bf50e0d5250d8ca9",
+      "size_bytes": 4391
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/inspect_backend.py",
+      "sha256": "cb65d03cd66c21409ffc53b708af3dc3857318024ddc9a69a01808840d4f9bca",
+      "size_bytes": 2785
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/backend-proof.json",
+      "sha256": "00b130465c532d8757ceb73ef23713a9b5c1cf9feeeb3ec43372f6bf3f3f3322",
+      "size_bytes": 70898
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/inspect_callsites.py",
+      "sha256": "ebcfa3f6b745763e4fcd843b71eb8f3283a7a105a7e789ad10eb4fda4c174b69",
+      "size_bytes": 2109
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/callsites-proof.json",
+      "sha256": "1e41364f41c37f4cc83ae4ca8a8f0e47bda011902dbd0f68e74f1b645f76b508",
+      "size_bytes": 10969
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/replay_encoding.py",
+      "sha256": "0e0a6b1fc5b3a98b1b2ec957a88733706954770aaae09775f5e05d46e422fbc1",
+      "size_bytes": 4225
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/encoding-replay.json",
+      "sha256": "e53a84108269bf526bfcf6437d90f2a3ba6146b25ac35180923ffa1e34d0f257",
+      "size_bytes": 1874
+    },
+    {
+      "path": "Research/notes/assignment-identity-audit-008.json",
+      "sha256": "f9450d02c8e9cfccb3c6fa0bd699668620fe7bd93d336e75096ea32c0e20cd68",
+      "size_bytes": 5144
+    },
+    {
+      "path": "Research/raw/rea/pickup-ab3184.c",
+      "sha256": "1b35fa51752f89c26bcc5c6729dac11678fea08b7e1dfbbbfaa9ef3b0d806876",
+      "size_bytes": 38513
+    },
+    {
+      "path": "Research/raw/rea/pickup-ab3184.objdump.txt",
+      "sha256": "29a96289bf0d1d672b9c781e18d0282db2bc9ea1f5af4081619661db2a9355ae",
+      "size_bytes": 56408
+    }
+  ],
+  "limits": [
+    "Direct bytes/LLVM and saved REA pseudocode are distinct sources; no new native engine use.",
+    "Replay covers forwarding arithmetic only, not producer execution, contexts, caches, assignment matching or downstream calls.",
+    "The function namedtrack_value_related_dispatch is retained as bounded context, not interpreted as a value getter.",
+    "Opaque backend/helper behavior is not equated with a successful plug-in write.",
+    "No MIDI, UI, preferences write or verified capability change."
+  ]
+}
