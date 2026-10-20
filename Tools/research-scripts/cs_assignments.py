@@ -6,7 +6,7 @@ unpadded FourCC + little-endian length + payload records. Only chunk boundaries
 are parsed: an RDAF substring inside a payload is never treated as a record.
 RDAF is a raw record type, not proof of an assignment. The small optional
 candidate decoder recognizes the mode-2 CC families observed in EXP-CS-001;
-class, parameter, target and value semantics remain unproved.
+target fingerprints are static hypotheses, never current target/value proof.
 
 Examples:
   python3 Tools/research-scripts/cs_assignments.py list copied-snapshot.bin
@@ -40,6 +40,8 @@ LIMITATIONS = [
     "Only the observed flat, unpadded MROF/FCSS record layout is supported; no nested records are inferred.",
     "RDAF is a raw type; neither every RDAF nor a shape match is a confirmed assignment.",
     "Candidate field roles are hypotheses; class, parameter, target and value semantics are unproved.",
+    "Target fingerprints use the 12.4/6707 static list-6 mapping; hashes/ordinals do not establish an active target or verify a value.",
+    "Variable fields require bounded canonical lengths, unique tags and an exact terminator; this is stricter than Logic's inspected scan.",
     "EXP-CS-001 observed Logic 12.4 (6707); its command-number comparison used a 12.3.1 catalog, not a cross-version guarantee.",
     "Diff uses a payload-hash multiset with duplicate counts; a changed payload appears as a removal and addition.",
     "Names, identifiers and raw payloads are omitted; the tool reads explicit copied snapshots and writes nothing.",
@@ -169,12 +171,51 @@ def load_snapshot(path: str | Path, **options) -> Snapshot:
     return parse_snapshot(data, **options)
 
 
+def _bounded_variable_fields(payload: bytes, start: int) -> list[tuple[int, int, int]] | None:
+    """Return (tag, content offset, length) under conservative inventory bounds.
+
+    The native helper uses MSB-first base-128 groups (ASSIGN-FIELDS-007).
+    Unlike that scan, this rejects duplicates, noncanonical lengths, overflow,
+    truncation and trailing bytes; it never emulates native malformed inputs.
+    """
+    cursor = start
+    fields = []
+    seen = set()
+    while cursor < len(payload):
+        tag = payload[cursor]
+        cursor += 1
+        if tag == 0:
+            return fields if cursor == len(payload) else None
+        if tag in seen or len(fields) >= 64:
+            return None
+        seen.add(tag)
+        length = 0
+        for group in range(5):
+            if cursor == len(payload):
+                return None
+            byte = payload[cursor]
+            cursor += 1
+            if group == 0 and byte == 0x80:  # An unnecessary leading zero group.
+                return None
+            length = (length << 7) | (byte & 0x7f)
+            if length > 0xffffffff:
+                return None
+            if byte < 0x80:
+                break
+        else:
+            return None
+        if length > len(payload) - cursor:
+            return None
+        fields.append((tag, cursor, length))
+        cursor += length
+    return None
+
+
 def observed_candidates(record: Record) -> dict | None:
     """Return hypotheses only for the narrowly observed mode-2 CC shapes.
 
-    The fixed prefix must match, the UTF-8/NUL field must be fully bounded and
-    valid, and the entire remaining suffix must match the observed opaque
-    optional field + 16-byte field + terminator. No strings/IDs are returned.
+    The fixed prefix and variable tag sequence must match; the UTF-8/NUL name
+    and every field must be bounded. No strings, IDs or UUID bytes are returned.
     """
     p = record.payload
     if record.type_bytes != b"RDAF" or len(p) < 73:
@@ -185,29 +226,31 @@ def observed_candidates(record: Record) -> dict | None:
         return None
     if p[10:15] != b"\0" * 5 or p[15] != 2 or p[16:19] != b"\0\0\x7f":
         return None
-    if p[19] not in (2, 4) or p[40] != 0x80 or p[46:48] != b"\x01\x03":
+    if p[19] not in (2, 4) or p[40] != 0x80:
         return None
-    message = p[48:51]
+    fields = _bounded_variable_fields(p, 46)
+    if fields is None or [f[0] for f in fields] not in ([1, 3, 16], [1, 3, 6, 16]):
+        return None
+    _, message_start, message_length = fields[0]
+    if message_length != 3:
+        return None
+    message = p[message_start:message_start + message_length]
     if not (0xb0 <= message[0] <= 0xbf and message[1] < 0x80 and (message[2] < 0x80 or message[2] in (0xf4, 0xf5))):
         return None
-    if p[51] != 3 or not p[52]:
+    _, name_start, name_length = fields[1]
+    if not name_length or fields[-1][2] != 16:
         return None
-    name_end = 53 + p[52]
-    if name_end > len(p) or p[name_end - 1] != 0 or b"\0" in p[53:name_end - 1]:
+    name_end = name_start + name_length
+    if p[name_end - 1] != 0 or b"\0" in p[name_start:name_end - 1]:
         return None
     try:
-        p[53:name_end - 1].decode("utf-8")
+        p[name_start:name_end - 1].decode("utf-8")
     except UnicodeDecodeError:
-        return None
-    cursor = name_end
-    if cursor + 2 <= len(p) and p[cursor] == 6:
-        cursor += 2 + p[cursor + 1]  # An observed optional opaque field; no role inferred.
-    if cursor + 19 != len(p) or p[cursor:cursor + 2] != b"\x10\x10" or p[-1] != 0:
         return None
     raw = {
         "u32le_payload_2": family,
         "u32le_payload_6": struct.unpack_from("<I", p, 6)[0],
-        # Overlapping raw probes; field boundaries and in-memory mapping are unproved.
+        # Retain raw probes; the static 12.4 mapping is not runtime confirmation.
         "u16le_payload_6": struct.unpack_from("<H", p, 6)[0],
         "u32le_payload_8": struct.unpack_from("<I", p, 8)[0],
         "byte_payload_15": p[15],
@@ -219,16 +262,32 @@ def observed_candidates(record: Record) -> dict | None:
         "evidence": EVIDENCE,
         "raw_fields": raw,
         "message_candidate": {
-            "payload_offset": 48, "length": 3, "hex": message.hex(),
+            "payload_offset": message_start, "length": 3, "hex": message.hex(),
             "contains_f4_f5": any(value in (0xf4, 0xf5) for value in message),
         },
-        "name_field_length": p[52],
+        "name_field_length": name_length,
+        "variable_field_lengths": [{"tag": tag, "length": length} for tag, _, length in fields],
         "semantics_confirmed": False,
     }
     if family == 9:
         result["command_int_candidate"] = {
             "payload_offset": 6, "encoding": "little-endian-u32",
             "value": raw["u32le_payload_6"],
+        }
+    elif len(fields) == 4 and fields[2][2] == 32 and (raw["u32le_payload_8"] & 0xffffc000) == 0x4000:
+        _, identity_start, _ = fields[2]
+        identity = p[identity_start:identity_start + 32]
+        result["stored_plugin_target_candidate"] = {
+            "status": "hypothesis",
+            "evidence": "Research/notes/assignment-fields-007.en.md; Research/notes/assignment-identity-audit-008.en.md",
+            "static_version_scope": "Logic 12.4 / 6707",
+            "payload_offset": identity_start, "field_tag": 6, "length": 32,
+            "descriptor_sha256": digest(identity[:12]),
+            "ordinal_raw": struct.unpack_from("<I", identity, 12)[0],
+            "instance_token_sha256": digest(identity[16:]),
+            "selector_raw": raw["u16le_payload_6"],
+            "parameter_code_raw": raw["u32le_payload_8"],
+            "active_target_confirmed": False, "value_verified": False,
         }
     return result
 

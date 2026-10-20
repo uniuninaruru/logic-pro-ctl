@@ -1,6 +1,7 @@
 """Synthetic-only tests for the read-only CS copied-snapshot parser."""
 
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -35,6 +36,16 @@ def cc_payload(*, family=9, message=b"\xb0\x19\xf5", name=b"Example\0", extra=b"
     prefix[48:51] = message
     prefix[51:53] = bytes((3, len(name)))
     return bytes(prefix) + name + extra + b"\x10\x10" + b"I" * 16 + b"\0"
+
+
+def variable_field(tag, content):
+    length = len(content)
+    groups = [length & 0x7f]
+    length >>= 7
+    while length:
+        groups.append((length & 0x7f) | 0x80)
+        length >>= 7
+    return bytes([tag, *reversed(groups)]) + content
 
 
 class ParseTests(unittest.TestCase):
@@ -119,6 +130,64 @@ class CandidateTests(unittest.TestCase):
         output = self.candidate(cc_payload(family=5, extra=b"\x06\x03xyz"))
         self.assertEqual(output["raw_fields"]["u32le_payload_6"], 0x71000)
         self.assertNotIn("command_int_candidate", output)
+
+    def test_plugin_target_fingerprint_is_redacted_and_unverified(self):
+        descriptor = struct.pack("<3I", 0x12345678, 0x76543210, 0x11112222)
+        token = b"private-token001"
+        identity = descriptor + struct.pack("<I", 2) + token
+        payload = bytearray(cc_payload(family=5, extra=variable_field(6, identity)))
+        struct.pack_into("<I", payload, 8, 0x4020)
+        output = self.candidate(bytes(payload))
+        target = output["stored_plugin_target_candidate"]
+        self.assertEqual(target["descriptor_sha256"], hashlib.sha256(descriptor).hexdigest())
+        self.assertEqual(target["instance_token_sha256"], hashlib.sha256(token).hexdigest())
+        self.assertEqual((target["ordinal_raw"], target["selector_raw"], target["parameter_code_raw"]), (2, 0x1000, 0x4020))
+        self.assertFalse(target["active_target_confirmed"])
+        self.assertFalse(target["value_verified"])
+        self.assertFalse(output["semantics_confirmed"])
+        self.assertEqual(output["variable_field_lengths"], [{"tag": 1, "length": 3}, {"tag": 3, "length": 8}, {"tag": 6, "length": 32}, {"tag": 16, "length": 16}])
+        serialized = json.dumps(output)
+        for private in ("Example", token.decode(), token.hex(), descriptor.hex()):
+            self.assertNotIn(private, serialized)
+
+    def test_same_descriptor_new_instance_does_not_confirm_target(self):
+        targets = []
+        for ordinal, token in [(0, b"A" * 16), (0, b"B" * 16), (1, b"A" * 16)]:
+            identity = struct.pack("<4I", 11, 22, 33, ordinal) + token
+            payload = bytearray(cc_payload(family=5, extra=variable_field(6, identity)))
+            struct.pack_into("<I", payload, 8, 0x4020)
+            targets.append(self.candidate(bytes(payload))["stored_plugin_target_candidate"])
+        self.assertEqual(len({t["descriptor_sha256"] for t in targets}), 1)
+        self.assertNotEqual(targets[0]["instance_token_sha256"], targets[1]["instance_token_sha256"])
+        self.assertEqual(targets[0]["instance_token_sha256"], targets[2]["instance_token_sha256"])
+        self.assertEqual([t["ordinal_raw"] for t in targets], [0, 0, 1])
+        self.assertTrue(all(not t["active_target_confirmed"] and not t["value_verified"] for t in targets))
+
+    def test_target_fingerprint_requires_class_family_and_exact_identity_length(self):
+        for family, code, length in [(9, 0x4020, 32), (5, 7, 32), (5, 0x4020, 31), (5, 0x4020, 33)]:
+            with self.subTest(family=family, code=code, length=length):
+                payload = bytearray(cc_payload(family=family, extra=variable_field(6, b"X" * length)))
+                struct.pack_into("<I", payload, 8, code)
+                output = self.candidate(bytes(payload))
+                self.assertIsNotNone(output)
+                self.assertNotIn("stored_plugin_target_candidate", output)
+
+    def test_multibyte_lengths_bound_name_and_optional_field(self):
+        for length in (127, 128, 255, 16384):
+            with self.subTest(length=length):
+                payload = (cc_payload(family=5)[:46] + variable_field(1, b"\xb0\x17\xf5")
+                           + variable_field(3, b"n" * (length - 1) + b"\0")
+                           + variable_field(6, b"x" * length) + variable_field(16, b"I" * 16) + b"\0")
+                output = self.candidate(payload)
+                self.assertIsNotNone(output)
+                self.assertEqual(output["name_field_length"], length)
+                self.assertEqual(output["variable_field_lengths"][2], {"tag": 6, "length": length})
+
+    def test_ambiguous_or_broken_variable_tail_is_rejected(self):
+        for extra in (b"\x06\x80\x01x", b"\x06\x90\x80\x80\x80\0", b"\x06\x81\x81\x81\x81\x81",
+                      b"\x06\x81\0x", variable_field(6, b"x") + variable_field(6, b"y"), variable_field(3, b"second\0")):
+            with self.subTest(extra=extra):
+                self.assertIsNone(self.candidate(cc_payload(family=5, extra=extra)))
 
     def test_f4_and_literal_value_shapes(self):
         for message in (b"\xb0\x17\xf4", b"\xb0\x14\x40"):

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "CS-INVENTORY-009",
+  "recorded_utc": "2026-10-20T20:52:53.920600+00:00",
+  "kind": "copied_snapshot_inventory_tooling",
+  "input_sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+  "snapshot_valid": true,
+  "raw_records_compared": 2992,
+  "candidate_rows_before": 4,
+  "candidate_rows_after": 4,
+  "unchanged_prior_candidate_fields": true,
+  "stored_plugin_target_candidates": 1,
+  "parameter_code_raw": "0x4020",
+  "ordinal_raw": 0,
+  "semantics_confirmed": false,
+  "active_target_confirmed": false,
+  "value_verified": false,
+  "affected_tests": {
+    "suite": "Tests/research/test_cs_assignments.py",
+    "passed": 26,
+    "new_tests": 5
+  },
+  "static_mapping_build": "Logic12.4/6707 SHA48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+  "live_preferences_accessed": false,
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-inventory-009/check.py",
+      "sha256": "d6fd9c456f72b430a0bc5f3b6fa1f0351a48e3ea3aaed2539d7148ff3957911c",
+      "size_bytes": 3274
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-inventory-009/s0b-list.json",
+      "sha256": "8f74c114272c07c6d9fd59b40758763ceae3272bd57ce712aa5df856f078992a",
+      "size_bytes": 798618
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/cli-list.json",
+      "sha256": "afbd7f619c56a7f7cdc005a3b47b3d25122dd64eaf4026e73743b331adbaea46",
+      "size_bytes": 796497
+    },
+    {
+      "path": "Tools/research-scripts/cs_assignments.py",
+      "sha256": "4c57dbb48611b4404bb60831267c62510fccf9b57f966d41612e0cc59d1ff320",
+      "size_bytes": 17520
+    },
+    {
+      "path": "Tests/research/test_cs_assignments.py",
+      "sha256": "798f46cae4d646d27f373b7487d2521292bcb53b2ddc0181095fea7f6ad34f5a",
+      "size_bytes": 16273
+    },
+    {
+      "path": "Research/notes/assignment-fields-007.json",
+      "sha256": "6868aa488439850d14dbc0ea2f18525265ea4cbac1e128ee0e171b8caba439b6",
+      "size_bytes": 6741
+    },
+    {
+      "path": "Research/notes/assignment-identity-audit-008.json",
+      "sha256": "f9450d02c8e9cfccb3c6fa0bd699668620fe7bd93d336e75096ea32c0e20cd68",
+      "size_bytes": 5144
+    }
+  ],
+  "limits": [
+    "Only the narrow observed mode-2 CC tag sequences1/3/(6)/16 are candidates.",
+    "Conservative canonical base128 lengths, duplicate rejection, five-group/32-bit bound and exact terminator differ from Logic malformed-input behavior.",
+    "Stored target descriptor/instance hashes are comparison aids; never proof of a current document/track/slot/instance.",
+    "Names, descriptor bytes, instance token bytes and complete payloads are not emitted.",
+    "No restore/write operation or product Sources change; no CI configuration change."
+  ]
+}
