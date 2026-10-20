@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-DRAIN-015",
+  "recorded_utc": "2026-10-20T21:44:28.984109+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "static_timer_registration_and_selected_queued_record_reentry",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "registration": {
+    "timer": "0x266bd18",
+    "callback_slot": "+0xa",
+    "callback": "0x777b68",
+    "store_site": "0x5c9e10",
+    "register_call": "0x5c9e24 ->InsTime(timer)",
+    "callback_action": "Clear byte2676cf4 at777b98; tail783684 at777b9c",
+    "block_execution_live_observed": false
+  },
+  "thread_port": {
+    "current_thread_call": "0x7836dc ->mach_thread_self",
+    "global": "0x266c0c8",
+    "compare": "0x7836ec",
+    "store_if_different": "0x7836f4",
+    "name_string": "SeqTimer at1d90e87",
+    "name_call": "0x783730 ->pthread_setname_np",
+    "scope": "Selected non-null-context worker branch; main/UI identity is not established"
+  },
+  "drain": {
+    "worker_entry": "0x783684",
+    "full_worker_bytes": 5432,
+    "worker_excerpts_only": true,
+    "consumer_call": "0x783f60 ->bcae68(base+0x40,context)",
+    "consumer_entry": "0xbcae68",
+    "consumer_interval_bytes": 1828,
+    "secondary_gate": "Saved non-null context atSP+0x20 required atbcb208",
+    "relative_to_consumer_argument": {
+      "producer_cursor": "+0x8cad0",
+      "consumer_cursor": "+0x91180",
+      "low": "+0x8cad8",
+      "exclusive_high": "+0x90958"
+    },
+    "relative_to_original_base": {
+      "producer_cursor": "+0x8cb10",
+      "consumer_cursor": "+0x911c0",
+      "low": "+0x8cb18",
+      "exclusive_high": "+0x90998"
+    },
+    "copy": "bcb28c..bcb2a8 normalizes read cursor, copies16B units into zeroed96B scratch, follows next qword bit63, stores final consumer cursor",
+    "reentry": "0xbcb38c ->781438(context,stack_record,resolved_target,header &0xffffffffffff0000,5)",
+    "target_resolution_scope": "Primary B8 extension u32+8 is checked for encoded-index form; context collection lookup or first-element/null fallback. No plug-in UUID equality proven.",
+    "application_verified": false
+  },
+  "sdk_layout": {
+    "header": "CarbonCore/Timer.h",
+    "header_path": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers/Timer.h",
+    "header_sha256": "65613c8b0605b3f6fa3e035d47cab52be3016a00a4a4212ef3c0436de9c4524f",
+    "sdk_version": "27.0",
+    "arch": "arm64",
+    "compile_only": true,
+    "executable_produced": false,
+    "command": [
+      "xcrun",
+      "clang",
+      "-fsyntax-only",
+      "-Wno-deprecated-declarations",
+      "-arch",
+      "arm64",
+      "Research/raw/rea/codex-timer-xref-015/timer_layout.c"
+    ],
+    "exit_code": 0,
+    "asserted_offsets": {
+      "TMTask.tmAddr": "0xa",
+      "TMTask.tmWakeUp": "0x1a"
+    },
+    "source_sha256": "aa0dcc8d5397a65f30eb4e2ace2fb21951e8129d2a70918cb391b255d7b53903"
+  },
+  "saved_excerpts": [
+    {
+      "label": "timer_teardown",
+      "entry": "0x5ca550",
+      "exclusive_end": "0x5ca5d0",
+      "function_entry": "0x5ca380",
+      "function_exclusive_end": "0x5ca658",
+      "size_bytes": 128,
+      "body_sha256": "b8af9d9be0f5eef054fe87f2e54c7915a0d76be882daf74b5b08dc91f5a459c4"
+    },
+    {
+      "label": "flag_clear_wrapper",
+      "entry": "0x777b68",
+      "exclusive_end": "0x777ba0",
+      "function_entry": "0x777b68",
+      "function_exclusive_end": "0x777ba0",
+      "size_bytes": 56,
+      "body_sha256": "2e401d169f5eea1198f0f5eb53b6b3896288e5539ad19eec7bcf294438038c51"
+    },
+    {
+      "label": "timer_setup",
+      "entry": "0x5c9d20",
+      "exclusive_end": "0x5c9e40",
+      "function_entry": "0x5c9bd8",
+      "function_exclusive_end": "0x5c9f64",
+      "size_bytes": 288,
+      "body_sha256": "cc86d64519cb30f2c51c016f1c3bbd0ccc77eeacde394fe8161dc22c9e96b522"
+    },
+    {
+      "label": "timer_worker_entry",
+      "entry": "0x783684",
+      "exclusive_end": "0x783984",
+      "function_entry": "0x783684",
+      "function_exclusive_end": "0x784bbc",
+      "size_bytes": 768,
+      "body_sha256": "5281853b92c8328f2d78a751a634f4615028798c10d9ebe4594138adab3f2195"
+    },
+    {
+      "label": "timer_worker_buffer",
+      "entry": "0x783de0",
+      "exclusive_end": "0x783fe0",
+      "function_entry": "0x783684",
+      "function_exclusive_end": "0x784bbc",
+      "size_bytes": 512,
+      "body_sha256": "254ebe886c88e1a576c45cce9fa52b3e1135dd6e8d8f0b737a15eee4394cb4e3"
+    },
+    {
+      "label": "buffer_consumer",
+      "entry": "0xbcae68",
+      "exclusive_end": "0xbcb58c",
+      "function_entry": "0xbcae68",
+      "function_exclusive_end": "0xbcb58c",
+      "size_bytes": 1828,
+      "body_sha256": "70493fd3e05aa419c88facd7a1b7ebff025d79fc3cf3aebbdcbbd790c44ca813"
+    }
+  ],
+  "saved_excerpt_bytes": 3580,
+  "curated_instruction_bytes": 984,
+  "anchor_table": {
+    "path": "Research/protocol/assignment-drain-12.4-anchors.tsv",
+    "count": 253,
+    "sha256": "117033a4d895600a244cf76efdc6d27c94d5dd044d607a830d206d1499068972"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/curate.py",
+      "sha256": "b25861442a5293d863e4ed13970f2127bec87c079a8c075f0c9163190b3de7be",
+      "size_bytes": 6195
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/xrefs.py",
+      "sha256": "b6957d944266b42d4b9f5df9d1137ff1dad0964bfab5f80d6340bf6bdeff99b6",
+      "size_bytes": 2803
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/xref-candidates.json",
+      "sha256": "2d45da8e37572d7e1931fdf97cee0e81254d2a57c4bc248ec70700b2dc32b31a",
+      "size_bytes": 13878
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/inspect_excerpts.py",
+      "sha256": "bb138fdfc53dd379be7931f00d8cd8f5d1712be5788afa444593b2dd42c9f083",
+      "size_bytes": 3130
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/timer-excerpts.json",
+      "sha256": "d4978d04ee3dd41158ced0690d7288b3c653a175982d3fc65e0396f85f81ee35",
+      "size_bytes": 130814
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/inspect_bindings.py",
+      "sha256": "4763706ce2519b7cf90743f364eb835c807d992d7417151313de106f1b1e3b75",
+      "size_bytes": 1431
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/timer-bindings.json",
+      "sha256": "69dfae6b4669fc8c3837ecd0bf8f6a7c572cd22d524f628d341b788832b5a253",
+      "size_bytes": 2420
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/timer_layout.c",
+      "sha256": "aa0dcc8d5397a65f30eb4e2ace2fb21951e8129d2a70918cb391b255d7b53903",
+      "size_bytes": 193
+    },
+    {
+      "path": "Research/raw/rea/codex-timer-xref-015/sdk-layout.json",
+      "sha256": "6d3069e8d7a5f35305c9dd0d418d3fa27a3ae6174dd0dceefd85d06901e8ac4e",
+      "size_bytes": 838
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8",
+      "size_bytes": 12240
+    },
+    {
+      "path": "Research/notes/assignment-handler-013.json",
+      "sha256": "e9082ebd12e44369c8e51d15c5a47d9c2ed59bbb9550de253cb0043176388d34",
+      "size_bytes": 8460
+    },
+    {
+      "path": "Tools/research-scripts/binary_anchors.py",
+      "sha256": "fc6490ae288b5846a845199ae3111ac55250335bb760cdd7b92b709683388679",
+      "size_bytes": 11874
+    }
+  ],
+  "limits": [
+    "ADRP candidate scan is syntactic and not exhaustive; selected LLVM instructions, not raw candidate hits, support claims.",
+    "Timer registration and worker execution were not observed in a current live Logic process.",
+    "Ring-end lookahead sentinel, maximum record length, concurrency, overflow/drop handling and latency remain unproved.",
+    "The consumer returns a queued record to the original handler; this is not a final Audio Unit write or independent value readback.",
+    "No new native analysis session, live GUI, MIDI, preferences write or verified capability."
+  ]
+}

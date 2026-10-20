@@ -1,0 +1,255 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Static timer registration and selected buffer drain path; no native/live effects
+DR001	insn	0x777b68	a8f70090	adrp x8, 0x266b000	Registered callback clears armed byte and tails worker
+DR002	insn	0x777b6c	08453791	add x8, x8, #0xdd1	Registered callback clears armed byte and tails worker
+DR003	insn	0x777b70	29008052	mov w9, #0x1	Registered callback clears armed byte and tails worker
+DR004	insn	0x777b74	0881e938	swpalb w9, w8, [x8]	Registered callback clears armed byte and tails worker
+DR005	insn	0x777b78	e8000037	tbnz w8, #0x0, 0x777b94	Registered callback clears armed byte and tails worker
+DR006	insn	0x777b7c	fd7bbfa9	stp x29, x30, [sp, #-0x10]!	Registered callback clears armed byte and tails worker
+DR007	insn	0x777b80	fd030091	mov x29, sp	Registered callback clears armed byte and tails worker
+DR008	insn	0x777b84	c0b000b0	adrp x0, 0x1d90000	Registered callback clears armed byte and tails worker
+DR009	insn	0x777b88	00883891	add x0, x0, #0xe22	Registered callback clears armed byte and tails worker
+DR010	insn	0x777b8c	12114e94	bl 0x1afbfd4	Registered callback clears armed byte and tails worker
+DR011	insn	0x777b90	fd7bc1a8	ldp x29, x30, [sp], #0x10	Registered callback clears armed byte and tails worker
+DR012	insn	0x777b94	e8f700f0	adrp x8, 0x2676000	Registered callback clears armed byte and tails worker
+DR013	insn	0x777b98	1fd13339	strb wzr, [x8, #0xcf4]	Registered callback clears armed byte and tails worker
+DR014	insn	0x777b9c	ba2e0014	b 0x783684	Registered callback clears armed byte and tails worker
+DR015	insn	0x5c9d74	080501d0	adrp x8, 0x266b000	Timer registration excerpt, conditional on entering initialization block
+DR016	insn	0x5c9d78	08493591	add x8, x8, #0xd52	Timer registration excerpt, conditional on entering initialization block
+DR017	insn	0x5c9d7c	080140f9	ldr x8, [x8]	Timer registration excerpt, conditional on entering initialization block
+DR018	insn	0x5c9d80	140501d0	adrp x20, 0x266b000	Timer registration excerpt, conditional on entering initialization block
+DR019	insn	0x5c9d84	94223591	add x20, x20, #0xd48	Timer registration excerpt, conditional on entering initialization block
+DR020	insn	0x5c9d88	130501d0	adrp x19, 0x266b000	Timer registration excerpt, conditional on entering initialization block
+DR021	insn	0x5c9d8c	73623491	add x19, x19, #0xd18	Timer registration excerpt, conditional on entering initialization block
+DR022	insn	0x5c9d90	880100b4	cbz x8, 0x5c9dc0	Timer registration excerpt, conditional on entering initialization block
+DR023	insn	0x5c9d94	00a88152	mov w0, #0xd40	Timer registration excerpt, conditional on entering initialization block
+DR024	insn	0x5c9d98	6000a072	movk w0, #0x3, lsl #16	Timer registration excerpt, conditional on entering initialization block
+DR025	insn	0x5c9d9c	65ca5494	bl 0x1afc730	Timer registration excerpt, conditional on entering initialization block
+DR026	insn	0x5c9da0	e00314aa	mov x0, x20	Timer registration excerpt, conditional on entering initialization block
+DR027	insn	0x5c9da4	f2b65494	bl 0x1af796c	Timer registration excerpt, conditional on entering initialization block
+DR028	insn	0x5c9da8	e00313aa	mov x0, x19	Timer registration excerpt, conditional on entering initialization block
+DR029	insn	0x5c9dac	f0b65494	bl 0x1af796c	Timer registration excerpt, conditional on entering initialization block
+DR030	insn	0x5c9db0	9fa200f8	stur xzr, [x20, #0xa]	Timer registration excerpt, conditional on entering initialization block
+DR031	insn	0x5c9db4	7fa200f8	stur xzr, [x19, #0xa]	Timer registration excerpt, conditional on entering initialization block
+DR032	insn	0x5c9db8	001d9052	mov w0, #0x80e8	Timer registration excerpt, conditional on entering initialization block
+DR033	insn	0x5c9dbc	5dca5494	bl 0x1afc730	Timer registration excerpt, conditional on entering initialization block
+DR034	insn	0x5c9dc0	9f0200f9	str xzr, [x20]	Timer registration excerpt, conditional on entering initialization block
+DR035	insn	0x5c9dc4	9f120079	strh wzr, [x20, #0x8]	Timer registration excerpt, conditional on entering initialization block
+DR036	insn	0x5c9dc8	680d00d0	adrp x8, 0x777000	Timer registration excerpt, conditional on entering initialization block
+DR037	insn	0x5c9dcc	08b11d91	add x8, x8, #0x76c	Timer registration excerpt, conditional on entering initialization block
+DR038	insn	0x5c9dd0	88a200f8	stur x8, [x20, #0xa]	Timer registration excerpt, conditional on entering initialization block
+DR039	insn	0x5c9dd4	9f2201f8	stur xzr, [x20, #0x12]	Timer registration excerpt, conditional on entering initialization block
+DR040	insn	0x5c9dd8	9f2202f8	stur xzr, [x20, #0x22]	Timer registration excerpt, conditional on entering initialization block
+DR041	insn	0x5c9ddc	9fa201f8	stur xzr, [x20, #0x1a]	Timer registration excerpt, conditional on entering initialization block
+DR042	insn	0x5c9de0	e00314aa	mov x0, x20	Timer registration excerpt, conditional on entering initialization block
+DR043	insn	0x5c9de4	3ab35494	bl 0x1af6acc	Timer registration excerpt, conditional on entering initialization block
+DR044	insn	0x5c9de8	e00314aa	mov x0, x20	Timer registration excerpt, conditional on entering initialization block
+DR045	insn	0x5c9dec	21008052	mov w1, #0x1	Timer registration excerpt, conditional on entering initialization block
+DR046	insn	0x5c9df0	b8b65494	bl 0x1af78d0	Timer registration excerpt, conditional on entering initialization block
+DR047	insn	0x5c9df4	080501d0	adrp x8, 0x266b000	Timer registration excerpt, conditional on entering initialization block
+DR048	insn	0x5c9df8	08413791	add x8, x8, #0xdd0	Timer registration excerpt, conditional on entering initialization block
+DR049	insn	0x5c9dfc	1ffd9f08	stlrb wzr, [x8]	Timer registration excerpt, conditional on entering initialization block
+DR050	insn	0x5c9e00	7f0200f9	str xzr, [x19]	Timer registration excerpt, conditional on entering initialization block
+DR051	insn	0x5c9e04	7f120079	strh wzr, [x19, #0x8]	Timer registration excerpt, conditional on entering initialization block
+DR052	insn	0x5c9e08	680d00d0	adrp x8, 0x777000	Timer registration excerpt, conditional on entering initialization block
+DR053	insn	0x5c9e0c	08a12d91	add x8, x8, #0xb68	Timer registration excerpt, conditional on entering initialization block
+DR054	insn	0x5c9e10	68a200f8	stur x8, [x19, #0xa]	Timer registration excerpt, conditional on entering initialization block
+DR055	insn	0x5c9e14	7f2201f8	stur xzr, [x19, #0x12]	Timer registration excerpt, conditional on entering initialization block
+DR056	insn	0x5c9e18	7f2202f8	stur xzr, [x19, #0x22]	Timer registration excerpt, conditional on entering initialization block
+DR057	insn	0x5c9e1c	7fa201f8	stur xzr, [x19, #0x1a]	Timer registration excerpt, conditional on entering initialization block
+DR058	insn	0x5c9e20	e00313aa	mov x0, x19	Timer registration excerpt, conditional on entering initialization block
+DR059	insn	0x5c9e24	27b35494	bl 0x1af6ac0	Timer registration excerpt, conditional on entering initialization block
+DR060	insn	0x5c9e28	080501d0	adrp x8, 0x266b000	Timer registration excerpt, conditional on entering initialization block
+DR061	insn	0x5c9e2c	08453791	add x8, x8, #0xdd1	Timer registration excerpt, conditional on entering initialization block
+DR062	insn	0x5c9e30	1ffd9f08	stlrb wzr, [x8]	Timer registration excerpt, conditional on entering initialization block
+DR063	insn	0x7836b8	58ff00b0	adrp x24, 0x276c000	Worker context/thread-port observation and SeqTimer name
+DR064	insn	0x7836bc	082341f9	ldr x8, [x24, #0x240]	Worker context/thread-port observation and SeqTimer name
+DR065	insn	0x7836c0	080140f9	ldr x8, [x8]	Worker context/thread-port observation and SeqTimer name
+DR066	insn	0x7836c4	13fddfc8	ldar x19, [x8]	Worker context/thread-port observation and SeqTimer name
+DR067	insn	0x7836c8	082341f9	ldr x8, [x24, #0x240]	Worker context/thread-port observation and SeqTimer name
+DR068	insn	0x7836cc	190140f9	ldr x25, [x8]	Worker context/thread-port observation and SeqTimer name
+DR069	insn	0x7836d0	930600b4	cbz x19, 0x7837a0	Worker context/thread-port observation and SeqTimer name
+DR070	insn	0x7836d4	687a46b9	ldr w8, [x19, #0x678]	Worker context/thread-port observation and SeqTimer name
+DR071	insn	0x7836d8	28680035	cbnz w8, 0x7843dc	Worker context/thread-port observation and SeqTimer name
+DR072	insn	0x7836dc	0ce14d94	bl 0x1afbb0c	Worker context/thread-port observation and SeqTimer name
+DR073	insn	0x7836e0	f40300aa	mov x20, x0	Worker context/thread-port observation and SeqTimer name
+DR074	insn	0x7836e4	48f700b0	adrp x8, 0x266c000	Worker context/thread-port observation and SeqTimer name
+DR075	insn	0x7836e8	09c940b9	ldr w9, [x8, #0xc8]	Worker context/thread-port observation and SeqTimer name
+DR076	insn	0x7836ec	1f00096b	cmp w0, w9	Worker context/thread-port observation and SeqTimer name
+DR077	insn	0x7836f0	00030054	b.eq 0x783750	Worker context/thread-port observation and SeqTimer name
+DR078	insn	0x7836f4	14c900b9	str w20, [x8, #0xc8]	Worker context/thread-port observation and SeqTimer name
+DR079	insn	0x783728	60b000b0	adrp x0, 0x1d90000	Worker context/thread-port observation and SeqTimer name
+DR080	insn	0x78372c	001c3a91	add x0, x0, #0xe87	Worker context/thread-port observation and SeqTimer name
+DR081	insn	0x783730	29e24d94	bl 0x1afbfd4	Worker context/thread-port observation and SeqTimer name
+DR082	insn	0x783750	48d800d0	adrp x8, 0x228d000	Worker context/thread-port observation and SeqTimer name
+DR083	insn	0x783754	08c544f9	ldr x8, [x8, #0x988]	Worker context/thread-port observation and SeqTimer name
+DR084	insn	0x783758	000140b9	ldr w0, [x8]	Worker context/thread-port observation and SeqTimer name
+DR085	insn	0x78375c	e10314aa	mov x1, x20	Worker context/thread-port observation and SeqTimer name
+DR086	insn	0x783760	e8e04d94	bl 0x1afbb00	Worker context/thread-port observation and SeqTimer name
+DR087	insn	0x783764	082341f9	ldr x8, [x24, #0x240]	Worker context/thread-port observation and SeqTimer name
+DR088	insn	0x783768	1a0140f9	ldr x26, [x8]	Worker context/thread-port observation and SeqTimer name
+DR089	insn	0x78376c	681e4339	ldrb w8, [x19, #0xc7]	Worker context/thread-port observation and SeqTimer name
+DR090	insn	0x783de0	1c388252	mov w28, #0x11c0	Selected worker cursor test and consumer call with base+0x40
+DR091	insn	0x783de4	3c01a072	movk w28, #0x9, lsl #16	Selected worker cursor test and consumer call with base+0x40
+DR092	insn	0x783de8	15b58c52	mov w21, #0x65a8	Selected worker cursor test and consumer call with base+0x40
+DR093	insn	0x783dec	9500a072	movk w21, #0x4, lsl #16	Selected worker cursor test and consumer call with base+0x40
+DR094	insn	0x783df0	96998252	mov w22, #0x14cc	Selected worker cursor test and consumer call with base+0x40
+DR095	insn	0x783df4	3601a072	movk w22, #0x9, lsl #16	Selected worker cursor test and consumer call with base+0x40
+DR096	insn	0x783f30	282740f9	ldr x8, [x25, #0x48]	Selected worker cursor test and consumer call with base+0x40
+DR097	insn	0x783f34	296b75f8	ldr x9, [x25, x21]	Selected worker cursor test and consumer call with base+0x40
+DR098	insn	0x783f38	1f0109eb	cmp x8, x9	Selected worker cursor test and consumer call with base+0x40
+DR099	insn	0x783f3c	e1000054	b.ne 0x783f58	Selected worker cursor test and consumer call with base+0x40
+DR100	insn	0x783f40	08629952	mov w8, #0xcb10	Selected worker cursor test and consumer call with base+0x40
+DR101	insn	0x783f44	0801a072	movk w8, #0x8, lsl #16	Selected worker cursor test and consumer call with base+0x40
+DR102	insn	0x783f48	286b68f8	ldr x8, [x25, x8]	Selected worker cursor test and consumer call with base+0x40
+DR103	insn	0x783f4c	296b7cf8	ldr x9, [x25, x28]	Selected worker cursor test and consumer call with base+0x40
+DR104	insn	0x783f50	1f0109eb	cmp x8, x9	Selected worker cursor test and consumer call with base+0x40
+DR105	insn	0x783f54	80000054	b.eq 0x783f64	Selected worker cursor test and consumer call with base+0x40
+DR106	insn	0x783f58	20030191	add x0, x25, #0x40	Selected worker cursor test and consumer call with base+0x40
+DR107	insn	0x783f5c	e10313aa	mov x1, x19	Selected worker cursor test and consumer call with base+0x40
+DR108	insn	0x783f60	c21b1194	bl 0xbcae68	Selected worker cursor test and consumer call with base+0x40
+DR109	insn	0xbcae88	f50301aa	mov x21, x1	Secondary buffer consumer, target-token lookup and handler re-entry
+DR110	insn	0xbcae8c	f30300aa	mov x19, x0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR111	insn	0xbcae90	08b600f0	adrp x8, 0x228d000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR112	insn	0xbcae94	081143f9	ldr x8, [x8, #0x620]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR113	insn	0xbcae98	080140f9	ldr x8, [x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR114	insn	0xbcae9c	a8031af8	stur x8, [x29, #-0x60]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR115	insn	0xbcaea0	08444291	add x8, x0, #0x91, lsl #12	Secondary buffer consumer, target-token lookup and handler re-entry
+DR116	insn	0xbcaea4	19010691	add x25, x8, #0x180	Secondary buffer consumer, target-token lookup and handler re-entry
+DR117	insn	0xbcaea8	28a740f9	ldr x8, [x25, #0x148]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR118	insn	0xbcaeac	140140f9	ldr x20, [x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR119	insn	0xbcaf40	160080d2	mov x22, #0x0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR120	insn	0xbcaf44	150080d2	mov x21, #0x0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR121	insn	0xbcaf48	02000014	b 0xbcaf50	Secondary buffer consumer, target-token lookup and handler re-entry
+DR122	insn	0xbcaf4c	160080d2	mov x22, #0x0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR123	insn	0xbcaf50	08318252	mov w8, #0x1188	Secondary buffer consumer, target-token lookup and handler re-entry
+DR124	insn	0xbcaf54	2801a072	movk w8, #0x9, lsl #16	Secondary buffer consumer, target-token lookup and handler re-entry
+DR125	insn	0xbcaf58	6002088b	add x0, x19, x8	Secondary buffer consumer, target-token lookup and handler re-entry
+DR126	insn	0xbcaf5c	00c43c94	bl 0x1afbf5c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR127	insn	0xbcaf60	002d0035	cbnz w0, 0xbcb500	Secondary buffer consumer, target-token lookup and handler re-entry
+DR128	insn	0xbcaf64	f4db00a9	stp x20, x22, [sp, #0x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR129	insn	0xbcaf68	f51300f9	str x21, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR130	insn	0xbcaf6c	28a340f9	ldr x8, [x25, #0x140]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR131	insn	0xbcb208	e81340f9	ldr x8, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR132	insn	0xbcb20c	c80e00b4	cbz x8, 0xbcb3e4	Secondary buffer consumer, target-token lookup and handler re-entry
+DR133	insn	0xbcb210	145a9952	mov w20, #0xcad0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR134	insn	0xbcb214	1401a072	movk w20, #0x8, lsl #16	Secondary buffer consumer, target-token lookup and handler re-entry
+DR135	insn	0xbcb218	686a74f8	ldr x8, [x19, x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR136	insn	0xbcb21c	290340f9	ldr x9, [x25]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR137	insn	0xbcb220	1f0109eb	cmp x8, x9	Secondary buffer consumer, target-token lookup and handler re-entry
+DR138	insn	0xbcb224	000e0054	b.eq 0xbcb3e4	Secondary buffer consumer, target-token lookup and handler re-entry
+DR139	insn	0xbcb228	6a324291	add x10, x19, #0x8c, lsl #12	Secondary buffer consumer, target-token lookup and handler re-entry
+DR140	insn	0xbcb22c	55612b91	add x21, x10, #0xad8	Secondary buffer consumer, target-token lookup and handler re-entry
+DR141	insn	0xbcb230	6a424291	add x10, x19, #0x90, lsl #12	Secondary buffer consumer, target-token lookup and handler re-entry
+DR142	insn	0xbcb234	56612591	add x22, x10, #0x958	Secondary buffer consumer, target-token lookup and handler re-entry
+DR143	insn	0xbcb238	eac30091	add x10, sp, #0x30	Secondary buffer consumer, target-token lookup and handler re-entry
+DR144	insn	0xbcb23c	57410091	add x23, x10, #0x10	Secondary buffer consumer, target-token lookup and handler re-entry
+DR145	insn	0xbcb240	4b810091	add x11, x10, #0x20	Secondary buffer consumer, target-token lookup and handler re-entry
+DR146	insn	0xbcb244	eb1700f9	str x11, [sp, #0x28]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR147	insn	0xbcb248	4ac10091	add x10, x10, #0x30	Secondary buffer consumer, target-token lookup and handler re-entry
+DR148	insn	0xbcb24c	ea0f00f9	str x10, [sp, #0x18]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR149	insn	0xbcb250	01e4006f	movi.2d v1, #0000000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR150	insn	0xbcb254	1be0f7d2	mov x27, #-0x4100000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR151	insn	0xbcb258	1c00f7d2	mov x28, #-0x4800000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR152	insn	0xbcb25c	1a00f4d2	mov x26, #-0x6000000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR153	insn	0xbcb260	78e48852	mov w24, #0x4723	Secondary buffer consumer, target-token lookup and handler re-entry
+DR154	insn	0xbcb264	1878b572	movk w24, #0xabc0, lsl #16	Secondary buffer consumer, target-token lookup and handler re-entry
+DR155	insn	0xbcb268	05000014	b 0xbcb27c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR156	insn	0xbcb26c	ea2b40f9	ldr x10, [sp, #0x50]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR157	insn	0xbcb270	8a09f8b7	tbnz x10, #0x3f, 0xbcb3a0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR158	insn	0xbcb274	1f0109eb	cmp x8, x9	Secondary buffer consumer, target-token lookup and handler re-entry
+DR159	insn	0xbcb278	600b0054	b.eq 0xbcb3e4	Secondary buffer consumer, target-token lookup and handler re-entry
+DR160	insn	0xbcb27c	e18703ad	stp q1, q1, [sp, #0x70]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR161	insn	0xbcb280	e18702ad	stp q1, q1, [sp, #0x50]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR162	insn	0xbcb284	eac30091	add x10, sp, #0x30	Secondary buffer consumer, target-token lookup and handler re-entry
+DR163	insn	0xbcb288	e18701ad	stp q1, q1, [sp, #0x30]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR164	insn	0xbcb28c	df0209eb	cmp x22, x9	Secondary buffer consumer, target-token lookup and handler re-entry
+DR165	insn	0xbcb290	a28249fa	ccmp x21, x9, #0x2, hi	Secondary buffer consumer, target-token lookup and handler re-entry
+DR166	insn	0xbcb294	a982899a	csel x9, x21, x9, hi	Secondary buffer consumer, target-token lookup and handler re-entry
+DR167	insn	0xbcb298	2001c03d	ldr q0, [x9]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR168	insn	0xbcb29c	4005813c	str q0, [x10], #0x10	Secondary buffer consumer, target-token lookup and handler re-entry
+DR169	insn	0xbcb2a0	2b0d41f8	ldr x11, [x9, #0x10]!	Secondary buffer consumer, target-token lookup and handler re-entry
+DR170	insn	0xbcb2a4	4bffffb7	tbnz x11, #0x3f, 0xbcb28c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR171	insn	0xbcb2a8	290300f9	str x9, [x25]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR172	insn	0xbcb2ac	eac34039	ldrb w10, [sp, #0x30]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR173	insn	0xbcb2b0	4b091b12	and w11, w10, #0xe0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR174	insn	0xbcb2b4	7f010171	cmp w11, #0x40	Secondary buffer consumer, target-token lookup and handler re-entry
+DR175	insn	0xbcb2b8	80000054	b.eq 0xbcb2c8	Secondary buffer consumer, target-token lookup and handler re-entry
+DR176	insn	0xbcb2bc	4a810251	sub w10, w10, #0xa0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR177	insn	0xbcb2c0	5f3d0171	cmp w10, #0x4f	Secondary buffer consumer, target-token lookup and handler re-entry
+DR178	insn	0xbcb2c4	88fdff54	b.hi 0xbcb274	Secondary buffer consumer, target-token lookup and handler re-entry
+DR179	insn	0xbcb2c8	ea2340f9	ldr x10, [sp, #0x40]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR180	insn	0xbcb2cc	4afdffb6	tbz x10, #0x3f, 0xbcb274	Secondary buffer consumer, target-token lookup and handler re-entry
+DR181	insn	0xbcb2d0	4b011b8a	and x11, x10, x27	Secondary buffer consumer, target-token lookup and handler re-entry
+DR182	insn	0xbcb2d4	7f011ceb	cmp x11, x28	Secondary buffer consumer, target-token lookup and handler re-entry
+DR183	insn	0xbcb2d8	a1fcff54	b.ne 0xbcb26c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR184	insn	0xbcb2dc	4b1d4892	and x11, x10, #0xff00000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR185	insn	0xbcb2e0	ea0317aa	mov x10, x23	Secondary buffer consumer, target-token lookup and handler re-entry
+DR186	insn	0xbcb2e4	7f011aeb	cmp x11, x26	Secondary buffer consumer, target-token lookup and handler re-entry
+DR187	insn	0xbcb2e8	20fcff54	b.eq 0xbcb26c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR188	insn	0xbcb2ec	490940b9	ldr w9, [x10, #0x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR189	insn	0xbcb2f0	e81340f9	ldr x8, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR190	insn	0xbcb2f4	080140b9	ldr w8, [x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR191	insn	0xbcb2f8	3f090172	tst w9, #0x80000003	Secondary buffer consumer, target-token lookup and handler re-entry
+DR192	insn	0xbcb2fc	c0010054	b.eq 0xbcb334	Secondary buffer consumer, target-token lookup and handler re-entry
+DR193	insn	0xbcb300	1f01186b	cmp w8, w24	Secondary buffer consumer, target-token lookup and handler re-entry
+DR194	insn	0xbcb304	a0000054	b.eq 0xbcb318	Secondary buffer consumer, target-token lookup and handler re-entry
+DR195	insn	0xbcb308	69e28852	mov w9, #0x4713	Secondary buffer consumer, target-token lookup and handler re-entry
+DR196	insn	0xbcb30c	0978b572	movk w9, #0xabc0, lsl #16	Secondary buffer consumer, target-token lookup and handler re-entry
+DR197	insn	0xbcb310	1f01096b	cmp w8, w9	Secondary buffer consumer, target-token lookup and handler re-entry
+DR198	insn	0xbcb314	01030054	b.ne 0xbcb374	Secondary buffer consumer, target-token lookup and handler re-entry
+DR199	insn	0xbcb318	e81340f9	ldr x8, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR200	insn	0xbcb31c	08c543f9	ldr x8, [x8, #0x788]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR201	insn	0xbcb320	08255ea9	ldp x8, x9, [x8, #0x1e0]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR202	insn	0xbcb324	3f0108eb	cmp x9, x8	Secondary buffer consumer, target-token lookup and handler re-entry
+DR203	insn	0xbcb328	60020054	b.eq 0xbcb374	Secondary buffer consumer, target-token lookup and handler re-entry
+DR204	insn	0xbcb32c	020140f9	ldr x2, [x8]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR205	insn	0xbcb330	12000014	b 0xbcb378	Secondary buffer consumer, target-token lookup and handler re-entry
+DR206	insn	0xbcb334	1f01186b	cmp w8, w24	Secondary buffer consumer, target-token lookup and handler re-entry
+DR207	insn	0xbcb338	a0000054	b.eq 0xbcb34c	Secondary buffer consumer, target-token lookup and handler re-entry
+DR208	insn	0xbcb33c	6ae28852	mov w10, #0x4713	Secondary buffer consumer, target-token lookup and handler re-entry
+DR209	insn	0xbcb340	0a78b572	movk w10, #0xabc0, lsl #16	Secondary buffer consumer, target-token lookup and handler re-entry
+DR210	insn	0xbcb344	1f010a6b	cmp w8, w10	Secondary buffer consumer, target-token lookup and handler re-entry
+DR211	insn	0xbcb348	61010054	b.ne 0xbcb374	Secondary buffer consumer, target-token lookup and handler re-entry
+DR212	insn	0xbcb34c	29fd42d3	lsr x9, x9, #2	Secondary buffer consumer, target-token lookup and handler re-entry
+DR213	insn	0xbcb350	ea1340f9	ldr x10, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR214	insn	0xbcb354	4ac543f9	ldr x10, [x10, #0x788]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR215	insn	0xbcb358	4a2d5ea9	ldp x10, x11, [x10, #0x1e0]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR216	insn	0xbcb35c	6b010acb	sub x11, x11, x10	Secondary buffer consumer, target-token lookup and handler re-entry
+DR217	insn	0xbcb360	3f0d8beb	cmp x9, x11, asr #3	Secondary buffer consumer, target-token lookup and handler re-entry
+DR218	insn	0xbcb364	e2fcff54	b.hs 0xbcb300	Secondary buffer consumer, target-token lookup and handler re-entry
+DR219	insn	0xbcb368	427969f8	ldr x2, [x10, x9, lsl #3]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR220	insn	0xbcb36c	620000b5	cbnz x2, 0xbcb378	Secondary buffer consumer, target-token lookup and handler re-entry
+DR221	insn	0xbcb370	e4ffff17	b 0xbcb300	Secondary buffer consumer, target-token lookup and handler re-entry
+DR222	insn	0xbcb374	020080d2	mov x2, #0x0	Secondary buffer consumer, target-token lookup and handler re-entry
+DR223	insn	0xbcb378	e81b40f9	ldr x8, [sp, #0x30]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR224	insn	0xbcb37c	e1c30091	add x1, sp, #0x30	Secondary buffer consumer, target-token lookup and handler re-entry
+DR225	insn	0xbcb380	03bd7092	and x3, x8, #0xffffffffffff0000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR226	insn	0xbcb384	e01340f9	ldr x0, [sp, #0x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR227	insn	0xbcb388	a4008052	mov w4, #0x5	Secondary buffer consumer, target-token lookup and handler re-entry
+DR228	insn	0xbcb38c	2bd8ee97	bl 0x781438	Secondary buffer consumer, target-token lookup and handler re-entry
+DR229	insn	0xbcb390	686a74f8	ldr x8, [x19, x20]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR230	insn	0xbcb394	290340f9	ldr x9, [x25]	Secondary buffer consumer, target-token lookup and handler re-entry
+DR231	insn	0xbcb398	01e4006f	movi.2d v1, #0000000000000000	Secondary buffer consumer, target-token lookup and handler re-entry
+DR232	insn	0x1af796c	d03c00f0	adrp x16, 0x2292000	Exact selected timer import stub
+DR233	insn	0x1af7970	103642f9	ldr x16, [x16, #0x468]	Exact selected timer import stub
+DR234	insn	0x1af7974	00021fd6	br x16	Exact selected timer import stub
+DR235	bind	0x2292468	b70b000000001080	CoreServices/_RmvTime	Independently decoded timer import
+DR236	insn	0x1af6ac0	f03c0090	adrp x16, 0x2292000	Exact selected timer import stub
+DR237	insn	0x1af6ac4	10de41f9	ldr x16, [x16, #0x3b8]	Exact selected timer import stub
+DR238	insn	0x1af6ac8	00021fd6	br x16	Exact selected timer import stub
+DR239	bind	0x22923b8	a10b000000001080	CoreServices/_InsTime	Independently decoded timer import
+DR240	insn	0x1af6acc	f03c0090	adrp x16, 0x2292000	Exact selected timer import stub
+DR241	insn	0x1af6ad0	10e241f9	ldr x16, [x16, #0x3c0]	Exact selected timer import stub
+DR242	insn	0x1af6ad4	00021fd6	br x16	Exact selected timer import stub
+DR243	bind	0x22923c0	a20b000000001080	CoreServices/_InsXTime	Independently decoded timer import
+DR244	insn	0x1af78d0	d03c00f0	adrp x16, 0x2292000	Exact selected timer import stub
+DR245	insn	0x1af78d4	102e42f9	ldr x16, [x16, #0x458]	Exact selected timer import stub
+DR246	insn	0x1af78d8	00021fd6	br x16	Exact selected timer import stub
+DR247	bind	0x2292458	b50b000000001080	CoreServices/_PrimeTime	Independently decoded timer import
+DR248	insn	0x1afbfd4	903c00d0	adrp x16, 0x228d000	Exact selected timer import stub
+DR249	insn	0x1afbfd8	109e45f9	ldr x16, [x16, #0xb38]	Exact selected timer import stub
+DR250	insn	0x1afbfdc	00021fd6	br x16	Exact selected timer import stub
+DR251	bind	0x228db38	9102000000001080	libSystem/_pthread_setname_np	Independently decoded timer import
+DR252	data	0x1d90e22	53657154696d6572203200		Thread-name constant passed to pthread_setname_np
+DR253	data	0x1d90e87	53657154696d657200		Thread-name constant passed to pthread_setname_np
