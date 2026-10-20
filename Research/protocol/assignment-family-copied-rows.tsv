@@ -1,0 +1,5 @@
+gui_cc	record_offset	payload_bytes	raw32_plus6	raw16_plus6	raw32_plus8	classification_if_v	target_verified
+23	14714	119	0x40201000	0x1000	0x4020	family_A_condition	false
+22	14841	88	0x71000	0x1000	0x7	small_switch_range_candidate	false
+21	14937	76	0xa1000	0x1000	0xa	small_switch_range_candidate	false
+20	15021	76	0xa1000	0x1000	0xa	small_switch_range_candidate	false

@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "id": "PICKUP-BAND-005",
+  "recorded_utc": "2026-10-20T20:31:07+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "offline_bytes_and_restricted_instruction_text_model",
+    "excerpt_count": 11,
+    "excerpt_bytes": 448,
+    "extra_loader_reset_bytes": 16,
+    "runtime_verified": false
+  },
+  "excerpts": [
+    {
+      "label": "descriptor_setup",
+      "entry": "0xab35d4",
+      "exclusive_end": "0xab35e4",
+      "size_bytes": 16,
+      "body_sha256": "835806e990daf6e303d4ef47bee137388d1c1b6713631c5451fc3070813a792e",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "class5_descriptor_update",
+      "entry": "0xab3a34",
+      "exclusive_end": "0xab3a50",
+      "size_bytes": 28,
+      "body_sha256": "c0811f4830cddeca3a56d913d4ee6ffd74857bebc84517fecea3e642a23eb6a7",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "converted_value",
+      "entry": "0xab41dc",
+      "exclusive_end": "0xab4204",
+      "size_bytes": 40,
+      "body_sha256": "01ed4d42892fda600872b53136235f84dc77384f553fe73a56aae3b6c839c025",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "timer_clear",
+      "entry": "0xab4204",
+      "exclusive_end": "0xab4238",
+      "size_bytes": 52,
+      "body_sha256": "70883d6a7f68dd269b570c523d9e45add6a2198933ad716cccea011e8eab18ab",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "repeat_skip_gate",
+      "entry": "0xab4238",
+      "exclusive_end": "0xab4250",
+      "size_bytes": 24,
+      "body_sha256": "7d940416598c61832a5c532583b36a4afe9411aa19792f206e4505d65982348a",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "repeat_skip_exit",
+      "entry": "0xab42b0",
+      "exclusive_end": "0xab4308",
+      "size_bytes": 88,
+      "body_sha256": "51cfd74f4f0f4449c65e0daa7031b5f5d96a5de5068f09d0fb1eed33456f52cc",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "first_valid_flag",
+      "entry": "0xab4360",
+      "exclusive_end": "0xab4370",
+      "size_bytes": 16,
+      "body_sha256": "772116bcc85cc182a1523d4d57f3414b18e8dab120e4aef7eccaa020bbff8c3b",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "integer_tolerance_band",
+      "entry": "0xab4414",
+      "exclusive_end": "0xab4480",
+      "size_bytes": 108,
+      "body_sha256": "0ebdcfe817aff505fadc8ee4434bfab58c7977e6c37fe1b20fa53195b906e080",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "picked_flag",
+      "entry": "0xab4548",
+      "exclusive_end": "0xab4554",
+      "size_bytes": 12,
+      "body_sha256": "6931da5e75260c6f5edd4b0ceae31182481d21e0c3ef150680c52ee8b222ba76",
+      "owner_function": "0xab3184",
+      "owner_next_start": "0xab47c0",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "refresh_clear_mask",
+      "entry": "0xab5ff8",
+      "exclusive_end": "0xab601c",
+      "size_bytes": 36,
+      "body_sha256": "5d76e8e8313f5f63aecdca5f5a1bcc5968a279eed11e013b30a58df2127bfc86",
+      "owner_function": "0xab573c",
+      "owner_next_start": "0xab635c",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    },
+    {
+      "label": "sync_clear_mask",
+      "entry": "0xaba928",
+      "exclusive_end": "0xaba944",
+      "size_bytes": 28,
+      "body_sha256": "32f73876e333e11d176885fef93a93253b634241cf3bb68b8828114a4749487a",
+      "owner_function": "0xaba7d4",
+      "owner_next_start": "0xaba9f8",
+      "scope": "bounded excerpt, not full function/CFG/trigger proof"
+    }
+  ],
+  "operands": {
+    "P": "signextended i32[X20+62]",
+    "N": "i64[SP+20]; one producer15e1020, other producer paths not fully audited",
+    "V": "i64[SP+18]; target interpretation remains broader-flow inference",
+    "L": "i64[SP+b8]",
+    "H": "i64[SP+c0]"
+  },
+  "tolerance": {
+    "formula": "trunc_toward_zero(float64(float32(high64-low64))*binary64(0.02))",
+    "binary64_constant": "0x3f947ae147ae147b",
+    "samples": [
+      {
+        "delta": 0,
+        "tolerance": 0
+      },
+      {
+        "delta": 1,
+        "tolerance": 0
+      },
+      {
+        "delta": 49,
+        "tolerance": 0
+      },
+      {
+        "delta": 50,
+        "tolerance": 1
+      },
+      {
+        "delta": 99,
+        "tolerance": 1
+      },
+      {
+        "delta": 100,
+        "tolerance": 2
+      },
+      {
+        "delta": 127,
+        "tolerance": 2
+      },
+      {
+        "delta": 128,
+        "tolerance": 2
+      },
+      {
+        "delta": 255,
+        "tolerance": 5
+      },
+      {
+        "delta": 480,
+        "tolerance": 9
+      }
+    ],
+    "runtime_range_and_units": "unproven"
+  },
+  "band": {
+    "formula": "min(previous,new)-T <= value <= max(previous,new)+T",
+    "replay_cases": 7290,
+    "mismatches": 0,
+    "unique_paths": 4,
+    "examples": [
+      {
+        "previous": 100,
+        "new": 30,
+        "value": 64,
+        "descriptor_delta": 127,
+        "tolerance": 2,
+        "passes": true,
+        "endpoint_near": false
+      },
+      {
+        "previous": 100,
+        "new": 80,
+        "value": 64,
+        "descriptor_delta": 127,
+        "tolerance": 2,
+        "passes": false,
+        "endpoint_near": false
+      },
+      {
+        "previous": 100,
+        "new": 100,
+        "value": 98,
+        "descriptor_delta": 127,
+        "tolerance": 2,
+        "passes": true,
+        "endpoint_near": true
+      },
+      {
+        "previous": 100,
+        "new": 100,
+        "value": 97,
+        "descriptor_delta": 127,
+        "tolerance": 2,
+        "passes": false,
+        "endpoint_near": false
+      },
+      {
+        "previous": 64,
+        "new": 64,
+        "value": 64,
+        "descriptor_delta": 49,
+        "tolerance": 0,
+        "passes": true,
+        "endpoint_near": true
+      }
+    ],
+    "limits": [
+      "No native execution or full formal proof.",
+      "Default IEEE nearest float conversion modeled; samples are small nonnegative exact float32 integers.",
+      "Signed nonoverflowing arithmetic only; no NaN/invalid/overflow conversion claim.",
+      "Runtime provenance/units of descriptor bounds and value operand are not established.",
+      "Passing this branch does not prove requested Logic effect."
+    ]
+  },
+  "repeat_gate": {
+    "when": "W22==2 and N==P",
+    "effect": "skip exit before later Pickup predicate",
+    "full_prior_helper_side_effects": "not audited"
+  },
+  "state": {
+    "active_consumer_base": "X20",
+    "flags_offset": "0x39",
+    "first_valid_set_bit": 4,
+    "picked_set_bit": 3,
+    "timer_clear_mask": "0xf7",
+    "two_matched_object_reset_masks": "0xe7",
+    "matched_reset_condition": "u16[object+2c] == low16 callerselector; alias/type/trigger unproved",
+    "loader_reset": {
+      "site": "0xabe810..0xabe81c",
+      "mask": "0xe0",
+      "zeroed_offset": "0x62"
+    },
+    "exhaustive_writer_inventory": false
+  },
+  "anchors": {
+    "path": "Research/protocol/pickup-band-12.4-anchors.tsv",
+    "count": 116
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-pickup-band-005/band-proof.json",
+      "sha256": "8fc116c8d8be1b425d55a2c8d5419fc296ef02ae81d2f92a2a89bf0710c33e44",
+      "size_bytes": 20859,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-pickup-band-005/inspect_band.py",
+      "sha256": "3220bfa4c400305e7d404637384543b2f5bbc97eae0850e2292a8f7d0a3038ac",
+      "size_bytes": 3086,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-pickup-band-005/band-replay.json",
+      "sha256": "e731b93e298a4f2632972cd4aa5531f27dd72e419a01a3c012f9ba12399f375b",
+      "size_bytes": 3947,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-pickup-band-005/replay_band.py",
+      "sha256": "1d494e2a530c02d6f25f2bdee4edb70be511fb7c248044773f1d4ddf99e4f4c8",
+      "size_bytes": 4154,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/serialization-proof.json",
+      "sha256": "de43507a5a34fe163c56e1451c99cc6316e082e6b9067629ea20dc373ebf452b",
+      "size_bytes": 87527,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/notes/pickup-global-004.json",
+      "sha256": "c1f511a5317510163ba3ae8578d30ad805cc36d194a368e392d194f78329f364",
+      "size_bytes": 10128,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/pickup-band-12.4-anchors.tsv",
+      "sha256": "b8f287bdbd21fdd242fae8730278a8a0280f6d61a372c5cf34e984112648212b",
+      "size_bytes": 11576,
+      "availability": "public_repo"
+    }
+  ],
+  "validation": {
+    "instruction_anchor_check": {
+      "total": 116,
+      "passed": 116,
+      "exit_code": 0
+    },
+    "recorded_utc": "2026-10-20T20:32:35+00:00",
+    "restricted_replay": {
+      "cases": 7290,
+      "mismatches": 0,
+      "native_execution": false
+    }
+  }
+}

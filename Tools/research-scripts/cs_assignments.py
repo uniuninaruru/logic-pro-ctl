@@ -207,6 +207,9 @@ def observed_candidates(record: Record) -> dict | None:
     raw = {
         "u32le_payload_2": family,
         "u32le_payload_6": struct.unpack_from("<I", p, 6)[0],
+        # Overlapping raw probes; field boundaries and in-memory mapping are unproved.
+        "u16le_payload_6": struct.unpack_from("<H", p, 6)[0],
+        "u32le_payload_8": struct.unpack_from("<I", p, 8)[0],
         "byte_payload_15": p[15],
         "u32le_payload_42": struct.unpack_from("<I", p, 42)[0],
     }

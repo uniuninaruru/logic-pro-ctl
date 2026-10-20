@@ -1,0 +1,438 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-FAMILY-006",
+  "recorded_utc": "2026-10-20T20:31:07+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "offline_copy_stage_and_copied_snapshot_probes",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "parser": {
+    "path": "Tools/research-scripts/cs_assignments.py",
+    "sha256": "74714415ad526dbd032b3abf1decef707e4f3e601c1f23642d99162b9959383f",
+    "added_raw_probes": [
+      "u16le_payload_6",
+      "u32le_payload_8"
+    ],
+    "preserved_raw_probe": "u32le_payload_6",
+    "semantics_confirmed": false,
+    "affected_tests": {
+      "suite": "Tests/research/test_cs_assignments.py",
+      "passed": 21
+    }
+  },
+  "snapshot": {
+    "size_bytes": 316820,
+    "sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+    "declared_body_length": 316812,
+    "actual_body_length": 316812,
+    "snapshot_valid": true,
+    "warnings": [],
+    "record_count": 3036,
+    "rdaf_count": 2992
+  },
+  "rows": [
+    {
+      "record_offset": 14714,
+      "payload_length": 119,
+      "payload_sha256": "661e5fd962b916933cc0f54ffd3c4e39c7070aefff8ab419252f50436c79b276",
+      "gui_associated_cc": 23,
+      "raw_fields": {
+        "u32le_payload_2": 5,
+        "u32le_payload_6": 1075843072,
+        "u16le_payload_6": 4096,
+        "u32le_payload_8": 16416,
+        "byte_payload_15": 2,
+        "u32le_payload_42": 242
+      },
+      "raw_u16_at6_hex": "0x1000",
+      "raw_u32_at8_hex": "0x4020",
+      "raw_value_mode_byte": 2,
+      "raw_multiply_i16": 100,
+      "classification_if_loaded_as_v": "family_A_condition",
+      "target_identity_confirmed": false,
+      "variable_fields": [
+        {
+          "tag": 1,
+          "length": 3
+        },
+        {
+          "tag": 3,
+          "length": 13
+        },
+        {
+          "tag": 6,
+          "length": 32
+        },
+        {
+          "tag": 16,
+          "length": 16
+        }
+      ]
+    },
+    {
+      "record_offset": 14841,
+      "payload_length": 88,
+      "payload_sha256": "db8bf23437a6aeedcc5cb9e4560173c31ce34e49ac731bd504a80b7a14bed13f",
+      "gui_associated_cc": 22,
+      "raw_fields": {
+        "u32le_payload_2": 5,
+        "u32le_payload_6": 462848,
+        "u16le_payload_6": 4096,
+        "u32le_payload_8": 7,
+        "byte_payload_15": 2,
+        "u32le_payload_42": 1509949482
+      },
+      "raw_u16_at6_hex": "0x1000",
+      "raw_u32_at8_hex": "0x7",
+      "raw_value_mode_byte": 2,
+      "raw_multiply_i16": 100,
+      "classification_if_loaded_as_v": "small_switch_range_candidate",
+      "target_identity_confirmed": false,
+      "variable_fields": [
+        {
+          "tag": 1,
+          "length": 3
+        },
+        {
+          "tag": 3,
+          "length": 16
+        },
+        {
+          "tag": 16,
+          "length": 16
+        }
+      ]
+    },
+    {
+      "record_offset": 14937,
+      "payload_length": 76,
+      "payload_sha256": "81d2f1700495748f3a15228007685ff0a211b7e626bfa3fc67ccb10417f61ac1",
+      "gui_associated_cc": 21,
+      "raw_fields": {
+        "u32le_payload_2": 5,
+        "u32le_payload_6": 659456,
+        "u16le_payload_6": 4096,
+        "u32le_payload_8": 10,
+        "byte_payload_15": 2,
+        "u32le_payload_42": 100
+      },
+      "raw_u16_at6_hex": "0x1000",
+      "raw_u32_at8_hex": "0xa",
+      "raw_value_mode_byte": 2,
+      "raw_multiply_i16": 100,
+      "classification_if_loaded_as_v": "small_switch_range_candidate",
+      "target_identity_confirmed": false,
+      "variable_fields": [
+        {
+          "tag": 1,
+          "length": 3
+        },
+        {
+          "tag": 3,
+          "length": 4
+        },
+        {
+          "tag": 16,
+          "length": 16
+        }
+      ]
+    },
+    {
+      "record_offset": 15021,
+      "payload_length": 76,
+      "payload_sha256": "943f82401c435f10f8fc9d2da5462d099d0568009ba3ac7cacafb44c56e1d314",
+      "gui_associated_cc": 20,
+      "raw_fields": {
+        "u32le_payload_2": 5,
+        "u32le_payload_6": 659456,
+        "u16le_payload_6": 4096,
+        "u32le_payload_8": 10,
+        "byte_payload_15": 2,
+        "u32le_payload_42": 1
+      },
+      "raw_u16_at6_hex": "0x1000",
+      "raw_u32_at8_hex": "0xa",
+      "raw_value_mode_byte": 4,
+      "raw_multiply_i16": 100,
+      "classification_if_loaded_as_v": "small_switch_range_candidate",
+      "target_identity_confirmed": false,
+      "variable_fields": [
+        {
+          "tag": 1,
+          "length": 3
+        },
+        {
+          "tag": 3,
+          "length": 4
+        },
+        {
+          "tag": 16,
+          "length": 16
+        }
+      ]
+    }
+  ],
+  "intervals": [
+    {
+      "label": "rdaf_record_decoder",
+      "entry": "0xabe67c",
+      "exclusive_end": "0xabe8d4",
+      "size_bytes": 600,
+      "body_sha256": "e8326e5baa7a650735f178af5f3b3c216c3fbb888cf329431da4ed89d7c0e6a4",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "rdaf_record_writer",
+      "entry": "0xabe8d4",
+      "exclusive_end": "0xabeabc",
+      "size_bytes": 488,
+      "body_sha256": "ce17ff00bd1d634807242d1bb653f7960cbe8c7cf3ff50f01b226b92168fcd6c",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "assignment_from_serialized_buffer",
+      "entry": "0x15dc8a8",
+      "exclusive_end": "0x15dcc44",
+      "size_bytes": 924,
+      "body_sha256": "6558c0d2a5baf3c81842b212e11a67cac693a6aec2e558a439463aa58e1d171f",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    }
+  ],
+  "io_import_bindings": [
+    {
+      "stub": "0x1afa120",
+      "raw_hex": "d03c00b010fa43f900021fd6",
+      "binding": {
+        "address": "0x22937f0",
+        "raw_word": "0x8010000000000e28",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__ZN7CFileIO4ReadEPvl",
+        "ordinal": 66,
+        "library": "@rpath/MAFiles.framework/Versions/A/MAFiles",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1afa150",
+      "raw_hex": "d03c00b0100a44f900021fd6",
+      "binding": {
+        "address": "0x2293810",
+        "raw_word": "0x8010000000000e2c",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__ZN7CFileIO5WriteEPKvl",
+        "ordinal": 66,
+        "library": "@rpath/MAFiles.framework/Versions/A/MAFiles",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1af775c",
+      "raw_hex": "d03c00f0102a42f900021fd6",
+      "binding": {
+        "address": "0x2292450",
+        "raw_word": "0x8010000000000bb4",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_NewPtrClear",
+        "ordinal": 56,
+        "library": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1afb668",
+      "raw_hex": "903c00d0107243f900021fd6",
+      "binding": {
+        "address": "0x228d6e0",
+        "raw_word": "0x8010000000000206",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_bzero",
+        "ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    }
+  ],
+  "stages": {
+    "writer": "85d538 returns buffer/length;abe8d4 writes buffer+38,len-38 underRDAF",
+    "reader": "abe67c reads intoTEMP+38,maybyteswap/remap/clearstate",
+    "constructor": "15dc8a8(new,TEMP) copies source[0,30),[30,60),[5e,66) tosameoffsets before helpercalls",
+    "later_helpers_uninspected": [
+      "0x15dbff0",
+      "0x15dc284"
+    ],
+    "endian_gate": "CFileIO byte+cc bit1; header linkage pending",
+    "legacy_remap_range": "selected class5 codes180..18a; copied4020/7/a/a outside undernoswap",
+    "loader_state_clear": {
+      "offset": "0x39",
+      "mask": "0xe0",
+      "zero_offset": "0x62"
+    }
+  },
+  "prefix_mapping_at_copy_stage": [
+    {
+      "payload_offset": "0x2",
+      "destination_offset": "0x3a",
+      "raw_kind": "u32",
+      "existing_field_observation": "classword"
+    },
+    {
+      "payload_offset": "0x6",
+      "destination_offset": "0x3e",
+      "raw_kind": "u16",
+      "existing_field_observation": "packed track mode/operand or command bycontext"
+    },
+    {
+      "payload_offset": "0x8",
+      "destination_offset": "0x40",
+      "raw_kind": "u32",
+      "existing_field_observation": "rawtrackparameter"
+    },
+    {
+      "payload_offset": "0x13",
+      "destination_offset": "0x4b",
+      "raw_kind": "u8",
+      "existing_field_observation": "value mode low3"
+    },
+    {
+      "payload_offset": "0x14",
+      "destination_offset": "0x4c",
+      "raw_kind": "i16",
+      "existing_field_observation": "multiplyx0.01"
+    },
+    {
+      "payload_offset": "0x2a",
+      "destination_offset": "0x62",
+      "raw_kind": "u32",
+      "existing_field_observation": "loader clears; nottarget readback"
+    }
+  ],
+  "dispatcher": {
+    "entry": "0x15de134",
+    "v_load_offset": "0x40",
+    "early_literal": "0x3fffffff",
+    "class5_entry_nonnull_gate": true,
+    "family_A_mask": "(v&ffffc000)==4000",
+    "additional_A_gate": "nonemptyf8/100 range",
+    "A_callee": "0x15df8a8",
+    "A_w3": -1,
+    "C_correction": "v>>8 <23 branches15de4d8;15dfc90 call onnonlowpath",
+    "complete_cases_audited": false
+  },
+  "anchors": {
+    "path": "Research/protocol/assignment-family-12.4-anchors.tsv",
+    "count": 141
+  },
+  "row_table": "Research/protocol/assignment-family-copied-rows.tsv",
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/serialization-proof.json",
+      "sha256": "de43507a5a34fe163c56e1451c99cc6316e082e6b9067629ea20dc373ebf452b",
+      "size_bytes": 87527,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/inspect_serialization.py",
+      "sha256": "72a522d62bf9c261c42fbde337a0e751610db49daa9743296bfd51a9a71532a6",
+      "size_bytes": 4136,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/io-bindings.json",
+      "sha256": "8d2b1d7c3c9c90811865b472405dda812603384b1e13682aeea973c613130a8c",
+      "size_bytes": 1937,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/copied-rows.json",
+      "sha256": "df1cbc84416cfec992a5a0c98c5fccda8dd013b8ef5f1bc95b57a58984631c2b",
+      "size_bytes": 5533,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-family-006/inspect_copied_rows.py",
+      "sha256": "4db3b53f908420c0dec910257f9b78e38a707ee1fa135b29e258821e2bcbf27b",
+      "size_bytes": 2177,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/cs-diff/s0b.bin",
+      "sha256": "d80b27bb49b6c65e7841a36a5e6ee95dafdb61e7ab110605a75e20600de331f4",
+      "size_bytes": 316820,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Tools/research-scripts/cs_assignments.py",
+      "sha256": "74714415ad526dbd032b3abf1decef707e4f3e601c1f23642d99162b9959383f",
+      "size_bytes": 14840,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-CS-PREFS-001.json",
+      "sha256": "c84b9765a97b2e28c24b2ded419b784ac197fc42b5de92408e1907e516ca7e42",
+      "size_bytes": 14583,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/notes/assignment-target-001.json",
+      "sha256": "958e22349964283414f8660cee03c0a31cf75f51fa2408cc9579f625498bcc98",
+      "size_bytes": 24166,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/assignment-family-12.4-anchors.tsv",
+      "sha256": "aed405c02ff97309c47b63fc16d0f64055c6ee4aaf9a7340c2b37d241caea5cb",
+      "size_bytes": 15221,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/assignment-family-copied-rows.tsv",
+      "sha256": "bc5830aca62a9e3cf28091bc391145c3f4ac6e58a48f2361a97d207a03a0fbd4",
+      "size_bytes": 368,
+      "availability": "public_repo"
+    }
+  ],
+  "limits": [
+    "Copy stage does not establish every final live field remains unchanged after later helpers.",
+    "No identity/active assignment/port or current Logic state inferred from CCbytes alone.",
+    "Variable tag6-to-livevector mapping not audited; opaque contents and names omitted.",
+    "No replacement-retargeting claim or same-target value readback."
+  ],
+  "validation": {
+    "instruction_anchor_check": {
+      "total": 141,
+      "passed": 141,
+      "exit_code": 0
+    },
+    "recorded_utc": "2026-10-20T20:32:35+00:00",
+    "affected_tests": {
+      "command": "python3 -m unittest discover -s Tests/research -p test_cs_assignments.py",
+      "passed": 21
+    },
+    "cli_smoke": {
+      "snapshot_valid": true,
+      "candidates": 4,
+      "new_raw32_at8": [
+        16416,
+        7,
+        10,
+        10
+      ],
+      "all_candidates_unconfirmed": true
+    }
+  }
+}

@@ -1,0 +1,143 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline evidence; ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF001	insn	0xabe698	20e00091	add x0, x1, #0x38	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF002	insn	0xabe69c	30e44094	bl 0x1af775c	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF003	insn	0xabe6a4	f30300aa	mov x19, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF004	insn	0xabe6a8	01078052	mov w1, #0x38	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF005	insn	0xabe6ac	eff34094	bl 0x1afb668	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF006	insn	0xabe6b0	75e20091	add x21, x19, #0x38	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF007	insn	0xabe6b4	c8ca80b9	ldrsw x8, [x22, #0xc8]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF008	insn	0xabe6bc	17b1949a	csel x23, x8, x20, lt	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF009	insn	0xabe6c0	e00316aa	mov x0, x22	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF010	insn	0xabe6c4	e10315aa	mov x1, x21	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF011	insn	0xabe6c8	e20317aa	mov x2, x23	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF012	insn	0xabe6cc	95ee4094	bl 0x1afa120	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF013	insn	0xabe6f0	c8324339	ldrb w8, [x22, #0xcc]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF014	insn	0xabe6f4	a8020836	tbz w8, #0x1, 0xabe748	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF015	insn	0xabe700	68a203b8	stur w8, [x19, #0x3a]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF016	insn	0xabe710	687e0079	strh w8, [x19, #0x3e]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF017	insn	0xabe71c	684200b9	str w8, [x19, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF018	insn	0xabe72c	689a0079	strh w8, [x19, #0x4c]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF019	insn	0xabe748	68a243b8	ldur w8, [x19, #0x3a]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF020	insn	0xabe754	684240b9	ldr w8, [x19, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF021	insn	0xabe758	08010651	sub w8, w8, #0x180	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF022	insn	0xabe75c	1f290071	cmp w8, #0xa	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF023	insn	0xabe760	88050054	b.hi 0xabe810	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF024	insn	0xabe77c	684200b9	str w8, [x19, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF025	insn	0xabe810	68e64039	ldrb w8, [x19, #0x39]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF026	insn	0xabe814	08091b12	and w8, w8, #0xe0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF027	insn	0xabe818	68e60039	strb w8, [x19, #0x39]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF028	insn	0xabe81c	7f2206b8	stur wzr, [x19, #0x62]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF029	insn	0xabe820	6a9a0191	add x10, x19, #0x66	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF030	insn	0xabe888	3f010039	strb wzr, [x9]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF031	insn	0xabe88c	00448052	mov w0, #0x220	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF032	insn	0xabe890	e9f24094	bl 0x1afb434	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF033	insn	0xabe894	f40300aa	mov x20, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF034	insn	0xabe898	e10313aa	mov x1, x19	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF035	insn	0xabe89c	03782c94	bl 0x15dc8a8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF036	insn	0xabe924	568a8852	mov w22, #0x4452	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF037	insn	0xabe928	36c8a872	movk w22, #0x4641, lsl #16	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF038	insn	0xabe9dc	e00319aa	mov x0, x25	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF039	insn	0xabe9e0	d67af697	bl 0x85d538	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF040	insn	0xabe9ec	3ae000d1	sub x26, x1, #0x38	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF041	insn	0xabe9f0	f66b0129	stp w22, w26, [sp, #0x8]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF042	insn	0xabe9fc	02018052	mov w2, #0x8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF043	insn	0xabea00	d4ed4094	bl 0x1afa150	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF044	insn	0xabea20	21e30091	add x1, x25, #0x38	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF045	insn	0xabea24	e00314aa	mov x0, x20	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF046	insn	0xabea28	e2031aaa	mov x2, x26	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF047	insn	0xabea2c	c9ed4094	bl 0x1afa150	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF048	insn	0xad7c48	488a8852	mov w8, #0x4452	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF049	insn	0xad7c4c	28c8a872	movk w8, #0x4641, lsl #16	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF050	insn	0xad7c50	5f0008eb	cmp x2, x8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF051	insn	0xad7c54	80010054	b.eq 0xad7c84	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF052	insn	0xad7c84	f30300aa	mov x19, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF053	insn	0xad7c88	e00301aa	mov x0, x1	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF054	insn	0xad7c8c	e10303aa	mov x1, x3	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF055	insn	0xad7c90	7b9aff97	bl 0xabe67c	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF056	insn	0x15dc8b8	f40301aa	mov x20, x1	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF057	insn	0x15dc8bc	f30300aa	mov x19, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF058	insn	0x15dc940	200440ad	ldp q0, q1, [x1]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF059	insn	0x15dc944	2208c03d	ldr q2, [x1, #0x20]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF060	insn	0x15dc948	018800ad	stp q1, q2, [x0, #0x10]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF061	insn	0x15dc94c	0000803d	str q0, [x0]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF062	insn	0x15dc950	208441ad	ldp q0, q1, [x1, #0x30]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF063	insn	0x15dc954	2214c03d	ldr q2, [x1, #0x50]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF064	insn	0x15dc958	28e045f8	ldur x8, [x1, #0x5e]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF065	insn	0x15dc95c	08e005f8	stur x8, [x0, #0x5e]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF066	insn	0x15dc960	010802ad	stp q1, q2, [x0, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF067	insn	0x15dc964	000c803d	str q0, [x0, #0x30]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF068	insn	0x15dc968	a2fdff97	bl 0x15dbff0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF069	insn	0x15dc9d8	e00313aa	mov x0, x19	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF070	insn	0x15dc9dc	e10314aa	mov x1, x20	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF071	insn	0x15dc9e0	c2008052	mov w2, #0x6	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF072	insn	0x15dc9e4	28feff97	bl 0x15dc284	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF073	insn	0x15dca48	e00313aa	mov x0, x19	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF074	insn	0x15dca4c	e10314aa	mov x1, x20	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF075	insn	0x15dca50	a2018052	mov w2, #0xd	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF076	insn	0x15dca54	0cfeff97	bl 0x15dc284	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF077	insn	0x15de164	134040b9	ldr w19, [x0, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF078	insn	0x15de168	0800b812	mov w8, #0x3fffffff	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF079	insn	0x15de16c	7f02086b	cmp w19, w8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF080	insn	0x15de170	01020054	b.ne 0x15de1b0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF081	insn	0x15de174	e91f40f9	ldr x9, [sp, #0x38]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF082	insn	0x15de178	6a6500f0	adrp x10, 0x228d000	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF083	insn	0x15de17c	4a1143f9	ldr x10, [x10, #0x620]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF084	insn	0x15de180	4a0140f9	ldr x10, [x10]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF085	insn	0x15de184	5f0109eb	cmp x10, x9	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF086	insn	0x15de188	01a70054	b.ne 0x15df668	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF087	insn	0x15de18c	e00308aa	mov x0, x8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF088	insn	0x15de190	fd7b49a9	ldp x29, x30, [sp, #0x90]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF089	insn	0x15de194	f44f48a9	ldp x20, x19, [sp, #0x80]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF090	insn	0x15de198	f65747a9	ldp x22, x21, [sp, #0x70]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF091	insn	0x15de19c	f85f46a9	ldp x24, x23, [sp, #0x60]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF092	insn	0x15de1a0	fa6745a9	ldp x26, x25, [sp, #0x50]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF093	insn	0x15de1a4	fc6f44a9	ldp x28, x27, [sp, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF094	insn	0x15de1a8	ff830291	add sp, sp, #0xa0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF095	insn	0x15de1ac	c0035fd6	ret	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF096	insn	0x15de1b0	08a043b8	ldur w8, [x0, #0x3a]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF097	insn	0x15de1b4	1f150071	cmp w8, #0x5	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF098	insn	0x15de1b8	21030054	b.ne 0x15de21c	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF099	insn	0x15de1bc	e21e00b4	cbz x2, 0x15de598	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF100	insn	0x15de1c0	68461212	and w8, w19, #0xffffc000	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF101	insn	0x15de1c4	1f114071	cmp w8, #0x4, lsl #12	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF102	insn	0x15de1c8	c1040054	b.ne 0x15de260	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF103	insn	0x15de1cc	09a84fa9	ldp x9, x10, [x0, #0xf8]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF104	insn	0x15de1d0	88218052	mov w8, #0x10c	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF105	insn	0x15de1d4	5f0109eb	cmp x10, x9	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF106	insn	0x15de1d8	e0fcff54	b.eq 0x15de174	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF107	insn	0x15de1dc	c9fcffb4	cbz x9, 0x15de174	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF108	insn	0x15de1e0	f30300aa	mov x19, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF109	insn	0x15de1e4	03008012	mov w3, #-0x1	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF110	insn	0x15de1e8	b0050094	bl 0x15df8a8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF111	insn	0x15de1ec	c01c00b4	cbz x0, 0x15de584	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF112	insn	0x15de1f0	684240b9	ldr w8, [x19, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF113	insn	0x15de1f4	08114051	sub w8, w8, #0x4, lsl #12	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF114	insn	0x15de1f8	3f000072	tst w1, #0x1	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF115	insn	0x15de1fc	0902a052	mov w9, #0x100000	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF116	insn	0x15de200	29119f1a	csel w9, w9, wzr, ne	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF117	insn	0x15de204	2afc50d3	lsr x10, x1, #16	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF118	insn	0x15de208	4a3d1012	and w10, w10, #0xffff0000	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF119	insn	0x15de20c	4a414011	add w10, w10, #0x10, lsl #12	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF120	insn	0x15de210	4901092a	orr w9, w10, w9	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF121	insn	0x15de214	2801082a	orr w8, w9, w8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF122	insn	0x15de260	687e0853	lsr w8, w19, #8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF123	insn	0x15de264	1f910071	cmp w8, #0x24	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF124	insn	0x15de268	41040054	b.ne 0x15de2f0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF125	insn	0x15de2f0	694a1312	and w9, w19, #0xffffe000	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF126	insn	0x15de2f4	3f094071	cmp w9, #0x2, lsl #12	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF127	insn	0x15de2f8	a1070054	b.ne 0x15de3ec	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF128	insn	0x15de2fc	1f8d0071	cmp w8, #0x23	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF129	insn	0x15de300	c30e0054	b.lo 0x15de4d8	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF130	insn	0x15de304	f60303aa	mov x22, x3	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF131	insn	0x15de308	f50300aa	mov x21, x0	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF132	insn	0x15de30c	61060094	bl 0x15dfc90	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF133	insn	0x15de3ec	e80313aa	mov x8, x19	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF134	insn	0x15de3f0	830000b4	cbz x3, 0x15de400	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF135	insn	0x15de3f4	28008052	mov w8, #0x1	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF136	insn	0x15de3f8	680000b9	str w8, [x3]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF137	insn	0x15de3fc	084040b9	ldr w8, [x0, #0x40]	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF138	insn	0x15de400	e9ff8212	mov w9, #-0x1800	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF139	insn	0x15de404	0801090b	add w8, w8, w9	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF140	insn	0x15de408	087d0b53	lsr w8, w8, #11	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition
+AF141	insn	0x15de40c	1f110071	cmp w8, #0x4	ASSIGN-FAMILY-006 serialized prefix or dispatcher condition

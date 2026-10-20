@@ -1,0 +1,118 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline evidence; PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB001	insn	0xab35d4	e2c30291	add x2, sp, #0xb0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB002	insn	0xab35d8	e00314aa	mov x0, x20	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB003	insn	0xab35dc	61008452	mov w1, #0x2003	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB004	insn	0xab35e0	92b32c94	bl 0x15e0428	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB005	insn	0xab3a34	e1c30291	add x1, sp, #0xb0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB006	insn	0xab3a38	e0008452	mov w0, #0x2007	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB007	insn	0xab3a3c	4000a072	movk w0, #0x2, lsl #16	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB008	insn	0xab3a40	e20318aa	mov x2, x24	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB009	insn	0xab3a44	e3031aaa	mov x3, x26	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB010	insn	0xab3a48	e40314aa	mov x4, x20	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB011	insn	0xab3a4c	3491eb97	bl 0x597f1c	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB012	insn	0xab41dc	e3934ba9	ldp x3, x4, [sp, #0xb8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB013	insn	0xab41e0	e56740f9	ldr x5, [sp, #0xc8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB014	insn	0xab41e4	e86f40f9	ldr x8, [sp, #0xd8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB015	insn	0xab41e8	e80300f9	str x8, [sp]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB016	insn	0xab41ec	671f0012	and w7, w27, #0xff	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB017	insn	0xab41f0	e00314aa	mov x0, x20	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB018	insn	0xab41f4	e28741a9	ldp x2, x1, [sp, #0x18]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB019	insn	0xab41f8	e60316aa	mov x6, x22	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB020	insn	0xab41fc	89b32c94	bl 0x15e1020	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB021	insn	0xab4200	e01300f9	str x0, [sp, #0x20]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB022	insn	0xab4204	e00314aa	mov x0, x20	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB023	insn	0xab4208	5ff8ff97	bl 0xab2384	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB024	insn	0xab420c	fb0300aa	mov x27, x0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB025	insn	0xab4210	080040f9	ldr x8, [x0]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB026	insn	0xab4214	280100b4	cbz x8, 0xab4238	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB027	insn	0xab4218	291d4194	bl 0x1afb6bc	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB028	insn	0xab421c	680340f9	ldr x8, [x27]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB029	insn	0xab4220	1f0008eb	cmp x0, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB030	insn	0xab4224	ab000054	b.lt 0xab4238	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB031	insn	0xab4228	88e64039	ldrb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB032	insn	0xab422c	08791c12	and w8, w8, #0xfffffff7	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB033	insn	0xab4230	88e60039	strb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB034	insn	0xab4234	7f0300f9	str xzr, [x27]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB035	insn	0xab4238	9b2286b8	ldursw x27, [x20, #0x62]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB036	insn	0xab423c	df0a0071	cmp w22, #0x2	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB037	insn	0xab4240	e1030054	b.ne 0xab42bc	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB038	insn	0xab4244	e81340f9	ldr x8, [sp, #0x20]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB039	insn	0xab4248	1f011beb	cmp x8, x27	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB040	insn	0xab424c	81030054	b.ne 0xab42bc	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB041	insn	0xab42b0	e00316aa	mov x0, x22	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB042	insn	0xab42b4	a61e4194	bl 0x1afbd4c	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB043	insn	0xab42b8	6dfeff17	b 0xab3c6c	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB044	insn	0xab42bc	e81340f9	ldr x8, [sp, #0x20]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB045	insn	0xab42c0	882206b8	stur w8, [x20, #0x62]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB046	insn	0xab42c4	df0a0071	cmp w22, #0x2	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB047	insn	0xab42c8	61140054	b.ne 0xab4554	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB048	insn	0xab42cc	882e4139	ldrb w8, [x20, #0x4b]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB049	insn	0xab42d0	08090012	and w8, w8, #0x7	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB050	insn	0xab42d4	1f090071	cmp w8, #0x2	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB051	insn	0xab42d8	e1130054	b.ne 0xab4554	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB052	insn	0xab42dc	88e64039	ldrb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB053	insn	0xab42e0	a8131837	tbnz w8, #0x3, 0xab4554	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB054	insn	0xab42e4	884240b9	ldr w8, [x20, #0x40]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB055	insn	0xab42e8	08791f12	and w8, w8, #0xfffffffe	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB056	insn	0xab42ec	1f090271	cmp w8, #0x82	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB057	insn	0xab42f0	20130054	b.eq 0xab4554	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB058	insn	0xab42f4	e00314aa	mov x0, x20	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB059	insn	0xab42f8	18b32c94	bl 0x15e0f58	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB060	insn	0xab42fc	c0120034	cbz w0, 0xab4554	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB061	insn	0xab4300	88e64039	ldrb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB062	insn	0xab4304	68032037	tbnz w8, #0x4, 0xab4370	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB063	insn	0xab4360	88e64039	ldrb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB064	insn	0xab4364	08011c32	orr w8, w8, #0x10	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB065	insn	0xab4368	88e60039	strb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB066	insn	0xab436c	40feff17	b 0xab3c6c	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB067	insn	0xab4414	e9a34ba9	ldp x9, x8, [sp, #0xb8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB068	insn	0xab4418	080109cb	sub x8, x8, x9	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB069	insn	0xab441c	0001229e	scvtf s0, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB070	insn	0xab4420	00c0221e	fcvt d0, s0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB071	insn	0xab4424	688f82d2	mov x8, #0x147b	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB072	insn	0xab4428	c8f5a8f2	movk x8, #0x47ae, lsl #16	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB073	insn	0xab442c	285ccff2	movk x8, #0x7ae1, lsl #32	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB074	insn	0xab4430	88f2e7f2	movk x8, #0x3f94, lsl #48	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB075	insn	0xab4434	0101679e	fmov d1, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB076	insn	0xab4438	0008611e	fmul d0, d0, d1	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB077	insn	0xab443c	0800789e	fcvtzs x8, d0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB078	insn	0xab4440	690308cb	sub x9, x27, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB079	insn	0xab4444	ea0f40f9	ldr x10, [sp, #0x18]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB080	insn	0xab4448	3f010aeb	cmp x9, x10	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB081	insn	0xab444c	ad000054	b.le 0xab4460	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB082	insn	0xab4450	eaa741a9	ldp x10, x9, [sp, #0x18]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB083	insn	0xab4454	290108cb	sub x9, x9, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB084	insn	0xab4458	3f010aeb	cmp x9, x10	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB085	insn	0xab445c	2c010054	b.gt 0xab4480	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB086	insn	0xab4460	09011b8b	add x9, x8, x27	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB087	insn	0xab4464	ea0f40f9	ldr x10, [sp, #0x18]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB088	insn	0xab4468	3f010aeb	cmp x9, x10	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB089	insn	0xab446c	aa030054	b.ge 0xab44e0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB090	insn	0xab4470	e9ab41a9	ldp x9, x10, [sp, #0x18]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB091	insn	0xab4474	4801088b	add x8, x10, x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB092	insn	0xab4478	1f0109eb	cmp x8, x9	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB093	insn	0xab447c	2a030054	b.ge 0xab44e0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB094	insn	0xab4548	88e64039	ldrb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB095	insn	0xab454c	08011d32	orr w8, w8, #0x8	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB096	insn	0xab4550	88e60039	strb w8, [x20, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB097	insn	0xab5ff8	1f0109eb	cmp x8, x9	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB098	insn	0xab5ffc	c0d9ff54	b.eq 0xab5b34	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB099	insn	0xab6000	0a0140f9	ldr x10, [x8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB100	insn	0xab6004	4b594079	ldrh w11, [x10, #0x2c]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB101	insn	0xab6008	7f21336b	cmp w11, w19, uxth	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB102	insn	0xab600c	41ffff54	b.ne 0xab5ff4	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB103	insn	0xab6010	4be54039	ldrb w11, [x10, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB104	insn	0xab6014	6b751b12	and w11, w11, #0xffffffe7	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB105	insn	0xab6018	4be50039	strb w11, [x10, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB106	insn	0xaba928	0a0140f9	ldr x10, [x8]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB107	insn	0xaba92c	4b594079	ldrh w11, [x10, #0x2c]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB108	insn	0xaba930	7f21356b	cmp w11, w21, uxth	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB109	insn	0xaba934	41ffff54	b.ne 0xaba91c	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB110	insn	0xaba938	4be54039	ldrb w11, [x10, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB111	insn	0xaba93c	6b751b12	and w11, w11, #0xffffffe7	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB112	insn	0xaba940	4be50039	strb w11, [x10, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB113	insn	0xabe810	68e64039	ldrb w8, [x19, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB114	insn	0xabe814	08091b12	and w8, w8, #0xe0	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB115	insn	0xabe818	68e60039	strb w8, [x19, #0x39]	PICKUP-BAND-005 gate, numeric band or reset excerpt
+PB116	insn	0xabe81c	7f2206b8	stur wzr, [x19, #0x62]	PICKUP-BAND-005 gate, numeric band or reset excerpt
