@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-PARAMETER-002",
+  "recorded_utc": "2026-10-20T16:06:12+00:00",
+  "owner": "codex",
+  "scope": {
+    "kind": "offline_static_evidence",
+    "binary": "Logic12.4-6707.arm64",
+    "binary_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "function_intervals": 3,
+    "interval_bytes": 1824,
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "functions": [
+    {
+      "label": "parameterPath",
+      "entry": "0x699b64",
+      "exclusive_end": "0x699dac",
+      "size_bytes": 584,
+      "body_sha256": "cfffeec090a5efda6440118a812e38fc9b6628bdddfe88665b2686263d6a2e49",
+      "metadata_entry": "0x1c69368",
+      "objc_type_encoding": "@16@0:8",
+      "scope": "LC_FUNCTION_STARTS interval, not full CFG proof"
+    },
+    {
+      "label": "parameterKind",
+      "entry": "0x699dac",
+      "exclusive_end": "0x699ee0",
+      "size_bytes": 308,
+      "body_sha256": "c8cf1d152f3ac07e88bfbbf421491a9d444ee7e42d8ecdd9d820b0a7ff3e55be",
+      "metadata_entry": "0x1c69374",
+      "objc_type_encoding": "C16@0:8",
+      "scope": "LC_FUNCTION_STARTS interval, not full CFG proof"
+    },
+    {
+      "label": "pinned_key_lookup",
+      "entry": "0x15a1b60",
+      "exclusive_end": "0x15a1f04",
+      "size_bytes": 932,
+      "body_sha256": "f2f471ad1bbdd036b3be9d84c26ec5644984a1232441c1d431252f91b7c12a0c",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG/lower callees not fully audited"
+    }
+  ],
+  "parameter_path": {
+    "direct_field_loads": [
+      {
+        "base": "returned Assign retained as x19",
+        "offset": "0x3a",
+        "width_bits": 32
+      }
+    ],
+    "common_helper_call": {
+      "target": "0x15e0428",
+      "arguments": "x0=Assign, w1=0x01000010, x2=global buffer at 0x275a990",
+      "downstream_body_inspected": false
+    },
+    "observed_output_construction": {
+      "non_class_5": "NSArray with one object: NSString made from common helper buffer+0x40",
+      "class_5": "call 0x15dcfa4(Assign), then 0x15ddf84(Assign,0); feed returns and Assign to 0x597f1c; NSString from second buffer+0x40; call 0x15e7134(Assign)",
+      "class_5_nonzero_second_string_length": "NSArray [result_of_0x15e7134, second_string, common_string], count3",
+      "class_5_zero_second_string_length": "NSArray [result_of_0x15e7134, common_string], count2"
+    },
+    "classification": "Direct body constructs an array of string-like path components. Callee side effects, label meanings and target resolution inside helpers remain unknown.",
+    "direct_assign_stores_observed": false
+  },
+  "parameter_kind": {
+    "classification_word": {
+      "offset": "0x3a",
+      "width_bits": 32,
+      "unsigned_above_11_return": 3
+    },
+    "classes_4_5_11": {
+      "mask": "0x830",
+      "effect": "call 0x15e0428(Assign,0x00022007,stack); return 1 iff int32[stack+0x10]-int32[stack+0x08]+1 equals2, else0"
+    },
+    "classes_8_9": {
+      "mask": "0x300",
+      "return": 2
+    },
+    "class_10": {
+      "reads": [
+        {
+          "offset": "0x3e",
+          "width_bits": 16,
+          "signed": true
+        },
+        {
+          "offset": "0x218",
+          "width_bits": 8,
+          "signed": false
+        }
+      ],
+      "effect": "signed16[Assign+0x3e] becomes w1; u8[Assign+0x218] is clamped to19; x0=0x27586d8+index*0xc0; call 0x159f988; return1 iff helper result equals2, else0"
+    },
+    "other_classes_return": 3,
+    "other_classes_anchor": {
+      "address": "0x699ed4",
+      "raw_hex": "60008052",
+      "text": "mov w0, #0x3"
+    },
+    "semantic_limits": "Return values0,1,2,3 and class meanings are not named by these bytes. Offset0x218 is not established as plug-in slot, instance, focus or stable identity.",
+    "direct_assign_stores_observed": false
+  },
+  "objc_dispatch_evidence": [
+    {
+      "address": "0x1b14bc0",
+      "selector": "assign",
+      "selector_pointer": {
+        "address": "0x2550e18",
+        "raw_word": "0x10000001ec548b",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1ec548b",
+        "high8": 0
+      },
+      "dispatch_import": {
+        "address": "0x22974c8",
+        "raw_word": "0x80100000000015c2",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "address": "0x1bbf8a0",
+      "selector": "stringWithUTF8String:",
+      "selector_pointer": {
+        "address": "0x257b950",
+        "raw_word": "0x10000001f89178",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1f89178",
+        "high8": 0
+      },
+      "dispatch_import": {
+        "address": "0x22974c8",
+        "raw_word": "0x80100000000015c2",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "address": "0x1b60860",
+      "selector": "length",
+      "selector_pointer": {
+        "address": "0x2563d40",
+        "raw_word": "0x10000001f22344",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1f22344",
+        "high8": 0
+      },
+      "dispatch_import": {
+        "address": "0x22974c8",
+        "raw_word": "0x80100000000015c2",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "address": "0x1b14280",
+      "selector": "arrayWithObjects:count:",
+      "selector_pointer": {
+        "address": "0x2550bc8",
+        "raw_word": "0x10000001ec4d8f",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x1ec4d8f",
+        "high8": 0
+      },
+      "dispatch_import": {
+        "address": "0x22974c8",
+        "raw_word": "0x80100000000015c2",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_objc_msgSend",
+        "ordinal": 93,
+        "library": "/usr/lib/libobjc.A.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    }
+  ],
+  "pin_comparison": {
+    "prior_storage_record": "ASSIGN-TARGET-001",
+    "mode11_payload_argument": "X2 -> saved X21 -> equality X1",
+    "candidate_argument": "X0",
+    "sites": [
+      {
+        "address": "0x15a1d94",
+        "acceptance": "W0 nonzero; false advances0x50 record"
+      },
+      {
+        "address": "0x15a1e4c",
+        "acceptance": "W0 bit0 set; false continues full pointer-array scan"
+      }
+    ],
+    "exact_import_stub": {
+      "stub": "0x1afb3e0",
+      "raw_hex": "b03c0090100246f900021fd6",
+      "sha256": "0ccde3ed3a98033c6fe4506c5bf2bd7a7c9321e7972d0ec83c7506b0d2c93f06",
+      "binding": {
+        "address": "0x228fc00",
+        "raw_word": "0x80100000000006aa",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__ZeqRK9CUUIDBaseS1_",
+        "ordinal": 25,
+        "library": "@rpath/MACore.framework/Versions/A/MACore",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    "demangled_without_macho_prefix": "operator==(CUUIDBase const&, CUUIDBase const&)",
+    "demangler": "local c++filt, input _ZeqRK9CUUIDBaseS1_",
+    "fast_path": {
+      "callback": "0x7663cc",
+      "record_stride": "0x48",
+      "semantics": "uninspected; equality not proved on every path"
+    },
+    "fallback_candidate": "invalid/out-of-range/null encoded entry can select first pointer, but it must still pass comparison",
+    "no_match_before_normalizer": {
+      "packed_x3": "0xffffffff00000000",
+      "w4": 0
+    },
+    "normalizer": "0x15a16a8",
+    "final_target_and_fail_closed": "unknown; normalizer uninspected",
+    "typed_key_limit": "CUUIDBase equality interface only; byte encoding, serialization, persistence, uniqueness, replacement and plug-in instance identity unproven"
+  },
+  "next_frontier": {
+    "primary": "0x15e0428",
+    "channel": "Claude retained REA session after Pickup boundary; no new cold import",
+    "conditional_pinned_contract": [
+      "0x7663cc",
+      "0x15a16a8"
+    ]
+  },
+  "independent_review": {
+    "reviewer": "assign_target_historical",
+    "scope": "932-byte pin lookup interval, registers, search/acceptance/no-match branches; root separately verified imported symbol fixup"
+  },
+  "anchors": {
+    "path": "Research/protocol/assignment-parameter-12.4-anchors.tsv",
+    "instruction_count": 64
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/fields/parameter-proof.json",
+      "sha256": "7db7fbc9dfca8c21b5fc4d048f77a5cf4f8029f43485a5e43b50771ab30def26",
+      "size_bytes": 94480,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/fields/parameter.asm.txt",
+      "sha256": "50f507dd81e2868bdf9679c0e5234467a1b5e2cbdaa681dae1e0105ba242003c",
+      "size_bytes": 8617,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/fields/inspect_parameter.py",
+      "sha256": "9fccf8265445f4e7adf7a401718ca6b7ee735335b0546b1c5b9bb7e39e8a50b8",
+      "size_bytes": 12454,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/consumer/pin-lookup-proof.json",
+      "sha256": "ea1d2cf10f63e374fbae2e07f99ae0913f37339d6bfb08d5d00c3133e8224ff0",
+      "size_bytes": 33888,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/consumer/pin-lookup-machinecode.txt",
+      "sha256": "e3fad4ebecf52b79f5300fa9c785c3ae92af342174368ec73622ed2cf6a47164",
+      "size_bytes": 8442,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/consumer/inspect_pin_lookup.py",
+      "sha256": "dba665f6013c2d6ce940d682ffd74e15f385724fe26c38af5f03db324373be5a",
+      "size_bytes": 3679,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/notes/assignment-target-001.json",
+      "sha256": "958e22349964283414f8660cee03c0a31cf75f51fa2408cc9579f625498bcc98",
+      "size_bytes": 24166,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/notes/assignment-target-001.en.md",
+      "sha256": "9d7b3fa91ec89786ad63a863f4397d151d2f367a58bcf65a3be45d662a4ae32b",
+      "size_bytes": 7993,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/assignment-parameter-12.4-anchors.tsv",
+      "sha256": "7662560cd16b965bd5037b975999301656f69be52021935f426e3494c0534872",
+      "size_bytes": 7982,
+      "availability": "public_repo"
+    }
+  ],
+  "limits": [
+    "Lower callees may resolve targets or have side effects.",
+    "Path methods initialize/write global buffers; no pure-read contract.",
+    "Codes0/1/2/3 and Assign+0x218 have no established enum/slot meaning.",
+    "No complete document->track->slot->instance->parameter binding or live value readback."
+  ],
+  "validation": {
+    "anchor_check": {
+      "passed": 64,
+      "total": 64,
+      "exit_code": 0,
+      "command": "python3 Tools/research-scripts/binary_anchors.py check Research/protocol/assignment-parameter-12.4-anchors.tsv --image Research/raw/binaries/Logic12.4-6707.arm64 --require-tools"
+    },
+    "recorded_utc": "2026-10-20T16:06:35+00:00"
+  }
+}

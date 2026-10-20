@@ -1,0 +1,66 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction anchors; ASSIGN-PARAMETER-002.
+AP001	insn	0x699b8c	0dec5194	bl 0x1b14bc0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP002	insn	0x699bc4	191a3d94	bl 0x15e0428	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP003	insn	0x699bd8	68a243b8	ldur w8, [x19, #0x3a]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP004	insn	0x699bdc	1f150071	cmp w8, #0x5	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP005	insn	0x699be0	81040054	b.ne 0x699c70	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP006	insn	0x699c3c	091b5394	bl 0x1b60860	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP007	insn	0x699c4c	160200b4	cbz x22, 0x699c8c	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP008	insn	0x699c64	63008052	mov w3, #0x3	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP009	insn	0x699c80	23008052	mov w3, #0x1	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP010	insn	0x699c9c	43008052	mov w3, #0x2	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP011	insn	0x699dcc	7deb5194	bl 0x1b14bc0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP012	insn	0x699e1c	09a043b8	ldur w9, [x0, #0x3a]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP013	insn	0x699e20	3f2d0071	cmp w9, #0xb	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP014	insn	0x699e24	88050054	b.hi 0x699ed4	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP015	insn	0x699e2c	0a068152	mov w10, #0x830	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP016	insn	0x699e30	1f010a6a	tst w8, w10	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP017	insn	0x699e34	e1000054	b.ne 0x699e50	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP018	insn	0x699e40	1f051872	tst w8, #0x300	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP019	insn	0x699e44	80010054	b.eq 0x699e74	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP020	insn	0x699e48	40008052	mov w0, #0x2	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP021	insn	0x699e54	e1008452	mov w1, #0x2007	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP022	insn	0x699e58	4100a072	movk w1, #0x2, lsl #16	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP023	insn	0x699e5c	73193d94	bl 0x15e0428	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP024	insn	0x699e60	e81340b9	ldr w8, [sp, #0x10]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP025	insn	0x699e64	e90b40b9	ldr w9, [sp, #0x8]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP026	insn	0x699e68	0801094b	sub w8, w8, w9	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP027	insn	0x699e6c	00050011	add w0, w8, #0x1	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP028	insn	0x699e74	3f290071	cmp w9, #0xa	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP029	insn	0x699e78	e1020054	b.ne 0x699ed4	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP030	insn	0x699e7c	017cc079	ldrsh w1, [x0, #0x3e]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP031	insn	0x699e80	08604839	ldrb w8, [x0, #0x218]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP032	insn	0x699e88	1f4d0071	cmp w8, #0x13	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP033	insn	0x699e8c	0831891a	csel w8, w8, w9, lo	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP034	insn	0x699e90	e90501f0	adrp x9, 0x2758000	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP035	insn	0x699e94	29611b91	add x9, x9, #0x6d8	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP036	insn	0x699e98	0a188052	mov w10, #0xc0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP037	insn	0x699e9c	0025aa9b	umaddl x0, w8, w10, x9	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP038	insn	0x699ea0	ba163c94	bl 0x159f988	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP039	insn	0x699ea4	1f080071	cmp w0, #0x2	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP040	insn	0x699ea8	e0179f1a	cset w0, eq	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP041	insn	0x699ed4	60008052	mov w0, #0x3	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP042	insn	0x15a1b7c	f50302aa	mov x21, x2	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP043	insn	0x15a1c48	00013fd6	blr x8	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP044	insn	0x15a1c4c	00040037	tbnz w0, #0x0, 0x15a1ccc	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP045	insn	0x15a1c50	f7220191	add x23, x23, #0x48	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP046	insn	0x15a1d84	68c643f9	ldr x8, [x19, #0x788]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP047	insn	0x15a1d88	08f140f9	ldr x8, [x8, #0x1e0]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP048	insn	0x15a1d8c	000140f9	ldr x0, [x8]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP049	insn	0x15a1d90	e10315aa	mov x1, x21	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP050	insn	0x15a1d94	93651594	bl 0x1afb3e0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP051	insn	0x15a1d98	40080035	cbnz w0, 0x15a1ea0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP052	insn	0x15a1d9c	d6420191	add x22, x22, #0x50	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP053	insn	0x15a1e48	e10315aa	mov x1, x21	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP054	insn	0x15a1e4c	65651594	bl 0x1afb3e0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP055	insn	0x15a1e50	80fd0736	tbz w0, #0x0, 0x15a1e00	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP056	insn	0x15a1e54	04008052	mov w4, #0x0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP057	insn	0x15a1e60	04008052	mov w4, #0x0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP058	insn	0x15a1e64	08008052	mov w8, #0x0	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP059	insn	0x15a1e68	16008012	mov w22, #-0x1	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP060	insn	0x15a1e70	038116aa	orr x3, x8, x22, lsl #32	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP061	insn	0x15a1e80	0afeff97	bl 0x15a16a8	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP062	insn	0x1afb3e0	b03c0090	adrp x16, 0x228f000	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP063	insn	0x1afb3e4	100246f9	ldr x16, [x16, #0xc00]	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
+AP064	insn	0x1afb3e8	00021fd6	br x16	Current parameter description or pinned-key comparison; ASSIGN-PARAMETER-002
