@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-IDENTITY-008",
+  "recorded_utc": "2026-10-20T20:48:24.059669+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "independent_operand_and_normal_control_flow_audit",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "audited_prior_claims": [
+    "I5 UUID capture corrected",
+    "I6 descriptor and ordinal, narrowed incoming-argument condition"
+  ],
+  "uuid_branch": {
+    "condition": "incoming W3 sign bit set AND list13 begin != end AND begin != null, after context/container gates",
+    "entry_pointer": "X20 loaded from assignment+0xf8 at0x15df8cc",
+    "pin_pointer": "X8 loaded from assignment+0x1a0 at0x15df9bc, used only for emptiness gate here",
+    "overwritten_x8_site": "0x15df9cc",
+    "block_base": "SP+0x68",
+    "entry_capture_offset": "0x30",
+    "entry_capture_store": "0x15dfa20 (SP+0x98 = X20)",
+    "callback": "0x15e01fc",
+    "comparison": [
+      "candidate+0x10",
+      "captured first list6 entry+0x10"
+    ],
+    "comparison_import": "0x1afb3e0; prior ASSIGN-ROUTE-003 binds CUUIDBase equality",
+    "normal_miss_flow": "first UUID enumeration ->mode1 UUID enumeration ->zero return; no descriptor fallback in inspected normal CFG"
+  },
+  "descriptor_branch": {
+    "condition": "incoming W3 nonnegative OR empty/null list13",
+    "ordinal_rule": "incoming W3 nonnegative: keep caller ordinal; negative with empty/null list13: load first list6 entry+0xc",
+    "block_base": "SP",
+    "entry_capture_offset": "0x38",
+    "ordinal_capture_offset": "0x40",
+    "callback": "0x15e0264",
+    "comparisons": [
+      {
+        "candidate": "0xbc",
+        "entry": "0x8"
+      },
+      {
+        "candidate": "0xb4",
+        "entry": "0x0"
+      },
+      {
+        "candidate": "0xb8",
+        "entry": "0x4"
+      }
+    ],
+    "counter_rule": "increment for descriptor matches only; select when matching-count equals ordinal; unrelated candidates do not count",
+    "uuid_read": false
+  },
+  "family_A_context": {
+    "caller": "0x15de134",
+    "incoming_W3": -1,
+    "fixed_in_prior_family006": true,
+    "historical_s0b_EQ": "selector0x1000, list6length32, list13absent -> stored descriptor ordinal path prediction",
+    "same_target_confirmed": false,
+    "value_verified": false
+  },
+  "intervals": [
+    {
+      "label": "plugin_resolver",
+      "entry": "0x15df8a8",
+      "exclusive_end": "0x15dfc90",
+      "size_bytes": 1000,
+      "body_sha256": "5a315c928d10a85d387ecbb5659cef30474f6ce980787e29706e20d354886fbd"
+    },
+    {
+      "label": "uuid_callback",
+      "entry": "0x15e01fc",
+      "exclusive_end": "0x15e0264",
+      "size_bytes": 104,
+      "body_sha256": "fc1f09556d445a938bb23bdcb461e65f23ea9890cd66dc239632d26e56b4fb79"
+    },
+    {
+      "label": "descriptor_ordinal_callback",
+      "entry": "0x15e0264",
+      "exclusive_end": "0x15e02ec",
+      "size_bytes": 136,
+      "body_sha256": "a0f7d466de64a3ccba3a286050394310ce8f4f5df46919e1a7286d1b3e8162f2"
+    }
+  ],
+  "anchor_table": {
+    "path": "Research/protocol/assignment-identity-audit-12.4-anchors.tsv",
+    "count": 179,
+    "sha256": "21928f72d2d898e179a4146a49bbdcc394762c7d688c2400d9aeb74502f7aa1a"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-identity-008/curate.py",
+      "sha256": "d6781380bfc8be43ee73740641ac0cf2a1bba5bfc93300857441be27af0f29ac",
+      "size_bytes": 4241
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-identity-008/inspect_identity.py",
+      "sha256": "8775e665df1d5b5f5e5c84f3b03775ae19175bc6ff1577112c8f47c12e714182",
+      "size_bytes": 2772
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-identity-008/identity-proof.json",
+      "sha256": "ce22d5e423caebbe5b0014011b89a169194499d3573ab0dc59d39426a10f6077",
+      "size_bytes": 46714
+    },
+    {
+      "path": "Research/notes/assignment-identity-callbacks-001.en.md",
+      "sha256": "cbfd74f10556fb4a944c23fd7bc40e7bed57b473fbdf5fe3dcf120515b1d7fd6",
+      "size_bytes": 11015
+    },
+    {
+      "path": "Research/protocol/assignment-identity-12.4-anchors.tsv",
+      "sha256": "d83a014b09fb0b163d8b339bac8d91dc6598d007e74e78c155dee6784b13426e",
+      "size_bytes": 7267
+    },
+    {
+      "path": "Research/notes/assignment-fields-007.json",
+      "sha256": "6868aa488439850d14dbc0ea2f18525265ea4cbac1e128ee0e171b8caba439b6",
+      "size_bytes": 6741
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-003/backend-proof.json",
+      "sha256": "def4b2603777b0e3f8d2700093149fdbf8494e452dc8731929e1b385a3f008fa",
+      "size_bytes": 117784
+    }
+  ],
+  "limits": [
+    "Only I5/I6 are independently reviewed here; not a blanket audit of Learn-side I7-I15.",
+    "Enumeration/callback ordering and mode meaning use the prior separate evidence; UI slot order remains a live inference.",
+    "No execution, live preferences, MIDI delivery, plug-in replacement, assignment restoration or value readback.",
+    "Normal CFG statement excludes exception callbacks and unknown mutations in external callees."
+  ]
+}

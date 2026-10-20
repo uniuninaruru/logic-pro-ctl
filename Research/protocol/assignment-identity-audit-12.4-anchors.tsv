@@ -1,0 +1,181 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Independent bounded audit; no runtime target proof
+IA001	insn	0x15df8cc	14a04fa9	ldp x20, x8, [x0, #0xf8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA002	insn	0x15df8d0	1f0114eb	cmp x8, x20	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA003	insn	0x15df8d4	841a40fa	ccmp x20, #0x0, #0x4, ne	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA004	insn	0x15df8d8	e1010054	b.ne 0x15df914	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA005	insn	0x15df8dc	080080d2	mov x8, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA006	insn	0x15df8e0	130080d2	mov x19, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA007	insn	0x15df8e4	15008052	mov w21, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA008	insn	0x15df8e8	618215aa	orr x1, x19, x21, lsl #32	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA009	insn	0x15df9b4	f30400b4	cbz x19, 0x15dfa50	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA010	insn	0x15df9b8	2305f836	tbz w3, #0x1f, 0x15dfa5c	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA011	insn	0x15df9bc	08245aa9	ldp x8, x9, [x0, #0x1a0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA012	insn	0x15df9c0	3f0108eb	cmp x9, x8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA013	insn	0x15df9c4	a0040054	b.eq 0x15dfa58	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA014	insn	0x15df9c8	880400b4	cbz x8, 0x15dfa58	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA015	insn	0x15df9cc	a80302d1	sub x8, x29, #0x80	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA016	insn	0x15df9d0	bf2338a9	stp xzr, x8, [x29, #-0x80]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA017	insn	0x15df9d4	a93600b0	adrp x9, 0x1cb4000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA018	insn	0x15df9d8	282944fd	ldr d8, [x9, #0x850]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA019	insn	0x15df9dc	a80319fc	stur d8, [x29, #-0x70]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA020	insn	0x15df9e0	bf8319f8	stur xzr, [x29, #-0x68]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA021	insn	0x15df9e4	e9830291	add x9, sp, #0xa0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA022	insn	0x15df9e8	ff270aa9	stp xzr, x9, [sp, #0xa0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA023	insn	0x15df9ec	e85b00fd	str d8, [sp, #0xb0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA024	insn	0x15df9f0	ffbb00b9	str wzr, [sp, #0xb8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA025	insn	0x15df9f4	756500d0	adrp x21, 0x228d000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA026	insn	0x15df9f8	b5da42f9	ldr x21, [x21, #0x5b0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA027	insn	0x15df9fc	f53700f9	str x21, [sp, #0x68]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA028	insn	0x15dfa00	aa3600b0	adrp x10, 0x1cb4000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA029	insn	0x15dfa04	491144fd	ldr d9, [x10, #0x820]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA030	insn	0x15dfa08	160000b0	adrp x22, 0x15e0000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA031	insn	0x15dfa0c	d6f20791	add x22, x22, #0x1fc	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA032	insn	0x15dfa10	b76a00b0	adrp x23, 0x2334000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA033	insn	0x15dfa14	f7820591	add x23, x23, #0x160	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA034	insn	0x15dfa18	e93b00fd	str d9, [sp, #0x70]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA035	insn	0x15dfa1c	f6df07a9	stp x22, x23, [sp, #0x78]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA036	insn	0x15dfa20	e95309a9	stp x9, x20, [sp, #0x90]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA037	insn	0x15dfa24	e84700f9	str x8, [sp, #0x88]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA038	insn	0x15dfa28	e1a30191	add x1, sp, #0x68	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA039	insn	0x15dfa2c	e00313aa	mov x0, x19	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA040	insn	0x15dfa30	02008052	mov w2, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA041	insn	0x15dfa34	3a541194	bl 0x1a34b1c	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA042	insn	0x15dfa38	a88358f8	ldur x8, [x29, #-0x78]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA043	insn	0x15dfa3c	080d40f9	ldr x8, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA044	insn	0x15dfa40	080d00b4	cbz x8, 0x15dfbe0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA045	insn	0x15dfa44	f40308aa	mov x20, x8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA046	insn	0x15dfa48	130080d2	mov x19, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA047	insn	0x15dfa4c	80000014	b 0x15dfc4c	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA048	insn	0x15dfa50	080080d2	mov x8, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA049	insn	0x15dfa54	a4ffff17	b 0x15df8e4	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA050	insn	0x15dfa58	830e40b9	ldr w3, [x20, #0xc]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA051	insn	0x15dfa5c	a80302d1	sub x8, x29, #0x80	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA052	insn	0x15dfa60	bf2338a9	stp xzr, x8, [x29, #-0x80]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA053	insn	0x15dfa64	a93600b0	adrp x9, 0x1cb4000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA054	insn	0x15dfa68	282944fd	ldr d8, [x9, #0x850]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA055	insn	0x15dfa6c	a80319fc	stur d8, [x29, #-0x70]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA056	insn	0x15dfa70	bf8319f8	stur xzr, [x29, #-0x68]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA057	insn	0x15dfa74	e9830291	add x9, sp, #0xa0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA058	insn	0x15dfa78	ff270aa9	stp xzr, x9, [sp, #0xa0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA059	insn	0x15dfa7c	e85b00fd	str d8, [sp, #0xb0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA060	insn	0x15dfa80	ffbb00b9	str wzr, [sp, #0xb8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA061	insn	0x15dfa84	ea230191	add x10, sp, #0x48	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA062	insn	0x15dfa88	ffab04a9	stp xzr, x10, [sp, #0x48]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA063	insn	0x15dfa8c	e82f00fd	str d8, [sp, #0x58]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA064	insn	0x15dfa90	ff6300b9	str wzr, [sp, #0x60]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA065	insn	0x15dfa94	756500d0	adrp x21, 0x228d000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA066	insn	0x15dfa98	b5da42f9	ldr x21, [x21, #0x5b0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA067	insn	0x15dfa9c	f50300f9	str x21, [sp]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA068	insn	0x15dfaa0	ab3600b0	adrp x11, 0x1cb4000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA069	insn	0x15dfaa4	691144fd	ldr d9, [x11, #0x820]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA070	insn	0x15dfaa8	e90700fd	str d9, [sp, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA071	insn	0x15dfaac	160000b0	adrp x22, 0x15e0000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA072	insn	0x15dfab0	d6920991	add x22, x22, #0x264	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA073	insn	0x15dfab4	b86a00b0	adrp x24, 0x2334000	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA074	insn	0x15dfab8	18430691	add x24, x24, #0x190	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA075	insn	0x15dfabc	f66301a9	stp x22, x24, [sp, #0x10]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA076	insn	0x15dfac0	f70303aa	mov x23, x3	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA077	insn	0x15dfac4	e34300b9	str w3, [sp, #0x40]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA078	insn	0x15dfac8	ea2302a9	stp x10, x8, [sp, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA079	insn	0x15dfacc	e95303a9	stp x9, x20, [sp, #0x30]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA080	insn	0x15dfad0	e1030091	mov x1, sp	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA081	insn	0x15dfad4	e00313aa	mov x0, x19	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA082	insn	0x15dfad8	02008052	mov w2, #0x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA083	insn	0x15dfadc	10541194	bl 0x1a34b1c	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA084	insn	0x15dfae0	a88358f8	ldur x8, [x29, #-0x78]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA085	insn	0x15dfae4	080d40f9	ldr x8, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA086	insn	0x15dfae8	880000b4	cbz x8, 0x15dfaf8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA087	insn	0x15dfbb8	e0230191	add x0, sp, #0x48	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA088	insn	0x15dfbc4	e0830291	add x0, sp, #0xa0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA089	insn	0x15dfbdc	40ffff17	b 0x15df8dc	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA090	insn	0x15dfbe0	f8830291	add x24, sp, #0xa0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA091	insn	0x15dfbe4	e0830291	add x0, sp, #0xa0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA092	insn	0x15dfbe8	01018052	mov w1, #0x8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA093	insn	0x15dfbec	de5f1494	bl 0x1af7b64	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA094	insn	0x15dfbf0	b90302d1	sub x25, x29, #0x80	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA095	insn	0x15dfbf4	a00302d1	sub x0, x29, #0x80	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA096	insn	0x15dfbf8	01018052	mov w1, #0x8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA097	insn	0x15dfbfc	da5f1494	bl 0x1af7b64	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA098	insn	0x15dfc00	bf6738a9	stp xzr, x25, [x29, #-0x80]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA099	insn	0x15dfc04	a80319fc	stur d8, [x29, #-0x70]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA100	insn	0x15dfc08	bf8319f8	stur xzr, [x29, #-0x68]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA101	insn	0x15dfc0c	ff630aa9	stp xzr, x24, [sp, #0xa0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA102	insn	0x15dfc10	e85b00fd	str d8, [sp, #0xb0]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA103	insn	0x15dfc14	ffbb00b9	str wzr, [sp, #0xb8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA104	insn	0x15dfc18	f53700f9	str x21, [sp, #0x68]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA105	insn	0x15dfc1c	e93b00fd	str d9, [sp, #0x70]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA106	insn	0x15dfc20	f6df07a9	stp x22, x23, [sp, #0x78]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA107	insn	0x15dfc24	f85309a9	stp x24, x20, [sp, #0x90]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA108	insn	0x15dfc28	f94700f9	str x25, [sp, #0x88]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA109	insn	0x15dfc2c	e1a30191	add x1, sp, #0x68	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA110	insn	0x15dfc30	e00313aa	mov x0, x19	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA111	insn	0x15dfc34	22008052	mov w2, #0x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA112	insn	0x15dfc38	b9531194	bl 0x1a34b1c	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA113	insn	0x15dfc3c	a88358f8	ldur x8, [x29, #-0x78]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA114	insn	0x15dfc40	140d40f9	ldr x20, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA115	insn	0x15dfc44	14fcffb4	cbz x20, 0x15dfbc4	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA116	insn	0x15dfc48	33008052	mov w19, #0x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA117	insn	0x15dfc4c	e85740f9	ldr x8, [sp, #0xa8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA118	insn	0x15dfc50	151940b9	ldr w21, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA119	insn	0x15dfc54	d1ffff17	b 0x15dfb98	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA120	insn	0x15e01fc	230300b4	cbz x3, 0x15e0260	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA121	insn	0x15e0200	f657bda9	stp x22, x21, [sp, #-0x30]!	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA122	insn	0x15e0204	f44f01a9	stp x20, x19, [sp, #0x10]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA123	insn	0x15e0208	fd7b02a9	stp x29, x30, [sp, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA124	insn	0x15e020c	fd830091	add x29, sp, #0x20	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA125	insn	0x15e0210	f30304aa	mov x19, x4	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA126	insn	0x15e0214	f50303aa	mov x21, x3	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA127	insn	0x15e0218	f40301aa	mov x20, x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA128	insn	0x15e021c	f60300aa	mov x22, x0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA129	insn	0x15e0220	081840f9	ldr x8, [x0, #0x30]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA130	insn	0x15e0224	60400091	add x0, x3, #0x10	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA131	insn	0x15e0228	01410091	add x1, x8, #0x10	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA132	insn	0x15e022c	6d6c1494	bl 0x1afb3e0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA133	insn	0x15e0230	20010034	cbz w0, 0x15e0254	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA134	insn	0x15e0234	c81240f9	ldr x8, [x22, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA135	insn	0x15e0238	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA136	insn	0x15e023c	150d00f9	str x21, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA137	insn	0x15e0240	c81640f9	ldr x8, [x22, #0x28]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA138	insn	0x15e0244	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA139	insn	0x15e0248	141900b9	str w20, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA140	insn	0x15e024c	28008052	mov w8, #0x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA141	insn	0x15e0250	68020039	strb w8, [x19]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA142	insn	0x15e0254	fd7b42a9	ldp x29, x30, [sp, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA143	insn	0x15e0258	f44f41a9	ldp x20, x19, [sp, #0x10]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA144	insn	0x15e025c	f657c3a8	ldp x22, x21, [sp], #0x30	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA145	insn	0x15e0260	c0035fd6	ret	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA146	insn	0x15e0264	230400b4	cbz x3, 0x15e02e8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA147	insn	0x15e0268	69bc40b9	ldr w9, [x3, #0xbc]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA148	insn	0x15e026c	081c40f9	ldr x8, [x0, #0x38]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA149	insn	0x15e0270	0a0940b9	ldr w10, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA150	insn	0x15e0274	3f010a6b	cmp w9, w10	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA151	insn	0x15e0278	81030054	b.ne 0x15e02e8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA152	insn	0x15e027c	69b440b9	ldr w9, [x3, #0xb4]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA153	insn	0x15e0280	0a0140b9	ldr w10, [x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA154	insn	0x15e0284	3f010a6b	cmp w9, w10	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA155	insn	0x15e0288	01030054	b.ne 0x15e02e8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA156	insn	0x15e028c	69b840b9	ldr w9, [x3, #0xb8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA157	insn	0x15e0290	080540b9	ldr w8, [x8, #0x4]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA158	insn	0x15e0294	3f01086b	cmp w9, w8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA159	insn	0x15e0298	81020054	b.ne 0x15e02e8	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA160	insn	0x15e029c	081040f9	ldr x8, [x0, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA161	insn	0x15e02a0	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA162	insn	0x15e02a4	091940b9	ldr w9, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA163	insn	0x15e02a8	0a4040b9	ldr w10, [x0, #0x40]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA164	insn	0x15e02ac	3f010a6b	cmp w9, w10	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA165	insn	0x15e02b0	81010054	b.ne 0x15e02e0	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA166	insn	0x15e02b4	081440f9	ldr x8, [x0, #0x28]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA167	insn	0x15e02b8	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA168	insn	0x15e02bc	030d00f9	str x3, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA169	insn	0x15e02c0	081840f9	ldr x8, [x0, #0x30]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA170	insn	0x15e02c4	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA171	insn	0x15e02c8	011900b9	str w1, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA172	insn	0x15e02cc	28008052	mov w8, #0x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA173	insn	0x15e02d0	88000039	strb w8, [x4]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA174	insn	0x15e02d4	081040f9	ldr x8, [x0, #0x20]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA175	insn	0x15e02d8	080540f9	ldr x8, [x8, #0x8]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA176	insn	0x15e02dc	091940b9	ldr w9, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA177	insn	0x15e02e0	29050011	add w9, w9, #0x1	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA178	insn	0x15e02e4	091900b9	str w9, [x8, #0x18]	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
+IA179	insn	0x15e02e8	c0035fd6	ret	ASSIGN-IDENTITY-008 independent capture/branch/callback witness
