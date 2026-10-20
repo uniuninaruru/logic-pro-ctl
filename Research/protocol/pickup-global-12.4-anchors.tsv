@@ -1,0 +1,103 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline settings/predicate/caller anchors; PICKUP-GLOBAL-004.
+PG001	insn	0xaa3670	ff8300d1	sub sp, sp, #0x20	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG002	insn	0xaa3674	fd7b01a9	stp x29, x30, [sp, #0x10]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG003	insn	0xaa3678	fd430091	add x29, sp, #0x10	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG004	insn	0xaa367c	e00302aa	mov x0, x2	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG005	insn	0xaa3680	08634494	bl 0x1bbc2a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG006	insn	0xaa3684	e8e000d0	adrp x8, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG007	insn	0xaa3688	08811691	add x8, x8, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG008	insn	0xaa368c	08c1bf38	ldaprb w8, [x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG009	insn	0xaa3690	68010036	tbz w8, #0x0, 0xaa36bc	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG010	insn	0xaa3694	1f0000f1	cmp x0, #0x0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG011	insn	0xaa3698	e8179f1a	cset w8, eq	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG012	insn	0xaa369c	e9e000b0	adrp x9, 0x26c0000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG013	insn	0xaa36a0	2a6d6e39	ldrb w10, [x9, #0xb9b]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG014	insn	0xaa36a4	4a791a12	and w10, w10, #0xffffffdf	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG015	insn	0xaa36a8	4815082a	orr w8, w10, w8, lsl #5	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG016	insn	0xaa36ac	286d2e39	strb w8, [x9, #0xb9b]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG017	insn	0xaa36b0	fd7b41a9	ldp x29, x30, [sp, #0x10]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG018	insn	0xaa36b4	ff830091	add sp, sp, #0x20	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG019	insn	0xaa36b8	c0035fd6	ret	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG020	insn	0xaa36bc	e8e000d0	adrp x8, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG021	insn	0xaa36c0	08811691	add x8, x8, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG022	insn	0xaa36c4	e00700f9	str x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG023	insn	0xaa36c8	e00308aa	mov x0, x8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG024	insn	0xaa36cc	7b5f4194	bl 0x1afb4b8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG025	insn	0xaa36d0	e80300aa	mov x8, x0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG026	insn	0xaa36d4	e00740f9	ldr x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG027	insn	0xaa36d8	e8fdff34	cbz w8, 0xaa3694	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG028	insn	0xaa36dc	e8e00090	adrp x8, 0x26bf000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG029	insn	0xaa36e0	08e50e91	add x8, x8, #0x3b9	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG030	insn	0xaa36e4	1f010039	strb wzr, [x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG031	insn	0xaa36e8	c9fb8252	mov w9, #0x17de	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG032	insn	0xaa36ec	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG033	insn	0xaa36f0	49fc8252	mov w9, #0x17e2	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG034	insn	0xaa36f4	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG035	insn	0xaa36f8	c93c8452	mov w9, #0x21e6	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG036	insn	0xaa36fc	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG037	insn	0xaa3700	e0e000d0	adrp x0, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG038	insn	0xaa3704	00801691	add x0, x0, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG039	insn	0xaa3708	6f5f4194	bl 0x1afb4c4	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG040	insn	0xaa370c	e00740f9	ldr x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG041	insn	0xaa3710	e1ffff17	b 0xaa3694	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG042	insn	0xab31c8	f30301aa	mov x19, x1	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG043	insn	0xab31cc	f40300aa	mov x20, x0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG044	insn	0xab31d0	f70302aa	mov x23, x2	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG045	insn	0xab42e4	884240b9	ldr w8, [x20, #0x40]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG046	insn	0xab42e8	08791f12	and w8, w8, #0xfffffffe	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG047	insn	0xab42ec	1f090271	cmp w8, #0x82	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG048	insn	0xab42f0	20130054	b.eq 0xab4554	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG049	insn	0xab42f4	e00314aa	mov x0, x20	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG050	insn	0xab42f8	18b32c94	bl 0x15e0f58	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG051	insn	0xab42fc	c0120034	cbz w0, 0xab4554	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG052	insn	0x15e0f58	ff8300d1	sub sp, sp, #0x20	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG053	insn	0x15e0f5c	fd7b01a9	stp x29, x30, [sp, #0x10]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG054	insn	0x15e0f60	fd430091	add x29, sp, #0x10	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG055	insn	0x15e0f64	088700b0	adrp x8, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG056	insn	0x15e0f68	08811691	add x8, x8, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG057	insn	0x15e0f6c	08c1bf38	ldaprb w8, [x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG058	insn	0x15e0f70	c8020036	tbz w8, #0x0, 0x15e0fc8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG059	insn	0x15e0f74	08870090	adrp x8, 0x26c0000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG060	insn	0x15e0f78	086d6e39	ldrb w8, [x8, #0xb9b]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG061	insn	0x15e0f7c	28012837	tbnz w8, #0x5, 0x15e0fa0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG062	insn	0x15e0f80	08184139	ldrb w8, [x0, #0x46]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG063	insn	0x15e0f84	1f190072	tst w8, #0x7f	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG064	insn	0x15e0f88	40010054	b.eq 0x15e0fb0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG065	insn	0x15e0f8c	082c4139	ldrb w8, [x0, #0x4b]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG066	insn	0x15e0f90	88002837	tbnz w8, #0x5, 0x15e0fa0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG067	insn	0x15e0f94	09204ea9	ldp x9, x8, [x0, #0xe0]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG068	insn	0x15e0f98	1f0109eb	cmp x8, x9	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG069	insn	0x15e0f9c	e0000054	b.eq 0x15e0fb8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG070	insn	0x15e0fa0	00008052	mov w0, #0x0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG071	insn	0x15e0fa4	fd7b41a9	ldp x29, x30, [sp, #0x10]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG072	insn	0x15e0fa8	ff830091	add sp, sp, #0x20	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG073	insn	0x15e0fac	c0035fd6	ret	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG074	insn	0x15e0fb0	20008052	mov w0, #0x1	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG075	insn	0x15e0fb4	fcffff17	b 0x15e0fa4	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG076	insn	0x15e0fb8	09a052a9	ldp x9, x8, [x0, #0x128]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG077	insn	0x15e0fbc	1f0109eb	cmp x8, x9	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG078	insn	0x15e0fc0	e0179f1a	cset w0, eq	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG079	insn	0x15e0fc4	f8ffff17	b 0x15e0fa4	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG080	insn	0x15e0fc8	088700b0	adrp x8, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG081	insn	0x15e0fcc	08811691	add x8, x8, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG082	insn	0x15e0fd0	e00700f9	str x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG083	insn	0x15e0fd4	e00308aa	mov x0, x8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG084	insn	0x15e0fd8	38691494	bl 0x1afb4b8	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG085	insn	0x15e0fdc	e80300aa	mov x8, x0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG086	insn	0x15e0fe0	e00740f9	ldr x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG087	insn	0x15e0fe4	88fcff34	cbz w8, 0x15e0f74	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG088	insn	0x15e0fe8	e88600f0	adrp x8, 0x26bf000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG089	insn	0x15e0fec	08e50e91	add x8, x8, #0x3b9	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG090	insn	0x15e0ff0	1f010039	strb wzr, [x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG091	insn	0x15e0ff4	c9fb8252	mov w9, #0x17de	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG092	insn	0x15e0ff8	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG093	insn	0x15e0ffc	49fc8252	mov w9, #0x17e2	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG094	insn	0x15e1000	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG095	insn	0x15e1004	c93c8452	mov w9, #0x21e6	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG096	insn	0x15e1008	1f692938	strb wzr, [x8, x9]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG097	insn	0x15e100c	00870090	adrp x0, 0x26c1000	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG098	insn	0x15e1010	00801691	add x0, x0, #0x5a0	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG099	insn	0x15e1014	2c691494	bl 0x1afb4c4	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG100	insn	0x15e1018	e00740f9	ldr x0, [sp, #0x8]	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004
+PG101	insn	0x15e101c	d6ffff17	b 0x15e0f74	Pickup settings action and compound applicability predicate; PICKUP-GLOBAL-004

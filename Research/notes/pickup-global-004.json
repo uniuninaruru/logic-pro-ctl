@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "id": "PICKUP-GLOBAL-004",
+  "recorded_utc": "2026-10-20T16:20:48+00:00",
+  "owner": "codex",
+  "scope": {
+    "kind": "offline_byte_metadata_fixup_evidence",
+    "binary": "Logic12.4-6707.arm64",
+    "binary_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "function_intervals": 2,
+    "function_interval_bytes": 364,
+    "caller_excerpt_bytes": 40,
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "functions": [
+    {
+      "label": "pickup_global_reader",
+      "entry": "0x15e0f58",
+      "exclusive_end": "0x15e1020",
+      "size_bytes": 200,
+      "body_sha256": "af76d5b0f2f67eb76a2c86e62e449dd2d69b8c5931d7dfc2d97670b18ee29b0c",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "pickup_checkbox_action",
+      "entry": "0xaa3670",
+      "exclusive_end": "0xaa3714",
+      "size_bytes": 164,
+      "body_sha256": "4183ffdbaac4d540779d8fe31e92128d7c8e4c0528df824b8fd73b6657163866",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    }
+  ],
+  "prefs_method_binding": {
+    "class": "PrefsCSView",
+    "classlist_slot": "0x242abf0",
+    "class_address": "0x25b0a00",
+    "ro_address": "0x248e538",
+    "method_list": "0x1c575d8",
+    "method_count": 38,
+    "method": {
+      "entry": "0x1c57688",
+      "selector": "change_csPickupMode:",
+      "types": "v24@0:8@16",
+      "imp": "0xaa3670",
+      "relative_imp_base": "0x1c57690"
+    },
+    "method_entry_hex": "50089300544d3700e0bfe4fe",
+    "classlist_pointer": {
+      "address": "0x242abf0",
+      "raw_word": "0x100000025b0a00",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "rebase",
+      "target": "0x25b0a00",
+      "high8": 0
+    },
+    "data_pointer": {
+      "address": "0x25b0a20",
+      "raw_word": "0x1000000248e538",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "rebase",
+      "target": "0x248e538",
+      "high8": 0
+    },
+    "name_pointer": {
+      "address": "0x248e550",
+      "raw_word": "0x10000001fbd4c0",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "rebase",
+      "target": "0x1fbd4c0",
+      "high8": 0
+    },
+    "methods_pointer": {
+      "address": "0x248e558",
+      "raw_word": "0x20000001c575d8",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "rebase",
+      "target": "0x1c575d8",
+      "high8": 0
+    }
+  },
+  "sender_state_dispatch": {
+    "stub": "0x1bbc2a0",
+    "raw_hex": "e14d00d021e845f9d03600f0106642f900021fd6",
+    "selector_pointer": {
+      "address": "0x257abd0",
+      "raw_word": "0x10000001f85d73",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "rebase",
+      "target": "0x1f85d73",
+      "high8": 0
+    },
+    "selector": "state",
+    "dispatch_import": {
+      "address": "0x22974c8",
+      "raw_word": "0x80100000000015c2",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "bind",
+      "name": "_objc_msgSend",
+      "ordinal": 93,
+      "library": "/usr/lib/libobjc.A.dylib",
+      "weak": false,
+      "addend": 0
+    }
+  },
+  "guard_stubs": [
+    {
+      "stub": "0x1afb4b8",
+      "raw_hex": "f03c0090102e45f900021fd6",
+      "binding": {
+        "address": "0x2297a58",
+        "raw_word": "0x8010000000001674",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "___cxa_guard_acquire",
+        "ordinal": 94,
+        "library": "/usr/lib/libc++.1.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1afb4c4",
+      "raw_hex": "f03c0090103245f900021fd6",
+      "binding": {
+        "address": "0x2297a60",
+        "raw_word": "0x8010000000001675",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "___cxa_guard_release",
+        "ordinal": 94,
+        "library": "/usr/lib/libc++.1.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    }
+  ],
+  "rea_evidence": [
+    {
+      "path": "Research/raw/rea/af-0x15e0f58.json",
+      "sha256": "4cb2019c841b8efbaf8c512f4f2ec556d5f471dc19fc9e339a1105198c64b801",
+      "evidence_id": "ev_a2a9418ade0861e9293803f78bcdf8432fd9a50ccc5c2c1bb48a25c18c50328b",
+      "subject_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      }
+    },
+    {
+      "path": "Research/raw/rea/af-0xaa3670.json",
+      "sha256": "a3398e68d26f3773357ed02ab0299abeb11a7ada9c9aff1abf675b6730449b74",
+      "evidence_id": "ev_aa8c61d3eb2ece066182a0772880228906d03bf1f8001d08413de5f9c29b5f73",
+      "subject_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      }
+    }
+  ],
+  "preference_storage": {
+    "byte_address": "0x26c0b9b",
+    "bit": 5,
+    "polarity": "set disables predicate",
+    "action_formula": "newByte=(oldByte&0xdf)|((sender.state==0)<<5)",
+    "preserves_other_bits": true,
+    "guard_address": "0x26c15a0",
+    "guard_bit": 0,
+    "cold_zeroed_bytes": [
+      "0x26bf3b9",
+      "0x26c0b97",
+      "0x26c0b9b",
+      "0x26c159f"
+    ],
+    "preference_persistence_and_current_state": "uninspected"
+  },
+  "reader_predicate": {
+    "argument_base": "P=X0; complete consumer/Assign alias binding separate",
+    "ordered_rules": [
+      {
+        "when": "global[26c0b9b]bit5 set",
+        "return": 0
+      },
+      {
+        "when": "u8[P+46]&7f ==0",
+        "return": 1
+      },
+      {
+        "when": "u8[P+4b]bit5 set",
+        "return": 0
+      },
+      {
+        "when": "pair[P+e0/P+e8] differs",
+        "return": 0
+      },
+      {
+        "when": "otherwise",
+        "return": "pair[P+128/P+130] equality"
+      }
+    ],
+    "pure_read_proven": false,
+    "reason": "cold initializer writes shared state"
+  },
+  "caller_evidence": {
+    "slices": [
+      {
+        "entry": "0xab31c8",
+        "exclusive_end": "0xab31d4",
+        "size_bytes": 12,
+        "sha256": "63f6eb938fb9c6c44969a840f0c3ce1ee87edbd01bb22485269d0419a6edd780",
+        "scope": "bounded caller instructions, not complete consumer CFG/alias proof"
+      },
+      {
+        "entry": "0xab42e4",
+        "exclusive_end": "0xab4300",
+        "size_bytes": 28,
+        "sha256": "f3c5a1fdc3f0595ef4744a10732c1a9c4f3ed279c1f4ccb43513a0f897463dd4",
+        "scope": "bounded caller instructions, not complete consumer CFG/alias proof"
+      }
+    ],
+    "entry_save": "ab31cc: X20=X0",
+    "helper_call": "ab42f4: X0=X20; ab42f8: BL15e0f58",
+    "numeric_filter": "u32[X20+40]&fffffffe equals82 excludes82/83",
+    "field_semantics_limit": "not proved to be assignment class; WrappedAssign classword+3a vs raw trackParam+40",
+    "complete_alias_proof": false
+  },
+  "newest_frontier": {
+    "claude_retained_REA": "auto-analysis complete per CLDE096 at2026-10-20T16:10:33Z",
+    "597f1c_dossier": "ev_453e6debdb5d029b2a89a7db67b86c9e2b8cd191f645514aa79fc70b42275f51",
+    "597f1c_role": "Claude medium-confidence descriptive formatter inference; full body not independently audited",
+    "codex_next": [
+      "0x15de134",
+      "actual value-apply callees from0xab3184"
+    ],
+    "claude_next": "bounded39flag reset writers and tolerance operand proof",
+    "scan_limit": "STRB-pattern list is not exhaustive for wide/copy/alias writes"
+  },
+  "anchors": {
+    "path": "Research/protocol/pickup-global-12.4-anchors.tsv",
+    "instruction_count": 101
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-pickup-global-004/pickup-global-proof.json",
+      "sha256": "d740ac68dced4d10bab9f88ea1ab2c016cefb1e87af27525c43fdaf33b7a8799",
+      "size_bytes": 20721,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-pickup-global-004/inspect_global.py",
+      "sha256": "f4d4d88666a0267bc830cd02bf3242a55a592901c3bfc9afb5dcf277216e7555",
+      "size_bytes": 6397,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/af-0x15e0f58.json",
+      "sha256": "4cb2019c841b8efbaf8c512f4f2ec556d5f471dc19fc9e339a1105198c64b801",
+      "size_bytes": 313345,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/af-0xaa3670.json",
+      "sha256": "a3398e68d26f3773357ed02ab0299abeb11a7ada9c9aff1abf675b6730449b74",
+      "size_bytes": 226929,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/af-0x597f1c.json",
+      "sha256": "2af31ee22ff9cafd785fbe3991ad62f937e8b42f5608ab66f04d6c4004b28fad",
+      "size_bytes": 9605922,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/pickup-ab3184.objdump.txt",
+      "sha256": "29a96289bf0d1d672b9c781e18d0282db2bc9ea1f5af4081619661db2a9355ae",
+      "size_bytes": 56408,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/notes/assignment-route-003.json",
+      "sha256": "8fbdd3c1bbb57be677fcb06f0a2d890d0e1423c3493d94f3bdc786d19f355326",
+      "size_bytes": 8497,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/notes/assignment-target-001.json",
+      "sha256": "958e22349964283414f8660cee03c0a31cf75f51fa2408cc9579f625498bcc98",
+      "size_bytes": 24166,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/pickup-global-12.4-anchors.tsv",
+      "sha256": "3805f90010ec12cac2e1abdccb22a04806388abcfcf977113a2bdc828272ba38",
+      "size_bytes": 12861,
+      "availability": "public_repo"
+    }
+  ],
+  "limits": [
+    "No current live settings, GUI operation or preference write.",
+    "No complete Pickup apply/state-reset contract or live experiment reproduction.",
+    "No full document/track/slot/instance/parameter identity or same-target readback."
+  ],
+  "validation": {
+    "instruction_anchors": {
+      "total": 101,
+      "passed": 101,
+      "exit_code": 0
+    },
+    "rea_subjects": "all three dossiers match preserved SHA",
+    "recorded_utc": "2026-10-20T16:21:18+00:00"
+  }
+}
