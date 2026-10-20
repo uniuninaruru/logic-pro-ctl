@@ -1,0 +1,24 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction anchors only (Claude, REA/Ghidra 12.1.4 session + llvm-objdump); no runtime claim. See Research/notes/assignment-identity-callbacks-001.en.md
+AI001	insn	0x15de164	134040b9	ldr w19, [x0, #0x40]	raw parameter code v read from Assign+0x40
+AI002	insn	0x15de1c0	68461212	and w8, w19, #0xffffc000	family A mask (v & 0xffffc000)
+AI003	insn	0x15de1c4	1f114071	cmp w8, #0x4, lsl #12	family A compare (== 0x4000)
+AI004	insn	0x15de1e4	03008012	mov w3, #-0x1	family A passes w3 = -1 (no explicit ordinal)
+AI005	insn	0x15de1e8	b0050094	bl 0x15df8a8	call resolver FUN_015df8a8
+AI006	insn	0x15de260	687e0853	lsr w8, w19, #8	family B (v >> 8)
+AI007	insn	0x15de2f0	694a1312	and w9, w19, #0xffffe000	family C mask (v & 0xffffe000)
+AI008	insn	0x15de86c	680e0051	sub w8, w19, #0x3	switch index v - 3
+AI009	insn	0x15de870	1f0d0c71	cmp w8, #0x303	switch bound 0x303
+AI010	insn	0x15de88c	40011fd6	br x10	jump table branch
+AI011	insn	0x15df9b8	2305f836	tbz w3, #0x1f, 0x15dfa5c	resolver: w3 sign test selects UUID vs ordinal path
+AI012	insn	0x15df9bc	08245aa9	ldp x8, x9, [x0, #0x1a0]	resolver: load Assign+0x1a0 key vector
+AI013	insn	0x15dfa0c	d6f20791	add x22, x22, #0x1fc	block 1 invoke = 0x15e01fc
+AI014	insn	0x15dfa34	3a541194	bl 0x1a34b1c	enumerator call (UUID block)
+AI015	insn	0x15dfa58	830e40b9	ldr w3, [x20, #0xc]	fallback: ordinal from first Assign+0xf8 entry +0xc
+AI016	insn	0x15dfab0	d6920991	add x22, x22, #0x264	block 2 invoke = 0x15e0264
+AI017	insn	0x15dfadc	10541194	bl 0x1a34b1c	enumerator call (descriptor block)
+AI018	insn	0x15e022c	6d6c1494	bl 0x1afb3e0	callback 1 calls CUUIDBase operator== stub
+AI019	insn	0x15e0268	69bc40b9	ldr w9, [x3, #0xbc]	callback 2 compares element +0xbc
+AI020	insn	0x15e027c	69b440b9	ldr w9, [x3, #0xb4]	callback 2 compares element +0xb4
+AI021	insn	0x15e028c	69b840b9	ldr w9, [x3, #0xb8]	callback 2 compares element +0xb8
+AI022	insn	0x15e02a8	0a4040b9	ldr w10, [x0, #0x40]	callback 2 compares running count with captured ordinal
