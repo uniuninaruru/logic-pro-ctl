@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-STARTUP-010",
+  "recorded_utc": "2026-10-20T21:01:53.509242+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "bounded_static_startup_provenance",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "startup_setup": {
+    "entry": "0xad4bb4",
+    "requested_basename": {
+      "address": "0x1da6a19",
+      "text": "com.apple.logic.pro.cs",
+      "hex": "636f6d2e6170706c652e6c6f6769632e70726f2e637300"
+    },
+    "file_ref_global": "0x26c1660",
+    "exists_import": "CFileRef::Exists() const",
+    "reader_call": "0xad4c60 ->0xaa194c",
+    "callback_block": {
+      "address": "0x22ce2e8",
+      "raw_header_hex": "ca1c0000000020800000005000000000a84fad0000001000c8e22c0200001000",
+      "isa": {
+        "address": "0x22ce2e8",
+        "raw_word": "0x8020000000001cca",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__NSConcreteGlobalBlock",
+        "ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak": false,
+        "addend": 0
+      },
+      "invoke": {
+        "address": "0x22ce2f8",
+        "raw_word": "0x10000000ad4fa8",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0xad4fa8",
+        "high8": 0
+      },
+      "descriptor": {
+        "address": "0x22ce300",
+        "raw_word": "0x100000022ce2c8",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "rebase",
+        "target": "0x22ce2c8",
+        "high8": 0
+      }
+    },
+    "directory_path_confirmed": false
+  },
+  "rdaf_callback": {
+    "owner": "0xad4fa8",
+    "dispatch_constant": "0x46414452",
+    "mode0_file_bytes": "RDAF",
+    "entry_to_decoder": "0xad5914",
+    "decoder_call": "0xad591c ->0xabe67c",
+    "null_result_branches_to": "0xad5aac",
+    "normalizer_called_again": "0xad5960 ->0x15dbff0",
+    "container_source_global": "0x27717c8",
+    "index": "(container.end-container.begin)>>3",
+    "container_prepare_call": "0xad5958 ->0x18b25cc; internal behavior not audited here",
+    "setter_call": "0xad5974 ->0x18b2980(container,index,assignment,W3=0)"
+  },
+  "registry_setter": {
+    "entry": "0x18b2980",
+    "bytes": 296,
+    "pointer_store": "0x18b29cc: container.begin[index]=assignment",
+    "list16_rule": "if assignment+0x1e8 begin==end, request list16 length16 through0x15dc49c, then if nonnull call CUUIDBase::Init(uuidVersion) with raw enum argument1",
+    "list16_plugin_instance_identity_confirmed": false,
+    "list16_role": "separate generated token; assignment identity is an inference",
+    "startup_flag_zero_skips": [
+      "0x15e194c",
+      "0x15e43f0"
+    ],
+    "shared_mutex_calls": [
+      "std::__1::mutex::lock()",
+      "std::__1::mutex::unlock()"
+    ]
+  },
+  "inspected_bytes": 780,
+  "helper_intervals": [
+    {
+      "label": "startup_registry_setter",
+      "entry": "0x18b2980",
+      "exclusive_end": "0x18b2aa8",
+      "size_bytes": 296,
+      "body_sha256": "82a6db5fcc5965e888e3486fe498d24ea2d9bc21f5f69f3521068a934924a150"
+    },
+    {
+      "label": "startup_file_ref_name",
+      "entry": "0x19020c",
+      "exclusive_end": "0x190294",
+      "size_bytes": 136,
+      "body_sha256": "7b0c542d163066a51b6178b6213f75e1b457a9eb54f8230fa4829a74cd32572f"
+    }
+  ],
+  "anchor_table": {
+    "path": "Research/protocol/assignment-startup-12.4-anchors.tsv",
+    "count": 201,
+    "sha256": "5d4d61c492d33b6b9906915ed39c1a8032433891015e47255ec540e78d870c1e"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/curate.py",
+      "sha256": "b84d009e39bf784a7ebd7ea690c9f66cca107e70de299fd00561abc3e97415d9",
+      "size_bytes": 4526
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/inspect_startup.py",
+      "sha256": "5bcc701b3e115db790e216750e335491d5920a11809f955aa1ffd24ebc264121",
+      "size_bytes": 2583
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/startup-proof.json",
+      "sha256": "cb1274d22f29a47527964588abefd94b4d28c626ab1f29d3181ca0b8ab1719ef",
+      "size_bytes": 19249
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/inspect_bindings.py",
+      "sha256": "df29d1c687c8caf5cef5fda76a2a344d4c6ae50b79c24af514aaefb08f57b451",
+      "size_bytes": 1681
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/startup-bindings.json",
+      "sha256": "365cc50b39c52d413b5b6eae23038b1de77d3609f189b7ed6b94d6a327bbbe98",
+      "size_bytes": 5914
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/inspect_helpers.py",
+      "sha256": "ac037e924ede559a3c60b624879d1a4ce260b2576432127654083f86e41aab1b",
+      "size_bytes": 2743
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-startup-010/startup-helpers.json",
+      "sha256": "5132c435956fff6db3f92d28d587d96876d781dea8c6f09e3b2f51eea03597e4",
+      "size_bytes": 18131
+    },
+    {
+      "path": "Research/notes/assignment-fields-007.json",
+      "sha256": "6868aa488439850d14dbc0ea2f18525265ea4cbac1e128ee0e171b8caba439b6",
+      "size_bytes": 6741
+    },
+    {
+      "path": "Research/notes/cs-assignment-inventory-009.json",
+      "sha256": "d4448aea27911eca2bee5a6b9ebd7d4258f7796cb11fafaac3c99de111391f3e",
+      "size_bytes": 2776
+    }
+  ],
+  "limits": [
+    "Only348B of two caller functions plus432B of two bounded helpers were disassembled here; adjacent paths excluded.",
+    "The existingCS-READER-001 startup caller link is reused, not independently audited here.",
+    "The file-reference directory selector helper0x577090 and its argument8 are not decoded into a directory name.",
+    "Container preparation/helper internals, device/MIDI-port binding and actual current startup execution remain unproved.",
+    "CUUIDBase::Init raw enum1 is not assigned a UUID-standard version name.",
+    "No preferences writes, Logic launch, MIDI, GUI change, or new verified capability."
+  ]
+}

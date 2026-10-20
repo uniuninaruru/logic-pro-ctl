@@ -1,0 +1,203 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Bounded startup-copy provenance only; no target execution
+AS001	insn	0xad4bcc	73df00b0	adrp x19, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS002	insn	0xad4bd0	73221b91	add x19, x19, #0x6c8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS003	insn	0xad4bd4	68c2bf38	ldaprb w8, [x19]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS004	insn	0xad4bd8	880e0036	tbz w8, #0x0, 0xad4da8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS005	insn	0xad4bdc	60df00b0	adrp x0, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS006	insn	0xad4be0	00801991	add x0, x0, #0x660	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS007	insn	0xad4be4	01018052	mov w1, #0x8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS008	insn	0xad4be8	2a89ea97	bl 0x577090	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS009	insn	0xad4bec	68c2bf38	ldaprb w8, [x19]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS010	insn	0xad4bf0	08100036	tbz w8, #0x0, 0xad4df0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS011	insn	0xad4bf4	60df00b0	adrp x0, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS012	insn	0xad4bf8	00801991	add x0, x0, #0x660	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS013	insn	0xad4bfc	819600d0	adrp x1, 0x1da6000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS014	insn	0xad4c00	21642891	add x1, x1, #0xa19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS015	insn	0xad4c04	82edda97	bl 0x19020c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS016	insn	0xad4c08	68c2bf38	ldaprb w8, [x19]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS017	insn	0xad4c0c	68110036	tbz w8, #0x0, 0xad4e38	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS018	insn	0xad4c10	60df00b0	adrp x0, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS019	insn	0xad4c14	00801991	add x0, x0, #0x660	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS020	insn	0xad4c18	81984094	bl 0x1afae1c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS021	insn	0xad4c1c	c0030034	cbz w0, 0xad4c94	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS022	insn	0xad4c20	68c2bf38	ldaprb w8, [x19]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS023	insn	0xad4c24	e8120036	tbz w8, #0x0, 0xad4e80	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS024	insn	0xad4c28	68df00b0	adrp x8, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS025	insn	0xad4c2c	1f410c79	strh wzr, [x8, #0x620]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS026	insn	0xad4c30	73df00b0	adrp x19, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS027	insn	0xad4c34	7fd206b9	str wzr, [x19, #0x6d0]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS028	insn	0xad4c38	68df00b0	adrp x8, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS029	insn	0xad4c3c	1f6d03f9	str xzr, [x8, #0x6d8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS030	insn	0xad4c40	c8c500d0	adrp x8, 0x238e000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS031	insn	0xad4c44	08411691	add x8, x8, #0x590	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS032	insn	0xad4c48	e87f00a9	stp x8, xzr, [sp]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS033	insn	0xad4c4c	60df00b0	adrp x0, 0x26c1000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS034	insn	0xad4c50	00801991	add x0, x0, #0x660	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS035	insn	0xad4c54	c1bf00d0	adrp x1, 0x22ce000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS036	insn	0xad4c58	21a00b91	add x1, x1, #0x2e8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS037	insn	0xad4c5c	e2030091	mov x2, sp	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS038	insn	0xad4c60	3b33ff97	bl 0xaa194c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS039	insn	0xad4fc8	f50303aa	mov x21, x3	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS040	insn	0xad4fcc	f30301aa	mov x19, x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS041	insn	0xad4fd0	c8bd00b0	adrp x8, 0x228d000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS042	insn	0xad4fd4	081143f9	ldr x8, [x8, #0x620]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS043	insn	0xad4fd8	080140f9	ldr x8, [x8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS044	insn	0xad4fdc	a8031af8	stur x8, [x29, #-0x60]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS045	insn	0xad4fe0	28008052	mov w8, #0x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS046	insn	0xad4fe4	a9298852	mov w9, #0x414d	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS047	insn	0xad4fe8	a989a972	movk w9, #0x4c4d, lsl #16	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS048	insn	0xad4fec	5f0009eb	cmp x2, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS049	insn	0xad4ff0	4c2b0054	b.gt 0xad5558	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS050	insn	0xad4ff4	e9c38a52	mov w9, #0x561f	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS051	insn	0xad4ff8	a988a872	movk w9, #0x4445, lsl #16	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS052	insn	0xad4ffc	5f0009eb	cmp x2, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS053	insn	0xad5000	4d2e0054	b.le 0xad55c8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS054	insn	0xad5004	09c48a52	mov w9, #0x5620	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS055	insn	0xad5008	a988a872	movk w9, #0x4445, lsl #16	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS056	insn	0xad500c	5f0009eb	cmp x2, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS057	insn	0xad5010	00380054	b.eq 0xad5710	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS058	insn	0xad5014	498a8852	mov w9, #0x4452	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS059	insn	0xad5018	29c8a872	movk w9, #0x4641, lsl #16	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS060	insn	0xad501c	5f0009eb	cmp x2, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS061	insn	0xad5020	a0470054	b.eq 0xad5914	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS062	insn	0xad5914	e00313aa	mov x0, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS063	insn	0xad5918	e10315aa	mov x1, x21	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS064	insn	0xad591c	58a3ff97	bl 0xabe67c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS065	insn	0xad5920	600c00b4	cbz x0, 0xad5aac	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS066	insn	0xad5924	f30300aa	mov x19, x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS067	insn	0xad5928	e8e40090	adrp x8, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS068	insn	0xad592c	08411f91	add x8, x8, #0x7d0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS069	insn	0xad5930	08c1bf38	ldaprb w8, [x8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS070	insn	0xad5934	f4e40090	adrp x20, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS071	insn	0xad5938	28390036	tbz w8, #0x0, 0xad605c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS072	insn	0xad593c	94e643f9	ldr x20, [x20, #0x7c8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS073	insn	0xad5940	892240a9	ldp x9, x8, [x20]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS074	insn	0xad5944	080109cb	sub x8, x8, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS075	insn	0xad5948	15fd4393	asr x21, x8, #3	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS076	insn	0xad594c	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS077	insn	0xad5950	e10315aa	mov x1, x21	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS078	insn	0xad5954	22008052	mov w2, #0x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS079	insn	0xad5958	1d733794	bl 0x18b25cc	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS080	insn	0xad595c	e00313aa	mov x0, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS081	insn	0xad5960	a4192c94	bl 0x15dbff0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS082	insn	0xad5964	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS083	insn	0xad5968	e10315aa	mov x1, x21	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS084	insn	0xad596c	e20313aa	mov x2, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS085	insn	0xad5970	03008052	mov w3, #0x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS086	insn	0xad5974	03743794	bl 0x18b2980	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS087	insn	0xad5978	b4000014	b 0xad5c48	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS088	insn	0x18b2980	f657bda9	stp x22, x21, [sp, #-0x30]!	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS089	insn	0x18b2984	f44f01a9	stp x20, x19, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS090	insn	0x18b2988	fd7b02a9	stp x29, x30, [sp, #0x20]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS091	insn	0x18b298c	fd830091	add x29, sp, #0x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS092	insn	0x18b2990	f40303aa	mov x20, x3	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS093	insn	0x18b2994	f30302aa	mov x19, x2	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS094	insn	0x18b2998	f50301aa	mov x21, x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS095	insn	0x18b299c	f60300aa	mov x22, x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS096	insn	0x18b29a0	49a05ea9	ldp x9, x8, [x2, #0x1e8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS097	insn	0x18b29a4	1f0109eb	cmp x8, x9	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS098	insn	0x18b29a8	01010054	b.ne 0x18b29c8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS099	insn	0x18b29ac	e00313aa	mov x0, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS100	insn	0x18b29b0	01028052	mov w1, #0x10	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS101	insn	0x18b29b4	02028052	mov w2, #0x10	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS102	insn	0x18b29b8	b9a6f497	bl 0x15dc49c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS103	insn	0x18b29bc	600000b4	cbz x0, 0x18b29c8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS104	insn	0x18b29c0	21008052	mov w1, #0x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS105	insn	0x18b29c4	821e0994	bl 0x1afa3cc	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS106	insn	0x18b29c8	c80240f9	ldr x8, [x22]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS107	insn	0x18b29cc	137935f8	str x19, [x8, x21, lsl #3]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS108	insn	0x18b29d0	e87500f0	adrp x8, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS109	insn	0x18b29d4	08411f91	add x8, x8, #0x7d0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS110	insn	0x18b29d8	08c1bf38	ldaprb w8, [x8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS111	insn	0x18b29dc	f57500f0	adrp x21, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS112	insn	0x18b29e0	08040036	tbz w8, #0x0, 0x18b2a60	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS113	insn	0x18b29e4	b5e643f9	ldr x21, [x21, #0x7c8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS114	insn	0x18b29e8	162f8652	mov w22, #0x3178	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS115	insn	0x18b29ec	a002168b	add x0, x21, x22	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS116	insn	0x18b29f0	1c220994	bl 0x1afb260	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS117	insn	0x18b29f4	08418652	mov w8, #0x3208	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS118	insn	0x18b29f8	bf6a2878	strh wzr, [x21, x8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS119	insn	0x18b29fc	a002168b	add x0, x21, x22	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS120	insn	0x18b2a00	1b220994	bl 0x1afb26c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS121	insn	0x18b2a04	74020034	cbz w20, 0x18b2a50	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS122	insn	0x18b2a50	fd7b42a9	ldp x29, x30, [sp, #0x20]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS123	insn	0x18b2a54	f44f41a9	ldp x20, x19, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS124	insn	0x18b2a58	f657c3a8	ldp x22, x21, [sp], #0x30	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS125	insn	0x18b2a5c	c0035fd6	ret	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS126	insn	0x18b2a60	e07500f0	adrp x0, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS127	insn	0x18b2a64	00401f91	add x0, x0, #0x7d0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS128	insn	0x18b2a68	94220994	bl 0x1afb4b8	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS129	insn	0x18b2a6c	c0fbff34	cbz w0, 0x18b29e4	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS130	insn	0x18b2a70	44fcff97	bl 0x18b1b80	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS131	insn	0x18b2a74	e8750090	adrp x8, 0x276e000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS132	insn	0x18b2a78	08d142f9	ldr x8, [x8, #0x5a0]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS133	insn	0x18b2a7c	a8e603f9	str x8, [x21, #0x7c8]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS134	insn	0x18b2a80	e07500f0	adrp x0, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS135	insn	0x18b2a84	00401f91	add x0, x0, #0x7d0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS136	insn	0x18b2a88	8f220994	bl 0x1afb4c4	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS137	insn	0x18b2a8c	d6ffff17	b 0x18b29e4	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS138	insn	0x18b2a90	f30300aa	mov x19, x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS139	insn	0x18b2a94	e07500f0	adrp x0, 0x2771000	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS140	insn	0x18b2a98	00401f91	add x0, x0, #0x7d0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS141	insn	0x18b2a9c	84220994	bl 0x1afb4ac	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS142	insn	0x18b2aa0	e00313aa	mov x0, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS143	insn	0x18b2aa4	3c140994	bl 0x1af7b94	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS144	insn	0x19020c	f44fbea9	stp x20, x19, [sp, #-0x20]!	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS145	insn	0x190210	fd7b01a9	stp x29, x30, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS146	insn	0x190214	fd430091	add x29, sp, #0x10	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS147	insn	0x190218	f30301aa	mov x19, x1	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS148	insn	0x19021c	f40300aa	mov x20, x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS149	insn	0x190220	0bab6594	bl 0x1afae4c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS150	insn	0x190224	00020036	tbz w0, #0x0, 0x190264	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS151	insn	0x190228	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS152	insn	0x19022c	0bab6594	bl 0x1afae58	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS153	insn	0x190230	e0000037	tbnz w0, #0x0, 0x19024c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS154	insn	0x190234	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS155	insn	0x190238	05ab6594	bl 0x1afae4c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS156	insn	0x19023c	00020034	cbz w0, 0x19027c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS157	insn	0x190240	800240f9	ldr x0, [x20]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS158	insn	0x190244	41966594	bl 0x1af5b48	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS159	insn	0x190248	a0010034	cbz w0, 0x19027c	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS160	insn	0x19024c	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS161	insn	0x190250	e10313aa	mov x1, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS162	insn	0x190254	02008052	mov w2, #0x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS163	insn	0x190258	fd7b41a9	ldp x29, x30, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS164	insn	0x19025c	f44fc2a8	ldp x20, x19, [sp], #0x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS165	insn	0x190260	34a86514	b 0x1afa330	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS166	insn	0x190264	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS167	insn	0x190268	e10313aa	mov x1, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS168	insn	0x19026c	02008052	mov w2, #0x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS169	insn	0x190270	fd7b41a9	ldp x29, x30, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS170	insn	0x190274	f44fc2a8	ldp x20, x19, [sp], #0x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS171	insn	0x190278	1fa86514	b 0x1afa2f4	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS172	insn	0x19027c	e00314aa	mov x0, x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS173	insn	0x190280	e10313aa	mov x1, x19	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS174	insn	0x190284	02008052	mov w2, #0x0	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS175	insn	0x190288	fd7b41a9	ldp x29, x30, [sp, #0x10]	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS176	insn	0x19028c	f44fc2a8	ldp x20, x19, [sp], #0x20	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS177	insn	0x190290	f5a76514	b 0x1afa264	ASSIGN-STARTUP-010 filename/decoder/registry witness
+AS178	data	0x1da6a19	636f6d2e6170706c652e6c6f6769632e70726f2e637300		Requested preferences basename, not a proven directory path
+AS179	data	0x22ce2e8	ca1c0000000020800000005000000000a84fad0000001000c8e22c0200001000		Global block header, invoke rebase at+0x10
+AS180	data	0x1afae1c	d03c00b0101e45f900021fd6		Exact chained-import stub
+AS181	bind	0x2293a38		MAFiles/__ZNK8CFileRef6ExistsEv	Exact imported __ZNK8CFileRef6ExistsEv
+AS182	data	0x1afa384	d03c00b010ae44f900021fd6		Exact chained-import stub
+AS183	bind	0x2293958		MAFiles/__ZN8CFileRefC1Ev	Exact imported __ZN8CFileRefC1Ev
+AS184	data	0x1afa3cc	b03c00b0108e45f900021fd6		Exact chained-import stub
+AS185	bind	0x228fb18		MACore/__ZN9CUUIDBase4InitENS_11uuidVersionE	Exact imported __ZN9CUUIDBase4InitENS_11uuidVersionE
+AS186	data	0x1afae4c	d03c00b0102e45f900021fd6		Exact chained-import stub
+AS187	bind	0x2293a58		MAFiles/__ZNK8CFileRef7IsValidEv	Exact imported __ZNK8CFileRef7IsValidEv
+AS188	data	0x1afae58	d03c00b0103245f900021fd6		Exact chained-import stub
+AS189	bind	0x2293a60		MAFiles/__ZNK8CFileRef8IsFolderEv	Exact imported __ZNK8CFileRef8IsFolderEv
+AS190	data	0x1af5b48	d03c00f0104646f900021fd6		Exact chained-import stub
+AS191	bind	0x2290c88		CoreFoundation/_CFURLHasDirectoryPath	Exact imported _CFURLHasDirectoryPath
+AS192	data	0x1afa330	d03c00b0109244f900021fd6		Exact chained-import stub
+AS193	bind	0x2293920		MAFiles/__ZN8CFileRef9AddToPathEPKcb	Exact imported __ZN8CFileRef9AddToPathEPKcb
+AS194	data	0x1afa2f4	d03c00b0107e44f900021fd6		Exact chained-import stub
+AS195	bind	0x22938f8		MAFiles/__ZN8CFileRef3SetEPKcb	Exact imported __ZN8CFileRef3SetEPKcb
+AS196	data	0x1afa264	d03c00b0104a44f900021fd6		Exact chained-import stub
+AS197	bind	0x2293890		MAFiles/__ZN8CFileRef11ReplaceNameEPKcb	Exact imported __ZN8CFileRef11ReplaceNameEPKcb
+AS198	data	0x1afb260	f03c0090102244f900021fd6		Exact chained-import stub
+AS199	bind	0x2297840		libc++/__ZNSt3__15mutex4lockEv	Exact imported __ZNSt3__15mutex4lockEv
+AS200	data	0x1afb26c	f03c0090102644f900021fd6		Exact chained-import stub
+AS201	bind	0x2297848		libc++/__ZNSt3__15mutex6unlockEv	Exact imported __ZNSt3__15mutex6unlockEv
