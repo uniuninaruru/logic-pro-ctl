@@ -2,7 +2,7 @@
 
 [Research guide](../README.md) · Static basis: [PICKUP-CONSUMER-001](../notes/pickup-consumer-001.en.md), Codex's [pickup-global-004](../notes/pickup-global-004.en.md) and assignment notes · Overall plan: [midi-assignment-automation-001](midi-assignment-automation-001.en.md)
 
-日本語要約：夜の静的解析から出た予測を、朝に実機で確かめる計画。①コントローラアサインメントの行を選んだ直後の CC は 1 回無視される、②同じ値の再送は捨てられる（ピックアップがオフでも）、③同じスロットのプラグインを別の EQ に差し替えたとき、CC 23 の行が新しいプラグインを指すか。1 回の実験で変える条件は 1 つ。音を出さない。終わったら元に戻す。
+日本語要約：夜の静的解析から出た予測を、朝に実機で確かめる計画。①コントローラアサインメントの行を選んだ直後の CC は 1 回無視される、②同じ値の再送は捨てられる（ピックアップがオフでも）、③同じスロットのプラグインを、別の EQ に差し替えた場合（指さないと予測）と、新しい Channel EQ に差し替えた場合（指すと予測）で、CC 23 がどうなるか。1 回の実験で変える条件は 1 つ。音を出さない。終わったら元に戻す。
 
 Owner: Claude (GUI and live). Codex leads and may reorder. Nothing here has been run yet.
 
@@ -20,7 +20,8 @@ Owner: Claude (GUI and live). Codex leads and may reorder. Nothing here has been
 |---|---|---|---|---|
 | T1 | Repeat the same CC 21 value twice on the selected track | The second message is skipped (no change), with Pickup on and again with Pickup off | MCU pan readback after each message | Pan back to the baseline with the MCU; Pickup back on |
 | T2 | Select a row in the Controller Assignments window (syncSelection), then send one CC 21 value near the current pan | The first message after the selection is ignored once ("not yet valid"); the next one applies | MCU pan readback | Pan to baseline; close the window |
-| T3 | Replace Channel EQ in the Synth's first audio-effect slot with another Apple EQ, by the menu path in Apple's guide | Unknown: the resolver can match by UUID (pinned key) or by position. Record which: CC 23 moves the new plug-in, moves nothing, or the row label changes | Controller Assignments row label; the new plug-in's value on screen (and Codex's read-only AX reader if available); `B0 17` sends one at a time | Undo the replacement (Edit menu), confirm Channel EQ is back with Gain 0.0 dB |
+| T3a | Replace Channel EQ in the Synth's first audio-effect slot with a **different** Apple EQ, by the menu path in Apple's guide | Static reading (CLDE108): without a pinned UUID key the resolver looks for the N-th plug-in whose stored 3-word descriptor matches, so a different plug-in should **not** be matched: CC 23 moves nothing or the row target shows as missing | Controller Assignments row label; on-screen value of the new plug-in; `B0 17` sends one at a time | Undo the replacement (Edit menu); confirm Channel EQ is back with Gain 0.0 dB |
+| T3b | Replace Channel EQ with a **new Channel EQ** instance in the same slot | Same descriptor and ordinal, so CC 23 should control the new instance | Same as T3a | Undo; confirm the original instance and its settings are back |
 | T4 | Register one temporary key-command assignment, then copy the preferences file when its header is valid | A stable post-registration copy shows one added RDAF record (replacing the invalid `s1_1` evidence) | Codex's strict parser | Delete the assignment through "Delete Assignment" |
 
 ## Reporting
