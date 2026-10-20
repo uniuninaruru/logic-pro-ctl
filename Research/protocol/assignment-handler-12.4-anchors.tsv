@@ -1,0 +1,138 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Thread-dependent buffer producer and scheduling only; no consumer/value proof
+HD001	insn	0x781454	f70304aa	mov x23, x4	Thread-port comparison and mismatch branch
+HD002	insn	0x781458	f60303aa	mov x22, x3	Thread-port comparison and mismatch branch
+HD003	insn	0x78145c	f50302aa	mov x21, x2	Thread-port comparison and mismatch branch
+HD004	insn	0x781460	f30301aa	mov x19, x1	Thread-port comparison and mismatch branch
+HD005	insn	0x781464	f40300aa	mov x20, x0	Thread-port comparison and mismatch branch
+HD006	insn	0x781468	68d80090	adrp x8, 0x228d000	Thread-port comparison and mismatch branch
+HD007	insn	0x78146c	081143f9	ldr x8, [x8, #0x620]	Thread-port comparison and mismatch branch
+HD008	insn	0x781470	080140f9	ldr x8, [x8]	Thread-port comparison and mismatch branch
+HD009	insn	0x781474	a8831bf8	stur x8, [x29, #-0x48]	Thread-port comparison and mismatch branch
+HD010	insn	0x781478	a5e94d94	bl 0x1afbb0c	Thread-port comparison and mismatch branch
+HD011	insn	0x78147c	f80300aa	mov x24, x0	Thread-port comparison and mismatch branch
+HD012	insn	0x781480	48f700f0	adrp x8, 0x266c000	Thread-port comparison and mismatch branch
+HD013	insn	0x781484	19c940b9	ldr w25, [x8, #0xc8]	Thread-port comparison and mismatch branch
+HD014	insn	0x781488	68d80090	adrp x8, 0x228d000	Thread-port comparison and mismatch branch
+HD015	insn	0x78148c	08c544f9	ldr x8, [x8, #0x988]	Thread-port comparison and mismatch branch
+HD016	insn	0x781490	000140b9	ldr w0, [x8]	Thread-port comparison and mismatch branch
+HD017	insn	0x781494	e10318aa	mov x1, x24	Thread-port comparison and mismatch branch
+HD018	insn	0x781498	9ae94d94	bl 0x1afbb00	Thread-port comparison and mismatch branch
+HD019	insn	0x78149c	1f03196b	cmp w24, w25	Thread-port comparison and mismatch branch
+HD020	insn	0x7814a0	21060054	b.ne 0x781564	Thread-port comparison and mismatch branch
+HD021	insn	0x7814ec	7edb4d94	bl 0x1af82e4	Imported feature check, raw feature ID 4
+HD022	insn	0x7814f0	81008052	mov w1, #0x4	Imported feature check, raw feature ID 4
+HD023	insn	0x7814f4	84e54d94	bl 0x1afab04	Imported feature check, raw feature ID 4
+HD024	insn	0x7814f8	e00a0036	tbz w0, #0x0, 0x781654	Imported feature check, raw feature ID 4
+HD025	insn	0x781564	68024039	ldrb w8, [x19]	Primary B8 record buffer producer and timer scheduling
+HD026	insn	0x781568	09091b12	and w9, w8, #0xe0	Primary B8 record buffer producer and timer scheduling
+HD027	insn	0x78156c	3f010171	cmp w9, #0x40	Primary B8 record buffer producer and timer scheduling
+HD028	insn	0x781570	80000054	b.eq 0x781580	Primary B8 record buffer producer and timer scheduling
+HD029	insn	0x781574	08810251	sub w8, w8, #0xa0	Primary B8 record buffer producer and timer scheduling
+HD030	insn	0x781578	1f3d0171	cmp w8, #0x4f	Primary B8 record buffer producer and timer scheduling
+HD031	insn	0x78157c	a80e0054	b.hi 0x781750	Primary B8 record buffer producer and timer scheduling
+HD032	insn	0x781580	680a40f9	ldr x8, [x19, #0x10]	Primary B8 record buffer producer and timer scheduling
+HD033	insn	0x781584	680ef8b6	tbz x8, #0x3f, 0x781750	Primary B8 record buffer producer and timer scheduling
+HD034	insn	0x781588	09e0f7d2	mov x9, #-0x4100000000000000	Primary B8 record buffer producer and timer scheduling
+HD035	insn	0x78158c	0901098a	and x9, x8, x9	Primary B8 record buffer producer and timer scheduling
+HD036	insn	0x781590	0a00f7d2	mov x10, #-0x4800000000000000	Primary B8 record buffer producer and timer scheduling
+HD037	insn	0x781594	3f010aeb	cmp x9, x10	Primary B8 record buffer producer and timer scheduling
+HD038	insn	0x781598	810d0054	b.ne 0x781748	Primary B8 record buffer producer and timer scheduling
+HD039	insn	0x78159c	081d4892	and x8, x8, #0xff00000000000000	Primary B8 record buffer producer and timer scheduling
+HD040	insn	0x7815a0	0900f4d2	mov x9, #-0x6000000000000000	Primary B8 record buffer producer and timer scheduling
+HD041	insn	0x7815a4	1f0109eb	cmp x8, x9	Primary B8 record buffer producer and timer scheduling
+HD042	insn	0x7815a8	000d0054	b.eq 0x781748	Primary B8 record buffer producer and timer scheduling
+HD043	insn	0x7815ac	48ff00f0	adrp x8, 0x276c000	Primary B8 record buffer producer and timer scheduling
+HD044	insn	0x7815b0	082141f9	ldr x8, [x8, #0x240]	Primary B8 record buffer producer and timer scheduling
+HD045	insn	0x7815b4	080140f9	ldr x8, [x8]	Primary B8 record buffer producer and timer scheduling
+HD046	insn	0x7815b8	09629952	mov w9, #0xcb10	Primary B8 record buffer producer and timer scheduling
+HD047	insn	0x7815bc	0901a072	movk w9, #0x8, lsl #16	Primary B8 record buffer producer and timer scheduling
+HD048	insn	0x7815c0	0a6969f8	ldr x10, [x8, x9]	Primary B8 record buffer producer and timer scheduling
+HD049	insn	0x7815c4	0b314291	add x11, x8, #0x8c, lsl #12	Primary B8 record buffer producer and timer scheduling
+HD050	insn	0x7815c8	6b612c91	add x11, x11, #0xb18	Primary B8 record buffer producer and timer scheduling
+HD051	insn	0x7815cc	0c414291	add x12, x8, #0x90, lsl #12	Primary B8 record buffer producer and timer scheduling
+HD052	insn	0x7815d0	8c612691	add x12, x12, #0x998	Primary B8 record buffer producer and timer scheduling
+HD053	insn	0x7815d4	6d420091	add x13, x19, #0x10	Primary B8 record buffer producer and timer scheduling
+HD054	insn	0x7815d8	9f010aeb	cmp x12, x10	Primary B8 record buffer producer and timer scheduling
+HD055	insn	0x7815dc	62814afa	ccmp x11, x10, #0x2, hi	Primary B8 record buffer producer and timer scheduling
+HD056	insn	0x7815e0	6e818a9a	csel x14, x11, x10, hi	Primary B8 record buffer producer and timer scheduling
+HD057	insn	0x7815e4	ca410091	add x10, x14, #0x10	Primary B8 record buffer producer and timer scheduling
+HD058	insn	0x7815e8	a001df3c	ldur q0, [x13, #-0x10]	Primary B8 record buffer producer and timer scheduling
+HD059	insn	0x7815ec	c001803d	str q0, [x14]	Primary B8 record buffer producer and timer scheduling
+HD060	insn	0x7815f0	ae0541f8	ldr x14, [x13], #0x10	Primary B8 record buffer producer and timer scheduling
+HD061	insn	0x7815f4	2effffb7	tbnz x14, #0x3f, 0x7815d8	Primary B8 record buffer producer and timer scheduling
+HD062	insn	0x7815f8	0a6929f8	str x10, [x8, x9]	Primary B8 record buffer producer and timer scheduling
+HD063	insn	0x7815fc	a8f700b0	adrp x8, 0x2676000	Primary B8 record buffer producer and timer scheduling
+HD064	insn	0x781600	09d17339	ldrb w9, [x8, #0xcf4]	Primary B8 record buffer producer and timer scheduling
+HD065	insn	0x781604	690a0037	tbnz w9, #0x0, 0x781750	Primary B8 record buffer producer and timer scheduling
+HD066	insn	0x781608	29008052	mov w9, #0x1	Primary B8 record buffer producer and timer scheduling
+HD067	insn	0x78160c	09d13339	strb w9, [x8, #0xcf4]	Primary B8 record buffer producer and timer scheduling
+HD068	insn	0x781610	40f700d0	adrp x0, 0x266b000	Primary B8 record buffer producer and timer scheduling
+HD069	insn	0x781614	00603491	add x0, x0, #0xd18	Primary B8 record buffer producer and timer scheduling
+HD070	insn	0x781618	1fa001f8	stur xzr, [x0, #0x1a]	Primary B8 record buffer producer and timer scheduling
+HD071	insn	0x78161c	a8835bf8	ldur x8, [x29, #-0x48]	Primary B8 record buffer producer and timer scheduling
+HD072	insn	0x781620	69d80090	adrp x9, 0x228d000	Primary B8 record buffer producer and timer scheduling
+HD073	insn	0x781624	291143f9	ldr x9, [x9, #0x620]	Primary B8 record buffer producer and timer scheduling
+HD074	insn	0x781628	290140f9	ldr x9, [x9]	Primary B8 record buffer producer and timer scheduling
+HD075	insn	0x78162c	3f0108eb	cmp x9, x8	Primary B8 record buffer producer and timer scheduling
+HD076	insn	0x781630	c11d0054	b.ne 0x7819e8	Primary B8 record buffer producer and timer scheduling
+HD077	insn	0x781634	010080d2	mov x1, #0x0	Primary B8 record buffer producer and timer scheduling
+HD078	insn	0x781638	ff031c91	add sp, sp, #0x700	Primary B8 record buffer producer and timer scheduling
+HD079	insn	0x78163c	fd7b44a9	ldp x29, x30, [sp, #0x40]	Primary B8 record buffer producer and timer scheduling
+HD080	insn	0x781640	f44f43a9	ldp x20, x19, [sp, #0x30]	Primary B8 record buffer producer and timer scheduling
+HD081	insn	0x781644	f65742a9	ldp x22, x21, [sp, #0x20]	Primary B8 record buffer producer and timer scheduling
+HD082	insn	0x781648	f85f41a9	ldp x24, x23, [sp, #0x10]	Primary B8 record buffer producer and timer scheduling
+HD083	insn	0x78164c	fa67c5a8	ldp x26, x25, [sp], #0x50	Primary B8 record buffer producer and timer scheduling
+HD084	insn	0x781650	a0d84d14	b 0x1af78d0	Primary B8 record buffer producer and timer scheduling
+HD085	insn	0x781654	550200b4	cbz x21, 0x78169c	Separate downstream dispatch or return witness
+HD086	insn	0x781658	33f5ffb4	cbz x19, 0x7814fc	Separate downstream dispatch or return witness
+HD087	insn	0x78165c	a8a64139	ldrb w8, [x21, #0x69]	Separate downstream dispatch or return witness
+HD088	insn	0x781660	1f450071	cmp w8, #0x11	Separate downstream dispatch or return witness
+HD089	insn	0x781664	e0010054	b.eq 0x7816a0	Separate downstream dispatch or return witness
+HD090	insn	0x781668	a5ffff17	b 0x7814fc	Separate downstream dispatch or return witness
+HD091	insn	0x78166c	350700b4	cbz x21, 0x781750	Separate downstream dispatch or return witness
+HD092	insn	0x781670	a8a64139	ldrb w8, [x21, #0x69]	Separate downstream dispatch or return witness
+HD093	insn	0x781674	1f390071	cmp w8, #0xe	Separate downstream dispatch or return witness
+HD094	insn	0x781678	c0060054	b.eq 0x781750	Separate downstream dispatch or return witness
+HD095	insn	0x78167c	ff2300f9	str xzr, [sp, #0x40]	Separate downstream dispatch or return witness
+HD096	insn	0x781680	e2030191	add x2, sp, #0x40	Separate downstream dispatch or return witness
+HD097	insn	0x781684	e00314aa	mov x0, x20	Separate downstream dispatch or return witness
+HD098	insn	0x781688	e10313aa	mov x1, x19	Separate downstream dispatch or return witness
+HD099	insn	0x78168c	03008052	mov w3, #0x0	Separate downstream dispatch or return witness
+HD100	insn	0x781690	04008052	mov w4, #0x0	Separate downstream dispatch or return witness
+HD101	insn	0x781694	34faff97	bl 0x77ff64	Separate downstream dispatch or return witness
+HD102	insn	0x781698	2e000014	b 0x781750	Separate downstream dispatch or return witness
+HD103	insn	0x781750	a8835bf8	ldur x8, [x29, #-0x48]	Separate downstream dispatch or return witness
+HD104	insn	0x781754	69d80090	adrp x9, 0x228d000	Separate downstream dispatch or return witness
+HD105	insn	0x781758	291143f9	ldr x9, [x9, #0x620]	Separate downstream dispatch or return witness
+HD106	insn	0x78175c	290140f9	ldr x9, [x9]	Separate downstream dispatch or return witness
+HD107	insn	0x781760	3f0108eb	cmp x9, x8	Separate downstream dispatch or return witness
+HD108	insn	0x781764	21140054	b.ne 0x7819e8	Separate downstream dispatch or return witness
+HD109	insn	0x781768	ff031c91	add sp, sp, #0x700	Separate downstream dispatch or return witness
+HD110	insn	0x78176c	fd7b44a9	ldp x29, x30, [sp, #0x40]	Separate downstream dispatch or return witness
+HD111	insn	0x781770	f44f43a9	ldp x20, x19, [sp, #0x30]	Separate downstream dispatch or return witness
+HD112	insn	0x781774	f65742a9	ldp x22, x21, [sp, #0x20]	Separate downstream dispatch or return witness
+HD113	insn	0x781778	f85f41a9	ldp x24, x23, [sp, #0x10]	Separate downstream dispatch or return witness
+HD114	insn	0x78177c	fa67c5a8	ldp x26, x25, [sp], #0x50	Separate downstream dispatch or return witness
+HD115	insn	0x781780	c0035fd6	ret	Separate downstream dispatch or return witness
+HD116	insn	0x781998	73f9ff97	bl 0x77ff64	Separate downstream dispatch or return witness
+HD117	insn	0x1afbb0c	903c00d0	adrp x16, 0x228d000	Exact import stub instruction
+HD118	insn	0x1afbb10	10ca44f9	ldr x16, [x16, #0x990]	Exact import stub instruction
+HD119	insn	0x1afbb14	00021fd6	br x16	Exact import stub instruction
+HD120	bind	0x228d990	5c02000000001080	libSystem/_mach_thread_self	Chained import binding, independently decoded from the image
+HD121	insn	0x1afbb00	903c00d0	adrp x16, 0x228d000	Exact import stub instruction
+HD122	insn	0x1afbb04	10c244f9	ldr x16, [x16, #0x980]	Exact import stub instruction
+HD123	insn	0x1afbb08	00021fd6	br x16	Exact import stub instruction
+HD124	bind	0x228d980	5a02000000001080	libSystem/_mach_port_deallocate	Chained import binding, independently decoded from the image
+HD125	insn	0x1af82e4	b03c00f0	adrp x16, 0x228f000	Exact import stub instruction
+HD126	insn	0x1af82e8	103a44f9	ldr x16, [x16, #0x870]	Exact import stub instruction
+HD127	insn	0x1af82ec	00021fd6	br x16	Exact import stub instruction
+HD128	bind	0x228f870	3806000000001080	MACore/__Z27GetFeatureAvailabilityCachev	Chained import binding, independently decoded from the image
+HD129	insn	0x1afab04	b03c00b0	adrp x16, 0x228f000	Exact import stub instruction
+HD130	insn	0x1afab08	10ca45f9	ldr x16, [x16, #0xb90]	Exact import stub instruction
+HD131	insn	0x1afab0c	00021fd6	br x16	Exact import stub instruction
+HD132	bind	0x228fb90	9c06000000001080	MACore/__ZNK20CFeatureAvailability16FeatureAvailableE10TFeatureID	Chained import binding, independently decoded from the image
+HD133	insn	0x1af78d0	d03c00f0	adrp x16, 0x2292000	Exact import stub instruction
+HD134	insn	0x1af78d4	102e42f9	ldr x16, [x16, #0x458]	Exact import stub instruction
+HD135	insn	0x1af78d8	00021fd6	br x16	Exact import stub instruction
+HD136	bind	0x2292458	b50b000000001080	CoreServices/_PrimeTime	Chained import binding, independently decoded from the image

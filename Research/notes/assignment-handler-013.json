@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-HANDLER-013",
+  "recorded_utc": "2026-10-20T21:27:46.537899+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "bounded_static_thread_dependent_record_buffer_producer",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "interval": {
+    "entry": "0x781438",
+    "exclusive_end": "0x781a50",
+    "size_bytes": 1560,
+    "body_sha256": "c895a04a9fd64f603d1c8cab57a14e1489fabded693cc4af4a67872d5bae040b"
+  },
+  "thread_gate": {
+    "thread_port_call": "0x781478 -> mach_thread_self",
+    "saved_port_global": "0x266c0c8 (32-bit)",
+    "port_release": "0x781498 -> mach_port_deallocate",
+    "compare": "0x78149c W24/W25",
+    "mismatch_branch": "0x7814a0 ->0x781564",
+    "global_initializer_or_main_thread_role_confirmed": false
+  },
+  "primary_record_path": {
+    "preconditions": [
+      "Thread-port mismatch",
+      "Primary byte tag 0x41..0x4f or 0x51..0x5f from ASSIGN-RECORD-012",
+      "First extension qword has high byte 0xb8"
+    ],
+    "buffer_base": "**(pointer at global 0x276c240)",
+    "cursor_field": "+0x8cb10",
+    "buffer_low": "+0x8cb18",
+    "buffer_exclusive_high": "+0x90998",
+    "byte_span": 16000,
+    "sixteen_byte_units": 1000,
+    "event_capacity_confirmed": false,
+    "writer": "0x7815ac..0x7815f8",
+    "wrap_rule": "If cursor is outside [low,high), select low before the next 16-byte store",
+    "continuation_rule": "After each 16-byte copy, the next source qword bit63 selects another unit",
+    "cursor_end_rule": "The stored final cursor may equal the exclusive high bound until another write wraps"
+  },
+  "scheduling": {
+    "armed_flag": "global 0x2676cf4 bit0",
+    "already_set": "0x781604 branches to return epilog 0x781750",
+    "new_schedule": [
+      "Store byte value 1 at 0x2676cf4",
+      "Zero qword at timer 0x266bd18 +0x1a",
+      "Tail-call PrimeTime(timer,0) at 0x781650 after restoring the frame"
+    ],
+    "callback_or_drain_identified": false,
+    "completion_latency_confirmed": false
+  },
+  "other_branch": {
+    "feature_gate": "GetFeatureAvailabilityCache then FeatureAvailable(raw ID 4), tested at0x7814f8",
+    "feature_meaning_confirmed": false,
+    "downstream_call_sites": [
+      "0x781694 ->0x77ff64",
+      "0x781998 ->0x77ff64"
+    ],
+    "next_interval": {
+      "entry": "0x77ff64",
+      "size_bytes": 3408,
+      "body_expanded_here": false
+    }
+  },
+  "bindings": [
+    {
+      "stub": "0x1afbb0c",
+      "raw_hex": "903c00d010ca44f900021fd6",
+      "binding": {
+        "address": "0x228d990",
+        "raw_word": "0x801000000000025c",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_mach_thread_self",
+        "ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1afbb00",
+      "raw_hex": "903c00d010c244f900021fd6",
+      "binding": {
+        "address": "0x228d980",
+        "raw_word": "0x801000000000025a",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_mach_port_deallocate",
+        "ordinal": 19,
+        "library": "/usr/lib/libSystem.B.dylib",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1af82e4",
+      "raw_hex": "b03c00f0103a44f900021fd6",
+      "binding": {
+        "address": "0x228f870",
+        "raw_word": "0x8010000000000638",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__Z27GetFeatureAvailabilityCachev",
+        "ordinal": 25,
+        "library": "@rpath/MACore.framework/Versions/A/MACore",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1afab04",
+      "raw_hex": "b03c00b010ca45f900021fd6",
+      "binding": {
+        "address": "0x228fb90",
+        "raw_word": "0x801000000000069c",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "__ZNK20CFeatureAvailability16FeatureAvailableE10TFeatureID",
+        "ordinal": 25,
+        "library": "@rpath/MACore.framework/Versions/A/MACore",
+        "weak": false,
+        "addend": 0
+      }
+    },
+    {
+      "stub": "0x1af78d0",
+      "raw_hex": "d03c00f0102e42f900021fd6",
+      "binding": {
+        "address": "0x2292458",
+        "raw_word": "0x8010000000000bb5",
+        "format": 6,
+        "chain_membership": true,
+        "kind": "bind",
+        "name": "_PrimeTime",
+        "ordinal": 56,
+        "library": "/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices",
+        "weak": false,
+        "addend": 0
+      }
+    }
+  ],
+  "restricted_replay": {
+    "cases": 72,
+    "mismatches": 0,
+    "visited_instruction_sites": 20,
+    "byte_span": 16000,
+    "sixteen_byte_units": 1000,
+    "max_units_in_case": 1001,
+    "source_sha256": "83643dfba467baf9a9659ac0a2a55c7e8d1f2abd6ec8cb15b6d71b1494d07aaf",
+    "reproducer_sha256": "22b6cc9ccbe8e7f2ea02c14a4e29d1fb8457555e7808e9b7dc91c1b0b9743107",
+    "limits": [
+      "Restricted LLVM-text producer loop only, starting7815ac, stopping atcursorstore7815f8.",
+      "No thread check, queue consumer, timer callback, target processing, concurrency or live transport is executed.",
+      "Aligned valid/outside cursors and bounded source lengths2..1001 units.",
+      "The modulo buffer reference can demonstrate overwriting in the model; live overflow/drop handling is not established.",
+      "The final cursor may equal exclusive end until the next iteration wraps."
+    ],
+    "runtime_verified": false
+  },
+  "saved_interval_bytes": 1560,
+  "curated_instruction_bytes": 524,
+  "anchor_table": {
+    "path": "Research/protocol/assignment-handler-12.4-anchors.tsv",
+    "count": 136,
+    "sha256": "3919afd56e93e1d32f13e7d9148317b86335a332c551a63234d3dd17c126af1c"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/curate.py",
+      "sha256": "0d722b8a3d295e6448deb92f272beffcbde135248dc465ffdf6235ad763dd0a3",
+      "size_bytes": 5557
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/inspect_handler.py",
+      "sha256": "76ae1844d1fc938c7bd2c0110a7a710f037ee51bce199fd4d295aea7715452f2",
+      "size_bytes": 2694
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/handler-proof.json",
+      "sha256": "83643dfba467baf9a9659ac0a2a55c7e8d1f2abd6ec8cb15b6d71b1494d07aaf",
+      "size_bytes": 57490
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/inspect_bindings.py",
+      "sha256": "53ee562923ab878b02b9f5a8aa3f56811f734f6843569f2a115547785601e0d0",
+      "size_bytes": 1433
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/handler-bindings.json",
+      "sha256": "a6b71bdc8f758d227a610053c0dfb07dd74722c1db682d975d178b95a7839327",
+      "size_bytes": 2394
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/replay_queue.py",
+      "sha256": "22b6cc9ccbe8e7f2ea02c14a4e29d1fb8457555e7808e9b7dc91c1b0b9743107",
+      "size_bytes": 4149
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-handler-013/queue-replay.json",
+      "sha256": "7bb41f39a4538362a2472a99496d3ca9b25333fa2ad5b042a931eecfefffd962",
+      "size_bytes": 873
+    },
+    {
+      "path": "Research/raw/ghidra/parent-decode-next-review-013.py",
+      "sha256": "807ba3607a37ad8d7c917ce2895d0b28b4609b1506bcd0003cfc9a82de3078b8",
+      "size_bytes": 12240
+    },
+    {
+      "path": "Research/notes/assignment-record-012.json",
+      "sha256": "1cd509f096d2fdc95fc02a4bb66dbf5c4036381f5aa3858989dc882e6b191d4e",
+      "size_bytes": 6172
+    },
+    {
+      "path": "Tools/research-scripts/binary_anchors.py",
+      "sha256": "fc6490ae288b5846a845199ae3111ac55250335bb760cdd7b92b709683388679",
+      "size_bytes": 11874
+    }
+  ],
+  "limits": [
+    "The thread-port global role and initializer are unknown; do not call it the UI/main thread.",
+    "The 1000 units count 16-byte storage locations, not complete events, queue safety or throughput.",
+    "Replay covers only aligned bounded producer cases; no timer, consumer, concurrency or live target is executed.",
+    "Enqueue/scheduling is not proof of downstream application, assignment identity or a physical plug-in value.",
+    "No new engine session, live UI, MIDI, preferences write or verified capability."
+  ]
+}
