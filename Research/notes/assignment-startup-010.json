@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ASSIGN-STARTUP-010",
-  "recorded_utc": "2026-10-20T21:01:53.509242+00:00",
+  "recorded_utc": "2026-10-20T21:03:55.074204+00:00",
   "scope": {
     "binary": "Logic12.4-6707.arm64",
     "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
@@ -84,7 +84,7 @@
       "std::__1::mutex::unlock()"
     ]
   },
-  "inspected_bytes": 780,
+  "curated_instruction_bytes": 780,
   "helper_intervals": [
     {
       "label": "startup_registry_setter",
@@ -109,8 +109,8 @@
   "source_manifest": [
     {
       "path": "Research/raw/rea/codex-assignment-startup-010/curate.py",
-      "sha256": "b84d009e39bf784a7ebd7ea690c9f66cca107e70de299fd00561abc3e97415d9",
-      "size_bytes": 4526
+      "sha256": "5aa52f575f0192c4614684f561561fd7c236c595917d7e8bf1baff7769c0428b",
+      "size_bytes": 4597
     },
     {
       "path": "Research/raw/rea/codex-assignment-startup-010/inspect_startup.py",
@@ -154,7 +154,7 @@
     }
   ],
   "limits": [
-    "Only348B of two caller functions plus432B of two bounded helpers were disassembled here; adjacent paths excluded.",
+    "Curated instruction witnesses cover348B of caller excerpts plus432B of helper intervals; exploratory adjacent slices are excluded from the curated claims.",
     "The existingCS-READER-001 startup caller link is reused, not independently audited here.",
     "The file-reference directory selector helper0x577090 and its argument8 are not decoded into a directory name.",
     "Container preparation/helper internals, device/MIDI-port binding and actual current startup execution remain unproved.",

@@ -6,7 +6,7 @@
 
 ## Scope and route
 
-Preserved Logic **12.4 / 6707**, SHA-256 `48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda`. This pass disassembled **348 bytes of caller excerpts** and **432 bytes of two small helpers**. The containing startup functions have `LC_FUNCTION_STARTS` intervals of 1012 and 4636 bytes; their other branches were excluded. Raw extraction/fixup scripts remain in ignored `Research/raw/rea/codex-assignment-startup-010/` with hashes in the JSON. No engine or target was started.
+Preserved Logic **12.4 / 6707**, SHA-256 `48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda`. Curated instruction witnesses cover **348 bytes of caller excerpts** and **432 bytes of two small helpers**. The containing startup functions have `LC_FUNCTION_STARTS` intervals of 1012 and 4636 bytes; their other branches were excluded. Raw extraction/fixup scripts remain in ignored `Research/raw/rea/codex-assignment-startup-010/` with hashes in the JSON. No engine or target was started.
 
 The application-startup caller link comes from CS-READER-001; this pass independently checks the filename, callback binding, RDAF branch and registration excerpt:
 
