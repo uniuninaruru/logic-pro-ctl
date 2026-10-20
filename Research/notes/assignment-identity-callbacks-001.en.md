@@ -2,7 +2,7 @@
 
 [Research guide](../README.md) · [Instruction anchors](../protocol/assignment-identity-12.4-anchors.tsv) · Related: [PICKUP-CONSUMER-001](pickup-consumer-001.en.md), Codex's [assignment-target-001](assignment-target-001.en.md) and [assignment-parameter-002](assignment-parameter-002.en.md) · Live test plan: [PLAN-CA-005](../plans/PLAN-CA-005-morning-live-tests.en.md)
 
-日本語要約：プラグインのパラメーターに割り当てた CC が、どのプラグインを動かすかを決める処理を、Logic 12.4 の複製から静的に読んだ。学習時、最後に触ったパラメーターから「プラグインの ID 3 語・同じ ID のプラグインの中での番号・そのインスタンスの UUID」の 32 バイトを作り、割り当ての +0xf8 に保存する。実行時は、割り当ての +0x1a0（トラック側の UUID と推測）が空なら「ID 3 語が一致する N 番目」で、空でなければ「保存したインスタンス UUID」でプラグインを探す。テスト行（CC 23 → Channel EQ Master Gain）の保存データでは +0x1a0 が空なので、前者の探し方になる。昨夜の記述のうち、UUID 比較の鍵（I5）と +0xf8 の書き手（I7）は誤りだったので訂正した。推論であり、実行時の確認ではない。
+日本語要約：プラグインのパラメーターに割り当てた CC が、どのプラグインを動かすかを決める処理を、Logic 12.4 の複製から静的に読んだ。学習時、最後に触ったパラメーターから「プラグインの ID 3 語・同じ ID のプラグインの中での番号・そのインスタンスの UUID」の 32 バイトを作り、割り当ての +0xf8 に保存する。実行時は、割り当ての +0x1a0（固定トラックの識別子。Codex の ASSIGN-TARGET-001）が空なら「ID 3 語が一致する N 番目」で、空でなければ「保存したインスタンス UUID」でプラグインを探す。テスト行は選択トラック方式（0x1000）なので、選ばれているトラックのプラグインが探される。テスト行（CC 23 → Channel EQ Master Gain）の保存データでは +0x1a0 が空なので、前者の探し方になる。昨夜の記述のうち、UUID 比較の鍵（I5）と +0xf8 の書き手（I7）は誤りだったので訂正した。推論であり、実行時の確認ではない。
 
 ## Scope and identity
 
@@ -34,11 +34,11 @@
 | # | Finding | Anchors | Status |
 |---|---|---|---|
 | I7 | **Corrected.** `FUN_015e43f0` does not write an assignment's +0xf8 list. Its two stores at +0xf8 initialise a guarded static object at 0x2640518. The only constant-id writer of list 6 found is the learn path in I11; the other list setters take the id as a variable and are reached from label, message and constructor paths | AI023–AI025; scan `Research/raw/rea/list-writers.tsv` (43 call sites) | Observation (stores, call sites); the variable-id setters were not traced one by one |
-| I8 | The assignment keeps byte lists at +0x68 + id × 0x18 (begin, end, capacity), resized by `FUN_015dc49c(assign, id, size)`. List 6 is +0xf8, list 0xd is +0x1a0 | AI026, AI027 | Observation |
+| I8 | The assignment keeps byte lists at +0x68 + id × 0x18 (begin, end, capacity), resized by `FUN_015dc49c(assign, id, size)`; Codex proved this accessor first in [ASSIGN-TARGET-001](assignment-target-001.en.md). List 6 is +0xf8, list 0xd is +0x1a0 | AI026, AI027 | Observation |
 | I9 | `FUN_017ee1ec` builds a "touched parameter" record: kind 5 at +0; the plug-in element's words +0xb4/+0xb8 at +0x1c and +0xbc at +0x24; at +0x28 the element's ordinal among elements with the same three words (`FUN_00abb4fc`); the element's UUID (+0x10) copied by `CUUID::operator=` to +0x2c; the parameter index (< 0x4000) at +0x40. It is reached from `CLgPluginController::extParValueChangedByUser:forCallID:` through `FUN_003e64cc` | AI028–AI039 | Observation (stores, calls); Inference (record role, from the caller name) |
 | I10 | `FUN_00abb4fc` walks the same container as the resolver with the block `FUN_00abb704`, which counts elements with the same three words that come before the given element. This is the inverse of I6 | AI049–AI051 | Observation |
 | I11 | `FUN_017ee3ac` (called from `TouchedParamHistoryWrapper::info` and eight other places) applies a kind-5 record to an assignment: selector +0x3e = 0x1000, 0x20 bytes from record +0x1c into list 6, code +0x40 = record parameter index + 0x4000. So the +0xf8 entry is {three words, ordinal, instance UUID}, and family A codes are 0x4000 + plug-in parameter index (Master Gain 0x4020 → index 0x20) | AI040–AI048 | Observation (stores); Inference (that this is the Learn step) |
-| I12 | +0x1a0 (16 bytes) is written by `FUN_015e6c70` (copy of the first 16 bytes of the object passed in) and by `FUN_015e6d44` (only when the new selector's top nibble is 0xb, from an object in the context +0x788 → +0x1e0 list). The objects come from the same list whose entries are passed to the resolver as the track-like argument. Inference: +0x1a0 identifies a specific track or channel, not a plug-in; where its content is read was not traced | AI059–AI063 | Observation (writes); Inference (meaning) |
+| I12 | +0x1a0 is the pinned-track payload: Codex's ASSIGN-TARGET-001 shows that `FUN_015e6d44` stores 16 bytes from a context +0x788 → +0x1e0 entry when the selector mode is 0xb ("pinned to track"), and that the target worker reads it in that mode; selector 0x1000 is the selected-track mode (`setTrackTypeSelectedTrack`). New here: `FUN_015e6c70` is a second writer (16 bytes from the object passed in), used by I13. So +0x1a0 identifies a track, not a plug-in | AI059–AI063; ASSIGN-TARGET-001 | Observation (writes); the mode names are Codex's |
 | I13 | `FUN_00abb778`, applied to every assignment by `FUN_0088016c` through `FUN_00aba310`, acts only on assignments whose +0x1a0 is not empty. It resolves the plug-in by its instance UUID, recomputes the ordinal and writes it back to the +0xf8 entry when it changed. If the instance is not found on the stored track, it tries every track and stores the track where it is found in +0x1a0. Inference: this keeps a fixed-track assignment attached to the same plug-in instance after it moves. What triggers `FUN_0088016c` is not known | AI064–AI069 | Observation (calls, stores); Inference (purpose, trigger) |
 | I14 | The three words are plug-in IDs: the plug-in menu passes the same element fields to `_MAAEGetPlugInNicknameForIDs` | AI070 | Observation (call); Inference (field names) |
 
@@ -55,12 +55,12 @@ Read as a four-character code, the first word is `EMAG`. Hypothesis (low): an Em
 - If Channel EQ is replaced by a different plug-in, the IDs no longer match, so CC 23 should move nothing, unless another Channel EQ is on the same channel strip (that one would become ordinal 0).
 - If Channel EQ is replaced by a new Channel EQ, the IDs and ordinal 0 match, so CC 23 should control the new instance. The stale UUID inside the entry is not used on this path.
 - If a second Channel EQ is inserted before the original, CC 23 should move the earlier one, if the enumeration order is the slot order (Hypothesis, low–medium; the enumerator's order was not read).
-- Which track's container is searched depends on selector 0x1000, whose meaning is not decoded (it may be "selected track"). Check the Controller Assignments Expert view and Apple's guide before the live test.
+- Selector 0x1000 is the selected-track mode (I12), so the search uses the plug-ins of the track that is selected when CC 23 arrives. Keep the Synth track selected during these tests. With another track selected, CC 23 should act on that track's first Channel EQ, if it has one.
 
 ## Proof limits
 
 - Register flow was read at operand level only; Codex has not audited I5 (corrected) or I7–I15 yet.
-- The meaning of the selector (+0x3e), the content of +0x1a0, and the triggers of `FUN_0088016c` and of `FUN_017ee3ac` are inferred from names and use, not from a proven end-to-end path.
+- The triggers of `FUN_0088016c` and of `FUN_017ee3ac` are inferred from names and callers, not from a proven end-to-end path. How the GUI and the session bind the selected-track mode still needs the live gate.
 - I15 relies on the field mapping of the decoder (Codex, CDEX157: it decodes into a temporary buffer and constructs the assignment from it), so the offsets are the decoder's, not proven memory offsets.
 
 ## Raw data (not in Git)
