@@ -1,0 +1,111 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline route/cache/no-match anchors; ASSIGN-ROUTE-003.
+AR001	insn	0x6994fc	aa0e3d94	bl 0x15dcfa4	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR002	insn	0x699500	003c4093	sxth x0, w0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR003	insn	0x7663cc	081040f9	ldr x8, [x0, #0x20]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR004	insn	0x7663d0	880100b4	cbz x8, 0x766400	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR005	insn	0x7663d4	290040b9	ldr w9, [x1]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR006	insn	0x7663d8	0a0140b9	ldr w10, [x8]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR007	insn	0x7663dc	6be48852	mov w11, #0x4723	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR008	insn	0x7663e0	0b78b572	movk w11, #0xabc0, lsl #16	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR009	insn	0x7663e4	5f010b6b	cmp w10, w11	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR010	insn	0x7663e8	6be28852	mov w11, #0x4713	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR011	insn	0x7663ec	0b78b572	movk w11, #0xabc0, lsl #16	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR012	insn	0x7663f0	44114b7a	ccmp w10, w11, #0x4, ne	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR013	insn	0x7663f4	2a090112	and w10, w9, #0x80000003	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR014	insn	0x7663f8	4009407a	ccmp w10, #0x0, #0x0, eq	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR015	insn	0x7663fc	60000054	b.eq 0x766408	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR016	insn	0x766400	00008052	mov w0, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR017	insn	0x766404	c0035fd6	ret	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR018	insn	0x766408	29fd42d3	lsr x9, x9, #2	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR019	insn	0x76640c	08c543f9	ldr x8, [x8, #0x788]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR020	insn	0x766410	08295ea9	ldp x8, x10, [x8, #0x1e0]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR021	insn	0x766414	4a0108cb	sub x10, x10, x8	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR022	insn	0x766418	3f0d8aeb	cmp x9, x10, asr #3	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR023	insn	0x76641c	22ffff54	b.hs 0x766400	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR024	insn	0x766420	087969f8	ldr x8, [x8, x9, lsl #3]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR025	insn	0x766424	e8feffb4	cbz x8, 0x766400	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR026	insn	0x766428	011440f9	ldr x1, [x0, #0x28]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR027	insn	0x76642c	e00308aa	mov x0, x8	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR028	insn	0x766430	ec534e14	b 0x1afb3e0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR029	insn	0x15a16c0	73fc60d3	lsr x19, x3, #32	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR030	insn	0x15a16c4	48008052	mov w8, #0x2	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR031	insn	0x15a16c8	1f000071	cmp w0, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR032	insn	0x15a16cc	08c1811a	csel w8, w8, w1, gt	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR033	insn	0x15a16d0	081d0012	and w8, w8, #0xff	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR034	insn	0x15a16d4	09008012	mov w9, #-0x1	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR035	insn	0x15a16d8	1f050071	cmp w8, #0x1	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR036	insn	0x15a16dc	cc030054	b.gt 0x15a1754	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR037	insn	0x15a16e0	68050034	cbz w8, 0x15a178c	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR038	insn	0x15a16e4	1f050071	cmp w8, #0x1	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR039	insn	0x15a16e8	810a0054	b.ne 0x15a1838	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR040	insn	0x15a16ec	04040034	cbz w4, 0x15a176c	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR041	insn	0x15a1754	1f0d0071	cmp w8, #0x3	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR042	insn	0x15a1758	ea13831a	csel w10, wzr, w3, ne	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR043	insn	0x15a175c	2911931a	csel w9, w9, w19, ne	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR044	insn	0x15a1760	1f090071	cmp w8, #0x2	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR045	insn	0x15a1764	63008a1a	csel w3, w3, w10, eq	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR046	insn	0x15a1768	7302891a	csel w19, w19, w9, eq	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR047	insn	0x15a176c	e803032a	mov w8, w3	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR048	insn	0x15a1770	008113aa	orr x0, x8, x19, lsl #32	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR049	insn	0x15a1774	fd7b44a9	ldp x29, x30, [sp, #0x40]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR050	insn	0x15a1778	f44f43a9	ldp x20, x19, [sp, #0x30]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR051	insn	0x15a177c	f65742a9	ldp x22, x21, [sp, #0x20]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR052	insn	0x15a1780	f85f41a9	ldp x24, x23, [sp, #0x10]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR053	insn	0x15a1784	ff430191	add sp, sp, #0x50	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR054	insn	0x15a1788	c0035fd6	ret	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR055	insn	0x15a178c	04ffff34	cbz w4, 0x15a176c	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR056	insn	0x15a1e60	04008052	mov w4, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR057	insn	0x15a1e64	08008052	mov w8, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR058	insn	0x15a1e68	16008012	mov w22, #-0x1	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR059	insn	0x15a1e70	038116aa	orr x3, x8, x22, lsl #32	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR060	insn	0x15a1e80	0afeff97	bl 0x15a16a8	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR061	insn	0x15dd0c0	e803002a	mov w8, w0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR062	insn	0x15dd0c4	200108aa	orr x0, x9, x8	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR063	insn	0x15dd25c	097c6092	and x9, x0, #0xffffffff00000000	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR064	insn	0x15dd270	94ffff17	b 0x15dd0c0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR065	insn	0x15ddfa0	43550c94	bl 0x18f34ac	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR066	insn	0x15ddfa4	c0020036	tbz w0, #0x0, 0x15ddffc	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR067	insn	0x15ddfc4	f8fbff97	bl 0x15dcfa4	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR068	insn	0x15ddfd0	1f0008ea	tst x0, x8	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR069	insn	0x15ddfd8	020080d2	mov x2, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR070	insn	0x15ddfdc	e00314aa	mov x0, x20	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR071	insn	0x15ddfe0	e10315aa	mov x1, x21	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR072	insn	0x15ddfe4	e30313aa	mov x3, x19	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR073	insn	0x15ddff8	4f000014	b 0x15de134	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR074	insn	0x15ddffc	a88000d0	adrp x8, 0x25f3000	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR075	insn	0x15de000	08012791	add x8, x8, #0x9c0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR076	insn	0x15de004	16c1bfb8	ldapr w22, [x8]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR077	insn	0x15de008	881642b9	ldr w8, [x20, #0x214]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR078	insn	0x15de00c	1f01166b	cmp w8, w22	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR079	insn	0x15de010	01010054	b.ne 0x15de030	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR080	insn	0x15de014	730000b4	cbz x19, 0x15de020	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR081	insn	0x15de018	881242b9	ldr w8, [x20, #0x210]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR082	insn	0x15de01c	680200b9	str w8, [x19]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR083	insn	0x15de020	800e42b9	ldr w0, [x20, #0x20c]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR084	insn	0x15de028	804240b9	ldr w0, [x20, #0x40]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR085	insn	0x15de054	d4fbff97	bl 0x15dcfa4	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR086	insn	0x15de078	2f000094	bl 0x15de134	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR087	insn	0x15de084	804240b9	ldr w0, [x20, #0x40]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR088	insn	0x15de08c	800e02b9	str w0, [x20, #0x20c]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR089	insn	0x15de090	881202b9	str w8, [x20, #0x210]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR090	insn	0x15de094	961602b9	str w22, [x20, #0x214]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR091	insn	0x15de0d4	08fc62d3	lsr x8, x0, #34	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR092	insn	0x15de0dc	29295ea9	ldp x9, x10, [x9, #0x1e0]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR093	insn	0x15de0e4	1f0d8aeb	cmp x8, x10, asr #3	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR094	insn	0x15de0ec	227968f8	ldr x2, [x9, x8, lsl #3]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR095	insn	0x15e0450	08a043b8	ldur w8, [x0, #0x3a]	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR096	insn	0x15e0510	1f150071	cmp w8, #0x5	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR097	insn	0x15e0514	00070054	b.eq 0x15e05f4	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR098	insn	0x15e05f4	f50300aa	mov x21, x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR099	insn	0x15e05f8	6bf2ff97	bl 0x15dcfa4	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR100	insn	0x15e05fc	f60300aa	mov x22, x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR101	insn	0x15e0600	e00315aa	mov x0, x21	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR102	insn	0x15e0604	010080d2	mov x1, #0x0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR103	insn	0x15e0608	5ff6ff97	bl 0x15ddf84	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR104	insn	0x15e060c	e303002a	mov w3, w0	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR105	insn	0x15e0610	e00314aa	mov x0, x20	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR106	insn	0x15e0614	e10313aa	mov x1, x19	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR107	insn	0x15e0618	e20316aa	mov x2, x22	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR108	insn	0x15e061c	e40315aa	mov x4, x21	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003
+AR109	insn	0x15e063c	38debe17	b 0x597f1c	Class5 forwarding, separate parameter cache, or no-match projection; ASSIGN-ROUTE-003

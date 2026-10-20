@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-ROUTE-003",
+  "recorded_utc": "2026-10-20T16:14:29+00:00",
+  "owner": "codex",
+  "scope": {
+    "kind": "offline_byte_evidence_and_restricted_replay",
+    "binary": "Logic12.4-6707.arm64",
+    "binary_sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "function_intervals": 4,
+    "interval_bytes": 3200,
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "functions": [
+    {
+      "label": "assignment_description_range_helper",
+      "entry": "0x15e0428",
+      "exclusive_end": "0x15e09d8",
+      "size_bytes": 1456,
+      "body_sha256": "481c2a186cdd3833ab8021295a5e0531be04f215b4ba76daede6f0f0ba6430de",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "pinned_fast_callback",
+      "entry": "0x7663cc",
+      "exclusive_end": "0x766434",
+      "size_bytes": 104,
+      "body_sha256": "313910212097958e7e67382a5243bb3b9a1f5836f9bd41e0e66f57cd7d32bb84",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "pinned_result_normalizer",
+      "entry": "0x15a16a8",
+      "exclusive_end": "0x15a1b60",
+      "size_bytes": 1208,
+      "body_sha256": "e76a6d18ef25d1c0e727eed89d9729ba422e8770d6d7a437b69105d6d6c3ebbe",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    },
+    {
+      "label": "assignment_parameter_selector",
+      "entry": "0x15ddf84",
+      "exclusive_end": "0x15de134",
+      "size_bytes": 432,
+      "body_sha256": "edc8bb739783866a4c9ea48263940c485dfbf4292a5005156f009f5536321572",
+      "boundary_scope": "LC_FUNCTION_STARTS interval; CFG and lower callees not fully audited"
+    }
+  ],
+  "class5_route": {
+    "source": "0x15e0428",
+    "branch_entry": "0x15e05f4",
+    "track_helper": "0x15dcfa4",
+    "parameter_result_helper": {
+      "target": "0x15ddf84",
+      "optional_out": null
+    },
+    "tail_branch": {
+      "site": "0x15e063c",
+      "target": "0x597f1c",
+      "arguments": {
+        "x0": "flags",
+        "x1": "out",
+        "x2": "packedTrack",
+        "w3": "result32",
+        "x4": "Assign"
+      }
+    },
+    "remaining_backend_query": {
+      "target": "0x597f1c",
+      "interval_bytes": 5284,
+      "body_expanded": false
+    }
+  },
+  "parameter_cache": {
+    "entry": "0x15ddf84",
+    "bypass_helper": "0x18f34ac bit0",
+    "global_tag32": "0x25f39c0",
+    "assign_tag_offset": "0x214",
+    "cached_return32_offset": "0x20c",
+    "optional_out32_offset": "0x210",
+    "optional_out_semantics": "unnamed",
+    "context_unavailable_fallback_offset": "0x40",
+    "worker": "0x15de134",
+    "worker_arguments": [
+      "Assign",
+      "context",
+      "resolvedEntryOrNull",
+      "optionalOut"
+    ],
+    "worker_inspected": false,
+    "tag_meaning_scope_and_invalidation": "unknown",
+    "distinct_from_track_cache": {
+      "global_tag32": "0x25f39c4",
+      "assign_tag_offset": "0x208"
+    }
+  },
+  "fast_pin_equality": {
+    "callback": "0x7663cc",
+    "context_block_offset": "0x20",
+    "payload_block_offset": "0x28",
+    "checks": [
+      "non-null context",
+      "context marker abc04723 or abc04713",
+      "encodedIndex &80000003 ==0",
+      "array bounds",
+      "non-null entry"
+    ],
+    "failed_checks_return": 0,
+    "tail_site": "0x766430",
+    "tail_target": "0x1afb3e0",
+    "candidate_x0": "array entry prefix",
+    "key_x1": "payload pointer",
+    "same_build_prior_import_binding": {
+      "address": "0x228fc00",
+      "raw_word": "0x80100000000006aa",
+      "format": 6,
+      "chain_membership": true,
+      "kind": "bind",
+      "name": "__ZeqRK9CUUIDBaseS1_",
+      "ordinal": 25,
+      "library": "@rpath/MACore.framework/Versions/A/MACore",
+      "weak": false,
+      "addend": 0
+    },
+    "semantic_limit": "CUUIDBase typed equality; format/persistence/plug-in identity unproven"
+  },
+  "no_match_normalization": {
+    "entry": "0x15a16a8",
+    "input_x3": "0xffffffff00000000",
+    "input_w4": 0,
+    "output_x0": "0xffffffff00000000",
+    "lower_calls_reached": false,
+    "replay": {
+      "method": "restricted offline replay of byte-verified LLVM text; not native execution or full formal proof",
+      "input": {
+        "x3": "0xffffffff00000000",
+        "w4": 0,
+        "w0_representatives": [
+          -2147483648,
+          -1,
+          0,
+          1,
+          2147483647
+        ],
+        "w1_low_byte": "all256 values; only low8 survives selection"
+      },
+      "cases": 1280,
+      "unique_output": [
+        "0xffffffff00000000"
+      ],
+      "unique_paths": 3,
+      "memory_scope": "starts after prologue; callee-save restores and SP epilogue ignored, no resultX0 effects",
+      "runtime_verified": false
+    },
+    "proof_limits": [
+      "Restricted LLVM instruction-text model, not target execution or full formal proof.",
+      "Only exhausted lookup input; match cases with W4 nonzero may reach lower helpers."
+    ],
+    "scalar_projection": {
+      "method": "WrappedAssign.resultingTrackNumber",
+      "instruction": "SXTH x0,w0",
+      "site": "0x699500",
+      "value_from_fresh_no_match": 0,
+      "interpretation": "drops high32 marker; scalar0 cannot by itself establish target success",
+      "freshness_limit": "track-wrapper cache may bypass a fresh lookup"
+    }
+  },
+  "next_frontier": {
+    "retained_REA_session_query": "0x597f1c",
+    "conditional_parameter_worker": "0x15de134",
+    "owner": "Claude sole engine, Codex independent byte audit",
+    "do_not_duplicate_import": true
+  },
+  "anchors": {
+    "path": "Research/protocol/assignment-route-12.4-anchors.tsv",
+    "instruction_count": 109
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-003/backend-proof.json",
+      "sha256": "def4b2603777b0e3f8d2700093149fdbf8494e452dc8731929e1b385a3f008fa",
+      "size_bytes": 117784,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-003/inspect_backend.py",
+      "sha256": "f226f267396c6e15310865c629fb1ad38dd982784f415ac2590a7007e42c94e1",
+      "size_bytes": 2956,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-003/no-match-replay.json",
+      "sha256": "e61a2a0e78053fe2445b50561cc0f7bd58eeef99148922e03483492ad252bcc8",
+      "size_bytes": 2854,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-003/replay_no_match.py",
+      "sha256": "c8430ff3da8e40e8b43c76a8e6f5fe692884a483077cbfb498f1ec15deec983e",
+      "size_bytes": 4060,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-target-001/consumer/consumer-proof.json",
+      "sha256": "04be063d579cb4c6e458eb087fe2659ff64e77c74a467690a46028099b871709",
+      "size_bytes": 79395,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-parameter-001/consumer/pin-lookup-proof.json",
+      "sha256": "ea1d2cf10f63e374fbae2e07f99ae0913f37339d6bfb08d5d00c3133e8224ff0",
+      "size_bytes": 33888,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/notes/assignment-target-001.json",
+      "sha256": "958e22349964283414f8660cee03c0a31cf75f51fa2408cc9579f625498bcc98",
+      "size_bytes": 24166,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/notes/assignment-parameter-002.json",
+      "sha256": "ac499f00c057a4708ce779056c8d1db7e352b56806357ff5b57cb89b0c9cd09d",
+      "size_bytes": 11681,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/protocol/assignment-route-12.4-anchors.tsv",
+      "sha256": "63b1ac844744303676f84985318bcc66149620cc0db6bf0f4049d50884271e6c",
+      "size_bytes": 14615,
+      "availability": "public_repo"
+    }
+  ],
+  "limits": [
+    "No same-document/track/slot/instance/parameter contract or live EQ readback yet.",
+    "No enum name inferred for classification codes, parameter32, optionalOut32 or track scalar0.",
+    "No new product write operation or verified capability."
+  ],
+  "validation": {
+    "anchor_check": {
+      "total": 109,
+      "passed": 109,
+      "exit_code": 0
+    },
+    "restricted_no_match_replay": {
+      "cases": 1280,
+      "unique_paths": 3,
+      "unique_output": "0xffffffff00000000",
+      "native_execution": false
+    },
+    "recorded_utc": "2026-10-20T16:14:56+00:00"
+  }
+}
