@@ -11,14 +11,62 @@ AI008	insn	0x15de86c	680e0051	sub w8, w19, #0x3	switch index v - 3
 AI009	insn	0x15de870	1f0d0c71	cmp w8, #0x303	switch bound 0x303
 AI010	insn	0x15de88c	40011fd6	br x10	jump table branch
 AI011	insn	0x15df9b8	2305f836	tbz w3, #0x1f, 0x15dfa5c	resolver: w3 sign test selects UUID vs ordinal path
-AI012	insn	0x15df9bc	08245aa9	ldp x8, x9, [x0, #0x1a0]	resolver: load Assign+0x1a0 key vector
+AI012	insn	0x15df9bc	08245aa9	ldp x8, x9, [x0, #0x1a0]	resolver: load Assign+0x1a0 vector (used only for the emptiness test; see AI057-AI058)
 AI013	insn	0x15dfa0c	d6f20791	add x22, x22, #0x1fc	block 1 invoke = 0x15e01fc
 AI014	insn	0x15dfa34	3a541194	bl 0x1a34b1c	enumerator call (UUID block)
 AI015	insn	0x15dfa58	830e40b9	ldr w3, [x20, #0xc]	fallback: ordinal from first Assign+0xf8 entry +0xc
 AI016	insn	0x15dfab0	d6920991	add x22, x22, #0x264	block 2 invoke = 0x15e0264
 AI017	insn	0x15dfadc	10541194	bl 0x1a34b1c	enumerator call (descriptor block)
-AI018	insn	0x15e022c	6d6c1494	bl 0x1afb3e0	callback 1 calls CUUIDBase operator== stub
+AI018	insn	0x15e022c	6d6c1494	bl 0x1afb3e0	callback 1 calls CUUIDBase operator== stub (element +0x10 vs first +0xf8 entry +0x10, see AI053-AI055)
 AI019	insn	0x15e0268	69bc40b9	ldr w9, [x3, #0xbc]	callback 2 compares element +0xbc
 AI020	insn	0x15e027c	69b440b9	ldr w9, [x3, #0xb4]	callback 2 compares element +0xb4
 AI021	insn	0x15e028c	69b840b9	ldr w9, [x3, #0xb8]	callback 2 compares element +0xb8
 AI022	insn	0x15e02a8	0a4040b9	ldr w10, [x0, #0x40]	callback 2 compares running count with captured ordinal
+AI023	insn	0x15e6410	21601491	add x1, x1, #0x518	static base: adrp 0x2640000 + 0x518 (a global object, not an Assign)
+AI024	insn	0x15e6434	3ff800b9	str wzr, [x1, #0xf8]	FUN_015e43f0 store at +0xf8 targets that global (guarded static init; guard 0x26406c8); same at AI025
+AI025	insn	0x15e651c	3ff800b9	str wzr, [x1, #0xf8]	second copy of the same static init
+AI026	insn	0x15dc4b8	3800a89b	umaddl x24, w1, w8, x0	FUN_015dc49c list base = Assign + id*0x18 (w8 = 0x18)
+AI027	insn	0x15dc4e8	13a346a9	ldp x19, x8, [x24, #0x68]	list begin/end at base+0x68: id 6 -> Assign+0xf8, id 0xd -> Assign+0x1a0
+AI028	insn	0x17ee294	a9008052	mov w9, #0x5	FUN_017ee1ec record kind = 5
+AI029	insn	0x17ee34c	6c34cb97	bl 0xabb4fc	record ordinal from FUN_00abb4fc(context, element, track)
+AI030	insn	0x17ee358	a0424bfc	ldur d0, [x21, #0xb4]	element +0xb4/+0xb8 (IDs 0-1) loaded
+AI031	insn	0x17ee35c	60c201fc	stur d0, [x19, #0x1c]	stored at record +0x1c
+AI032	insn	0x17ee360	a8be40b9	ldr w8, [x21, #0xbc]	element +0xbc (ID 2) loaded
+AI033	insn	0x17ee364	682600b9	str w8, [x19, #0x24]	stored at record +0x24
+AI034	insn	0x17ee36c	a1420091	add x1, x21, #0x10	source = element +0x10 (instance UUID)
+AI035	insn	0x17ee370	bb2e0c94	bl 0x1af9e5c	CUUID::operator= into record +0x2c
+AI036	insn	0x17ee38c	742a00b9	str w20, [x19, #0x28]	ordinal stored at record +0x28
+AI037	insn	0x17ee390	772200f9	str x23, [x19, #0x40]	parameter index stored at record +0x40
+AI038	insn	0x15b640c	30c0b897	bl 0x3e64cc	CLgPluginController::extParValueChangedByUser:forCallID: calls FUN_003e64cc (builds the touched-parameter record)
+AI039	insn	0x3e7db4	0e195094	bl 0x17ee1ec	FUN_003e64cc calls FUN_017ee1ec
+AI040	insn	0x2eed8c	88fd5394	bl 0x17ee3ac	TouchedParamHistoryWrapper::info calls FUN_017ee3ac
+AI041	insn	0x17ee5f8	08008252	mov w8, #0x1000	FUN_017ee3ac kind-5 path: selector constant 0x1000
+AI042	insn	0x17ee5fc	687e0079	strh w8, [x19, #0x3e]	stored at Assign +0x3e
+AI043	insn	0x17ee7d8	48cc41b8	ldr w8, [x2, #0x1c]!	source = record +0x1c (IDs, ordinal, UUID)
+AI044	insn	0x17ee7e4	c1008052	mov w1, #0x6	list id 6 (Assign +0xf8)
+AI045	insn	0x17ee7e8	03048052	mov w3, #0x20	0x20 bytes
+AI046	insn	0x17ee7ec	46cbf797	bl 0x15e1504	copy via FUN_015e1504
+AI047	insn	0x17ee7f4	08114011	add w8, w8, #0x4, lsl #12	code = record +0x40 + 0x4000 (family A)
+AI048	insn	0x17ee7f8	684200b9	str w8, [x19, #0x40]	stored at Assign +0x40
+AI049	insn	0xabb730	69bc40b9	ldr w9, [x3, #0xbc]	ordinal block FUN_00abb704 compares element +0xbc with the target's
+AI050	insn	0xabb76c	29050011	add w9, w9, #0x1	counts same-ID elements before the target
+AI051	insn	0xabb724	491900b9	str w9, [x10, #0x18]	count captured when the element is the target
+AI052	insn	0x15e01fc	230300b4	cbz x3, 0x15e0260	resolver UUID block entry
+AI053	insn	0x15e0220	081840f9	ldr x8, [x0, #0x30]	UUID block reads its capture +0x30
+AI054	insn	0x15e0224	60400091	add x0, x3, #0x10	element +0x10
+AI055	insn	0x15e0228	01410091	add x1, x8, #0x10	capture +0x10
+AI056	insn	0x15dfacc	e95303a9	stp x9, x20, [sp, #0x30]	descriptor block capture +0x30 = x20
+AI057	insn	0x15df9cc	a80302d1	sub x8, x29, #0x80	x8 (the +0x1a0 begin loaded at AI012) is overwritten before the UUID block captures are stored
+AI058	insn	0x15dfa20	e95309a9	stp x9, x20, [sp, #0x90]	UUID block capture +0x30 = x20 = first +0xf8 entry (so the compared key is entry +0x10)
+AI059	insn	0x15e6c84	a1018052	mov w1, #0xd	FUN_015e6c70: list id 0xd (+0x1a0)
+AI060	insn	0x15e6c88	02028052	mov w2, #0x10	16 bytes
+AI061	insn	0x15e6c94	8002c03d	ldr q0, [x20]	copied from the first 16 bytes of the object passed in
+AI062	insn	0x15e6d94	ff2e4071	cmp w23, #0xb, lsl #12	FUN_015e6d44 sets +0x1a0 only when the new selector class nibble is 0xb
+AI063	insn	0x15e6ef0	577969f8	ldr x23, [x10, x9, lsl #3]	object taken from context +0x788 -> +0x1e0 list
+AI064	insn	0xabb79c	29205aa9	ldp x9, x8, [x1, #0x1a0]	FUN_00abb778 (fix-up block) runs only when +0x1a0 is not empty
+AI065	insn	0xabb874	0d902c94	bl 0x15df8a8	calls the resolver (w3 = -1)
+AI066	insn	0xabb88c	1cffff97	bl 0xabb4fc	recomputes the ordinal
+AI067	insn	0xabb89c	e00e00b9	str w0, [x23, #0xc]	writes it back to +0xf8 entry +0xc when different
+AI068	insn	0xabb964	c3ac2c94	bl 0x15e6c70	if not found on its track: scans tracks and sets +0x1a0 via FUN_015e6c70
+AI069	insn	0x882c5c	29e11d91	add x9, x9, #0x778	FUN_0088016c builds the block with invoke 0xabb778
+AI070	insn	0x15cd694	bfa51494	bl 0x1af6d90	NewTrackSheetController::_popUpPluginMenu passes element +0xbc/+0xb8/+0xb4 to _MAAEGetPlugInNicknameForIDs
