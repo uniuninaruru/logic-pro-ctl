@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-RECORD-012",
+  "recorded_utc": "2026-10-20T21:20:33.536471+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "bounded_static_internal_record_encoding_and_dispatch",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "producer": {
+    "entry": "0x594890",
+    "record_global": "0x2640128",
+    "tag": "(section_bit ?0x40:0x50) | nonzero_index_plus1_nibble",
+    "parameter_word": "low16 parameter atrecord+0xc onthispath",
+    "extension_template": {
+      "address": "0x1cb5b10",
+      "hex": "00000000000000b80000000000000000",
+      "destination": "record+0x10"
+    },
+    "value_path": "descriptor address supplied atab4568 -> wrapper backendW7=0 ->594be4 branches594c0c ->1a26eec(record,scaledvalue)",
+    "frame_markers": [
+      "record+0x17=0xb8",
+      "record+0x15=1",
+      "record+0x18 low32 input target token"
+    ],
+    "final_call": "0x594d78 ->0x59e714(context,record,target,inputtoken,5)"
+  },
+  "encoder": {
+    "entry": "0x1a26eec",
+    "bytes": 436,
+    "native_call_sites": 0,
+    "scope": "recordtags0x41..4f and0x51..5f",
+    "mutations": [
+      "record+8..+11 = low32 value argument",
+      "record+1 &=0xdf"
+    ],
+    "other_format_branches_audited": false,
+    "physical_parameter_effect_confirmed": false
+  },
+  "predicate": {
+    "entry": "0x2fec34",
+    "bytes": 180,
+    "caller": "0x594a58 subtracts1 fromslotnibble; callswithW2=0; true return leads earlybackendexit",
+    "observation": "container/type/flag predicate; its indexedvectorload uses object+0x4a, not the incoming W1 ordinal",
+    "same_instance_proof": false
+  },
+  "record_dispatch": {
+    "entry": "0x59e714",
+    "bytes": 836,
+    "normal_tail_target": "0x781438",
+    "extended_record_path": "templatehighbyteb8 selects branch0x59e7ec ->helper28ea60(stack,record,0) ->call781438 with restored arguments",
+    "optional_fanout": "later blockinvoke0x59ea58, selected by mask/conditions not fully interpreted",
+    "callee_execution_or_delivery_observed": false,
+    "native_plugin_write_confirmed": false
+  },
+  "restricted_replay": {
+    "cases": 5760,
+    "mismatches": 0,
+    "visited_instruction_sites": 19,
+    "allowed_mutations": [
+      "record+8..+11 = low32 input value",
+      "record+1 bit5 cleared"
+    ],
+    "limits": [
+      "Restricted LLVM-text replay only for record tags0x41..4f/51..5f.",
+      "No native calls, dispatch or plug-in instance/memory access.",
+      "The special byte+c==0x7f check is covered but its type0x60 path is excluded.",
+      "All64 model bytes outside the allowed mutation remain byte-identical."
+    ]
+  },
+  "intervals": [
+    {
+      "label": "slot_gate",
+      "entry": "0x2fec34",
+      "exclusive_end": "0x2fece8",
+      "size_bytes": 180,
+      "body_sha256": "65dd1822d88243b2be17d7f4f2b0625c95adcbc7518a02ed130f3d1c28f095ae"
+    },
+    {
+      "label": "record_value_encoder",
+      "entry": "0x1a26eec",
+      "exclusive_end": "0x1a270a0",
+      "size_bytes": 436,
+      "body_sha256": "18b1b79bb680236b656a6f48528b6c9137010792c4151e61b7b2b4d750045d6f"
+    },
+    {
+      "label": "record_small_value_encoder",
+      "entry": "0x199abf8",
+      "exclusive_end": "0x199ae04",
+      "size_bytes": 524,
+      "body_sha256": "c83d2cab53cce9616190fdf09f011eafc4b1d0ce5a41411077ea15d0a3afd769"
+    },
+    {
+      "label": "record_parameter_encoder",
+      "entry": "0x199ae04",
+      "exclusive_end": "0x199af30",
+      "size_bytes": 300,
+      "body_sha256": "2bd75fe42ac68bf3632dc04f32ee9b1e7e7fd41ad2c67efd884132dcf595515c"
+    },
+    {
+      "label": "record_dispatch",
+      "entry": "0x59e714",
+      "exclusive_end": "0x59ea58",
+      "size_bytes": 836,
+      "body_sha256": "e245d81703c8a49e20b7b32acb242a3f13d5966e74a04f881060a633992bc99b"
+    }
+  ],
+  "saved_interval_bytes": 2276,
+  "curated_instruction_bytes": 744,
+  "anchor_table": {
+    "path": "Research/protocol/assignment-record-12.4-anchors.tsv",
+    "count": 187,
+    "sha256": "1a66931a483c522b65efce788dca58c2c57bf74841b4f6095770d37e787ac151"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-record-012/curate.py",
+      "sha256": "b39347fda7add6fa1c017ebc03c45f47073c40f7fdc7676593dbe8ea47725a39",
+      "size_bytes": 5235
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-record-012/inspect_record.py",
+      "sha256": "e245e083a6d7e70ebe226358e54f931a29eb829cd20c6f4340f8fee38c66e952",
+      "size_bytes": 2841
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-record-012/record-proof.json",
+      "sha256": "1d0099cb2492f65563799b8bf5dac19292f74b621957d694eef024baf5e15185",
+      "size_bytes": 82390
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-record-012/replay_record.py",
+      "sha256": "cad10daf4f2b7ced45a00e7f1feadcecf28791def1f9d697e144e043f05a159d",
+      "size_bytes": 3405
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-record-012/record-replay.json",
+      "sha256": "a3474d6f5c5d2df7568afcca05e10ba0bf75127e25a9facd8359f61f200d6e49",
+      "size_bytes": 768
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/backend-proof.json",
+      "sha256": "00b130465c532d8757ceb73ef23713a9b5c1cf9feeeb3ec43372f6bf3f3f3322",
+      "size_bytes": 70898
+    },
+    {
+      "path": "Research/notes/assignment-backend-011.json",
+      "sha256": "adb2563b973230ed86dfa46241017d3980f0b23281eba6732b509768acd116df",
+      "size_bytes": 7164
+    },
+    {
+      "path": "Tools/research-scripts/binary_anchors.py",
+      "sha256": "fc6490ae288b5846a845199ae3111ac55250335bb760cdd7b92b709683388679",
+      "size_bytes": 11874
+    }
+  ],
+  "limits": [
+    "Only primary type40/50 record mutation is given semantic interpretation; unrelated small_value/parameter encoders remain context.",
+    "The larger record handler781438 is a next bounded question, not expanded in this report.",
+    "Slot predicateflag names, target lifetimes, event consumption and physical plug-in value remain unknown.",
+    "No new engine, live UI, MIDI, preferences write or verified capability."
+  ]
+}

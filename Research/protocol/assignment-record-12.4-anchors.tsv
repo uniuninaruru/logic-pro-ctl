@@ -1,0 +1,189 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Record construction/forwarding only; no plug-in effect proof
+RE001	insn	0x2fec34	200400b4	cbz x0, 0x2fecb8	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE002	insn	0x2fec38	09004079	ldrh w9, [x0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE003	insn	0x2fec3c	28791c12	and w8, w9, #0xfffffff7	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE004	insn	0x2fec40	1f010171	cmp w8, #0x40	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE005	insn	0x2fec44	e0000054	b.eq 0x2fec60	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE006	insn	0x2fec48	1f0d0171	cmp w8, #0x43	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE007	insn	0x2fec4c	41030054	b.ne 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE008	insn	0x2fec50	0ae44179	ldrh w10, [x0, #0xf2]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE009	insn	0x2fec54	4a3d1053	lsl w10, w10, #16	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE010	insn	0x2fec58	5f814071	cmp w10, #0x20, lsl #12	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE011	insn	0x2fec5c	c1020054	b.ne 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE012	insn	0x2fec60	0a904079	ldrh w10, [x0, #0x48]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE013	insn	0x2fec64	5f050071	cmp w10, #0x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE014	insn	0x2fec68	61020054	b.ne 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE015	insn	0x2fec6c	09023036	tbz w9, #0x6, 0x2fecac	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE016	insn	0x2fec70	3f010371	cmp w9, #0xc0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE017	insn	0x2fec74	c0010054	b.eq 0x2fecac	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE018	insn	0x2fec78	0998c079	ldrsh w9, [x0, #0x4c]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE019	insn	0x2fec7c	3f050071	cmp w9, #0x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE020	insn	0x2fec80	6b010054	b.lt 0x2fecac	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE021	insn	0x2fec84	09948079	ldrsh x9, [x0, #0x4a]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE022	insn	0x2fec88	0a2c43a9	ldp x10, x11, [x0, #0x30]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE023	insn	0x2fec8c	6b010acb	sub x11, x11, x10	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE024	insn	0x2fec90	3f0d8beb	cmp x9, x11, asr #3	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE025	insn	0x2fec94	c2000054	b.hs 0x2fecac	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE026	insn	0x2fec98	497969f8	ldr x9, [x10, x9, lsl #3]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE027	insn	0x2fec9c	890000b4	cbz x9, 0x2fecac	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE028	insn	0x2feca0	29b5c139	ldrsb w9, [x9, #0x6d]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE029	insn	0x2feca4	3f050071	cmp w9, #0x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE030	insn	0x2feca8	6c000054	b.gt 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE031	insn	0x2fecac	09bc40b9	ldr w9, [x0, #0xbc]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE032	insn	0x2fecb0	6900f837	tbnz w9, #0x1f, 0x2fecbc	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE033	insn	0x2fecb4	00008052	mov w0, #0x0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE034	insn	0x2fecb8	c0035fd6	ret	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE035	insn	0x2fecbc	2101f837	tbnz w1, #0x1f, 0x2fece0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE036	insn	0x2fecc0	09204239	ldrb w9, [x0, #0x88]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE037	insn	0x2fecc4	e9001036	tbz w9, #0x2, 0x2fece0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE038	insn	0x2fecc8	61000034	cbz w1, 0x2fecd4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE039	insn	0x2feccc	42ffff34	cbz w2, 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE040	insn	0x2fecd0	04000014	b 0x2fece0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE041	insn	0x2fecd4	1f0d0171	cmp w8, #0x43	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE042	insn	0x2fecd8	40000054	b.eq 0x2fece0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE043	insn	0x2fecdc	c2fe0736	tbz w2, #0x0, 0x2fecb4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE044	insn	0x2fece0	20008052	mov w0, #0x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE045	insn	0x2fece4	c0035fd6	ret	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE046	insn	0x1a26eec	08304039	ldrb w8, [x0, #0xc]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE047	insn	0x1a26ef0	1ffd0171	cmp w8, #0x7f	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE048	insn	0x1a26ef4	41020054	b.ne 0x1a26f3c	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE049	insn	0x1a26ef8	080040f9	ldr x8, [x0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE050	insn	0x1a26efc	09ed7c92	and x9, x8, #0xfffffffffffffff0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE051	insn	0x1a26f00	29214192	and x9, x9, #0x80000000000000ff	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE052	insn	0x1a26f04	081d0012	and w8, w8, #0xff	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE053	insn	0x1a26f08	3f8101f1	cmp x9, #0x60	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE054	insn	0x1a26f0c	a1010054	b.ne 0x1a26f40	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE055	insn	0x1a26f3c	08004039	ldrb w8, [x0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE056	insn	0x1a26f40	090d1c12	and w9, w8, #0xf0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE057	insn	0x1a26f44	3f010371	cmp w9, #0xc0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE058	insn	0x1a26f48	c1000054	b.ne 0x1a26f60	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE059	insn	0x1a26f4c	281c0812	and w8, w1, #0xff000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE060	insn	0x1a26f50	09244039	ldrb w9, [x0, #0x9]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE061	insn	0x1a26f54	0821092a	orr w8, w8, w9, lsl #8	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE062	insn	0x1a26f58	080800b9	str w8, [x0, #0x8]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE063	insn	0x1a26f5c	03000014	b 0x1a26f68	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE064	insn	0x1a26f60	c8003837	tbnz w8, #0x7, 0x1a26f78	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE065	insn	0x1a26f64	010800b9	str w1, [x0, #0x8]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE066	insn	0x1a26f68	08044039	ldrb w8, [x0, #0x1]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE067	insn	0x1a26f6c	08791a12	and w8, w8, #0xffffffdf	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE068	insn	0x1a26f70	08040039	strb w8, [x0, #0x1]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE069	insn	0x1a26f74	c0035fd6	ret	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE070	insn	0x59e730	28004039	ldrb w8, [x1]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE071	insn	0x59e734	09011c32	orr w9, w8, #0x10	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE072	insn	0x59e738	290d1c12	and w9, w9, #0xf0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE073	insn	0x59e73c	3f410171	cmp w9, #0x50	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE074	insn	0x59e740	61000054	b.ne 0x59e74c	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE075	insn	0x59e744	290440f9	ldr x9, [x1, #0x8]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE076	insn	0x59e748	6900d8b7	tbnz x9, #0x3b, 0x59e754	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE077	insn	0x59e74c	18008052	mov w24, #0x0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE078	insn	0x59e750	04000014	b 0x59e760	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE079	insn	0x59e754	29f94492	and x9, x9, #0xf7ffffffffffffff	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE080	insn	0x59e758	290400f9	str x9, [x1, #0x8]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE081	insn	0x59e75c	38008052	mov w24, #0x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE082	insn	0x59e760	09091b12	and w9, w8, #0xe0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE083	insn	0x59e764	3f010171	cmp w9, #0x40	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE084	insn	0x59e768	80000054	b.eq 0x59e778	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE085	insn	0x59e76c	08810251	sub w8, w8, #0xa0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE086	insn	0x59e770	1f3d0171	cmp w8, #0x4f	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE087	insn	0x59e774	68000054	b.hi 0x59e780	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE088	insn	0x59e778	280840f9	ldr x8, [x1, #0x10]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE089	insn	0x59e77c	4801f8b7	tbnz x8, #0x3f, 0x59e7a4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE090	insn	0x59e780	680d01d0	adrp x8, 0x274c000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE091	insn	0x59e784	036103f9	str x3, [x8, #0x6c0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE092	insn	0x59e788	fd7b4ca9	ldp x29, x30, [sp, #0xc0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE093	insn	0x59e78c	f44f4ba9	ldp x20, x19, [sp, #0xb0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE094	insn	0x59e790	f6574aa9	ldp x22, x21, [sp, #0xa0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE095	insn	0x59e794	f85f49a9	ldp x24, x23, [sp, #0x90]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE096	insn	0x59e798	fa6748a9	ldp x26, x25, [sp, #0x80]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE097	insn	0x59e79c	ff430391	add sp, sp, #0xd0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE098	insn	0x59e7a0	268b0714	b 0x781438	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE099	insn	0x59e7a4	091d4892	and x9, x8, #0xff00000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE100	insn	0x59e7a8	0ae0f7d2	mov x10, #-0x4100000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE101	insn	0x59e7ac	08010a8a	and x8, x8, x10	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE102	insn	0x59e7b0	0a00f7d2	mov x10, #-0x4800000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE103	insn	0x59e7b4	1f010aeb	cmp x8, x10	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE104	insn	0x59e7b8	0800f4d2	mov x8, #-0x6000000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE105	insn	0x59e7bc	240148fa	ccmp x9, x8, #0x4, eq	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE106	insn	0x59e7c0	61010054	b.ne 0x59e7ec	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE107	insn	0x59e7c4	281040f9	ldr x8, [x1, #0x20]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE108	insn	0x59e7c8	c8fdffb6	tbz x8, #0x3f, 0x59e780	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE109	insn	0x59e7cc	09e0f7d2	mov x9, #-0x4100000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE110	insn	0x59e7d0	0901098a	and x9, x8, x9	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE111	insn	0x59e7d4	3f010aeb	cmp x9, x10	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE112	insn	0x59e7d8	c10e0054	b.ne 0x59e9b0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE113	insn	0x59e7dc	081d4892	and x8, x8, #0xff00000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE114	insn	0x59e7e0	0900f4d2	mov x9, #-0x6000000000000000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE115	insn	0x59e7e4	1f0109eb	cmp x8, x9	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE116	insn	0x59e7e8	400e0054	b.eq 0x59e9b0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE117	insn	0x59e7ec	680d01d0	adrp x8, 0x274c000	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE118	insn	0x59e7f0	036103f9	str x3, [x8, #0x6c0]	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE119	insn	0x59e7f4	f30300aa	mov x19, x0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE120	insn	0x59e7f8	e0430191	add x0, sp, #0x50	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE121	insn	0x59e7fc	f40301aa	mov x20, x1	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE122	insn	0x59e800	f50302aa	mov x21, x2	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE123	insn	0x59e804	02008052	mov w2, #0x0	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE124	insn	0x59e808	f60304aa	mov x22, x4	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE125	insn	0x59e80c	f70303aa	mov x23, x3	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE126	insn	0x59e810	94c0f397	bl 0x28ea60	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE127	insn	0x59e814	fa0313aa	mov x26, x19	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE128	insn	0x59e818	e00313aa	mov x0, x19	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE129	insn	0x59e81c	f90314aa	mov x25, x20	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE130	insn	0x59e820	e10314aa	mov x1, x20	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE131	insn	0x59e824	f30315aa	mov x19, x21	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE132	insn	0x59e828	e20315aa	mov x2, x21	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE133	insn	0x59e82c	f40317aa	mov x20, x23	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE134	insn	0x59e830	e30317aa	mov x3, x23	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE135	insn	0x59e834	f50316aa	mov x21, x22	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE136	insn	0x59e838	e40316aa	mov x4, x22	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE137	insn	0x59e83c	ff8a0794	bl 0x781438	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE138	insn	0x59e840	e00319aa	mov x0, x25	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE139	insn	0x59e904	15755594	bl 0x1afbd58	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE140	insn	0x59e93c	00013fd6	blr x8	ASSIGN-RECORD-012 record mutation or dispatch witness
+RE141	insn	0x594b0c	080a8052	mov w8, #0x50	Prior backend constructs/forwards the record
+RE142	insn	0x594b10	09088052	mov w9, #0x40	Prior backend constructs/forwards the record
+RE143	insn	0x594b14	5f000071	cmp w2, #0x0	Prior backend constructs/forwards the record
+RE144	insn	0x594b18	2811881a	csel w8, w9, w8, ne	Prior backend constructs/forwards the record
+RE145	insn	0x594b1c	0801032a	orr w8, w8, w3	Prior backend constructs/forwards the record
+RE146	insn	0x594b20	75050190	adrp x21, 0x2640000	Prior backend constructs/forwards the record
+RE147	insn	0x594b24	b5a20491	add x21, x21, #0x128	Prior backend constructs/forwards the record
+RE148	insn	0x594b28	a8020039	strb w8, [x21]	Prior backend constructs/forwards the record
+RE149	insn	0x594b2c	08b900b0	adrp x8, 0x1cb5000	Prior backend constructs/forwards the record
+RE150	insn	0x594b30	00c5c23d	ldr q0, [x8, #0xb10]	Prior backend constructs/forwards the record
+RE151	insn	0x594b34	a006803d	str q0, [x21, #0x10]	Prior backend constructs/forwards the record
+RE152	insn	0x594b38	a80240f9	ldr x8, [x21]	Prior backend constructs/forwards the record
+RE153	insn	0x594bd0	68050190	adrp x8, 0x2640000	Prior backend constructs/forwards the record
+RE154	insn	0x594bd4	04690279	strh w4, [x8, #0x134]	Prior backend constructs/forwards the record
+RE155	insn	0x594bd8	fb0301aa	mov x27, x1	Prior backend constructs/forwards the record
+RE156	insn	0x594bdc	f80306aa	mov x24, x6	Prior backend constructs/forwards the record
+RE157	insn	0x594be0	fa0307aa	mov x26, x7	Prior backend constructs/forwards the record
+RE158	insn	0x594be4	47010036	tbz w7, #0x0, 0x594c0c	Prior backend constructs/forwards the record
+RE159	insn	0x594be8	f90305aa	mov x25, x5	Prior backend constructs/forwards the record
+RE160	insn	0x594bec	bf000071	cmp w5, #0x0	Prior backend constructs/forwards the record
+RE161	insn	0x594bf0	e1079f1a	cset w1, ne	Prior backend constructs/forwards the record
+RE162	insn	0x594bf4	e00315aa	mov x0, x21	Prior backend constructs/forwards the record
+RE163	insn	0x594bf8	00185094	bl 0x199abf8	Prior backend constructs/forwards the record
+RE164	insn	0x594bfc	a85a4039	ldrb w8, [x21, #0x16]	Prior backend constructs/forwards the record
+RE165	insn	0x594c00	08010032	orr w8, w8, #0x1	Prior backend constructs/forwards the record
+RE166	insn	0x594c04	a85a0039	strb w8, [x21, #0x16]	Prior backend constructs/forwards the record
+RE167	insn	0x594c08	0d000014	b 0x594c3c	Prior backend constructs/forwards the record
+RE168	insn	0x594c0c	60050190	adrp x0, 0x2640000	Prior backend constructs/forwards the record
+RE169	insn	0x594c10	00a00491	add x0, x0, #0x128	Prior backend constructs/forwards the record
+RE170	insn	0x594c14	f90305aa	mov x25, x5	Prior backend constructs/forwards the record
+RE171	insn	0x594c18	e10305aa	mov x1, x5	Prior backend constructs/forwards the record
+RE172	insn	0x594c1c	b4485294	bl 0x1a26eec	Prior backend constructs/forwards the record
+RE173	insn	0x594c3c	68050190	adrp x8, 0x2640000	Prior backend constructs/forwards the record
+RE174	insn	0x594c40	08f50491	add x8, x8, #0x13d	Prior backend constructs/forwards the record
+RE175	insn	0x594c44	09178052	mov w9, #0xb8	Prior backend constructs/forwards the record
+RE176	insn	0x594c48	09090039	strb w9, [x8, #0x2]	Prior backend constructs/forwards the record
+RE177	insn	0x594c4c	29008052	mov w9, #0x1	Prior backend constructs/forwards the record
+RE178	insn	0x594c50	09010039	strb w9, [x8]	Prior backend constructs/forwards the record
+RE179	insn	0x594c54	e1031baa	mov x1, x27	Prior backend constructs/forwards the record
+RE180	insn	0x594c58	1b3100b8	stur w27, [x8, #0x3]	Prior backend constructs/forwards the record
+RE181	insn	0x594d64	61050190	adrp x1, 0x2640000	Prior backend constructs/forwards the record
+RE182	insn	0x594d68	21a00491	add x1, x1, #0x128	Prior backend constructs/forwards the record
+RE183	insn	0x594d6c	e00313aa	mov x0, x19	Prior backend constructs/forwards the record
+RE184	insn	0x594d70	e2031caa	mov x2, x28	Prior backend constructs/forwards the record
+RE185	insn	0x594d74	a4008052	mov w4, #0x5	Prior backend constructs/forwards the record
+RE186	insn	0x594d78	67260094	bl 0x59e714	Prior backend constructs/forwards the record
+RE187	data	0x1cb5b10	00000000000000b80000000000000000		Initial16B record extension template, qword0 high byte b8
