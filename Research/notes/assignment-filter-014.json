@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "id": "ASSIGN-FILTER-014",
+  "recorded_utc": "2026-10-20T21:34:05.220113+00:00",
+  "scope": {
+    "binary": "Logic12.4-6707.arm64",
+    "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda",
+    "kind": "bounded_static_conditional_candidate_token_rejection",
+    "runtime_verified": false,
+    "product_capability": false
+  },
+  "caller": {
+    "entry": "0x77ff64",
+    "saved_prefix_bytes": 768,
+    "full_interval_bytes": 3408,
+    "candidate_argument": "X26, non-null at0x78023c",
+    "filter_call": "0x780250 ->1a13954(candidate,context,record,-1)",
+    "reject_branch": "0x780254 tests return bit0; set skips current candidate to0x78019c",
+    "candidate_object_type_proven": false
+  },
+  "filter": {
+    "entry": "0x1a13954",
+    "size_bytes": 1064,
+    "record_argument": "X2 saved asX20",
+    "selected_prefix_precondition": "Primary tag with first qword bit63 clear; replay starts after opaque finder",
+    "finder_call": "0x1a139d4 ->19c22cc(record,0xb8,0,1), opaque",
+    "comparison_precondition": "Returned extension non-null AND (header &0xbf08000000000000)==0xb808000000000000 AND (header &0xff00000000000000)!=0xa000000000000000",
+    "comparison": "0x1a13a08..0x1a13a14 compares u32[extension+8] with u32[candidate+0x30]",
+    "mismatch": "0x1a13cc4 sets W8=1;0x1a13cc8 W0=W8&1; returns",
+    "plain_b8_header": "At this post-finder gate, bit51-clear B8 header bypasses token comparison; later gates still apply",
+    "uuid_or_plugin_identity_confirmed": false
+  },
+  "producer": {
+    "entry": "0x594890, reused from011",
+    "base_template": "012 initializes B8 extension with bit51 clear",
+    "token_write": "0x594c58 stores W27 at record+0x18 (extension+8)",
+    "conditional_marker": "0x594d4c..0x594d54 ORs byte record+0x16 with8, setting extension header bit51",
+    "conditions_not_semantically_named": true,
+    "all_records_marked": false
+  },
+  "restricted_replay": {
+    "cases": 8196,
+    "mismatches": 0,
+    "visited_instruction_sites": 15,
+    "comparison_taken_cases": 32,
+    "mismatch_rejected_cases": 16,
+    "source_sha256": "1c7a1e1e474c66559502e313f81ec0d40541a290413aa22dac241b391f5f59cf",
+    "reproducer_sha256": "e43fb6fdbe838e82fb28696881cc6a7cdceb427109e914ec444ae537950feda8",
+    "limits": [
+      "Starts after opaque 19c22cc extension finder at1a139d8. Non-null candidate required.",
+      "Stops at next class gate1a13a18 or mismatch return path1a13cc4.",
+      "All256 returned high bytes, markerbit51 and four other-bit/token variants are model inputs; native finder reachability is not established for arbitrary headers.",
+      "No native UUID equality, consumer action, current instance or live value is executed."
+    ],
+    "runtime_verified": false
+  },
+  "saved_excerpts": [
+    {
+      "label": "consumer_entry",
+      "entry": "0x77ff64",
+      "exclusive_end": "0x780264",
+      "function_exclusive_end": "0x780cb4",
+      "size_bytes": 768,
+      "body_sha256": "2673fa188ce27fc599d7469cf848c83e5bc7c285f66cda1710a10599bebaa8a8"
+    },
+    {
+      "label": "nested_record_filter",
+      "entry": "0x1a13954",
+      "exclusive_end": "0x1a13d7c",
+      "function_exclusive_end": "0x1a13d7c",
+      "size_bytes": 1064,
+      "body_sha256": "5fc17cbe802a6c202291efc222907040deb278097d98398738ab3f56443f68be"
+    }
+  ],
+  "saved_excerpt_bytes": 1832,
+  "curated_instruction_bytes": 428,
+  "anchor_table": {
+    "path": "Research/protocol/assignment-filter-12.4-anchors.tsv",
+    "count": 107,
+    "sha256": "a35a5a58ae289c2f7d01ae41ccd52b77e4d61693696b13af12c3fe87ba60082d"
+  },
+  "source_manifest": [
+    {
+      "path": "Research/raw/rea/codex-assignment-consumer-014/curate.py",
+      "sha256": "f3da5005b3de58b9b2e9cd364a83de9df7eacdd5cbf6de6a5ad38b3103823357",
+      "size_bytes": 4720
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-consumer-014/inspect_consumer.py",
+      "sha256": "a2e873916238c1ee1e05979a6ea9f6841ff8a491931bd652801c25b18a3aacce",
+      "size_bytes": 2830
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-consumer-014/consumer-proof.json",
+      "sha256": "1c7a1e1e474c66559502e313f81ec0d40541a290413aa22dac241b391f5f59cf",
+      "size_bytes": 66294
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-consumer-014/replay_filter.py",
+      "sha256": "e43fb6fdbe838e82fb28696881cc6a7cdceb427109e914ec444ae537950feda8",
+      "size_bytes": 3504
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-consumer-014/filter-replay.json",
+      "sha256": "9230c539aa069fb10d1cda75c28e921a8b5203723f96f7ca9aa087cd416b648e",
+      "size_bytes": 788
+    },
+    {
+      "path": "Research/raw/rea/codex-assignment-backend-011/backend-proof.json",
+      "sha256": "00b130465c532d8757ceb73ef23713a9b5c1cf9feeeb3ec43372f6bf3f3f3322",
+      "size_bytes": 70898
+    },
+    {
+      "path": "Research/notes/assignment-handler-013.json",
+      "sha256": "813875d5cbd2d0d185f244e9f6eeeedb5c60a336adedea7e89c954e2db9fe072",
+      "size_bytes": 8460
+    },
+    {
+      "path": "Research/notes/assignment-record-012.json",
+      "sha256": "1cd509f096d2fdc95fc02a4bb66dbf5c4036381f5aa3858989dc882e6b191d4e",
+      "size_bytes": 6172
+    }
+  ],
+  "limits": [
+    "Candidate object field+30 is not independently established as a current plug-in instance identifier.",
+    "The opaque extension finder is not replayed; arbitrary model headers may not be reachable through it.",
+    "A matched or bypassed token check does not mean the filter ultimately accepts the record; later conditions remain.",
+    "This selected call filters a candidate; neither physical parameter application nor timer-buffer drain is proven.",
+    "No engine, live process, MIDI, preferences write or new verified capability."
+  ]
+}

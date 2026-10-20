@@ -1,0 +1,109 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Conditional candidate token filter, not UUID or live instance proof
+CF001	insn	0x77ff88	c15d00b4	cbz x1, 0x780b40	Candidate-loop setup, optional skip and boolean filter call
+CF002	insn	0x77ff8c	f30300aa	mov x19, x0	Candidate-loop setup, optional skip and boolean filter call
+CF003	insn	0x77ff90	08b448b9	ldr w8, [x0, #0x8b4]	Candidate-loop setup, optional skip and boolean filter call
+CF004	insn	0x77ff94	1f050031	cmn w8, #0x1	Candidate-loop setup, optional skip and boolean filter call
+CF005	insn	0x77ff98	405d0054	b.eq 0x780b40	Candidate-loop setup, optional skip and boolean filter call
+CF006	insn	0x77ff9c	f70304aa	mov x23, x4	Candidate-loop setup, optional skip and boolean filter call
+CF007	insn	0x77ffa0	f60303aa	mov x22, x3	Candidate-loop setup, optional skip and boolean filter call
+CF008	insn	0x77ffa4	f50302aa	mov x21, x2	Candidate-loop setup, optional skip and boolean filter call
+CF009	insn	0x77ffa8	f40301aa	mov x20, x1	Candidate-loop setup, optional skip and boolean filter call
+CF010	insn	0x780184	681a4339	ldrb w8, [x19, #0xc6]	Candidate-loop setup, optional skip and boolean filter call
+CF011	insn	0x780188	080a0034	cbz w8, 0x7802c8	Candidate-loop setup, optional skip and boolean filter call
+CF012	insn	0x78018c	1a0080d2	mov x26, #0x0	Candidate-loop setup, optional skip and boolean filter call
+CF013	insn	0x780190	e84f40b9	ldr w8, [sp, #0x4c]	Candidate-loop setup, optional skip and boolean filter call
+CF014	insn	0x780194	08011a0b	add w8, w8, w26	Candidate-loop setup, optional skip and boolean filter call
+CF015	insn	0x780198	e84f00b9	str w8, [sp, #0x4c]	Candidate-loop setup, optional skip and boolean filter call
+CF016	insn	0x78019c	7b430191	add x27, x27, #0x50	Candidate-loop setup, optional skip and boolean filter call
+CF017	insn	0x7801a0	9c430191	add x28, x28, #0x50	Candidate-loop setup, optional skip and boolean filter call
+CF018	insn	0x7801a4	e82b40f9	ldr x8, [sp, #0x50]	Candidate-loop setup, optional skip and boolean filter call
+CF019	insn	0x7801a8	7f0308eb	cmp x27, x8	Candidate-loop setup, optional skip and boolean filter call
+CF020	insn	0x7801ac	00440054	b.eq 0x780a2c	Candidate-loop setup, optional skip and boolean filter call
+CF021	insn	0x78023c	1afbffb4	cbz x26, 0x78019c	Candidate-loop setup, optional skip and boolean filter call
+CF022	insn	0x780240	e0031aaa	mov x0, x26	Candidate-loop setup, optional skip and boolean filter call
+CF023	insn	0x780244	e10313aa	mov x1, x19	Candidate-loop setup, optional skip and boolean filter call
+CF024	insn	0x780248	e20314aa	mov x2, x20	Candidate-loop setup, optional skip and boolean filter call
+CF025	insn	0x78024c	03008012	mov w3, #-0x1	Candidate-loop setup, optional skip and boolean filter call
+CF026	insn	0x780250	c14d4a94	bl 0x1a13954	Candidate-loop setup, optional skip and boolean filter call
+CF027	insn	0x780254	40fa0737	tbnz w0, #0x0, 0x78019c	Candidate-loop setup, optional skip and boolean filter call
+CF028	insn	0x1a13968	f40302aa	mov x20, x2	Conditional B8 extension token comparison and rejecting return
+CF029	insn	0x1a1396c	f50301aa	mov x21, x1	Conditional B8 extension token comparison and rejecting return
+CF030	insn	0x1a13970	f30300aa	mov x19, x0	Conditional B8 extension token comparison and rejecting return
+CF031	insn	0x1a13974	480040f9	ldr x8, [x2]	Conditional B8 extension token comparison and rejecting return
+CF032	insn	0x1a13978	0801f8b7	tbnz x8, #0x3f, 0x1a13998	Conditional B8 extension token comparison and rejecting return
+CF033	insn	0x1a1397c	e803282a	mvn w8, w8	Conditional B8 extension token comparison and rejecting return
+CF034	insn	0x1a13980	1f0d7cf2	tst x8, #0xf0	Conditional B8 extension token comparison and rejecting return
+CF035	insn	0x1a13984	01020054	b.ne 0x1a139c4	Conditional B8 extension token comparison and rejecting return
+CF036	insn	0x1a13988	e00314aa	mov x0, x20	Conditional B8 extension token comparison and rejecting return
+CF037	insn	0x1a1398c	fc000094	bl 0x1a13d7c	Conditional B8 extension token comparison and rejecting return
+CF038	insn	0x1a13990	e30300aa	mov x3, x0	Conditional B8 extension token comparison and rejecting return
+CF039	insn	0x1a13994	03000014	b 0x1a139a0	Conditional B8 extension token comparison and rejecting return
+CF040	insn	0x1a13998	7f040031	cmn w3, #0x1	Conditional B8 extension token comparison and rejecting return
+CF041	insn	0x1a1399c	00010054	b.eq 0x1a139bc	Conditional B8 extension token comparison and rejecting return
+CF042	insn	0x1a139a0	68000111	add w8, w3, #0x40	Conditional B8 extension token comparison and rejecting return
+CF043	insn	0x1a139a4	69024139	ldrb w9, [x19, #0x40]	Conditional B8 extension token comparison and rejecting return
+CF044	insn	0x1a139a8	3f01286b	cmp w9, w8, uxtb	Conditional B8 extension token comparison and rejecting return
+CF045	insn	0x1a139ac	c8078052	mov w8, #0x3e	Conditional B8 extension token comparison and rejecting return
+CF046	insn	0x1a139b0	2411487a	ccmp w9, w8, #0x4, ne	Conditional B8 extension token comparison and rejecting return
+CF047	insn	0x1a139b4	e8079f1a	cset w8, ne	Conditional B8 extension token comparison and rejecting return
+CF048	insn	0x1a139b8	c4000014	b 0x1a13cc8	Conditional B8 extension token comparison and rejecting return
+CF049	insn	0x1a139bc	880e5ff8	ldr x8, [x20, #-0x10]!	Conditional B8 extension token comparison and rejecting return
+CF050	insn	0x1a139c0	e8ffffb7	tbnz x8, #0x3f, 0x1a139bc	Conditional B8 extension token comparison and rejecting return
+CF051	insn	0x1a139c4	e00314aa	mov x0, x20	Conditional B8 extension token comparison and rejecting return
+CF052	insn	0x1a139c8	01178052	mov w1, #0xb8	Conditional B8 extension token comparison and rejecting return
+CF053	insn	0x1a139cc	02008052	mov w2, #0x0	Conditional B8 extension token comparison and rejecting return
+CF054	insn	0x1a139d0	23008052	mov w3, #0x1	Conditional B8 extension token comparison and rejecting return
+CF055	insn	0x1a139d4	3ebafe97	bl 0x19c22cc	Conditional B8 extension token comparison and rejecting return
+CF056	insn	0x1a139d8	400100b4	cbz x0, 0x1a13a00	Conditional B8 extension token comparison and rejecting return
+CF057	insn	0x1a139dc	080040f9	ldr x8, [x0]	Conditional B8 extension token comparison and rejecting return
+CF058	insn	0x1a139e0	091d4892	and x9, x8, #0xff00000000000000	Conditional B8 extension token comparison and rejecting return
+CF059	insn	0x1a139e4	0ae1f7d2	mov x10, #-0x40f8000000000000	Conditional B8 extension token comparison and rejecting return
+CF060	insn	0x1a139e8	08010a8a	and x8, x8, x10	Conditional B8 extension token comparison and rejecting return
+CF061	insn	0x1a139ec	0a01f7d2	mov x10, #-0x47f8000000000000	Conditional B8 extension token comparison and rejecting return
+CF062	insn	0x1a139f0	1f010aeb	cmp x8, x10	Conditional B8 extension token comparison and rejecting return
+CF063	insn	0x1a139f4	0800f4d2	mov x8, #-0x6000000000000000	Conditional B8 extension token comparison and rejecting return
+CF064	insn	0x1a139f8	240148fa	ccmp x9, x8, #0x4, eq	Conditional B8 extension token comparison and rejecting return
+CF065	insn	0x1a139fc	61000054	b.ne 0x1a13a08	Conditional B8 extension token comparison and rejecting return
+CF066	insn	0x1a13a00	d30000b5	cbnz x19, 0x1a13a18	Conditional B8 extension token comparison and rejecting return
+CF067	insn	0x1a13a04	08000014	b 0x1a13a24	Conditional B8 extension token comparison and rejecting return
+CF068	insn	0x1a13a08	080840b9	ldr w8, [x0, #0x8]	Conditional B8 extension token comparison and rejecting return
+CF069	insn	0x1a13a0c	693240b9	ldr w9, [x19, #0x30]	Conditional B8 extension token comparison and rejecting return
+CF070	insn	0x1a13a10	1f01096b	cmp w8, w9	Conditional B8 extension token comparison and rejecting return
+CF071	insn	0x1a13a14	81150054	b.ne 0x1a13cc4	Conditional B8 extension token comparison and rejecting return
+CF072	insn	0x1a13a18	68a64139	ldrb w8, [x19, #0x69]	Conditional B8 extension token comparison and rejecting return
+CF073	insn	0x1a13a1c	1f450071	cmp w8, #0x11	Conditional B8 extension token comparison and rejecting return
+CF074	insn	0x1a13a20	01010054	b.ne 0x1a13a40	Conditional B8 extension token comparison and rejecting return
+CF075	insn	0x1a13a24	88024039	ldrb w8, [x20]	Conditional B8 extension token comparison and rejecting return
+CF076	insn	0x1a13a28	08011c32	orr w8, w8, #0x10	Conditional B8 extension token comparison and rejecting return
+CF077	insn	0x1a13a2c	080d1c12	and w8, w8, #0xf0	Conditional B8 extension token comparison and rejecting return
+CF078	insn	0x1a13a30	1f410171	cmp w8, #0x50	Conditional B8 extension token comparison and rejecting return
+CF079	insn	0x1a13a34	a1120054	b.ne 0x1a13c88	Conditional B8 extension token comparison and rejecting return
+CF080	insn	0x1a13a38	08008052	mov w8, #0x0	Conditional B8 extension token comparison and rejecting return
+CF081	insn	0x1a13a3c	a3000014	b 0x1a13cc8	Conditional B8 extension token comparison and rejecting return
+CF082	insn	0x1a13cc4	28008052	mov w8, #0x1	Conditional B8 extension token comparison and rejecting return
+CF083	insn	0x1a13cc8	00010012	and w0, w8, #0x1	Conditional B8 extension token comparison and rejecting return
+CF084	insn	0x1a13ccc	fd7b43a9	ldp x29, x30, [sp, #0x30]	Conditional B8 extension token comparison and rejecting return
+CF085	insn	0x1a13cd0	f44f42a9	ldp x20, x19, [sp, #0x20]	Conditional B8 extension token comparison and rejecting return
+CF086	insn	0x1a13cd4	f65741a9	ldp x22, x21, [sp, #0x10]	Conditional B8 extension token comparison and rejecting return
+CF087	insn	0x1a13cd8	f85fc4a8	ldp x24, x23, [sp], #0x40	Conditional B8 extension token comparison and rejecting return
+CF088	insn	0x1a13cdc	c0035fd6	ret	Conditional B8 extension token comparison and rejecting return
+CF089	insn	0x594c3c	68050190	adrp x8, 0x2640000	Producer target token and conditional bit51 marker
+CF090	insn	0x594c40	08f50491	add x8, x8, #0x13d	Producer target token and conditional bit51 marker
+CF091	insn	0x594c44	09178052	mov w9, #0xb8	Producer target token and conditional bit51 marker
+CF092	insn	0x594c48	09090039	strb w9, [x8, #0x2]	Producer target token and conditional bit51 marker
+CF093	insn	0x594c4c	29008052	mov w9, #0x1	Producer target token and conditional bit51 marker
+CF094	insn	0x594c50	09010039	strb w9, [x8]	Producer target token and conditional bit51 marker
+CF095	insn	0x594c54	e1031baa	mov x1, x27	Producer target token and conditional bit51 marker
+CF096	insn	0x594c58	1b3100b8	stur w27, [x8, #0x3]	Producer target token and conditional bit51 marker
+CF097	insn	0x594d38	887b4139	ldrb w8, [x28, #0x5e]	Producer target token and conditional bit51 marker
+CF098	insn	0x594d3c	1f050071	cmp w8, #0x1	Producer target token and conditional bit51 marker
+CF099	insn	0x594d40	21010054	b.ne 0x594d64	Producer target token and conditional bit51 marker
+CF100	insn	0x594d44	9aea0737	tbnz w26, #0x0, 0x594a94	Producer target token and conditional bit51 marker
+CF101	insn	0x594d48	e10319aa	mov x1, x25	Producer target token and conditional bit51 marker
+CF102	insn	0x594d4c	a85a4039	ldrb w8, [x21, #0x16]	Producer target token and conditional bit51 marker
+CF103	insn	0x594d50	08011d32	orr w8, w8, #0x8	Producer target token and conditional bit51 marker
+CF104	insn	0x594d54	a85a0039	strb w8, [x21, #0x16]	Producer target token and conditional bit51 marker
+CF105	insn	0x594d58	e00315aa	mov x0, x21	Producer target token and conditional bit51 marker
+CF106	insn	0x594d5c	64485294	bl 0x1a26eec	Producer target token and conditional bit51 marker
+CF107	insn	0x594d60	e30318aa	mov x3, x24	Producer target token and conditional bit51 marker
