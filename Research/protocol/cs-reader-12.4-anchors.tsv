@@ -1,0 +1,37 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction anchors only (Claude, REA/Ghidra 12.1.4 session + llvm-objdump); no runtime claim. See Research/notes/cs-reader-endian-gate-001.en.md
+CR001	insn	0x17d6394	6fe2ca97	bl 0xa8ed50	CLgAppManager::appManager_applicationWillFinishLaunching calls FUN_00a8ed50
+CR002	insn	0xa8eeb8	3f170194	bl 0xad4bb4	FUN_00a8ed50 calls FUN_00ad4bb4 (startup load of the CS file)
+CR003	insn	0xad4c58	21a00b91	add x1, x1, #0x2e8	FUN_00ad4bb4 passes the global block 0x22ce2e8 (invoke FUN_00ad4fa8)
+CR004	insn	0xad4c60	3b33ff97	bl 0xaa194c	FUN_00ad4bb4 calls the chunk reader FUN_00aa194c
+CR005	insn	0x97f614	ce880494	bl 0xaa194c	ControllerAssignmentsController::importCustomAssignments: calls the same reader (block invoke FUN_00ad7c30)
+CR006	insn	0xaa19d8	82018052	mov w2, #0xc	reader: header read is 12 bytes (form id, size, form type)
+CR007	insn	0xaa19f0	69c8a872	movk w9, #0x4643, lsl #16	form type compared with 0x46435353 (file bytes 'SSCF')
+CR008	insn	0xaa1a00	696aaa72	movk w9, #0x5353, lsl #16	form type compared with 0x53534346 (file bytes 'FCSS')
+CR009	insn	0xaa1a14	e9c9a872	movk w9, #0x464f, lsl #16	form id 0x464f524d (file bytes 'MROF') with 'FCSS'
+CR010	insn	0xaa1aa8	14008052	mov w20, #0x0	-> mode 0
+CR011	insn	0xaa1a24	2949aa72	movk w9, #0x5249, lsl #16	form id 0x52494646 (file bytes 'FFIR') with 'FCSS'
+CR012	insn	0xaa1a30	54008052	mov w20, #0x2	-> mode 2
+CR013	insn	0xaa1a40	c9c8a872	movk w9, #0x4646, lsl #16	form id 0x46464952 (file bytes 'RIFF') with 'SSCF'
+CR014	insn	0xaa1ab0	34008052	mov w20, #0x1	-> mode 1
+CR015	insn	0xaa1a50	49aaa972	movk w9, #0x4d52, lsl #16	form id 0x4d524f46 (file bytes 'FORM') with 'SSCF'
+CR016	insn	0xaa1a5c	74008052	mov w20, #0x3	-> mode 3
+CR017	insn	0xaa1a64	0809c05a	rev w8, w8	modes 2 and 3 byte-swap the header size
+CR018	insn	0xaa1ac4	8e644194	bl 0x1afacfc	CFileIO::GetEOF
+CR019	insn	0xaa1ac8	08300051	sub w8, w0, #0xc	budget = EOF - 12; overwrites the header size (header size not used)
+CR020	insn	0xaa1acc	e8e700b9	str w8, [sp, #0xe4]	budget stored
+CR021	insn	0xaa1ad0	f4f700b9	str w20, [sp, #0xf4]	mode stored at reader +0xcc (reader object at sp+0x28)
+CR022	insn	0xaa1ae0	d4050037	tbnz w20, #0x0, 0xaa1b98	mode bit 0 selects the tag-swapping loops
+CR023	insn	0xaa1ae4	740b0837	tbnz w20, #0x1, 0xaa1c50	mode bit 1 selects the size-swapping loops
+CR024	insn	0xaa1be4	0209c05a	rev w2, w8	bit-0 loop: tag byte-swapped before the callback
+CR025	insn	0xaa1c98	0309c05a	rev w3, w8	bit-1 loop: chunk size byte-swapped
+CR026	insn	0xaa1b44	c4130054	b.mi 0xaa1dbc	chunk past the budget -> 'IFF file size specification does not match' (NSLog) and stop
+CR027	insn	0xaa1b58	00013fd6	blr x8	chunk callback (block, reader, tag, size)
+CR028	insn	0xad7c50	5f0008eb	cmp x2, x8	import callback: tag == 'FADR' (0x46414452)
+CR029	insn	0xad7c90	7b9aff97	bl 0xabe67c	-> FUN_00abe67c decodes one assignment
+CR030	insn	0xabe6b4	c8ca80b9	ldrsw x8, [x22, #0xc8]	decoder reads min(chunk bytes left at reader +0xc8, requested)
+CR031	insn	0xabe6f0	c8324339	ldrb w8, [x22, #0xcc]	decoder loads reader +0xcc
+CR032	insn	0xabe6f4	a8020836	tbz w8, #0x1, 0xabe748	bit 1 clear -> no field swap
+CR033	insn	0xabe6fc	0809c05a	rev w8, w8	bit 1 set: +0x3a (class) byte-swapped
+CR034	insn	0xabe708	0809c05a	rev w8, w8	+0x3e (selector) byte-swapped (16-bit)
+CR035	insn	0xabe718	0809c05a	rev w8, w8	+0x40 (code) byte-swapped
