@@ -1,0 +1,15 @@
+# Image: Logic12.4-6707.arm64 sha256=48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda
+# Offline instruction anchors only (Claude, REA/Ghidra 12.1.4 session + llvm-objdump); no runtime claim. See Research/notes/pickup-consumer-001.en.md
+PU001	insn	0xab422c	08791c12	and w8, w8, #0xfffffff7	timed clear of +0x39 bit3
+PU002	insn	0xab4298	63343791	add x3, x3, #0xdcd	log string reference (skip / not-yet-valid / deviation)
+PU003	insn	0xab42cc	882e4139	ldrb w8, [x20, #0x4b]	valueMode byte read in value-apply
+PU004	insn	0xab4340	63103891	add x3, x3, #0xe04	log string reference (skip / not-yet-valid / deviation)
+PU005	insn	0xab4364	08011c32	orr w8, w8, #0x10	set +0x39 bit4 (value valid)
+PU006	insn	0xab43f4	63343991	add x3, x3, #0xe4d	log string reference (skip / not-yet-valid / deviation)
+PU007	insn	0xab4424	688f82d2	mov x8, #0x147b	0.02 tolerance constant build
+PU008	insn	0xab4428	c8f5a8f2	movk x8, #0x47ae, lsl #16	0.02 tolerance constant build
+PU009	insn	0xab442c	285ccff2	movk x8, #0x7ae1, lsl #32	0.02 tolerance constant build
+PU010	insn	0xab4430	88f2e7f2	movk x8, #0x3f94, lsl #48	0.02 tolerance constant build
+PU011	insn	0xab454c	08011d32	orr w8, w8, #0x8	set +0x39 bit3 (picked up)
+PU012	insn	0xab6014	6b751b12	and w11, w11, #0xffffffe7	clear bits3+4 in CS refresh path
+PU013	insn	0xaba93c	6b751b12	and w11, w11, #0xffffffe7	clear bits3+4 in syncSelection path
