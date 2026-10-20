@@ -70,3 +70,8 @@ AI067	insn	0xabb89c	e00e00b9	str w0, [x23, #0xc]	writes it back to +0xf8 entry +
 AI068	insn	0xabb964	c3ac2c94	bl 0x15e6c70	if not found on its track: scans tracks and sets +0x1a0 via FUN_015e6c70
 AI069	insn	0x882c5c	29e11d91	add x9, x9, #0x778	FUN_0088016c builds the block with invoke 0xabb778
 AI070	insn	0x15cd694	bfa51494	bl 0x1af6d90	NewTrackSheetController::_popUpPluginMenu passes element +0xbc/+0xb8/+0xb4 to _MAAEGetPlugInNicknameForIDs
+AI071	insn	0x1a34b5c	2811889a	csel x8, x9, x8, ne	enumerator: count field is container +0x4e (mode 1) or +0x4c (mode 0)
+AI072	insn	0x1a34ba0	287bf878	ldrsh w8, [x25, x24, lsl #1]	per-index limit from the int16 table at container +0x4a
+AI073	insn	0x1a34bac	287bfa78	ldrsh w8, [x25, x26, lsl #1]	index offset = preceding section size(s) from the same table
+AI074	insn	0x1a34bd4	237968f8	ldr x3, [x9, x8, lsl #3]	element = container +0x30 vector[offset + i]
+AI075	insn	0x1a34c04	c8060011	add w8, w22, #0x1	i increases by one per call (ascending slot order within the section)

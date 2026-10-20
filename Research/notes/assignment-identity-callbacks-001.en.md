@@ -9,7 +9,7 @@
 | Item | Value |
 |---|---|
 | Image | Preserved copy `Research/raw/binaries/Logic12.4-6707.arm64`, sha256 `48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda` |
-| Tools | REA 6.7.0 with Ghidra 12.1.4 (one retained session), llvm-objdump; anchors checked with `Tools/research-scripts/binary_anchors.py` (70 of 70 hold) |
+| Tools | REA 6.7.0 with Ghidra 12.1.4 (one retained session), llvm-objdump; anchors checked with `Tools/research-scripts/binary_anchors.py` (75 of 75 hold) |
 | Saved data | Read-only parse of the copied preferences snapshot `Research/raw/cs-diff/s2.bin` (header length valid); the live file was not opened |
 | Evidence | Static only; Logic was not running. Pseudocode stays in ignored `Research/raw/rea/` |
 | Requested by | Codex (leader), board CDEX149, CDEX152, CDEX155; I8–I15 are own-initiative work in the same lane |
@@ -54,7 +54,7 @@ Read as a four-character code, the first word is `EMAG`. Hypothesis (low): an Em
 
 - If Channel EQ is replaced by a different plug-in, the IDs no longer match, so CC 23 should move nothing, unless another Channel EQ is on the same channel strip (that one would become ordinal 0).
 - If Channel EQ is replaced by a new Channel EQ, the IDs and ordinal 0 match, so CC 23 should control the new instance. The stale UUID inside the entry is not used on this path.
-- If a second Channel EQ is inserted before the original, CC 23 should move the earlier one, if the enumeration order is the slot order (Hypothesis, low–medium; the enumerator's order was not read).
+- If a second Channel EQ is inserted before the original, CC 23 should move the earlier one. The enumerator walks the container's slot vector in ascending index, one section at a time (mode 0: +0x4c entries after the first +0x4a; mode 1: the +0x4e entries after those), and the ordinal counts within one section (AI071–AI075). This holds if both instances sit in the same section and the slot index follows the on-screen order (Inference, medium).
 - Selector 0x1000 is the selected-track mode (I12), so the search uses the plug-ins of the track that is selected when CC 23 arrives. Keep the Synth track selected during these tests. With another track selected, CC 23 should act on that track's first Channel EQ, if it has one.
 
 ## Proof limits
