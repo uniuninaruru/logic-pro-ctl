@@ -8,6 +8,7 @@
 
 **現在の重点（2026-10-08）はMIDIコントローラーの割り当てです。**
 [既存解析との接続図と現行版の関数照合](static-analysis/SA-MIDI-ROUTE-001.en.md)に、MCU・Remote・キーコマンド・AppleEvent・リージョンとの関係をまとめました。
+[REAへの調査引き継ぎ](notes/rea-ghidra-handoff-001.en.md)では、保存済み12.3.1／12.4コピーをREAで識別照合しました。標準REAの新規一時importと、既存Ghidraの型・注釈・解析結果の継承を区別し、既存資産から不足箇所を追います。
 [最初の完成目標と合格条件](plans/midi-assignment-automation-001.en.md)は、Channel EQの対象特定→MIDI操作→実際の値の読み戻しです。
 [設定コピーの限定読み取りと差分](static-analysis/SA-CS-PREFS-001.en.md)を実装し、21件の対象テストが通りました。設定ファイルの長さに不整合があるコピーは通常モードで拒否します。GUIでの割り当て自動化・復元、プラグイン変更時の識別、EQの自動読み戻しは未完了です。
 [EQのAPI値読み取り](notes/channel-eq-ax-context-002.en.md)では、Controls表示のMaster Gainから **0.0 dB** を取得しました。権限不足・不正なウィンドウ情報・画面ロックを区別し、読み取れない状態は拒否します。最終行指定処理の実機確認、MIDI操作前後の比較、対象実体の識別は未完了です。

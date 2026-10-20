@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "id": "REA-HANDOFF-001",
+  "owner": "CDEX",
+  "recorded_utc": "2026-10-20T15:35:09Z",
+  "status": "artifact_identity_correlated_existing_database_attach_unsupported",
+  "readiness": {
+    "cli_package": "rea-agents@6.7.0",
+    "skill_version": "42",
+    "codex_registration": "aligned",
+    "configured_ghidra_version": "12.1.4",
+    "configured_java_version": "21.0.12.1",
+    "doctor_scope_healthy": true,
+    "mcp_tools_advertised_in_this_codex_session": false,
+    "active_mcp_connection": "unknown",
+    "plain_shell_missing_env_not_missing_installation": true
+  },
+  "rea_artifact_evidence": [
+    {
+      "version": "12.3.1",
+      "build": "6682",
+      "prior_profile": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "artifact": {
+        "name": "Logic.arm64",
+        "digest": {
+          "sha256": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998"
+        },
+        "local_path": "/Users/nagataharuto/GhidraProjects/logicctl/bin/Logic.arm64",
+        "format": "mach-o",
+        "architecture": "arm64"
+      },
+      "uuid": "641EA797-E5A3-3FF1-8188-B36067CF8361",
+      "evidence_id": "ev_12207f260db49282841669e86992a9dc01d8b0c8666a79f950731b9260940083",
+      "operation": "inspect_macho",
+      "provider": {
+        "id": "native-macos",
+        "name": "macOS native inspection utilities",
+        "version": null
+      },
+      "raw_evidence": "Research/raw/review/rea-macho-12.3.1-20261021.json",
+      "limitations": [
+        "Imports and exports combine dyld_info and nm; stripped or toolchain-hidden symbols may be absent.",
+        "vtool output is retained as provenance but only otool build metadata is normalized."
+      ],
+      "independent_copy_digest_matches": true,
+      "uuid_matches_prior_profile": true
+    },
+    {
+      "version": "12.4",
+      "build": "6707",
+      "prior_profile": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "artifact": {
+        "name": "Logic12.4-6707.arm64",
+        "digest": {
+          "sha256": "48862b9190f182b28bd87d7c8b15bd37516af58842debe52609c49ce5ed2bcda"
+        },
+        "local_path": "/Users/nagataharuto/logicpro cli/Research/raw/binaries/Logic12.4-6707.arm64",
+        "format": "mach-o",
+        "architecture": "arm64"
+      },
+      "uuid": "6CE11532-8EFB-3132-8C3D-D49EBEF5CE34",
+      "evidence_id": "ev_305042d9c334339ea9a4d74572d6240d4b93471f5ad758d17509adcdbd522694",
+      "operation": "inspect_macho",
+      "provider": {
+        "id": "native-macos",
+        "name": "macOS native inspection utilities",
+        "version": null
+      },
+      "raw_evidence": "Research/raw/review/rea-macho-12.4-20261021.json",
+      "limitations": [
+        "Imports and exports combine dyld_info and nm; stripped or toolchain-hidden symbols may be absent.",
+        "vtool output is retained as provenance but only otool build metadata is normalized."
+      ],
+      "independent_copy_digest_matches": true,
+      "uuid_matches_prior_profile": true
+    }
+  ],
+  "existing_database": {
+    "project_directory_recorded": "/Users/nagataharuto/GhidraProjects/logicctl",
+    "project_name": "logicctl",
+    "program_name": "Logic.arm64",
+    "recorded_version": "12.3.1/6682",
+    "language": "AARCH64:LE:64:AppleSilicon",
+    "compiler": "swift",
+    "image_base": 0,
+    "program_import_hash": "2f141e1a1f7b90a4fb0205ffec3dbe187baf601d20e9acb398acfadcdf050998",
+    "live_database_reopened_this_pass": false,
+    "current_12_4_import_record": "prior manifest records ghidra_current_program null; not a fresh disk inventory"
+  },
+  "adapter_observation": {
+    "version_scope": "6.7.0 installed source",
+    "project_name": "rea-project",
+    "target_loading": "-import into owned private runtime",
+    "read_only": true,
+    "delete_project": true,
+    "existing_program_process_option": false,
+    "noanalysis_option": false,
+    "full_type_comment_database_inheritance": false,
+    "seed_kinds": [
+      "function",
+      "code",
+      "label"
+    ],
+    "posix_launch": "direct inspected JVM, not repository analyzeHeadless wrapper",
+    "source_bindings": [
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/ghidra/GhidraClient.js",
+        "sha256": "f83fc8f6a7cdf0d087ad82b39d3328ae85effbb76dd0087506d842e9e08c8c87",
+        "size_bytes": 44540,
+        "line_ranges": [
+          [
+            226,
+            231
+          ],
+          [
+            358,
+            365
+          ],
+          [
+            512,
+            570
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/ghidra/GhidraLauncher.js",
+        "sha256": "986c7b24bc37dfbcc4c82f7cd235506315b36f98da2b034f4feaa23b21f324cc",
+        "size_bytes": 30094,
+        "line_ranges": [
+          [
+            238,
+            247
+          ],
+          [
+            383,
+            529
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/ghidra/GhidraJavaLaunch.js",
+        "sha256": "f400c659e403c20590c34038447990d22ed3712c549c34e4a83823aa1ee5e757",
+        "size_bytes": 6630,
+        "line_ranges": [
+          [
+            139,
+            151
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/ghidra/GhidraAnalysisSeeds.js",
+        "sha256": "2b252992868293a25ddfaf95630bea22aa4fdc359f529c69f0d8138640e81804",
+        "size_bytes": 9116,
+        "line_ranges": [
+          [
+            9,
+            36
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/config/environment.js",
+        "sha256": "072cb27b88f74d2aacb1ccd2f003b1bfb1c569b6b099660a1c1b3b21abf1cd8a",
+        "size_bytes": 6863,
+        "line_ranges": [
+          [
+            24,
+            49
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/domain/analysisSnapshot.js",
+        "sha256": "585be77744d3f4a1946c2ebd198066a290d11e299d07303f2cabf822dc8627d2",
+        "size_bytes": 24418,
+        "line_ranges": [
+          [
+            132,
+            138
+          ],
+          [
+            331,
+            360
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/application/binary/AnalysisSnapshotCache.js",
+        "sha256": "63b5721b93aa94aa888cdf3e00f56c2dbd0b676bfe965482ccd44f0398fbab8e",
+        "size_bytes": 11126,
+        "line_ranges": [
+          [
+            161,
+            185
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/application/DirectAnalysis.js",
+        "sha256": "188f1d412fe2682d10921282126a4c1b7968a4eb88ed4dca1ee76d247223bed0",
+        "size_bytes": 18307,
+        "line_ranges": [
+          [
+            128,
+            168
+          ]
+        ],
+        "availability": "installed_package"
+      },
+      {
+        "package": "rea-agents",
+        "version": "6.7.0",
+        "package_relative_path": "dist/application/DirectAnalysisCleanup.js",
+        "sha256": "4f4a02032bee23d3dbf286786fb022b4861376a1ed21e788431557231c0c5337",
+        "size_bytes": 3391,
+        "line_ranges": [
+          [
+            8,
+            20
+          ]
+        ],
+        "availability": "installed_package"
+      }
+    ],
+    "snapshot_reuse": {
+      "retains_ghidra_database": false,
+      "retains_running_session": false,
+      "caches": "completed immutable operation/workflow results and evidence",
+      "match_keys": [
+        "target",
+        "provider/profile",
+        "operation",
+        "exact parameters"
+      ],
+      "uncached_function_can_trigger_fresh_import": true,
+      "overview_precomputes_all_function_bodies": false,
+      "persistent_session_warm_query_demonstrated_this_pass": false,
+      "recommended_for_new_queries": "one retained native session; replay exact cached results without provider use"
+    }
+  },
+  "adoption_contract": {
+    "existing_asset_access": "serialized repository exporter/query with identity guard and absolute project lock; -process -noanalysis -readOnly",
+    "new_rea_evidence_join_keys": [
+      "exact artifact SHA256",
+      "version/build",
+      "architecture",
+      "image-address scope",
+      "source Evidence ID"
+    ],
+    "ordinary_export_is_rea_evidence": false,
+    "fresh_native_import": "only for concrete missing evidence with cost and owned project announced",
+    "global_or_client_configuration_modified": false,
+    "ghidra_jobs_started": 0,
+    "logic_operations": 0,
+    "absolute_shared_lock": "/Users/nagataharuto/logicpro cli/Research/raw/ghidra/logicctl-project.lock"
+  },
+  "next_questions": {
+    "codex": {
+      "question": "Learned assignment consumer to concrete plugin backend/parameter and replacement-rejection identity fields",
+      "scope": "12.4 copied artifact; existing historical evidence first",
+      "getter_seeds": {
+        "assignmentClass": "0x69a1a4",
+        "befehl": "0x699554",
+        "valueMode": "0x69a600",
+        "multiply": "0x69a6f0",
+        "valueChangeHasLo7": "0x69a460",
+        "valueChangeHasHi7": "0x69a4ac"
+      },
+      "consumer_edge_proven": false
+    },
+    "claude": "Pickup consumer from saved exports/metadata; identify missing function before heavy import",
+    "rdco": "Independent provenance and target-rejection review"
+  },
+  "product_verification": {
+    "new_runtime_observation": false,
+    "eq_same_target_midi_before_after_completed": false,
+    "new_verified_capability": false
+  },
+  "source_manifest": [
+    {
+      "path": "Research/static-analysis/binary-identity-12.3.1-6682.json",
+      "sha256": "b5fbb6e67c5a45d26180c5797396ee3f549eedbd50c623037c66ed05acc83dfe",
+      "size_bytes": 7819,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/binary-identity-12.4-6707.json",
+      "sha256": "fb221dd9e89e4eaef50f41947b4af68c7014237d879d4c0bd866980bcd942a84",
+      "size_bytes": 2335,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.en.md",
+      "sha256": "de3f966ea58160a634d2402c7b26c2e2db4188ddb1d1ea0d419392cb19a5bcbc",
+      "size_bytes": 15395,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/static-analysis/SA-MIDI-ROUTE-001.json",
+      "sha256": "03430d65621315acee3b1231aea1254709aee85fb74f854aeb4269496fee5bc1",
+      "size_bytes": 70850,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Tools/ghidra/query.sh",
+      "sha256": "c3a53f8f6056a299a93d8330ab03952d53860bb3773f2e75c062151c331eebd4",
+      "size_bytes": 1177,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Tools/ghidra/with-project-lock.py",
+      "sha256": "7fe4591a62b55257ce0091f4614a55c40815211bfadce54204dd884345d4c597",
+      "size_bytes": 1981,
+      "availability": "public_repo"
+    },
+    {
+      "path": "Research/raw/review/rea-doctor-registered-env-20261021.json",
+      "sha256": "bdae729b85d31b20ff38ec686a7be24f13ab0bbd8834fe99fc92c15b60f67b03",
+      "size_bytes": 12197,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/rea-macho-12.3.1-20261021.json",
+      "sha256": "0cd86dd787aafe61ae6c4f61dc712001a77c21225db2f9466453420b51734d8e",
+      "size_bytes": 986031,
+      "availability": "local_ignored"
+    },
+    {
+      "path": "Research/raw/review/rea-macho-12.4-20261021.json",
+      "sha256": "5da4b5431c2ea0bcef847a8070affc48f871127604759efa95ae4a772e270e0a",
+      "size_bytes": 987896,
+      "availability": "local_ignored"
+    }
+  ],
+  "coordination": {
+    "claude_report": "CLDE094",
+    "claude_job": "private 12.4 overview with --snapshot, already running",
+    "root_response": "sole heavy job acknowledged; no interruption or duplicate",
+    "completion_verified_by_root": false,
+    "snapshot_contents_read_by_root": false,
+    "snapshot_reuse_caution": "exact cached results only; uncached queries can import again",
+    "root_ghidra_jobs": 0
+  }
+}
