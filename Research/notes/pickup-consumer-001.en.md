@@ -21,10 +21,10 @@
 |---|---|---|---|
 | F1 | The three log messages about scaled values and Pickup ("value … already set - skipping", "last value was not yet valid - is now valid", "lastVal / val to old deviation") are referenced only from one function, `FUN_00ab3184` (5,508 bytes, 0xab3184–0xab4707), which has 7 direct callers | String xrefs 0xab4298, 0xab4340, 0xab43f4 (PU002, PU004, PU006); callers Evidence `ev_37880e3c…` | Observation |
 | F2 | In the scaled path a new value equal to the value already stored on the assignment is skipped | Skip message reference PU002 | Inference |
-| F3 | The Pickup check runs only when the value mode is 2 (Scale) and a small helper returns true. That helper (`FUN_015e0f58`, 200 bytes, one caller) touches exactly the same five guarded globals as `PrefsCSView::change_csPickupMode:` (0xaa3670, the Settings checkbox action) | Value-mode byte read PU003; analyze-function Evidence `ev_a2a9418a…`, `ev_aa8c61d3…` | Observation (shared globals); Inference (helper = global Pickup setting) |
+| F3 | The Pickup check runs only when the value mode is 2 (Scale), a numeric operand read from the assignment is not 0x82/0x83 (its meaning is not mapped yet), and a helper (`FUN_015e0f58`, 200 bytes, one caller) returns true. Codex's byte audit ([PICKUP-GLOBAL-004](pickup-global-004.en.md)) shows the helper is a compound applicability check: it first returns false when the global Pickup setting is off (byte 0x26c0b9b bit 5 is a **disable** bit written by `PrefsCSView::change_csPickupMode:`), then tests further per-assignment conditions | Value-mode byte read PU003; Evidence `ev_a2a9418a…`, `ev_aa8c61d3…`; PICKUP-GLOBAL-004 | Observation (bytes, per Codex audit); the remaining per-assignment conditions are not interpreted here |
 | F4 | Each assignment keeps state bits in its flags byte (+0x39): bit 4 "controller value valid", bit 3 "picked up". The first message after a reset only sets bit 4 and is not applied | Set bit 4 PU005, set bit 3 PU011 | Observation (writes); Inference (meaning) |
 | F5 | The tolerance is 0.02 times the value range. The assignment is picked up when the target's current value lies within that band around the previous or the new controller value, which covers both reaching and crossing | 0.02 constant built at PU007–PU010 | Observation (constant); Inference (operands, band test) |
-| F6 | A timer clears bit 3 inside the same function. Two other functions clear bits 3 and 4 together: `FUN_00ab573c` (a control-surface refresh path that also references channel-change and offscreen-refresh names) and `FUN_00aba7d4` (called from `ControllerAssignmentsController::syncSelection:`) | PU001, PU012, PU013; whole-copy scan found 78 byte stores to +0x39 and only these two clear both bits | Observation (writes); Inference (triggers) |
+| F6 | A timer clears bit 3 inside the same function. Among the 78 single-byte stores to +0x39 found by a whole-copy pattern scan, only two clear bits 3 and 4 together: in `FUN_00ab573c` (a control-surface refresh path that also references channel-change and offscreen-refresh names) and in `FUN_00aba7d4` (called from `ControllerAssignmentsController::syncSelection:`). Wider stores, copies or other base registers can also change this byte, so this is **not** a complete list of writers | PU001, PU012, PU013 | Observation (these writes); Inference (triggers) |
 
 ## Consistency with the live records
 
@@ -37,7 +37,7 @@
 | CA003: Pickup off → all applied | The helper of F3 returns false |
 | CA004 #1: a repeated 64 ignored | F2: same value as stored, skipped (not Pickup) |
 
-A track-selection change did not reset the state in these runs (Piano and Ballad behaved as the band rule predicts), which agrees with F6 finding resets only in the refresh and Controller Assignments selection paths.
+No reset caused by a track-selection change was needed to explain these runs (Piano and Ballad behaved as the band rule predicts). This does not prove that selection changes never reset the state, because F6 is not a complete writer inventory.
 
 ## Proof limits and open points
 
