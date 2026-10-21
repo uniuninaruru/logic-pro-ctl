@@ -48,9 +48,9 @@ No reset caused by a track-selection change was needed to explain these runs (Pi
 
 ## Predictions to test live (need the human and the GUI)
 
-1. After selecting a row in the Controller Assignments window (syncSelection), the next CC is ignored once.
+1. After selecting a row in the Controller Assignments window (syncSelection), the next CC is ignored once. **Failed** ([EXP-CA-008](../experiments/EXP-CA-008-row-selection-no-reset.en.md)): the first CC after selecting the row was applied; the trigger of `syncSelection:` is probably not a row click.
 2. Right after a control-surface refresh or channel change, a jump far from the target is ignored until the band is reached.
-3. Sending the same value twice: the second is skipped, even with Pickup off.
+3. Sending the same value twice: the second is skipped, even with Pickup off. **Held** ([EXP-CA-007](../experiments/EXP-CA-007-repeat-value-skip.en.md)): with Pickup off, a repeated 96 was skipped although the target had been moved to 0.0 dB in between.
 
 ## Raw data (not in Git)
 

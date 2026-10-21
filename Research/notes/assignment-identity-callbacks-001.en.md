@@ -57,6 +57,10 @@ Read as a four-character code, the first word is `EMAG`. Hypothesis (low): an Em
 - If a second Channel EQ is inserted before the original, CC 23 should move the earlier one. The enumerator walks the container's slot vector in ascending index, one section at a time (mode 0: +0x4c entries after the first +0x4a; mode 1: the +0x4e entries after those), and the ordinal counts within one section (AI071–AI075). This holds if both instances sit in the same section and the slot index follows the on-screen order (Inference, medium).
 - Selector 0x1000 is the selected-track mode (I12), so the search uses the plug-ins of the track that is selected when CC 23 arrives. Keep the Synth track selected during these tests. With another track selected, CC 23 should act on that track's first Channel EQ, if it has one.
 
+## Live check (2026-10-21)
+
+[EXP-CA-009](../experiments/EXP-CA-009-plugin-replacement-target.en.md) tested the predictions above on a row learned on port `logicctl-gen` ([EXP-CA-006](../experiments/EXP-CA-006-learn-on-new-port.en.md)): a different plug-in kind (Linear Phase EQ) is not moved; a new Channel EQ instance is moved; with two Channel EQs the one in the upper slot is moved, and the target moves when the upper one is removed or a new one is put above. 5 of 5 predictions held. The saved row of a fresh Learn had list 6 = 0x454d4147 / 0 / 0xec, ordinal 0, and +0x56 = 0xffff (EXP-CA-006 O4).
+
 ## Proof limits
 
 - Register flow was read at operand level. Codex independently audited corrected I5 and the narrowed I6 in [ASSIGN-IDENTITY-008](assignment-identity-audit-008.en.md); that audit does not cover I7–I15.
