@@ -42,7 +42,7 @@ The new row (read through Accessibility): label "Master  Gain", class Channel St
 - O3: during Learn the parameter followed the messages: after the burst Master Gain was 310 / +7.0 dB (= value 82).
 - O4: copied preferences after run 2 (`s5.bin`, 7,985 records, one more than before): the new row has Assign +0x56 = 0xffff (as the "no zone" note-26 rows) and list 6 = IDs 0x454d4147, 0, 0xec with ordinal 0, the same descriptor as the old row ([ASSIGN-IDENTITY-001](../notes/assignment-identity-callbacks-001.en.md) I11, I15). The run-1 row had +0x56 = 0. The VPots active mode stayed Pan/Surround.
 - O5: restore: Option-click on the Master Gain knob set it to 240 / 0.0 dB (00:08:42Z). The learned row on `logicctl-gen` is kept for later tests. The probe was stopped.
-- Raw data (not in Git): `Research/raw/ca006/` (`probe.log`, `prediction.txt`, `run2-read-*.json`, `restore.json`), `Research/raw/cs-diff/s4.bin`, `s5.bin`.
+- Raw data (not in Git): `Research/raw/ca006/` (AX reads by `Tools/research-scripts/ax-value-read.swift`; `probe.log`, `prediction.txt`, `run2-read-*.json`, `restore.json`), `Research/raw/cs-diff/s4.bin`, `s5.bin`.
 
 ## Verification stages
 
