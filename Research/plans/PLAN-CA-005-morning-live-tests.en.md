@@ -6,6 +6,8 @@
 
 Owner: Claude (GUI and live). Codex leads and may reorder. Nothing here has been run yet.
 
+Status 2026-10-21 (EXP-CA-005, EXP-CA-006): `LogicCLI-Test.logicx` no longer exists; the user approved a new untitled project (one track, Ballad, Channel EQ in slot 1). Port `logicctl-cc` is shadowed by a Mackie Control surface (its VPot 8 takes CC 23), so every test below uses the new port **`logicctl-gen`** and the CC 23 → Master Gain row learned on it in "(No zone)". Read Master Gain through Accessibility (AX value 0–480), not only the screen. Replace "Synth" by "Ballad" below.
+
 ## Gate (all must hold before any step)
 
 1. The human is available to approve the screen-takeover card, or the step uses background tools only.
